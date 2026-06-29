@@ -1,0 +1,20 @@
+ ▐▛███▜▌   Claude Code v2.1.114
+▝▜█████▛▘  Sonnet 4.6 · Claude Pro
+  ▘▘ ▝▝    ~/git/operation-dbus-proto/axon-trace-ui
+
+✻ Conversation compacted (ctrl+o for history)
+
+  ⎿  Read vite.config.ts (22 lines)
+  ⎿  Read ../../../../../etc/nginx/http.d/assistant-3tched.conf (73 lines)
+  ⎿  Read ../crates/op-mcp/src/http_server.rs (434 lines)
+  ⎿  Read ../crates/op-mcp/src/transport/http.rs (367 lines)
+  ⎿  Referenced file ../docs/network-topology.md
+
+● Bash(git status)
+  ⎿  On branch main
+     Your branch is up to date with 'origin/main'.
+     … +13 lines (ctrl+o to expand)
+  ⎿  You're out of extra usage · resets 10:40pm (UTC)
+     /upgrade to increase your usage limit.
+
+✻ Worked for 2m 29s
