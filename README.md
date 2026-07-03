@@ -1,92 +1,77 @@
-# Two-System Split
+# ZeroClaw — Native Operator Console
 
-This directory contains two distinct systems. Do not confuse them.
+Native Rust GUI built on `eframe`/`egui`. Mirrors the layout, navigation, and theme of the web operator console while talking directly to the ZeroClaw core over **tonic + tonic-web** with **server reflection**.
 
-| Path | What it is | Role |
-| --- | --- | --- |
-| `lovable/` | **Design workspace** (React 18 + Vite + Tailwind CSS) | Theme, navigation, and widget prototyping only. This is **NOT** the product. There is no chat here. These routes are design-only prototypes for the native egui port. |
-| `lovable/.zeroclaw/` | **Operator runtime** (`zeroclaw-gui`, native Rust + eframe/egui) | This **IS** the product. |
+## Run
 
-### Inference and LLM routing
-
-- All inference routes through `gemma_brain`.
-- Only `gemma` is local-only; other models may be remote providers.
-- LLM routing is owned by zeroclaw (OD-28).
-- The Lovable AI Gateway is **not** used.
-- No Supabase.
-
----
-
-# Welcome to your Lovable project
-
-## Project info
-
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+cargo run --release
+# point at a remote core:
+ZEROCLAW_GRPC=https://op.local:443 cargo run --release
 ```
 
-**Edit a file directly in GitHub**
+## Architecture
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```text
+.zeroclaw/
+├── Cargo.toml
+└── src/
+    ├── main.rs        # eframe entry + background tokio runtime
+    ├── app.rs         # topbar + sidebar + routed shell
+    ├── nav.rs         # NAV_GROUPS port (1:1 mirror of React nav)
+    ├── theme.rs       # graphite/slate dark theme tokens
+    ├── grpc.rs        # tonic-web client + ServerReflection bootstrap
+    ├── schema.rs      # schemars Schema → egui renderer (schema-as-code)
+    └── views/mod.rs   # per-route views (Inspector/State/gRPC are schema-driven)
+```
 
-**Use GitHub Codespaces**
+## gRPC + reflection
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+`grpc.rs` opens a `tonic::transport::Channel` (works for both native gRPC and
+`tonic-web` proxied endpoints), calls `ServerReflectionClient::server_reflection_info`,
+and loads every returned `FileDescriptorProto` into a `prost_reflect::DescriptorPool`.
 
-## What technologies are used for this project?
+From the pool we can:
 
-This project is built with:
+- enumerate services + methods (rendered in the **gRPC Diagnostics** view)
+- decode any response payload into `serde_json::Value` via `DynamicMessage`
+  (`grpc::decode_to_json`)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Server side (in `op-web`) needs:
 
-## How can I deploy this project?
+```rust
+let reflection = tonic_reflection::server::Builder::configure()
+    .register_encoded_file_descriptor_set(zeroclaw_proto::FILE_DESCRIPTOR_SET)
+    .register_encoded_file_descriptor_set(tonic_health::pb::FILE_DESCRIPTOR_SET)
+    .build_v1()?;
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Server::builder()
+    .accept_http1(true)
+    .layer(tonic_web::GrpcWebLayer::new())
+    .add_service(reflection)
+    .add_service(/* your services */)
+    .serve(addr).await?;
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Schema-as-code
 
-Yes, you can!
+Plugins in `crates/op-plugins` already derive `schemars::JsonSchema` on their
+state structs (`schemars = "1"`). Emit a schema with:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```rust
+let schema = schemars::schema_for!(MyPluginState);
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Ship that schema alongside the decoded JSON (from `grpc::decode_to_json`) and
+call `schema::render_value(ui, &schema, &value)` — the GUI renders titles,
+descriptions, required fields, enums, nested objects, and arrays with no
+hand-written form code. See `views::inspector` / `views::state_view` for a live
+demo using a `DemoPluginState` struct that mirrors the plugin contract.
+
+## Adding a real plugin
+
+1. In `op-plugins`, derive `#[derive(JsonSchema)]` on the state struct.
+2. In `op-web`, return `(message_bytes, schemars::schema_for!(State))` on the
+   relevant gRPC stream (or expose the schema via a sibling `GetSchema` RPC).
+3. In this crate, decode with `grpc::decode_to_json` and render with
+   `schema::render_value` — no per-plugin UI code required.
