@@ -36,7 +36,7 @@ async function callReflection(payload: Uint8Array): Promise<unknown[]> {
           "x-grpc-web": "1",
           "x-user-agent": "grpc-web-javascript/0.1",
         },
-        body: encodeFrame(payload),
+        body: encodeFrame(payload) as BodyInit,
       });
       if (!res.ok) {
         lastErr = new Error(`HTTP ${res.status}`);
