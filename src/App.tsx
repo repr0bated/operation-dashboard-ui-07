@@ -37,6 +37,7 @@ import DataStoresPage from "./pages/DataStoresPage";
 import EmbeddingPipelinePage from "./pages/EmbeddingPipelinePage";
 import AssistantPage from "./pages/AssistantPage";
 import GrpcExplorerPage from "./pages/GrpcExplorerPage";
+import ReflectionPage from "./pages/ReflectionPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -72,6 +73,7 @@ function AppInner() {
         <Route path="/knowledge" element={<KnowledgePage />} />
         <Route path="/grpc" element={<GrpcDiagnosticsPage />} />
         <Route path="/explorer" element={<GrpcExplorerPage />} />
+        <Route path="/reflection" element={<ReflectionPage />} />
         <Route path="/accountability" element={<AccountabilityPage />} />
         <Route path="/btrfs" element={<BtrfsPage />} />
         <Route path="/data-stores" element={<DataStoresPage />} />

@@ -87,6 +87,7 @@ const NAV_GROUPS = [
       { title: "Logs", path: "/logs", icon: ScrollText },
       { title: "gRPC Diagnostics", path: "/grpc", icon: Radio },
       { title: "gRPC Explorer", path: "/explorer", icon: Radio },
+      { title: "Reflection", path: "/reflection", icon: Radio },
     ],
   },
   {
