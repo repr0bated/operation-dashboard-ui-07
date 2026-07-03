@@ -49,6 +49,7 @@
         "input-otp": "^1.4.2",
         "lucide-react": "^0.462.0",
         "next-themes": "^0.3.0",
+        "protobufjs": "^8.6.5",
         "protoc": "^34.0.0",
         "react": "^18.3.1",
         "react-day-picker": "^8.10.1",
@@ -968,6 +969,8 @@
 
     "lodash.merge": ["lodash.merge@4.6.2", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/lodash.merge/-/lodash.merge-4.6.2.tgz", {}, "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ=="],
 
+    "long": ["long@5.3.2", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/long/-/long-5.3.2.tgz", {}, "sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA=="],
+
     "loose-envify": ["loose-envify@1.4.0", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/loose-envify/-/loose-envify-1.4.0.tgz", { "dependencies": { "js-tokens": "^3.0.0 || ^4.0.0" }, "bin": { "loose-envify": "cli.js" } }, "sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q=="],
 
     "loupe": ["loupe@3.2.1", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/loupe/-/loupe-3.2.1.tgz", {}, "sha512-CdzqowRJCeLU72bHvWqwRBBlLcMEtIvGrlvef74kMnV2AolS9Y8xUv1I0U/MNAWMhBlKIoyuEgoJ0t/bbwHbLQ=="],
@@ -1063,6 +1066,8 @@
     "pretty-format": ["pretty-format@27.5.1", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/pretty-format/-/pretty-format-27.5.1.tgz", { "dependencies": { "ansi-regex": "^5.0.1", "ansi-styles": "^5.0.0", "react-is": "^17.0.1" } }, "sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ=="],
 
     "prop-types": ["prop-types@15.8.1", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/prop-types/-/prop-types-15.8.1.tgz", { "dependencies": { "loose-envify": "^1.4.0", "object-assign": "^4.1.1", "react-is": "^16.13.1" } }, "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="],
+
+    "protobufjs": ["protobufjs@8.6.5", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/protobufjs/-/protobufjs-8.6.5.tgz", { "dependencies": { "long": "^5.3.2" } }, "sha512-zeE5LPpencAGXvsxyOYmEgJhxzHY8IsmPAFzstZVhDSVT8QH03q6gMZwZRaQGApevZbAL6u28ugs4CC+YKB2jQ=="],
 
     "protoc": ["protoc@34.1.0", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/protoc/-/protoc-34.1.0.tgz", { "bin": { "protoc": "protoc.cjs" } }, "sha512-5ji/B4fG0f9/pblH1INZgzt2htz9mdA8d/ssncVkQh1CAgwNFgnzEDCqk3kUzz4TPhQuY9hZSQxYxwaz90grpw=="],
 
