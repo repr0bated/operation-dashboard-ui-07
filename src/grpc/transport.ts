@@ -266,8 +266,25 @@ export const getTaskServiceClient = () =>
 // ── New: ovsdaemon/v1/*.proto (op-openvswitch-daemon) ────────────────────
 import { OvsdbServiceClient } from "./gen/ovsdaemon/v1/ovsdaemon.client";
 import { OvsdbStreamServiceClient } from "./gen/ovsdaemon/v1/streaming.client";
+// ovsdb.proto exposes an extended OvsdbService (adds RemovePort +
+// AttachPortToNetns / DetachPortFromNetns). Same package.service name as
+// ovsdaemon.proto's OvsdbService — kept under a separate factory so callers
+// can opt into the richer surface without breaking existing wiring.
+import { OvsdbServiceClient as OvsdbServiceV2Client } from "./gen/ovsdaemon/v1/ovsdb.client";
 export const getOvsdbServiceClient = () =>
   memoise("OvsdbService", () => new OvsdbServiceClient(getTransport()));
 export const getOvsdbStreamServiceClient = () =>
   memoise("OvsdbStreamService", () => new OvsdbStreamServiceClient(getTransport()));
+export const getOvsdbServiceV2Client = () =>
+  memoise("OvsdbServiceV2", () => new OvsdbServiceV2Client(getTransport()));
+
+// ── New: vertex_ai.proto (op-mcp-proxy) ──────────────────────────────────
+// google.cloud.aiplatform.v1.PredictionService — proxied through op-mcp-proxy
+// so callers can invoke Gemini-shaped GenerateContent / StreamGenerateContent
+// without leaving the WireGuard perimeter. All inference still lands in
+// gemma_brain per the no-hosted-AI constraint.
+import { PredictionServiceClient } from "./gen/vertex_ai.client";
+export const getPredictionServiceClient = () =>
+  memoise("PredictionService", () => new PredictionServiceClient(getTransport()));
+
 
