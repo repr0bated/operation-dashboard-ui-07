@@ -274,7 +274,9 @@ export default function InvokePage() {
     try {
       if (selected.kind === "server-stream" && selected.id === "prediction.StreamGenerateContent") {
         const call = pred().streamGenerateContent(parsed as never);
-        abortRef.current = () => call.requestHeaders.then(() => undefined);
+        // gRPC-Web fetch has no true cancel; clearing the abort ref stops
+        // us appending further frames after the user hits Stop.
+        abortRef.current = () => undefined;
         const collected: unknown[] = [];
         const { done } = runStream(call, (m) => {
           collected.push(m);
