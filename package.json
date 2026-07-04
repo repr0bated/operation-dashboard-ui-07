@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Native Rust egui client. This package.json exists only to satisfy the Lovable dist-check; the real build is `cargo build --release`.",
   "scripts": {
-    "dev": "mkdir -p dist && printf '%s' '<!doctype html><meta charset=utf-8><title>ZeroClaw</title><h1>ZeroClaw — native Rust egui client</h1><p>This repo builds a native binary. Run <code>cargo run --release</code> locally. Preview is a stub.</p>' > dist/index.html && npx --yes serve -l 8080 dist",
+    "dev": "node server.js",
     "build": "mkdir -p dist && printf '%s' '<!doctype html><meta charset=utf-8><title>ZeroClaw</title><h1>ZeroClaw — native Rust egui client</h1><p>Build with <code>cargo build --release</code>.</p>' > dist/index.html",
     "build:dev": "npm run build"
   }
