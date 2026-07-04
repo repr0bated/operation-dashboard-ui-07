@@ -49,9 +49,10 @@ pub fn render(
         Route::State        => state_view(ui),
         Route::Grpc         => grpc_view(ui, registry),
         Route::GrpcExplorer => grpc_explorer(ui, registry, explorer, invoke, ctx),
-        r => stub(ui, route_title(r), description(r)),
+        r => reflected_view(ui, r, registry, explorer, invoke, ctx),
     }
 }
+
 
 fn card<R>(ui: &mut egui::Ui, body: impl FnOnce(&mut egui::Ui) -> R) -> R {
     Frame::none()
