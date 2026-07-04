@@ -4,7 +4,7 @@ import { createServer } from "node:http";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 
-const PORT = 8080;
+const PORT = Number(process.env.PORT) || 8080;
 const HTML = `<!doctype html><meta charset="utf-8"><title>ZeroClaw</title>
 <style>body{background:#0B0D10;color:#E6E8EC;font:14px/1.6 system-ui;padding:48px;max-width:720px;margin:auto}
 h1{color:#E5484D;font-weight:600}code{background:#171B21;padding:2px 6px;border-radius:4px;color:#E6E8EC}</style>
