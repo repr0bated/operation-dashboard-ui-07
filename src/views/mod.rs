@@ -49,9 +49,10 @@ pub fn render(
         Route::State        => state_view(ui),
         Route::Grpc         => grpc_view(ui, registry),
         Route::GrpcExplorer => grpc_explorer(ui, registry, explorer, invoke, ctx),
-        r => stub(ui, route_title(r), description(r)),
+        r => reflected_view(ui, r, registry, explorer, invoke, ctx),
     }
 }
+
 
 fn card<R>(ui: &mut egui::Ui, body: impl FnOnce(&mut egui::Ui) -> R) -> R {
     Frame::none()
@@ -506,5 +507,388 @@ fn description(r: Route) -> &'static str {
         Route::Observability   => "Coming soon.",
         Route::LiveTrace       => "Coming soon.",
         _ => "",
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Reflected route views — every stub route is projected to the live gRPC
+// reflection pool. We match the route's domain against reflected service
+// names, then render each matching service's methods with their input +
+// output schemas straight from `prost_reflect::MessageDescriptor`. A single
+// click either invokes the unary method with a schema-derived skeleton body
+// or opens a server-stream. Results reuse the shared explorer response +
+// stream state, so the panel below shows the last invocation live.
+// ---------------------------------------------------------------------------
+
+fn route_service_keywords(r: Route) -> &'static [&'static str] {
+    match r {
+        Route::Overview        => &["Registry", "Operation", "Zeroclaw", "Services"],
+        Route::Orchestration   => &["Orchestration", "Plugin"],
+        Route::Services        => &["Service", "s6"],
+        Route::Sessions        => &["Session", "Auth", "Registration"],
+        Route::Llm             => &["Llm", "Cognitive", "Vertex", "Model"],
+        Route::Agents          => &["Agent", "Persona", "InternalAgent"],
+        Route::Assistant       => &["Assistant", "Soul", "Namespace", "Task", "Memory"],
+        Route::Models          => &["Model", "Vertex", "Routable"],
+        Route::Tools           => &["Mcp", "Tool", "Adapter"],
+        Route::Workflows       => &["Workflow", "Orchestration", "Cron"],
+        Route::Security        => &["Security", "Auth", "Registration"],
+        Route::Accountability  => &["Reasoning", "Audit", "Accountability"],
+        Route::Skills          => &["Skill"],
+        Route::Knowledge       => &["Knowledge", "Qdrant", "Embedding", "Vector"],
+        Route::Embedding       => &["Embedding", "Vector", "Qdrant"],
+        Route::Containers      => &["Container"],
+        Route::PrivacyNetwork  => &["Privacy", "Network", "WireGuard", "Xray"],
+        Route::Ovs             => &["Ovs", "Ovsdaemon", "Ovsdb"],
+        Route::OpenFlow        => &["OpenFlow", "Flow", "Ovs"],
+        Route::Btrfs           => &["Btrfs", "Storage", "Snapshot"],
+        Route::DataStores      => &["Store", "Data", "Cache", "Qdrant"],
+        Route::Config          => &["Config", "Settings"],
+        Route::Logs            => &["Log", "Trace", "Event"],
+        _                      => &[],
+    }
+}
+
+fn matches_route(service_fqn: &str, keywords: &[&str]) -> bool {
+    if keywords.is_empty() { return false; }
+    // Strip package prefix, match on the tail so we don't hit
+    // `google.protobuf.*` accidentally.
+    let tail = service_fqn.rsplit('.').next().unwrap_or(service_fqn);
+    let hay = format!("{}|{}", service_fqn, tail).to_lowercase();
+    keywords.iter().any(|k| hay.contains(&k.to_lowercase()))
+}
+
+fn reflected_view(
+    ui: &mut egui::Ui,
+    route: Route,
+    registry: &ReflectionRegistry,
+    explorer: &mut ExplorerState,
+    invoke: &InvokeHandle,
+    ctx: &egui::Context,
+) {
+    let title = route_title(route);
+    let desc = description(route);
+
+    ui.label(RichText::new(title).size(22.0).strong().color(FG));
+    ui.add_space(4.0);
+    if !desc.is_empty() {
+        ui.label(RichText::new(desc).color(MUTED).size(13.0));
+        ui.add_space(12.0);
+    }
+
+    let keywords = route_service_keywords(route);
+    let services = registry.services();
+    let pool = registry.pool();
+
+    if pool.is_none() || services.is_empty() {
+        card(ui, |ui| {
+            ui.label(
+                RichText::new("Reflection pool empty — server unreachable or reflection disabled.")
+                    .color(WARN)
+                    .size(12.0),
+            );
+            ui.add_space(4.0);
+            ui.label(
+                RichText::new("Set ZEROCLAW_GRPC=http://host:port and reconnect. This view auto-populates from grpc.reflection.v1.ServerReflection.")
+                    .color(MUTED)
+                    .italics()
+                    .size(11.0),
+            );
+        });
+        return;
+    }
+    let pool = pool.unwrap();
+
+    let matched: Vec<String> = services
+        .iter()
+        .filter(|s| matches_route(s, keywords))
+        .cloned()
+        .collect();
+
+    if matched.is_empty() {
+        card(ui, |ui| {
+            ui.label(
+                RichText::new("No reflected service matches this route.")
+                    .color(MUTED)
+                    .size(12.0),
+            );
+            ui.add_space(4.0);
+            ui.label(
+                RichText::new(format!(
+                    "Looked for keywords: {}. Register a matching gRPC service on the ZeroClaw core to populate this page.",
+                    keywords.join(", ")
+                ))
+                .color(MUTED)
+                .italics()
+                .size(11.0),
+            );
+        });
+        return;
+    }
+
+    ui.label(
+        RichText::new(format!(
+            "{} reflected service{} · {} keywords",
+            matched.len(),
+            if matched.len() == 1 { "" } else { "s" },
+            keywords.len()
+        ))
+        .color(MUTED)
+        .size(11.0)
+        .monospace(),
+    );
+    ui.add_space(8.0);
+
+    for svc_fqn in &matched {
+        let Some(svc_desc) = pool.services().find(|s| s.full_name() == svc_fqn.as_str()) else {
+            continue;
+        };
+        card(ui, |ui| {
+            ui.horizontal(|ui| {
+                ui.label(
+                    RichText::new(svc_fqn)
+                        .color(FG)
+                        .monospace()
+                        .strong()
+                        .size(13.0),
+                );
+                ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                    ui.label(
+                        RichText::new(format!("{} methods", svc_desc.methods().count()))
+                            .color(MUTED)
+                            .size(11.0)
+                            .monospace(),
+                    );
+                });
+            });
+            ui.add_space(6.0);
+
+            for m in svc_desc.methods() {
+                let method_name = m.name().to_string();
+                let kind = match (m.is_client_streaming(), m.is_server_streaming()) {
+                    (false, false) => MethodKind::Unary,
+                    (false, true)  => MethodKind::ServerStreaming,
+                    (true,  false) => MethodKind::ClientStreaming,
+                    (true,  true)  => MethodKind::BidiStreaming,
+                };
+                let input = m.input();
+                let output = m.output();
+
+                let hdr_id = ui.make_persistent_id(("method", svc_fqn, &method_name));
+                egui::collapsing_header::CollapsingState::load_with_default_open(
+                    ui.ctx(),
+                    hdr_id,
+                    false,
+                )
+                .show_header(ui, |ui| {
+                    ui.label(
+                        RichText::new(format!("▸ {}", method_name))
+                            .color(FG)
+                            .monospace()
+                            .size(12.0),
+                    );
+                    ui.label(
+                        RichText::new(format!("[{}]", kind.label()))
+                            .color(MUTED)
+                            .monospace()
+                            .size(10.0),
+                    );
+                    ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                        let supported = matches!(
+                            kind,
+                            MethodKind::Unary | MethodKind::ServerStreaming
+                        );
+                        let label = match kind {
+                            MethodKind::Unary => "▶ Invoke",
+                            MethodKind::ServerStreaming => "▶ Stream",
+                            _ => "Unsupported",
+                        };
+                        let btn = egui::Button::new(
+                            RichText::new(label)
+                                .color(egui::Color32::WHITE)
+                                .size(11.0)
+                                .strong(),
+                        )
+                        .fill(if supported {
+                            PRIMARY
+                        } else {
+                            PRIMARY.linear_multiply(0.4)
+                        })
+                        .rounding(Rounding::same(5.0))
+                        .min_size(egui::Vec2::new(78.0, 22.0));
+                        if ui.add_enabled(supported, btn).clicked() {
+                            let body = crate::grpc::template_for_request(
+                                registry,
+                                svc_fqn,
+                                &method_name,
+                            )
+                            .unwrap_or(serde_json::Value::Object(Default::default()));
+                            // Preload the explorer state so the user can jump
+                            // to gRPC Explorer for follow-up tweaks.
+                            explorer.service = Some(svc_fqn.clone());
+                            explorer.method = Some(method_name.clone());
+                            explorer.request_body = schema_ui::pretty_json(&body);
+                            explorer.last_signature =
+                                Some((svc_fqn.clone(), method_name.clone()));
+                            explorer.last_validated = None;
+                            match kind {
+                                MethodKind::ServerStreaming => {
+                                    explorer.stream.clear();
+                                    explorer.stream.spawn(
+                                        registry.clone(),
+                                        svc_fqn.clone(),
+                                        method_name.clone(),
+                                        body,
+                                        ctx.clone(),
+                                    );
+                                }
+                                MethodKind::Unary => {
+                                    invoke.spawn(
+                                        registry.clone(),
+                                        svc_fqn.clone(),
+                                        method_name.clone(),
+                                        body,
+                                        ctx.clone(),
+                                    );
+                                }
+                                _ => {}
+                            }
+                        }
+                    });
+                })
+                .body(|ui| {
+                    ui.indent(("method-body", svc_fqn, &method_name), |ui| {
+                        ui.label(
+                            RichText::new(format!("input · {}", input.full_name()))
+                                .color(MUTED)
+                                .monospace()
+                                .size(11.0),
+                        );
+                        ui.add_space(2.0);
+                        schema_ui::render_message_descriptor(ui, &input);
+                        ui.add_space(8.0);
+                        ui.label(
+                            RichText::new(format!("output · {}", output.full_name()))
+                                .color(MUTED)
+                                .monospace()
+                                .size(11.0),
+                        );
+                        ui.add_space(2.0);
+                        schema_ui::render_message_descriptor(ui, &output);
+                    });
+                });
+                ui.add_space(2.0);
+            }
+        });
+        ui.add_space(10.0);
+    }
+
+    // Live response / stream tail shared with the explorer.
+    if let Some(res) = &explorer.last_response {
+        ui.add_space(4.0);
+        card(ui, |ui| {
+            ui.label(
+                RichText::new(format!(
+                    "last response · {}/{}",
+                    explorer.service.as_deref().unwrap_or("?"),
+                    explorer.method.as_deref().unwrap_or("?")
+                ))
+                .color(MUTED)
+                .size(11.0)
+                .monospace(),
+            );
+            ui.add_space(4.0);
+            match res {
+                Ok(v) => {
+                    egui::ScrollArea::vertical()
+                        .id_source(("reflected-resp", route as u32))
+                        .max_height(280.0)
+                        .show(ui, |ui| {
+                            ui.label(
+                                RichText::new(schema_ui::pretty_json(v))
+                                    .monospace()
+                                    .size(11.0)
+                                    .color(FG),
+                            );
+                        });
+                }
+                Err(e) => {
+                    ui.label(RichText::new(e).color(DANGER).monospace().size(12.0));
+                }
+            }
+        });
+    }
+
+    let snapshot = explorer.stream.snapshot();
+    if snapshot.running || !snapshot.items.is_empty() || snapshot.error.is_some() {
+        ui.add_space(6.0);
+        card(ui, |ui| {
+            ui.horizontal(|ui| {
+                let status = if snapshot.running {
+                    "● live stream"
+                } else if snapshot.closed {
+                    "● closed"
+                } else {
+                    "○ idle"
+                };
+                let color = if snapshot.running {
+                    OK
+                } else if snapshot.error.is_some() {
+                    DANGER
+                } else {
+                    MUTED
+                };
+                ui.label(RichText::new(status).color(color).monospace().size(11.0));
+                ui.add_space(6.0);
+                ui.label(
+                    RichText::new(format!("{} items", snapshot.items.len()))
+                        .color(MUTED)
+                        .monospace()
+                        .size(11.0),
+                );
+                ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                    if snapshot.running {
+                        if ui
+                            .button(RichText::new("■ Stop").color(egui::Color32::WHITE).size(11.0))
+                            .clicked()
+                        {
+                            explorer.stream.cancel();
+                        }
+                    } else if ui.button(RichText::new("Clear").color(MUTED).size(11.0)).clicked() {
+                        explorer.stream.clear();
+                    }
+                });
+            });
+            if let Some(e) = &snapshot.error {
+                ui.add_space(4.0);
+                ui.label(RichText::new(e).color(DANGER).monospace().size(12.0));
+            }
+            ui.add_space(4.0);
+            egui::ScrollArea::vertical()
+                .id_source(("reflected-stream", route as u32))
+                .max_height(320.0)
+                .stick_to_bottom(true)
+                .show(ui, |ui| {
+                    for (i, item) in snapshot.items.iter().enumerate() {
+                        ui.collapsing(
+                            RichText::new(format!("▸ #{i}"))
+                                .monospace()
+                                .color(FG)
+                                .size(11.0),
+                            |ui| {
+                                ui.label(
+                                    RichText::new(schema_ui::pretty_json(item))
+                                        .monospace()
+                                        .size(11.0)
+                                        .color(FG),
+                                );
+                            },
+                        );
+                    }
+                });
+            if snapshot.running {
+                ctx.request_repaint_after(std::time::Duration::from_millis(150));
+            }
+        });
     }
 }
