@@ -337,7 +337,7 @@ fn grpc_explorer(
             ui.label(RichText::new(format!("/{}/{}", svc, method)).monospace().color(FG).size(12.0).strong());
             ui.add_space(8.0);
             ui.label(RichText::new(format!("[{}]", kind.label())).monospace().color(MUTED).size(11.0));
-            ui.with_layout(egui::Layout::right_to_left(egui::egui::Align::Center), |ui| {
+            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                 let supported = matches!(kind, MethodKind::Unary | MethodKind::ServerStreaming);
 
                 if streaming && stream_busy {
@@ -422,7 +422,7 @@ fn grpc_explorer(
                 ui.label(RichText::new(status).color(color).size(11.0).monospace());
                 ui.add_space(8.0);
                 ui.label(RichText::new(format!("{} items", snapshot.items.len())).color(MUTED).size(11.0).monospace());
-                ui.with_layout(egui::Layout::right_to_left(egui::egui::Align::Center), |ui| {
+                ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                     if ui.button(RichText::new("Clear").color(MUTED).size(11.0)).clicked() {
                         state.stream.clear();
                     }
