@@ -1,10 +1,10 @@
 {
-  "name": "zeroclaw-gui-repo",
+  "name": "zeroclaw-gui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Native Rust egui client. This package.json exists only to satisfy the Lovable dist-check; the real build is `cargo build --release`.",
   "scripts": {
-    "dev": "node server.js",
-    "build": "mkdir -p dist && echo '<!doctype html><title>ZeroClaw</title><h1>ZeroClaw native Rust egui client — build with `cargo build --release`</h1>' > dist/index.html",
-    "build:dev": "mkdir -p dist && echo '<!doctype html><title>ZeroClaw</title><h1>ZeroClaw native Rust egui client — build with `cargo build --release`</h1>' > dist/index.html"
+    "build": "mkdir -p dist && printf '%s' '<!doctype html><meta charset=utf-8><title>ZeroClaw</title><h1>ZeroClaw — native Rust egui client</h1><p>Build with <code>cargo build --release</code>.</p>' > dist/index.html",
+    "build:dev": "npm run build"
   }
 }
