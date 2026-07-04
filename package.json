@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "node server.js",
-    "build": "echo 'no-op: pure Rust project'",
-    "build:dev": "echo 'no-op: pure Rust project'"
+    "build": "mkdir -p dist && echo '<!doctype html><title>ZeroClaw</title><h1>ZeroClaw native Rust egui client — build with `cargo build --release`</h1>' > dist/index.html",
+    "build:dev": "mkdir -p dist && echo '<!doctype html><title>ZeroClaw</title><h1>ZeroClaw native Rust egui client — build with `cargo build --release`</h1>' > dist/index.html"
   }
 }
