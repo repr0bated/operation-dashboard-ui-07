@@ -213,3 +213,115 @@ pub fn pretty_json(value: &Value) -> String {
 
 #[allow(dead_code)]
 fn _unused(_: &Color32) {}
+
+// ---------------------------------------------------------------------------
+// Protobuf descriptor renderer — walks a `prost_reflect::MessageDescriptor`
+// straight from server reflection and paints its shape as an egui tree.
+// Cycle-safe: any recursive message type is short-circuited with a `↻` marker.
+// ---------------------------------------------------------------------------
+
+pub fn render_message_descriptor(ui: &mut egui::Ui, msg: &MessageDescriptor) {
+    let mut seen: HashSet<String> = HashSet::new();
+    render_msg_inner(ui, msg, 0, &mut seen);
+}
+
+fn render_msg_inner(
+    ui: &mut egui::Ui,
+    msg: &MessageDescriptor,
+    depth: usize,
+    seen: &mut HashSet<String>,
+) {
+    let full = msg.full_name().to_string();
+    if !seen.insert(full.clone()) {
+        ui.label(
+            RichText::new(format!("↻ {}  (recursive)", full))
+                .color(MUTED)
+                .italics()
+                .size(11.0),
+        );
+        return;
+    }
+
+    let fields: Vec<FieldDescriptor> = msg.fields().collect();
+    if fields.is_empty() {
+        ui.label(RichText::new("(empty message)").color(MUTED).italics().size(11.0));
+        seen.remove(&full);
+        return;
+    }
+
+    for f in fields {
+        let name = f.name().to_string();
+        let ty = field_kind_label(&f);
+        let nested_msg = if let Kind::Message(m) = f.kind() { Some(m) } else { None };
+
+        if let Some(sub) = nested_msg {
+            let id = ui.make_persistent_id(("proto", &full, &name));
+            egui::collapsing_header::CollapsingState::load_with_default_open(
+                ui.ctx(),
+                id,
+                depth < 1,
+            )
+            .show_header(ui, |ui| {
+                ui.label(RichText::new(&name).color(FG).monospace().size(12.0));
+                ui.label(RichText::new(&ty).color(PRIMARY).monospace().size(11.0));
+            })
+            .body(|ui| {
+                ui.indent(format!("{}-{}", full, name), |ui| {
+                    if depth >= 6 {
+                        ui.label(
+                            RichText::new("… (max depth)")
+                                .color(MUTED)
+                                .italics()
+                                .size(11.0),
+                        );
+                    } else {
+                        render_msg_inner(ui, &sub, depth + 1, seen);
+                    }
+                });
+            });
+        } else {
+            ui.horizontal(|ui| {
+                ui.label(RichText::new(&name).color(FG).monospace().size(12.0));
+                ui.label(RichText::new(&ty).color(PRIMARY).monospace().size(11.0));
+                if let Kind::Enum(e) = f.kind() {
+                    let vals: Vec<String> =
+                        e.values().map(|v| v.name().to_string()).collect();
+                    if !vals.is_empty() {
+                        ui.label(
+                            RichText::new(format!("{{{}}}", vals.join(" | ")))
+                                .color(MUTED)
+                                .size(10.0)
+                                .monospace(),
+                        );
+                    }
+                }
+            });
+        }
+    }
+
+    seen.remove(&full);
+}
+
+fn field_kind_label(f: &FieldDescriptor) -> String {
+    let base = match f.kind() {
+        Kind::Double => "double".into(),
+        Kind::Float => "float".into(),
+        Kind::Int32 | Kind::Sint32 | Kind::Sfixed32 => "int32".into(),
+        Kind::Int64 | Kind::Sint64 | Kind::Sfixed64 => "int64".into(),
+        Kind::Uint32 | Kind::Fixed32 => "uint32".into(),
+        Kind::Uint64 | Kind::Fixed64 => "uint64".into(),
+        Kind::Bool => "bool".into(),
+        Kind::String => "string".into(),
+        Kind::Bytes => "bytes".into(),
+        Kind::Message(m) => m.full_name().to_string(),
+        Kind::Enum(e) => format!("enum {}", e.full_name()),
+    };
+    if f.is_map() {
+        format!("map<{}>", base)
+    } else if f.is_list() {
+        format!("repeated {}", base)
+    } else {
+        base
+    }
+}
+
