@@ -10,6 +10,17 @@ cargo run --release
 ZEROCLAW_GRPC=https://op.local:443 cargo run --release
 ```
 
+## Headless Wayland
+
+If the host is headless, you still need a Wayland compositor. One simple option is Weston in headless mode:
+
+```bash
+sudo apt-get install weston
+./scripts/run-headless-wayland.sh
+```
+
+The wrapper starts Weston with a private socket, waits for the Wayland display to appear, and then launches ZeroClaw against it.
+
 ## Architecture
 
 ```text

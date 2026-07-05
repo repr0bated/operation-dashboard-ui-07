@@ -1,0 +1,156 @@
+{
+  "title": "gRPC Diagnostics (static draft)",
+  "spec": {
+    "kind": "stack",
+    "children": [
+      {
+        "kind": "heading",
+        "text": "gRPC Diagnostics",
+        "size": 18
+      },
+      {
+        "kind": "muted",
+        "text": "Static draft \u2014 sample data below stands in for the live reflection registry until this page is finalised."
+      },
+      {
+        "kind": "space",
+        "px": 12
+      },
+      {
+        "kind": "card",
+        "children": [
+          {
+            "kind": "stack",
+            "dir": "h",
+            "children": [
+              {
+                "kind": "label",
+                "text": "Gateway"
+              },
+              {
+                "kind": "space",
+                "px": 8
+              },
+              {
+                "kind": "label",
+                "bind": "/gateway/endpoint"
+              },
+              {
+                "kind": "space",
+                "px": 12
+              },
+              {
+                "kind": "status_pill",
+                "bind": "/gateway/health"
+              }
+            ]
+          },
+          {
+            "kind": "separator"
+          },
+          {
+            "kind": "heading",
+            "text": "Services",
+            "size": 13
+          },
+          {
+            "kind": "space",
+            "px": 4
+          },
+          {
+            "kind": "repeat",
+            "bind": "/services",
+            "child": {
+              "kind": "stack",
+              "dir": "h",
+              "children": [
+                {
+                  "kind": "status_pill",
+                  "bind": "/health"
+                },
+                {
+                  "kind": "space",
+                  "px": 10
+                },
+                {
+                  "kind": "label",
+                  "bind": "/name"
+                },
+                {
+                  "kind": "space",
+                  "px": 10
+                },
+                {
+                  "kind": "muted",
+                  "text": "reflection"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "kind": "space",
+        "px": 12
+      },
+      {
+        "kind": "card",
+        "children": [
+          {
+            "kind": "heading",
+            "text": "Actions",
+            "size": 13
+          },
+          {
+            "kind": "space",
+            "px": 6
+          },
+          {
+            "kind": "stack",
+            "dir": "h",
+            "children": [
+              {
+                "kind": "button",
+                "label": "Refresh reflection"
+              },
+              {
+                "kind": "button",
+                "label": "Ping gateway"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "data": {
+    "gateway": {
+      "endpoint": "http://127.0.0.1:50051",
+      "health": "ok"
+    },
+    "services": [
+      {
+        "name": "gemma.catalog.v1.CatalogService",
+        "health": "ok"
+      },
+      {
+        "name": "op.chat.v1.ChatService",
+        "health": "ok"
+      },
+      {
+        "name": "op.xray.v1.XRayDaemon",
+        "health": "degraded"
+      },
+      {
+        "name": "grpc.reflection.v1.ServerReflection",
+        "health": "ok"
+      }
+    ]
+  },
+  "source": {
+    "plugin": "json_render",
+    "method": "get_health",
+    "args": [],
+    "poll_secs": 5
+  }
+}

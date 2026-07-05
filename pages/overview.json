@@ -1,0 +1,119 @@
+{
+  "title": "Overview (static draft)",
+  "spec": {
+    "kind": "stack",
+    "children": [
+      {
+        "kind": "heading",
+        "text": "Overview",
+        "size": 18
+      },
+      {
+        "kind": "muted",
+        "text": "Static draft page. Delete pages/overview.json to fall back to the built-in Rust view."
+      },
+      {
+        "kind": "space",
+        "px": 12
+      },
+      {
+        "kind": "card",
+        "children": [
+          {
+            "kind": "heading",
+            "text": "Gemma catalog",
+            "size": 13
+          },
+          {
+            "kind": "space",
+            "px": 6
+          },
+          {
+            "kind": "stack",
+            "dir": "h",
+            "children": [
+              {
+                "kind": "status_pill",
+                "bind": "/gemma/stream"
+              },
+              {
+                "kind": "space",
+                "px": 10
+              },
+              {
+                "kind": "label",
+                "bind": "/gemma/summary"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "space",
+        "px": 12
+      },
+      {
+        "kind": "card",
+        "children": [
+          {
+            "kind": "heading",
+            "text": "Plugins",
+            "size": 13
+          },
+          {
+            "kind": "space",
+            "px": 6
+          },
+          {
+            "kind": "repeat",
+            "bind": "/plugins",
+            "child": {
+              "kind": "stack",
+              "dir": "h",
+              "children": [
+                {
+                  "kind": "status_pill",
+                  "bind": "/health"
+                },
+                {
+                  "kind": "space",
+                  "px": 10
+                },
+                {
+                  "kind": "label",
+                  "bind": "/name"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "data": {
+    "gemma": {
+      "stream": "down",
+      "summary": "CatalogService subscribe not wired yet \u2014 static stand-in"
+    },
+    "plugins": [
+      {
+        "name": "op-chat",
+        "health": "ok"
+      },
+      {
+        "name": "op-xray-daemon",
+        "health": "degraded"
+      },
+      {
+        "name": "op-dbus",
+        "health": "ok"
+      }
+    ]
+  },
+  "source": {
+    "plugin": "gemma_brain",
+    "method": "get_ui_spec",
+    "args": [],
+    "poll_secs": 5
+  }
+}

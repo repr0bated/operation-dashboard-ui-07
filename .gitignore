@@ -22,9 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/target
-/release
-/.rustc_info.json
-**/*.rs.bk
-Cargo.lock.bak
-.DS_Store

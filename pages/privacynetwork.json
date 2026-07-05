@@ -1,0 +1,145 @@
+{
+  "title": "Privacy Network / XRay (static draft)",
+  "spec": {
+    "kind": "stack",
+    "children": [
+      {
+        "kind": "heading",
+        "text": "Privacy Network",
+        "size": 18
+      },
+      {
+        "kind": "muted",
+        "text": "WireGuard / XRay / WARP route map. Static sample data until op-xray-daemon streaming is finalised."
+      },
+      {
+        "kind": "space",
+        "px": 12
+      },
+      {
+        "kind": "card",
+        "children": [
+          {
+            "kind": "stack",
+            "dir": "h",
+            "children": [
+              {
+                "kind": "label",
+                "text": "XRay daemon"
+              },
+              {
+                "kind": "space",
+                "px": 10
+              },
+              {
+                "kind": "status_pill",
+                "bind": "/xray/status"
+              },
+              {
+                "kind": "space",
+                "px": 16
+              },
+              {
+                "kind": "muted",
+                "text": "inbounds"
+              },
+              {
+                "kind": "space",
+                "px": 4
+              },
+              {
+                "kind": "label",
+                "bind": "/xray/inbounds"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "space",
+        "px": 12
+      },
+      {
+        "kind": "card",
+        "children": [
+          {
+            "kind": "heading",
+            "text": "Routes",
+            "size": 13
+          },
+          {
+            "kind": "space",
+            "px": 4
+          },
+          {
+            "kind": "repeat",
+            "bind": "/routes",
+            "child": {
+              "kind": "stack",
+              "dir": "h",
+              "children": [
+                {
+                  "kind": "status_pill",
+                  "bind": "/state"
+                },
+                {
+                  "kind": "space",
+                  "px": 10
+                },
+                {
+                  "kind": "label",
+                  "bind": "/name"
+                },
+                {
+                  "kind": "space",
+                  "px": 10
+                },
+                {
+                  "kind": "muted",
+                  "text": "\u2192"
+                },
+                {
+                  "kind": "space",
+                  "px": 10
+                },
+                {
+                  "kind": "label",
+                  "bind": "/egress"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "data": {
+    "xray": {
+      "status": "up",
+      "inbounds": "socks5 :1080, http :8118"
+    },
+    "routes": [
+      {
+        "name": "default",
+        "egress": "warp",
+        "state": "up"
+      },
+      {
+        "name": "cn-direct",
+        "egress": "direct",
+        "state": "up"
+      },
+      {
+        "name": "onion",
+        "egress": "tor-bridge",
+        "state": "down"
+      }
+    ]
+  },
+  "source": {
+    "plugin": "wireguard",
+    "method": "list_peers",
+    "args": [],
+    "poll_secs": 5
+  }
+}
