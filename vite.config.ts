@@ -12,17 +12,6 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
-    proxy: {
-      "/api": "http://10.0.0.2:8080",
-      "/ws": { target: "http://10.0.0.2:8080", ws: true },
-      "/mcp": "http://10.0.0.2:8080",
-      "/jsonrpc": "http://10.0.0.2:8080",
-      "/rpc": "http://10.0.0.2:8080",
-      "/.well-known": "http://10.0.0.2:8080",
-      "/groups-admin": "http://10.0.0.2:8080",
-      "/admin": "http://10.0.0.2:8080",
-      "/privacy": "http://10.0.0.2:8080",
-    },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
