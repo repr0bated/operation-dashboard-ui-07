@@ -420,7 +420,7 @@ export interface GetQdrantRolesResponse {
 }
 
 export interface GetSubvolumesResponse {
-  subvolumes: import("./gen/btrfs").BtrfsSubvolume[];
+  subvolumes: BtrfsSubvolumeView[];
   raidLevel?: string;
   devices?: string[];
   totalBytes?: number;
@@ -433,8 +433,28 @@ export interface GetSnapshotsRequest {
 }
 
 export interface GetSnapshotsResponse {
-  snapshots: import("./gen/btrfs").BtrfsSnapshot[];
+  snapshots: BtrfsSnapshotView[];
   totalCount?: number;
+}
+
+export interface BtrfsSubvolumeView {
+  name: string;
+  path: string;
+  purpose: "audit_ledger" | "dr_state" | "vector_storage";
+  sizeBytes: number;
+  usedBytes: number;
+  snapshotCount: number;
+  lastModified: string;
+}
+
+export interface BtrfsSnapshotView {
+  id: string;
+  subvolume: string;
+  createdAt: string;
+  sizeBytes: number;
+  parentSnapshotId?: string;
+  pinned: boolean;
+  pinnedRemotes: string[];
 }
 
 export interface SendState {
@@ -453,8 +473,16 @@ export interface GetSendStateResponse {
 }
 
 export interface GetDrStatusResponse {
-  status: import("./gen/btrfs").DrRecoveryStatus;
+  status: DrRecoveryStatusView;
   recoveryOrder?: string[];
+}
+
+export interface DrRecoveryStatusView {
+  lastCheckpoint: string;
+  stateSubvolCurrent: boolean;
+  vectorSnapshotAvailable: boolean;
+  blocksToReplay: number;
+  recoverySteps: string[];
 }
 
 export interface CreatePersonaRequest {
