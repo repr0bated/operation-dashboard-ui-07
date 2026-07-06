@@ -31,8 +31,8 @@ for (const clientFile of files) {
   // Service class it wraps (for typeName lookup) — imported from base
   const serviceClass = clientSrc.match(/import \{ (\w+Service) \} from "\.\//)?.[1];
   // The rpc method name on the client
-  const methodName = clientSrc.match(/@generated from protobuf rpc: \w+\s*\*\/\s*\n\s*(\w+)\(input:/)?.[1]
-    ?? clientSrc.match(/\n\s{4}(\w+)\(input:[^)]+\):\s*UnaryCall/)?.[1];
+  const methodName = clientSrc.match(/@generated from protobuf rpc: [\w$]+\s*\*\/\s*\n\s*([\w$]+)\(input:/)?.[1]
+    ?? clientSrc.match(/\n\s{4}([\w$]+)\(input:[^)]+\):\s*UnaryCall/)?.[1];
   // Input/Output type names
   const inputType = clientSrc.match(/import type \{ (\w+Input) \}/)?.[1];
   const outputType = clientSrc.match(/import type \{ (\w+Output) \}/)?.[1];
