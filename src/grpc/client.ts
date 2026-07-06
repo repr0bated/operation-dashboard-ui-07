@@ -1557,6 +1557,9 @@ import type {
   UpdateSoulMemoryRequest,
   ListSoulMemoriesRequest,
   ListSoulMemoriesResponse,
+} from "./gen/assistant/soul";
+
+import type {
   MemoryEntry,
   ReadMemoryRequest,
   ReadMemoryResponse,
@@ -1565,23 +1568,35 @@ import type {
   SearchMemoryRequest,
   SearchMemoryResponse,
   MemoryStats,
+} from "./gen/assistant/memory";
+
+import type {
   MemoryNamespace,
   SetMemoryNamespaceRequest,
   ListMemoryNamespacesResponse,
+} from "./gen/assistant/namespace";
+
+import type {
   Agent,
   ListAgentsResponse,
+  Run,
+  StartRunRequest,
+} from "./gen/assistant/agent";
+
+import type {
   ListSessionsResponse,
   CreateSessionRequest,
-  SessionMessage,
+  Message as SessionMessage,
   SendMessageRequest,
   GetSessionHistoryRequest,
   SessionHistory,
-  Run,
-  StartRunRequest,
+} from "./gen/assistant/session";
+
+import type {
   ListCronJobsResponse,
   CreateCronJobRequest,
   CronJob,
-} from "./types/assistant";
+} from "./gen/assistant/cron";
 
 const ASSISTANT_BUS = "session";
 const ASSISTANT_DEST = "ai.assistant.v1";
