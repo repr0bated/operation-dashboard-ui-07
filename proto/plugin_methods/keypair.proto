@@ -1,0 +1,30 @@
+// ================================================
+// Plugin: keypair (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.keypair.list_keypairs;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListKeypairsInput {
+  // Empty schema object.
+}
+
+message ListKeypairsOutput {
+  repeated google.protobuf.Value keypairs = 1;
+}
+
+service ListKeypairsService {
+  // subid: obs.service.keypair.list@v1, capability: cap.service.keypair.list@v1
+  rpc list_keypairs(ListKeypairsInput) returns (ListKeypairsOutput);
+}
+
+

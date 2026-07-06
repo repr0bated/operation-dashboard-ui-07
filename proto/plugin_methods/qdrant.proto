@@ -1,0 +1,273 @@
+// ================================================
+// Plugin: qdrant (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.qdrant.search_points;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SearchPointsInput {
+  string collection_name = 1;
+  int64 limit = 2;
+  repeated double vector = 3;
+}
+
+message SearchPointsOutput {
+  repeated google.protobuf.Value results = 1;
+}
+
+service SearchPointsService {
+  // subid: obs.data.qdrant.point.search@v1, capability: cap.data.qdrant.point.search@v1
+  rpc search_points(SearchPointsInput) returns (SearchPointsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.delete_points;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeletePointsInput {
+  string collection_name = 1;
+  repeated google.protobuf.Value points = 2;
+}
+
+message DeletePointsOutput {
+  bool success = 1;
+}
+
+service DeletePointsService {
+  // subid: mut.data.qdrant.point.delete@v1, capability: cap.data.qdrant.point.delete@v1
+  rpc delete_points(DeletePointsInput) returns (DeletePointsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.delete_collection;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteCollectionInput {
+  string name = 1;
+}
+
+message DeleteCollectionOutput {
+  bool success = 1;
+}
+
+service DeleteCollectionService {
+  // subid: mut.data.qdrant.collection.delete@v1, capability: cap.data.qdrant.collection.delete@v1
+  rpc delete_collection(DeleteCollectionInput) returns (DeleteCollectionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.list_collections;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListCollectionsInput {
+  // Empty schema object.
+}
+
+message ListCollectionsOutput {
+  repeated string collections = 1;
+}
+
+service ListCollectionsService {
+  // subid: obs.data.qdrant.collection.list@v1, capability: cap.data.qdrant.collection.list@v1
+  rpc list_collections(ListCollectionsInput) returns (ListCollectionsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.create_snapshot;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateSnapshotInput {
+  string collection_name = 1;
+}
+
+message CreateSnapshotOutput {
+  bool success = 1;
+}
+
+service CreateSnapshotService {
+  // subid: mut.data.qdrant.snapshot.create@v1, capability: cap.data.qdrant.snapshot.create@v1
+  rpc create_snapshot(CreateSnapshotInput) returns (CreateSnapshotOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.scroll_points;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ScrollPointsInput {
+  string collection_name = 1;
+  int64 limit = 2;
+}
+
+message ScrollPointsOutput {
+  google.protobuf.Value next_page_offset = 1;
+  repeated google.protobuf.Value points = 2;
+}
+
+service ScrollPointsService {
+  // subid: obs.data.qdrant.point.scroll@v1, capability: cap.data.qdrant.point.scroll@v1
+  rpc scroll_points(ScrollPointsInput) returns (ScrollPointsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.upsert_points;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpsertPointsInput {
+  string collection_name = 1;
+  repeated google.protobuf.Value points = 2;
+}
+
+message UpsertPointsOutput {
+  bool success = 1;
+}
+
+service UpsertPointsService {
+  // subid: mut.data.qdrant.point.upsert@v1, capability: cap.data.qdrant.point.upsert@v1
+  rpc upsert_points(UpsertPointsInput) returns (UpsertPointsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.create_collection;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateCollectionInput {
+  string name = 1;
+  google.protobuf.Value vectors_config = 2;
+}
+
+message CreateCollectionOutput {
+  bool success = 1;
+}
+
+service CreateCollectionService {
+  // subid: mut.data.qdrant.collection.create@v1, capability: cap.data.qdrant.collection.create@v1
+  rpc create_collection(CreateCollectionInput) returns (CreateCollectionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.create_payload_index;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreatePayloadIndexInput {
+  string collection_name = 1;
+  string field_name = 2;
+  google.protobuf.Value field_schema = 3;
+}
+
+message CreatePayloadIndexOutput {
+  bool success = 1;
+}
+
+service CreatePayloadIndexService {
+  // subid: mut.data.qdrant.payload-index.create@v1, capability: cap.data.qdrant.payload-index.create@v1
+  rpc create_payload_index(CreatePayloadIndexInput) returns (CreatePayloadIndexOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.qdrant.list_snapshots;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListSnapshotsInput {
+  string collection_name = 1;
+}
+
+message ListSnapshotsOutput {
+  repeated string snapshots = 1;
+}
+
+service ListSnapshotsService {
+  // subid: obs.data.qdrant.snapshot.list@v1, capability: cap.data.qdrant.snapshot.list@v1
+  rpc list_snapshots(ListSnapshotsInput) returns (ListSnapshotsOutput);
+}
+
+

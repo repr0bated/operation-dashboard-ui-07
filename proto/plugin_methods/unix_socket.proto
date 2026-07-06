@@ -1,0 +1,114 @@
+// ================================================
+// Plugin: unix_socket (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.unix_socket.close;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CloseInput {
+  bool force = 1;
+  string path = 2;
+}
+
+message CloseOutput {
+  bool success = 1;
+}
+
+service CloseService {
+  // subid: mut.service.unix-socket.close@v1, capability: network.write
+  rpc close(CloseInput) returns (CloseOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.unix_socket.accept;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AcceptInput {
+  string path = 1;
+  int64 timeout_secs = 2;
+}
+
+message AcceptOutput {
+  bool success = 1;
+}
+
+service AcceptService {
+  // subid: obs.service.unix-socket.accept@v1, capability: network.read
+  rpc accept(AcceptInput) returns (AcceptOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.unix_socket.bind;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message BindInput {
+  string name = 1;
+  string path = 2;
+  repeated int64 ports = 3;
+  string protocol = 4;
+}
+
+message BindOutput {
+  bool success = 1;
+}
+
+service BindService {
+  // subid: mut.service.unix-socket.bind@v1, capability: network.write
+  rpc bind(BindInput) returns (BindOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.unix_socket.listen;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListenInput {
+  int64 backlog = 1;
+  string path = 2;
+}
+
+message ListenOutput {
+  bool success = 1;
+}
+
+service ListenService {
+  // subid: mut.service.unix-socket.listen@v1, capability: network.write
+  rpc listen(ListenInput) returns (ListenOutput);
+}
+
+

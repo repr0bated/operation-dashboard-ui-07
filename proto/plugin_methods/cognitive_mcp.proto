@@ -1,0 +1,415 @@
+// ================================================
+// Plugin: cognitive_mcp (v2.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.code_index;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CodeIndexInput {
+  // Empty schema object.
+}
+
+message CodeIndexOutput {
+  int64 files_indexed = 1;
+  bool success = 2;
+}
+
+service CodeIndexService {
+  // subid: mut.service.code-rag.index@v1, capability: cognitive_mcp.invoke
+  rpc code_index(CodeIndexInput) returns (CodeIndexOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.get_health;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetHealthInput {
+  // Empty schema object.
+}
+
+message GetHealthOutput {
+  string auth_status = 1;
+  bool healthy = 2;
+  int64 queries_limit = 3;
+  int64 queries_remaining = 4;
+  bool running = 5;
+}
+
+service GetHealthService {
+  // subid: obs.service.cognitive-mcp.health@v1, capability: cognitive_mcp.read
+  rpc get_health(GetHealthInput) returns (GetHealthOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.memory_query;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryQueryInput {
+  // Empty schema object.
+}
+
+message MemoryQueryOutput {
+  int64 count = 1;
+  repeated string results = 2;
+}
+
+service MemoryQueryService {
+  // subid: obs.service.cognitive-mcp.memory.query@v1, capability: cognitive_mcp.read
+  rpc memory_query(MemoryQueryInput) returns (MemoryQueryOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.memory_retrieve;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryRetrieveInput {
+  // Empty schema object.
+}
+
+message MemoryRetrieveOutput {
+  string namespace = 1;
+  bool success = 2;
+  string value = 3;
+}
+
+service MemoryRetrieveService {
+  // subid: obs.service.cognitive-mcp.memory.retrieve@v1, capability: cognitive_mcp.read
+  rpc memory_retrieve(MemoryRetrieveInput) returns (MemoryRetrieveOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.memory_delete;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryDeleteInput {
+  // Empty schema object.
+}
+
+message MemoryDeleteOutput {
+  int64 keys_deleted = 1;
+  bool success = 2;
+}
+
+service MemoryDeleteService {
+  // subid: mut.service.cognitive-mcp.memory.delete@v1, capability: cognitive_mcp.invoke
+  rpc memory_delete(MemoryDeleteInput) returns (MemoryDeleteOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.code_search;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CodeSearchInput {
+  // Empty schema object.
+}
+
+message CodeSearchOutput {
+  int64 count = 1;
+  repeated string results = 2;
+}
+
+service CodeSearchService {
+  // subid: obs.service.code-rag.search@v1, capability: cognitive_mcp.read
+  rpc code_search(CodeSearchInput) returns (CodeSearchOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.memory_store;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryStoreInput {
+  // Empty schema object.
+}
+
+message MemoryStoreOutput {
+  string key = 1;
+  bool success = 2;
+}
+
+service MemoryStoreService {
+  // subid: mut.service.cognitive-mcp.memory.store@v1, capability: cognitive_mcp.invoke
+  rpc memory_store(MemoryStoreInput) returns (MemoryStoreOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.restart_service;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RestartServiceInput {
+  // Empty schema object.
+}
+
+message RestartServiceOutput {
+  string message = 1;
+  bool success = 2;
+}
+
+service RestartServiceService {
+  // subid: mut.service.cognitive-mcp.restart@v1, capability: cognitive_mcp.invoke
+  rpc restart_service(RestartServiceInput) returns (RestartServiceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.register_tool;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RegisterToolInput {
+  // Empty schema object.
+}
+
+message RegisterToolOutput {
+  bool success = 1;
+  string tool_name = 2;
+}
+
+service RegisterToolService {
+  // subid: mut.service.cognitive-mcp.tool.register@v1, capability: cognitive_mcp.invoke
+  rpc register_tool(RegisterToolInput) returns (RegisterToolOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.memory_list_namespaces;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryListNamespacesInput {
+  // Empty schema object.
+}
+
+message MemoryListNamespacesOutput {
+  repeated string namespaces = 1;
+}
+
+service MemoryListNamespacesService {
+  // subid: obs.service.cognitive-mcp.memory.namespace.list@v1, capability: cognitive_mcp.read
+  rpc memory_list_namespaces(MemoryListNamespacesInput) returns (MemoryListNamespacesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.list_tools;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListToolsInput {
+  // Empty schema object.
+}
+
+message ListToolsOutput {
+  repeated string tools = 1;
+}
+
+service ListToolsService {
+  // subid: obs.service.cognitive-mcp.tool.list@v1, capability: cognitive_mcp.read
+  rpc list_tools(ListToolsInput) returns (ListToolsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.set_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetConfigInput {
+  // Empty schema object.
+}
+
+message SetConfigOutput {
+  string message = 1;
+  bool success = 2;
+}
+
+service SetConfigService {
+  // subid: mut.service.cognitive-mcp.config.set@v1, capability: cognitive_mcp.invoke
+  rpc set_config(SetConfigInput) returns (SetConfigOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.gemini_query;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GeminiQueryInput {
+  // Empty schema object.
+}
+
+message GeminiQueryOutput {
+  repeated string citations = 1;
+  string response = 2;
+}
+
+service GeminiQueryService {
+  // subid: mut.service.gemini.query@v1, capability: cognitive_mcp.invoke
+  rpc gemini_query(GeminiQueryInput) returns (GeminiQueryOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.code_context;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CodeContextInput {
+  // Empty schema object.
+}
+
+message CodeContextOutput {
+  string context = 1;
+  repeated string sources = 2;
+}
+
+service CodeContextService {
+  // subid: obs.service.code-context.get@v1, capability: cognitive_mcp.read
+  rpc code_context(CodeContextInput) returns (CodeContextOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.get_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetConfigInput {
+  // Empty schema object.
+}
+
+message GetConfigOutput {
+  bool dbus_enabled = 1;
+  string grpc = 2;
+  bool grpc_enabled = 3;
+  string http = 4;
+  bool http_enabled = 5;
+  string wg_interface = 6;
+}
+
+service GetConfigService {
+  // subid: obs.service.cognitive-mcp.config.get@v1, capability: cognitive_mcp.read
+  rpc get_config(GetConfigInput) returns (GetConfigOutput);
+}
+
+

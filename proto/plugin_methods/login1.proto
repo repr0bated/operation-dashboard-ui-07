@@ -1,0 +1,622 @@
+// ================================================
+// Plugin: login1 (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.login1.get_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetUserInput {
+  int64 uid = 1;
+}
+
+message GetUserOutput {
+  bool success = 1;
+}
+
+service GetUserService {
+  // subid: obs.software.login1.user.get@v1, capability: login1.read
+  rpc get_user(GetUserInput) returns (GetUserOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.get_seat;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSeatInput {
+  string seat_id = 1;
+}
+
+message GetSeatOutput {
+  bool success = 1;
+}
+
+service GetSeatService {
+  // subid: obs.software.login1.seat.get@v1, capability: login1.read
+  rpc get_seat(GetSeatInput) returns (GetSeatOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.sleep;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SleepInput {
+  int64 sleep_operation = 1;
+}
+
+message SleepOutput {
+  bool success = 1;
+}
+
+service SleepService {
+  // subid: mut.software.login1.system.sleep@v1, capability: login1.admin
+  rpc sleep(SleepInput) returns (SleepOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.kill_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message KillSessionInput {
+  string session_id = 1;
+  int64 signal_number = 2;
+  string who = 3;
+}
+
+message KillSessionOutput {
+  bool success = 1;
+}
+
+service KillSessionService {
+  // subid: mut.software.login1.session.kill@v1, capability: login1.write
+  rpc kill_session(KillSessionInput) returns (KillSessionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.terminate_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TerminateSessionInput {
+  string session_id = 1;
+}
+
+message TerminateSessionOutput {
+  bool success = 1;
+}
+
+service TerminateSessionService {
+  // subid: mut.software.login1.session.terminate@v1, capability: login1.write
+  rpc terminate_session(TerminateSessionInput) returns (TerminateSessionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.list_seats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListSeatsInput {
+  // Empty schema object.
+}
+
+message ListSeatsOutput {
+  bool success = 1;
+}
+
+service ListSeatsService {
+  // subid: obs.software.login1.seats.list@v1, capability: login1.read
+  rpc list_seats(ListSeatsInput) returns (ListSeatsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.set_user_linger;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetUserLingerInput {
+  bool enable = 1;
+  bool interactive = 2;
+  int64 uid = 3;
+}
+
+message SetUserLingerOutput {
+  bool success = 1;
+}
+
+service SetUserLingerService {
+  // subid: mut.software.login1.user.linger.set@v1, capability: login1.admin
+  rpc set_user_linger(SetUserLingerInput) returns (SetUserLingerOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.list_users;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListUsersInput {
+  // Empty schema object.
+}
+
+message ListUsersOutput {
+  bool success = 1;
+}
+
+service ListUsersService {
+  // subid: obs.software.login1.users.list@v1, capability: login1.read
+  rpc list_users(ListUsersInput) returns (ListUsersOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.suspend;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SuspendInput {
+  bool interactive = 1;
+}
+
+message SuspendOutput {
+  bool success = 1;
+}
+
+service SuspendService {
+  // subid: mut.software.login1.system.suspend@v1, capability: login1.admin
+  rpc suspend(SuspendInput) returns (SuspendOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.flush_devices;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message FlushDevicesInput {
+  bool interactive = 1;
+}
+
+message FlushDevicesOutput {
+  bool success = 1;
+}
+
+service FlushDevicesService {
+  // subid: mut.software.login1.devices.flush@v1, capability: login1.admin
+  rpc flush_devices(FlushDevicesInput) returns (FlushDevicesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.release_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ReleaseSessionInput {
+  string session_id = 1;
+}
+
+message ReleaseSessionOutput {
+  bool success = 1;
+}
+
+service ReleaseSessionService {
+  // subid: mut.software.login1.session.release@v1, capability: login1.write
+  rpc release_session(ReleaseSessionInput) returns (ReleaseSessionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.get_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSessionInput {
+  string session_id = 1;
+}
+
+message GetSessionOutput {
+  bool success = 1;
+}
+
+service GetSessionService {
+  // subid: obs.software.login1.session.get@v1, capability: login1.read
+  rpc get_session(GetSessionInput) returns (GetSessionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.attach_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AttachDeviceInput {
+  bool interactive = 1;
+  string seat_id = 2;
+  string sysfs_path = 3;
+}
+
+message AttachDeviceOutput {
+  bool success = 1;
+}
+
+service AttachDeviceService {
+  // subid: mut.software.login1.device.attach@v1, capability: login1.admin
+  rpc attach_device(AttachDeviceInput) returns (AttachDeviceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.kill_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message KillUserInput {
+  int64 signal_number = 1;
+  int64 uid = 2;
+}
+
+message KillUserOutput {
+  bool success = 1;
+}
+
+service KillUserService {
+  // subid: mut.software.login1.user.kill@v1, capability: login1.admin
+  rpc kill_user(KillUserInput) returns (KillUserOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.terminate_seat;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TerminateSeatInput {
+  string seat_id = 1;
+}
+
+message TerminateSeatOutput {
+  bool success = 1;
+}
+
+service TerminateSeatService {
+  // subid: mut.software.login1.seat.terminate@v1, capability: login1.admin
+  rpc terminate_seat(TerminateSeatInput) returns (TerminateSeatOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.terminate_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TerminateUserInput {
+  int64 uid = 1;
+}
+
+message TerminateUserOutput {
+  bool success = 1;
+}
+
+service TerminateUserService {
+  // subid: mut.software.login1.user.terminate@v1, capability: login1.admin
+  rpc terminate_user(TerminateUserInput) returns (TerminateUserOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.unlock_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UnlockSessionInput {
+  string session_id = 1;
+}
+
+message UnlockSessionOutput {
+  bool success = 1;
+}
+
+service UnlockSessionService {
+  // subid: mut.software.login1.session.unlock@v1, capability: login1.write
+  rpc unlock_session(UnlockSessionInput) returns (UnlockSessionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.reboot;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RebootInput {
+  bool interactive = 1;
+}
+
+message RebootOutput {
+  bool success = 1;
+}
+
+service RebootService {
+  // subid: mut.software.login1.system.reboot@v1, capability: login1.admin
+  rpc reboot(RebootInput) returns (RebootOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.hibernate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message HibernateInput {
+  bool interactive = 1;
+}
+
+message HibernateOutput {
+  bool success = 1;
+}
+
+service HibernateService {
+  // subid: mut.software.login1.system.hibernate@v1, capability: login1.admin
+  rpc hibernate(HibernateInput) returns (HibernateOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.create_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateSessionInput {
+  string class = 1;
+  string desktop = 2;
+  string display = 3;
+  int64 pid = 4;
+  repeated google.protobuf.Struct properties = 5;
+  bool remote = 6;
+  string remote_host = 7;
+  string remote_user = 8;
+  string seat_id = 9;
+  string service = 10;
+  string tty = 11;
+  string type_ = 12;
+  int64 uid = 13;
+  int64 vtnr = 14;
+}
+
+message CreateSessionOutput {
+  bool success = 1;
+}
+
+service CreateSessionService {
+  // subid: mut.software.login1.session.create@v1, capability: login1.write
+  rpc create_session(CreateSessionInput) returns (CreateSessionOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.list_sessions;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListSessionsInput {
+  // Empty schema object.
+}
+
+message ListSessionsOutput {
+  bool success = 1;
+}
+
+service ListSessionsService {
+  // subid: obs.software.login1.sessions.list@v1, capability: login1.read
+  rpc list_sessions(ListSessionsInput) returns (ListSessionsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.power_off;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message PowerOffInput {
+  bool interactive = 1;
+}
+
+message PowerOffOutput {
+  bool success = 1;
+}
+
+service PowerOffService {
+  // subid: mut.software.login1.system.poweroff@v1, capability: login1.admin
+  rpc power_off(PowerOffInput) returns (PowerOffOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.login1.lock_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message LockSessionInput {
+  string session_id = 1;
+}
+
+message LockSessionOutput {
+  bool success = 1;
+}
+
+service LockSessionService {
+  // subid: mut.software.login1.session.lock@v1, capability: login1.write
+  rpc lock_session(LockSessionInput) returns (LockSessionOutput);
+}
+
+

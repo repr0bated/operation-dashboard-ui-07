@@ -1,0 +1,186 @@
+// ================================================
+// Plugin: procfs (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.procfs.get_net_dev;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetNetDevInput {
+  // Empty schema object.
+}
+
+message GetNetDevOutput {
+  bool success = 1;
+}
+
+service GetNetDevService {
+  // subid: obs.service.procfs.net-dev.get@v1, capability: procfs.read
+  rpc get_net_dev(GetNetDevInput) returns (GetNetDevOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.procfs.get_cpuinfo;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetCpuinfoInput {
+  // Empty schema object.
+}
+
+message GetCpuinfoOutput {
+  bool success = 1;
+}
+
+service GetCpuinfoService {
+  // subid: obs.service.procfs.cpuinfo.get@v1, capability: procfs.read
+  rpc get_cpuinfo(GetCpuinfoInput) returns (GetCpuinfoOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.procfs.get_uptime;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetUptimeInput {
+  // Empty schema object.
+}
+
+message GetUptimeOutput {
+  bool success = 1;
+}
+
+service GetUptimeService {
+  // subid: obs.service.procfs.uptime.get@v1, capability: procfs.read
+  rpc get_uptime(GetUptimeInput) returns (GetUptimeOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.procfs.get_process_info;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetProcessInfoInput {
+  int64 pid = 1;
+}
+
+message GetProcessInfoOutput {
+  bool success = 1;
+}
+
+service GetProcessInfoService {
+  // subid: obs.service.procfs.process.get@v1, capability: procfs.read
+  rpc get_process_info(GetProcessInfoInput) returns (GetProcessInfoOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.procfs.list_processes;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListProcessesInput {
+  // Empty schema object.
+}
+
+message ListProcessesOutput {
+  bool success = 1;
+}
+
+service ListProcessesService {
+  // subid: obs.service.procfs.process.list@v1, capability: procfs.read
+  rpc list_processes(ListProcessesInput) returns (ListProcessesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.procfs.get_loadavg;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetLoadavgInput {
+  // Empty schema object.
+}
+
+message GetLoadavgOutput {
+  bool success = 1;
+}
+
+service GetLoadavgService {
+  // subid: obs.service.procfs.loadavg.get@v1, capability: procfs.read
+  rpc get_loadavg(GetLoadavgInput) returns (GetLoadavgOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.procfs.get_meminfo;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetMeminfoInput {
+  // Empty schema object.
+}
+
+message GetMeminfoOutput {
+  bool success = 1;
+}
+
+service GetMeminfoService {
+  // subid: obs.service.procfs.meminfo.get@v1, capability: procfs.read
+  rpc get_meminfo(GetMeminfoInput) returns (GetMeminfoOutput);
+}
+
+

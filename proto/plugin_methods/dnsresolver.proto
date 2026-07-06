@@ -1,0 +1,552 @@
+// ================================================
+// Plugin: dnsresolver (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_llmnr;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkLlmnrInput {
+  int64 ifindex = 1;
+  string mode = 2;
+}
+
+message SetLinkLlmnrOutput {
+  bool success = 1;
+}
+
+service SetLinkLlmnrService {
+  // subid: mut.software.dnsresolver.link.set-llmnr@v1, capability: dnsresolver.write
+  rpc set_link_llmnr(SetLinkLlmnrInput) returns (SetLinkLlmnrOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.reset_server_features;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResetServerFeaturesInput {
+  // Empty schema object.
+}
+
+message ResetServerFeaturesOutput {
+  bool success = 1;
+}
+
+service ResetServerFeaturesService {
+  // subid: mut.software.dnsresolver.server-features.reset@v1, capability: dnsresolver.write
+  rpc reset_server_features(ResetServerFeaturesInput) returns (ResetServerFeaturesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.register_service;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RegisterServiceInput {
+  string id = 1;
+  string name_template = 2;
+  int64 port = 3;
+  int64 priority = 4;
+  repeated google.protobuf.Struct txt = 5;
+  string type_ = 6;
+  int64 weight = 7;
+}
+
+message RegisterServiceOutput {
+  bool success = 1;
+}
+
+service RegisterServiceService {
+  // subid: mut.software.dnsresolver.service.register@v1, capability: dnsresolver.write
+  rpc register_service(RegisterServiceInput) returns (RegisterServiceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.revert_link;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RevertLinkInput {
+  int64 ifindex = 1;
+}
+
+message RevertLinkOutput {
+  bool success = 1;
+}
+
+service RevertLinkService {
+  // subid: mut.software.dnsresolver.link.revert@v1, capability: dnsresolver.write
+  rpc revert_link(RevertLinkInput) returns (RevertLinkOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.resolve_address;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveAddressInput {
+  repeated int64 address = 1;
+  int64 family = 2;
+  int64 flags = 3;
+  int64 ifindex = 4;
+}
+
+message ResolveAddressOutput {
+  bool success = 1;
+}
+
+service ResolveAddressService {
+  // subid: obs.software.dnsresolver.address.resolve@v1, capability: dnsresolver.read
+  rpc resolve_address(ResolveAddressInput) returns (ResolveAddressOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_domains;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDomainsInput {
+  repeated google.protobuf.Value domains = 1;
+  int64 ifindex = 2;
+}
+
+message SetLinkDomainsOutput {
+  bool success = 1;
+}
+
+service SetLinkDomainsService {
+  // subid: mut.software.dnsresolver.link.set-domains@v1, capability: dnsresolver.write
+  rpc set_link_domains(SetLinkDomainsInput) returns (SetLinkDomainsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.unregister_service;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UnregisterServiceInput {
+  string service_path = 1;
+}
+
+message UnregisterServiceOutput {
+  bool success = 1;
+}
+
+service UnregisterServiceService {
+  // subid: mut.software.dnsresolver.service.unregister@v1, capability: dnsresolver.write
+  rpc unregister_service(UnregisterServiceInput) returns (UnregisterServiceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.resolve_record;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveRecordInput {
+  int64 class = 1;
+  int64 flags = 2;
+  int64 ifindex = 3;
+  string name = 4;
+  int64 record_type = 5;
+}
+
+message ResolveRecordOutput {
+  bool success = 1;
+}
+
+service ResolveRecordService {
+  // subid: obs.software.dnsresolver.record.resolve@v1, capability: dnsresolver.read
+  rpc resolve_record(ResolveRecordInput) returns (ResolveRecordOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.resolve_service;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveServiceInput {
+  int64 family = 1;
+  int64 flags = 2;
+  int64 ifindex = 3;
+  string name = 4;
+}
+
+message ResolveServiceOutput {
+  bool success = 1;
+}
+
+service ResolveServiceService {
+  // subid: obs.software.dnsresolver.service.resolve@v1, capability: dnsresolver.read
+  rpc resolve_service(ResolveServiceInput) returns (ResolveServiceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.get_link;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetLinkInput {
+  int64 ifindex = 1;
+}
+
+message GetLinkOutput {
+  bool success = 1;
+}
+
+service GetLinkService {
+  // subid: obs.software.dnsresolver.link.get@v1, capability: dnsresolver.read
+  rpc get_link(GetLinkInput) returns (GetLinkOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_dns;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnsInput {
+  repeated google.protobuf.Value addresses = 1;
+  int64 ifindex = 2;
+}
+
+message SetLinkDnsOutput {
+  bool success = 1;
+}
+
+service SetLinkDnsService {
+  // subid: mut.software.dnsresolver.link.set-dns@v1, capability: dnsresolver.write
+  rpc set_link_dns(SetLinkDnsInput) returns (SetLinkDnsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_multicast_dns;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkMulticastDnsInput {
+  int64 ifindex = 1;
+  string mode = 2;
+}
+
+message SetLinkMulticastDnsOutput {
+  bool success = 1;
+}
+
+service SetLinkMulticastDnsService {
+  // subid: mut.software.dnsresolver.link.set-mdns@v1, capability: dnsresolver.write
+  rpc set_link_multicast_dns(SetLinkMulticastDnsInput) returns (SetLinkMulticastDnsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_dns_over_tls;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnsOverTlsInput {
+  int64 ifindex = 1;
+  string mode = 2;
+}
+
+message SetLinkDnsOverTlsOutput {
+  bool success = 1;
+}
+
+service SetLinkDnsOverTlsService {
+  // subid: mut.software.dnsresolver.link.set-dot@v1, capability: dnsresolver.write
+  rpc set_link_dns_over_tls(SetLinkDnsOverTlsInput) returns (SetLinkDnsOverTlsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.resolve_hostname;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveHostnameInput {
+  int64 family = 1;
+  int64 flags = 2;
+  int64 ifindex = 3;
+  string name = 4;
+}
+
+message ResolveHostnameOutput {
+  bool success = 1;
+}
+
+service ResolveHostnameService {
+  // subid: obs.software.dnsresolver.hostname.resolve@v1, capability: dnsresolver.read
+  rpc resolve_hostname(ResolveHostnameInput) returns (ResolveHostnameOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_dnssec;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnssecInput {
+  int64 ifindex = 1;
+  string mode = 2;
+}
+
+message SetLinkDnssecOutput {
+  bool success = 1;
+}
+
+service SetLinkDnssecService {
+  // subid: mut.software.dnsresolver.link.set-dnssec@v1, capability: dnsresolver.write
+  rpc set_link_dnssec(SetLinkDnssecInput) returns (SetLinkDnssecOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.reset_statistics;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResetStatisticsInput {
+  // Empty schema object.
+}
+
+message ResetStatisticsOutput {
+  bool success = 1;
+}
+
+service ResetStatisticsService {
+  // subid: mut.software.dnsresolver.statistics.reset@v1, capability: dnsresolver.write
+  rpc reset_statistics(ResetStatisticsInput) returns (ResetStatisticsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_dns_ex;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnsExInput {
+  repeated google.protobuf.Value addresses = 1;
+  int64 ifindex = 2;
+}
+
+message SetLinkDnsExOutput {
+  bool success = 1;
+}
+
+service SetLinkDnsExService {
+  // subid: mut.software.dnsresolver.link.set-dns-ex@v1, capability: dnsresolver.write
+  rpc set_link_dns_ex(SetLinkDnsExInput) returns (SetLinkDnsExOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_default_route;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDefaultRouteInput {
+  bool enable = 1;
+  int64 ifindex = 2;
+}
+
+message SetLinkDefaultRouteOutput {
+  bool success = 1;
+}
+
+service SetLinkDefaultRouteService {
+  // subid: mut.software.dnsresolver.link.set-default-route@v1, capability: dnsresolver.write
+  rpc set_link_default_route(SetLinkDefaultRouteInput) returns (SetLinkDefaultRouteOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.flush_caches;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message FlushCachesInput {
+  // Empty schema object.
+}
+
+message FlushCachesOutput {
+  bool success = 1;
+}
+
+service FlushCachesService {
+  // subid: mut.software.dnsresolver.caches.flush@v1, capability: dnsresolver.write
+  rpc flush_caches(FlushCachesInput) returns (FlushCachesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.dnsresolver.set_link_dnssec_nta;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnssecNtaInput {
+  int64 ifindex = 1;
+  repeated string names = 2;
+}
+
+message SetLinkDnssecNtaOutput {
+  bool success = 1;
+}
+
+service SetLinkDnssecNtaService {
+  // subid: mut.software.dnsresolver.link.set-dnssec-nta@v1, capability: dnsresolver.write
+  rpc set_link_dnssec_nta(SetLinkDnssecNtaInput) returns (SetLinkDnssecNtaOutput);
+}
+
+

@@ -1,0 +1,246 @@
+// ================================================
+// Plugin: mail_server (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.mail_server.remove_mailbox;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveMailboxInput {
+  string domain = 1;
+  string user = 2;
+}
+
+message RemoveMailboxOutput {
+  bool success = 1;
+}
+
+service RemoveMailboxService {
+  // subid: mut.service.mail.mailbox.remove@v1, capability: mail.write
+  rpc remove_mailbox(RemoveMailboxInput) returns (RemoveMailboxOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.get_queue;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetQueueInput {
+  // Empty schema object.
+}
+
+message GetQueueOutput {
+  bool success = 1;
+}
+
+service GetQueueService {
+  // subid: obs.service.mail.queue.get@v1, capability: mail.read
+  rpc get_queue(GetQueueInput) returns (GetQueueOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.add_domain;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddDomainInput {
+  string domain = 1;
+}
+
+message AddDomainOutput {
+  bool success = 1;
+}
+
+service AddDomainService {
+  // subid: mut.service.mail.domain.add@v1, capability: mail.write
+  rpc add_domain(AddDomainInput) returns (AddDomainOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.remove_alias;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveAliasInput {
+  string alias = 1;
+  string destination = 2;
+  string domain = 3;
+}
+
+message RemoveAliasOutput {
+  bool success = 1;
+}
+
+service RemoveAliasService {
+  // subid: mut.service.mail.alias.remove@v1, capability: mail.write
+  rpc remove_alias(RemoveAliasInput) returns (RemoveAliasOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.flush_queue;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message FlushQueueInput {
+  // Empty schema object.
+}
+
+message FlushQueueOutput {
+  bool success = 1;
+}
+
+service FlushQueueService {
+  // subid: mut.service.mail.queue.flush@v1, capability: mail.write
+  rpc flush_queue(FlushQueueInput) returns (FlushQueueOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.add_mailbox;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddMailboxInput {
+  string domain = 1;
+  string user = 2;
+}
+
+message AddMailboxOutput {
+  bool success = 1;
+}
+
+service AddMailboxService {
+  // subid: mut.service.mail.mailbox.add@v1, capability: mail.write
+  rpc add_mailbox(AddMailboxInput) returns (AddMailboxOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.remove_domain;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveDomainInput {
+  string domain = 1;
+}
+
+message RemoveDomainOutput {
+  bool success = 1;
+}
+
+service RemoveDomainService {
+  // subid: mut.service.mail.domain.remove@v1, capability: mail.write
+  rpc remove_domain(RemoveDomainInput) returns (RemoveDomainOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.add_alias;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddAliasInput {
+  string alias = 1;
+  string destination = 2;
+  string domain = 3;
+}
+
+message AddAliasOutput {
+  bool success = 1;
+}
+
+service AddAliasService {
+  // subid: mut.service.mail.alias.add@v1, capability: mail.write
+  rpc add_alias(AddAliasInput) returns (AddAliasOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.mail_server.set_quota;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetQuotaInput {
+  string domain = 1;
+  int64 quota_mb = 2;
+  string user = 3;
+}
+
+message SetQuotaOutput {
+  bool success = 1;
+}
+
+service SetQuotaService {
+  // subid: mut.service.mail.quota.set@v1, capability: mail.write
+  rpc set_quota(SetQuotaInput) returns (SetQuotaOutput);
+}
+
+

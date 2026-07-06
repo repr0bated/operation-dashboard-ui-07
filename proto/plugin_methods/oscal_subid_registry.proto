@@ -1,0 +1,134 @@
+// ================================================
+// Plugin: oscal_subid_registry (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.oscal_subid_registry.register;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RegisterInput {
+  // Empty schema object.
+}
+
+message RegisterOutput {
+  bool success = 1;
+}
+
+service RegisterService {
+  // subid: mut.standard.oscal.subid.register@v1, capability: oscal.invoke
+  rpc register(RegisterInput) returns (RegisterOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.oscal_subid_registry.export;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExportInput {
+  // Empty schema object.
+}
+
+message ExportOutput {
+  google.protobuf.Value registry = 1;
+}
+
+service ExportService {
+  // subid: obs.standard.oscal.export@v1, capability: oscal.read
+  rpc export(ExportInput) returns (ExportOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.oscal_subid_registry.list_by_category;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListByCategoryInput {
+  // Empty schema object.
+}
+
+message ListByCategoryOutput {
+  repeated google.protobuf.Value entries = 1;
+}
+
+service ListByCategoryService {
+  // subid: obs.standard.oscal.category.list@v1, capability: oscal.read
+  rpc list_by_category(ListByCategoryInput) returns (ListByCategoryOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.oscal_subid_registry.resolve;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveInput {
+  // Empty schema object.
+}
+
+message ResolveOutput {
+  google.protobuf.Value resolved = 1;
+}
+
+service ResolveService {
+  // subid: obs.standard.oscal.subid.resolve@v1, capability: oscal.read
+  rpc resolve(ResolveInput) returns (ResolveOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.oscal_subid_registry.lookup;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message LookupInput {
+  // Empty schema object.
+}
+
+message LookupOutput {
+  google.protobuf.Value entry = 1;
+}
+
+service LookupService {
+  // subid: obs.standard.oscal.subid.lookup@v1, capability: oscal.read
+  rpc lookup(LookupInput) returns (LookupOutput);
+}
+
+

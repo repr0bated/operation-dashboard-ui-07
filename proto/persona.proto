@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package operation.agent.persona.v1;
+
+// Agent persona type descriptor
+message Persona {
+  // Agent type identifier
+  string agent_type = 1;
+  // Display name
+  string name = 2;
+  // Description of the persona
+  string description = 3;
+  // Supported operations
+  repeated string operations = 4;
+}
+
+// Request to list all personas
+message ListPersonasRequest {}
+
+// Response with persona list
+message ListPersonasResponse {
+  repeated Persona personas = 1;
+}
+
+// Request to get a specific persona
+message GetPersonaRequest {
+  string agent_type = 1;
+}
+
+// Response with a single persona
+message GetPersonaResponse {
+  Persona persona = 1;
+}

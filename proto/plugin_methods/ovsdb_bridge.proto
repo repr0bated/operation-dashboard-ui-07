@@ -1,0 +1,380 @@
+// ================================================
+// Plugin: ovsdb_bridge (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.unlock;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UnlockInput {
+  string lock_id = 1;
+}
+
+message UnlockOutput {
+  bool success = 1;
+}
+
+service UnlockService {
+  // subid: mut.network.ovsdb.lock.unlock@v1, capability: ovsdb.write
+  rpc unlock(UnlockInput) returns (UnlockOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.monitor_cond;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MonitorCondInput {
+  string db_name = 1;
+  google.protobuf.Struct monitor_cond_requests = 2;
+  string monitor_id = 3;
+}
+
+message MonitorCondOutput {
+  bool success = 1;
+}
+
+service MonitorCondService {
+  // subid: obs.network.ovsdb.monitor_cond@v1, capability: ovsdb.read
+  rpc monitor_cond(MonitorCondInput) returns (MonitorCondOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.lock;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message LockInput {
+  string lock_id = 1;
+}
+
+message LockOutput {
+  bool success = 1;
+}
+
+service LockService {
+  // subid: mut.network.ovsdb.lock@v1, capability: ovsdb.write
+  rpc lock(LockInput) returns (LockOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.echo;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message EchoInput {
+  repeated google.protobuf.Value params = 1;
+}
+
+message EchoOutput {
+  bool success = 1;
+}
+
+service EchoService {
+  // subid: obs.network.ovsdb.echo@v1, capability: ovsdb.read
+  rpc echo(EchoInput) returns (EchoOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.list_dbs;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListDbsInput {
+  // Empty schema object.
+}
+
+message ListDbsOutput {
+  bool success = 1;
+}
+
+service ListDbsService {
+  // subid: obs.network.ovsdb.dbs.list@v1, capability: ovsdb.read
+  rpc list_dbs(ListDbsInput) returns (ListDbsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.delete_bridge;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteBridgeInput {
+  string name = 1;
+}
+
+message DeleteBridgeOutput {
+  bool success = 1;
+}
+
+service DeleteBridgeService {
+  // subid: mut.network.ovsdb.bridge.delete@v1, capability: ovsdb.write
+  rpc delete_bridge(DeleteBridgeInput) returns (DeleteBridgeOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.add_port;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddPortInput {
+  string bridge = 1;
+  string interface = 2;
+  string port = 3;
+  int64 tag = 4;
+}
+
+message AddPortOutput {
+  bool success = 1;
+}
+
+service AddPortService {
+  // subid: mut.network.ovsdb.port.add@v1, capability: ovsdb.write
+  rpc add_port(AddPortInput) returns (AddPortOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.monitor;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MonitorInput {
+  string db_name = 1;
+  string monitor_id = 2;
+  google.protobuf.Struct monitor_requests = 3;
+}
+
+message MonitorOutput {
+  bool success = 1;
+}
+
+service MonitorService {
+  // subid: obs.network.ovsdb.monitor@v1, capability: ovsdb.read
+  rpc monitor(MonitorInput) returns (MonitorOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.cancel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CancelInput {
+  string id = 1;
+}
+
+message CancelOutput {
+  bool success = 1;
+}
+
+service CancelService {
+  // subid: mut.network.ovsdb.cancel@v1, capability: ovsdb.write
+  rpc cancel(CancelInput) returns (CancelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.remove_port;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemovePortInput {
+  string bridge = 1;
+  string port = 2;
+}
+
+message RemovePortOutput {
+  bool success = 1;
+}
+
+service RemovePortService {
+  // subid: mut.network.ovsdb.port.remove@v1, capability: ovsdb.write
+  rpc remove_port(RemovePortInput) returns (RemovePortOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.get_schema;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSchemaInput {
+  string db_name = 1;
+}
+
+message GetSchemaOutput {
+  bool success = 1;
+}
+
+service GetSchemaService {
+  // subid: obs.network.ovsdb.schema.get@v1, capability: ovsdb.read
+  rpc get_schema(GetSchemaInput) returns (GetSchemaOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.create_bridge;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateBridgeInput {
+  string datapath_type = 1;
+  string fail_mode = 2;
+  string name = 3;
+  bool stp_enable = 4;
+}
+
+message CreateBridgeOutput {
+  bool success = 1;
+}
+
+service CreateBridgeService {
+  // subid: mut.network.ovsdb.bridge.create@v1, capability: ovsdb.write
+  rpc create_bridge(CreateBridgeInput) returns (CreateBridgeOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.steal;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StealInput {
+  string lock_id = 1;
+}
+
+message StealOutput {
+  bool success = 1;
+}
+
+service StealService {
+  // subid: mut.network.ovsdb.lock.steal@v1, capability: ovsdb.write
+  rpc steal(StealInput) returns (StealOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.ovsdb_bridge.transact;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TransactInput {
+  string db_name = 1;
+  repeated google.protobuf.Value operations = 2;
+}
+
+message TransactOutput {
+  bool success = 1;
+}
+
+service TransactService {
+  // subid: mut.network.ovsdb.transact@v1, capability: ovsdb.write
+  rpc transact(TransactInput) returns (TransactOutput);
+}
+
+

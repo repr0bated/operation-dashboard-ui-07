@@ -1,0 +1,93 @@
+// ================================================
+// Plugin: openflow (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.openflow.add_flow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddFlowInput {
+  repeated google.protobuf.Value actions = 1;
+  string bridge = 2;
+  int64 cookie = 3;
+  int64 hard_timeout = 4;
+  int64 idle_timeout = 5;
+  google.protobuf.Struct match_fields = 6;
+  int64 priority = 7;
+  int64 table = 8;
+}
+
+message AddFlowOutput {
+  bool success = 1;
+}
+
+service AddFlowService {
+  // subid: mut.network.openflow.flow.add@v1, capability: openflow.write
+  rpc add_flow(AddFlowInput) returns (AddFlowOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.openflow.modify_flow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ModifyFlowInput {
+  repeated google.protobuf.Value actions = 1;
+  string bridge = 2;
+  google.protobuf.Struct match_fields = 3;
+  int64 priority = 4;
+}
+
+message ModifyFlowOutput {
+  bool success = 1;
+}
+
+service ModifyFlowService {
+  // subid: mut.network.openflow.flow.modify@v1, capability: openflow.write
+  rpc modify_flow(ModifyFlowInput) returns (ModifyFlowOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.openflow.delete_flow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteFlowInput {
+  string bridge = 1;
+  google.protobuf.Struct match_fields = 2;
+}
+
+message DeleteFlowOutput {
+  bool success = 1;
+}
+
+service DeleteFlowService {
+  // subid: mut.network.openflow.flow.delete@v1, capability: openflow.write
+  rpc delete_flow(DeleteFlowInput) returns (DeleteFlowOutput);
+}
+
+

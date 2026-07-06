@@ -1,0 +1,524 @@
+// ================================================
+// Plugin: zeroclaw (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getconfigschema;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetConfigSchemaInput {
+  // Empty schema object.
+}
+
+message GetConfigSchemaOutput {
+  google.protobuf.Value config_schema = 1;
+}
+
+service GetConfigSchemaService {
+  // subid: obs.service.zeroclaw.config-schema.get@v1, capability: cap.software.zeroclaw.config-schema.read@v1
+  rpc GetConfigSchema(GetConfigSchemaInput) returns (GetConfigSchemaOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getmodelroutes;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetModelRoutesInput {
+  // Empty schema object.
+}
+
+message GetModelRoutesOutput {
+  repeated google.protobuf.Value model_routes = 1;
+}
+
+service GetModelRoutesService {
+  // subid: obs.service.zeroclaw.model-routes.list@v1, capability: cap.software.zeroclaw.routes.read@v1
+  rpc GetModelRoutes(GetModelRoutesInput) returns (GetModelRoutesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.setvectorizationmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetVectorizationModelInput {
+  string model_id = 1;
+}
+
+message SetVectorizationModelOutput {
+  string vectorization = 1;
+}
+
+service SetVectorizationModelService {
+  // subid: mut.service.zeroclaw.model-assignments.vectorization.set@v1, capability: cap.software.zeroclaw.model-assignments.vectorization.set@v1
+  rpc SetVectorizationModel(SetVectorizationModelInput) returns (SetVectorizationModelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getconfigurableoptions;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetConfigurableOptionsInput {
+  // Empty schema object.
+}
+
+message GetConfigurableOptionsOutput {
+  google.protobuf.Value configurable_options = 1;
+}
+
+service GetConfigurableOptionsService {
+  // subid: obs.service.zeroclaw.options.get@v1, capability: cap.software.zeroclaw.options.read@v1
+  rpc GetConfigurableOptions(GetConfigurableOptionsInput) returns (GetConfigurableOptionsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getstructuredoutput;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStructuredOutputInput {
+  // Empty schema object.
+}
+
+message GetStructuredOutputOutput {
+  google.protobuf.Value structured_output = 1;
+}
+
+service GetStructuredOutputService {
+  // subid: obs.service.zeroclaw.structured-output.get@v1, capability: cap.software.zeroclaw.structured-output.read@v1
+  rpc GetStructuredOutput(GetStructuredOutputInput) returns (GetStructuredOutputOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.setprovider;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetProviderInput {
+  string provider_id = 1;
+}
+
+message SetProviderOutput {
+  string selected_provider = 1;
+}
+
+service SetProviderService {
+  // subid: mut.service.zeroclaw.provider.set@v1, capability: cap.software.zeroclaw.provider.set@v1
+  rpc SetProvider(SetProviderInput) returns (SetProviderOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.resolveroute;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveRouteInput {
+  string hint = 1;
+}
+
+message ResolveRouteOutput {
+  google.protobuf.Value route = 1;
+}
+
+service ResolveRouteService {
+  // subid: obs.service.zeroclaw.route.resolve@v1, capability: cap.software.zeroclaw.route.resolve@v1
+  rpc ResolveRoute(ResolveRouteInput) returns (ResolveRouteOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.gettools;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetToolsInput {
+  // Empty schema object.
+}
+
+message GetToolsOutput {
+  repeated google.protobuf.Value tools = 1;
+}
+
+service GetToolsService {
+  // subid: obs.service.zeroclaw.tools.list@v1, capability: cap.software.zeroclaw.tools.read@v1
+  rpc GetTools(GetToolsInput) returns (GetToolsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getrouter;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetRouterInput {
+  // Empty schema object.
+}
+
+message GetRouterOutput {
+  google.protobuf.Value router = 1;
+}
+
+service GetRouterService {
+  // subid: obs.service.zeroclaw.router.get@v1, capability: cap.software.zeroclaw.router.read@v1
+  rpc GetRouter(GetRouterInput) returns (GetRouterOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getstate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStateInput {
+  // Empty schema object.
+}
+
+message GetStateOutput {
+  google.protobuf.Value state = 1;
+}
+
+service GetStateService {
+  // subid: obs.service.zeroclaw.state.get@v1, capability: cap.software.zeroclaw.state.read@v1
+  rpc GetState(GetStateInput) returns (GetStateOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.setmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetModelInput {
+  string model_id = 1;
+}
+
+message SetModelOutput {
+  string selected_model = 1;
+}
+
+service SetModelService {
+  // subid: mut.service.zeroclaw.model.set@v1, capability: cap.software.zeroclaw.model.set@v1
+  rpc SetModel(SetModelInput) returns (SetModelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.setqdrantretrievalmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetQdrantRetrievalModelInput {
+  string model_id = 1;
+}
+
+message SetQdrantRetrievalModelOutput {
+  string qdrant_retrieval = 1;
+}
+
+service SetQdrantRetrievalModelService {
+  // subid: mut.service.zeroclaw.model-assignments.qdrant-retrieval.set@v1, capability: cap.software.zeroclaw.model-assignments.qdrant-retrieval.set@v1
+  rpc SetQdrantRetrievalModel(SetQdrantRetrievalModelInput) returns (SetQdrantRetrievalModelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.listusercontainermemorynamespaceoptions;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListUserContainerMemoryNamespaceOptionsInput {
+  // Empty schema object.
+}
+
+message ListUserContainerMemoryNamespaceOptionsOutput {
+  repeated google.protobuf.Value memory_namespaces = 1;
+}
+
+service ListUserContainerMemoryNamespaceOptionsService {
+  // subid: obs.service.zeroclaw.options.memory-namespaces.list@v1, capability: cap.software.zeroclaw.options.memory-namespaces.read@v1
+  rpc ListUserContainerMemoryNamespaceOptions(ListUserContainerMemoryNamespaceOptionsInput) returns (ListUserContainerMemoryNamespaceOptionsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.listproviders;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListProvidersInput {
+  // Empty schema object.
+}
+
+message ListProvidersOutput {
+  repeated google.protobuf.Value providers = 1;
+}
+
+service ListProvidersService {
+  // subid: obs.service.zeroclaw.providers.list@v1, capability: cap.software.zeroclaw.providers.read@v1
+  rpc ListProviders(ListProvidersInput) returns (ListProvidersOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.setobfuscationmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetObfuscationModelInput {
+  string model_id = 1;
+}
+
+message SetObfuscationModelOutput {
+  string obfuscation = 1;
+}
+
+service SetObfuscationModelService {
+  // subid: mut.service.zeroclaw.model-assignments.obfuscation.set@v1, capability: cap.software.zeroclaw.model-assignments.obfuscation.set@v1
+  rpc SetObfuscationModel(SetObfuscationModelInput) returns (SetObfuscationModelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getprovidercatalog;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetProviderCatalogInput {
+  // Empty schema object.
+}
+
+message GetProviderCatalogOutput {
+  repeated google.protobuf.Value providers = 1;
+}
+
+service GetProviderCatalogService {
+  // subid: obs.service.zeroclaw.provider-catalog.list@v1, capability: cap.software.zeroclaw.providers.read@v1
+  rpc GetProviderCatalog(GetProviderCatalogInput) returns (GetProviderCatalogOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.setcozoretrievalmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetCozoRetrievalModelInput {
+  string model_id = 1;
+}
+
+message SetCozoRetrievalModelOutput {
+  string cozo_retrieval = 1;
+}
+
+service SetCozoRetrievalModelService {
+  // subid: mut.service.zeroclaw.model-assignments.cozo-retrieval.set@v1, capability: cap.software.zeroclaw.model-assignments.cozo-retrieval.set@v1
+  rpc SetCozoRetrievalModel(SetCozoRetrievalModelInput) returns (SetCozoRetrievalModelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.listuisurfaces;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListUiSurfacesInput {
+  // Empty schema object.
+}
+
+message ListUiSurfacesOutput {
+  repeated google.protobuf.Value ui_surfaces = 1;
+}
+
+service ListUiSurfacesService {
+  // subid: obs.service.zeroclaw.ui-surfaces.list@v1, capability: cap.software.zeroclaw.ui-surfaces.read@v1
+  rpc ListUiSurfaces(ListUiSurfacesInput) returns (ListUiSurfacesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.setovsroutingmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetOvsRoutingModelInput {
+  string model_id = 1;
+}
+
+message SetOvsRoutingModelOutput {
+  string ovs_routing = 1;
+}
+
+service SetOvsRoutingModelService {
+  // subid: mut.service.zeroclaw.model-assignments.ovs-routing.set@v1, capability: cap.software.zeroclaw.model-assignments.ovs-routing.set@v1
+  rpc SetOvsRoutingModel(SetOvsRoutingModelInput) returns (SetOvsRoutingModelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.zeroclaw.getmodelassignments;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetModelAssignmentsInput {
+  // Empty schema object.
+}
+
+message GetModelAssignmentsOutput {
+  google.protobuf.Value model_assignments = 1;
+}
+
+service GetModelAssignmentsService {
+  // subid: obs.service.zeroclaw.model-assignments.get@v1, capability: cap.software.zeroclaw.model-assignments.read@v1
+  rpc GetModelAssignments(GetModelAssignmentsInput) returns (GetModelAssignmentsOutput);
+}
+
+

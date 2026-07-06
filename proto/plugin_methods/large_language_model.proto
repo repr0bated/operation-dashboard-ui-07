@@ -1,0 +1,212 @@
+// ================================================
+// Plugin: large_language_model (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.large_language_model.stream_generate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StreamGenerateInput {
+  // Empty schema object.
+}
+
+message StreamGenerateOutput {
+  bool success = 1;
+}
+
+service StreamGenerateService {
+  // subid: mut.service.llm.stream@v1, capability: llm.invoke
+  rpc stream_generate(StreamGenerateInput) returns (StreamGenerateOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.large_language_model.get_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetConfigInput {
+  // Empty schema object.
+}
+
+message GetConfigOutput {
+  google.protobuf.Value config = 1;
+}
+
+service GetConfigService {
+  // subid: obs.service.llm.config.get@v1, capability: llm.read
+  rpc get_config(GetConfigInput) returns (GetConfigOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.large_language_model.generate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GenerateInput {
+  // Empty schema object.
+}
+
+message GenerateOutput {
+  bool success = 1;
+}
+
+service GenerateService {
+  // subid: mut.service.llm.generate@v1, capability: llm.invoke
+  rpc generate(GenerateInput) returns (GenerateOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.large_language_model.list_models;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListModelsInput {
+  // Empty schema object.
+}
+
+message ListModelsOutput {
+  repeated google.protobuf.Value models = 1;
+}
+
+service ListModelsService {
+  // subid: obs.service.llm.model.list@v1, capability: llm.read
+  rpc list_models(ListModelsInput) returns (ListModelsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.large_language_model.list_providers;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListProvidersInput {
+  // Empty schema object.
+}
+
+message ListProvidersOutput {
+  repeated google.protobuf.Value providers = 1;
+}
+
+service ListProvidersService {
+  // subid: obs.service.llm.provider.list@v1, capability: llm.read
+  rpc list_providers(ListProvidersInput) returns (ListProvidersOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.large_language_model.set_provider;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetProviderInput {
+  // Empty schema object.
+}
+
+message SetProviderOutput {
+  bool success = 1;
+}
+
+service SetProviderService {
+  // subid: mut.service.llm.provider.set@v1, capability: llm.invoke
+  rpc set_provider(SetProviderInput) returns (SetProviderOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.large_language_model.get_provider;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetProviderInput {
+  // Empty schema object.
+}
+
+message GetProviderOutput {
+  google.protobuf.Value provider = 1;
+}
+
+service GetProviderService {
+  // subid: obs.service.llm.provider.get@v1, capability: llm.read
+  rpc get_provider(GetProviderInput) returns (GetProviderOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.large_language_model.update_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateConfigInput {
+  // Empty schema object.
+}
+
+message UpdateConfigOutput {
+  bool success = 1;
+}
+
+service UpdateConfigService {
+  // subid: mut.service.llm.config.update@v1, capability: llm.invoke
+  rpc update_config(UpdateConfigInput) returns (UpdateConfigOutput);
+}
+
+

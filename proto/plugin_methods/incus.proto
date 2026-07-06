@@ -1,0 +1,358 @@
+// ================================================
+// Plugin: incus (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.incus.stop_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StopInstanceInput {
+  bool force = 1;
+  string name = 2;
+}
+
+message StopInstanceOutput {
+  bool success = 1;
+}
+
+service StopInstanceService {
+  // subid: mut.service.incus.instance.stop@v1, capability: cap.service.incus.instance.stop@v1
+  rpc stop_instance(StopInstanceInput) returns (StopInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.unfreeze_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UnfreezeInstanceInput {
+  string name = 1;
+}
+
+message UnfreezeInstanceOutput {
+  bool success = 1;
+}
+
+service UnfreezeInstanceService {
+  // subid: mut.service.incus.instance.unfreeze@v1, capability: cap.service.incus.instance.unfreeze@v1
+  rpc unfreeze_instance(UnfreezeInstanceInput) returns (UnfreezeInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.delete_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteInstanceInput {
+  string name = 1;
+}
+
+message DeleteInstanceOutput {
+  bool success = 1;
+}
+
+service DeleteInstanceService {
+  // subid: mut.service.incus.instance.delete@v1, capability: cap.service.incus.instance.delete@v1
+  rpc delete_instance(DeleteInstanceInput) returns (DeleteInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.add_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddDeviceInput {
+  google.protobuf.Value device = 1;
+  string device_name = 2;
+  string instance_name = 3;
+}
+
+message AddDeviceOutput {
+  bool success = 1;
+}
+
+service AddDeviceService {
+  // subid: mut.service.incus.device.add@v1, capability: cap.service.incus.device.add@v1
+  rpc add_device(AddDeviceInput) returns (AddDeviceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.restart_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RestartInstanceInput {
+  bool force = 1;
+  string name = 2;
+}
+
+message RestartInstanceOutput {
+  bool success = 1;
+}
+
+service RestartInstanceService {
+  // subid: mut.service.incus.instance.restart@v1, capability: cap.service.incus.instance.restart@v1
+  rpc restart_instance(RestartInstanceInput) returns (RestartInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.modify_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ModifyInstanceInput {
+  google.protobuf.Struct config = 1;
+  google.protobuf.Struct devices = 2;
+  string name = 3;
+}
+
+message ModifyInstanceOutput {
+  bool success = 1;
+}
+
+service ModifyInstanceService {
+  // subid: mut.service.incus.instance.modify@v1, capability: cap.service.incus.instance.modify@v1
+  rpc modify_instance(ModifyInstanceInput) returns (ModifyInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.exec_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExecInstanceInput {
+  repeated string command = 1;
+  string name = 2;
+}
+
+message ExecInstanceOutput {
+  bool success = 1;
+}
+
+service ExecInstanceService {
+  // subid: mut.service.incus.instance.exec@v1, capability: cap.service.incus.instance.exec@v1
+  rpc exec_instance(ExecInstanceInput) returns (ExecInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.freeze_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message FreezeInstanceInput {
+  string name = 1;
+}
+
+message FreezeInstanceOutput {
+  bool success = 1;
+}
+
+service FreezeInstanceService {
+  // subid: mut.service.incus.instance.freeze@v1, capability: cap.service.incus.instance.freeze@v1
+  rpc freeze_instance(FreezeInstanceInput) returns (FreezeInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.snapshot_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SnapshotInstanceInput {
+  string name = 1;
+  string snapshot_name = 2;
+}
+
+message SnapshotInstanceOutput {
+  bool success = 1;
+}
+
+service SnapshotInstanceService {
+  // subid: mut.service.incus.instance.snapshot@v1, capability: cap.service.incus.instance.snapshot@v1
+  rpc snapshot_instance(SnapshotInstanceInput) returns (SnapshotInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.create_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateInstanceInput {
+  google.protobuf.Struct config = 1;
+  repeated google.protobuf.Value devices = 2;
+  string image = 3;
+  string instance_type = 4;
+  string name = 5;
+  repeated string profiles = 6;
+}
+
+message CreateInstanceOutput {
+  bool success = 1;
+}
+
+service CreateInstanceService {
+  // subid: mut.service.incus.instance.create@v1, capability: cap.service.incus.instance.create@v1
+  rpc create_instance(CreateInstanceInput) returns (CreateInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.start_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StartInstanceInput {
+  string name = 1;
+}
+
+message StartInstanceOutput {
+  bool success = 1;
+}
+
+service StartInstanceService {
+  // subid: mut.service.incus.instance.start@v1, capability: cap.service.incus.instance.start@v1
+  rpc start_instance(StartInstanceInput) returns (StartInstanceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.update_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateDeviceInput {
+  google.protobuf.Value device = 1;
+  string device_name = 2;
+  string instance_name = 3;
+}
+
+message UpdateDeviceOutput {
+  bool success = 1;
+}
+
+service UpdateDeviceService {
+  // subid: mut.service.incus.device.update@v1, capability: cap.service.incus.device.update@v1
+  rpc update_device(UpdateDeviceInput) returns (UpdateDeviceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.incus.remove_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveDeviceInput {
+  string device_name = 1;
+  string instance_name = 2;
+}
+
+message RemoveDeviceOutput {
+  bool success = 1;
+}
+
+service RemoveDeviceService {
+  // subid: mut.service.incus.device.remove@v1, capability: cap.service.incus.device.remove@v1
+  rpc remove_device(RemoveDeviceInput) returns (RemoveDeviceOutput);
+}
+
+

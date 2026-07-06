@@ -1,0 +1,134 @@
+// ================================================
+// Plugin: hardware (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.hardware.list_devices;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListDevicesInput {
+  // Empty schema object.
+}
+
+message ListDevicesOutput {
+  repeated google.protobuf.Value devices = 1;
+}
+
+service ListDevicesService {
+  // subid: obs.service.hardware.device.list@v1, capability: hardware.read
+  rpc list_devices(ListDevicesInput) returns (ListDevicesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.hardware.get_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetDeviceInput {
+  // Empty schema object.
+}
+
+message GetDeviceOutput {
+  google.protobuf.Value device = 1;
+}
+
+service GetDeviceService {
+  // subid: obs.service.hardware.device.get@v1, capability: hardware.read
+  rpc get_device(GetDeviceInput) returns (GetDeviceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.hardware.refresh_inventory;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RefreshInventoryInput {
+  // Empty schema object.
+}
+
+message RefreshInventoryOutput {
+  bool success = 1;
+}
+
+service RefreshInventoryService {
+  // subid: mut.service.hardware.refresh@v1, capability: hardware.invoke
+  rpc refresh_inventory(RefreshInventoryInput) returns (RefreshInventoryOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.hardware.get_stats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatsInput {
+  // Empty schema object.
+}
+
+message GetStatsOutput {
+  google.protobuf.Value stats = 1;
+}
+
+service GetStatsService {
+  // subid: obs.service.hardware.stats@v1, capability: hardware.read
+  rpc get_stats(GetStatsInput) returns (GetStatsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.hardware.scan_hardware;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ScanHardwareInput {
+  // Empty schema object.
+}
+
+message ScanHardwareOutput {
+  bool success = 1;
+}
+
+service ScanHardwareService {
+  // subid: mut.service.hardware.scan@v1, capability: hardware.invoke
+  rpc scan_hardware(ScanHardwareInput) returns (ScanHardwareOutput);
+}
+
+

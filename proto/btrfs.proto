@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package operation.btrfs.v1;
+
+// Btrfs subvolume info
+message BtrfsSubvolume {
+  string path = 1;
+  uint64 size = 2;
+}
+
+// Btrfs snapshot info
+message BtrfsSnapshot {
+  string source = 1;
+  string destination = 2;
+  bool readonly = 3;
+  string send_state = 4;
+  int64 timestamp = 5;
+}
+
+// DR recovery status
+message DrRecoveryStatus {
+  string status = 1;
+  string message = 2;
+}
+
+// Request types
+message CreateSubvolumeRequest {
+  string path = 1;
+}
+
+message DeleteSubvolumeRequest {
+  string path = 1;
+}
+
+message SnapshotRequest {
+  string source = 1;
+  string destination = 2;
+  bool readonly = 3;
+}
+
+// Response types
+message ListSubvolumesResponse {
+  repeated BtrfsSubvolume subvolumes = 1;
+}
+
+message ListSnapshotsResponse {
+  repeated BtrfsSnapshot snapshots = 1;
+}

@@ -1,0 +1,110 @@
+// ================================================
+// Plugin: fail2ban (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.fail2ban.reload;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ReloadInput {
+  // Empty schema object.
+}
+
+message ReloadOutput {
+  bool success = 1;
+}
+
+service ReloadService {
+  // subid: mut.security.fail2ban.service.reload@v1, capability: fail2ban.write
+  rpc reload(ReloadInput) returns (ReloadOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.fail2ban.get_jail_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetJailStatusInput {
+  string jail = 1;
+}
+
+message GetJailStatusOutput {
+  bool success = 1;
+}
+
+service GetJailStatusService {
+  // subid: obs.security.fail2ban.jail.status@v1, capability: fail2ban.read
+  rpc get_jail_status(GetJailStatusInput) returns (GetJailStatusOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.fail2ban.ban_ip;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message BanIpInput {
+  string ip = 1;
+  string jail = 2;
+}
+
+message BanIpOutput {
+  bool success = 1;
+}
+
+service BanIpService {
+  // subid: mut.security.fail2ban.ip.ban@v1, capability: fail2ban.write
+  rpc ban_ip(BanIpInput) returns (BanIpOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.fail2ban.unban_ip;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UnbanIpInput {
+  string ip = 1;
+  string jail = 2;
+}
+
+message UnbanIpOutput {
+  bool success = 1;
+}
+
+service UnbanIpService {
+  // subid: mut.security.fail2ban.ip.unban@v1, capability: fail2ban.write
+  rpc unban_ip(UnbanIpInput) returns (UnbanIpOutput);
+}
+
+

@@ -1,0 +1,186 @@
+// ================================================
+// Plugin: gemma_brain (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.gemma_brain.list_tags;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListTagsInput {
+  // Empty schema object.
+}
+
+message ListTagsOutput {
+  repeated google.protobuf.Value tags = 1;
+}
+
+service ListTagsService {
+  // subid: obs.service.gemma.tag.list@v1, capability: gemma.read
+  rpc list_tags(ListTagsInput) returns (ListTagsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.gemma_brain.route;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RouteInput {
+  // Empty schema object.
+}
+
+message RouteOutput {
+  google.protobuf.Value route = 1;
+}
+
+service RouteService {
+  // subid: mut.service.gemma.route@v1, capability: gemma.invoke
+  rpc route(RouteInput) returns (RouteOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.gemma_brain.classify;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ClassifyInput {
+  // Empty schema object.
+}
+
+message ClassifyOutput {
+  google.protobuf.Value classification = 1;
+}
+
+service ClassifyService {
+  // subid: mut.service.gemma.classify@v1, capability: gemma.invoke
+  rpc classify(ClassifyInput) returns (ClassifyOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.gemma_brain.list_perspectives;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListPerspectivesInput {
+  // Empty schema object.
+}
+
+message ListPerspectivesOutput {
+  repeated google.protobuf.Value perspectives = 1;
+}
+
+service ListPerspectivesService {
+  // subid: obs.service.gemma.perspective.list@v1, capability: gemma.read
+  rpc list_perspectives(ListPerspectivesInput) returns (ListPerspectivesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.gemma_brain.get_ui_spec;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetUiSpecInput {
+  // Empty schema object.
+}
+
+message GetUiSpecOutput {
+  google.protobuf.Value spec = 1;
+}
+
+service GetUiSpecService {
+  // subid: obs.service.gemma.ui-spec.get@v1, capability: gemma.read
+  rpc get_ui_spec(GetUiSpecInput) returns (GetUiSpecOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.gemma_brain.register_tag;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RegisterTagInput {
+  // Empty schema object.
+}
+
+message RegisterTagOutput {
+  bool success = 1;
+}
+
+service RegisterTagService {
+  // subid: mut.service.gemma.tag.register@v1, capability: gemma.invoke
+  rpc register_tag(RegisterTagInput) returns (RegisterTagOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.gemma_brain.analyze_intent;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AnalyzeIntentInput {
+  // Empty schema object.
+}
+
+message AnalyzeIntentOutput {
+  google.protobuf.Value intent = 1;
+}
+
+service AnalyzeIntentService {
+  // subid: mut.service.gemma.intent.analyze@v1, capability: gemma.invoke
+  rpc analyze_intent(AnalyzeIntentInput) returns (AnalyzeIntentOutput);
+}
+
+

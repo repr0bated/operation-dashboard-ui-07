@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package operation.datastore.v1;
+
+// Data store status
+message DataStoreStatus {
+  string status = 1;
+  uint64 object_count = 2;
+  uint64 execution_count = 3;
+  uint64 blockchain_count = 4;
+}
+
+// Namespace count info
+message NamespaceCount {
+  string namespace = 1;
+  uint64 count = 2;
+}
+
+// Object reference
+message ObjectRef {
+  string id = 1;
+  string object_type = 2;
+  string namespace = 3;
+}
+
+// Response
+message GetDatastoreResponse {
+  DataStoreStatus status = 1;
+  repeated NamespaceCount namespaces = 2;
+  repeated ObjectRef objects = 3;
+}

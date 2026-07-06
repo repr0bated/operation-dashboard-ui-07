@@ -1,0 +1,134 @@
+// ================================================
+// Plugin: config (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.config.export_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExportConfigInput {
+  // Empty schema object.
+}
+
+message ExportConfigOutput {
+  bool success = 1;
+}
+
+service ExportConfigService {
+  // subid: obs.service.config.export@v1, capability: config.read
+  rpc export_config(ExportConfigInput) returns (ExportConfigOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.config.delete_key;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteKeyInput {
+  // Empty schema object.
+}
+
+message DeleteKeyOutput {
+  bool success = 1;
+}
+
+service DeleteKeyService {
+  // subid: mut.service.config.key.delete@v1, capability: config.invoke
+  rpc delete_key(DeleteKeyInput) returns (DeleteKeyOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.config.list_keys;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListKeysInput {
+  // Empty schema object.
+}
+
+message ListKeysOutput {
+  repeated string keys = 1;
+}
+
+service ListKeysService {
+  // subid: obs.service.config.key.list@v1, capability: config.read
+  rpc list_keys(ListKeysInput) returns (ListKeysOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.config.set_value;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetValueInput {
+  // Empty schema object.
+}
+
+message SetValueOutput {
+  bool success = 1;
+}
+
+service SetValueService {
+  // subid: mut.service.config.value.set@v1, capability: config.invoke
+  rpc set_value(SetValueInput) returns (SetValueOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.config.get_value;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetValueInput {
+  // Empty schema object.
+}
+
+message GetValueOutput {
+  string value = 1;
+}
+
+service GetValueService {
+  // subid: obs.service.config.value.get@v1, capability: config.read
+  rpc get_value(GetValueInput) returns (GetValueOutput);
+}
+
+

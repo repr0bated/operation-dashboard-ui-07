@@ -1,0 +1,164 @@
+// ================================================
+// Plugin: netmaker (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.netmaker.get_node;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetNodeInput {
+  string network = 1;
+  string node_id = 2;
+}
+
+message GetNodeOutput {
+  bool success = 1;
+}
+
+service GetNodeService {
+  // subid: obs.network.netmaker.node.get@v1, capability: cap.network.netmaker.node.get@v1
+  rpc get_node(GetNodeInput) returns (GetNodeOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.netmaker.list_nodes;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListNodesInput {
+  string network = 1;
+}
+
+message ListNodesOutput {
+  bool success = 1;
+}
+
+service ListNodesService {
+  // subid: obs.network.netmaker.nodes.list@v1, capability: cap.network.netmaker.nodes.list@v1
+  rpc list_nodes(ListNodesInput) returns (ListNodesOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.netmaker.list_networks;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListNetworksInput {
+  // Empty schema object.
+}
+
+message ListNetworksOutput {
+  bool success = 1;
+}
+
+service ListNetworksService {
+  // subid: obs.network.netmaker.networks.list@v1, capability: cap.network.netmaker.networks.list@v1
+  rpc list_networks(ListNetworksInput) returns (ListNetworksOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.netmaker.update_node;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateNodeInput {
+  string network = 1;
+  string node_id = 2;
+  google.protobuf.Value payload = 3;
+}
+
+message UpdateNodeOutput {
+  bool success = 1;
+}
+
+service UpdateNodeService {
+  // subid: mut.network.netmaker.node.update@v1, capability: cap.network.netmaker.node.update@v1
+  rpc update_node(UpdateNodeInput) returns (UpdateNodeOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.netmaker.leave_network;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message LeaveNetworkInput {
+  string network = 1;
+}
+
+message LeaveNetworkOutput {
+  bool success = 1;
+}
+
+service LeaveNetworkService {
+  // subid: mut.network.netmaker.network.leave@v1, capability: cap.network.netmaker.network.leave@v1
+  rpc leave_network(LeaveNetworkInput) returns (LeaveNetworkOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.netmaker.join_network;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message JoinNetworkInput {
+  string network = 1;
+  string token = 2;
+}
+
+message JoinNetworkOutput {
+  bool success = 1;
+}
+
+service JoinNetworkService {
+  // subid: mut.network.netmaker.network.join@v1, capability: cap.network.netmaker.network.join@v1
+  rpc join_network(JoinNetworkInput) returns (JoinNetworkOutput);
+}
+
+

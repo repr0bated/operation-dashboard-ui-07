@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package operation.blockchain.v1;
+
+// Blockchain retention configuration
+message RetentionView {
+  // Hourly retention count
+  uint32 hourly = 1;
+  // Daily retention count
+  uint32 daily = 2;
+  // Weekly retention count
+  uint32 weekly = 3;
+  // Quarterly retention count
+  uint32 quarterly = 4;
+}
+
+// Snapshot metadata
+message SnapshotInfo {
+  // Snapshot hash identifier
+  string hash = 1;
+  // Timestamp
+  int64 timestamp = 2;
+  // Sequence number
+  uint64 seq = 3;
+}
+
+// Blockchain status
+message BlockchainStatus {
+  RetentionView retention = 1;
+  repeated SnapshotInfo snapshots = 2;
+  string current_state_hash = 3;
+}
+
+// Request current state
+message GetCurrentStateRequest {}
+
+// Response with current state blob
+message GetCurrentStateResponse {
+  string state_hash = 1;
+}

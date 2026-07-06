@@ -1,0 +1,265 @@
+// ================================================
+// Plugin: s6_systemctl (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.list_units;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListUnitsInput {
+  // Empty schema object.
+}
+
+message ListUnitsOutput {
+  repeated google.protobuf.Value units = 1;
+}
+
+service ListUnitsService {
+  // subid: obs.software.s6.systemctl.list_units@v1, capability: s6.systemctl.read
+  rpc list_units(ListUnitsInput) returns (ListUnitsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.stop;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StopInput {
+  string name = 1;
+}
+
+message StopOutput {
+  bool success = 1;
+}
+
+service StopService {
+  // subid: mut.software.s6.systemctl.stop@v1, capability: s6.systemctl.write
+  rpc stop(StopInput) returns (StopOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.enable;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message EnableInput {
+  string name = 1;
+}
+
+message EnableOutput {
+  bool success = 1;
+}
+
+service EnableService {
+  // subid: mut.software.s6.systemctl.enable@v1, capability: s6.systemctl.write
+  rpc enable(EnableInput) returns (EnableOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.daemon_reload;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DaemonReloadInput {
+  // Empty schema object.
+}
+
+message DaemonReloadOutput {
+  string message = 1;
+  bool success = 2;
+}
+
+service DaemonReloadService {
+  // subid: mut.software.s6.systemctl.daemon_reload@v1, capability: s6.systemctl.write
+  rpc daemon_reload(DaemonReloadInput) returns (DaemonReloadOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.start;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StartInput {
+  string name = 1;
+}
+
+message StartOutput {
+  bool success = 1;
+}
+
+service StartService {
+  // subid: mut.software.s6.systemctl.start@v1, capability: s6.systemctl.write
+  rpc start(StartInput) returns (StartOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.restart;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RestartInput {
+  string name = 1;
+}
+
+message RestartOutput {
+  bool success = 1;
+}
+
+service RestartService {
+  // subid: mut.software.s6.systemctl.restart@v1, capability: s6.systemctl.write
+  rpc restart(RestartInput) returns (RestartOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StatusInput {
+  string name = 1;
+}
+
+message StatusOutput {
+  string status = 1;
+}
+
+service StatusService {
+  // subid: obs.software.s6.systemctl.status@v1, capability: s6.systemctl.read
+  rpc status(StatusInput) returns (StatusOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.is_active;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message IsActiveInput {
+  string name = 1;
+}
+
+message IsActiveOutput {
+  bool active = 1;
+}
+
+service IsActiveService {
+  // subid: obs.software.s6.systemctl.is_active@v1, capability: s6.systemctl.read
+  rpc is_active(IsActiveInput) returns (IsActiveOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.disable;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DisableInput {
+  string name = 1;
+}
+
+message DisableOutput {
+  bool success = 1;
+}
+
+service DisableService {
+  // subid: mut.software.s6.systemctl.disable@v1, capability: s6.systemctl.write
+  rpc disable(DisableInput) returns (DisableOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.s6_systemctl.is_enabled;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message IsEnabledInput {
+  string name = 1;
+}
+
+message IsEnabledOutput {
+  bool enabled = 1;
+}
+
+service IsEnabledService {
+  // subid: obs.software.s6.systemctl.is_enabled@v1, capability: s6.systemctl.read
+  rpc is_enabled(IsEnabledInput) returns (IsEnabledOutput);
+}
+
+

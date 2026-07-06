@@ -1,0 +1,137 @@
+// ================================================
+// Plugin: embedding_model (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.embedding_model.embed;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message EmbedInput {
+  string input_type = 1;
+  repeated string texts = 2;
+}
+
+message EmbedOutput {
+  int64 dimensions = 1;
+  string model = 2;
+  repeated double vectors = 3;
+}
+
+service EmbedService {
+  // subid: mut.service.embedding.embed@v1, capability: embedding.invoke
+  rpc embed(EmbedInput) returns (EmbedOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.embedding_model.set_model;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetModelInput {
+  // Empty schema object.
+}
+
+message SetModelOutput {
+  bool success = 1;
+}
+
+service SetModelService {
+  // subid: mut.service.embedding.model.set@v1, capability: embedding.invoke
+  rpc set_model(SetModelInput) returns (SetModelOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.embedding_model.update_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateConfigInput {
+  // Empty schema object.
+}
+
+message UpdateConfigOutput {
+  bool success = 1;
+}
+
+service UpdateConfigService {
+  // subid: mut.service.embedding.config.update@v1, capability: embedding.invoke
+  rpc update_config(UpdateConfigInput) returns (UpdateConfigOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.embedding_model.get_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetConfigInput {
+  // Empty schema object.
+}
+
+message GetConfigOutput {
+  google.protobuf.Value config = 1;
+}
+
+service GetConfigService {
+  // subid: obs.service.embedding.config.get@v1, capability: embedding.read
+  rpc get_config(GetConfigInput) returns (GetConfigOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.embedding_model.list_models;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListModelsInput {
+  // Empty schema object.
+}
+
+message ListModelsOutput {
+  repeated string models = 1;
+}
+
+service ListModelsService {
+  // subid: obs.service.embedding.model.list@v1, capability: embedding.read
+  rpc list_models(ListModelsInput) returns (ListModelsOutput);
+}
+
+

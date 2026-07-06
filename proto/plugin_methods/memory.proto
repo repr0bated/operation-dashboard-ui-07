@@ -1,0 +1,287 @@
+// ================================================
+// Plugin: memory (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.memory.query_namespace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message QueryNamespaceInput {
+  string name = 1;
+}
+
+message QueryNamespaceOutput {
+  int64 entries = 1;
+  google.protobuf.Value metadata = 2;
+  google.protobuf.Value namespace = 3;
+}
+
+service QueryNamespaceService {
+  // subid: mut.memory.memory.query-namespace@v1, capability: memory.namespace.read
+  rpc query_namespace(QueryNamespaceInput) returns (QueryNamespaceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.get_stats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatsInput {
+  google.protobuf.Value options = 1;
+}
+
+message GetStatsOutput {
+  google.protobuf.Value stats = 1;
+  google.protobuf.Value system_memory = 2;
+}
+
+service GetStatsService {
+  // subid: mut.memory.memory.get-stats@v1, capability: memory.stats.read
+  rpc get_stats(GetStatsInput) returns (GetStatsOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.clear_namespace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ClearNamespaceInput {
+  string name = 1;
+}
+
+message ClearNamespaceOutput {
+  int64 deleted_entries = 1;
+  bool success = 2;
+}
+
+service ClearNamespaceService {
+  // subid: mut.memory.memory.clear-namespace@v1, capability: memory.namespace.clear
+  rpc clear_namespace(ClearNamespaceInput) returns (ClearNamespaceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.compact;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CompactInput {
+  double min_threshold = 1;
+  string namespace = 2;
+}
+
+message CompactOutput {
+  double fragmentation_level = 1;
+  int64 freed_bytes = 2;
+  bool success = 3;
+}
+
+service CompactService {
+  // subid: mut.memory.memory.compact@v1, capability: memory.memory.compact
+  rpc compact(CompactInput) returns (CompactOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.create_namespace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateNamespaceInput {
+  google.protobuf.Value config = 1;
+  int64 max_entries = 2;
+  string name = 3;
+  bool read_only = 4;
+}
+
+message CreateNamespaceOutput {
+  int64 actual_max_entries = 1;
+  int64 current_entries = 2;
+  google.protobuf.Value namespace = 3;
+  bool success = 4;
+}
+
+service CreateNamespaceService {
+  // subid: mut.memory.memory.create-namespace@v1, capability: memory.namespace.create
+  rpc create_namespace(CreateNamespaceInput) returns (CreateNamespaceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.insert_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message InsertEntryInput {
+  google.protobuf.Value kv = 1;
+  string namespace = 2;
+}
+
+message InsertEntryOutput {
+  int64 new_entry_count = 1;
+  bool success = 2;
+}
+
+service InsertEntryService {
+  // subid: mut.memory.memory.insert-entry@v1, capability: memory.entry.create
+  rpc insert_entry(InsertEntryInput) returns (InsertEntryOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.update_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateEntryInput {
+  string key = 1;
+  string namespace = 2;
+  google.protobuf.Value value = 3;
+}
+
+message UpdateEntryOutput {
+  google.protobuf.Value previous_value = 1;
+  bool success = 2;
+}
+
+service UpdateEntryService {
+  // subid: mut.memory.memory.update-entry@v1, capability: memory.entry.write
+  rpc update_entry(UpdateEntryInput) returns (UpdateEntryOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.delete_namespace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteNamespaceInput {
+  string name = 1;
+}
+
+message DeleteNamespaceOutput {
+  int64 deleted_entries = 1;
+  bool success = 2;
+}
+
+service DeleteNamespaceService {
+  // subid: mut.memory.memory.delete-namespace@v1, capability: memory.namespace.delete
+  rpc delete_namespace(DeleteNamespaceInput) returns (DeleteNamespaceOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.delete_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteEntryInput {
+  string key = 1;
+  string namespace = 2;
+}
+
+message DeleteEntryOutput {
+  bool deleted = 1;
+  bool success = 2;
+}
+
+service DeleteEntryService {
+  // subid: mut.memory.memory.delete-entry@v1, capability: memory.entry.delete
+  rpc delete_entry(DeleteEntryInput) returns (DeleteEntryOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.memory.get_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetEntryInput {
+  string key = 1;
+  string namespace = 2;
+}
+
+message GetEntryOutput {
+  bool found = 1;
+  google.protobuf.Value value = 2;
+}
+
+service GetEntryService {
+  // subid: mut.memory.memory.get-entry@v1, capability: memory.entry.read
+  rpc get_entry(GetEntryInput) returns (GetEntryOutput);
+}
+
+

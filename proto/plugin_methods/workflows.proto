@@ -1,0 +1,110 @@
+// ================================================
+// Plugin: workflows (v1.0.0)
+// ================================================
+
+syntax = "proto3";
+
+package operation.method.workflows.pause_workflow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message PauseWorkflowInput {
+  string workflow_id = 1;
+}
+
+message PauseWorkflowOutput {
+  bool success = 1;
+}
+
+service PauseWorkflowService {
+  // subid: mut.software.plugin.workflows.pause@v1, capability: workflows.write
+  rpc pause_workflow(PauseWorkflowInput) returns (PauseWorkflowOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.workflows.start_workflow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StartWorkflowInput {
+  google.protobuf.Value params = 1;
+  string workflow_id = 2;
+}
+
+message StartWorkflowOutput {
+  bool success = 1;
+}
+
+service StartWorkflowService {
+  // subid: mut.software.plugin.workflows.start@v1, capability: workflows.write
+  rpc start_workflow(StartWorkflowInput) returns (StartWorkflowOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.workflows.cancel_workflow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CancelWorkflowInput {
+  bool force = 1;
+  string workflow_id = 2;
+}
+
+message CancelWorkflowOutput {
+  bool success = 1;
+}
+
+service CancelWorkflowService {
+  // subid: mut.software.plugin.workflows.cancel@v1, capability: workflows.write
+  rpc cancel_workflow(CancelWorkflowInput) returns (CancelWorkflowOutput);
+}
+
+
+syntax = "proto3";
+
+package operation.method.workflows.resume_workflow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResumeWorkflowInput {
+  string workflow_id = 1;
+}
+
+message ResumeWorkflowOutput {
+  bool success = 1;
+}
+
+service ResumeWorkflowService {
+  // subid: mut.software.plugin.workflows.resume@v1, capability: workflows.write
+  rpc resume_workflow(ResumeWorkflowInput) returns (ResumeWorkflowOutput);
+}
+
+
