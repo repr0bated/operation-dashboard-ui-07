@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Database, Activity, AlertTriangle, CheckCircle, Loader2, HardDrive, Wifi } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { dataStoreService } from "@/grpc/client";
-import type { DataStoreStatus } from "@/grpc/types/data-stores";
+import type { DataStoreViewStatus as DataStoreStatus } from "@/grpc/view-types";
 
 const MOCK_STORES: DataStoreStatus[] = [
   { name: "op-state-store", location: "SQLite (op-dbus host)", description: "Plugin state, cognitive memory, user memory", durability: "Persistent", status: "healthy", sizeBytes: 52428800, usedBytes: 31457280, lastChecked: new Date().toISOString(), latencyMs: 2, details: { walMode: true, tables: 14 } },

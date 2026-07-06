@@ -3,7 +3,8 @@ import { HardDrive, Database, Activity, Shield, AlertTriangle, CheckCircle, Chev
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { btrfsService } from "@/grpc/client";
-import type { BtrfsSubvolume, BtrfsSnapshot, SendState, DrRecoveryStatus } from "@/grpc/types/btrfs";
+import type { BtrfsSubvolume, BtrfsSnapshot, DrRecoveryStatus } from "@/grpc/gen/btrfs";
+import type { SendState } from "@/grpc/view-types";
 
 // ── Mock fallback data ──────────────────────────────────────────────────────
 

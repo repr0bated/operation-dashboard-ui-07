@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { stateSync, eventChainService, ovsdbMirror, runtimeMirror, componentRegistry } from "@/grpc/client";
 import { useEventStore } from "@/stores/event-store";
-import type { StateChange, ChainEvent, OvsdbUpdate, RuntimeMetricUpdate } from "@/grpc/types/operation";
-import type { RegistryEvent } from "@/grpc/types/registry";
+import type { StateChange, ChainEvent, OvsdbUpdate, RuntimeMetricUpdate } from "@/grpc/gen/operation";
+import type { RegistryEvent } from "@/grpc/gen/registry";
 import { structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
 
 /**

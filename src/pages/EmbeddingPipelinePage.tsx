@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Loader2, Activity, AlertTriangle, CheckCircle, Zap, Clock, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { embeddingService, blockchainService } from "@/grpc/client";
-import type { EmbedRequestInfo, EmbeddingWorkerStatus, ChannelDiagnostics } from "@/grpc/types/embedding";
-import type { QdrantCollectionRole } from "@/grpc/types/blockchain";
+import type { EmbedRequestInfo, EmbeddingWorkerStatus, ChannelDiagnostics, QdrantCollectionRole } from "@/grpc/view-types";
 
 // ── Mock data ───────────────────────────────────────────────────────────────
 

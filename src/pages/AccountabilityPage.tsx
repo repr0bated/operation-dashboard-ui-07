@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { accountabilityService } from "@/grpc/client";
-import type { ReasoningEpisode, ChatContextMessage } from "@/grpc/types/accountability";
+import type { ReasoningEpisode, ChatContextMessage } from "@/grpc/view-types";
 
 // ── Chatbot Section (top half) ──────────────────────────────────────────────
 

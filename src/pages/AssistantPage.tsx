@@ -21,7 +21,7 @@ import type {
   MemoryNamespace,
   MemoryEntry,
   MemoryStats,
-} from "@/grpc/types/assistant";
+} from "@/grpc/client";
 import {
   Loader2,
   Brain,
