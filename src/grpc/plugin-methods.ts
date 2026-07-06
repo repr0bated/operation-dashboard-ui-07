@@ -22,7 +22,7 @@ import {
 export type { PluginMethodEntry };
 export { PLUGIN_METHOD_ENTRIES, PLUGIN_METHOD_BY_SUBID, PLUGIN_METHOD_BY_PLUGIN };
 
-async function runUnary<TOut>(call: UnaryCall<unknown, TOut>): Promise<TOut> {
+async function runUnary<TOut>(call: UnaryCall<object, TOut>): Promise<TOut> {
   const { response } = await call;
   return response;
 }
@@ -52,24 +52,24 @@ export const pluginMethods = {
   },
 
   /** Invoke a plugin method by subid. Throws if the subid is unknown. */
-  async callSubid<TIn = unknown, TOut = unknown>(
+  async callSubid<TIn extends object = object, TOut = unknown>(
     subid: string,
     input: TIn,
     options?: RpcOptions,
   ): Promise<TOut> {
     const entry = PLUGIN_METHOD_BY_SUBID.get(subid);
     if (!entry) throw new Error(`plugin method not found for subid: ${subid}`);
-    return runUnary(entry.invoke(getTransport(), input, options) as UnaryCall<unknown, TOut>);
+    return runUnary(entry.invoke(getTransport(), input, options) as UnaryCall<object, TOut>);
   },
 
   /** Invoke a plugin method by `<serviceTypeName>/<rpcMethod>`. */
-  async callTypeName<TIn = unknown, TOut = unknown>(
+  async callTypeName<TIn extends object = object, TOut = unknown>(
     key: string,
     input: TIn,
     options?: RpcOptions,
   ): Promise<TOut> {
     const entry = PLUGIN_METHOD_BY_TYPENAME.get(key);
     if (!entry) throw new Error(`plugin method not found: ${key}`);
-    return runUnary(entry.invoke(getTransport(), input, options) as UnaryCall<unknown, TOut>);
+    return runUnary(entry.invoke(getTransport(), input, options) as UnaryCall<object, TOut>);
   },
 };
