@@ -301,9 +301,6 @@ import type {
   GetStateResponse,
   BatchMutateRequest,
   BatchMutateResponse,
-} from "./types/state-sync";
-
-import type {
   ListPluginsResponse,
   GetSchemaRequest,
   GetSchemaResponse,
@@ -315,9 +312,6 @@ import type {
   SetPropertyResponse,
   SubscribeSignalsRequest,
   Signal,
-} from "./types/plugin-service";
-
-import type {
   GetEventsRequest,
   GetEventsResponse,
   ChainEvent,
@@ -332,9 +326,6 @@ import type {
   GetSnapshotResponse,
   CreateSnapshotRequest,
   CreateSnapshotResponse,
-} from "./types/event-chain";
-
-import type {
   OvsdbListDbsResponse,
   OvsdbGetSchemaResponse,
   OvsdbTransactRequest,
@@ -346,17 +337,14 @@ import type {
   OvsdbDumpDbRequest,
   OvsdbDumpDbResponse,
   OvsdbGetBridgeStateResponse,
-} from "./types/ovsdb-mirror";
-
-import type {
-  RuntimeSystemInfo,
+  RuntimeGetSystemInfoResponse,
   RuntimeServiceInfo,
   RuntimeListServicesResponse,
   RuntimeStreamMetricsRequest,
   RuntimeMetricUpdate,
   RuntimeListInterfacesResponse,
-  RuntimeNumaTopologyResponse,
-} from "./types/runtime-mirror";
+  RuntimeGetNumaTopologyResponse,
+} from "./gen/operation";
 
 import type {
   DiscoverRequest,
@@ -364,7 +352,7 @@ import type {
   WatchRequest,
   RegistryEvent,
   ComponentInfo,
-} from "./types/registry";
+} from "./gen/registry";
 
 import type {
   SendEmailRequest,
@@ -381,7 +369,7 @@ import type {
   AdminMailActionResponse,
   CheckMailServerRequest,
   CheckMailServerResponse,
-} from "./types/mail";
+} from "./gen/mail";
 
 import type {
   EnsurePrivacyNetworkRequest,
@@ -402,7 +390,7 @@ import type {
   ConfigurePacketRoutingResponse,
   GenerateWireGuardKeyPairRequest,
   GenerateWireGuardKeyPairResponse,
-} from "./types/privacy";
+} from "./gen/privacy_network";
 
 import type {
   SendMagicLinkRequest,
@@ -419,7 +407,7 @@ import type {
   GetWireGuardConfigResponse,
   AdminUserActionRequest,
   AdminUserActionResponse,
-} from "./types/registration";
+} from "./gen/registration";
 
 import type {
   ServiceDef,
@@ -428,7 +416,7 @@ import type {
   GetServiceResponse,
   ListServicesResponse as SvcMgrListResponse,
   WatchServicesRequest,
-} from "./types/service-manager";
+} from "./view-types";
 
 import type {
   InitializeRequest,
@@ -441,9 +429,6 @@ import type {
   McpEvent,
   SubscribeRequest as McpSubscribeRequest,
   HealthResponse as McpHealthResponse,
-} from "./types/mcp";
-
-import type {
   SearchEpisodesRequest,
   SearchEpisodesResponse,
   GetEpisodeRequest,
@@ -454,29 +439,17 @@ import type {
   SubscribeEpisodesRequest,
   EpisodeEvent,
   GetPiiPolicyResponse,
-} from "./types/accountability";
-
-import type {
   GetFootprintsRequest,
   GetFootprintsResponse,
   VerifyBlockchainRequest,
   VerifyBlockchainResponse,
   GetEmbeddingQueueStatusResponse,
   GetQdrantRolesResponse,
-} from "./types/blockchain";
-
-import type {
   GetSubvolumesResponse,
   GetSnapshotsRequest as BtrfsGetSnapshotsRequest,
   GetSnapshotsResponse as BtrfsGetSnapshotsResponse,
   GetSendStateResponse,
   GetDrStatusResponse,
-} from "./types/btrfs";
-
-import type {
-  ListPersonasResponse,
-  GetPersonaRequest,
-  GetPersonaResponse,
   CreatePersonaRequest,
   CreatePersonaResponse,
   UpdatePersonaRequest,
@@ -484,22 +457,22 @@ import type {
   DeletePersonaRequest,
   DeletePersonaResponse,
   ListAgentRoutesResponse,
-} from "./types/persona";
-
-import type {
   GetDataStoresResponse,
   GetStoreDetailRequest,
   GetStoreDetailResponse,
-} from "./types/data-stores";
-
-import type {
   GetEmbeddingQueueRequest,
   GetEmbeddingQueueResponse,
   GetEmbeddingWorkerStatusResponse,
   PreviewEmbeddingTextRequest,
   PreviewEmbeddingTextResponse,
   GetChannelDiagnosticsResponse,
-} from "./types/embedding";
+} from "./view-types";
+
+import type {
+  ListPersonasResponse,
+  GetPersonaRequest,
+  GetPersonaResponse,
+} from "./gen/persona";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BRIDGE SERVICES (op-grpc-bridge)
@@ -607,8 +580,8 @@ export const eventChainService = {
       "operation.v1.EventChainService",
       "GetEvents",
       {
-        fromEventId: req.fromEventId ?? 0,
-        toEventId: req.toEventId ?? 0,
+        fromEventId: String(req.fromEventId ?? "0"),
+        toEventId: String(req.toEventId ?? "0"),
         limit: req.limit ?? 100,
         pluginId: req.pluginId ?? "",
         tags: req.tags ?? [],
@@ -622,7 +595,7 @@ export const eventChainService = {
       "operation.v1.EventChainService",
       "SubscribeEvents",
       {
-        fromEventId: req.fromEventId ?? 0,
+        fromEventId: String(req.fromEventId ?? "0"),
         pluginId: req.pluginId ?? "",
         tags: req.tags ?? [],
       },
@@ -734,7 +707,7 @@ export const ovsdbMirror = {
 
 export const runtimeMirror = {
   getSystemInfo() {
-    return grpcUnary<Record<string, never>, RuntimeSystemInfo>(
+    return grpcUnary<Record<string, never>, RuntimeGetSystemInfoResponse>(
       "operation.v1.RuntimeMirror",
       "GetSystemInfo",
       {},
@@ -777,7 +750,7 @@ export const runtimeMirror = {
   },
 
   getNumaTopology() {
-    return grpcUnary<Record<string, never>, RuntimeNumaTopologyResponse>(
+    return grpcUnary<Record<string, never>, RuntimeGetNumaTopologyResponse>(
       "operation.v1.RuntimeMirror",
       "GetNumaTopology",
       {},
@@ -1584,6 +1557,9 @@ import type {
   UpdateSoulMemoryRequest,
   ListSoulMemoriesRequest,
   ListSoulMemoriesResponse,
+} from "./gen/assistant/soul";
+
+import type {
   MemoryEntry,
   ReadMemoryRequest,
   ReadMemoryResponse,
@@ -1592,23 +1568,35 @@ import type {
   SearchMemoryRequest,
   SearchMemoryResponse,
   MemoryStats,
+} from "./gen/assistant/memory";
+
+import type {
   MemoryNamespace,
   SetMemoryNamespaceRequest,
   ListMemoryNamespacesResponse,
+} from "./gen/assistant/namespace";
+
+import type {
   Agent,
   ListAgentsResponse,
+  Run,
+  StartRunRequest,
+} from "./gen/assistant/agent";
+
+import type {
   ListSessionsResponse,
   CreateSessionRequest,
-  SessionMessage,
+  Message as SessionMessage,
   SendMessageRequest,
   GetSessionHistoryRequest,
   SessionHistory,
-  Run,
-  StartRunRequest,
+} from "./gen/assistant/session";
+
+import type {
   ListCronJobsResponse,
   CreateCronJobRequest,
   CronJob,
-} from "./types/assistant";
+} from "./gen/assistant/cron";
 
 const ASSISTANT_BUS = "session";
 const ASSISTANT_DEST = "ai.assistant.v1";

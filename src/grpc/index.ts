@@ -28,54 +28,25 @@ export {
   resetTransport,
 } from "./client";
 
-// ── Types: operation.v1 (re-exported from split files) ──────────────────────
-export * from "./types/operation";
+// ── Generated protobuf types ────────────────────────────────────────────────
+export * from "./gen/operation";
+export * from "./gen/registry";
+export * from "./gen/mail";
+export * from "./gen/privacy_network";
+export * from "./gen/registration";
+export * from "./gen/blockchain";
+export * from "./gen/btrfs";
+export * from "./gen/datastore";
+export * from "./gen/persona";
+export * from "./gen/assistant/common";
+export * from "./gen/assistant/agent";
+export * from "./gen/assistant/cron";
+export * from "./gen/assistant/memory";
+export * from "./gen/assistant/model";
+export * from "./gen/assistant/namespace";
+export * from "./gen/assistant/session";
+export * from "./gen/assistant/soul";
 
-// ── Types: registry ─────────────────────────────────────────────────────────
-export * from "./types/registry";
-
-// ── Types: domain services ──────────────────────────────────────────────────
-export * from "./types/mail";
-export * from "./types/privacy";
-export * from "./types/registration";
-export * from "./types/service-manager";
-export type {
-  ServerMode,
-  ParameterType,
-  McpRequest,
-  McpResponse,
-  McpError,
-  SubscribeRequest as McpSubscribeRequest,
-  McpEvent,
-  HealthRequest,
-  HealthResponse as McpHealthResponse,
-  InitializeRequest,
-  InitializeResponse,
-  ListToolsRequest,
-  ListToolsResponse as McpListToolsResponse,
-  ToolInfo,
-  ToolSchema,
-  ToolParameter,
-  FileOperation,
-  FileMode,
-  FileSystemArgs,
-  NetworkArgs,
-  DatabaseArgs,
-  ShellArgs,
-  ToolArguments,
-  CallToolRequest,
-  CallToolResponse,
-  ToolOutput,
-} from "./types/mcp";
-export * from "./types/accountability";
-export * from "./types/blockchain";
-export * from "./types/btrfs";
-export * from "./types/persona";
-export * from "./types/data-stores";
-export * from "./types/embedding";
-
-// ── Types: assistant (via D-Bus passthrough) ─────────────────────────────────
-export * from "./types/assistant";
 
 // ── Protobuf helpers ────────────────────────────────────────────────────────
 export {

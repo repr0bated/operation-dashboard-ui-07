@@ -63,7 +63,7 @@ export default function ChatPage() {
         id: `hist-${sid}-${i}`,
         role: mapBackendRole(m.role),
         content: normalizeContent(m.content),
-        timestamp: m.timestamp ? m.timestamp.seconds * 1000 : Date.now(),
+        timestamp: m.timestamp ? Number(m.timestamp.seconds) * 1000 : Date.now(),
       }));
       setMessages(
         mapped.length > 0
@@ -108,7 +108,7 @@ export default function ChatPage() {
         id: makeId("resp"),
         role: "assistant",
         content: normalizeContent(resp.content),
-        timestamp: resp.timestamp ? resp.timestamp.seconds * 1000 : Date.now(),
+        timestamp: resp.timestamp ? Number(resp.timestamp.seconds) * 1000 : Date.now(),
       };
       setMessages((prev) => [...prev, assistantMsg]);
     } catch (err) {

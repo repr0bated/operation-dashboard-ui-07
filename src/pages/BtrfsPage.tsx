@@ -3,7 +3,7 @@ import { HardDrive, Database, Activity, Shield, AlertTriangle, CheckCircle, Chev
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { btrfsService } from "@/grpc/client";
-import type { BtrfsSubvolume, BtrfsSnapshot, SendState, DrRecoveryStatus } from "@/grpc/types/btrfs";
+import type { BtrfsSubvolumeView as BtrfsSubvolume, BtrfsSnapshotView as BtrfsSnapshot, DrRecoveryStatusView as DrRecoveryStatus, SendState } from "@/grpc/view-types";
 
 // ── Mock fallback data ──────────────────────────────────────────────────────
 
@@ -70,7 +70,7 @@ export default function BtrfsPage() {
           btrfsService.getDrStatus(),
         ]);
         setSubvolumes(subRes.subvolumes);
-        setRaidInfo({ raidLevel: subRes.raidLevel, devices: subRes.devices, totalBytes: subRes.totalBytes, usedBytes: subRes.usedBytes });
+        setRaidInfo({ raidLevel: subRes.raidLevel ?? "", devices: subRes.devices ?? [], totalBytes: subRes.totalBytes ?? 0, usedBytes: subRes.usedBytes ?? 0 });
         setSnapshots(snapRes.snapshots);
         setSendState(sendRes.remotes);
         setDrStatus(drRes.status);

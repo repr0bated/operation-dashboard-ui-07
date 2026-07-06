@@ -80,7 +80,7 @@ export const api = {
   /** Get full state snapshot via gRPC StateSync.GetState */
   state: async (pluginId = "", objectPath = "") => {
     const resp = await stateSync.getState({ pluginId, objectPath });
-    return structToObject(resp.state);
+    return structToObject(resp.state as unknown as Record<string, unknown>);
   },
 
   /** Mutate state via gRPC StateSync.Mutate */

@@ -10,7 +10,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { eventChainService } from "@/grpc/client";
-import type { ChainEvent } from "@/grpc/types/event-chain";
+import type { ChainEvent } from "@/grpc/gen/operation";
 import {
   AntigravityStreamAdapter,
   type AgEvent,
@@ -114,7 +114,7 @@ export function LiveLogPanel() {
 
     try {
       const { stream, abort } = eventChainService.subscribeEvents({
-        fromEventId: 0,
+        fromEventId: "0",
         pluginId: "",
         tags: [],
       });

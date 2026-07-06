@@ -128,7 +128,7 @@ export default function GrpcDiagnosticsPage() {
           response = await eventChainService.getEvents({ limit: 5 });
           break;
         case "EventChainService.VerifyChain":
-          response = await eventChainService.verifyChain({ fromEventId: 0, toEventId: 0 });
+          response = await eventChainService.verifyChain({ fromEventId: "0", toEventId: "0" });
           break;
         case "OvsdbMirror.ListDbs":
           response = await ovsdbMirror.listDbs();
@@ -192,7 +192,7 @@ export default function GrpcDiagnosticsPage() {
           result = stateSync.subscribe({ includeInitialState: true });
           break;
         case "EventChain.SubscribeEvents":
-          result = eventChainService.subscribeEvents({ fromEventId: 0 });
+          result = eventChainService.subscribeEvents({ fromEventId: "0" });
           break;
         case "OvsdbMirror.Monitor":
           result = ovsdbMirror.monitor({ database: "Open_vSwitch", monitorRequestsJson: JSON.stringify({ Bridge: {} }) });

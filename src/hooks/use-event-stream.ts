@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { stateSync, eventChainService, ovsdbMirror, runtimeMirror, componentRegistry } from "@/grpc/client";
 import { useEventStore } from "@/stores/event-store";
-import type { StateChange, ChainEvent, OvsdbUpdate, RuntimeMetricUpdate } from "@/grpc/types/operation";
-import type { RegistryEvent } from "@/grpc/types/registry";
+import type { StateChange, ChainEvent, OvsdbUpdate, RuntimeMetricUpdate } from "@/grpc/gen/operation";
+import type { RegistryEvent } from "@/grpc/gen/registry";
 import { structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
 
 /**
@@ -145,7 +145,7 @@ export function useEventStream() {
     function runChain() {
       abortOne("chain");
       try {
-        const { stream, abort } = eventChainService.subscribeEvents({ fromEventId: 0 });
+        const { stream, abort } = eventChainService.subscribeEvents({ fromEventId: "0" });
         abortsRef.current.set("chain", abort);
         const reader = stream.getReader();
         (async () => {
@@ -195,7 +195,7 @@ export function useEventStream() {
               const update = value as OvsdbUpdate;
               const store = useEventStore.getState();
               const key = `ovsdb.${update.table}.${update.uuid}`;
-              store.updateState(key, update.newRow ? structToObject(update.newRow) : null);
+              store.updateState(key, update.newRow ? structToObject(update.newRow as unknown as Record<string, unknown>) : null);
               store.addEvent({
                 id: `ovs-${update.uuid}-${Date.now()}`,
                 event: "state_update",
