@@ -28,6 +28,15 @@ export {
   resetTransport,
 } from "./client";
 
+// ── Plugin methods facade (auto-generated registry over plugin_methods/*) ───
+export {
+  pluginMethods,
+  PLUGIN_METHOD_ENTRIES,
+  PLUGIN_METHOD_BY_SUBID,
+  PLUGIN_METHOD_BY_PLUGIN,
+  type PluginMethodEntry,
+} from "./plugin-methods";
+
 // ── Generated protobuf types ────────────────────────────────────────────────
 export * from "./gen/operation";
 export * from "./gen/registry";
