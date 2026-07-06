@@ -416,7 +416,7 @@ import type {
   GetServiceResponse,
   ListServicesResponse as SvcMgrListResponse,
   WatchServicesRequest,
-} from "./types/service-manager";
+} from "./view-types";
 
 import type {
   InitializeRequest,
@@ -429,9 +429,6 @@ import type {
   McpEvent,
   SubscribeRequest as McpSubscribeRequest,
   HealthResponse as McpHealthResponse,
-} from "./types/mcp";
-
-import type {
   SearchEpisodesRequest,
   SearchEpisodesResponse,
   GetEpisodeRequest,
@@ -442,29 +439,17 @@ import type {
   SubscribeEpisodesRequest,
   EpisodeEvent,
   GetPiiPolicyResponse,
-} from "./types/accountability";
-
-import type {
   GetFootprintsRequest,
   GetFootprintsResponse,
   VerifyBlockchainRequest,
   VerifyBlockchainResponse,
   GetEmbeddingQueueStatusResponse,
   GetQdrantRolesResponse,
-} from "./types/blockchain";
-
-import type {
   GetSubvolumesResponse,
   GetSnapshotsRequest as BtrfsGetSnapshotsRequest,
   GetSnapshotsResponse as BtrfsGetSnapshotsResponse,
   GetSendStateResponse,
   GetDrStatusResponse,
-} from "./types/btrfs";
-
-import type {
-  ListPersonasResponse,
-  GetPersonaRequest,
-  GetPersonaResponse,
   CreatePersonaRequest,
   CreatePersonaResponse,
   UpdatePersonaRequest,
@@ -472,22 +457,22 @@ import type {
   DeletePersonaRequest,
   DeletePersonaResponse,
   ListAgentRoutesResponse,
-} from "./types/persona";
-
-import type {
   GetDataStoresResponse,
   GetStoreDetailRequest,
   GetStoreDetailResponse,
-} from "./types/data-stores";
-
-import type {
   GetEmbeddingQueueRequest,
   GetEmbeddingQueueResponse,
   GetEmbeddingWorkerStatusResponse,
   PreviewEmbeddingTextRequest,
   PreviewEmbeddingTextResponse,
   GetChannelDiagnosticsResponse,
-} from "./types/embedding";
+} from "./view-types";
+
+import type {
+  ListPersonasResponse,
+  GetPersonaRequest,
+  GetPersonaResponse,
+} from "./gen/persona";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BRIDGE SERVICES (op-grpc-bridge)
