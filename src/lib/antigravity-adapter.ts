@@ -13,14 +13,12 @@
  *  - github.com/google-antigravity/antigravity-sdk-python types.py
  */
 
-import type { ChainEvent } from "@/grpc/types/event-chain";
-import { Decision } from "@/grpc/types/state-sync";
-import type { StateChange } from "@/grpc/types/state-sync";
-import type { Signal } from "@/grpc/types/plugin-service";
-import type { RegistryEvent } from "@/grpc/types/registry";
-import { RegistryEventType } from "@/grpc/types/registry";
-import type { EpisodeEvent, ReasoningEpisode } from "@/grpc/types/accountability";
-import type { McpEvent } from "@/grpc/types/mcp";
+import { Decision } from "@/grpc/gen/operation";
+import type { ChainEvent, StateChange, Signal } from "@/grpc/gen/operation";
+import { RegistryEventType } from "@/grpc/gen/registry";
+import type { RegistryEvent } from "@/grpc/gen/registry";
+import type { EpisodeEvent, ReasoningEpisode, McpEvent } from "@/grpc/view-types";
+import type { Timestamp } from "@/grpc/gen/google/protobuf/timestamp";
 
 // ─── Antigravity Step / Delta types ────────────────────────────────────────
 
@@ -131,6 +129,11 @@ export function resetStepIndex(at = 0): void {
 
 const nowIso = () => new Date().toISOString();
 
+function timestampToIso(timestamp: Timestamp | undefined): string {
+  if (!timestamp) return nowIso();
+  return new Date(Number(timestamp.seconds) * 1000 + Math.floor(timestamp.nanos / 1_000_000)).toISOString();
+}
+
 function makeId(prefix: string, ...parts: Array<string | number>): string {
   return [prefix, ...parts].filter((p) => p !== "" && p !== undefined && p !== null).join(":");
 }
@@ -203,18 +206,23 @@ export function chainEventToAg(event: ChainEvent): AgEvent[] {
     },
     error: denied ? denyReasonToText(event.denyReason) : undefined,
     source_frame: { kind: "chain_event", raw: event },
-    timestamp: event.timestamp || nowIso(),
+    timestamp: timestampToIso(event.timestamp),
   };
   return atomicStep(step);
 }
 
 function denyReasonToText(reason: ChainEvent["denyReason"] | undefined): string {
   if (!reason) return "Denied";
-  if (reason.tagLock) return `tag locked: ${reason.tagLock.tag} (${reason.tagLock.wrapperId})`;
-  if (reason.constraintFail)
-    return `constraint ${reason.constraintFail.constraint}: ${reason.constraintFail.message}`;
-  if (reason.capabilityMissing) return `missing capability: ${reason.capabilityMissing.capability}`;
-  if (reason.readOnlyViolation) return `read-only field: ${reason.readOnlyViolation.field}`;
+  switch (reason.reason.oneofKind) {
+    case "tagLock":
+      return `tag locked: ${reason.reason.tagLock.tag} (${reason.reason.tagLock.wrapperId})`;
+    case "constraintFail":
+      return `constraint ${reason.reason.constraintFail.constraint}: ${reason.reason.constraintFail.message}`;
+    case "capabilityMissing":
+      return `missing capability: ${reason.reason.capabilityMissing.capability}`;
+    case "readOnlyViolation":
+      return `read-only field: ${reason.reason.readOnlyViolation.field}`;
+  }
   return "Denied";
 }
 
@@ -222,7 +230,7 @@ function denyReasonToText(reason: ChainEvent["denyReason"] | undefined): string 
 
 export function signalFrameToAg(signal: Signal): AgEvent[] {
   const step: AgStep = {
-    id: makeId("sig", signal.pluginId, signal.signalName, signal.timestamp),
+    id: makeId("sig", signal.pluginId, signal.signalName),
     type: "function_call",
     source: "MODEL",
     target: "TARGET_ENVIRONMENT",
@@ -236,7 +244,7 @@ export function signalFrameToAg(signal: Signal): AgEvent[] {
       arguments: signal.arguments,
     },
     source_frame: { kind: "plugin_signal", raw: signal },
-    timestamp: signal.timestamp || nowIso(),
+    timestamp: timestampToIso(signal.timestamp),
   };
   return atomicStep(step);
 }
@@ -268,7 +276,7 @@ export class StateChangeStream {
         name: `state.${change.pluginId}`,
         arguments: { pluginId: change.pluginId },
         source_frame: { kind: "state_change", raw: change },
-        timestamp: change.timestamp || nowIso(),
+        timestamp: timestampToIso(change.timestamp),
       };
       events.push({ event_type: "step.start", index, step });
     }
@@ -289,7 +297,7 @@ export class StateChangeStream {
           tagsTouched: change.tagsTouched,
           eventHash: change.eventHash,
           actorId: change.actorId,
-          timestamp: change.timestamp,
+          timestamp: timestampToIso(change.timestamp),
         },
       },
     });
@@ -317,25 +325,27 @@ export class StateChangeStream {
 // ─── 4. RegistryService.Watch → system_message step ────────────────────────
 
 export function registryEventToAg(event: RegistryEvent): AgEvent[] {
+  const component = event.component;
+  if (!component) return [];
   const typeName = RegistryEventType[event.eventType] ?? "UNKNOWN";
-  const status: AgStepStatus = event.eventType === RegistryEventType.STALE ? "ERROR" : "DONE";
+  const status: AgStepStatus = event.eventType === RegistryEventType.REGISTRY_EVENT_STALE ? "ERROR" : "DONE";
   const step: AgStep = {
-    id: makeId("registry", event.component.componentId, event.timestamp),
+    id: makeId("registry", component.componentId, event.eventType),
     type: "system_message",
     source: "SYSTEM",
     target: "TARGET_USER",
     status,
     name: `registry.${typeName.toLowerCase()}`,
-    content: `${typeName} ${event.component.name || event.component.componentId}`,
+    content: `${typeName} ${component.name || component.componentId}`,
     arguments: {
-      componentId: event.component.componentId,
-      componentType: event.component.componentType,
-      version: event.component.version,
-      endpoint: event.component.endpoint,
+      componentId: component.componentId,
+      componentType: component.componentType,
+      version: component.version,
+      endpoint: component.endpoint,
     },
-    structured_output: event.component,
+    structured_output: component,
     source_frame: { kind: "registry_event", raw: event },
-    timestamp: event.timestamp || nowIso(),
+    timestamp: timestampToIso(event.timestamp),
   };
   return atomicStep(step);
 }
