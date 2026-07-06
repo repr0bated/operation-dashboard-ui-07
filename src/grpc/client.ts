@@ -301,9 +301,6 @@ import type {
   GetStateResponse,
   BatchMutateRequest,
   BatchMutateResponse,
-} from "./types/state-sync";
-
-import type {
   ListPluginsResponse,
   GetSchemaRequest,
   GetSchemaResponse,
@@ -315,9 +312,6 @@ import type {
   SetPropertyResponse,
   SubscribeSignalsRequest,
   Signal,
-} from "./types/plugin-service";
-
-import type {
   GetEventsRequest,
   GetEventsResponse,
   ChainEvent,
@@ -332,9 +326,6 @@ import type {
   GetSnapshotResponse,
   CreateSnapshotRequest,
   CreateSnapshotResponse,
-} from "./types/event-chain";
-
-import type {
   OvsdbListDbsResponse,
   OvsdbGetSchemaResponse,
   OvsdbTransactRequest,
@@ -346,17 +337,14 @@ import type {
   OvsdbDumpDbRequest,
   OvsdbDumpDbResponse,
   OvsdbGetBridgeStateResponse,
-} from "./types/ovsdb-mirror";
-
-import type {
-  RuntimeSystemInfo,
+  RuntimeGetSystemInfoResponse,
   RuntimeServiceInfo,
   RuntimeListServicesResponse,
   RuntimeStreamMetricsRequest,
   RuntimeMetricUpdate,
   RuntimeListInterfacesResponse,
-  RuntimeNumaTopologyResponse,
-} from "./types/runtime-mirror";
+  RuntimeGetNumaTopologyResponse,
+} from "./gen/operation";
 
 import type {
   DiscoverRequest,
@@ -364,7 +352,7 @@ import type {
   WatchRequest,
   RegistryEvent,
   ComponentInfo,
-} from "./types/registry";
+} from "./gen/registry";
 
 import type {
   SendEmailRequest,
@@ -381,7 +369,7 @@ import type {
   AdminMailActionResponse,
   CheckMailServerRequest,
   CheckMailServerResponse,
-} from "./types/mail";
+} from "./gen/mail";
 
 import type {
   EnsurePrivacyNetworkRequest,
@@ -402,7 +390,7 @@ import type {
   ConfigurePacketRoutingResponse,
   GenerateWireGuardKeyPairRequest,
   GenerateWireGuardKeyPairResponse,
-} from "./types/privacy";
+} from "./gen/privacy_network";
 
 import type {
   SendMagicLinkRequest,
@@ -419,7 +407,7 @@ import type {
   GetWireGuardConfigResponse,
   AdminUserActionRequest,
   AdminUserActionResponse,
-} from "./types/registration";
+} from "./gen/registration";
 
 import type {
   ServiceDef,
