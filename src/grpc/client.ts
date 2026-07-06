@@ -580,8 +580,8 @@ export const eventChainService = {
       "operation.v1.EventChainService",
       "GetEvents",
       {
-        fromEventId: req.fromEventId ?? 0,
-        toEventId: req.toEventId ?? 0,
+        fromEventId: String(req.fromEventId ?? "0"),
+        toEventId: String(req.toEventId ?? "0"),
         limit: req.limit ?? 100,
         pluginId: req.pluginId ?? "",
         tags: req.tags ?? [],
@@ -595,7 +595,7 @@ export const eventChainService = {
       "operation.v1.EventChainService",
       "SubscribeEvents",
       {
-        fromEventId: req.fromEventId ?? 0,
+        fromEventId: String(req.fromEventId ?? "0"),
         pluginId: req.pluginId ?? "",
         tags: req.tags ?? [],
       },
@@ -707,7 +707,7 @@ export const ovsdbMirror = {
 
 export const runtimeMirror = {
   getSystemInfo() {
-    return grpcUnary<Record<string, never>, RuntimeSystemInfo>(
+    return grpcUnary<Record<string, never>, RuntimeGetSystemInfoResponse>(
       "operation.v1.RuntimeMirror",
       "GetSystemInfo",
       {},
@@ -750,7 +750,7 @@ export const runtimeMirror = {
   },
 
   getNumaTopology() {
-    return grpcUnary<Record<string, never>, RuntimeNumaTopologyResponse>(
+    return grpcUnary<Record<string, never>, RuntimeGetNumaTopologyResponse>(
       "operation.v1.RuntimeMirror",
       "GetNumaTopology",
       {},
