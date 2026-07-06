@@ -213,25 +213,22 @@ export function chainEventToAg(event: ChainEvent): AgEvent[] {
 
 function denyReasonToText(reason: ChainEvent["denyReason"] | undefined): string {
   if (!reason) return "Denied";
-  const oneof = reason.reason as
-    | { oneofKind: "tagLock"; tagLock: { tag: string; wrapperId: string } }
-    | { oneofKind: "constraintFail"; constraintFail: { constraint: string; message: string } }
-    | { oneofKind: "capabilityMissing"; capabilityMissing: { capability: string } }
-    | { oneofKind: "readOnlyViolation"; readOnlyViolation: { field: string } }
-    | { oneofKind: undefined };
+  const oneof = reason.reason as Record<string, unknown> & { oneofKind?: string };
   if (oneof.oneofKind === "tagLock") {
-    const tagLock = oneof.tagLock;
+    const tagLock = oneof.tagLock as { tag: string; wrapperId: string };
     return `tag locked: ${tagLock.tag} (${tagLock.wrapperId})`;
   }
   if (oneof.oneofKind === "constraintFail") {
-    const constraintFail = oneof.constraintFail;
+    const constraintFail = oneof.constraintFail as { constraint: string; message: string };
     return `constraint ${constraintFail.constraint}: ${constraintFail.message}`;
   }
   if (oneof.oneofKind === "capabilityMissing") {
-    return `missing capability: ${oneof.capabilityMissing.capability}`;
+    const capabilityMissing = oneof.capabilityMissing as { capability: string };
+    return `missing capability: ${capabilityMissing.capability}`;
   }
   if (oneof.oneofKind === "readOnlyViolation") {
-    return `read-only field: ${oneof.readOnlyViolation.field}`;
+    const readOnlyViolation = oneof.readOnlyViolation as { field: string };
+    return `read-only field: ${readOnlyViolation.field}`;
   }
   return "Denied";
 }
