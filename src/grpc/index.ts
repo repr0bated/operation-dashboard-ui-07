@@ -47,8 +47,6 @@ export * from "./gen/assistant/namespace";
 export * from "./gen/assistant/session";
 export * from "./gen/assistant/soul";
 
-// ── Compatibility view/RPC shapes not present in current proto set ──────────
-export * from "./view-types";
 
 // ── Protobuf helpers ────────────────────────────────────────────────────────
 export {
