@@ -14,14 +14,15 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { assistantService } from "@/grpc/client";
+import { assistantService } from "@/grpc/gen/assistant/soul";
+import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
+import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
 import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
 import type {
   SoulMemory,
-  MemoryNamespace,
-  MemoryEntry,
-  MemoryStats,
-} from "@/grpc/client";
+} from "@/grpc/gen/assistant/soul";
+import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
+import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
 import {
   Loader2,
   Brain,
@@ -65,7 +66,7 @@ export default function AssistantPage() {
   }, []);
 
   const totalEntries = useMemo(
-    () => namespaces.reduce((s, n) => s + n.entryCount, 0),
+    () => namespaces.reduce((s, n) => s + Number(n.entryCount), 0),
     [namespaces],
   );
 
@@ -182,7 +183,7 @@ export default function AssistantPage() {
                       <Badge variant="outline">v{s.version}</Badge>
                     </td>
                     <td className="py-2 pr-4 text-xs text-muted-foreground">
-                      {Object.keys(s.traits).length} keys
+                      {Object.keys(s.traits ?? {}).length} keys
                     </td>
                     <td className="py-2 pr-4 text-xs text-muted-foreground">
                       {s.updatedAt

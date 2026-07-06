@@ -145,7 +145,7 @@ export function useEventStream() {
     function runChain() {
       abortOne("chain");
       try {
-        const { stream, abort } = eventChainService.subscribeEvents({ fromEventId: 0 });
+        const { stream, abort } = eventChainService.subscribeEvents({ fromEventId: "0" });
         abortsRef.current.set("chain", abort);
         const reader = stream.getReader();
         (async () => {
@@ -195,7 +195,7 @@ export function useEventStream() {
               const update = value as OvsdbUpdate;
               const store = useEventStore.getState();
               const key = `ovsdb.${update.table}.${update.uuid}`;
-              store.updateState(key, update.newRow ? structToObject(update.newRow) : null);
+              store.updateState(key, update.newRow ? structToObject(update.newRow as Record<string, unknown>) : null);
               store.addEvent({
                 id: `ovs-${update.uuid}-${Date.now()}`,
                 event: "state_update",

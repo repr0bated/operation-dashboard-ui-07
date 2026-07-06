@@ -114,7 +114,7 @@ export function LiveLogPanel() {
 
     try {
       const { stream, abort } = eventChainService.subscribeEvents({
-        fromEventId: 0,
+        fromEventId: "0",
         pluginId: "",
         tags: [],
       });

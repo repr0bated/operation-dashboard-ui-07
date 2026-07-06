@@ -57,7 +57,7 @@ const STREAMS: StreamMethod[] = [
     service: "EventChainService",
     method: "SubscribeEvents",
     description: "Audit-trail chain events with cryptographic linkage.",
-    factory: () => eventChainService.subscribeEvents({ fromEventId: 0, pluginId: "", tags: [] }),
+    factory: () => eventChainService.subscribeEvents({ fromEventId: "0", pluginId: "", tags: [] }),
   },
   {
     id: "runtime.metrics",
