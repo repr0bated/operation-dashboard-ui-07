@@ -213,15 +213,20 @@ export function chainEventToAg(event: ChainEvent): AgEvent[] {
 
 function denyReasonToText(reason: ChainEvent["denyReason"] | undefined): string {
   if (!reason) return "Denied";
-  switch (reason.reason.oneofKind) {
-    case "tagLock":
-      return `tag locked: ${reason.reason.tagLock.tag} (${reason.reason.tagLock.wrapperId})`;
-    case "constraintFail":
-      return `constraint ${reason.reason.constraintFail.constraint}: ${reason.reason.constraintFail.message}`;
-    case "capabilityMissing":
-      return `missing capability: ${reason.reason.capabilityMissing.capability}`;
-    case "readOnlyViolation":
-      return `read-only field: ${reason.reason.readOnlyViolation.field}`;
+  const oneof = reason.reason;
+  if (oneof.oneofKind === "tagLock") {
+    const tagLock = oneof.tagLock;
+    return `tag locked: ${tagLock.tag} (${tagLock.wrapperId})`;
+  }
+  if (oneof.oneofKind === "constraintFail") {
+    const constraintFail = oneof.constraintFail;
+    return `constraint ${constraintFail.constraint}: ${constraintFail.message}`;
+  }
+  if (oneof.oneofKind === "capabilityMissing") {
+    return `missing capability: ${oneof.capabilityMissing.capability}`;
+  }
+  if (oneof.oneofKind === "readOnlyViolation") {
+    return `read-only field: ${oneof.readOnlyViolation.field}`;
   }
   return "Denied";
 }
