@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ctl_plane_chatbot.set_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetConfigInput {
+  // Empty schema object.
+}
+
+message SetConfigOutput {
+  bool success = 1;
+}
+
+service SetConfigService {
+  // subid: mut.service.ctl-plane-chatbot.config.set@v1, capability: chatbot.invoke
+  rpc set_config(SetConfigInput) returns (SetConfigOutput);
+}
+
+

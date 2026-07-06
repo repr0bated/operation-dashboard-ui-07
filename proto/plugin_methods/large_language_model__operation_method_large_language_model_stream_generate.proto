@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.large_language_model.stream_generate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StreamGenerateInput {
+  // Empty schema object.
+}
+
+message StreamGenerateOutput {
+  bool success = 1;
+}
+
+service StreamGenerateService {
+  // subid: mut.service.llm.stream@v1, capability: llm.invoke
+  rpc stream_generate(StreamGenerateInput) returns (StreamGenerateOutput);
+}
+
+

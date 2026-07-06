@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.config.delete_key;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteKeyInput {
+  // Empty schema object.
+}
+
+message DeleteKeyOutput {
+  bool success = 1;
+}
+
+service DeleteKeyService {
+  // subid: mut.service.config.key.delete@v1, capability: config.invoke
+  rpc delete_key(DeleteKeyInput) returns (DeleteKeyOutput);
+}
+
+

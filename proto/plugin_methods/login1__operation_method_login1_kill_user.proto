@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.login1.kill_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message KillUserInput {
+  int64 signal_number = 1;
+  int64 uid = 2;
+}
+
+message KillUserOutput {
+  bool success = 1;
+}
+
+service KillUserService {
+  // subid: mut.software.login1.user.kill@v1, capability: login1.admin
+  rpc kill_user(KillUserInput) returns (KillUserOutput);
+}
+
+

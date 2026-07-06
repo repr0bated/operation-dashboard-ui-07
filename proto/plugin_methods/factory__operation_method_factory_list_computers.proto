@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.factory.list_computers;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListComputersInput {
+  // Empty schema object.
+}
+
+message ListComputersOutput {
+  repeated google.protobuf.Value computers = 1;
+}
+
+service ListComputersService {
+  // subid: obs.service.factory.computer.list@v1, capability: factory.read
+  rpc list_computers(ListComputersInput) returns (ListComputersOutput);
+}
+
+

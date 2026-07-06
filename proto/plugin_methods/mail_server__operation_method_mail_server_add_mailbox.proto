@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.mail_server.add_mailbox;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddMailboxInput {
+  string domain = 1;
+  string user = 2;
+}
+
+message AddMailboxOutput {
+  bool success = 1;
+}
+
+service AddMailboxService {
+  // subid: mut.service.mail.mailbox.add@v1, capability: mail.write
+  rpc add_mailbox(AddMailboxInput) returns (AddMailboxOutput);
+}
+
+

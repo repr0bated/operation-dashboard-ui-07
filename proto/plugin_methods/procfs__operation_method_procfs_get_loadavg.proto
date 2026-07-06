@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.procfs.get_loadavg;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetLoadavgInput {
+  // Empty schema object.
+}
+
+message GetLoadavgOutput {
+  bool success = 1;
+}
+
+service GetLoadavgService {
+  // subid: obs.service.procfs.loadavg.get@v1, capability: procfs.read
+  rpc get_loadavg(GetLoadavgInput) returns (GetLoadavgOutput);
+}
+
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.code_context;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CodeContextInput {
+  // Empty schema object.
+}
+
+message CodeContextOutput {
+  string context = 1;
+  repeated string sources = 2;
+}
+
+service CodeContextService {
+  // subid: obs.service.code-context.get@v1, capability: cognitive_mcp.read
+  rpc code_context(CodeContextInput) returns (CodeContextOutput);
+}
+
+

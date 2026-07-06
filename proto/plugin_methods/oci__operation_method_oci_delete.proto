@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.oci.delete;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteInput {
+  string id = 1;
+}
+
+message DeleteOutput {
+  bool success = 1;
+}
+
+service DeleteService {
+  // subid: mut.container.oci.delete@v1, capability: cap.container.oci.delete@v1
+  rpc delete(DeleteInput) returns (DeleteOutput);
+}
+
+

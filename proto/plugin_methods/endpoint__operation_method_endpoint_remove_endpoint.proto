@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.endpoint.remove_endpoint;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveEndpointInput {
+  // Empty schema object.
+}
+
+message RemoveEndpointOutput {
+  bool success = 1;
+}
+
+service RemoveEndpointService {
+  // subid: mut.service.endpoint.remove@v1, capability: endpoint.invoke
+  rpc remove_endpoint(RemoveEndpointInput) returns (RemoveEndpointOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.btrfs.filesystem_usage;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message FilesystemUsageInput {
+  string path = 1;
+}
+
+message FilesystemUsageOutput {
+  bool success = 1;
+}
+
+service FilesystemUsageService {
+  // subid: obs.storage.btrfs.filesystem.usage@v1, capability: cap.storage.btrfs.filesystem.usage@v1
+  rpc filesystem_usage(FilesystemUsageInput) returns (FilesystemUsageOutput);
+}
+
+

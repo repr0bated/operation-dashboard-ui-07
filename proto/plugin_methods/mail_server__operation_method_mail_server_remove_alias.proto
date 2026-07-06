@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.mail_server.remove_alias;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveAliasInput {
+  string alias = 1;
+  string destination = 2;
+  string domain = 3;
+}
+
+message RemoveAliasOutput {
+  bool success = 1;
+}
+
+service RemoveAliasService {
+  // subid: mut.service.mail.alias.remove@v1, capability: mail.write
+  rpc remove_alias(RemoveAliasInput) returns (RemoveAliasOutput);
+}
+
+

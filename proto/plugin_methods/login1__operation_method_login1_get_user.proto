@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.get_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetUserInput {
+  int64 uid = 1;
+}
+
+message GetUserOutput {
+  bool success = 1;
+}
+
+service GetUserService {
+  // subid: obs.software.login1.user.get@v1, capability: login1.read
+  rpc get_user(GetUserInput) returns (GetUserOutput);
+}
+
+

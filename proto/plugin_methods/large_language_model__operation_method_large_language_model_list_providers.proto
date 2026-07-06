@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.large_language_model.list_providers;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListProvidersInput {
+  // Empty schema object.
+}
+
+message ListProvidersOutput {
+  repeated google.protobuf.Value providers = 1;
+}
+
+service ListProvidersService {
+  // subid: obs.service.llm.provider.list@v1, capability: llm.read
+  rpc list_providers(ListProvidersInput) returns (ListProvidersOutput);
+}
+
+

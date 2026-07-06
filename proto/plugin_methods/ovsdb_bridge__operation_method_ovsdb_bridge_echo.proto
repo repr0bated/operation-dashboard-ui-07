@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.echo;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message EchoInput {
+  repeated google.protobuf.Value params = 1;
+}
+
+message EchoOutput {
+  bool success = 1;
+}
+
+service EchoService {
+  // subid: obs.network.ovsdb.echo@v1, capability: ovsdb.read
+  rpc echo(EchoInput) returns (EchoOutput);
+}
+
+

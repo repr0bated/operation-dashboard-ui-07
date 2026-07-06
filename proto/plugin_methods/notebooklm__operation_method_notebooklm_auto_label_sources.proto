@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.auto_label_sources;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AutoLabelSourcesInput {
+  // Empty schema object.
+}
+
+message AutoLabelSourcesOutput {
+  bool success = 1;
+}
+
+service AutoLabelSourcesService {
+  // subid: mut.service.plugin.notebooklm.source.label-auto@v1, capability: notebooklm.invoke
+  rpc auto_label_sources(AutoLabelSourcesInput) returns (AutoLabelSourcesOutput);
+}
+
+

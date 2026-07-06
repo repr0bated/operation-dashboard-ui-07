@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.wgcf.rotate_keys;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RotateKeysInput {
+  // Empty schema object.
+}
+
+message RotateKeysOutput {
+  bool success = 1;
+}
+
+service RotateKeysService {
+  // subid: mut.software.wgcf.keys.rotate@v1, capability: cap.software.wgcf.keys.rotate@v1
+  rpc rotate_keys(RotateKeysInput) returns (RotateKeysOutput);
+}
+
+

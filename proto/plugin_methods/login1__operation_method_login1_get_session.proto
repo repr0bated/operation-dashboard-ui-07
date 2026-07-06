@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.get_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSessionInput {
+  string session_id = 1;
+}
+
+message GetSessionOutput {
+  bool success = 1;
+}
+
+service GetSessionService {
+  // subid: obs.software.login1.session.get@v1, capability: login1.read
+  rpc get_session(GetSessionInput) returns (GetSessionOutput);
+}
+
+

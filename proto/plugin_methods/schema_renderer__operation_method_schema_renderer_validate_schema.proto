@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.schema_renderer.validate_schema;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ValidateSchemaInput {
+  // Empty schema object.
+}
+
+message ValidateSchemaOutput {
+  repeated string errors = 1;
+  bool valid = 2;
+}
+
+service ValidateSchemaService {
+  // subid: obs.service.schema.validate@v1, capability: schema_renderer.read
+  rpc validate_schema(ValidateSchemaInput) returns (ValidateSchemaOutput);
+}
+
+

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.login1.set_user_linger;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetUserLingerInput {
+  bool enable = 1;
+  bool interactive = 2;
+  int64 uid = 3;
+}
+
+message SetUserLingerOutput {
+  bool success = 1;
+}
+
+service SetUserLingerService {
+  // subid: mut.software.login1.user.linger.set@v1, capability: login1.admin
+  rpc set_user_linger(SetUserLingerInput) returns (SetUserLingerOutput);
+}
+
+

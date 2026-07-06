@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.schema_renderer.list_galleries;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListGalleriesInput {
+  // Empty schema object.
+}
+
+message ListGalleriesOutput {
+  repeated google.protobuf.Value galleries = 1;
+}
+
+service ListGalleriesService {
+  // subid: obs.service.schema.gallery.list@v1, capability: schema_renderer.read
+  rpc list_galleries(ListGalleriesInput) returns (ListGalleriesOutput);
+}
+
+

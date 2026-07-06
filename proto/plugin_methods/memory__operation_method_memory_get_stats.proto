@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.memory.get_stats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatsInput {
+  google.protobuf.Value options = 1;
+}
+
+message GetStatsOutput {
+  google.protobuf.Value stats = 1;
+  google.protobuf.Value system_memory = 2;
+}
+
+service GetStatsService {
+  // subid: mut.memory.memory.get-stats@v1, capability: memory.stats.read
+  rpc get_stats(GetStatsInput) returns (GetStatsOutput);
+}
+
+

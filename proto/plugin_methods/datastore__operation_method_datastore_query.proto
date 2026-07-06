@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.datastore.query;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message QueryInput {
+  // Empty schema object.
+}
+
+message QueryOutput {
+  repeated google.protobuf.Value results = 1;
+}
+
+service QueryService {
+  // subid: obs.service.datastore.query@v1, capability: datastore.read
+  rpc query(QueryInput) returns (QueryOutput);
+}
+
+

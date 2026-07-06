@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.oscal_subid_registry.register;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RegisterInput {
+  // Empty schema object.
+}
+
+message RegisterOutput {
+  bool success = 1;
+}
+
+service RegisterService {
+  // subid: mut.standard.oscal.subid.register@v1, capability: oscal.invoke
+  rpc register(RegisterInput) returns (RegisterOutput);
+}
+
+

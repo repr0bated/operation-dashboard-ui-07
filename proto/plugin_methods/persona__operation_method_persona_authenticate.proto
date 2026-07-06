@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.persona.authenticate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AuthenticateInput {
+  string agent_type = 1;
+  google.protobuf.Struct credentials = 2;
+}
+
+message AuthenticateOutput {
+  bool authenticated = 1;
+  string token = 2;
+}
+
+service AuthenticateService {
+  // subid: mut.agent.persona.authenticate@v1, capability: persona.write
+  rpc authenticate(AuthenticateInput) returns (AuthenticateOutput);
+}
+
+

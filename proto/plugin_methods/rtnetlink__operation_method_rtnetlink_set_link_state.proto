@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.rtnetlink.set_link_state;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkStateInput {
+  string name = 1;
+  string state = 2;
+}
+
+message SetLinkStateOutput {
+  bool success = 1;
+}
+
+service SetLinkStateService {
+  // subid: mut.network.rtnetlink.link-state.set@v1, capability: cap.network.rtnetlink.link-state.set@v1
+  rpc set_link_state(SetLinkStateInput) returns (SetLinkStateOutput);
+}
+
+

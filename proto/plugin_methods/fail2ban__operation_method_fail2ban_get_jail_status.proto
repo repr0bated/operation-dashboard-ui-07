@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.fail2ban.get_jail_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetJailStatusInput {
+  string jail = 1;
+}
+
+message GetJailStatusOutput {
+  bool success = 1;
+}
+
+service GetJailStatusService {
+  // subid: obs.security.fail2ban.jail.status@v1, capability: fail2ban.read
+  rpc get_jail_status(GetJailStatusInput) returns (GetJailStatusOutput);
+}
+
+

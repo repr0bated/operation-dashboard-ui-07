@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.wgcf.status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StatusInput {
+  // Empty schema object.
+}
+
+message StatusOutput {
+  bool success = 1;
+}
+
+service StatusService {
+  // subid: obs.software.wgcf.status@v1, capability: cap.software.wgcf.status@v1
+  rpc status(StatusInput) returns (StatusOutput);
+}
+
+

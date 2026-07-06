@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.unix_socket.close;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CloseInput {
+  bool force = 1;
+  string path = 2;
+}
+
+message CloseOutput {
+  bool success = 1;
+}
+
+service CloseService {
+  // subid: mut.service.unix-socket.close@v1, capability: network.write
+  rpc close(CloseInput) returns (CloseOutput);
+}
+
+

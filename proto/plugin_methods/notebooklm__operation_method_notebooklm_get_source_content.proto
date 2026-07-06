@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.get_source_content;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSourceContentInput {
+  // Empty schema object.
+}
+
+message GetSourceContentOutput {
+  bool success = 1;
+}
+
+service GetSourceContentService {
+  // subid: obs.service.plugin.notebooklm.source.content@v1, capability: notebooklm.read
+  rpc get_source_content(GetSourceContentInput) returns (GetSourceContentOutput);
+}
+
+

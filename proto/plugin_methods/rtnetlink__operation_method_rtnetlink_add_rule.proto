@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.rtnetlink.add_rule;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddRuleInput {
+  string rule = 1;
+}
+
+message AddRuleOutput {
+  bool success = 1;
+}
+
+service AddRuleService {
+  // subid: mut.network.rtnetlink.rule.add@v1, capability: cap.network.rtnetlink.rule.add@v1
+  rpc add_rule(AddRuleInput) returns (AddRuleOutput);
+}
+
+

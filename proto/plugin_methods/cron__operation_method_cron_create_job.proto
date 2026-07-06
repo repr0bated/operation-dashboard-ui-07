@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cron.create_job;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateJobInput {
+  // Empty schema object.
+}
+
+message CreateJobOutput {
+  bool success = 1;
+}
+
+service CreateJobService {
+  // subid: mut.service.cron.job.create@v1, capability: cron.invoke
+  rpc create_job(CreateJobInput) returns (CreateJobOutput);
+}
+
+

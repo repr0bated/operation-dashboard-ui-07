@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.procfs.get_cpuinfo;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetCpuinfoInput {
+  // Empty schema object.
+}
+
+message GetCpuinfoOutput {
+  bool success = 1;
+}
+
+service GetCpuinfoService {
+  // subid: obs.service.procfs.cpuinfo.get@v1, capability: procfs.read
+  rpc get_cpuinfo(GetCpuinfoInput) returns (GetCpuinfoOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.datastore.get_object;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetObjectInput {
+  // Empty schema object.
+}
+
+message GetObjectOutput {
+  google.protobuf.Value object = 1;
+}
+
+service GetObjectService {
+  // subid: obs.service.datastore.object.get@v1, capability: datastore.read
+  rpc get_object(GetObjectInput) returns (GetObjectOutput);
+}
+
+

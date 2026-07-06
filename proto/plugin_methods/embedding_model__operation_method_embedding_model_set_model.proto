@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.embedding_model.set_model;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetModelInput {
+  // Empty schema object.
+}
+
+message SetModelOutput {
+  bool success = 1;
+}
+
+service SetModelService {
+  // subid: mut.service.embedding.model.set@v1, capability: embedding.invoke
+  rpc set_model(SetModelInput) returns (SetModelOutput);
+}
+
+

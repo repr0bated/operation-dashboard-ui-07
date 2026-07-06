@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.add_port;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddPortInput {
+  string bridge = 1;
+  string interface = 2;
+  string port = 3;
+  int64 tag = 4;
+}
+
+message AddPortOutput {
+  bool success = 1;
+}
+
+service AddPortService {
+  // subid: mut.network.ovsdb.port.add@v1, capability: ovsdb.write
+  rpc add_port(AddPortInput) returns (AddPortOutput);
+}
+
+

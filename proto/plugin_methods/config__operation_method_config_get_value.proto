@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.config.get_value;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetValueInput {
+  // Empty schema object.
+}
+
+message GetValueOutput {
+  string value = 1;
+}
+
+service GetValueService {
+  // subid: obs.service.config.value.get@v1, capability: config.read
+  rpc get_value(GetValueInput) returns (GetValueOutput);
+}
+
+

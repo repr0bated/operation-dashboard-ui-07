@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.config.set_value;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetValueInput {
+  // Empty schema object.
+}
+
+message SetValueOutput {
+  bool success = 1;
+}
+
+service SetValueService {
+  // subid: mut.service.config.value.set@v1, capability: config.invoke
+  rpc set_value(SetValueInput) returns (SetValueOutput);
+}
+
+

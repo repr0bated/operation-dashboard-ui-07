@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.memory_query;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryQueryInput {
+  // Empty schema object.
+}
+
+message MemoryQueryOutput {
+  int64 count = 1;
+  repeated string results = 2;
+}
+
+service MemoryQueryService {
+  // subid: obs.service.cognitive-mcp.memory.query@v1, capability: cognitive_mcp.read
+  rpc memory_query(MemoryQueryInput) returns (MemoryQueryOutput);
+}
+
+

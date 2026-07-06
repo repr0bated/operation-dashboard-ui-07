@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.oci.create;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateInput {
+  string bundle_path = 1;
+  string id = 2;
+}
+
+message CreateOutput {
+  bool success = 1;
+}
+
+service CreateService {
+  // subid: mut.container.oci.create@v1, capability: cap.container.oci.create@v1
+  rpc create(CreateInput) returns (CreateOutput);
+}
+
+

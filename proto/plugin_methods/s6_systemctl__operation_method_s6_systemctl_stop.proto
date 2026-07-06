@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.s6_systemctl.stop;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StopInput {
+  string name = 1;
+}
+
+message StopOutput {
+  bool success = 1;
+}
+
+service StopService {
+  // subid: mut.software.s6.systemctl.stop@v1, capability: s6.systemctl.write
+  rpc stop(StopInput) returns (StopOutput);
+}
+
+

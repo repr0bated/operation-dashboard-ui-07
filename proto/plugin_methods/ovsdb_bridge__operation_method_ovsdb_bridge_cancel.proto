@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.cancel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CancelInput {
+  string id = 1;
+}
+
+message CancelOutput {
+  bool success = 1;
+}
+
+service CancelService {
+  // subid: mut.network.ovsdb.cancel@v1, capability: ovsdb.write
+  rpc cancel(CancelInput) returns (CancelOutput);
+}
+
+

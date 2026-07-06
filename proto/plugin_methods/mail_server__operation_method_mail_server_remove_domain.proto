@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.mail_server.remove_domain;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveDomainInput {
+  string domain = 1;
+}
+
+message RemoveDomainOutput {
+  bool success = 1;
+}
+
+service RemoveDomainService {
+  // subid: mut.service.mail.domain.remove@v1, capability: mail.write
+  rpc remove_domain(RemoveDomainInput) returns (RemoveDomainOutput);
+}
+
+

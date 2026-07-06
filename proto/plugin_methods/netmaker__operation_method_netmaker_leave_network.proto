@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.netmaker.leave_network;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message LeaveNetworkInput {
+  string network = 1;
+}
+
+message LeaveNetworkOutput {
+  bool success = 1;
+}
+
+service LeaveNetworkService {
+  // subid: mut.network.netmaker.network.leave@v1, capability: cap.network.netmaker.network.leave@v1
+  rpc leave_network(LeaveNetworkInput) returns (LeaveNetworkOutput);
+}
+
+

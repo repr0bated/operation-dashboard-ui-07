@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.set_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetConfigInput {
+  // Empty schema object.
+}
+
+message SetConfigOutput {
+  string message = 1;
+  bool success = 2;
+}
+
+service SetConfigService {
+  // subid: mut.service.cognitive-mcp.config.set@v1, capability: cognitive_mcp.invoke
+  rpc set_config(SetConfigInput) returns (SetConfigOutput);
+}
+
+

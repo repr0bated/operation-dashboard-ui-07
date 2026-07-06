@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.list_tools;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListToolsInput {
+  // Empty schema object.
+}
+
+message ListToolsOutput {
+  repeated string tools = 1;
+}
+
+service ListToolsService {
+  // subid: obs.service.cognitive-mcp.tool.list@v1, capability: cognitive_mcp.read
+  rpc list_tools(ListToolsInput) returns (ListToolsOutput);
+}
+
+

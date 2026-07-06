@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.memory_delete;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryDeleteInput {
+  // Empty schema object.
+}
+
+message MemoryDeleteOutput {
+  int64 keys_deleted = 1;
+  bool success = 2;
+}
+
+service MemoryDeleteService {
+  // subid: mut.service.cognitive-mcp.memory.delete@v1, capability: cognitive_mcp.invoke
+  rpc memory_delete(MemoryDeleteInput) returns (MemoryDeleteOutput);
+}
+
+

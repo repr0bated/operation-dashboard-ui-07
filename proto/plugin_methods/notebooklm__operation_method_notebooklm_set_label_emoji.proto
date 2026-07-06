@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.set_label_emoji;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLabelEmojiInput {
+  // Empty schema object.
+}
+
+message SetLabelEmojiOutput {
+  bool success = 1;
+}
+
+service SetLabelEmojiService {
+  // subid: mut.service.plugin.notebooklm.source.label-emoji@v1, capability: notebooklm.invoke
+  rpc set_label_emoji(SetLabelEmojiInput) returns (SetLabelEmojiOutput);
+}
+
+

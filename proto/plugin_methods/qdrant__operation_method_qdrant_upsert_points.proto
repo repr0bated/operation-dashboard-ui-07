@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.qdrant.upsert_points;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpsertPointsInput {
+  string collection_name = 1;
+  repeated google.protobuf.Value points = 2;
+}
+
+message UpsertPointsOutput {
+  bool success = 1;
+}
+
+service UpsertPointsService {
+  // subid: mut.data.qdrant.point.upsert@v1, capability: cap.data.qdrant.point.upsert@v1
+  rpc upsert_points(UpsertPointsInput) returns (UpsertPointsOutput);
+}
+
+

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.create_bridge;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateBridgeInput {
+  string datapath_type = 1;
+  string fail_mode = 2;
+  string name = 3;
+  bool stp_enable = 4;
+}
+
+message CreateBridgeOutput {
+  bool success = 1;
+}
+
+service CreateBridgeService {
+  // subid: mut.network.ovsdb.bridge.create@v1, capability: ovsdb.write
+  rpc create_bridge(CreateBridgeInput) returns (CreateBridgeOutput);
+}
+
+

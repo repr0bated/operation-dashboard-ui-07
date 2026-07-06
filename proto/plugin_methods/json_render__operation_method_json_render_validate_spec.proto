@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.json_render.validate_spec;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ValidateSpecInput {
+  google.protobuf.Value spec = 1;
+  bool strict = 2;
+}
+
+message ValidateSpecOutput {
+  repeated string issues = 1;
+  bool valid = 2;
+}
+
+service ValidateSpecService {
+  // subid: obs.software.plugin.json-render.spec.validate@v1, capability: json_render.read
+  rpc validate_spec(ValidateSpecInput) returns (ValidateSpecOutput);
+}
+
+

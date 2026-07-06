@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.oci.state;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StateInput {
+  string id = 1;
+}
+
+message StateOutput {
+  bool success = 1;
+}
+
+service StateService {
+  // subid: obs.container.oci.state.get@v1, capability: cap.container.oci.state.get@v1
+  rpc state(StateInput) returns (StateOutput);
+}
+
+

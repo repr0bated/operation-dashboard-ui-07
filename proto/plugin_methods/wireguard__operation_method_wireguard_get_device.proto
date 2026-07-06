@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.wireguard.get_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetDeviceInput {
+  string interface = 1;
+}
+
+message GetDeviceOutput {
+  google.protobuf.Value interface = 1;
+}
+
+service GetDeviceService {
+  // subid: obs.network.wireguard.device.get@v1, capability: wireguard.read
+  rpc get_device(GetDeviceInput) returns (GetDeviceOutput);
+}
+
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.openflow_obfuscation.deobfuscate_flow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeobfuscateFlowInput {
+  string bridge = 1;
+  string match_spec = 2;
+}
+
+message DeobfuscateFlowOutput {
+  bool success = 1;
+}
+
+service DeobfuscateFlowService {
+  // subid: mut.network.openflow.obfuscation.deobfuscate@v1, capability: openflow_obfuscation.write
+  rpc deobfuscate_flow(DeobfuscateFlowInput) returns (DeobfuscateFlowOutput);
+}
+
+

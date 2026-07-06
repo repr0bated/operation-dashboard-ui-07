@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.procfs.get_meminfo;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetMeminfoInput {
+  // Empty schema object.
+}
+
+message GetMeminfoOutput {
+  bool success = 1;
+}
+
+service GetMeminfoService {
+  // subid: obs.service.procfs.meminfo.get@v1, capability: procfs.read
+  rpc get_meminfo(GetMeminfoInput) returns (GetMeminfoOutput);
+}
+
+

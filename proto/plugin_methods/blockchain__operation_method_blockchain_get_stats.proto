@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.blockchain.get_stats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatsInput {
+  // Empty schema object.
+}
+
+message GetStatsOutput {
+  google.protobuf.Value stats = 1;
+}
+
+service GetStatsService {
+  // subid: obs.service.blockchain.stats@v1, capability: blockchain.read
+  rpc get_stats(GetStatsInput) returns (GetStatsOutput);
+}
+
+

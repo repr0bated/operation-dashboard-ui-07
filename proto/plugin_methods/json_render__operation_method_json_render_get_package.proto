@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.json_render.get_package;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetPackageInput {
+  string package_name = 1;
+}
+
+message GetPackageOutput {
+  google.protobuf.Value package = 1;
+}
+
+service GetPackageService {
+  // subid: obs.software.plugin.json-render.package.get@v1, capability: json_render.read
+  rpc get_package(GetPackageInput) returns (GetPackageOutput);
+}
+
+

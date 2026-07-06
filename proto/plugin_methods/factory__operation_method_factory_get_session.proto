@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.factory.get_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSessionInput {
+  // Empty schema object.
+}
+
+message GetSessionOutput {
+  google.protobuf.Value session = 1;
+}
+
+service GetSessionService {
+  // subid: obs.service.factory.session.get@v1, capability: factory.read
+  rpc get_session(GetSessionInput) returns (GetSessionOutput);
+}
+
+

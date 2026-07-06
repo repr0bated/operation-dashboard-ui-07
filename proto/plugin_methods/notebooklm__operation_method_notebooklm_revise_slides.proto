@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.revise_slides;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ReviseSlidesInput {
+  // Empty schema object.
+}
+
+message ReviseSlidesOutput {
+  bool success = 1;
+}
+
+service ReviseSlidesService {
+  // subid: mut.service.plugin.notebooklm.studio.slides.revise@v1, capability: notebooklm.invoke
+  rpc revise_slides(ReviseSlidesInput) returns (ReviseSlidesOutput);
+}
+
+

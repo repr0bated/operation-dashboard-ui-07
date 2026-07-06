@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.set_link_domains;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDomainsInput {
+  repeated google.protobuf.Value domains = 1;
+  int64 ifindex = 2;
+}
+
+message SetLinkDomainsOutput {
+  bool success = 1;
+}
+
+service SetLinkDomainsService {
+  // subid: mut.software.dnsresolver.link.set-domains@v1, capability: dnsresolver.write
+  rpc set_link_domains(SetLinkDomainsInput) returns (SetLinkDomainsOutput);
+}
+
+

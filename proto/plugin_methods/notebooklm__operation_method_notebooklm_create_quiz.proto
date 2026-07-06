@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.create_quiz;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateQuizInput {
+  // Empty schema object.
+}
+
+message CreateQuizOutput {
+  bool success = 1;
+}
+
+service CreateQuizService {
+  // subid: mut.service.plugin.notebooklm.studio.quiz.create@v1, capability: notebooklm.invoke
+  rpc create_quiz(CreateQuizInput) returns (CreateQuizOutput);
+}
+
+

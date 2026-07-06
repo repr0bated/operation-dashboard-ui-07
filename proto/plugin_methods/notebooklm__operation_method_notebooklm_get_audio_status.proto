@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.get_audio_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetAudioStatusInput {
+  // Empty schema object.
+}
+
+message GetAudioStatusOutput {
+  bool success = 1;
+}
+
+service GetAudioStatusService {
+  // subid: obs.service.plugin.notebooklm.studio.audio.status@v1, capability: notebooklm.read
+  rpc get_audio_status(GetAudioStatusInput) returns (GetAudioStatusOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.factory.discover_byom;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DiscoverByomInput {
+  // Empty schema object.
+}
+
+message DiscoverByomOutput {
+  bool success = 1;
+}
+
+service DiscoverByomService {
+  // subid: mut.service.factory.byom.discover@v1, capability: factory.invoke
+  rpc discover_byom(DiscoverByomInput) returns (DiscoverByomOutput);
+}
+
+

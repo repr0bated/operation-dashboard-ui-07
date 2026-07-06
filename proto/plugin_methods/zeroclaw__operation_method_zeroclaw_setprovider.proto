@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.zeroclaw.setprovider;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetProviderInput {
+  string provider_id = 1;
+}
+
+message SetProviderOutput {
+  string selected_provider = 1;
+}
+
+service SetProviderService {
+  // subid: mut.service.zeroclaw.provider.set@v1, capability: cap.software.zeroclaw.provider.set@v1
+  rpc SetProvider(SetProviderInput) returns (SetProviderOutput);
+}
+
+

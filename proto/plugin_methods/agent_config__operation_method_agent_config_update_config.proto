@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.agent_config.update_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateConfigInput {
+  // Empty schema object.
+}
+
+message UpdateConfigOutput {
+  bool success = 1;
+}
+
+service UpdateConfigService {
+  // subid: mut.service.agent.config.update@v1, capability: agent.invoke
+  rpc update_config(UpdateConfigInput) returns (UpdateConfigOutput);
+}
+
+

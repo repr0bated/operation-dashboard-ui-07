@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.terminate_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TerminateSessionInput {
+  string session_id = 1;
+}
+
+message TerminateSessionOutput {
+  bool success = 1;
+}
+
+service TerminateSessionService {
+  // subid: mut.software.login1.session.terminate@v1, capability: login1.write
+  rpc terminate_session(TerminateSessionInput) returns (TerminateSessionOutput);
+}
+
+

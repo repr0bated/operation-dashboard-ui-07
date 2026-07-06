@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.incus.restart_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RestartInstanceInput {
+  bool force = 1;
+  string name = 2;
+}
+
+message RestartInstanceOutput {
+  bool success = 1;
+}
+
+service RestartInstanceService {
+  // subid: mut.service.incus.instance.restart@v1, capability: cap.service.incus.instance.restart@v1
+  rpc restart_instance(RestartInstanceInput) returns (RestartInstanceOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.download_artifact;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DownloadArtifactInput {
+  // Empty schema object.
+}
+
+message DownloadArtifactOutput {
+  bool success = 1;
+}
+
+service DownloadArtifactService {
+  // subid: obs.service.plugin.notebooklm.studio.artifact.download@v1, capability: notebooklm.read
+  rpc download_artifact(DownloadArtifactInput) returns (DownloadArtifactOutput);
+}
+
+

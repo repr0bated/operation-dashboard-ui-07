@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.rtnetlink.add_link;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddLinkInput {
+  string link_type = 1;
+  string name = 2;
+}
+
+message AddLinkOutput {
+  bool success = 1;
+}
+
+service AddLinkService {
+  // subid: mut.network.rtnetlink.link.add@v1, capability: cap.network.rtnetlink.link.add@v1
+  rpc add_link(AddLinkInput) returns (AddLinkOutput);
+}
+
+

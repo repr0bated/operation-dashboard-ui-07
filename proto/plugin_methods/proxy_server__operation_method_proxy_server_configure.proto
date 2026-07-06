@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.proxy_server.configure;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ConfigureInput {
+  bool enabled = 1;
+  string name = 2;
+  int64 port = 3;
+  string upstream = 4;
+}
+
+message ConfigureOutput {
+  bool success = 1;
+}
+
+service ConfigureService {
+  // subid: mut.network.proxy.configure@v1, capability: cap.network.proxy.configure@v1
+  rpc configure(ConfigureInput) returns (ConfigureOutput);
+}
+
+

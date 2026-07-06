@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.hardware.get_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetDeviceInput {
+  // Empty schema object.
+}
+
+message GetDeviceOutput {
+  google.protobuf.Value device = 1;
+}
+
+service GetDeviceService {
+  // subid: obs.service.hardware.device.get@v1, capability: hardware.read
+  rpc get_device(GetDeviceInput) returns (GetDeviceOutput);
+}
+
+

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.incus.modify_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ModifyInstanceInput {
+  google.protobuf.Struct config = 1;
+  google.protobuf.Struct devices = 2;
+  string name = 3;
+}
+
+message ModifyInstanceOutput {
+  bool success = 1;
+}
+
+service ModifyInstanceService {
+  // subid: mut.service.incus.instance.modify@v1, capability: cap.service.incus.instance.modify@v1
+  rpc modify_instance(ModifyInstanceInput) returns (ModifyInstanceOutput);
+}
+
+

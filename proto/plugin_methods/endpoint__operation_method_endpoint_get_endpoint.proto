@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.endpoint.get_endpoint;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetEndpointInput {
+  // Empty schema object.
+}
+
+message GetEndpointOutput {
+  google.protobuf.Value endpoint = 1;
+}
+
+service GetEndpointService {
+  // subid: obs.service.endpoint.get@v1, capability: endpoint.read
+  rpc get_endpoint(GetEndpointInput) returns (GetEndpointOutput);
+}
+
+

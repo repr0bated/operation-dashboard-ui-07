@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.monitor;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MonitorInput {
+  string db_name = 1;
+  string monitor_id = 2;
+  google.protobuf.Struct monitor_requests = 3;
+}
+
+message MonitorOutput {
+  bool success = 1;
+}
+
+service MonitorService {
+  // subid: obs.network.ovsdb.monitor@v1, capability: ovsdb.read
+  rpc monitor(MonitorInput) returns (MonitorOutput);
+}
+
+

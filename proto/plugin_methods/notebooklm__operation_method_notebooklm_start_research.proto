@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.start_research;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StartResearchInput {
+  // Empty schema object.
+}
+
+message StartResearchOutput {
+  bool success = 1;
+}
+
+service StartResearchService {
+  // subid: mut.service.plugin.notebooklm.research.start@v1, capability: notebooklm.invoke
+  rpc start_research(StartResearchInput) returns (StartResearchOutput);
+}
+
+

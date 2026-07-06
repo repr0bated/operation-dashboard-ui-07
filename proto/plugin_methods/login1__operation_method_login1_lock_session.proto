@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.lock_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message LockSessionInput {
+  string session_id = 1;
+}
+
+message LockSessionOutput {
+  bool success = 1;
+}
+
+service LockSessionService {
+  // subid: mut.software.login1.session.lock@v1, capability: login1.write
+  rpc lock_session(LockSessionInput) returns (LockSessionOutput);
+}
+
+

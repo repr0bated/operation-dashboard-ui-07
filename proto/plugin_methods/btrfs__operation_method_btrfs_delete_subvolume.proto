@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.btrfs.delete_subvolume;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteSubvolumeInput {
+  string path = 1;
+}
+
+message DeleteSubvolumeOutput {
+  bool success = 1;
+}
+
+service DeleteSubvolumeService {
+  // subid: mut.storage.btrfs.subvolume.delete@v1, capability: cap.storage.btrfs.subvolume.delete@v1
+  rpc delete_subvolume(DeleteSubvolumeInput) returns (DeleteSubvolumeOutput);
+}
+
+

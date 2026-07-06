@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.users.list_users;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListUsersInput {
+  string group = 1;
+}
+
+message ListUsersOutput {
+  bool success = 1;
+}
+
+service ListUsersService {
+  // subid: obs.software.plugin.users.list@v1, capability: users.read
+  rpc list_users(ListUsersInput) returns (ListUsersOutput);
+}
+
+

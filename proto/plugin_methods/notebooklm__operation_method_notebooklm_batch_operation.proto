@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.batch_operation;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message BatchOperationInput {
+  // Empty schema object.
+}
+
+message BatchOperationOutput {
+  bool success = 1;
+}
+
+service BatchOperationService {
+  // subid: mut.service.plugin.notebooklm.batch.run@v1, capability: notebooklm.invoke
+  rpc batch_operation(BatchOperationInput) returns (BatchOperationOutput);
+}
+
+

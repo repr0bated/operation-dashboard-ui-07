@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ctl_plane_chatbot.vectorize;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message VectorizeInput {
+  // Empty schema object.
+}
+
+message VectorizeOutput {
+  string vector_id = 1;
+}
+
+service VectorizeService {
+  // subid: mut.service.ctl-plane-chatbot.vectorize@v1, capability: chatbot.invoke
+  rpc vectorize(VectorizeInput) returns (VectorizeOutput);
+}
+
+

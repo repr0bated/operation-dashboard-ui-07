@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cozo.describe_relation;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DescribeRelationInput {
+  string name = 1;
+}
+
+message DescribeRelationOutput {
+  bool success = 1;
+}
+
+service DescribeRelationService {
+  // subid: obs.data.cozo.relation.describe@v1, capability: cap.data.cozo.relation.describe@v1
+  rpc describe_relation(DescribeRelationInput) returns (DescribeRelationOutput);
+}
+
+

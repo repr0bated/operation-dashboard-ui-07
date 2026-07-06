@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.service.shutdown;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ShutdownInput {
+  bool force = 1;
+  string name = 2;
+}
+
+message ShutdownOutput {
+  bool success = 1;
+}
+
+service ShutdownService {
+  // subid: mut.service.lifecycle.shutdown@v1, capability: cap.service.lifecycle.shutdown@v1
+  rpc shutdown(ShutdownInput) returns (ShutdownOutput);
+}
+
+

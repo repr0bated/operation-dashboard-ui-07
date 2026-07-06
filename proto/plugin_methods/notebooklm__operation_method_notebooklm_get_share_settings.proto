@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.get_share_settings;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetShareSettingsInput {
+  // Empty schema object.
+}
+
+message GetShareSettingsOutput {
+  bool success = 1;
+}
+
+service GetShareSettingsService {
+  // subid: obs.service.plugin.notebooklm.share.settings@v1, capability: notebooklm.read
+  rpc get_share_settings(GetShareSettingsInput) returns (GetShareSettingsOutput);
+}
+
+

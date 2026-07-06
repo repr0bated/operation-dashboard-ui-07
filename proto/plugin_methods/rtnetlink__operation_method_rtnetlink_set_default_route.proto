@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.rtnetlink.set_default_route;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetDefaultRouteInput {
+  string gateway = 1;
+  string name = 2;
+}
+
+message SetDefaultRouteOutput {
+  bool success = 1;
+}
+
+service SetDefaultRouteService {
+  // subid: mut.network.rtnetlink.default-route.set@v1, capability: cap.network.rtnetlink.default-route.set@v1
+  rpc set_default_route(SetDefaultRouteInput) returns (SetDefaultRouteOutput);
+}
+
+

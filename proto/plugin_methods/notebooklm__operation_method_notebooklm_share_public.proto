@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.share_public;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SharePublicInput {
+  // Empty schema object.
+}
+
+message SharePublicOutput {
+  bool success = 1;
+}
+
+service SharePublicService {
+  // subid: mut.service.plugin.notebooklm.share.public@v1, capability: notebooklm.invoke
+  rpc share_public(SharePublicInput) returns (SharePublicOutput);
+}
+
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.web_ui.update_component;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateComponentInput {
+  string component_path = 1;
+  google.protobuf.Value properties = 2;
+}
+
+message UpdateComponentOutput {
+  bool success = 1;
+}
+
+service UpdateComponentService {
+  // subid: mut.software.plugin.web-ui.update-component@v1, capability: ui.write
+  rpc update_component(UpdateComponentInput) returns (UpdateComponentOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.setup_auth;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetupAuthInput {
+  // Empty schema object.
+}
+
+message SetupAuthOutput {
+  bool success = 1;
+}
+
+service SetupAuthService {
+  // subid: mut.service.plugin.notebooklm.auth.setup@v1, capability: notebooklm.admin
+  rpc setup_auth(SetupAuthInput) returns (SetupAuthOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.s6_systemctl.list_units;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListUnitsInput {
+  // Empty schema object.
+}
+
+message ListUnitsOutput {
+  repeated google.protobuf.Value units = 1;
+}
+
+service ListUnitsService {
+  // subid: obs.software.s6.systemctl.list_units@v1, capability: s6.systemctl.read
+  rpc list_units(ListUnitsInput) returns (ListUnitsOutput);
+}
+
+

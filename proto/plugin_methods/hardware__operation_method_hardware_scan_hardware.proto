@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.hardware.scan_hardware;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ScanHardwareInput {
+  // Empty schema object.
+}
+
+message ScanHardwareOutput {
+  bool success = 1;
+}
+
+service ScanHardwareService {
+  // subid: mut.service.hardware.scan@v1, capability: hardware.invoke
+  rpc scan_hardware(ScanHardwareInput) returns (ScanHardwareOutput);
+}
+
+

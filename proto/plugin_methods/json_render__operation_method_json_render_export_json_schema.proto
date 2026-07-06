@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.json_render.export_json_schema;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExportJsonSchemaInput {
+  bool strict = 1;
+}
+
+message ExportJsonSchemaOutput {
+  google.protobuf.Value schema = 1;
+}
+
+service ExportJsonSchemaService {
+  // subid: obs.software.plugin.json-render.schema.export@v1, capability: json_render.read
+  rpc export_json_schema(ExportJsonSchemaInput) returns (ExportJsonSchemaOutput);
+}
+
+

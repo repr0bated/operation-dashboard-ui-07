@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.shared_unix_socket.list_registrations;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListRegistrationsInput {
+  // Empty schema object.
+}
+
+message ListRegistrationsOutput {
+  repeated google.protobuf.Value registrations = 1;
+}
+
+service ListRegistrationsService {
+  // subid: obs.service.shared-unix-socket.registrations.list@v1, capability: shared_unix_socket.read
+  rpc list_registrations(ListRegistrationsInput) returns (ListRegistrationsOutput);
+}
+
+

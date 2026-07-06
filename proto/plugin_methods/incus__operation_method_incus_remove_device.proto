@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.incus.remove_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveDeviceInput {
+  string device_name = 1;
+  string instance_name = 2;
+}
+
+message RemoveDeviceOutput {
+  bool success = 1;
+}
+
+service RemoveDeviceService {
+  // subid: mut.service.incus.device.remove@v1, capability: cap.service.incus.device.remove@v1
+  rpc remove_device(RemoveDeviceInput) returns (RemoveDeviceOutput);
+}
+
+

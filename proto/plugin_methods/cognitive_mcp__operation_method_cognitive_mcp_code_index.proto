@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.code_index;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CodeIndexInput {
+  // Empty schema object.
+}
+
+message CodeIndexOutput {
+  int64 files_indexed = 1;
+  bool success = 2;
+}
+
+service CodeIndexService {
+  // subid: mut.service.code-rag.index@v1, capability: cognitive_mcp.invoke
+  rpc code_index(CodeIndexInput) returns (CodeIndexOutput);
+}
+
+

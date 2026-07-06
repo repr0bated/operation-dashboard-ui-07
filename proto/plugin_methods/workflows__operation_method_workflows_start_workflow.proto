@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.workflows.start_workflow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StartWorkflowInput {
+  google.protobuf.Value params = 1;
+  string workflow_id = 2;
+}
+
+message StartWorkflowOutput {
+  bool success = 1;
+}
+
+service StartWorkflowService {
+  // subid: mut.software.plugin.workflows.start@v1, capability: workflows.write
+  rpc start_workflow(StartWorkflowInput) returns (StartWorkflowOutput);
+}
+
+

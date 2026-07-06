@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.run_pipeline;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RunPipelineInput {
+  // Empty schema object.
+}
+
+message RunPipelineOutput {
+  bool success = 1;
+}
+
+service RunPipelineService {
+  // subid: mut.service.plugin.notebooklm.pipeline.run@v1, capability: notebooklm.invoke
+  rpc run_pipeline(RunPipelineInput) returns (RunPipelineOutput);
+}
+
+

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.incus.update_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateDeviceInput {
+  google.protobuf.Value device = 1;
+  string device_name = 2;
+  string instance_name = 3;
+}
+
+message UpdateDeviceOutput {
+  bool success = 1;
+}
+
+service UpdateDeviceService {
+  // subid: mut.service.incus.device.update@v1, capability: cap.service.incus.device.update@v1
+  rpc update_device(UpdateDeviceInput) returns (UpdateDeviceOutput);
+}
+
+

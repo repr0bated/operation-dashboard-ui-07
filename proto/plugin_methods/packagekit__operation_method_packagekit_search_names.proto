@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.packagekit.search_names;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SearchNamesInput {
+  int64 filter = 1;
+  repeated string values = 2;
+}
+
+message SearchNamesOutput {
+  bool success = 1;
+}
+
+service SearchNamesService {
+  // subid: obs.software.packagekit.names.search@v1, capability: packagekit.read
+  rpc search_names(SearchNamesInput) returns (SearchNamesOutput);
+}
+
+

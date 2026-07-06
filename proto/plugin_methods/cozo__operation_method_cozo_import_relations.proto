@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cozo.import_relations;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ImportRelationsInput {
+  google.protobuf.Value data = 1;
+}
+
+message ImportRelationsOutput {
+  bool success = 1;
+}
+
+service ImportRelationsService {
+  // subid: mut.data.cozo.relations.import@v1, capability: cap.data.cozo.relations.import@v1
+  rpc import_relations(ImportRelationsInput) returns (ImportRelationsOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.list_seats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListSeatsInput {
+  // Empty schema object.
+}
+
+message ListSeatsOutput {
+  bool success = 1;
+}
+
+service ListSeatsService {
+  // subid: obs.software.login1.seats.list@v1, capability: login1.read
+  rpc list_seats(ListSeatsInput) returns (ListSeatsOutput);
+}
+
+

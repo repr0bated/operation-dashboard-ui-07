@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.wgcf.update;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateInput {
+  // Empty schema object.
+}
+
+message UpdateOutput {
+  bool success = 1;
+}
+
+service UpdateService {
+  // subid: mut.software.wgcf.update@v1, capability: cap.software.wgcf.update@v1
+  rpc update(UpdateInput) returns (UpdateOutput);
+}
+
+

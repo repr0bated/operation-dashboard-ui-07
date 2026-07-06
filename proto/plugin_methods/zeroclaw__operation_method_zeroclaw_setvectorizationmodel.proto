@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.zeroclaw.setvectorizationmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetVectorizationModelInput {
+  string model_id = 1;
+}
+
+message SetVectorizationModelOutput {
+  string vectorization = 1;
+}
+
+service SetVectorizationModelService {
+  // subid: mut.service.zeroclaw.model-assignments.vectorization.set@v1, capability: cap.software.zeroclaw.model-assignments.vectorization.set@v1
+  rpc SetVectorizationModel(SetVectorizationModelInput) returns (SetVectorizationModelOutput);
+}
+
+

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+
+package operation.method.users.create_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateUserInput {
+  int64 gid = 1;
+  repeated string groups = 2;
+  string shell = 3;
+  int64 uid = 4;
+  string username = 5;
+}
+
+message CreateUserOutput {
+  bool success = 1;
+}
+
+service CreateUserService {
+  // subid: mut.software.plugin.users.create@v1, capability: users.write
+  rpc create_user(CreateUserInput) returns (CreateUserOutput);
+}
+
+

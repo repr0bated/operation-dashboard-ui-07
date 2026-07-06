@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.reset_statistics;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResetStatisticsInput {
+  // Empty schema object.
+}
+
+message ResetStatisticsOutput {
+  bool success = 1;
+}
+
+service ResetStatisticsService {
+  // subid: mut.software.dnsresolver.statistics.reset@v1, capability: dnsresolver.write
+  rpc reset_statistics(ResetStatisticsInput) returns (ResetStatisticsOutput);
+}
+
+

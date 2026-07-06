@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cozo.list_relations;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListRelationsInput {
+  // Empty schema object.
+}
+
+message ListRelationsOutput {
+  bool success = 1;
+}
+
+service ListRelationsService {
+  // subid: obs.data.cozo.relations.list@v1, capability: cap.data.cozo.relations.list@v1
+  rpc list_relations(ListRelationsInput) returns (ListRelationsOutput);
+}
+
+

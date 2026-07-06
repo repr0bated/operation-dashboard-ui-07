@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.factory.set_autonomy;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetAutonomyInput {
+  // Empty schema object.
+}
+
+message SetAutonomyOutput {
+  bool success = 1;
+}
+
+service SetAutonomyService {
+  // subid: mut.service.factory.autonomy.set@v1, capability: factory.invoke
+  rpc set_autonomy(SetAutonomyInput) returns (SetAutonomyOutput);
+}
+
+

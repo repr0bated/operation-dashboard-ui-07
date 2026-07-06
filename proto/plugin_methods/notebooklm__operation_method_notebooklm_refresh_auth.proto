@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.refresh_auth;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RefreshAuthInput {
+  // Empty schema object.
+}
+
+message RefreshAuthOutput {
+  bool success = 1;
+}
+
+service RefreshAuthService {
+  // subid: mut.service.plugin.notebooklm.auth.refresh@v1, capability: notebooklm.admin
+  rpc refresh_auth(RefreshAuthInput) returns (RefreshAuthOutput);
+}
+
+

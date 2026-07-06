@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.btrfs.snapshot;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SnapshotInput {
+  string destination = 1;
+  bool readonly = 2;
+  string source = 3;
+}
+
+message SnapshotOutput {
+  bool success = 1;
+}
+
+service SnapshotService {
+  // subid: mut.storage.btrfs.snapshot.create@v1, capability: cap.storage.btrfs.snapshot.create@v1
+  rpc snapshot(SnapshotInput) returns (SnapshotOutput);
+}
+
+

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+
+package operation.method.json_render.build_prompt_surface;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message BuildPromptSurfaceInput {
+  repeated string custom_rules = 1;
+  string mode = 2;
+}
+
+message BuildPromptSurfaceOutput {
+  repeated string actions = 1;
+  repeated string components = 2;
+  string mode = 3;
+  repeated string rules = 4;
+}
+
+service BuildPromptSurfaceService {
+  // subid: obs.software.plugin.json-render.prompt.build@v1, capability: json_render.read
+  rpc build_prompt_surface(BuildPromptSurfaceInput) returns (BuildPromptSurfaceOutput);
+}
+
+

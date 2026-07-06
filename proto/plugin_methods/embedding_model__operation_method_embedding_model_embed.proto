@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.embedding_model.embed;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message EmbedInput {
+  string input_type = 1;
+  repeated string texts = 2;
+}
+
+message EmbedOutput {
+  int64 dimensions = 1;
+  string model = 2;
+  repeated double vectors = 3;
+}
+
+service EmbedService {
+  // subid: mut.service.embedding.embed@v1, capability: embedding.invoke
+  rpc embed(EmbedInput) returns (EmbedOutput);
+}
+
+

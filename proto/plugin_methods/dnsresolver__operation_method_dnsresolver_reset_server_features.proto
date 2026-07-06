@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.reset_server_features;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResetServerFeaturesInput {
+  // Empty schema object.
+}
+
+message ResetServerFeaturesOutput {
+  bool success = 1;
+}
+
+service ResetServerFeaturesService {
+  // subid: mut.software.dnsresolver.server-features.reset@v1, capability: dnsresolver.write
+  rpc reset_server_features(ResetServerFeaturesInput) returns (ResetServerFeaturesOutput);
+}
+
+

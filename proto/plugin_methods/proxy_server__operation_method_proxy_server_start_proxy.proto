@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.proxy_server.start_proxy;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StartProxyInput {
+  string name = 1;
+  int64 port = 2;
+}
+
+message StartProxyOutput {
+  bool success = 1;
+}
+
+service StartProxyService {
+  // subid: mut.network.proxy.start@v1, capability: cap.network.proxy.start@v1
+  rpc start_proxy(StartProxyInput) returns (StartProxyOutput);
+}
+
+

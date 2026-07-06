@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.zeroclaw.setcozoretrievalmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetCozoRetrievalModelInput {
+  string model_id = 1;
+}
+
+message SetCozoRetrievalModelOutput {
+  string cozo_retrieval = 1;
+}
+
+service SetCozoRetrievalModelService {
+  // subid: mut.service.zeroclaw.model-assignments.cozo-retrieval.set@v1, capability: cap.software.zeroclaw.model-assignments.cozo-retrieval.set@v1
+  rpc SetCozoRetrievalModel(SetCozoRetrievalModelInput) returns (SetCozoRetrievalModelOutput);
+}
+
+

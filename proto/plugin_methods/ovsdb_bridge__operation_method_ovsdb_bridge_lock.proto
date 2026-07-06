@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.lock;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message LockInput {
+  string lock_id = 1;
+}
+
+message LockOutput {
+  bool success = 1;
+}
+
+service LockService {
+  // subid: mut.network.ovsdb.lock@v1, capability: ovsdb.write
+  rpc lock(LockInput) returns (LockOutput);
+}
+
+

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.get_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetConfigInput {
+  // Empty schema object.
+}
+
+message GetConfigOutput {
+  bool dbus_enabled = 1;
+  string grpc = 2;
+  bool grpc_enabled = 3;
+  string http = 4;
+  bool http_enabled = 5;
+  string wg_interface = 6;
+}
+
+service GetConfigService {
+  // subid: obs.service.cognitive-mcp.config.get@v1, capability: cognitive_mcp.read
+  rpc get_config(GetConfigInput) returns (GetConfigOutput);
+}
+
+

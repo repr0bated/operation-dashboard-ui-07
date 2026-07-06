@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.config.list_keys;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListKeysInput {
+  // Empty schema object.
+}
+
+message ListKeysOutput {
+  repeated string keys = 1;
+}
+
+service ListKeysService {
+  // subid: obs.service.config.key.list@v1, capability: config.read
+  rpc list_keys(ListKeysInput) returns (ListKeysOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.create_report;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateReportInput {
+  // Empty schema object.
+}
+
+message CreateReportOutput {
+  bool success = 1;
+}
+
+service CreateReportService {
+  // subid: mut.service.plugin.notebooklm.studio.report.create@v1, capability: notebooklm.invoke
+  rpc create_report(CreateReportInput) returns (CreateReportOutput);
+}
+
+

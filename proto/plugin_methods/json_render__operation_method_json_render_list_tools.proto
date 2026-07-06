@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.json_render.list_tools;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListToolsInput {
+  // Empty schema object.
+}
+
+message ListToolsOutput {
+  repeated google.protobuf.Value tools = 1;
+}
+
+service ListToolsService {
+  // subid: obs.software.plugin.json-render.tool.list@v1, capability: json_render.read
+  rpc list_tools(ListToolsInput) returns (ListToolsOutput);
+}
+
+

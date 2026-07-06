@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.hardware.list_devices;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListDevicesInput {
+  // Empty schema object.
+}
+
+message ListDevicesOutput {
+  repeated google.protobuf.Value devices = 1;
+}
+
+service ListDevicesService {
+  // subid: obs.service.hardware.device.list@v1, capability: hardware.read
+  rpc list_devices(ListDevicesInput) returns (ListDevicesOutput);
+}
+
+

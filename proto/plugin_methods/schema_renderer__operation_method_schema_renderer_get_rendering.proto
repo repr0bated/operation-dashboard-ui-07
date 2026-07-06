@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.schema_renderer.get_rendering;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetRenderingInput {
+  // Empty schema object.
+}
+
+message GetRenderingOutput {
+  google.protobuf.Value rendering = 1;
+}
+
+service GetRenderingService {
+  // subid: obs.service.schema.rendering.get@v1, capability: schema_renderer.read
+  rpc get_rendering(GetRenderingInput) returns (GetRenderingOutput);
+}
+
+

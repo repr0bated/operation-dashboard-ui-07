@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.btrfs.balance_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message BalanceStatusInput {
+  string path = 1;
+}
+
+message BalanceStatusOutput {
+  bool success = 1;
+}
+
+service BalanceStatusService {
+  // subid: obs.storage.btrfs.balance.status@v1, capability: cap.storage.btrfs.balance.status@v1
+  rpc balance_status(BalanceStatusInput) returns (BalanceStatusOutput);
+}
+
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.transact;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TransactInput {
+  string db_name = 1;
+  repeated google.protobuf.Value operations = 2;
+}
+
+message TransactOutput {
+  bool success = 1;
+}
+
+service TransactService {
+  // subid: mut.network.ovsdb.transact@v1, capability: ovsdb.write
+  rpc transact(TransactInput) returns (TransactOutput);
+}
+
+

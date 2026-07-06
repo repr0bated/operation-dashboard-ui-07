@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.persona.set_identity;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetIdentityInput {
+  string agent_type = 1;
+  string description = 2;
+  string name = 3;
+}
+
+message SetIdentityOutput {
+  bool success = 1;
+}
+
+service SetIdentityService {
+  // subid: mut.agent.persona.identity.set@v1, capability: persona.write
+  rpc set_identity(SetIdentityInput) returns (SetIdentityOutput);
+}
+
+

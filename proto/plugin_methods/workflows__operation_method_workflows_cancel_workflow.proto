@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.workflows.cancel_workflow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CancelWorkflowInput {
+  bool force = 1;
+  string workflow_id = 2;
+}
+
+message CancelWorkflowOutput {
+  bool success = 1;
+}
+
+service CancelWorkflowService {
+  // subid: mut.software.plugin.workflows.cancel@v1, capability: workflows.write
+  rpc cancel_workflow(CancelWorkflowInput) returns (CancelWorkflowOutput);
+}
+
+

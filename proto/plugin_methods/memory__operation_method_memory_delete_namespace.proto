@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.memory.delete_namespace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteNamespaceInput {
+  string name = 1;
+}
+
+message DeleteNamespaceOutput {
+  int64 deleted_entries = 1;
+  bool success = 2;
+}
+
+service DeleteNamespaceService {
+  // subid: mut.memory.memory.delete-namespace@v1, capability: memory.namespace.delete
+  rpc delete_namespace(DeleteNamespaceInput) returns (DeleteNamespaceOutput);
+}
+
+

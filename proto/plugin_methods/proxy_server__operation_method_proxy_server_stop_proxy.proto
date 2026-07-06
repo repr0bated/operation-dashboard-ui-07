@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.proxy_server.stop_proxy;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StopProxyInput {
+  string name = 1;
+}
+
+message StopProxyOutput {
+  bool success = 1;
+}
+
+service StopProxyService {
+  // subid: mut.network.proxy.stop@v1, capability: cap.network.proxy.stop@v1
+  rpc stop_proxy(StopProxyInput) returns (StopProxyOutput);
+}
+
+

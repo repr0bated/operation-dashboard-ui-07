@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.register_service;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RegisterServiceInput {
+  string id = 1;
+  string name_template = 2;
+  int64 port = 3;
+  int64 priority = 4;
+  repeated google.protobuf.Struct txt = 5;
+  string type_ = 6;
+  int64 weight = 7;
+}
+
+message RegisterServiceOutput {
+  bool success = 1;
+}
+
+service RegisterServiceService {
+  // subid: mut.software.dnsresolver.service.register@v1, capability: dnsresolver.write
+  rpc register_service(RegisterServiceInput) returns (RegisterServiceOutput);
+}
+
+

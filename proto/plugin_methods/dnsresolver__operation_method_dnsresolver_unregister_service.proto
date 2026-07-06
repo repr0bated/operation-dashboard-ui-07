@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.unregister_service;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UnregisterServiceInput {
+  string service_path = 1;
+}
+
+message UnregisterServiceOutput {
+  bool success = 1;
+}
+
+service UnregisterServiceService {
+  // subid: mut.software.dnsresolver.service.unregister@v1, capability: dnsresolver.write
+  rpc unregister_service(UnregisterServiceInput) returns (UnregisterServiceOutput);
+}
+
+

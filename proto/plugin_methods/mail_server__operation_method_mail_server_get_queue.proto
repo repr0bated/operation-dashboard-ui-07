@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.mail_server.get_queue;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetQueueInput {
+  // Empty schema object.
+}
+
+message GetQueueOutput {
+  bool success = 1;
+}
+
+service GetQueueService {
+  // subid: obs.service.mail.queue.get@v1, capability: mail.read
+  rpc get_queue(GetQueueInput) returns (GetQueueOutput);
+}
+
+

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.memory.get_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetEntryInput {
+  string key = 1;
+  string namespace = 2;
+}
+
+message GetEntryOutput {
+  bool found = 1;
+  google.protobuf.Value value = 2;
+}
+
+service GetEntryService {
+  // subid: mut.memory.memory.get-entry@v1, capability: memory.entry.read
+  rpc get_entry(GetEntryInput) returns (GetEntryOutput);
+}
+
+

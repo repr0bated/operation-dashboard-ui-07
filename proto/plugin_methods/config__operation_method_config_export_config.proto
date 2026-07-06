@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.config.export_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExportConfigInput {
+  // Empty schema object.
+}
+
+message ExportConfigOutput {
+  bool success = 1;
+}
+
+service ExportConfigService {
+  // subid: obs.service.config.export@v1, capability: config.read
+  rpc export_config(ExportConfigInput) returns (ExportConfigOutput);
+}
+
+

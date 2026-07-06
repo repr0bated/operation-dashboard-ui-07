@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cozo.restore;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RestoreInput {
+  string path = 1;
+}
+
+message RestoreOutput {
+  bool success = 1;
+}
+
+service RestoreService {
+  // subid: mut.data.cozo.backup.restore@v1, capability: cap.data.cozo.backup.restore@v1
+  rpc restore(RestoreInput) returns (RestoreOutput);
+}
+
+

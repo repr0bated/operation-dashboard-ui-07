@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.create_label;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateLabelInput {
+  // Empty schema object.
+}
+
+message CreateLabelOutput {
+  bool success = 1;
+}
+
+service CreateLabelService {
+  // subid: mut.service.plugin.notebooklm.source.label-create@v1, capability: notebooklm.invoke
+  rpc create_label(CreateLabelInput) returns (CreateLabelOutput);
+}
+
+

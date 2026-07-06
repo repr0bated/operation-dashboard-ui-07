@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.large_language_model.get_provider;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetProviderInput {
+  // Empty schema object.
+}
+
+message GetProviderOutput {
+  google.protobuf.Value provider = 1;
+}
+
+service GetProviderService {
+  // subid: obs.service.llm.provider.get@v1, capability: llm.read
+  rpc get_provider(GetProviderInput) returns (GetProviderOutput);
+}
+
+

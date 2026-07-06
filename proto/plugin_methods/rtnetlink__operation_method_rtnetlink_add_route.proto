@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.rtnetlink.add_route;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddRouteInput {
+  string destination = 1;
+  string gateway = 2;
+  string interface = 3;
+}
+
+message AddRouteOutput {
+  bool success = 1;
+}
+
+service AddRouteService {
+  // subid: mut.network.rtnetlink.route.add@v1, capability: cap.network.rtnetlink.route.add@v1
+  rpc add_route(AddRouteInput) returns (AddRouteOutput);
+}
+
+

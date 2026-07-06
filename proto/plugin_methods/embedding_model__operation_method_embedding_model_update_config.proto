@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.embedding_model.update_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateConfigInput {
+  // Empty schema object.
+}
+
+message UpdateConfigOutput {
+  bool success = 1;
+}
+
+service UpdateConfigService {
+  // subid: mut.service.embedding.config.update@v1, capability: embedding.invoke
+  rpc update_config(UpdateConfigInput) returns (UpdateConfigOutput);
+}
+
+

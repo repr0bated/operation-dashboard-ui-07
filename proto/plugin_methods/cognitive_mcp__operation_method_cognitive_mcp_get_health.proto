@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.get_health;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetHealthInput {
+  // Empty schema object.
+}
+
+message GetHealthOutput {
+  string auth_status = 1;
+  bool healthy = 2;
+  int64 queries_limit = 3;
+  int64 queries_remaining = 4;
+  bool running = 5;
+}
+
+service GetHealthService {
+  // subid: obs.service.cognitive-mcp.health@v1, capability: cognitive_mcp.read
+  rpc get_health(GetHealthInput) returns (GetHealthOutput);
+}
+
+

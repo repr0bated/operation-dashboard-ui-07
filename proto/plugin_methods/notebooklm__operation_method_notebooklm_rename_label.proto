@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.rename_label;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RenameLabelInput {
+  // Empty schema object.
+}
+
+message RenameLabelOutput {
+  bool success = 1;
+}
+
+service RenameLabelService {
+  // subid: mut.service.plugin.notebooklm.source.label-rename@v1, capability: notebooklm.invoke
+  rpc rename_label(RenameLabelInput) returns (RenameLabelOutput);
+}
+
+

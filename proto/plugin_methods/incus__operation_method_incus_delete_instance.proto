@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.incus.delete_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteInstanceInput {
+  string name = 1;
+}
+
+message DeleteInstanceOutput {
+  bool success = 1;
+}
+
+service DeleteInstanceService {
+  // subid: mut.service.incus.instance.delete@v1, capability: cap.service.incus.instance.delete@v1
+  rpc delete_instance(DeleteInstanceInput) returns (DeleteInstanceOutput);
+}
+
+

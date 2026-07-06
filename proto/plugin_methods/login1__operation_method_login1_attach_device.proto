@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.login1.attach_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AttachDeviceInput {
+  bool interactive = 1;
+  string seat_id = 2;
+  string sysfs_path = 3;
+}
+
+message AttachDeviceOutput {
+  bool success = 1;
+}
+
+service AttachDeviceService {
+  // subid: mut.software.login1.device.attach@v1, capability: login1.admin
+  rpc attach_device(AttachDeviceInput) returns (AttachDeviceOutput);
+}
+
+

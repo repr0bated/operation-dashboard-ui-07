@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.set_link_dnssec_nta;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnssecNtaInput {
+  int64 ifindex = 1;
+  repeated string names = 2;
+}
+
+message SetLinkDnssecNtaOutput {
+  bool success = 1;
+}
+
+service SetLinkDnssecNtaService {
+  // subid: mut.software.dnsresolver.link.set-dnssec-nta@v1, capability: dnsresolver.write
+  rpc set_link_dnssec_nta(SetLinkDnssecNtaInput) returns (SetLinkDnssecNtaOutput);
+}
+
+

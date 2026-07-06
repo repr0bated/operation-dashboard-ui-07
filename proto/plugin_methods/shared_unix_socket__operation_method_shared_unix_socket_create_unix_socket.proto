@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.shared_unix_socket.create_unix_socket;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateUnixSocketInput {
+  string name = 1;
+  repeated int64 ports = 2;
+}
+
+message CreateUnixSocketOutput {
+  bool success = 1;
+}
+
+service CreateUnixSocketService {
+  // subid: mut.service.shared-unix-socket.create@v1, capability: shared_unix_socket.invoke
+  rpc create_unix_socket(CreateUnixSocketInput) returns (CreateUnixSocketOutput);
+}
+
+

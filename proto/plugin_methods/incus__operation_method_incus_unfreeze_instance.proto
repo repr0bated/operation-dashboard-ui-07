@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.incus.unfreeze_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UnfreezeInstanceInput {
+  string name = 1;
+}
+
+message UnfreezeInstanceOutput {
+  bool success = 1;
+}
+
+service UnfreezeInstanceService {
+  // subid: mut.service.incus.instance.unfreeze@v1, capability: cap.service.incus.instance.unfreeze@v1
+  rpc unfreeze_instance(UnfreezeInstanceInput) returns (UnfreezeInstanceOutput);
+}
+
+

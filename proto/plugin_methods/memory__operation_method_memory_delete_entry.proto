@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.memory.delete_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteEntryInput {
+  string key = 1;
+  string namespace = 2;
+}
+
+message DeleteEntryOutput {
+  bool deleted = 1;
+  bool success = 2;
+}
+
+service DeleteEntryService {
+  // subid: mut.memory.memory.delete-entry@v1, capability: memory.entry.delete
+  rpc delete_entry(DeleteEntryInput) returns (DeleteEntryOutput);
+}
+
+

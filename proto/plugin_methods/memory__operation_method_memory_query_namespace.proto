@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.memory.query_namespace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message QueryNamespaceInput {
+  string name = 1;
+}
+
+message QueryNamespaceOutput {
+  int64 entries = 1;
+  google.protobuf.Value metadata = 2;
+  google.protobuf.Value namespace = 3;
+}
+
+service QueryNamespaceService {
+  // subid: mut.memory.memory.query-namespace@v1, capability: memory.namespace.read
+  rpc query_namespace(QueryNamespaceInput) returns (QueryNamespaceOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.terminate_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TerminateUserInput {
+  int64 uid = 1;
+}
+
+message TerminateUserOutput {
+  bool success = 1;
+}
+
+service TerminateUserService {
+  // subid: mut.software.login1.user.terminate@v1, capability: login1.admin
+  rpc terminate_user(TerminateUserInput) returns (TerminateUserOutput);
+}
+
+

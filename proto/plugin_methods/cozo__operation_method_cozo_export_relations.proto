@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cozo.export_relations;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExportRelationsInput {
+  repeated string relations = 1;
+}
+
+message ExportRelationsOutput {
+  bool success = 1;
+}
+
+service ExportRelationsService {
+  // subid: obs.data.cozo.relations.export@v1, capability: cap.data.cozo.relations.export@v1
+  rpc export_relations(ExportRelationsInput) returns (ExportRelationsOutput);
+}
+
+

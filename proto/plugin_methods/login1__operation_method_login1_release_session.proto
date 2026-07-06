@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.release_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ReleaseSessionInput {
+  string session_id = 1;
+}
+
+message ReleaseSessionOutput {
+  bool success = 1;
+}
+
+service ReleaseSessionService {
+  // subid: mut.software.login1.session.release@v1, capability: login1.write
+  rpc release_session(ReleaseSessionInput) returns (ReleaseSessionOutput);
+}
+
+

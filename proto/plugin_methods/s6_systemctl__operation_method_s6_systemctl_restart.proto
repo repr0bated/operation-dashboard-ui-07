@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.s6_systemctl.restart;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RestartInput {
+  string name = 1;
+}
+
+message RestartOutput {
+  bool success = 1;
+}
+
+service RestartService {
+  // subid: mut.software.s6.systemctl.restart@v1, capability: s6.systemctl.write
+  rpc restart(RestartInput) returns (RestartOutput);
+}
+
+

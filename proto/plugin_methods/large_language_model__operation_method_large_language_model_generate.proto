@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.large_language_model.generate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GenerateInput {
+  // Empty schema object.
+}
+
+message GenerateOutput {
+  bool success = 1;
+}
+
+service GenerateService {
+  // subid: mut.service.llm.generate@v1, capability: llm.invoke
+  rpc generate(GenerateInput) returns (GenerateOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.factory.list_models;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListModelsInput {
+  // Empty schema object.
+}
+
+message ListModelsOutput {
+  repeated google.protobuf.Value models = 1;
+}
+
+service ListModelsService {
+  // subid: obs.service.factory.model.list@v1, capability: factory.read
+  rpc list_models(ListModelsInput) returns (ListModelsOutput);
+}
+
+

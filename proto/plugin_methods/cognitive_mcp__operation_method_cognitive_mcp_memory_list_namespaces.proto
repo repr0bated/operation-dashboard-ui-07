@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.memory_list_namespaces;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryListNamespacesInput {
+  // Empty schema object.
+}
+
+message MemoryListNamespacesOutput {
+  repeated string namespaces = 1;
+}
+
+service MemoryListNamespacesService {
+  // subid: obs.service.cognitive-mcp.memory.namespace.list@v1, capability: cognitive_mcp.read
+  rpc memory_list_namespaces(MemoryListNamespacesInput) returns (MemoryListNamespacesOutput);
+}
+
+

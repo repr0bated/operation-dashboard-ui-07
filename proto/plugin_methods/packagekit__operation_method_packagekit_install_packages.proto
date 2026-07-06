@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.packagekit.install_packages;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message InstallPackagesInput {
+  repeated string package_ids = 1;
+  int64 transaction_flags = 2;
+}
+
+message InstallPackagesOutput {
+  bool success = 1;
+}
+
+service InstallPackagesService {
+  // subid: mut.software.packagekit.package.install@v1, capability: packagekit.admin
+  rpc install_packages(InstallPackagesInput) returns (InstallPackagesOutput);
+}
+
+

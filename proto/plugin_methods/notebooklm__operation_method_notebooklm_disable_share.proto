@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.disable_share;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DisableShareInput {
+  // Empty schema object.
+}
+
+message DisableShareOutput {
+  bool success = 1;
+}
+
+service DisableShareService {
+  // subid: mut.service.plugin.notebooklm.share.disable@v1, capability: notebooklm.invoke
+  rpc disable_share(DisableShareInput) returns (DisableShareOutput);
+}
+
+

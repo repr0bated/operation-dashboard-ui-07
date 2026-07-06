@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.oscal_subid_registry.list_by_category;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListByCategoryInput {
+  // Empty schema object.
+}
+
+message ListByCategoryOutput {
+  repeated google.protobuf.Value entries = 1;
+}
+
+service ListByCategoryService {
+  // subid: obs.standard.oscal.category.list@v1, capability: oscal.read
+  rpc list_by_category(ListByCategoryInput) returns (ListByCategoryOutput);
+}
+
+

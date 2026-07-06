@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.zeroclaw.setqdrantretrievalmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetQdrantRetrievalModelInput {
+  string model_id = 1;
+}
+
+message SetQdrantRetrievalModelOutput {
+  string qdrant_retrieval = 1;
+}
+
+service SetQdrantRetrievalModelService {
+  // subid: mut.service.zeroclaw.model-assignments.qdrant-retrieval.set@v1, capability: cap.software.zeroclaw.model-assignments.qdrant-retrieval.set@v1
+  rpc SetQdrantRetrievalModel(SetQdrantRetrievalModelInput) returns (SetQdrantRetrievalModelOutput);
+}
+
+

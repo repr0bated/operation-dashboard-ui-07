@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.mail_server.add_domain;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddDomainInput {
+  string domain = 1;
+}
+
+message AddDomainOutput {
+  bool success = 1;
+}
+
+service AddDomainService {
+  // subid: mut.service.mail.domain.add@v1, capability: mail.write
+  rpc add_domain(AddDomainInput) returns (AddDomainOutput);
+}
+
+

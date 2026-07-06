@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.get_link;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetLinkInput {
+  int64 ifindex = 1;
+}
+
+message GetLinkOutput {
+  bool success = 1;
+}
+
+service GetLinkService {
+  // subid: obs.software.dnsresolver.link.get@v1, capability: dnsresolver.read
+  rpc get_link(GetLinkInput) returns (GetLinkOutput);
+}
+
+

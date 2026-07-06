@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.incus.stop_instance;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StopInstanceInput {
+  bool force = 1;
+  string name = 2;
+}
+
+message StopInstanceOutput {
+  bool success = 1;
+}
+
+service StopInstanceService {
+  // subid: mut.service.incus.instance.stop@v1, capability: cap.service.incus.instance.stop@v1
+  rpc stop_instance(StopInstanceInput) returns (StopInstanceOutput);
+}
+
+

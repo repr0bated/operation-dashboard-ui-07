@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.memory.compact;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CompactInput {
+  double min_threshold = 1;
+  string namespace = 2;
+}
+
+message CompactOutput {
+  double fragmentation_level = 1;
+  int64 freed_bytes = 2;
+  bool success = 3;
+}
+
+service CompactService {
+  // subid: mut.memory.memory.compact@v1, capability: memory.memory.compact
+  rpc compact(CompactInput) returns (CompactOutput);
+}
+
+

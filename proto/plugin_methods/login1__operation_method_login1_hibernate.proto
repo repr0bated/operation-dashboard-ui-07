@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.login1.hibernate;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message HibernateInput {
+  bool interactive = 1;
+}
+
+message HibernateOutput {
+  bool success = 1;
+}
+
+service HibernateService {
+  // subid: mut.software.login1.system.hibernate@v1, capability: login1.admin
+  rpc hibernate(HibernateInput) returns (HibernateOutput);
+}
+
+

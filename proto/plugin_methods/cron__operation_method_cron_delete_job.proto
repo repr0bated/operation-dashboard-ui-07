@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cron.delete_job;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteJobInput {
+  // Empty schema object.
+}
+
+message DeleteJobOutput {
+  bool success = 1;
+}
+
+service DeleteJobService {
+  // subid: mut.service.cron.job.delete@v1, capability: cron.invoke
+  rpc delete_job(DeleteJobInput) returns (DeleteJobOutput);
+}
+
+

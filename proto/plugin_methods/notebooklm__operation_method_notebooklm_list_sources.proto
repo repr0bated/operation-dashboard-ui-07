@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.list_sources;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListSourcesInput {
+  // Empty schema object.
+}
+
+message ListSourcesOutput {
+  bool success = 1;
+}
+
+service ListSourcesService {
+  // subid: obs.service.plugin.notebooklm.source.list@v1, capability: notebooklm.read
+  rpc list_sources(ListSourcesInput) returns (ListSourcesOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.gemma_brain.analyze_intent;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AnalyzeIntentInput {
+  // Empty schema object.
+}
+
+message AnalyzeIntentOutput {
+  google.protobuf.Value intent = 1;
+}
+
+service AnalyzeIntentService {
+  // subid: mut.service.gemma.intent.analyze@v1, capability: gemma.invoke
+  rpc analyze_intent(AnalyzeIntentInput) returns (AnalyzeIntentOutput);
+}
+
+

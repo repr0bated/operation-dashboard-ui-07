@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.wgcf.generate_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GenerateConfigInput {
+  repeated string dns = 1;
+  string interface = 2;
+}
+
+message GenerateConfigOutput {
+  bool success = 1;
+}
+
+service GenerateConfigService {
+  // subid: mut.software.wgcf.config.generate@v1, capability: wgcf.write
+  rpc generate_config(GenerateConfigInput) returns (GenerateConfigOutput);
+}
+
+

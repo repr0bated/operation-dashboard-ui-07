@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.persona.get_identity;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetIdentityInput {
+  string agent_type = 1;
+}
+
+message GetIdentityOutput {
+  google.protobuf.Value persona = 1;
+}
+
+service GetIdentityService {
+  // subid: obs.agent.persona.identity.get@v1, capability: persona.read
+  rpc get_identity(GetIdentityInput) returns (GetIdentityOutput);
+}
+
+

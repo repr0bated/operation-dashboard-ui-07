@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.memory.insert_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message InsertEntryInput {
+  google.protobuf.Value kv = 1;
+  string namespace = 2;
+}
+
+message InsertEntryOutput {
+  int64 new_entry_count = 1;
+  bool success = 2;
+}
+
+service InsertEntryService {
+  // subid: mut.memory.memory.insert-entry@v1, capability: memory.entry.create
+  rpc insert_entry(InsertEntryInput) returns (InsertEntryOutput);
+}
+
+

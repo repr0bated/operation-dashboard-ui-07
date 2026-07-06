@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.fail2ban.ban_ip;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message BanIpInput {
+  string ip = 1;
+  string jail = 2;
+}
+
+message BanIpOutput {
+  bool success = 1;
+}
+
+service BanIpService {
+  // subid: mut.security.fail2ban.ip.ban@v1, capability: fail2ban.write
+  rpc ban_ip(BanIpInput) returns (BanIpOutput);
+}
+
+

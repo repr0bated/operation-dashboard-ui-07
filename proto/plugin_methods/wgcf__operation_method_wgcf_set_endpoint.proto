@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.wgcf.set_endpoint;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetEndpointInput {
+  string endpoint = 1;
+}
+
+message SetEndpointOutput {
+  bool success = 1;
+}
+
+service SetEndpointService {
+  // subid: mut.software.wgcf.endpoint.set@v1, capability: cap.software.wgcf.endpoint.set@v1
+  rpc set_endpoint(SetEndpointInput) returns (SetEndpointOutput);
+}
+
+

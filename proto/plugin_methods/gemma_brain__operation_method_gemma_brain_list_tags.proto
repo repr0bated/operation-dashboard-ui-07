@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.gemma_brain.list_tags;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListTagsInput {
+  // Empty schema object.
+}
+
+message ListTagsOutput {
+  repeated google.protobuf.Value tags = 1;
+}
+
+service ListTagsService {
+  // subid: obs.service.gemma.tag.list@v1, capability: gemma.read
+  rpc list_tags(ListTagsInput) returns (ListTagsOutput);
+}
+
+

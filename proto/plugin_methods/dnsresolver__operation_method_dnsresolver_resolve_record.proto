@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.resolve_record;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveRecordInput {
+  int64 class = 1;
+  int64 flags = 2;
+  int64 ifindex = 3;
+  string name = 4;
+  int64 record_type = 5;
+}
+
+message ResolveRecordOutput {
+  bool success = 1;
+}
+
+service ResolveRecordService {
+  // subid: obs.software.dnsresolver.record.resolve@v1, capability: dnsresolver.read
+  rpc resolve_record(ResolveRecordInput) returns (ResolveRecordOutput);
+}
+
+

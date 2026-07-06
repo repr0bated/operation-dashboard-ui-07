@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.zeroclaw.getmodelassignments;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetModelAssignmentsInput {
+  // Empty schema object.
+}
+
+message GetModelAssignmentsOutput {
+  google.protobuf.Value model_assignments = 1;
+}
+
+service GetModelAssignmentsService {
+  // subid: obs.service.zeroclaw.model-assignments.get@v1, capability: cap.software.zeroclaw.model-assignments.read@v1
+  rpc GetModelAssignments(GetModelAssignmentsInput) returns (GetModelAssignmentsOutput);
+}
+
+

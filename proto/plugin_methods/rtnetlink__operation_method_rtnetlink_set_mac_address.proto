@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.rtnetlink.set_mac_address;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetMacAddressInput {
+  string mac = 1;
+  string name = 2;
+}
+
+message SetMacAddressOutput {
+  bool success = 1;
+}
+
+service SetMacAddressService {
+  // subid: mut.network.rtnetlink.mac-address.set@v1, capability: cap.network.rtnetlink.mac-address.set@v1
+  rpc set_mac_address(SetMacAddressInput) returns (SetMacAddressOutput);
+}
+
+

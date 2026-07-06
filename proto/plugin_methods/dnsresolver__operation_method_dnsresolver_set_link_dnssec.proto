@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.set_link_dnssec;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnssecInput {
+  int64 ifindex = 1;
+  string mode = 2;
+}
+
+message SetLinkDnssecOutput {
+  bool success = 1;
+}
+
+service SetLinkDnssecService {
+  // subid: mut.software.dnsresolver.link.set-dnssec@v1, capability: dnsresolver.write
+  rpc set_link_dnssec(SetLinkDnssecInput) returns (SetLinkDnssecOutput);
+}
+
+

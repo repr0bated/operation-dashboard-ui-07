@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.freedesktop.getmanagedobjects;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetManagedObjectsInput {
+  // Empty schema object.
+}
+
+message GetManagedObjectsOutput {
+  bool success = 1;
+}
+
+service GetManagedObjectsService {
+  // subid: obs.software.freedesktop.managed_objects.get@v1, capability: freedesktop.read
+  rpc GetManagedObjects(GetManagedObjectsInput) returns (GetManagedObjectsOutput);
+}
+
+

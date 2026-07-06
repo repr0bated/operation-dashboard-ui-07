@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.qdrant.scroll_points;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ScrollPointsInput {
+  string collection_name = 1;
+  int64 limit = 2;
+}
+
+message ScrollPointsOutput {
+  google.protobuf.Value next_page_offset = 1;
+  repeated google.protobuf.Value points = 2;
+}
+
+service ScrollPointsService {
+  // subid: obs.data.qdrant.point.scroll@v1, capability: cap.data.qdrant.point.scroll@v1
+  rpc scroll_points(ScrollPointsInput) returns (ScrollPointsOutput);
+}
+
+

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.mail_server.add_alias;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddAliasInput {
+  string alias = 1;
+  string destination = 2;
+  string domain = 3;
+}
+
+message AddAliasOutput {
+  bool success = 1;
+}
+
+service AddAliasService {
+  // subid: mut.service.mail.alias.add@v1, capability: mail.write
+  rpc add_alias(AddAliasInput) returns (AddAliasOutput);
+}
+
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.software.uninstall;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UninstallInput {
+  bool force = 1;
+  string name = 2;
+}
+
+message UninstallOutput {
+  bool success = 1;
+}
+
+service UninstallService {
+  // subid: mut.software.plugin.software.uninstall@v1, capability: software.write
+  rpc uninstall(UninstallInput) returns (UninstallOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.list_dbs;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListDbsInput {
+  // Empty schema object.
+}
+
+message ListDbsOutput {
+  bool success = 1;
+}
+
+service ListDbsService {
+  // subid: obs.network.ovsdb.dbs.list@v1, capability: ovsdb.read
+  rpc list_dbs(ListDbsInput) returns (ListDbsOutput);
+}
+
+

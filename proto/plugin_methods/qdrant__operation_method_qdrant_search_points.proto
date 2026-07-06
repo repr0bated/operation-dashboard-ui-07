@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.qdrant.search_points;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SearchPointsInput {
+  string collection_name = 1;
+  int64 limit = 2;
+  repeated double vector = 3;
+}
+
+message SearchPointsOutput {
+  repeated google.protobuf.Value results = 1;
+}
+
+service SearchPointsService {
+  // subid: obs.data.qdrant.point.search@v1, capability: cap.data.qdrant.point.search@v1
+  rpc search_points(SearchPointsInput) returns (SearchPointsOutput);
+}
+
+

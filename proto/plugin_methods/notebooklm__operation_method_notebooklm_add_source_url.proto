@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.add_source_url;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddSourceUrlInput {
+  // Empty schema object.
+}
+
+message AddSourceUrlOutput {
+  bool success = 1;
+}
+
+service AddSourceUrlService {
+  // subid: mut.service.plugin.notebooklm.source.add-url@v1, capability: notebooklm.invoke
+  rpc add_source_url(AddSourceUrlInput) returns (AddSourceUrlOutput);
+}
+
+

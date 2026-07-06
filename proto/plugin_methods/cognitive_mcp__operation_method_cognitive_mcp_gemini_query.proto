@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.gemini_query;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GeminiQueryInput {
+  // Empty schema object.
+}
+
+message GeminiQueryOutput {
+  repeated string citations = 1;
+  string response = 2;
+}
+
+service GeminiQueryService {
+  // subid: mut.service.gemini.query@v1, capability: cognitive_mcp.invoke
+  rpc gemini_query(GeminiQueryInput) returns (GeminiQueryOutput);
+}
+
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.unix_socket.accept;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AcceptInput {
+  string path = 1;
+  int64 timeout_secs = 2;
+}
+
+message AcceptOutput {
+  bool success = 1;
+}
+
+service AcceptService {
+  // subid: obs.service.unix-socket.accept@v1, capability: network.read
+  rpc accept(AcceptInput) returns (AcceptOutput);
+}
+
+

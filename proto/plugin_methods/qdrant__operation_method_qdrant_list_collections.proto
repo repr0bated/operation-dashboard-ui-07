@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.qdrant.list_collections;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListCollectionsInput {
+  // Empty schema object.
+}
+
+message ListCollectionsOutput {
+  repeated string collections = 1;
+}
+
+service ListCollectionsService {
+  // subid: obs.data.qdrant.collection.list@v1, capability: cap.data.qdrant.collection.list@v1
+  rpc list_collections(ListCollectionsInput) returns (ListCollectionsOutput);
+}
+
+

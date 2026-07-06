@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.fail2ban.reload;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ReloadInput {
+  // Empty schema object.
+}
+
+message ReloadOutput {
+  bool success = 1;
+}
+
+service ReloadService {
+  // subid: mut.security.fail2ban.service.reload@v1, capability: fail2ban.write
+  rpc reload(ReloadInput) returns (ReloadOutput);
+}
+
+

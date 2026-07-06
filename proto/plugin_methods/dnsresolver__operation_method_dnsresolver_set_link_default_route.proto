@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.set_link_default_route;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDefaultRouteInput {
+  bool enable = 1;
+  int64 ifindex = 2;
+}
+
+message SetLinkDefaultRouteOutput {
+  bool success = 1;
+}
+
+service SetLinkDefaultRouteService {
+  // subid: mut.software.dnsresolver.link.set-default-route@v1, capability: dnsresolver.write
+  rpc set_link_default_route(SetLinkDefaultRouteInput) returns (SetLinkDefaultRouteOutput);
+}
+
+

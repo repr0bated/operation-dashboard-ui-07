@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.json_render.list_actions;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListActionsInput {
+  // Empty schema object.
+}
+
+message ListActionsOutput {
+  repeated google.protobuf.Value actions = 1;
+}
+
+service ListActionsService {
+  // subid: obs.software.plugin.json-render.action.list@v1, capability: json_render.read
+  rpc list_actions(ListActionsInput) returns (ListActionsOutput);
+}
+
+

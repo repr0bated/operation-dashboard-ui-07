@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.rtnetlink.add_ipv4_address;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddIpv4AddressInput {
+  string address = 1;
+  string name = 2;
+}
+
+message AddIpv4AddressOutput {
+  bool success = 1;
+}
+
+service AddIpv4AddressService {
+  // subid: mut.network.rtnetlink.ipv4-address.add@v1, capability: cap.network.rtnetlink.ipv4-address.add@v1
+  rpc add_ipv4_address(AddIpv4AddressInput) returns (AddIpv4AddressOutput);
+}
+
+

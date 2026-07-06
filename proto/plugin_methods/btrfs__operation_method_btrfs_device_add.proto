@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.btrfs.device_add;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeviceAddInput {
+  string device = 1;
+  string path = 2;
+}
+
+message DeviceAddOutput {
+  bool success = 1;
+}
+
+service DeviceAddService {
+  // subid: mut.storage.btrfs.device.add@v1, capability: cap.storage.btrfs.device.add@v1
+  rpc device_add(DeviceAddInput) returns (DeviceAddOutput);
+}
+
+

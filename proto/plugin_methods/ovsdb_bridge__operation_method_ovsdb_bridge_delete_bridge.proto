@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ovsdb_bridge.delete_bridge;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteBridgeInput {
+  string name = 1;
+}
+
+message DeleteBridgeOutput {
+  bool success = 1;
+}
+
+service DeleteBridgeService {
+  // subid: mut.network.ovsdb.bridge.delete@v1, capability: ovsdb.write
+  rpc delete_bridge(DeleteBridgeInput) returns (DeleteBridgeOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.tag_add;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TagAddInput {
+  // Empty schema object.
+}
+
+message TagAddOutput {
+  bool success = 1;
+}
+
+service TagAddService {
+  // subid: mut.service.plugin.notebooklm.tag.add@v1, capability: notebooklm.invoke
+  rpc tag_add(TagAddInput) returns (TagAddOutput);
+}
+
+

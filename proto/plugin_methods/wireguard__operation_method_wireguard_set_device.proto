@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.wireguard.set_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetDeviceInput {
+  int64 fwmark = 1;
+  string interface = 2;
+  int64 listen_port = 3;
+  string private_key = 4;
+}
+
+message SetDeviceOutput {
+  bool success = 1;
+}
+
+service SetDeviceService {
+  // subid: mut.network.wireguard.device.set@v1, capability: wireguard.write
+  rpc set_device(SetDeviceInput) returns (SetDeviceOutput);
+}
+
+

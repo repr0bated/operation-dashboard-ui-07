@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.btrfs.scrub_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ScrubStatusInput {
+  string path = 1;
+}
+
+message ScrubStatusOutput {
+  bool success = 1;
+}
+
+service ScrubStatusService {
+  // subid: obs.storage.btrfs.scrub.status@v1, capability: cap.storage.btrfs.scrub.status@v1
+  rpc scrub_status(ScrubStatusInput) returns (ScrubStatusOutput);
+}
+
+

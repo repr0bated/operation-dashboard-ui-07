@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.notebooklm.create_slides;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateSlidesInput {
+  // Empty schema object.
+}
+
+message CreateSlidesOutput {
+  bool success = 1;
+}
+
+service CreateSlidesService {
+  // subid: mut.service.plugin.notebooklm.studio.slides.create@v1, capability: notebooklm.invoke
+  rpc create_slides(CreateSlidesInput) returns (CreateSlidesOutput);
+}
+
+

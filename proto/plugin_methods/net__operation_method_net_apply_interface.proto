@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.net.apply_interface;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ApplyInterfaceInput {
+  google.protobuf.Value interface = 1;
+}
+
+message ApplyInterfaceOutput {
+  bool success = 1;
+}
+
+service ApplyInterfaceService {
+  // subid: mut.network.interface.apply@v1, capability: cap.network.interface.apply@v1
+  rpc apply_interface(ApplyInterfaceInput) returns (ApplyInterfaceOutput);
+}
+
+

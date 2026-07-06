@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cron.get_job;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetJobInput {
+  // Empty schema object.
+}
+
+message GetJobOutput {
+  google.protobuf.Value job = 1;
+}
+
+service GetJobService {
+  // subid: obs.service.cron.job.get@v1, capability: cron.read
+  rpc get_job(GetJobInput) returns (GetJobOutput);
+}
+
+

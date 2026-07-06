@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.software.get_info;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetInfoInput {
+  string name = 1;
+}
+
+message GetInfoOutput {
+  bool success = 1;
+}
+
+service GetInfoService {
+  // subid: obs.software.plugin.software.get-info@v1, capability: software.read
+  rpc get_info(GetInfoInput) returns (GetInfoOutput);
+}
+
+

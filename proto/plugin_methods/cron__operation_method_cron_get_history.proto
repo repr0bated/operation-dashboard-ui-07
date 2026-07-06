@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.cron.get_history;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetHistoryInput {
+  // Empty schema object.
+}
+
+message GetHistoryOutput {
+  repeated google.protobuf.Value history = 1;
+}
+
+service GetHistoryService {
+  // subid: obs.service.cron.history.get@v1, capability: cron.read
+  rpc get_history(GetHistoryInput) returns (GetHistoryOutput);
+}
+
+

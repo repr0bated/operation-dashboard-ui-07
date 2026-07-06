@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.rovs_commands.remove_port;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemovePortInput {
+  string bridge_name = 1;
+  string port_name = 2;
+}
+
+message RemovePortOutput {
+  bool success = 1;
+}
+
+service RemovePortService {
+  // subid: mut.network.ovsdb.port.delete@v1, capability: cap.network.ovsdb.port.delete@v1
+  rpc remove_port(RemovePortInput) returns (RemovePortOutput);
+}
+
+

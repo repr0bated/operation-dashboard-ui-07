@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.s6_systemctl.daemon_reload;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DaemonReloadInput {
+  // Empty schema object.
+}
+
+message DaemonReloadOutput {
+  string message = 1;
+  bool success = 2;
+}
+
+service DaemonReloadService {
+  // subid: mut.software.s6.systemctl.daemon_reload@v1, capability: s6.systemctl.write
+  rpc daemon_reload(DaemonReloadInput) returns (DaemonReloadOutput);
+}
+
+

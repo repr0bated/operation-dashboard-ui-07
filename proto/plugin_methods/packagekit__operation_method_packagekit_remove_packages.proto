@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.packagekit.remove_packages;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemovePackagesInput {
+  bool allow_deps = 1;
+  bool autoremove = 2;
+  repeated string package_ids = 3;
+  int64 transaction_flags = 4;
+}
+
+message RemovePackagesOutput {
+  bool success = 1;
+}
+
+service RemovePackagesService {
+  // subid: mut.software.packagekit.package.remove@v1, capability: packagekit.admin
+  rpc remove_packages(RemovePackagesInput) returns (RemovePackagesOutput);
+}
+
+

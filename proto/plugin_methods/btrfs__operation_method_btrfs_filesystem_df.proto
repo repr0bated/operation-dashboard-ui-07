@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.btrfs.filesystem_df;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message FilesystemDfInput {
+  string path = 1;
+}
+
+message FilesystemDfOutput {
+  bool success = 1;
+}
+
+service FilesystemDfService {
+  // subid: obs.storage.btrfs.filesystem.df@v1, capability: cap.storage.btrfs.filesystem.df@v1
+  rpc filesystem_df(FilesystemDfInput) returns (FilesystemDfOutput);
+}
+
+

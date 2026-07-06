@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.endpoint.add_endpoint;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddEndpointInput {
+  // Empty schema object.
+}
+
+message AddEndpointOutput {
+  bool success = 1;
+}
+
+service AddEndpointService {
+  // subid: mut.service.endpoint.add@v1, capability: endpoint.invoke
+  rpc add_endpoint(AddEndpointInput) returns (AddEndpointOutput);
+}
+
+

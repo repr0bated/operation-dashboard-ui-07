@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.qdrant.create_collection;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateCollectionInput {
+  string name = 1;
+  google.protobuf.Value vectors_config = 2;
+}
+
+message CreateCollectionOutput {
+  bool success = 1;
+}
+
+service CreateCollectionService {
+  // subid: mut.data.qdrant.collection.create@v1, capability: cap.data.qdrant.collection.create@v1
+  rpc create_collection(CreateCollectionInput) returns (CreateCollectionOutput);
+}
+
+

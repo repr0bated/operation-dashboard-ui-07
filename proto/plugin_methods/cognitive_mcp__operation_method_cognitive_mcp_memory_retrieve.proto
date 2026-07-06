@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+package operation.method.cognitive_mcp.memory_retrieve;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message MemoryRetrieveInput {
+  // Empty schema object.
+}
+
+message MemoryRetrieveOutput {
+  string namespace = 1;
+  bool success = 2;
+  string value = 3;
+}
+
+service MemoryRetrieveService {
+  // subid: obs.service.cognitive-mcp.memory.retrieve@v1, capability: cognitive_mcp.read
+  rpc memory_retrieve(MemoryRetrieveInput) returns (MemoryRetrieveOutput);
+}
+
+

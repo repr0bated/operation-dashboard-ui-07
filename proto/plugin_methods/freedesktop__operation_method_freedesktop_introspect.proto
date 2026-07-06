@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.freedesktop.introspect;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message IntrospectInput {
+  // Empty schema object.
+}
+
+message IntrospectOutput {
+  bool success = 1;
+}
+
+service IntrospectService {
+  // subid: obs.software.freedesktop.introspect@v1, capability: freedesktop.read
+  rpc Introspect(IntrospectInput) returns (IntrospectOutput);
+}
+
+

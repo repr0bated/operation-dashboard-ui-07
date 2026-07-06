@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+
+package operation.method.wireguard.add_peer;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddPeerInput {
+  repeated string allowed_ips = 1;
+  string endpoint = 2;
+  string interface = 3;
+  int64 persistent_keepalive = 4;
+  string preshared_key = 5;
+  string public_key = 6;
+}
+
+message AddPeerOutput {
+  bool success = 1;
+}
+
+service AddPeerService {
+  // subid: mut.network.wireguard.peer.add@v1, capability: wireguard.write
+  rpc add_peer(AddPeerInput) returns (AddPeerOutput);
+}
+
+

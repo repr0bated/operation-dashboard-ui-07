@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ctl_plane_chatbot.get_episode;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetEpisodeInput {
+  // Empty schema object.
+}
+
+message GetEpisodeOutput {
+  google.protobuf.Value episode = 1;
+}
+
+service GetEpisodeService {
+  // subid: obs.service.ctl-plane-chatbot.episode.get@v1, capability: chatbot.read
+  rpc get_episode(GetEpisodeInput) returns (GetEpisodeOutput);
+}
+
+

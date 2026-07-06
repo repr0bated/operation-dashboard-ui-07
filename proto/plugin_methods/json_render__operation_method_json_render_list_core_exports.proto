@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.json_render.list_core_exports;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListCoreExportsInput {
+  // Empty schema object.
+}
+
+message ListCoreExportsOutput {
+  repeated google.protobuf.Value exports = 1;
+}
+
+service ListCoreExportsService {
+  // subid: obs.software.plugin.json-render.core-export.list@v1, capability: json_render.read
+  rpc list_core_exports(ListCoreExportsInput) returns (ListCoreExportsOutput);
+}
+
+

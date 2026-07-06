@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.dnsresolver.set_link_dns_over_tls;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetLinkDnsOverTlsInput {
+  int64 ifindex = 1;
+  string mode = 2;
+}
+
+message SetLinkDnsOverTlsOutput {
+  bool success = 1;
+}
+
+service SetLinkDnsOverTlsService {
+  // subid: mut.software.dnsresolver.link.set-dot@v1, capability: dnsresolver.write
+  rpc set_link_dns_over_tls(SetLinkDnsOverTlsInput) returns (SetLinkDnsOverTlsOutput);
+}
+
+

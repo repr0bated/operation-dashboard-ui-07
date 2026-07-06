@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package operation.method.netmaker.get_node;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetNodeInput {
+  string network = 1;
+  string node_id = 2;
+}
+
+message GetNodeOutput {
+  bool success = 1;
+}
+
+service GetNodeService {
+  // subid: obs.network.netmaker.node.get@v1, capability: cap.network.netmaker.node.get@v1
+  rpc get_node(GetNodeInput) returns (GetNodeOutput);
+}
+
+

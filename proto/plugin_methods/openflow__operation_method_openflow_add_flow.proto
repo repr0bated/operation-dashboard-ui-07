@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+
+package operation.method.openflow.add_flow;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddFlowInput {
+  repeated google.protobuf.Value actions = 1;
+  string bridge = 2;
+  int64 cookie = 3;
+  int64 hard_timeout = 4;
+  int64 idle_timeout = 5;
+  google.protobuf.Struct match_fields = 6;
+  int64 priority = 7;
+  int64 table = 8;
+}
+
+message AddFlowOutput {
+  bool success = 1;
+}
+
+service AddFlowService {
+  // subid: mut.network.openflow.flow.add@v1, capability: openflow.write
+  rpc add_flow(AddFlowInput) returns (AddFlowOutput);
+}
+
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.procfs.get_net_dev;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetNetDevInput {
+  // Empty schema object.
+}
+
+message GetNetDevOutput {
+  bool success = 1;
+}
+
+service GetNetDevService {
+  // subid: obs.service.procfs.net-dev.get@v1, capability: procfs.read
+  rpc get_net_dev(GetNetDevInput) returns (GetNetDevOutput);
+}
+
+

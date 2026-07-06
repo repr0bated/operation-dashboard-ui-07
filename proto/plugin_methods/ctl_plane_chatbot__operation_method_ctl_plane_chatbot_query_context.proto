@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.ctl_plane_chatbot.query_context;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message QueryContextInput {
+  // Empty schema object.
+}
+
+message QueryContextOutput {
+  repeated google.protobuf.Value results = 1;
+}
+
+service QueryContextService {
+  // subid: obs.service.ctl-plane-chatbot.context.query@v1, capability: chatbot.read
+  rpc query_context(QueryContextInput) returns (QueryContextOutput);
+}
+
+

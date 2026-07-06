@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+package operation.method.oscal_subid_registry.export;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExportInput {
+  // Empty schema object.
+}
+
+message ExportOutput {
+  google.protobuf.Value registry = 1;
+}
+
+service ExportService {
+  // subid: obs.standard.oscal.export@v1, capability: oscal.read
+  rpc export(ExportInput) returns (ExportOutput);
+}
+
+

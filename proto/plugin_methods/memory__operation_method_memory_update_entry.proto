@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package operation.method.memory.update_entry;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message UpdateEntryInput {
+  string key = 1;
+  string namespace = 2;
+  google.protobuf.Value value = 3;
+}
+
+message UpdateEntryOutput {
+  google.protobuf.Value previous_value = 1;
+  bool success = 2;
+}
+
+service UpdateEntryService {
+  // subid: mut.memory.memory.update-entry@v1, capability: memory.entry.write
+  rpc update_entry(UpdateEntryInput) returns (UpdateEntryOutput);
+}
+
+
