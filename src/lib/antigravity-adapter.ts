@@ -213,7 +213,12 @@ export function chainEventToAg(event: ChainEvent): AgEvent[] {
 
 function denyReasonToText(reason: ChainEvent["denyReason"] | undefined): string {
   if (!reason) return "Denied";
-  const oneof = reason.reason;
+  const oneof = reason.reason as
+    | { oneofKind: "tagLock"; tagLock: { tag: string; wrapperId: string } }
+    | { oneofKind: "constraintFail"; constraintFail: { constraint: string; message: string } }
+    | { oneofKind: "capabilityMissing"; capabilityMissing: { capability: string } }
+    | { oneofKind: "readOnlyViolation"; readOnlyViolation: { field: string } }
+    | { oneofKind: undefined };
   if (oneof.oneofKind === "tagLock") {
     const tagLock = oneof.tagLock;
     return `tag locked: ${tagLock.tag} (${tagLock.wrapperId})`;
