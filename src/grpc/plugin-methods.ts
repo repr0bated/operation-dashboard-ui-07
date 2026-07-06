@@ -22,7 +22,7 @@ import {
 export type { PluginMethodEntry };
 export { PLUGIN_METHOD_ENTRIES, PLUGIN_METHOD_BY_SUBID, PLUGIN_METHOD_BY_PLUGIN };
 
-async function runUnary<TOut>(call: UnaryCall<object, TOut>): Promise<TOut> {
+async function runUnary<TOut extends object>(call: UnaryCall<object, TOut>): Promise<TOut> {
   const { response } = await call;
   return response;
 }
@@ -52,7 +52,7 @@ export const pluginMethods = {
   },
 
   /** Invoke a plugin method by subid. Throws if the subid is unknown. */
-  async callSubid<TIn extends object = object, TOut = unknown>(
+  async callSubid<TIn extends object = object, TOut extends object = Record<string, unknown>>(
     subid: string,
     input: TIn,
     options?: RpcOptions,
@@ -63,7 +63,7 @@ export const pluginMethods = {
   },
 
   /** Invoke a plugin method by `<serviceTypeName>/<rpcMethod>`. */
-  async callTypeName<TIn extends object = object, TOut = unknown>(
+  async callTypeName<TIn extends object = object, TOut extends object = Record<string, unknown>>(
     key: string,
     input: TIn,
     options?: RpcOptions,
