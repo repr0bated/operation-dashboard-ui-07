@@ -79,17 +79,12 @@ lines.push("");
 lines.push('import type { RpcTransport, UnaryCall } from "@protobuf-ts/runtime-rpc";');
 lines.push("");
 
-// Imports
+// Imports — aliased to avoid duplicate identifiers across plugins.
 for (const e of entries) {
-  lines.push(`import { ${e.clientClass} } from "./plugin_methods/${e.base}.client";`);
-  lines.push(`import type { ${e.inputType}, ${e.outputType} } from "./plugin_methods/${e.base}";`);
+  const alias = `${e.plugin}__${e.clientClass}`;
+  e._alias = alias;
+  lines.push(`import { ${e.clientClass} as ${alias} } from "./plugin_methods/${e.base}.client";`);
 }
-lines.push("");
-
-// Re-exports
-lines.push("export {");
-for (const e of entries) lines.push(`  ${e.clientClass},`);
-lines.push("};");
 lines.push("");
 
 // Registry entry type
@@ -105,7 +100,7 @@ lines.push("");
 
 lines.push("export const PLUGIN_METHOD_ENTRIES: readonly PluginMethodEntry[] = [");
 for (const e of entries) {
-  lines.push(`  { plugin: ${JSON.stringify(e.plugin)}, method: ${JSON.stringify(e.methodName)}, typeName: ${JSON.stringify(e.typeName)}, subid: ${JSON.stringify(e.subid)}, capability: ${JSON.stringify(e.capability)}, invoke: (t, i, o) => new ${e.clientClass}(t).${e.methodName}(i, o) },`);
+  lines.push(`  { plugin: ${JSON.stringify(e.plugin)}, method: ${JSON.stringify(e.methodName)}, typeName: ${JSON.stringify(e.typeName)}, subid: ${JSON.stringify(e.subid)}, capability: ${JSON.stringify(e.capability)}, invoke: (t, i, o) => new ${e._alias}(t as any).${e.methodName}(i, o) },`);
 }
 lines.push("] as const;");
 lines.push("");
