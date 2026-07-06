@@ -195,7 +195,7 @@ export function useEventStream() {
               const update = value as OvsdbUpdate;
               const store = useEventStore.getState();
               const key = `ovsdb.${update.table}.${update.uuid}`;
-              store.updateState(key, update.newRow ? structToObject(update.newRow as Record<string, unknown>) : null);
+              store.updateState(key, update.newRow ? structToObject(update.newRow as unknown as Record<string, unknown>) : null);
               store.addEvent({
                 id: `ovs-${update.uuid}-${Date.now()}`,
                 event: "state_update",

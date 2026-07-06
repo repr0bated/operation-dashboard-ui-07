@@ -14,13 +14,9 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { assistantService } from "@/grpc/gen/assistant/soul";
-import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
-import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
+import { assistantService } from "@/grpc/client";
 import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
-import type {
-  SoulMemory,
-} from "@/grpc/gen/assistant/soul";
+import type { SoulMemory } from "@/grpc/gen/assistant/soul";
 import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
 import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
 import {
@@ -187,7 +183,7 @@ export default function AssistantPage() {
                     </td>
                     <td className="py-2 pr-4 text-xs text-muted-foreground">
                       {s.updatedAt
-                        ? new Date(s.updatedAt.seconds * 1000).toLocaleString()
+                        ? new Date(Number(s.updatedAt.seconds) * 1000).toLocaleString()
                         : "—"}
                     </td>
                     <td className="py-2">
@@ -255,7 +251,7 @@ export default function AssistantPage() {
                     </td>
                     <td className="py-2 pr-4 text-xs text-muted-foreground">
                       {n.createdAt
-                        ? new Date(n.createdAt.seconds * 1000).toLocaleString()
+                        ? new Date(Number(n.createdAt.seconds) * 1000).toLocaleString()
                         : "—"}
                     </td>
                   </tr>
