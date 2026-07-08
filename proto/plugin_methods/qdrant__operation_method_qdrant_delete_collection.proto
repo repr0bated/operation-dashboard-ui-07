@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.delete_collection;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DeleteCollectionService {
   // subid: mut.data.qdrant.collection.delete@v1, capability: cap.data.qdrant.collection.delete@v1
   rpc delete_collection(DeleteCollectionInput) returns (DeleteCollectionOutput);
 }
-
-

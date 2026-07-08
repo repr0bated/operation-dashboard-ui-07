@@ -13,6 +13,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Value } from "../google/protobuf/struct";
 import { Struct } from "../google/protobuf/struct";
 /**
  * @generated from protobuf message operation.method.cozo.run_query.RunQueryInput
@@ -32,9 +33,13 @@ export interface RunQueryInput {
  */
 export interface RunQueryOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: repeated string headers = 1
      */
-    success: boolean;
+    headers: string[];
+    /**
+     * @generated from protobuf field: repeated google.protobuf.Value rows = 2
+     */
+    rows: Value[];
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RunQueryInput$Type extends MessageType<RunQueryInput> {
@@ -94,12 +99,14 @@ export const RunQueryInput = new RunQueryInput$Type();
 class RunQueryOutput$Type extends MessageType<RunQueryOutput> {
     constructor() {
         super("operation.method.cozo.run_query.RunQueryOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "headers", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "rows", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<RunQueryOutput>): RunQueryOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
+        message.headers = [];
+        message.rows = [];
         if (value !== undefined)
             reflectionMergePartial<RunQueryOutput>(this, message, value);
         return message;
@@ -109,8 +116,11 @@ class RunQueryOutput$Type extends MessageType<RunQueryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* repeated string headers */ 1:
+                    message.headers.push(reader.string());
+                    break;
+                case /* repeated google.protobuf.Value rows */ 2:
+                    message.rows.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -124,9 +134,12 @@ class RunQueryOutput$Type extends MessageType<RunQueryOutput> {
         return message;
     }
     internalBinaryWrite(message: RunQueryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* repeated string headers = 1; */
+        for (let i = 0; i < message.headers.length; i++)
+            writer.tag(1, WireType.LengthDelimited).string(message.headers[i]);
+        /* repeated google.protobuf.Value rows = 2; */
+        for (let i = 0; i < message.rows.length; i++)
+            Value.internalBinaryWrite(message.rows[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

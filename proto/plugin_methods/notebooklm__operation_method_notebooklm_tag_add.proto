@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.tag_add;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service TagAddService {
   // subid: mut.service.plugin.notebooklm.tag.add@v1, capability: notebooklm.invoke
   rpc tag_add(TagAddInput) returns (TagAddOutput);
 }
-
-

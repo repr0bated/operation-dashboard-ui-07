@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.daemon_reload;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DaemonReloadService {
   // subid: mut.software.s6.systemctl.daemon_reload@v1, capability: s6.systemctl.write
   rpc daemon_reload(DaemonReloadInput) returns (DaemonReloadOutput);
 }
-
-

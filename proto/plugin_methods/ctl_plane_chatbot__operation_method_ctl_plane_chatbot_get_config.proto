@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ctl_plane_chatbot.get_config;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetConfigService {
   // subid: obs.service.ctl-plane-chatbot.config.get@v1, capability: chatbot.read
   rpc get_config(GetConfigInput) returns (GetConfigOutput);
 }
-
-

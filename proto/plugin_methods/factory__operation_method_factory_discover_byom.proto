@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.factory.discover_byom;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DiscoverByomService {
   // subid: mut.service.factory.byom.discover@v1, capability: factory.invoke
   rpc discover_byom(DiscoverByomInput) returns (DiscoverByomOutput);
 }
-
-

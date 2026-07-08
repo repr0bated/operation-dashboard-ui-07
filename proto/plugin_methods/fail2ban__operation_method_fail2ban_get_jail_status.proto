@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.fail2ban.get_jail_status;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetJailStatusService {
   // subid: obs.security.fail2ban.jail.status@v1, capability: fail2ban.read
   rpc get_jail_status(GetJailStatusInput) returns (GetJailStatusOutput);
 }
-
-

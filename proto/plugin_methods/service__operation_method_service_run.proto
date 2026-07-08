@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.service.run;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service RunService {
   // subid: mut.service.lifecycle.run@v1, capability: cap.service.lifecycle.run@v1
   rpc run(RunInput) returns (RunOutput);
 }
-
-

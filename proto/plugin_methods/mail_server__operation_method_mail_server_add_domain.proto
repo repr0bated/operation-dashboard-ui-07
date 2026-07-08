@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.add_domain;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service AddDomainService {
   // subid: mut.service.mail.domain.add@v1, capability: mail.write
   rpc add_domain(AddDomainInput) returns (AddDomainOutput);
 }
-
-

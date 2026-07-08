@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cozo.restore;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RestoreService {
   // subid: mut.data.cozo.backup.restore@v1, capability: cap.data.cozo.backup.restore@v1
   rpc restore(RestoreInput) returns (RestoreOutput);
 }
-
-

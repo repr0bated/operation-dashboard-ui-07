@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.web_ui.render_page;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service RenderPageService {
   // subid: obs.software.plugin.web-ui.render-page@v1, capability: ui.read
   rpc render_page(RenderPageInput) returns (RenderPageOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.setovsroutingmodel;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetOvsRoutingModelService {
   // subid: mut.service.zeroclaw.model-assignments.ovs-routing.set@v1, capability: cap.software.zeroclaw.model-assignments.ovs-routing.set@v1
   rpc SetOvsRoutingModel(SetOvsRoutingModelInput) returns (SetOvsRoutingModelOutput);
 }
-
-

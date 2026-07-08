@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.update_device;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service UpdateDeviceService {
   // subid: mut.service.incus.device.update@v1, capability: cap.service.incus.device.update@v1
   rpc update_device(UpdateDeviceInput) returns (UpdateDeviceOutput);
 }
-
-

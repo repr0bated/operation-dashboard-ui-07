@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.btrfs.device_add;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DeviceAddService {
   // subid: mut.storage.btrfs.device.add@v1, capability: cap.storage.btrfs.device.add@v1
   rpc device_add(DeviceAddInput) returns (DeviceAddOutput);
 }
-
-

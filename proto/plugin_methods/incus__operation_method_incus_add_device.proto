@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.add_device;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service AddDeviceService {
   // subid: mut.service.incus.device.add@v1, capability: cap.service.incus.device.add@v1
   rpc add_device(AddDeviceInput) returns (AddDeviceOutput);
 }
-
-

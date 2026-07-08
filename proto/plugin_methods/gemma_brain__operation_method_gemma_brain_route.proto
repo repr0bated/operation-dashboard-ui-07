@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.gemma_brain.route;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RouteService {
   // subid: mut.service.gemma.route@v1, capability: gemma.invoke
   rpc route(RouteInput) returns (RouteOutput);
 }
-
-

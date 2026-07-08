@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wireguard.remove_peer;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service RemovePeerService {
   // subid: mut.network.wireguard.peer.remove@v1, capability: wireguard.write
   rpc remove_peer(RemovePeerInput) returns (RemovePeerOutput);
 }
-
-

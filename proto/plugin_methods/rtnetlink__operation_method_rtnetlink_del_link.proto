@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rtnetlink.del_link;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DelLinkService {
   // subid: mut.network.rtnetlink.link.del@v1, capability: cap.network.rtnetlink.link.del@v1
   rpc del_link(DelLinkInput) returns (DelLinkOutput);
 }
-
-

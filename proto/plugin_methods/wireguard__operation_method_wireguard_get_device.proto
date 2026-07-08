@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wireguard.get_device;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetDeviceService {
   // subid: obs.network.wireguard.device.get@v1, capability: wireguard.read
   rpc get_device(GetDeviceInput) returns (GetDeviceOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.large_language_model.get_config;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetConfigService {
   // subid: obs.service.llm.config.get@v1, capability: llm.read
   rpc get_config(GetConfigInput) returns (GetConfigOutput);
 }
-
-

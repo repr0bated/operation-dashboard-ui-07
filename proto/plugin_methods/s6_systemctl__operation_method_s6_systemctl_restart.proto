@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.restart;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RestartService {
   // subid: mut.software.s6.systemctl.restart@v1, capability: s6.systemctl.write
   rpc restart(RestartInput) returns (RestartOutput);
 }
-
-

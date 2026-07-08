@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.create_payload_index;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service CreatePayloadIndexService {
   // subid: mut.data.qdrant.payload-index.create@v1, capability: cap.data.qdrant.payload-index.create@v1
   rpc create_payload_index(CreatePayloadIndexInput) returns (CreatePayloadIndexOutput);
 }
-
-

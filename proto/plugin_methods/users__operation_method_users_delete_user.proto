@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.users.delete_user;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DeleteUserService {
   // subid: mut.software.plugin.users.delete@v1, capability: users.write
   rpc delete_user(DeleteUserInput) returns (DeleteUserOutput);
 }
-
-

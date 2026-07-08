@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.procfs.get_meminfo;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetMeminfoService {
   // subid: obs.service.procfs.meminfo.get@v1, capability: procfs.read
   rpc get_meminfo(GetMeminfoInput) returns (GetMeminfoOutput);
 }
-
-

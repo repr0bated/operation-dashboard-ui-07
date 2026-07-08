@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.set_config;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetConfigService {
   // subid: mut.software.plugin.json-render.config.set@v1, capability: json_render.invoke
   rpc set_config(SetConfigInput) returns (SetConfigOutput);
 }
-
-

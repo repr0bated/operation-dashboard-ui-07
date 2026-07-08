@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.setcozoretrievalmodel;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetCozoRetrievalModelService {
   // subid: mut.service.zeroclaw.model-assignments.cozo-retrieval.set@v1, capability: cap.software.zeroclaw.model-assignments.cozo-retrieval.set@v1
   rpc SetCozoRetrievalModel(SetCozoRetrievalModelInput) returns (SetCozoRetrievalModelOutput);
 }
-
-

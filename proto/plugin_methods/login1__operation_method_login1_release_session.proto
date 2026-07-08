@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.release_session;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ReleaseSessionService {
   // subid: mut.software.login1.session.release@v1, capability: login1.write
   rpc release_session(ReleaseSessionInput) returns (ReleaseSessionOutput);
 }
-
-

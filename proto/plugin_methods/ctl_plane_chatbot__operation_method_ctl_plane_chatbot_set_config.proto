@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ctl_plane_chatbot.set_config;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetConfigService {
   // subid: mut.service.ctl-plane-chatbot.config.set@v1, capability: chatbot.invoke
   rpc set_config(SetConfigInput) returns (SetConfigOutput);
 }
-
-

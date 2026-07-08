@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.workflows.pause_workflow;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service PauseWorkflowService {
   // subid: mut.software.plugin.workflows.pause@v1, capability: workflows.write
   rpc pause_workflow(PauseWorkflowInput) returns (PauseWorkflowOutput);
 }
-
-

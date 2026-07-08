@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.flush_caches;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service FlushCachesService {
   // subid: mut.software.dnsresolver.caches.flush@v1, capability: dnsresolver.write
   rpc flush_caches(FlushCachesInput) returns (FlushCachesOutput);
 }
-
-

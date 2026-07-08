@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.upsert_points;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service UpsertPointsService {
   // subid: mut.data.qdrant.point.upsert@v1, capability: cap.data.qdrant.point.upsert@v1
   rpc upsert_points(UpsertPointsInput) returns (UpsertPointsOutput);
 }
-
-

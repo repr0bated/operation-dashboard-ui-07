@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.proxy_server.start_proxy;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service StartProxyService {
   // subid: mut.network.proxy.start@v1, capability: cap.network.proxy.start@v1
   rpc start_proxy(StartProxyInput) returns (StartProxyOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.delete_namespace;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DeleteNamespaceService {
   // subid: mut.memory.memory.delete-namespace@v1, capability: memory.namespace.delete
   rpc delete_namespace(DeleteNamespaceInput) returns (DeleteNamespaceOutput);
 }
-
-

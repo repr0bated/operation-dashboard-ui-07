@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.update;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service UpdateService {
   // subid: mut.software.wgcf.update@v1, capability: cap.software.wgcf.update@v1
   rpc update(UpdateInput) returns (UpdateOutput);
 }
-
-

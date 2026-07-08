@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.import_research;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ImportResearchService {
   // subid: mut.service.plugin.notebooklm.research.import@v1, capability: notebooklm.invoke
   rpc import_research(ImportResearchInput) returns (ImportResearchOutput);
 }
-
-

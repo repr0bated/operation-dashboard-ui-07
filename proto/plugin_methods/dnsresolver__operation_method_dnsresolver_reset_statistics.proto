@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.reset_statistics;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ResetStatisticsService {
   // subid: mut.software.dnsresolver.statistics.reset@v1, capability: dnsresolver.write
   rpc reset_statistics(ResetStatisticsInput) returns (ResetStatisticsOutput);
 }
-
-

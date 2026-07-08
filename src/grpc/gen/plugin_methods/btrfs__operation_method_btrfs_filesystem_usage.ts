@@ -27,9 +27,21 @@ export interface FilesystemUsageInput {
  */
 export interface FilesystemUsageOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: int64 data_bytes = 1
      */
-    success: boolean;
+    dataBytes: string;
+    /**
+     * @generated from protobuf field: int64 metadata_bytes = 2
+     */
+    metadataBytes: string;
+    /**
+     * @generated from protobuf field: int64 system_bytes = 3
+     */
+    systemBytes: string;
+    /**
+     * @generated from protobuf field: int64 unallocated_bytes = 4
+     */
+    unallocatedBytes: string;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class FilesystemUsageInput$Type extends MessageType<FilesystemUsageInput> {
@@ -82,12 +94,18 @@ export const FilesystemUsageInput = new FilesystemUsageInput$Type();
 class FilesystemUsageOutput$Type extends MessageType<FilesystemUsageOutput> {
     constructor() {
         super("operation.method.btrfs.filesystem_usage.FilesystemUsageOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "data_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 2, name: "metadata_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 3, name: "system_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 4, name: "unallocated_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<FilesystemUsageOutput>): FilesystemUsageOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
+        message.dataBytes = "0";
+        message.metadataBytes = "0";
+        message.systemBytes = "0";
+        message.unallocatedBytes = "0";
         if (value !== undefined)
             reflectionMergePartial<FilesystemUsageOutput>(this, message, value);
         return message;
@@ -97,8 +115,17 @@ class FilesystemUsageOutput$Type extends MessageType<FilesystemUsageOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* int64 data_bytes */ 1:
+                    message.dataBytes = reader.int64().toString();
+                    break;
+                case /* int64 metadata_bytes */ 2:
+                    message.metadataBytes = reader.int64().toString();
+                    break;
+                case /* int64 system_bytes */ 3:
+                    message.systemBytes = reader.int64().toString();
+                    break;
+                case /* int64 unallocated_bytes */ 4:
+                    message.unallocatedBytes = reader.int64().toString();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -112,9 +139,18 @@ class FilesystemUsageOutput$Type extends MessageType<FilesystemUsageOutput> {
         return message;
     }
     internalBinaryWrite(message: FilesystemUsageOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* int64 data_bytes = 1; */
+        if (message.dataBytes !== "0")
+            writer.tag(1, WireType.Varint).int64(message.dataBytes);
+        /* int64 metadata_bytes = 2; */
+        if (message.metadataBytes !== "0")
+            writer.tag(2, WireType.Varint).int64(message.metadataBytes);
+        /* int64 system_bytes = 3; */
+        if (message.systemBytes !== "0")
+            writer.tag(3, WireType.Varint).int64(message.systemBytes);
+        /* int64 unallocated_bytes = 4; */
+        if (message.unallocatedBytes !== "0")
+            writer.tag(4, WireType.Varint).int64(message.unallocatedBytes);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

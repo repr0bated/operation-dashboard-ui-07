@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.persona.set_identity;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service SetIdentityService {
   // subid: mut.agent.persona.identity.set@v1, capability: persona.write
   rpc set_identity(SetIdentityInput) returns (SetIdentityOutput);
 }
-
-

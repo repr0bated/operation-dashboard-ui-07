@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.rename_label;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RenameLabelService {
   // subid: mut.service.plugin.notebooklm.source.label-rename@v1, capability: notebooklm.invoke
   rpc rename_label(RenameLabelInput) returns (RenameLabelOutput);
 }
-
-

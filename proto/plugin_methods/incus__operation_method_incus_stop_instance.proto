@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.stop_instance;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service StopInstanceService {
   // subid: mut.service.incus.instance.stop@v1, capability: cap.service.incus.instance.stop@v1
   rpc stop_instance(StopInstanceInput) returns (StopInstanceOutput);
 }
-
-

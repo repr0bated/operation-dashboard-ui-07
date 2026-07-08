@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.freedesktop.getmachineid;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetMachineIdService {
   // subid: obs.software.freedesktop.machine_id.get@v1, capability: freedesktop.read
   rpc GetMachineId(GetMachineIdInput) returns (GetMachineIdOutput);
 }
-
-

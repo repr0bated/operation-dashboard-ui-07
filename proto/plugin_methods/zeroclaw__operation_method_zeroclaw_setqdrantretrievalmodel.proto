@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.setqdrantretrievalmodel;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetQdrantRetrievalModelService {
   // subid: mut.service.zeroclaw.model-assignments.qdrant-retrieval.set@v1, capability: cap.software.zeroclaw.model-assignments.qdrant-retrieval.set@v1
   rpc SetQdrantRetrievalModel(SetQdrantRetrievalModelInput) returns (SetQdrantRetrievalModelOutput);
 }
-
-

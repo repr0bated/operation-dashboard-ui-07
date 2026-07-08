@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.remove_port;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service RemovePortService {
   // subid: mut.network.ovsdb.port.remove@v1, capability: ovsdb.write
   rpc remove_port(RemovePortInput) returns (RemovePortOutput);
 }
-
-

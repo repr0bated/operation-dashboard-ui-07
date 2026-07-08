@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.freedesktop.ping;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service PingService {
   // subid: obs.software.freedesktop.ping@v1, capability: freedesktop.read
   rpc Ping(PingInput) returns (PingOutput);
 }
-
-

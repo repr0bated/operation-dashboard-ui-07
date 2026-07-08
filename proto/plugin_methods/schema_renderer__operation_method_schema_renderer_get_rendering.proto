@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.schema_renderer.get_rendering;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetRenderingService {
   // subid: obs.service.schema.rendering.get@v1, capability: schema_renderer.read
   rpc get_rendering(GetRenderingInput) returns (GetRenderingOutput);
 }
-
-

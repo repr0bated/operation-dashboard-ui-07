@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.set_config;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetConfigService {
   // subid: mut.service.cognitive-mcp.config.set@v1, capability: cognitive_mcp.invoke
   rpc set_config(SetConfigInput) returns (SetConfigOutput);
 }
-
-

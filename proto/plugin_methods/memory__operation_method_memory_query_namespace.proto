@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.query_namespace;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service QueryNamespaceService {
   // subid: mut.memory.memory.query-namespace@v1, capability: memory.namespace.read
   rpc query_namespace(QueryNamespaceInput) returns (QueryNamespaceOutput);
 }
-
-

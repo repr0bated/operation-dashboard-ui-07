@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.describe_studio;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DescribeStudioService {
   // subid: obs.service.plugin.notebooklm.studio.describe@v1, capability: notebooklm.read
   rpc describe_studio(DescribeStudioInput) returns (DescribeStudioOutput);
 }
-
-

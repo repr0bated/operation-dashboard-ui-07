@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.packagekit.search_names;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SearchNamesService {
   // subid: obs.software.packagekit.names.search@v1, capability: packagekit.read
   rpc search_names(SearchNamesInput) returns (SearchNamesOutput);
 }
-
-

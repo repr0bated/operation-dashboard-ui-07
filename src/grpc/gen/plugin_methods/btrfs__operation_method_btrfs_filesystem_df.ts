@@ -27,9 +27,21 @@ export interface FilesystemDfInput {
  */
 export interface FilesystemDfOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: int64 allocated_bytes = 1
      */
-    success: boolean;
+    allocatedBytes: string;
+    /**
+     * @generated from protobuf field: int64 free_bytes = 2
+     */
+    freeBytes: string;
+    /**
+     * @generated from protobuf field: int64 total_bytes = 3
+     */
+    totalBytes: string;
+    /**
+     * @generated from protobuf field: int64 used_bytes = 4
+     */
+    usedBytes: string;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class FilesystemDfInput$Type extends MessageType<FilesystemDfInput> {
@@ -82,12 +94,18 @@ export const FilesystemDfInput = new FilesystemDfInput$Type();
 class FilesystemDfOutput$Type extends MessageType<FilesystemDfOutput> {
     constructor() {
         super("operation.method.btrfs.filesystem_df.FilesystemDfOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "allocated_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 2, name: "free_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 3, name: "total_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 4, name: "used_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<FilesystemDfOutput>): FilesystemDfOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
+        message.allocatedBytes = "0";
+        message.freeBytes = "0";
+        message.totalBytes = "0";
+        message.usedBytes = "0";
         if (value !== undefined)
             reflectionMergePartial<FilesystemDfOutput>(this, message, value);
         return message;
@@ -97,8 +115,17 @@ class FilesystemDfOutput$Type extends MessageType<FilesystemDfOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* int64 allocated_bytes */ 1:
+                    message.allocatedBytes = reader.int64().toString();
+                    break;
+                case /* int64 free_bytes */ 2:
+                    message.freeBytes = reader.int64().toString();
+                    break;
+                case /* int64 total_bytes */ 3:
+                    message.totalBytes = reader.int64().toString();
+                    break;
+                case /* int64 used_bytes */ 4:
+                    message.usedBytes = reader.int64().toString();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -112,9 +139,18 @@ class FilesystemDfOutput$Type extends MessageType<FilesystemDfOutput> {
         return message;
     }
     internalBinaryWrite(message: FilesystemDfOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* int64 allocated_bytes = 1; */
+        if (message.allocatedBytes !== "0")
+            writer.tag(1, WireType.Varint).int64(message.allocatedBytes);
+        /* int64 free_bytes = 2; */
+        if (message.freeBytes !== "0")
+            writer.tag(2, WireType.Varint).int64(message.freeBytes);
+        /* int64 total_bytes = 3; */
+        if (message.totalBytes !== "0")
+            writer.tag(3, WireType.Varint).int64(message.totalBytes);
+        /* int64 used_bytes = 4; */
+        if (message.usedBytes !== "0")
+            writer.tag(4, WireType.Varint).int64(message.usedBytes);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

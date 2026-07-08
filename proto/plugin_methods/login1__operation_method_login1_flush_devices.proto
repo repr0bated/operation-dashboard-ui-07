@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.flush_devices;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service FlushDevicesService {
   // subid: mut.software.login1.devices.flush@v1, capability: login1.admin
   rpc flush_devices(FlushDevicesInput) returns (FlushDevicesOutput);
 }
-
-

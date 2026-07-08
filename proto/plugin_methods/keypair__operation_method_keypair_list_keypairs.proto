@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.keypair.list_keypairs;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListKeypairsService {
   // subid: obs.service.keypair.list@v1, capability: cap.service.keypair.list@v1
   rpc list_keypairs(ListKeypairsInput) returns (ListKeypairsOutput);
 }
-
-

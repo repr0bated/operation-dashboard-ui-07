@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.add_alias;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service AddAliasService {
   // subid: mut.service.mail.alias.add@v1, capability: mail.write
   rpc add_alias(AddAliasInput) returns (AddAliasOutput);
 }
-
-

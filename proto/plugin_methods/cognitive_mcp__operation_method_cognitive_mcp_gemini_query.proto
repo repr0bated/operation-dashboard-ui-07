@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.gemini_query;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service GeminiQueryService {
   // subid: mut.service.gemini.query@v1, capability: cognitive_mcp.invoke
   rpc gemini_query(GeminiQueryInput) returns (GeminiQueryOutput);
 }
-
-

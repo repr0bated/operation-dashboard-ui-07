@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.btrfs.device_remove;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DeviceRemoveService {
   // subid: mut.storage.btrfs.device.remove@v1, capability: cap.storage.btrfs.device.remove@v1
   rpc device_remove(DeviceRemoveInput) returns (DeviceRemoveOutput);
 }
-
-

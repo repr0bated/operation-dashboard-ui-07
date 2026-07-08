@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.procfs.list_processes;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListProcessesService {
   // subid: obs.service.procfs.process.list@v1, capability: procfs.read
   rpc list_processes(ListProcessesInput) returns (ListProcessesOutput);
 }
-
-

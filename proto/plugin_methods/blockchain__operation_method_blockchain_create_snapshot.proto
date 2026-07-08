@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.blockchain.create_snapshot;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateSnapshotService {
   // subid: mut.service.blockchain.snapshot.create@v1, capability: blockchain.invoke
   rpc create_snapshot(CreateSnapshotInput) returns (CreateSnapshotOutput);
 }
-
-

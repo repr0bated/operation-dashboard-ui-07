@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.large_language_model.generate;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GenerateService {
   // subid: mut.service.llm.generate@v1, capability: llm.invoke
   rpc generate(GenerateInput) returns (GenerateOutput);
 }
-
-

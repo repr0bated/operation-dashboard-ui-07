@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.gemma_brain.analyze_intent;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service AnalyzeIntentService {
   // subid: mut.service.gemma.intent.analyze@v1, capability: gemma.invoke
   rpc analyze_intent(AnalyzeIntentInput) returns (AnalyzeIntentOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.rotate_keys;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RotateKeysService {
   // subid: mut.software.wgcf.keys.rotate@v1, capability: cap.software.wgcf.keys.rotate@v1
   rpc rotate_keys(RotateKeysInput) returns (RotateKeysOutput);
 }
-
-

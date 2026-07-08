@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.btrfs.balance_start;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service BalanceStartService {
   // subid: mut.storage.btrfs.balance.start@v1, capability: cap.storage.btrfs.balance.start@v1
   rpc balance_start(BalanceStartInput) returns (BalanceStartOutput);
 }
-
-

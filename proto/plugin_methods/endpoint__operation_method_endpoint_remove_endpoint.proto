@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.endpoint.remove_endpoint;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RemoveEndpointService {
   // subid: mut.service.endpoint.remove@v1, capability: endpoint.invoke
   rpc remove_endpoint(RemoveEndpointInput) returns (RemoveEndpointOutput);
 }
-
-

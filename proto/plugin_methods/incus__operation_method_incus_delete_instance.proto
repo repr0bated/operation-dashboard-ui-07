@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.delete_instance;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DeleteInstanceService {
   // subid: mut.service.incus.instance.delete@v1, capability: cap.service.incus.instance.delete@v1
   rpc delete_instance(DeleteInstanceInput) returns (DeleteInstanceOutput);
 }
-
-

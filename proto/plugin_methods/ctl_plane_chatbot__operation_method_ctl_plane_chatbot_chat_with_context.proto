@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.ctl_plane_chatbot.chat_with_context;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ChatWithContextInput {
+  repeated google.protobuf.Value conversation_history = 1;
+  repeated string episode_ids = 2;
+  string message = 3;
+}
+
+message ChatWithContextOutput {
+  string model = 1;
+  repeated string referenced_episodes = 2;
+  string reply = 3;
+}
+
+service ChatWithContextService {
+  // subid: mut.service.ctl-plane-chatbot.chat.context@v1, capability: chatbot.invoke
+  rpc chat_with_context(ChatWithContextInput) returns (ChatWithContextOutput);
+}

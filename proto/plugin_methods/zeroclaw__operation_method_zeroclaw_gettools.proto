@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.gettools;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetToolsService {
   // subid: obs.service.zeroclaw.tools.list@v1, capability: cap.software.zeroclaw.tools.read@v1
   rpc GetTools(GetToolsInput) returns (GetToolsOutput);
 }
-
-

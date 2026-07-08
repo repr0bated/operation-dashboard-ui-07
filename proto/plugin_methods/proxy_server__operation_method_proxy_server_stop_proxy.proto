@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.proxy_server.stop_proxy;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StopProxyService {
   // subid: mut.network.proxy.stop@v1, capability: cap.network.proxy.stop@v1
   rpc stop_proxy(StopProxyInput) returns (StopProxyOutput);
 }
-
-

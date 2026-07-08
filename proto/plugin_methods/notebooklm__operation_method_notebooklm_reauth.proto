@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.reauth;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ReauthService {
   // subid: mut.service.plugin.notebooklm.auth.reauth@v1, capability: notebooklm.admin
   rpc reauth(ReauthInput) returns (ReauthOutput);
 }
-
-

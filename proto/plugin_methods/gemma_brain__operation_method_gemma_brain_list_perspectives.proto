@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.gemma_brain.list_perspectives;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListPerspectivesService {
   // subid: obs.service.gemma.perspective.list@v1, capability: gemma.read
   rpc list_perspectives(ListPerspectivesInput) returns (ListPerspectivesOutput);
 }
-
-

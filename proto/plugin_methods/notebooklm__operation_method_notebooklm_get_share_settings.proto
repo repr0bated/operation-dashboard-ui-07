@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.get_share_settings;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetShareSettingsService {
   // subid: obs.service.plugin.notebooklm.share.settings@v1, capability: notebooklm.read
   rpc get_share_settings(GetShareSettingsInput) returns (GetShareSettingsOutput);
 }
-
-

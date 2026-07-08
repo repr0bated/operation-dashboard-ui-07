@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.persona.authenticate;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service AuthenticateService {
   // subid: mut.agent.persona.authenticate@v1, capability: persona.write
   rpc authenticate(AuthenticateInput) returns (AuthenticateOutput);
 }
-
-

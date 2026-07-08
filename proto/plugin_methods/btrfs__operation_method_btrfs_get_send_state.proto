@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.btrfs.get_send_state;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSendStateInput {
+  // Empty schema object.
+}
+
+message GetSendStateOutput {
+  repeated google.protobuf.Value remotes = 1;
+}
+
+service GetSendStateService {
+  // subid: obs.storage.btrfs.send-state.get@v1, capability: cap.storage.btrfs.send-state.get@v1
+  rpc get_send_state(GetSendStateInput) returns (GetSendStateOutput);
+}

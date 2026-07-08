@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.echo;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service EchoService {
   // subid: obs.network.ovsdb.echo@v1, capability: ovsdb.read
   rpc echo(EchoInput) returns (EchoOutput);
 }
-
-

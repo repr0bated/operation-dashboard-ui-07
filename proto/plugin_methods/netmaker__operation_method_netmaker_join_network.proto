@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.netmaker.join_network;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service JoinNetworkService {
   // subid: mut.network.netmaker.network.join@v1, capability: cap.network.netmaker.network.join@v1
   rpc join_network(JoinNetworkInput) returns (JoinNetworkOutput);
 }
-
-

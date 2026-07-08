@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.list_tools;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListToolsService {
   // subid: obs.service.cognitive-mcp.tool.list@v1, capability: cognitive_mcp.read
   rpc list_tools(ListToolsInput) returns (ListToolsOutput);
 }
-
-

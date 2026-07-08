@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.btrfs.create_subvolume;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateSubvolumeService {
   // subid: mut.storage.btrfs.subvolume.create@v1, capability: cap.storage.btrfs.subvolume.create@v1
   rpc create_subvolume(CreateSubvolumeInput) returns (CreateSubvolumeOutput);
 }
-
-

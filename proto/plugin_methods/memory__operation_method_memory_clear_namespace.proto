@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.clear_namespace;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service ClearNamespaceService {
   // subid: mut.memory.memory.clear-namespace@v1, capability: memory.namespace.clear
   rpc clear_namespace(ClearNamespaceInput) returns (ClearNamespaceOutput);
 }
-
-

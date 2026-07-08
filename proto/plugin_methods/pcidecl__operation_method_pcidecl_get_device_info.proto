@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.pcidecl.get_device_info;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetDeviceInfoService {
   // subid: obs.hardware.pci.device.info@v1, capability: pcidecl.read
   rpc get_device_info(GetDeviceInfoInput) returns (GetDeviceInfoOutput);
 }
-
-

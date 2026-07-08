@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.revert_link;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RevertLinkService {
   // subid: mut.software.dnsresolver.link.revert@v1, capability: dnsresolver.write
   rpc revert_link(RevertLinkInput) returns (RevertLinkOutput);
 }
-
-

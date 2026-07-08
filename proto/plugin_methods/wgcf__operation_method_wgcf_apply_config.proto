@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.apply_config;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service ApplyConfigService {
   // subid: mut.software.wgcf.config.apply@v1, capability: wgcf.write
   rpc apply_config(ApplyConfigInput) returns (ApplyConfigOutput);
 }
-
-

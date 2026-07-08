@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.start;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StartService {
   // subid: mut.software.s6.systemctl.start@v1, capability: s6.systemctl.write
   rpc start(StartInput) returns (StartOutput);
 }
-
-

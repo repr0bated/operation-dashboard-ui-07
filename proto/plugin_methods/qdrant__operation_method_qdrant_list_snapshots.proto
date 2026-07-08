@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.list_snapshots;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListSnapshotsService {
   // subid: obs.data.qdrant.snapshot.list@v1, capability: cap.data.qdrant.snapshot.list@v1
   rpc list_snapshots(ListSnapshotsInput) returns (ListSnapshotsOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.get_health;
 
 import "google/protobuf/descriptor.proto";
@@ -27,5 +26,3 @@ service GetHealthService {
   // subid: obs.service.cognitive-mcp.health@v1, capability: cognitive_mcp.read
   rpc get_health(GetHealthInput) returns (GetHealthOutput);
 }
-
-

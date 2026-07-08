@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ctl_plane_chatbot.query_context;
 
 import "google/protobuf/descriptor.proto";
@@ -12,7 +11,8 @@ extend google.protobuf.MethodOptions {
 }
 
 message QueryContextInput {
-  // Empty schema object.
+  int64 limit = 1;
+  string query = 2;
 }
 
 message QueryContextOutput {
@@ -23,5 +23,3 @@ service QueryContextService {
   // subid: obs.service.ctl-plane-chatbot.context.query@v1, capability: chatbot.read
   rpc query_context(QueryContextInput) returns (QueryContextOutput);
 }
-
-

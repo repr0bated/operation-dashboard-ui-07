@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.btrfs.list_snapshots;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListSnapshotsInput {
+  int64 limit = 1;
+  string subvolume = 2;
+}
+
+message ListSnapshotsOutput {
+  repeated google.protobuf.Value snapshots = 1;
+}
+
+service ListSnapshotsService {
+  // subid: obs.storage.btrfs.snapshot.list@v1, capability: cap.storage.btrfs.snapshot.list@v1
+  rpc list_snapshots(ListSnapshotsInput) returns (ListSnapshotsOutput);
+}

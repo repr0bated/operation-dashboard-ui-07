@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.factory.get_session;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetSessionService {
   // subid: obs.service.factory.session.get@v1, capability: factory.read
   rpc get_session(GetSessionInput) returns (GetSessionOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.embedding_model.list_models;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListModelsService {
   // subid: obs.service.embedding.model.list@v1, capability: embedding.read
   rpc list_models(ListModelsInput) returns (ListModelsOutput);
 }
-
-

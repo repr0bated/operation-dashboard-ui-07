@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.unix_socket.bind;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service BindService {
   // subid: mut.service.unix-socket.bind@v1, capability: network.write
   rpc bind(BindInput) returns (BindOutput);
 }
-
-

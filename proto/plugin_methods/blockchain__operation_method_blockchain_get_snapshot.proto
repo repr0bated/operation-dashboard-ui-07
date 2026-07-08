@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.blockchain.get_snapshot;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetSnapshotService {
   // subid: obs.service.blockchain.snapshot.get@v1, capability: blockchain.read
   rpc get_snapshot(GetSnapshotInput) returns (GetSnapshotOutput);
 }
-
-

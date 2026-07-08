@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.schema_renderer.list_galleries;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListGalleriesService {
   // subid: obs.service.schema.gallery.list@v1, capability: schema_renderer.read
   rpc list_galleries(ListGalleriesInput) returns (ListGalleriesOutput);
 }
-
-

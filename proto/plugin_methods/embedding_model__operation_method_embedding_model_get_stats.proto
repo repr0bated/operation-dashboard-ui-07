@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.embedding_model.get_stats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatsInput {
+  // Empty schema object.
+}
+
+message GetStatsOutput {
+  google.protobuf.Value active_model = 1;
+  repeated google.protobuf.Value available_models = 2;
+  int64 dimensions = 3;
+  string provider = 4;
+  string status = 5;
+}
+
+service GetStatsService {
+  // subid: obs.service.embedding-model.stats.get@v1, capability: embedding.read
+  rpc get_stats(GetStatsInput) returns (GetStatsOutput);
+}

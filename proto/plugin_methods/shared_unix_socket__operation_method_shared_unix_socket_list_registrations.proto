@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.shared_unix_socket.list_registrations;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListRegistrationsService {
   // subid: obs.service.shared-unix-socket.registrations.list@v1, capability: shared_unix_socket.read
   rpc list_registrations(ListRegistrationsInput) returns (ListRegistrationsOutput);
 }
-
-

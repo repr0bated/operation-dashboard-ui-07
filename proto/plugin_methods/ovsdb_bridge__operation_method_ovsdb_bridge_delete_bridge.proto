@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.delete_bridge;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DeleteBridgeService {
   // subid: mut.network.ovsdb.bridge.delete@v1, capability: ovsdb.write
   rpc delete_bridge(DeleteBridgeInput) returns (DeleteBridgeOutput);
 }
-
-

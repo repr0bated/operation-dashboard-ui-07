@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.fail2ban.ban_ip;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service BanIpService {
   // subid: mut.security.fail2ban.ip.ban@v1, capability: fail2ban.write
   rpc ban_ip(BanIpInput) returns (BanIpOutput);
 }
-
-

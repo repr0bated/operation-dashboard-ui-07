@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.unix_socket.accept;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service AcceptService {
   // subid: obs.service.unix-socket.accept@v1, capability: network.read
   rpc accept(AcceptInput) returns (AcceptOutput);
 }
-
-

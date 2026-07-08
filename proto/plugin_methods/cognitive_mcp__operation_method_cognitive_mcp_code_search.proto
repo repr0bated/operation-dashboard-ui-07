@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.code_search;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service CodeSearchService {
   // subid: obs.service.code-rag.search@v1, capability: cognitive_mcp.read
   rpc code_search(CodeSearchInput) returns (CodeSearchOutput);
 }
-
-

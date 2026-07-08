@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.get_link;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetLinkService {
   // subid: obs.software.dnsresolver.link.get@v1, capability: dnsresolver.read
   rpc get_link(GetLinkInput) returns (GetLinkOutput);
 }
-
-

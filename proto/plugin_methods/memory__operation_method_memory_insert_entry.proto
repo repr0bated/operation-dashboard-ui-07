@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.insert_entry;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service InsertEntryService {
   // subid: mut.memory.memory.insert-entry@v1, capability: memory.entry.create
   rpc insert_entry(InsertEntryInput) returns (InsertEntryOutput);
 }
-
-

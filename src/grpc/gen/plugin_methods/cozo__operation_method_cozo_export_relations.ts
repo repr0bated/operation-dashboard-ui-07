@@ -13,6 +13,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Value } from "../google/protobuf/struct";
 /**
  * @generated from protobuf message operation.method.cozo.export_relations.ExportRelationsInput
  */
@@ -27,9 +28,9 @@ export interface ExportRelationsInput {
  */
 export interface ExportRelationsOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: google.protobuf.Value data = 1
      */
-    success: boolean;
+    data?: Value;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ExportRelationsInput$Type extends MessageType<ExportRelationsInput> {
@@ -82,12 +83,11 @@ export const ExportRelationsInput = new ExportRelationsInput$Type();
 class ExportRelationsOutput$Type extends MessageType<ExportRelationsOutput> {
     constructor() {
         super("operation.method.cozo.export_relations.ExportRelationsOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "data", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ExportRelationsOutput>): ExportRelationsOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ExportRelationsOutput>(this, message, value);
         return message;
@@ -97,8 +97,8 @@ class ExportRelationsOutput$Type extends MessageType<ExportRelationsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* google.protobuf.Value data */ 1:
+                    message.data = Value.internalBinaryRead(reader, reader.uint32(), options, message.data);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -112,9 +112,9 @@ class ExportRelationsOutput$Type extends MessageType<ExportRelationsOutput> {
         return message;
     }
     internalBinaryWrite(message: ExportRelationsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* google.protobuf.Value data = 1; */
+        if (message.data)
+            Value.internalBinaryWrite(message.data, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

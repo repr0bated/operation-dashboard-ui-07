@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.exec_instance;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service ExecInstanceService {
   // subid: mut.service.incus.instance.exec@v1, capability: cap.service.incus.instance.exec@v1
   rpc exec_instance(ExecInstanceInput) returns (ExecInstanceOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.unregister_service;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service UnregisterServiceService {
   // subid: mut.software.dnsresolver.service.unregister@v1, capability: dnsresolver.write
   rpc unregister_service(UnregisterServiceInput) returns (UnregisterServiceOutput);
 }
-
-

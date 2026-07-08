@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "proto:gen": "rm -rf src/grpc/gen && mkdir -p src/grpc/gen && protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --ts_out=src/grpc/gen --ts_opt=long_type_string,ts_nocheck,eslint_disable -I proto $(find proto -name '*.proto' -not -name '*.bak') && node ./scripts/gen-plugin-methods-index.mjs",
+    "proto:gen": "rm -rf src/grpc/gen && mkdir -p src/grpc/gen && protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --ts_out=src/grpc/gen --ts_opt=long_type_string,ts_nocheck,eslint_disable -I proto $(find proto -name '*.proto' -not -name '*.bak') && node ./scripts/gen-plugin-methods-index.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

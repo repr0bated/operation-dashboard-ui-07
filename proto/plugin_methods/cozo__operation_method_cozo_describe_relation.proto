@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cozo.describe_relation;
 
 import "google/protobuf/descriptor.proto";
@@ -16,12 +15,10 @@ message DescribeRelationInput {
 }
 
 message DescribeRelationOutput {
-  bool success = 1;
+  google.protobuf.Value relation = 1;
 }
 
 service DescribeRelationService {
   // subid: obs.data.cozo.relation.describe@v1, capability: cap.data.cozo.relation.describe@v1
   rpc describe_relation(DescribeRelationInput) returns (DescribeRelationOutput);
 }
-
-

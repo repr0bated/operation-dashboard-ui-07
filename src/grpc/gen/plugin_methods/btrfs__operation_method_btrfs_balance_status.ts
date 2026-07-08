@@ -27,9 +27,13 @@ export interface BalanceStatusInput {
  */
 export interface BalanceStatusOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: double progress_percent = 1
      */
-    success: boolean;
+    progressPercent: number;
+    /**
+     * @generated from protobuf field: bool running = 2
+     */
+    running: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class BalanceStatusInput$Type extends MessageType<BalanceStatusInput> {
@@ -82,12 +86,14 @@ export const BalanceStatusInput = new BalanceStatusInput$Type();
 class BalanceStatusOutput$Type extends MessageType<BalanceStatusOutput> {
     constructor() {
         super("operation.method.btrfs.balance_status.BalanceStatusOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "progress_percent", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
+            { no: 2, name: "running", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<BalanceStatusOutput>): BalanceStatusOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
+        message.progressPercent = 0;
+        message.running = false;
         if (value !== undefined)
             reflectionMergePartial<BalanceStatusOutput>(this, message, value);
         return message;
@@ -97,8 +103,11 @@ class BalanceStatusOutput$Type extends MessageType<BalanceStatusOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* double progress_percent */ 1:
+                    message.progressPercent = reader.double();
+                    break;
+                case /* bool running */ 2:
+                    message.running = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -112,9 +121,12 @@ class BalanceStatusOutput$Type extends MessageType<BalanceStatusOutput> {
         return message;
     }
     internalBinaryWrite(message: BalanceStatusOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* double progress_percent = 1; */
+        if (message.progressPercent !== 0)
+            writer.tag(1, WireType.Bit64).double(message.progressPercent);
+        /* bool running = 2; */
+        if (message.running !== false)
+            writer.tag(2, WireType.Varint).bool(message.running);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

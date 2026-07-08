@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.config.get_value;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetValueService {
   // subid: obs.service.config.value.get@v1, capability: config.read
   rpc get_value(GetValueInput) returns (GetValueOutput);
 }
-
-

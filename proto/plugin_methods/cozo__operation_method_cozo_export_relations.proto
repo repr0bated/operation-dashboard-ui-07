@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cozo.export_relations;
 
 import "google/protobuf/descriptor.proto";
@@ -16,12 +15,10 @@ message ExportRelationsInput {
 }
 
 message ExportRelationsOutput {
-  bool success = 1;
+  google.protobuf.Value data = 1;
 }
 
 service ExportRelationsService {
   // subid: obs.data.cozo.relations.export@v1, capability: cap.data.cozo.relations.export@v1
   rpc export_relations(ExportRelationsInput) returns (ExportRelationsOutput);
 }
-
-

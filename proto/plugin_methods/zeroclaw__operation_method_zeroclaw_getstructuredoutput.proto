@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.getstructuredoutput;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetStructuredOutputService {
   // subid: obs.service.zeroclaw.structured-output.get@v1, capability: cap.software.zeroclaw.structured-output.read@v1
   rpc GetStructuredOutput(GetStructuredOutputInput) returns (GetStructuredOutputOutput);
 }
-
-

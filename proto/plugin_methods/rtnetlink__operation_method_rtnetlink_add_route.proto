@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rtnetlink.add_route;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service AddRouteService {
   // subid: mut.network.rtnetlink.route.add@v1, capability: cap.network.rtnetlink.route.add@v1
   rpc add_route(AddRouteInput) returns (AddRouteOutput);
 }
-
-

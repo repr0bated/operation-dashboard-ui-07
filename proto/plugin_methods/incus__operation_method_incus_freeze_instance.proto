@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.freeze_instance;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service FreezeInstanceService {
   // subid: mut.service.incus.instance.freeze@v1, capability: cap.service.incus.instance.freeze@v1
   rpc freeze_instance(FreezeInstanceInput) returns (FreezeInstanceOutput);
 }
-
-

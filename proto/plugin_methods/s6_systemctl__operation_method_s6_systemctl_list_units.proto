@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.list_units;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListUnitsService {
   // subid: obs.software.s6.systemctl.list_units@v1, capability: s6.systemctl.read
   rpc list_units(ListUnitsInput) returns (ListUnitsOutput);
 }
-
-

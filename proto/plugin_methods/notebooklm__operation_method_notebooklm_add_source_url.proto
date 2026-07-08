@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.add_source_url;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service AddSourceUrlService {
   // subid: mut.service.plugin.notebooklm.source.add-url@v1, capability: notebooklm.invoke
   rpc add_source_url(AddSourceUrlInput) returns (AddSourceUrlOutput);
 }
-
-

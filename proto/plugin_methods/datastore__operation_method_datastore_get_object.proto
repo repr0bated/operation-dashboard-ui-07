@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.datastore.get_object;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetObjectService {
   // subid: obs.service.datastore.object.get@v1, capability: datastore.read
   rpc get_object(GetObjectInput) returns (GetObjectOutput);
 }
-
-

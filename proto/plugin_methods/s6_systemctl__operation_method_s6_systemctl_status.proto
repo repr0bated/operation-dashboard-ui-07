@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.status;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StatusService {
   // subid: obs.software.s6.systemctl.status@v1, capability: s6.systemctl.read
   rpc status(StatusInput) returns (StatusOutput);
 }
-
-

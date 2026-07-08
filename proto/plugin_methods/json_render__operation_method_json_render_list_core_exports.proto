@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.list_core_exports;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListCoreExportsService {
   // subid: obs.software.plugin.json-render.core-export.list@v1, capability: json_render.read
   rpc list_core_exports(ListCoreExportsInput) returns (ListCoreExportsOutput);
 }
-
-

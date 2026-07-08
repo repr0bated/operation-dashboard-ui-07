@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.get_schema;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetSchemaService {
   // subid: obs.network.ovsdb.schema.get@v1, capability: ovsdb.read
   rpc get_schema(GetSchemaInput) returns (GetSchemaOutput);
 }
-
-

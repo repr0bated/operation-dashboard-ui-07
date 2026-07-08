@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.netmaker.list_nodes;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListNodesService {
   // subid: obs.network.netmaker.nodes.list@v1, capability: cap.network.netmaker.nodes.list@v1
   rpc list_nodes(ListNodesInput) returns (ListNodesOutput);
 }
-
-

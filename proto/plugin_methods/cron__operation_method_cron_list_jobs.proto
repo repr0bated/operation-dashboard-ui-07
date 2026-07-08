@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cron.list_jobs;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListJobsService {
   // subid: obs.service.cron.job.list@v1, capability: cron.read
   rpc list_jobs(ListJobsInput) returns (ListJobsOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wireguard.add_peer;
 
 import "google/protobuf/descriptor.proto";
@@ -28,5 +27,3 @@ service AddPeerService {
   // subid: mut.network.wireguard.peer.add@v1, capability: wireguard.write
   rpc add_peer(AddPeerInput) returns (AddPeerOutput);
 }
-
-

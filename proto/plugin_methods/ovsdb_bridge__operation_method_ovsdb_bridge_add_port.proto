@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.add_port;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service AddPortService {
   // subid: mut.network.ovsdb.port.add@v1, capability: ovsdb.write
   rpc add_port(AddPortInput) returns (AddPortOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.hibernate;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service HibernateService {
   // subid: mut.software.login1.system.hibernate@v1, capability: login1.admin
   rpc hibernate(HibernateInput) returns (HibernateOutput);
 }
-
-

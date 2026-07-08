@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.create_infographic;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateInfographicService {
   // subid: mut.service.plugin.notebooklm.studio.infographic.create@v1, capability: notebooklm.invoke
   rpc create_infographic(CreateInfographicInput) returns (CreateInfographicOutput);
 }
-
-

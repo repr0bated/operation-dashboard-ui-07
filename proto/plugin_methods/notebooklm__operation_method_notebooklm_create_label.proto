@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.create_label;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateLabelService {
   // subid: mut.service.plugin.notebooklm.source.label-create@v1, capability: notebooklm.invoke
   rpc create_label(CreateLabelInput) returns (CreateLabelOutput);
 }
-
-

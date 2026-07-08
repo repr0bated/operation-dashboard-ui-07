@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.datastore.query;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service QueryService {
   // subid: obs.service.datastore.query@v1, capability: datastore.read
   rpc query(QueryInput) returns (QueryOutput);
 }
-
-

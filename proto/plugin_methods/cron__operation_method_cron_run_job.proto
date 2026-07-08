@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cron.run_job;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RunJobService {
   // subid: mut.service.cron.job.run@v1, capability: cron.invoke
   rpc run_job(RunJobInput) returns (RunJobOutput);
 }
-
-

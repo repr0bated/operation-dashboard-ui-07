@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.remove_device;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service RemoveDeviceService {
   // subid: mut.service.incus.device.remove@v1, capability: cap.service.incus.device.remove@v1
   rpc remove_device(RemoveDeviceInput) returns (RemoveDeviceOutput);
 }
-
-

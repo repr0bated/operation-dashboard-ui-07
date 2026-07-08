@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.blockchain.set_retention;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetRetentionService {
   // subid: mut.service.blockchain.retention.set@v1, capability: blockchain.invoke
   rpc set_retention(SetRetentionInput) returns (SetRetentionOutput);
 }
-
-

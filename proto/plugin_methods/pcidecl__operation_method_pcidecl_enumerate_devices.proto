@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.pcidecl.enumerate_devices;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service EnumerateDevicesService {
   // subid: obs.hardware.pci.devices.enumerate@v1, capability: pcidecl.read
   rpc enumerate_devices(EnumerateDevicesInput) returns (EnumerateDevicesOutput);
 }
-
-

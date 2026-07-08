@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.memory_query;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service MemoryQueryService {
   // subid: obs.service.cognitive-mcp.memory.query@v1, capability: cognitive_mcp.read
   rpc memory_query(MemoryQueryInput) returns (MemoryQueryOutput);
 }
-
-

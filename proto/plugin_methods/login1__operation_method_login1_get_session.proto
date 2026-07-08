@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.get_session;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetSessionService {
   // subid: obs.software.login1.session.get@v1, capability: login1.read
   rpc get_session(GetSessionInput) returns (GetSessionOutput);
 }
-
-

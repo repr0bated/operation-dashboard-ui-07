@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.memory_store;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service MemoryStoreService {
   // subid: mut.service.cognitive-mcp.memory.store@v1, capability: cognitive_mcp.invoke
   rpc memory_store(MemoryStoreInput) returns (MemoryStoreOutput);
 }
-
-

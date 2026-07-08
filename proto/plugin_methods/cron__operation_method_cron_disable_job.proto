@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cron.disable_job;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DisableJobService {
   // subid: mut.service.cron.job.disable@v1, capability: cron.invoke
   rpc disable_job(DisableJobInput) returns (DisableJobOutput);
 }
-
-

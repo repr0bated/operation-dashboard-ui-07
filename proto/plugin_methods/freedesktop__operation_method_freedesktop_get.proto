@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.freedesktop.get;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service GetService {
   // subid: obs.software.freedesktop.property.get@v1, capability: freedesktop.read
   rpc Get(GetInput) returns (GetOutput);
 }
-
-

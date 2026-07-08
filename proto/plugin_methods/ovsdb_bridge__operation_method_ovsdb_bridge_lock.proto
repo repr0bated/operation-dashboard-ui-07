@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.lock;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service LockService {
   // subid: mut.network.ovsdb.lock@v1, capability: ovsdb.write
   rpc lock(LockInput) returns (LockOutput);
 }
-
-

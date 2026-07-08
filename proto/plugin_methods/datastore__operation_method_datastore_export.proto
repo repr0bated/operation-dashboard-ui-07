@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.datastore.export;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ExportService {
   // subid: obs.service.datastore.export@v1, capability: datastore.read
   rpc export(ExportInput) returns (ExportOutput);
 }
-
-

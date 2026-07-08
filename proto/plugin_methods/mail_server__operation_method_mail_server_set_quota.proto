@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.set_quota;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service SetQuotaService {
   // subid: mut.service.mail.quota.set@v1, capability: mail.write
   rpc set_quota(SetQuotaInput) returns (SetQuotaOutput);
 }
-
-

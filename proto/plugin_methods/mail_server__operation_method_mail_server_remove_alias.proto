@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.remove_alias;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service RemoveAliasService {
   // subid: mut.service.mail.alias.remove@v1, capability: mail.write
   rpc remove_alias(RemoveAliasInput) returns (RemoveAliasOutput);
 }
-
-

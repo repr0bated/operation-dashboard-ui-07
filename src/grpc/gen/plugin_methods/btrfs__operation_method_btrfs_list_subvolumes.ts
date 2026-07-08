@@ -13,6 +13,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Value } from "../google/protobuf/struct";
 /**
  * @generated from protobuf message operation.method.btrfs.list_subvolumes.ListSubvolumesInput
  */
@@ -27,9 +28,9 @@ export interface ListSubvolumesInput {
  */
 export interface ListSubvolumesOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: repeated google.protobuf.Value subvolumes = 1
      */
-    success: boolean;
+    subvolumes: Value[];
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ListSubvolumesInput$Type extends MessageType<ListSubvolumesInput> {
@@ -82,12 +83,12 @@ export const ListSubvolumesInput = new ListSubvolumesInput$Type();
 class ListSubvolumesOutput$Type extends MessageType<ListSubvolumesOutput> {
     constructor() {
         super("operation.method.btrfs.list_subvolumes.ListSubvolumesOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "subvolumes", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListSubvolumesOutput>): ListSubvolumesOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
+        message.subvolumes = [];
         if (value !== undefined)
             reflectionMergePartial<ListSubvolumesOutput>(this, message, value);
         return message;
@@ -97,8 +98,8 @@ class ListSubvolumesOutput$Type extends MessageType<ListSubvolumesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* repeated google.protobuf.Value subvolumes */ 1:
+                    message.subvolumes.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -112,9 +113,9 @@ class ListSubvolumesOutput$Type extends MessageType<ListSubvolumesOutput> {
         return message;
     }
     internalBinaryWrite(message: ListSubvolumesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* repeated google.protobuf.Value subvolumes = 1; */
+        for (let i = 0; i < message.subvolumes.length; i++)
+            Value.internalBinaryWrite(message.subvolumes[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

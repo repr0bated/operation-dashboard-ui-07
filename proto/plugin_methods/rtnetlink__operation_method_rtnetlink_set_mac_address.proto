@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rtnetlink.set_mac_address;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetMacAddressService {
   // subid: mut.network.rtnetlink.mac-address.set@v1, capability: cap.network.rtnetlink.mac-address.set@v1
   rpc set_mac_address(SetMacAddressInput) returns (SetMacAddressOutput);
 }
-
-

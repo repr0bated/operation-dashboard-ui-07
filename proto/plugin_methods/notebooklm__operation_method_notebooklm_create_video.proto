@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.create_video;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateVideoService {
   // subid: mut.service.plugin.notebooklm.studio.video.create@v1, capability: notebooklm.invoke
   rpc create_video(CreateVideoInput) returns (CreateVideoOutput);
 }
-
-

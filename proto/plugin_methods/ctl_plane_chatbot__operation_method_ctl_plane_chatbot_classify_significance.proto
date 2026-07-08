@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ctl_plane_chatbot.classify_significance;
 
 import "google/protobuf/descriptor.proto";
@@ -12,7 +11,7 @@ extend google.protobuf.MethodOptions {
 }
 
 message ClassifySignificanceInput {
-  // Empty schema object.
+  string episode_id = 1;
 }
 
 message ClassifySignificanceOutput {
@@ -23,5 +22,3 @@ service ClassifySignificanceService {
   // subid: mut.service.ctl-plane-chatbot.classify@v1, capability: chatbot.invoke
   rpc classify_significance(ClassifySignificanceInput) returns (ClassifySignificanceOutput);
 }
-
-

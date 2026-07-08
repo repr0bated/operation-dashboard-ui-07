@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.procfs.get_uptime;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetUptimeService {
   // subid: obs.service.procfs.uptime.get@v1, capability: procfs.read
   rpc get_uptime(GetUptimeInput) returns (GetUptimeOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.reset_session;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ResetSessionService {
   // subid: mut.service.plugin.notebooklm.session.reset@v1, capability: notebooklm.invoke
   rpc reset_session(ResetSessionInput) returns (ResetSessionOutput);
 }
-
-

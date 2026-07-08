@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.hardware.scan_hardware;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ScanHardwareService {
   // subid: mut.service.hardware.scan@v1, capability: hardware.invoke
   rpc scan_hardware(ScanHardwareInput) returns (ScanHardwareOutput);
 }
-
-

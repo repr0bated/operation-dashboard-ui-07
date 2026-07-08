@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.delete_points;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DeletePointsService {
   // subid: mut.data.qdrant.point.delete@v1, capability: cap.data.qdrant.point.delete@v1
   rpc delete_points(DeletePointsInput) returns (DeletePointsOutput);
 }
-
-

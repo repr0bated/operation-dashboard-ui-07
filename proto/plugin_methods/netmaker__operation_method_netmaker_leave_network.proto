@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.netmaker.leave_network;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service LeaveNetworkService {
   // subid: mut.network.netmaker.network.leave@v1, capability: cap.network.netmaker.network.leave@v1
   rpc leave_network(LeaveNetworkInput) returns (LeaveNetworkOutput);
 }
-
-

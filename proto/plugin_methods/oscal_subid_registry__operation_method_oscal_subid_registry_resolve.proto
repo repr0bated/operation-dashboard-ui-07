@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oscal_subid_registry.resolve;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ResolveService {
   // subid: obs.standard.oscal.subid.resolve@v1, capability: oscal.read
   rpc resolve(ResolveInput) returns (ResolveOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.btrfs.snapshot;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service SnapshotService {
   // subid: mut.storage.btrfs.snapshot.create@v1, capability: cap.storage.btrfs.snapshot.create@v1
   rpc snapshot(SnapshotInput) returns (SnapshotOutput);
 }
-
-

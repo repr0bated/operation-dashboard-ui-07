@@ -4,9 +4,9 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
-import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
 import type { IBinaryReader } from "@protobuf-ts/runtime";
 import { UnknownFieldHandler } from "@protobuf-ts/runtime";
@@ -15,11 +15,13 @@ import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 import { Value } from "../google/protobuf/struct";
 /**
- * Empty schema object.
- *
  * @generated from protobuf message operation.method.ctl_plane_chatbot.get_episode.GetEpisodeInput
  */
 export interface GetEpisodeInput {
+    /**
+     * @generated from protobuf field: string episode_id = 1
+     */
+    episodeId: string;
 }
 /**
  * @generated from protobuf message operation.method.ctl_plane_chatbot.get_episode.GetEpisodeOutput
@@ -33,10 +35,13 @@ export interface GetEpisodeOutput {
 // @generated message type with reflection information, may provide speed optimized methods
 class GetEpisodeInput$Type extends MessageType<GetEpisodeInput> {
     constructor() {
-        super("operation.method.ctl_plane_chatbot.get_episode.GetEpisodeInput", []);
+        super("operation.method.ctl_plane_chatbot.get_episode.GetEpisodeInput", [
+            { no: 1, name: "episode_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<GetEpisodeInput>): GetEpisodeInput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.episodeId = "";
         if (value !== undefined)
             reflectionMergePartial<GetEpisodeInput>(this, message, value);
         return message;
@@ -46,6 +51,9 @@ class GetEpisodeInput$Type extends MessageType<GetEpisodeInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* string episode_id */ 1:
+                    message.episodeId = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -58,6 +66,9 @@ class GetEpisodeInput$Type extends MessageType<GetEpisodeInput> {
         return message;
     }
     internalBinaryWrite(message: GetEpisodeInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string episode_id = 1; */
+        if (message.episodeId !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.episodeId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.openflow.delete_flow;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DeleteFlowService {
   // subid: mut.network.openflow.flow.delete@v1, capability: openflow.write
   rpc delete_flow(DeleteFlowInput) returns (DeleteFlowOutput);
 }
-
-

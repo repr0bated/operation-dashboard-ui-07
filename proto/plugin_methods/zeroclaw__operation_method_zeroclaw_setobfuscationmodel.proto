@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.setobfuscationmodel;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetObfuscationModelService {
   // subid: mut.service.zeroclaw.model-assignments.obfuscation.set@v1, capability: cap.software.zeroclaw.model-assignments.obfuscation.set@v1
   rpc SetObfuscationModel(SetObfuscationModelInput) returns (SetObfuscationModelOutput);
 }
-
-

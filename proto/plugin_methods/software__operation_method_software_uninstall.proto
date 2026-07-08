@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.software.uninstall;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service UninstallService {
   // subid: mut.software.plugin.software.uninstall@v1, capability: software.write
   rpc uninstall(UninstallInput) returns (UninstallOutput);
 }
-
-

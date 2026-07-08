@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.procfs.get_net_dev;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetNetDevService {
   // subid: obs.service.procfs.net-dev.get@v1, capability: procfs.read
   rpc get_net_dev(GetNetDevInput) returns (GetNetDevOutput);
 }
-
-

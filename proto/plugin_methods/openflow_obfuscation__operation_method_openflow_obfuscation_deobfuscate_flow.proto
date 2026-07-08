@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.openflow_obfuscation.deobfuscate_flow;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service DeobfuscateFlowService {
   // subid: mut.network.openflow.obfuscation.deobfuscate@v1, capability: openflow_obfuscation.write
   rpc deobfuscate_flow(DeobfuscateFlowInput) returns (DeobfuscateFlowOutput);
 }
-
-

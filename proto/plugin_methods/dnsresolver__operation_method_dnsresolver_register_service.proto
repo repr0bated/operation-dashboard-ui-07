@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.register_service;
 
 import "google/protobuf/descriptor.proto";
@@ -29,5 +28,3 @@ service RegisterServiceService {
   // subid: mut.software.dnsresolver.service.register@v1, capability: dnsresolver.write
   rpc register_service(RegisterServiceInput) returns (RegisterServiceOutput);
 }
-
-

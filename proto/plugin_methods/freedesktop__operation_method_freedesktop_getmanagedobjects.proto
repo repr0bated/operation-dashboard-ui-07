@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.freedesktop.getmanagedobjects;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetManagedObjectsService {
   // subid: obs.software.freedesktop.managed_objects.get@v1, capability: freedesktop.read
   rpc GetManagedObjects(GetManagedObjectsInput) returns (GetManagedObjectsOutput);
 }
-
-

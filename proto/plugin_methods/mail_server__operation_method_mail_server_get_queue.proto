@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.get_queue;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetQueueService {
   // subid: obs.service.mail.queue.get@v1, capability: mail.read
   rpc get_queue(GetQueueInput) returns (GetQueueOutput);
 }
-
-

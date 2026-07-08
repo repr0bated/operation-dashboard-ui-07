@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.freedesktop.set;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service SetService {
   // subid: mut.software.freedesktop.property.set@v1, capability: freedesktop.write
   rpc Set(SetInput) returns (SetOutput);
 }
-
-

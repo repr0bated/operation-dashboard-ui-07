@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.add_source_drive;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service AddSourceDriveService {
   // subid: mut.service.plugin.notebooklm.source.add-drive@v1, capability: notebooklm.invoke
   rpc add_source_drive(AddSourceDriveInput) returns (AddSourceDriveOutput);
 }
-
-

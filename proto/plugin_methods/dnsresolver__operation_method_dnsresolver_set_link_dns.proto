@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.set_link_dns;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetLinkDnsService {
   // subid: mut.software.dnsresolver.link.set-dns@v1, capability: dnsresolver.write
   rpc set_link_dns(SetLinkDnsInput) returns (SetLinkDnsOutput);
 }
-
-

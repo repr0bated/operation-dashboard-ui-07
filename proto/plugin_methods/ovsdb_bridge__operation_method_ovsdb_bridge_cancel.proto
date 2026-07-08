@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.cancel;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CancelService {
   // subid: mut.network.ovsdb.cancel@v1, capability: ovsdb.write
   rpc cancel(CancelInput) returns (CancelOutput);
 }
-
-

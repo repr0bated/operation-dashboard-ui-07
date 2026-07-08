@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.create_flashcards;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateFlashcardsService {
   // subid: mut.service.plugin.notebooklm.studio.flashcards.create@v1, capability: notebooklm.invoke
   rpc create_flashcards(CreateFlashcardsInput) returns (CreateFlashcardsOutput);
 }
-
-

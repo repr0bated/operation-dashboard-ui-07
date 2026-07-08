@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.users.create_user;
 
 import "google/protobuf/descriptor.proto";
@@ -27,5 +26,3 @@ service CreateUserService {
   // subid: mut.software.plugin.users.create@v1, capability: users.write
   rpc create_user(CreateUserInput) returns (CreateUserOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.large_language_model.stream_generate;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StreamGenerateService {
   // subid: mut.service.llm.stream@v1, capability: llm.invoke
   rpc stream_generate(StreamGenerateInput) returns (StreamGenerateOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oci.kill;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service KillService {
   // subid: mut.container.oci.kill@v1, capability: cap.container.oci.kill@v1
   rpc kill(KillInput) returns (KillOutput);
 }
-
-

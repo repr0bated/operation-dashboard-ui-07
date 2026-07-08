@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.web_ui.update_component;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service UpdateComponentService {
   // subid: mut.software.plugin.web-ui.update-component@v1, capability: ui.write
   rpc update_component(UpdateComponentInput) returns (UpdateComponentOutput);
 }
-
-

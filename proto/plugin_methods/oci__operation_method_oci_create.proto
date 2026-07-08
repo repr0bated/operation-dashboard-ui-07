@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oci.create;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service CreateService {
   // subid: mut.container.oci.create@v1, capability: cap.container.oci.create@v1
   rpc create(CreateInput) returns (CreateOutput);
 }
-
-

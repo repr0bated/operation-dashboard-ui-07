@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package operation.method.wg_opdbus.create_interface;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CreateInterfaceInput {
+  string config_path = 1;
+  repeated string excluded_plugins = 2;
+  string identity_role = 3;
+  google.protobuf.Value interface = 4;
+  string netmaker_plugin = 5;
+  repeated string route_targets = 6;
+  string wireguard_plugin = 7;
+}
+
+message CreateInterfaceOutput {
+  bool success = 1;
+}
+
+service CreateInterfaceService {
+  // subid: mut.network.wg-opdbus.interface.create@v1, capability: wg_opdbus.invoke
+  rpc create_interface(CreateInterfaceInput) returns (CreateInterfaceOutput);
+}

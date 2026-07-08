@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rtnetlink.set_default_route;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetDefaultRouteService {
   // subid: mut.network.rtnetlink.default-route.set@v1, capability: cap.network.rtnetlink.default-route.set@v1
   rpc set_default_route(SetDefaultRouteInput) returns (SetDefaultRouteOutput);
 }
-
-

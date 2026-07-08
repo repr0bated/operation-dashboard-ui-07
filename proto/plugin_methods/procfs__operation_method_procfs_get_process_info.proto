@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.procfs.get_process_info;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetProcessInfoService {
   // subid: obs.service.procfs.process.get@v1, capability: procfs.read
   rpc get_process_info(GetProcessInfoInput) returns (GetProcessInfoOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.set_label_emoji;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetLabelEmojiService {
   // subid: mut.service.plugin.notebooklm.source.label-emoji@v1, capability: notebooklm.invoke
   rpc set_label_emoji(SetLabelEmojiInput) returns (SetLabelEmojiOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.gemma_brain.classify;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ClassifyService {
   // subid: mut.service.gemma.classify@v1, capability: gemma.invoke
   rpc classify(ClassifyInput) returns (ClassifyOutput);
 }
-
-

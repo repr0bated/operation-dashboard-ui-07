@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.web_ui.handle_event;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service HandleEventService {
   // subid: mut.software.plugin.web-ui.handle-event@v1, capability: ui.write
   rpc handle_event(HandleEventInput) returns (HandleEventOutput);
 }
-
-

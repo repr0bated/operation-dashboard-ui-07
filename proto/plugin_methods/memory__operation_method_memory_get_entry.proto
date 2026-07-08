@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.get_entry;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service GetEntryService {
   // subid: mut.memory.memory.get-entry@v1, capability: memory.entry.read
   rpc get_entry(GetEntryInput) returns (GetEntryOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.steal;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StealService {
   // subid: mut.network.ovsdb.lock.steal@v1, capability: ovsdb.write
   rpc steal(StealInput) returns (StealOutput);
 }
-
-

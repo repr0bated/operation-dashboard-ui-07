@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.close_session;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CloseSessionService {
   // subid: mut.service.plugin.notebooklm.session.close@v1, capability: notebooklm.invoke
   rpc close_session(CloseSessionInput) returns (CloseSessionOutput);
 }
-
-

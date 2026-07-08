@@ -1,0 +1,194 @@
+syntax = "proto3";
+
+package emqx.exhook.v1;
+
+// EMQX ExHook gRPC API - HookProvider service
+// EMQX acts as gRPC client, calling this service for MQTT events
+
+service HookProvider {
+  // Client lifecycle hooks
+  rpc OnClientConnect(OnClientConnectRequest) returns (OnClientConnectResponse);
+  rpc OnClientConnack(OnClientConnackRequest) returns (OnClientConnackResponse);
+  rpc OnClientConnected(OnClientConnectedRequest) returns (OnClientConnectedResponse);
+  rpc OnClientDisconnected(OnClientDisconnectedRequest) returns (OnClientDisconnectedResponse);
+  rpc OnClientSubscribe(OnClientSubscribeRequest) returns (OnClientSubscribeResponse);
+  rpc OnClientUnsubscribe(OnClientUnsubscribeRequest) returns (OnClientUnsubscribeResponse);
+
+  // Message hooks
+  rpc OnMessagePublish(OnMessagePublishRequest) returns (OnMessagePublishResponse);
+  rpc OnMessageDelivered(OnMessageDeliveredRequest) returns (OnMessageDeliveredResponse);
+  rpc OnMessageAcked(OnMessageAckedRequest) returns (OnMessageAckedResponse);
+
+  // Session hooks
+  rpc OnSessionCreated(OnSessionCreatedRequest) returns (OnSessionCreatedResponse);
+  rpc OnSessionSubscribed(OnSessionSubscribedRequest) returns (OnSessionSubscribedResponse);
+  rpc OnSessionUnsubscribed(OnSessionUnsubscribedRequest) returns (OnSessionUnsubscribedResponse);
+  rpc OnSessionGotOfflineMsgs(OnSessionGotOfflineMsgsRequest) returns (OnSessionGotOfflineMsgsResponse);
+  rpc OnSessionDiscardedMsgs(OnSessionDiscardedMsgsRequest) returns (OnSessionDiscardedMsgsResponse);
+
+  // Telemetry hooks
+  rpc OnThrottle(ThrottleRequest) returns (ThrottleResponse);
+}
+
+// Client info message
+message ClientInfo {
+  string clientid = 1;
+  string username = 2;
+  string peerhost = 3;
+  string node = 4;
+}
+
+message OnClientConnectRequest {
+  ClientInfo client = 1;
+  bool proto = 2;
+  bool clean_start = 3;
+  uint32 keepalive = 4;
+  string auth_method = 5;
+  map<string, string> auth_attrs = 6;
+}
+message OnClientConnectResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnClientConnackRequest {
+  ClientInfo client = 1;
+  bool proto = 2;
+  bool clean_start = 3;
+  uint32 keepalive = 4;
+  uint32 rc = 5;
+}
+message OnClientConnackResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnClientConnectedRequest {
+  ClientInfo client = 1;
+}
+message OnClientConnectedResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnClientDisconnectedRequest {
+  ClientInfo client = 1;
+  bool proto = 2;
+  uint32 reason = 3;
+}
+message OnClientDisconnectedResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnClientSubscribeRequest {
+  ClientInfo client = 1;
+  string topic = 2;
+  uint32 qos = 3;
+  uint32 nrh = 4;
+  uint32 rrh = 5;
+}
+message OnClientSubscribeResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnClientUnsubscribeRequest {
+  ClientInfo client = 1;
+  string topic = 2;
+}
+message OnClientUnsubscribeResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnMessagePublishRequest {
+  ClientInfo client = 1;
+  string topic = 2;
+  bytes payload = 3;
+  uint32 qos = 4;
+  bool dup = 5;
+  uint32 rp = 6;
+}
+message OnMessagePublishResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnMessageDeliveredRequest {
+  ClientInfo client = 1;
+  string topic = 2;
+  bytes payload = 3;
+  uint32 qos = 4;
+}
+message OnMessageDeliveredResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnMessageAckedRequest {
+  ClientInfo client = 1;
+  string topic = 2;
+  uint32 qos = 3;
+}
+message OnMessageAckedResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnSessionCreatedRequest {
+  ClientInfo client = 1;
+}
+message OnSessionCreatedResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnSessionSubscribedRequest {
+  ClientInfo client = 1;
+  string topic = 2;
+  uint32 qos = 3;
+}
+message OnSessionSubscribedResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnSessionUnsubscribedRequest {
+  ClientInfo client = 1;
+  string topic = 2;
+}
+message OnSessionUnsubscribedResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnSessionGotOfflineMsgsRequest {
+  ClientInfo client = 1;
+  repeated string topics = 2;
+  uint32 total_msgs = 3;
+}
+message OnSessionGotOfflineMsgsResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message OnSessionDiscardedMsgsRequest {
+  ClientInfo client = 1;
+  repeated string topics = 2;
+  uint32 total_msgs = 3;
+}
+message OnSessionDiscardedMsgsResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message ThrottleRequest {
+  ClientInfo client = 1;
+  uint32 msgs_per_sec = 2;
+  uint32 bytes_per_sec = 3;
+}
+message ThrottleResponse {
+  bool success = 1;
+  string error = 2;
+}

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.embedding_model.list_rerank_models;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListRerankModelsInput {
+  // Empty schema object.
+}
+
+message ListRerankModelsOutput {
+  repeated google.protobuf.Value models = 1;
+}
+
+service ListRerankModelsService {
+  // subid: obs.service.embedding.rerank-model.list@v1, capability: embedding.read
+  rpc list_rerank_models(ListRerankModelsInput) returns (ListRerankModelsOutput);
+}

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.batch_operation;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service BatchOperationService {
   // subid: mut.service.plugin.notebooklm.batch.run@v1, capability: notebooklm.invoke
   rpc batch_operation(BatchOperationInput) returns (BatchOperationOutput);
 }
-
-

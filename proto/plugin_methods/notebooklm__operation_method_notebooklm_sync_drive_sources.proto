@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.sync_drive_sources;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SyncDriveSourcesService {
   // subid: mut.service.plugin.notebooklm.source.sync-drive@v1, capability: notebooklm.invoke
   rpc sync_drive_sources(SyncDriveSourcesInput) returns (SyncDriveSourcesOutput);
 }
-
-

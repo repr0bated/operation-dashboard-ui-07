@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.get_config;
 
 import "google/protobuf/descriptor.proto";
@@ -28,5 +27,3 @@ service GetConfigService {
   // subid: obs.service.cognitive-mcp.config.get@v1, capability: cognitive_mcp.read
   rpc get_config(GetConfigInput) returns (GetConfigOutput);
 }
-
-

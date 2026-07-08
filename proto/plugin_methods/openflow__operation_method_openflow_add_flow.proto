@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.openflow.add_flow;
 
 import "google/protobuf/descriptor.proto";
@@ -30,5 +29,3 @@ service AddFlowService {
   // subid: mut.network.openflow.flow.add@v1, capability: openflow.write
   rpc add_flow(AddFlowInput) returns (AddFlowOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.agent_config.update_config;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service UpdateConfigService {
   // subid: mut.service.agent.config.update@v1, capability: agent.invoke
   rpc update_config(UpdateConfigInput) returns (UpdateConfigOutput);
 }
-
-

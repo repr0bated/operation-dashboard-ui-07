@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.create_bridge;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service CreateBridgeService {
   // subid: mut.network.ovsdb.bridge.create@v1, capability: ovsdb.write
   rpc create_bridge(CreateBridgeInput) returns (CreateBridgeOutput);
 }
-
-

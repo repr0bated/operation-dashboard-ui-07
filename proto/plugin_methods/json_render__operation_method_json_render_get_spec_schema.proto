@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.get_spec_schema;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetSpecSchemaService {
   // subid: obs.software.plugin.json-render.spec.get@v1, capability: json_render.read
   rpc get_spec_schema(GetSpecSchemaInput) returns (GetSpecSchemaOutput);
 }
-
-

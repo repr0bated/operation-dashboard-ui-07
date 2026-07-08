@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oscal_subid_registry.register;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RegisterService {
   // subid: mut.standard.oscal.subid.register@v1, capability: oscal.invoke
   rpc register(RegisterInput) returns (RegisterOutput);
 }
-
-

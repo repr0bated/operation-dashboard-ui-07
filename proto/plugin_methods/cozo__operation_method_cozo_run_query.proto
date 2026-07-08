@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cozo.run_query;
 
 import "google/protobuf/descriptor.proto";
@@ -17,12 +16,11 @@ message RunQueryInput {
 }
 
 message RunQueryOutput {
-  bool success = 1;
+  repeated string headers = 1;
+  repeated google.protobuf.Value rows = 2;
 }
 
 service RunQueryService {
   // subid: mut.data.cozo.query.run@v1, capability: cap.data.cozo.query.run@v1
   rpc run_query(RunQueryInput) returns (RunQueryOutput);
 }
-
-

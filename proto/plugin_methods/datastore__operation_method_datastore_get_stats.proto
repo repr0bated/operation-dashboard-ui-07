@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.datastore.get_stats;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetStatsService {
   // subid: obs.service.datastore.stats@v1, capability: datastore.read
   rpc get_stats(GetStatsInput) returns (GetStatsOutput);
 }
-
-

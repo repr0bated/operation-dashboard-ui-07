@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.download_artifact;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DownloadArtifactService {
   // subid: obs.service.plugin.notebooklm.studio.artifact.download@v1, capability: notebooklm.read
   rpc download_artifact(DownloadArtifactInput) returns (DownloadArtifactOutput);
 }
-
-

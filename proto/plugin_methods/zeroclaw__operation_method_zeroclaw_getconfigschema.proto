@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.getconfigschema;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetConfigSchemaService {
   // subid: obs.service.zeroclaw.config-schema.get@v1, capability: cap.software.zeroclaw.config-schema.read@v1
   rpc GetConfigSchema(GetConfigSchemaInput) returns (GetConfigSchemaOutput);
 }
-
-

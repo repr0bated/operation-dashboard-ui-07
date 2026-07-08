@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.flush_queue;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service FlushQueueService {
   // subid: mut.service.mail.queue.flush@v1, capability: mail.write
   rpc flush_queue(FlushQueueInput) returns (FlushQueueOutput);
 }
-
-

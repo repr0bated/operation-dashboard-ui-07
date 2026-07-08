@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.lock_session;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service LockSessionService {
   // subid: mut.software.login1.session.lock@v1, capability: login1.write
   rpc lock_session(LockSessionInput) returns (LockSessionOutput);
 }
-
-

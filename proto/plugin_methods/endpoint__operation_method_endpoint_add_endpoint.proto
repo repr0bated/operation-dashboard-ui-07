@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.endpoint.add_endpoint;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service AddEndpointService {
   // subid: mut.service.endpoint.add@v1, capability: endpoint.invoke
   rpc add_endpoint(AddEndpointInput) returns (AddEndpointOutput);
 }
-
-

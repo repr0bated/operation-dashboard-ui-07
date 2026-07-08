@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.transact;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service TransactService {
   // subid: mut.network.ovsdb.transact@v1, capability: ovsdb.write
   rpc transact(TransactInput) returns (TransactOutput);
 }
-
-

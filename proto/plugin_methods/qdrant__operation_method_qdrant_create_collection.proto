@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.create_collection;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service CreateCollectionService {
   // subid: mut.data.qdrant.collection.create@v1, capability: cap.data.qdrant.collection.create@v1
   rpc create_collection(CreateCollectionInput) returns (CreateCollectionOutput);
 }
-
-

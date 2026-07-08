@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.register_tool;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service RegisterToolService {
   // subid: mut.service.cognitive-mcp.tool.register@v1, capability: cognitive_mcp.invoke
   rpc register_tool(RegisterToolInput) returns (RegisterToolOutput);
 }
-
-

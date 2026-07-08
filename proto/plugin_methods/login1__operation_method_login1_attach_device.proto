@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.attach_device;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service AttachDeviceService {
   // subid: mut.software.login1.device.attach@v1, capability: login1.admin
   rpc attach_device(AttachDeviceInput) returns (AttachDeviceOutput);
 }
-
-

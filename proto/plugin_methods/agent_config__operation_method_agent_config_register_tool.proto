@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.agent_config.register_tool;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RegisterToolService {
   // subid: mut.service.agent.tool.register@v1, capability: agent.invoke
   rpc register_tool(RegisterToolInput) returns (RegisterToolOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.freedesktop.introspect;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service IntrospectService {
   // subid: obs.software.freedesktop.introspect@v1, capability: freedesktop.read
   rpc Introspect(IntrospectInput) returns (IntrospectOutput);
 }
-
-

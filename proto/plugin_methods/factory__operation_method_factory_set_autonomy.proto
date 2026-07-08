@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.factory.set_autonomy;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetAutonomyService {
   // subid: mut.service.factory.autonomy.set@v1, capability: factory.invoke
   rpc set_autonomy(SetAutonomyInput) returns (SetAutonomyOutput);
 }
-
-

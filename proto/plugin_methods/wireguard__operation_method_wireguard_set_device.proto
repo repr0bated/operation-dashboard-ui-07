@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wireguard.set_device;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service SetDeviceService {
   // subid: mut.network.wireguard.device.set@v1, capability: wireguard.write
   rpc set_device(SetDeviceInput) returns (SetDeviceOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.setprovider;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetProviderService {
   // subid: mut.service.zeroclaw.provider.set@v1, capability: cap.software.zeroclaw.provider.set@v1
   rpc SetProvider(SetProviderInput) returns (SetProviderOutput);
 }
-
-

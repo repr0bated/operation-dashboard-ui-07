@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.listuisurfaces;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListUiSurfacesService {
   // subid: obs.service.zeroclaw.ui-surfaces.list@v1, capability: cap.software.zeroclaw.ui-surfaces.read@v1
   rpc ListUiSurfaces(ListUiSurfacesInput) returns (ListUiSurfacesOutput);
 }
-
-

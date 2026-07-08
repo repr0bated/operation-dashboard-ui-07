@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.run_pipeline;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RunPipelineService {
   // subid: mut.service.plugin.notebooklm.pipeline.run@v1, capability: notebooklm.invoke
   rpc run_pipeline(RunPipelineInput) returns (RunPipelineOutput);
 }
-
-

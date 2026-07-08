@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oscal_subid_registry.lookup;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service LookupService {
   // subid: obs.standard.oscal.subid.lookup@v1, capability: oscal.read
   rpc lookup(LookupInput) returns (LookupOutput);
 }
-
-

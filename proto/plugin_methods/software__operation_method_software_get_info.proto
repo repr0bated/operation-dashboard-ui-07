@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.software.get_info;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetInfoService {
   // subid: obs.software.plugin.software.get-info@v1, capability: software.read
   rpc get_info(GetInfoInput) returns (GetInfoOutput);
 }
-
-

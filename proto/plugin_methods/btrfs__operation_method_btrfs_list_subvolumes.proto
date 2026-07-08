@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.btrfs.list_subvolumes;
 
 import "google/protobuf/descriptor.proto";
@@ -16,12 +15,10 @@ message ListSubvolumesInput {
 }
 
 message ListSubvolumesOutput {
-  bool success = 1;
+  repeated google.protobuf.Value subvolumes = 1;
 }
 
 service ListSubvolumesService {
   // subid: obs.storage.btrfs.subvolume.list@v1, capability: cap.storage.btrfs.subvolume.list@v1
   rpc list_subvolumes(ListSubvolumesInput) returns (ListSubvolumesOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.embedding_model.set_model;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetModelService {
   // subid: mut.service.embedding.model.set@v1, capability: embedding.invoke
   rpc set_model(SetModelInput) returns (SetModelOutput);
 }
-
-

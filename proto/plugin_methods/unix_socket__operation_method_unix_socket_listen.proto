@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.unix_socket.listen;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service ListenService {
   // subid: mut.service.unix-socket.listen@v1, capability: network.write
   rpc listen(ListenInput) returns (ListenOutput);
 }
-
-

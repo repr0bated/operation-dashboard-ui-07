@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.netmaker.update_node;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service UpdateNodeService {
   // subid: mut.network.netmaker.node.update@v1, capability: cap.network.netmaker.node.update@v1
   rpc update_node(UpdateNodeInput) returns (UpdateNodeOutput);
 }
-
-

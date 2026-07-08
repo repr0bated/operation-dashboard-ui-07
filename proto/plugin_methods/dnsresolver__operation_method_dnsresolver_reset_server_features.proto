@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.reset_server_features;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ResetServerFeaturesService {
   // subid: mut.software.dnsresolver.server-features.reset@v1, capability: dnsresolver.write
   rpc reset_server_features(ResetServerFeaturesInput) returns (ResetServerFeaturesOutput);
 }
-
-

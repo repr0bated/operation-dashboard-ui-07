@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.remove_domain;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RemoveDomainService {
   // subid: mut.service.mail.domain.remove@v1, capability: mail.write
   rpc remove_domain(RemoveDomainInput) returns (RemoveDomainOutput);
 }
-
-

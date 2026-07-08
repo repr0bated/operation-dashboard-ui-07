@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.packagekit.update_packages;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service UpdatePackagesService {
   // subid: mut.software.packagekit.package.update@v1, capability: packagekit.admin
   rpc update_packages(UpdatePackagesInput) returns (UpdatePackagesOutput);
 }
-
-

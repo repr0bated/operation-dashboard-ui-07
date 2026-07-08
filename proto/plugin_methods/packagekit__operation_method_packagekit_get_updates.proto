@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.packagekit.get_updates;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetUpdatesService {
   // subid: obs.software.packagekit.updates.get@v1, capability: packagekit.read
   rpc get_updates(GetUpdatesInput) returns (GetUpdatesOutput);
 }
-
-

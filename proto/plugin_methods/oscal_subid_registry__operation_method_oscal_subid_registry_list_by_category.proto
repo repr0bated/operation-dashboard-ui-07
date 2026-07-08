@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oscal_subid_registry.list_by_category;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListByCategoryService {
   // subid: obs.standard.oscal.category.list@v1, capability: oscal.read
   rpc list_by_category(ListByCategoryInput) returns (ListByCategoryOutput);
 }
-
-

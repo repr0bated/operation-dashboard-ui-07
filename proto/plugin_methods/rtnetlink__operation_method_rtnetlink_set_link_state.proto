@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rtnetlink.set_link_state;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetLinkStateService {
   // subid: mut.network.rtnetlink.link-state.set@v1, capability: cap.network.rtnetlink.link-state.set@v1
   rpc set_link_state(SetLinkStateInput) returns (SetLinkStateOutput);
 }
-
-

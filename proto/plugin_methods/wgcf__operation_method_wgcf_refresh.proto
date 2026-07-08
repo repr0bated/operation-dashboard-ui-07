@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.refresh;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RefreshService {
   // subid: mut.software.wgcf.refresh@v1, capability: wgcf.write
   rpc refresh(RefreshInput) returns (RefreshOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.listproviders;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListProvidersService {
   // subid: obs.service.zeroclaw.providers.list@v1, capability: cap.software.zeroclaw.providers.read@v1
   rpc ListProviders(ListProvidersInput) returns (ListProvidersOutput);
 }
-
-

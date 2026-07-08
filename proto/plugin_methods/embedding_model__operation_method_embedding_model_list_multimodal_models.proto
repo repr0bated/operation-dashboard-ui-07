@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.embedding_model.list_multimodal_models;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListMultimodalModelsInput {
+  // Empty schema object.
+}
+
+message ListMultimodalModelsOutput {
+  repeated google.protobuf.Value models = 1;
+}
+
+service ListMultimodalModelsService {
+  // subid: obs.service.embedding.multimodal-model.list@v1, capability: embedding.read
+  rpc list_multimodal_models(ListMultimodalModelsInput) returns (ListMultimodalModelsOutput);
+}

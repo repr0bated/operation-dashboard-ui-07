@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.terminate_session;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service TerminateSessionService {
   // subid: mut.software.login1.session.terminate@v1, capability: login1.write
   rpc terminate_session(TerminateSessionInput) returns (TerminateSessionOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.mail_server.remove_mailbox;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service RemoveMailboxService {
   // subid: mut.service.mail.mailbox.remove@v1, capability: mail.write
   rpc remove_mailbox(RemoveMailboxInput) returns (RemoveMailboxOutput);
 }
-
-

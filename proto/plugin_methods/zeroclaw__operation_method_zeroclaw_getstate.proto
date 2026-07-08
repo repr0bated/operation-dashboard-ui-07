@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.getstate;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetStateService {
   // subid: obs.service.zeroclaw.state.get@v1, capability: cap.software.zeroclaw.state.read@v1
   rpc GetState(GetStateInput) returns (GetStateOutput);
 }
-
-

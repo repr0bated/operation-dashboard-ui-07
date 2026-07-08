@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rtnetlink.add_link;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service AddLinkService {
   // subid: mut.network.rtnetlink.link.add@v1, capability: cap.network.rtnetlink.link.add@v1
   rpc add_link(AddLinkInput) returns (AddLinkOutput);
 }
-
-

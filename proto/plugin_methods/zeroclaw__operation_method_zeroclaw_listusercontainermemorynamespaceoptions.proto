@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.listusercontainermemorynamespaceoptions;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListUserContainerMemoryNamespaceOptionsService {
   // subid: obs.service.zeroclaw.options.memory-namespaces.list@v1, capability: cap.software.zeroclaw.options.memory-namespaces.read@v1
   rpc ListUserContainerMemoryNamespaceOptions(ListUserContainerMemoryNamespaceOptionsInput) returns (ListUserContainerMemoryNamespaceOptionsOutput);
 }
-
-

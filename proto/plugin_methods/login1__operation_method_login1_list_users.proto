@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.list_users;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListUsersService {
   // subid: obs.software.login1.users.list@v1, capability: login1.read
   rpc list_users(ListUsersInput) returns (ListUsersOutput);
 }
-
-

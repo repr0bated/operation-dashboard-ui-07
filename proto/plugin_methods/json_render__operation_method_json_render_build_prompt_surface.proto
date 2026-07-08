@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.build_prompt_surface;
 
 import "google/protobuf/descriptor.proto";
@@ -27,5 +26,3 @@ service BuildPromptSurfaceService {
   // subid: obs.software.plugin.json-render.prompt.build@v1, capability: json_render.read
   rpc build_prompt_surface(BuildPromptSurfaceInput) returns (BuildPromptSurfaceOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.modify_instance;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service ModifyInstanceService {
   // subid: mut.service.incus.instance.modify@v1, capability: cap.service.incus.instance.modify@v1
   rpc modify_instance(ModifyInstanceInput) returns (ModifyInstanceOutput);
 }
-
-

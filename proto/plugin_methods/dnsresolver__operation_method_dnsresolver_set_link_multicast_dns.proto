@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.set_link_multicast_dns;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetLinkMulticastDnsService {
   // subid: mut.software.dnsresolver.link.set-mdns@v1, capability: dnsresolver.write
   rpc set_link_multicast_dns(SetLinkMulticastDnsInput) returns (SetLinkMulticastDnsOutput);
 }
-
-

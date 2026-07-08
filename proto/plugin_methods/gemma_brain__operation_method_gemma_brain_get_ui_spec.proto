@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.gemma_brain.get_ui_spec;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetUiSpecService {
   // subid: obs.service.gemma.ui-spec.get@v1, capability: gemma.read
   rpc get_ui_spec(GetUiSpecInput) returns (GetUiSpecOutput);
 }
-
-

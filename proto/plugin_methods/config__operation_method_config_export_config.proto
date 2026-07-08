@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.config.export_config;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ExportConfigService {
   // subid: obs.service.config.export@v1, capability: config.read
   rpc export_config(ExportConfigInput) returns (ExportConfigOutput);
 }
-
-

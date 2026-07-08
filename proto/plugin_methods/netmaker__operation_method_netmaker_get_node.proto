@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.netmaker.get_node;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service GetNodeService {
   // subid: obs.network.netmaker.node.get@v1, capability: cap.network.netmaker.node.get@v1
   rpc get_node(GetNodeInput) returns (GetNodeOutput);
 }
-
-

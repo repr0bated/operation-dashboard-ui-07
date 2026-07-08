@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package operation.method.embedding_model.rerank;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RerankInput {
+  repeated string documents = 1;
+  string model = 2;
+  string query = 3;
+  bool return_documents = 4;
+  int64 top_k = 5;
+  bool truncation = 6;
+}
+
+message RerankOutput {
+  string model = 1;
+  repeated google.protobuf.Value results = 2;
+  int64 total_tokens = 3;
+}
+
+service RerankService {
+  // subid: mut.service.embedding.rerank@v1, capability: embedding.invoke
+  rpc rerank(RerankInput) returns (RerankOutput);
+}

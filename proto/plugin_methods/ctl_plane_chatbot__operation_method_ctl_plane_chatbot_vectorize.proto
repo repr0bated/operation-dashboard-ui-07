@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ctl_plane_chatbot.vectorize;
 
 import "google/protobuf/descriptor.proto";
@@ -12,7 +11,7 @@ extend google.protobuf.MethodOptions {
 }
 
 message VectorizeInput {
-  // Empty schema object.
+  string episode_id = 1;
 }
 
 message VectorizeOutput {
@@ -23,5 +22,3 @@ service VectorizeService {
   // subid: mut.service.ctl-plane-chatbot.vectorize@v1, capability: chatbot.invoke
   rpc vectorize(VectorizeInput) returns (VectorizeOutput);
 }
-
-

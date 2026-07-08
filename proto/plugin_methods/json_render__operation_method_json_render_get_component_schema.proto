@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.get_component_schema;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetComponentSchemaService {
   // subid: obs.software.plugin.json-render.component.get@v1, capability: json_render.read
   rpc get_component_schema(GetComponentSchemaInput) returns (GetComponentSchemaOutput);
 }
-
-

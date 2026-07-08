@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wireguard.list_peers;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListPeersService {
   // subid: obs.network.wireguard.peers.list@v1, capability: wireguard.read
   rpc list_peers(ListPeersInput) returns (ListPeersOutput);
 }
-
-

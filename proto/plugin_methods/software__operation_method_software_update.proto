@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.software.update;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service UpdateService {
   // subid: mut.software.plugin.software.update@v1, capability: software.write
   rpc update(UpdateInput) returns (UpdateOutput);
 }
-
-

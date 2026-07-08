@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.compact;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service CompactService {
   // subid: mut.memory.memory.compact@v1, capability: memory.memory.compact
   rpc compact(CompactInput) returns (CompactOutput);
 }
-
-

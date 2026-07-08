@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.add_source_text;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service AddSourceTextService {
   // subid: mut.service.plugin.notebooklm.source.add-text@v1, capability: notebooklm.invoke
   rpc add_source_text(AddSourceTextInput) returns (AddSourceTextOutput);
 }
-
-

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.btrfs.get_dr_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetDrStatusInput {
+  // Empty schema object.
+}
+
+message GetDrStatusOutput {
+  int64 blocks_to_replay = 1;
+  string last_checkpoint = 2;
+  repeated string recovery_steps = 3;
+  bool state_subvol_current = 4;
+  bool vector_snapshot_available = 5;
+}
+
+service GetDrStatusService {
+  // subid: obs.storage.btrfs.dr-status.get@v1, capability: cap.storage.btrfs.dr-status.get@v1
+  rpc get_dr_status(GetDrStatusInput) returns (GetDrStatusOutput);
+}

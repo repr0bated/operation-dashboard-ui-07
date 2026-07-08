@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.get_notebook;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetNotebookService {
   // subid: obs.service.plugin.notebooklm.notebook.get@v1, capability: notebooklm.read
   rpc get_notebook(GetNotebookInput) returns (GetNotebookOutput);
 }
-
-

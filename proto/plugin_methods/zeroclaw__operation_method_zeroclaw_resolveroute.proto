@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.resolveroute;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ResolveRouteService {
   // subid: obs.service.zeroclaw.route.resolve@v1, capability: cap.software.zeroclaw.route.resolve@v1
   rpc ResolveRoute(ResolveRouteInput) returns (ResolveRouteOutput);
 }
-
-

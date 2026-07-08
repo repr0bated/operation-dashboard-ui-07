@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package operation.method.wg_opdbus.get_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatusInput {
+  string interface_name = 1;
+  string wireguard_plugin = 2;
+}
+
+message GetStatusOutput {
+  string config_path = 1;
+  repeated string excluded_plugins = 2;
+  string identity_role = 3;
+  google.protobuf.Value interface = 4;
+  string netmaker_plugin = 5;
+  repeated string route_targets = 6;
+  string wireguard_plugin = 7;
+}
+
+service GetStatusService {
+  // subid: obs.network.wg-opdbus.status.get@v1, capability: wg_opdbus.read
+  rpc get_status(GetStatusInput) returns (GetStatusOutput);
+}

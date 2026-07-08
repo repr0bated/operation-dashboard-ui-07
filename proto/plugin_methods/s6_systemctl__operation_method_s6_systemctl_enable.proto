@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.enable;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service EnableService {
   // subid: mut.software.s6.systemctl.enable@v1, capability: s6.systemctl.write
   rpc enable(EnableInput) returns (EnableOutput);
 }
-
-

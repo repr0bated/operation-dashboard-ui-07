@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.factory.list_sessions;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListSessionsService {
   // subid: obs.service.factory.session.list@v1, capability: factory.read
   rpc list_sessions(ListSessionsInput) returns (ListSessionsOutput);
 }
-
-

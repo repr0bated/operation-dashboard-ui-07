@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.search_points;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service SearchPointsService {
   // subid: obs.data.qdrant.point.search@v1, capability: cap.data.qdrant.point.search@v1
   rpc search_points(SearchPointsInput) returns (SearchPointsOutput);
 }
-
-

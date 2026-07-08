@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.set_link_llmnr;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SetLinkLlmnrService {
   // subid: mut.software.dnsresolver.link.set-llmnr@v1, capability: dnsresolver.write
   rpc set_link_llmnr(SetLinkLlmnrInput) returns (SetLinkLlmnrOutput);
 }
-
-

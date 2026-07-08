@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.update_entry;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service UpdateEntryService {
   // subid: mut.memory.memory.update-entry@v1, capability: memory.entry.write
   rpc update_entry(UpdateEntryInput) returns (UpdateEntryOutput);
 }
-
-

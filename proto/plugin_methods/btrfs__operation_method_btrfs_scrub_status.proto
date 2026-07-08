@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.btrfs.scrub_status;
 
 import "google/protobuf/descriptor.proto";
@@ -16,12 +15,12 @@ message ScrubStatusInput {
 }
 
 message ScrubStatusOutput {
-  bool success = 1;
+  int64 errors_found = 1;
+  double progress_percent = 2;
+  string state = 3;
 }
 
 service ScrubStatusService {
   // subid: obs.storage.btrfs.scrub.status@v1, capability: cap.storage.btrfs.scrub.status@v1
   rpc scrub_status(ScrubStatusInput) returns (ScrubStatusOutput);
 }
-
-

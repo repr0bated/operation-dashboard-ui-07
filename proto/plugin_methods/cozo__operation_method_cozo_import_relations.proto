@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cozo.import_relations;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ImportRelationsService {
   // subid: mut.data.cozo.relations.import@v1, capability: cap.data.cozo.relations.import@v1
   rpc import_relations(ImportRelationsInput) returns (ImportRelationsOutput);
 }
-
-

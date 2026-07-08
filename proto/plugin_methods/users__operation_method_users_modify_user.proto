@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.users.modify_user;
 
 import "google/protobuf/descriptor.proto";
@@ -27,5 +26,3 @@ service ModifyUserService {
   // subid: mut.software.plugin.users.modify@v1, capability: users.write
   rpc modify_user(ModifyUserInput) returns (ModifyUserOutput);
 }
-
-

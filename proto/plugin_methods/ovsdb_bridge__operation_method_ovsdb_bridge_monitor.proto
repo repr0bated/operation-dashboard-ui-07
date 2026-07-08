@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.ovsdb_bridge.monitor;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service MonitorService {
   // subid: obs.network.ovsdb.monitor@v1, capability: ovsdb.read
   rpc monitor(MonitorInput) returns (MonitorOutput);
 }
-
-

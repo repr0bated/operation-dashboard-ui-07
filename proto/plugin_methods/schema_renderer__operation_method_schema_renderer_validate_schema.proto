@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.schema_renderer.validate_schema;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service ValidateSchemaService {
   // subid: obs.service.schema.validate@v1, capability: schema_renderer.read
   rpc validate_schema(ValidateSchemaInput) returns (ValidateSchemaOutput);
 }
-
-

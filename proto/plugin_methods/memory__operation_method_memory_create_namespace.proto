@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.create_namespace;
 
 import "google/protobuf/descriptor.proto";
@@ -29,5 +28,3 @@ service CreateNamespaceService {
   // subid: mut.memory.memory.create-namespace@v1, capability: memory.namespace.create
   rpc create_namespace(CreateNamespaceInput) returns (CreateNamespaceOutput);
 }
-
-

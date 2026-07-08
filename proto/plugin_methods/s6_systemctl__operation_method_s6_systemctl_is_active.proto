@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.is_active;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service IsActiveService {
   // subid: obs.software.s6.systemctl.is_active@v1, capability: s6.systemctl.read
   rpc is_active(IsActiveInput) returns (IsActiveOutput);
 }
-
-

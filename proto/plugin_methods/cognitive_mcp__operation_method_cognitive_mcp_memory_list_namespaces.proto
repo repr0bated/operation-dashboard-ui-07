@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.cognitive_mcp.memory_list_namespaces;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service MemoryListNamespacesService {
   // subid: obs.service.cognitive-mcp.memory.namespace.list@v1, capability: cognitive_mcp.read
   rpc memory_list_namespaces(MemoryListNamespacesInput) returns (MemoryListNamespacesOutput);
 }
-
-

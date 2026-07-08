@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.list_collections;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListCollectionsService {
   // subid: obs.data.qdrant.collection.list@v1, capability: cap.data.qdrant.collection.list@v1
   rpc list_collections(ListCollectionsInput) returns (ListCollectionsOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.unix_socket.close;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service CloseService {
   // subid: mut.service.unix-socket.close@v1, capability: network.write
   rpc close(CloseInput) returns (CloseOutput);
 }
-
-

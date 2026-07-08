@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.factory.list_models;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListModelsService {
   // subid: obs.service.factory.model.list@v1, capability: factory.read
   rpc list_models(ListModelsInput) returns (ListModelsOutput);
 }
-
-

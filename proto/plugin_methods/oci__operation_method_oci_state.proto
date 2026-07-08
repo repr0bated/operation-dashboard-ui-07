@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oci.state;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StateService {
   // subid: obs.container.oci.state.get@v1, capability: cap.container.oci.state.get@v1
   rpc state(StateInput) returns (StateOutput);
 }
-
-

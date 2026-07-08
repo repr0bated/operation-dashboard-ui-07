@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oci.run_container;
 
 import "google/protobuf/descriptor.proto";
@@ -27,5 +26,3 @@ service RunContainerService {
   // subid: mut.container.oci.run@v1, capability: cap.container.oci.run@v1
   rpc run_container(RunContainerInput) returns (RunContainerOutput);
 }
-
-

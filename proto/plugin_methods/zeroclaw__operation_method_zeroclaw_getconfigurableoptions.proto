@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.zeroclaw.getconfigurableoptions;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetConfigurableOptionsService {
   // subid: obs.service.zeroclaw.options.get@v1, capability: cap.software.zeroclaw.options.read@v1
   rpc GetConfigurableOptions(GetConfigurableOptionsInput) returns (GetConfigurableOptionsOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.large_language_model.list_providers;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListProvidersService {
   // subid: obs.service.llm.provider.list@v1, capability: llm.read
   rpc list_providers(ListProvidersInput) returns (ListProvidersOutput);
 }
-
-

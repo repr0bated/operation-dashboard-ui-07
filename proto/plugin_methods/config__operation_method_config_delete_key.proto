@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.config.delete_key;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DeleteKeyService {
   // subid: mut.service.config.key.delete@v1, capability: config.invoke
   rpc delete_key(DeleteKeyInput) returns (DeleteKeyOutput);
 }
-
-

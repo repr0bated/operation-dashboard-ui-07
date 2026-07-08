@@ -13,6 +13,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Value } from "../google/protobuf/struct";
 /**
  * @generated from protobuf message operation.method.cozo.describe_relation.DescribeRelationInput
  */
@@ -27,9 +28,9 @@ export interface DescribeRelationInput {
  */
 export interface DescribeRelationOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: google.protobuf.Value relation = 1
      */
-    success: boolean;
+    relation?: Value;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DescribeRelationInput$Type extends MessageType<DescribeRelationInput> {
@@ -82,12 +83,11 @@ export const DescribeRelationInput = new DescribeRelationInput$Type();
 class DescribeRelationOutput$Type extends MessageType<DescribeRelationOutput> {
     constructor() {
         super("operation.method.cozo.describe_relation.DescribeRelationOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "relation", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<DescribeRelationOutput>): DescribeRelationOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DescribeRelationOutput>(this, message, value);
         return message;
@@ -97,8 +97,8 @@ class DescribeRelationOutput$Type extends MessageType<DescribeRelationOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* google.protobuf.Value relation */ 1:
+                    message.relation = Value.internalBinaryRead(reader, reader.uint32(), options, message.relation);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -112,9 +112,9 @@ class DescribeRelationOutput$Type extends MessageType<DescribeRelationOutput> {
         return message;
     }
     internalBinaryWrite(message: DescribeRelationOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* google.protobuf.Value relation = 1; */
+        if (message.relation)
+            Value.internalBinaryWrite(message.relation, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

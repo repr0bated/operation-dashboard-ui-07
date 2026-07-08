@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.create_mindmap;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateMindmapService {
   // subid: mut.service.plugin.notebooklm.studio.mindmap.create@v1, capability: notebooklm.invoke
   rpc create_mindmap(CreateMindmapInput) returns (CreateMindmapOutput);
 }
-
-

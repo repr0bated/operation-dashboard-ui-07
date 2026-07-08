@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.generate_config;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service GenerateConfigService {
   // subid: mut.software.wgcf.config.generate@v1, capability: wgcf.write
   rpc generate_config(GenerateConfigInput) returns (GenerateConfigOutput);
 }
-
-

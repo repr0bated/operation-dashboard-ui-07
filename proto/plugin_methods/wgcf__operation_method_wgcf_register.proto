@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.register;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RegisterService {
   // subid: mut.software.wgcf.register@v1, capability: cap.software.wgcf.register@v1
   rpc register(RegisterInput) returns (RegisterOutput);
 }
-
-

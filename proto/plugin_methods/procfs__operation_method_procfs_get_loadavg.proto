@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.procfs.get_loadavg;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetLoadavgService {
   // subid: obs.service.procfs.loadavg.get@v1, capability: procfs.read
   rpc get_loadavg(GetLoadavgInput) returns (GetLoadavgOutput);
 }
-
-

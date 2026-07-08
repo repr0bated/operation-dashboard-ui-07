@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.delete_source;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service DeleteSourceService {
   // subid: mut.service.plugin.notebooklm.source.delete@v1, capability: notebooklm.invoke
   rpc delete_source(DeleteSourceInput) returns (DeleteSourceOutput);
 }
-
-

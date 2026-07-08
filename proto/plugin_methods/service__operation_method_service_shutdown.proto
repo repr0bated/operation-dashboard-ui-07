@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.service.shutdown;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service ShutdownService {
   // subid: mut.service.lifecycle.shutdown@v1, capability: cap.service.lifecycle.shutdown@v1
   rpc shutdown(ShutdownInput) returns (ShutdownOutput);
 }
-
-

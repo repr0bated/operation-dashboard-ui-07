@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rovs_commands.list_ports;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListPortsService {
   // subid: obs.network.ovsdb.port.list@v1, capability: cap.network.ovsdb.port.list@v1
   rpc list_ports(ListPortsInput) returns (ListPortsOutput);
 }
-
-

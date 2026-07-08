@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.rtnetlink.add_rule;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service AddRuleService {
   // subid: mut.network.rtnetlink.rule.add@v1, capability: cap.network.rtnetlink.rule.add@v1
   rpc add_rule(AddRuleInput) returns (AddRuleOutput);
 }
-
-

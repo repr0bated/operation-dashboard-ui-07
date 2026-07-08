@@ -1,0 +1,1934 @@
+syntax = "proto3";
+
+package operation.catalog.v1;
+
+import "google/protobuf/struct.proto";
+
+// =============================================
+// adc - Application default credentials state
+// =============================================
+
+message Adc {
+  bool configured = 1;
+}
+
+message GetAdcRequest {
+  string object_path = 1;
+}
+message GetAdcResponse {
+  Adc state = 1;
+  string error = 2;
+}
+message AdcUpdate {
+  string object_path = 1;
+  Adc state = 2;
+}
+
+service AdcService {
+  rpc Get(GetAdcRequest) returns (GetAdcResponse);
+}
+
+
+// =============================================
+// agent_config - Agent configuration and tool assignments
+// =============================================
+
+message AgentConfig {
+  repeated google.protobuf.Struct agents = 1;
+}
+
+message GetAgentConfigRequest {
+  string object_path = 1;
+}
+message GetAgentConfigResponse {
+  AgentConfig state = 1;
+  string error = 2;
+}
+message AgentConfigUpdate {
+  string object_path = 1;
+  AgentConfig state = 2;
+}
+
+service AgentConfigService {
+  rpc Get(GetAgentConfigRequest) returns (GetAgentConfigResponse);
+}
+
+
+// =============================================
+// antigravity - Google Antigravity SDK provider — Vertex AI Gemini models, OAuth auth, structured output, OSCAL compliance routing
+// =============================================
+
+message Antigravity {
+  optional string actor_id = 1;
+  optional google.protobuf.Struct auth = 2;
+  optional string capability_id = 3;
+  optional google.protobuf.Struct config_schema = 4;
+  optional google.protobuf.Struct endpoints = 5;
+  optional google.protobuf.Struct generation_config = 6;
+  repeated google.protobuf.Struct model_routes = 7;
+  optional google.protobuf.Struct models = 8;
+  optional google.protobuf.Struct project = 9;
+  repeated google.protobuf.Struct providers = 10;
+  optional google.protobuf.Struct router = 11;
+  repeated google.protobuf.Struct safety_settings = 12;
+  optional string status = 13;
+  optional google.protobuf.Struct structured_output = 14;
+  repeated google.protobuf.Struct tools = 15;
+  repeated google.protobuf.Struct ui_surfaces = 16;
+  optional google.protobuf.Struct usage = 17;
+}
+
+message GetAntigravityRequest {
+  string object_path = 1;
+}
+message GetAntigravityResponse {
+  Antigravity state = 1;
+  string error = 2;
+}
+message AntigravityUpdate {
+  string object_path = 1;
+  Antigravity state = 2;
+}
+
+service AntigravityService {
+  rpc Get(GetAntigravityRequest) returns (GetAntigravityResponse);
+}
+
+
+// =============================================
+// antigravity_chat - Antigravity Chat — OAuth bridge, Gemini models, headless IDE
+// =============================================
+
+message AntigravityChat {
+  optional string actor_id = 1;
+  optional google.protobuf.Struct auth = 2;
+  optional google.protobuf.Struct bridge = 3;
+  optional string capability_id = 4;
+  optional google.protobuf.Struct config = 5;
+  repeated google.protobuf.Struct models = 6;
+  optional string status = 7;
+}
+
+message GetAntigravityChatRequest {
+  string object_path = 1;
+}
+message GetAntigravityChatResponse {
+  AntigravityChat state = 1;
+  string error = 2;
+}
+message AntigravityChatUpdate {
+  string object_path = 1;
+  AntigravityChat state = 2;
+}
+
+service AntigravityChatService {
+  rpc Get(GetAntigravityChatRequest) returns (GetAntigravityChatResponse);
+}
+
+
+// =============================================
+// blockchain - Streaming blockchain audit chain — snapshots, DR current-state, retention/interval
+// =============================================
+
+message Blockchain {
+  string base_path = 1;
+  google.protobuf.Struct retention = 2;
+  int64 snapshot_count = 3;
+  string snapshot_interval = 4;
+  repeated google.protobuf.Struct snapshots = 5;
+  string status = 6;
+}
+
+message GetBlockchainRequest {
+  string object_path = 1;
+}
+message GetBlockchainResponse {
+  Blockchain state = 1;
+  string error = 2;
+}
+message BlockchainUpdate {
+  string object_path = 1;
+  Blockchain state = 2;
+}
+
+service BlockchainService {
+  rpc Get(GetBlockchainRequest) returns (GetBlockchainResponse);
+}
+
+
+// =============================================
+// btrfs - Btrfs filesystem — subvolumes, snapshots, send/receive, DR
+// =============================================
+
+message Btrfs {
+  optional google.protobuf.Value config = 1;
+  optional google.protobuf.Value dr_status = 2;
+  optional google.protobuf.Value send_state = 3;
+  optional google.protobuf.Value snapshots = 4;
+  optional string status = 5;
+  optional google.protobuf.Value subvolumes = 6;
+}
+
+message GetBtrfsRequest {
+  string object_path = 1;
+}
+message GetBtrfsResponse {
+  Btrfs state = 1;
+  string error = 2;
+}
+message BtrfsUpdate {
+  string object_path = 1;
+  Btrfs state = 2;
+}
+
+service BtrfsService {
+  rpc Get(GetBtrfsRequest) returns (GetBtrfsResponse);
+}
+
+
+// =============================================
+// cognitive_mcp - Cognitive MCP server — memory, gRPC CognitiveToolService. THE PLUGIN IS THE SCHEMA: every method, tool, property, and field is declared here. Downstream inherits.
+// =============================================
+
+message CognitiveMcp {
+  optional string actor_id = 1;
+  optional string auth_status = 2;
+  optional string capability_id = 3;
+  optional google.protobuf.Struct citation = 4;
+  optional google.protobuf.Struct code_context = 5;
+  optional google.protobuf.Struct code_index = 6;
+  optional google.protobuf.Struct code_search = 7;
+  optional bool dbus_enabled = 8;
+  optional google.protobuf.Struct gemini_query_request = 9;
+  optional string grpc = 10;
+  optional bool grpc_enabled = 11;
+  optional bool healthy = 12;
+  optional string http = 13;
+  optional bool http_enabled = 14;
+  optional google.protobuf.Struct memory_tool = 15;
+  optional int64 notebook_count = 16;
+  optional int64 queries_limit = 17;
+  optional int64 queries_remaining = 18;
+  optional bool running = 19;
+  optional google.protobuf.Struct source_info = 20;
+  optional string source_locator = 21;
+  optional string source_system = 22;
+  optional string wg_interface = 23;
+}
+
+message GetCognitiveMcpRequest {
+  string object_path = 1;
+}
+message GetCognitiveMcpResponse {
+  CognitiveMcp state = 1;
+  string error = 2;
+}
+message CognitiveMcpUpdate {
+  string object_path = 1;
+  CognitiveMcp state = 2;
+}
+
+service CognitiveMcpService {
+  rpc Get(GetCognitiveMcpRequest) returns (GetCognitiveMcpResponse);
+}
+
+
+// =============================================
+// compact_mcp - op-mcp-server — multi-mode MCP server (compact/full/agents) with stdio, HTTP, and WebSocket transports
+// =============================================
+
+message CompactMcp {
+  optional string actor_id = 1;
+  optional string capability_id = 2;
+  optional string http = 3;
+  optional string log_level = 4;
+  optional string mode = 5;
+  optional bool running = 6;
+  optional bool stdio = 7;
+  optional string wg_interface = 8;
+  optional string ws = 9;
+}
+
+message GetCompactMcpRequest {
+  string object_path = 1;
+}
+message GetCompactMcpResponse {
+  CompactMcp state = 1;
+  string error = 2;
+}
+message CompactMcpUpdate {
+  string object_path = 1;
+  CompactMcp state = 2;
+}
+
+service CompactMcpService {
+  rpc Get(GetCompactMcpRequest) returns (GetCompactMcpResponse);
+}
+
+
+// =============================================
+// config - Global key/value config store
+// =============================================
+
+message Config {
+  optional string actor_id = 1;
+  optional string capability_id = 2;
+  google.protobuf.Value configs = 3;
+}
+
+message GetConfigRequest {
+  string object_path = 1;
+}
+message GetConfigResponse {
+  Config state = 1;
+  string error = 2;
+}
+message ConfigUpdate {
+  string object_path = 1;
+  Config state = 2;
+}
+
+service ConfigService {
+  rpc Get(GetConfigRequest) returns (GetConfigResponse);
+}
+
+
+// =============================================
+// cozo - CozoDB relational-graph-vector database — relations, indices, HNSW, triggers, Datalog
+// =============================================
+
+message Cozo {
+  string engine = 1;
+  repeated google.protobuf.Struct hnsw_indices = 2;
+  repeated google.protobuf.Struct indices = 3;
+  string path = 4;
+  repeated google.protobuf.Struct relations = 5;
+  int64 running_queries = 6;
+  optional string source_locator = 7;
+  optional string source_system = 8;
+  repeated google.protobuf.Struct triggers = 9;
+  string version = 10;
+}
+
+message GetCozoRequest {
+  string object_path = 1;
+}
+message GetCozoResponse {
+  Cozo state = 1;
+  string error = 2;
+}
+message CozoUpdate {
+  string object_path = 1;
+  Cozo state = 2;
+}
+
+service CozoService {
+  rpc Get(GetCozoRequest) returns (GetCozoResponse);
+}
+
+
+// =============================================
+// cron - Cron scheduler — jobs, schedules, execution history
+// =============================================
+
+message Cron {
+  optional string actor_id = 1;
+  optional string capability_id = 2;
+  optional google.protobuf.Struct config = 3;
+  repeated google.protobuf.Struct jobs = 4;
+  optional google.protobuf.Struct schedules = 5;
+  optional string status = 6;
+}
+
+message GetCronRequest {
+  string object_path = 1;
+}
+message GetCronResponse {
+  Cron state = 1;
+  string error = 2;
+}
+message CronUpdate {
+  string object_path = 1;
+  Cron state = 2;
+}
+
+service CronService {
+  rpc Get(GetCronRequest) returns (GetCronResponse);
+}
+
+
+// =============================================
+// ctl_plane_chatbot - Control-plane chatbot reasoning episodes — THE PLUGIN IS THE SCHEMA. Declares every episode field (REQ-2), PII tagging (REQ-8), significance classification (REQ-3), and vectorization pipeline config (REQ-4/5/6/7). Downstream (Qdrant, CozoDB, Accountability UI, EventChainService) inherits.
+// =============================================
+
+message CtlPlaneChatbot {
+  optional string actor_id = 1;
+  optional string capability_id = 2;
+  optional string chat_model = 3;
+  optional int64 dedup_window_hrs = 4;
+  optional string embedding_plugin = 5;
+  optional int64 embedding_queue_depth = 6;
+  optional string input_type = 7;
+  optional string last_vectorized_at = 8;
+  optional string llm_plugin = 9;
+  optional string nesting_policy = 10;
+  optional string output_dtype = 11;
+  optional string qdrant_collection = 12;
+  optional int64 queue_alert_threshold = 13;
+  optional bool reasoning_active = 14;
+  optional google.protobuf.Struct reasoning_episode = 15;
+  optional bool running = 16;
+  optional google.protobuf.Struct significance = 17;
+  optional string vector_dims = 18;
+  optional string vector_id = 19;
+  optional bool vectorization_enabled = 20;
+}
+
+message GetCtlPlaneChatbotRequest {
+  string object_path = 1;
+}
+message GetCtlPlaneChatbotResponse {
+  CtlPlaneChatbot state = 1;
+  string error = 2;
+}
+message CtlPlaneChatbotUpdate {
+  string object_path = 1;
+  CtlPlaneChatbot state = 2;
+}
+
+service CtlPlaneChatbotService {
+  rpc Get(GetCtlPlaneChatbotRequest) returns (GetCtlPlaneChatbotResponse);
+}
+
+
+// =============================================
+// datastore - Canonical state store — object index, per-namespace counts, execution/blockchain rows
+// =============================================
+
+message Datastore {
+  optional int64 blockchain_count = 1;
+  optional int64 execution_count = 2;
+  repeated google.protobuf.Struct namespaces = 3;
+  optional int64 object_count = 4;
+  repeated google.protobuf.Struct objects = 5;
+  optional string status = 6;
+}
+
+message GetDatastoreRequest {
+  string object_path = 1;
+}
+message GetDatastoreResponse {
+  Datastore state = 1;
+  string error = 2;
+}
+message DatastoreUpdate {
+  string object_path = 1;
+  Datastore state = 2;
+}
+
+service DatastoreService {
+  rpc Get(GetDatastoreRequest) returns (GetDatastoreResponse);
+}
+
+
+// =============================================
+// dnsresolver - DNS resolver declaration state
+// =============================================
+
+message Dnsresolver {
+  repeated google.protobuf.Value items = 1;
+  optional int64 version = 2;
+}
+
+message GetDnsresolverRequest {
+  string object_path = 1;
+}
+message GetDnsresolverResponse {
+  Dnsresolver state = 1;
+  string error = 2;
+}
+message DnsresolverUpdate {
+  string object_path = 1;
+  Dnsresolver state = 2;
+}
+
+service DnsresolverService {
+  rpc Get(GetDnsresolverRequest) returns (GetDnsresolverResponse);
+}
+
+
+// =============================================
+// embedding_model - Generic provider-agnostic embedding surface (provider, model id, endpoint, shared dimensions); the model is a swappable field. The one embedding-kind sibling of large_language_model
+// =============================================
+
+message EmbeddingModel {
+  optional string actor_id = 1;
+  repeated string available_models = 2;
+  optional string capability_id = 3;
+  optional int64 dimensions = 4;
+  optional string endpoint = 5;
+  optional string model_digest = 6;
+  optional string model_id = 7;
+  optional string provider = 8;
+  optional string status = 9;
+}
+
+message GetEmbeddingModelRequest {
+  string object_path = 1;
+}
+message GetEmbeddingModelResponse {
+  EmbeddingModel state = 1;
+  string error = 2;
+}
+message EmbeddingModelUpdate {
+  string object_path = 1;
+  EmbeddingModel state = 2;
+}
+
+service EmbeddingModelService {
+  rpc Get(GetEmbeddingModelRequest) returns (GetEmbeddingModelResponse);
+}
+
+
+// =============================================
+// endpoint - Endpoint configuration
+// =============================================
+
+message Endpoint {
+  repeated string endpoints = 1;
+}
+
+message GetEndpointRequest {
+  string object_path = 1;
+}
+message GetEndpointResponse {
+  Endpoint state = 1;
+  string error = 2;
+}
+message EndpointUpdate {
+  string object_path = 1;
+  Endpoint state = 2;
+}
+
+service EndpointService {
+  rpc Get(GetEndpointRequest) returns (GetEndpointResponse);
+}
+
+
+// =============================================
+// factory - Factory Droid agent platform — computers, sessions, models, autonomy controls, BYOM discovery
+// =============================================
+
+message Factory {
+  optional string auth_method = 1;
+  optional google.protobuf.Struct byom_sources = 2;
+  optional google.protobuf.Struct computers = 3;
+  optional google.protobuf.Struct config_schema = 4;
+  optional string endpoint = 5;
+  optional google.protobuf.Struct models = 6;
+  repeated google.protobuf.Struct providers = 7;
+  optional google.protobuf.Struct session_settings = 8;
+  optional google.protobuf.Struct sessions = 9;
+  optional string status = 10;
+  repeated google.protobuf.Struct tools = 11;
+  repeated google.protobuf.Struct ui_surfaces = 12;
+}
+
+message GetFactoryRequest {
+  string object_path = 1;
+}
+message GetFactoryResponse {
+  Factory state = 1;
+  string error = 2;
+}
+message FactoryUpdate {
+  string object_path = 1;
+  Factory state = 2;
+}
+
+service FactoryService {
+  rpc Get(GetFactoryRequest) returns (GetFactoryResponse);
+}
+
+
+// =============================================
+// fail2ban - Fail2ban intrusion prevention — jails, bans, filters, actions
+// =============================================
+
+message Fail2ban {
+  google.protobuf.Value actions = 1;
+  google.protobuf.Value bans = 2;
+  google.protobuf.Value config = 3;
+  google.protobuf.Value filters = 4;
+  google.protobuf.Value jails = 5;
+  google.protobuf.Value logs = 6;
+  string status = 7;
+}
+
+message GetFail2banRequest {
+  string object_path = 1;
+}
+message GetFail2banResponse {
+  Fail2ban state = 1;
+  string error = 2;
+}
+message Fail2banUpdate {
+  string object_path = 1;
+  Fail2ban state = 2;
+}
+
+service Fail2banService {
+  rpc Get(GetFail2banRequest) returns (GetFail2banResponse);
+}
+
+
+// =============================================
+// freedesktop - FreeDesktop D-Bus standards implementation
+// =============================================
+
+message Freedesktop {
+}
+
+message GetFreedesktopRequest {
+  string object_path = 1;
+}
+message GetFreedesktopResponse {
+  Freedesktop state = 1;
+  string error = 2;
+}
+message FreedesktopUpdate {
+  string object_path = 1;
+  Freedesktop state = 2;
+}
+
+service FreedesktopService {
+  rpc Get(GetFreedesktopRequest) returns (GetFreedesktopResponse);
+}
+
+
+// =============================================
+// full_system - Full system recovery snapshot
+// =============================================
+
+message FullSystem {
+  string captured_at = 1;
+  google.protobuf.Struct containers = 2;
+  string hostname = 3;
+  google.protobuf.Struct network = 4;
+  repeated google.protobuf.Struct packages = 5;
+  google.protobuf.Struct plugins = 6;
+  repeated google.protobuf.Struct services = 7;
+  google.protobuf.Struct storage = 8;
+  google.protobuf.Struct system = 9;
+  repeated google.protobuf.Struct users = 10;
+  int64 version = 11;
+}
+
+message GetFullSystemRequest {
+  string object_path = 1;
+}
+message GetFullSystemResponse {
+  FullSystem state = 1;
+  string error = 2;
+}
+message FullSystemUpdate {
+  string object_path = 1;
+  FullSystem state = 2;
+}
+
+service FullSystemService {
+  rpc Get(GetFullSystemRequest) returns (GetFullSystemResponse);
+}
+
+
+// =============================================
+// gcloud_adc - Google Cloud ADC state
+// =============================================
+
+message GcloudAdc {
+  optional string account = 1;
+  bool authenticated = 2;
+  optional string project_id = 3;
+}
+
+message GetGcloudAdcRequest {
+  string object_path = 1;
+}
+message GetGcloudAdcResponse {
+  GcloudAdc state = 1;
+  string error = 2;
+}
+message GcloudAdcUpdate {
+  string object_path = 1;
+  GcloudAdc state = 2;
+}
+
+service GcloudAdcService {
+  rpc Get(GetGcloudAdcRequest) returns (GetGcloudAdcResponse);
+}
+
+
+// =============================================
+// gemma_brain - Gemma cognitive brain: tag routing, subid classification, reasoning perspectives, and UI-spec gallery; consumes the large_language_model plugin for inference
+// =============================================
+
+message GemmaBrain {
+  optional string actor_id = 1;
+  optional string capability_id = 2;
+  optional google.protobuf.Struct gallery = 3;
+  optional string llm_plugin = 4;
+  repeated string perspectives = 5;
+  optional google.protobuf.Struct routing = 6;
+  optional string status = 7;
+}
+
+message GetGemmaBrainRequest {
+  string object_path = 1;
+}
+message GetGemmaBrainResponse {
+  GemmaBrain state = 1;
+  string error = 2;
+}
+message GemmaBrainUpdate {
+  string object_path = 1;
+  GemmaBrain state = 2;
+}
+
+service GemmaBrainService {
+  rpc Get(GetGemmaBrainRequest) returns (GetGemmaBrainResponse);
+}
+
+
+// =============================================
+// ghostbridge - Ghostbridge TLS/identity bridge for Ghostrunner UI, gRPC-Web surface, and WireGuard pubkey transport
+// =============================================
+
+message Ghostbridge {
+  optional google.protobuf.Struct bridge_identity = 1;
+  repeated google.protobuf.Struct endpoints = 2;
+  optional google.protobuf.Struct ghostrunner = 3;
+  optional string status = 4;
+}
+
+message GetGhostbridgeRequest {
+  string object_path = 1;
+}
+message GetGhostbridgeResponse {
+  Ghostbridge state = 1;
+  string error = 2;
+}
+message GhostbridgeUpdate {
+  string object_path = 1;
+  Ghostbridge state = 2;
+}
+
+service GhostbridgeService {
+  rpc Get(GetGhostbridgeRequest) returns (GetGhostbridgeResponse);
+}
+
+
+// =============================================
+// hardware - Hardware inventory snapshot
+// =============================================
+
+message Hardware {
+  optional google.protobuf.Struct cpu = 1;
+  repeated google.protobuf.Struct disks = 2;
+  optional google.protobuf.Struct memory = 3;
+}
+
+message GetHardwareRequest {
+  string object_path = 1;
+}
+message GetHardwareResponse {
+  Hardware state = 1;
+  string error = 2;
+}
+message HardwareUpdate {
+  string object_path = 1;
+  Hardware state = 2;
+}
+
+service HardwareService {
+  rpc Get(GetHardwareRequest) returns (GetHardwareResponse);
+}
+
+
+// =============================================
+// incus - Incus instance management
+// =============================================
+
+message Incus {
+  repeated google.protobuf.Struct instances = 1;
+}
+
+message GetIncusRequest {
+  string object_path = 1;
+}
+message GetIncusResponse {
+  Incus state = 1;
+  string error = 2;
+}
+message IncusUpdate {
+  string object_path = 1;
+  Incus state = 2;
+}
+
+service IncusService {
+  rpc Get(GetIncusRequest) returns (GetIncusResponse);
+}
+
+
+// =============================================
+// json_render - json-render catalog projection — schema, specs, catalogs, renderers, actions, validation, and upstream API inventory
+// =============================================
+
+message JsonRender {
+  repeated google.protobuf.Struct actions = 1;
+  repeated google.protobuf.Struct components = 2;
+  optional google.protobuf.Struct config = 3;
+  repeated google.protobuf.Struct core_exports = 4;
+  repeated google.protobuf.Struct directives = 5;
+  repeated google.protobuf.Struct methods = 6;
+  repeated google.protobuf.Struct packages = 7;
+  repeated google.protobuf.Struct renderers = 8;
+  optional google.protobuf.Struct source = 9;
+  optional string source_locator = 10;
+  optional string source_system = 11;
+  optional google.protobuf.Struct spec_contract = 12;
+  optional string status = 13;
+  repeated google.protobuf.Struct validation_checks = 14;
+}
+
+message GetJsonRenderRequest {
+  string object_path = 1;
+}
+message GetJsonRenderResponse {
+  JsonRender state = 1;
+  string error = 2;
+}
+message JsonRenderUpdate {
+  string object_path = 1;
+  JsonRender state = 2;
+}
+
+service JsonRenderService {
+  rpc Get(GetJsonRenderRequest) returns (GetJsonRenderResponse);
+}
+
+
+// =============================================
+// keypair - Keypair declaration state
+// =============================================
+
+message Keypair {
+  repeated google.protobuf.Struct keypairs = 1;
+}
+
+message GetKeypairRequest {
+  string object_path = 1;
+}
+message GetKeypairResponse {
+  Keypair state = 1;
+  string error = 2;
+}
+message KeypairUpdate {
+  string object_path = 1;
+  Keypair state = 2;
+}
+
+service KeypairService {
+  rpc Get(GetKeypairRequest) returns (GetKeypairResponse);
+}
+
+
+// =============================================
+// keyring - Secret service collections state
+// =============================================
+
+message Keyring {
+  repeated google.protobuf.Struct collections = 1;
+  optional string default_collection = 2;
+}
+
+message GetKeyringRequest {
+  string object_path = 1;
+}
+message GetKeyringResponse {
+  Keyring state = 1;
+  string error = 2;
+}
+message KeyringUpdate {
+  string object_path = 1;
+  Keyring state = 2;
+}
+
+service KeyringService {
+  rpc Get(GetKeyringRequest) returns (GetKeyringResponse);
+}
+
+
+// =============================================
+// large_language_model - Generic model-agnostic LLM inference surface (provider, model id, endpoint, generation params); the model is a swappable field
+// =============================================
+
+message LargeLanguageModel {
+  optional string actor_id = 1;
+  repeated string available_models = 2;
+  optional string capability_id = 3;
+  optional string endpoint = 4;
+  optional string model_digest = 5;
+  optional string model_id = 6;
+  optional google.protobuf.Struct params = 7;
+  optional string provider = 8;
+  optional string status = 9;
+}
+
+message GetLargeLanguageModelRequest {
+  string object_path = 1;
+}
+message GetLargeLanguageModelResponse {
+  LargeLanguageModel state = 1;
+  string error = 2;
+}
+message LargeLanguageModelUpdate {
+  string object_path = 1;
+  LargeLanguageModel state = 2;
+}
+
+service LargeLanguageModelService {
+  rpc Get(GetLargeLanguageModelRequest) returns (GetLargeLanguageModelResponse);
+}
+
+
+// =============================================
+// login1 - Runtime login sessions
+// =============================================
+
+message Login1 {
+  google.protobuf.Value sessions = 1;
+}
+
+message GetLogin1Request {
+  string object_path = 1;
+}
+message GetLogin1Response {
+  Login1 state = 1;
+  string error = 2;
+}
+message Login1Update {
+  string object_path = 1;
+  Login1 state = 2;
+}
+
+service Login1Service {
+  rpc Get(GetLogin1Request) returns (GetLogin1Response);
+}
+
+
+// =============================================
+// mail_server - Mail server container state and D-Bus registration for 3tched.com
+// =============================================
+
+message MailServer {
+  optional string container_ip = 1;
+  string container_name = 2;
+  string container_status = 3;
+  string dbus_service_name = 4;
+  string domain = 5;
+  google.protobuf.Struct endpoints = 6;
+  bool healthy = 7;
+  optional string last_error = 8;
+  string xray_socket_path = 9;
+}
+
+message GetMailServerRequest {
+  string object_path = 1;
+}
+message GetMailServerResponse {
+  MailServer state = 1;
+  string error = 2;
+}
+message MailServerUpdate {
+  string object_path = 1;
+  MailServer state = 2;
+}
+
+service MailServerService {
+  rpc Get(GetMailServerRequest) returns (GetMailServerResponse);
+}
+
+
+// =============================================
+// mcp - MCP server and tool-group configuration
+// =============================================
+
+message Mcp {
+  optional google.protobuf.Value compact_mode = 1;
+  optional google.protobuf.Value servers = 2;
+  optional google.protobuf.Value tool_groups = 3;
+}
+
+message GetMcpRequest {
+  string object_path = 1;
+}
+message GetMcpResponse {
+  Mcp state = 1;
+  string error = 2;
+}
+message McpUpdate {
+  string object_path = 1;
+  Mcp state = 2;
+}
+
+service McpService {
+  rpc Get(GetMcpRequest) returns (GetMcpResponse);
+}
+
+
+// =============================================
+// memory - Cognitive memory — namespaces, entries, search
+// =============================================
+
+message Memory {
+  string backend = 1;
+  google.protobuf.Value config = 2;
+  google.protobuf.Value namespaces = 3;
+  google.protobuf.Value stats = 4;
+  string status = 5;
+}
+
+message GetMemoryRequest {
+  string object_path = 1;
+}
+message GetMemoryResponse {
+  Memory state = 1;
+  string error = 2;
+}
+message MemoryUpdate {
+  string object_path = 1;
+  Memory state = 2;
+}
+
+service MemoryService {
+  rpc Get(GetMemoryRequest) returns (GetMemoryResponse);
+}
+
+
+// =============================================
+// net - Network interface management via rtnetlink
+// =============================================
+
+message Net {
+  repeated google.protobuf.Struct interfaces = 1;
+}
+
+message GetNetRequest {
+  string object_path = 1;
+}
+message GetNetResponse {
+  Net state = 1;
+  string error = 2;
+}
+message NetUpdate {
+  string object_path = 1;
+  Net state = 2;
+}
+
+service NetService {
+  rpc Get(GetNetRequest) returns (GetNetResponse);
+}
+
+
+// =============================================
+// netmaker - Netmaker state and execution schema backed by s6-managed netclient
+// =============================================
+
+message Netmaker {
+  google.protobuf.Struct config = 1;
+  optional string control_socket = 2;
+  bool daemon_running = 3;
+  repeated string dependencies = 4;
+  bool installed = 5;
+  repeated google.protobuf.Struct networks = 6;
+  optional string public_ip = 7;
+  string software = 8;
+  google.protobuf.Value tools = 9;
+  string version = 10;
+}
+
+message GetNetmakerRequest {
+  string object_path = 1;
+}
+message GetNetmakerResponse {
+  Netmaker state = 1;
+  string error = 2;
+}
+message NetmakerUpdate {
+  string object_path = 1;
+  Netmaker state = 2;
+}
+
+service NetmakerService {
+  rpc Get(GetNetmakerRequest) returns (GetNetmakerResponse);
+}
+
+
+// =============================================
+// notebooklm - NotebookLM knowledge notebooks — auth status, designated corpus, master notebook
+// =============================================
+
+message Notebooklm {
+  google.protobuf.Struct auth = 1;
+  google.protobuf.Struct config = 2;
+  google.protobuf.Struct corpus = 3;
+  google.protobuf.Struct master_notebook = 4;
+  string status = 5;
+}
+
+message GetNotebooklmRequest {
+  string object_path = 1;
+}
+message GetNotebooklmResponse {
+  Notebooklm state = 1;
+  string error = 2;
+}
+message NotebooklmUpdate {
+  string object_path = 1;
+  Notebooklm state = 2;
+}
+
+service NotebooklmService {
+  rpc Get(GetNotebooklmRequest) returns (GetNotebooklmResponse);
+}
+
+
+// =============================================
+// oci - OCI container lifecycle — schema-driven loopback bring-up, netns init, and port attach for incus-managed Docker/OCI containers
+// =============================================
+
+message Oci {
+  repeated google.protobuf.Struct containers = 1;
+}
+
+message GetOciRequest {
+  string object_path = 1;
+}
+message GetOciResponse {
+  Oci state = 1;
+  string error = 2;
+}
+message OciUpdate {
+  string object_path = 1;
+  Oci state = 2;
+}
+
+service OciService {
+  rpc Get(GetOciRequest) returns (GetOciResponse);
+}
+
+
+// =============================================
+// openflow - OpenFlow flow table management
+// =============================================
+
+message Openflow {
+  optional bool auto_discover_containers = 1;
+  repeated google.protobuf.Struct bridges = 2;
+  optional string controller_endpoint = 3;
+  optional bool enable_security_flows = 4;
+  optional int64 obfuscation_level = 5;
+}
+
+message GetOpenflowRequest {
+  string object_path = 1;
+}
+message GetOpenflowResponse {
+  Openflow state = 1;
+  string error = 2;
+}
+message OpenflowUpdate {
+  string object_path = 1;
+  Openflow state = 2;
+}
+
+service OpenflowService {
+  rpc Get(GetOpenflowRequest) returns (GetOpenflowResponse);
+}
+
+
+// =============================================
+// openflow_obfuscation - OpenFlow traffic obfuscation configuration
+// =============================================
+
+message OpenflowObfuscation {
+  optional string bridge_name = 1;
+  repeated google.protobuf.Struct custom_flows = 2;
+  optional bool enable_security_flows = 3;
+  optional int64 obfuscation_level = 4;
+  repeated string privacy_ports = 5;
+}
+
+message GetOpenflowObfuscationRequest {
+  string object_path = 1;
+}
+message GetOpenflowObfuscationResponse {
+  OpenflowObfuscation state = 1;
+  string error = 2;
+}
+message OpenflowObfuscationUpdate {
+  string object_path = 1;
+  OpenflowObfuscation state = 2;
+}
+
+service OpenflowObfuscationService {
+  rpc Get(GetOpenflowObfuscationRequest) returns (GetOpenflowObfuscationResponse);
+}
+
+
+// =============================================
+// oscal_subid_registry - OSCAL subid registry — dual-identifier model for every system artifact. uuid = machine identity, subid = operational taxonomy key.
+// =============================================
+
+message OscalSubidRegistry {
+  optional string actor_id = 1;
+  optional int64 authority_rank = 2;
+  optional string capability_id = 3;
+  string category = 4;
+  string component_type = 5;
+  optional string consumer_surface = 6;
+  repeated string control_refs = 7;
+  optional string control_source = 8;
+  optional string dbus_path = 9;
+  optional string event_hash = 10;
+  optional string event_id = 11;
+  optional string facet = 12;
+  optional string idempotency_key = 13;
+  optional string proof_root = 14;
+  optional string query_scope = 15;
+  optional string schema_hash = 16;
+  optional string schema_id = 17;
+  optional string service_name = 18;
+  optional string source_locator = 19;
+  optional string source_subid = 20;
+  optional string source_system = 21;
+  repeated string statement_refs = 22;
+  string subid = 23;
+  string subject = 24;
+  repeated string tags_touched = 25;
+  optional string tool_name = 26;
+  string uuid = 27;
+  string verb = 28;
+  optional int64 version = 29;
+}
+
+message GetOscalSubidRegistryRequest {
+  string object_path = 1;
+}
+message GetOscalSubidRegistryResponse {
+  OscalSubidRegistry state = 1;
+  string error = 2;
+}
+message OscalSubidRegistryUpdate {
+  string object_path = 1;
+  OscalSubidRegistry state = 2;
+}
+
+service OscalSubidRegistryService {
+  rpc Get(GetOscalSubidRegistryRequest) returns (GetOscalSubidRegistryResponse);
+}
+
+
+// =============================================
+// ovsdb_bridge - OVS bridge declarations
+// =============================================
+
+message OvsdbBridge {
+  repeated google.protobuf.Struct bridges = 1;
+}
+
+message GetOvsdbBridgeRequest {
+  string object_path = 1;
+}
+message GetOvsdbBridgeResponse {
+  OvsdbBridge state = 1;
+  string error = 2;
+}
+message OvsdbBridgeUpdate {
+  string object_path = 1;
+  OvsdbBridge state = 2;
+}
+
+service OvsdbBridgeService {
+  rpc Get(GetOvsdbBridgeRequest) returns (GetOvsdbBridgeResponse);
+}
+
+
+// =============================================
+// packagekit - PackageKit package declarations
+// =============================================
+
+message Packagekit {
+  google.protobuf.Value packages = 1;
+  optional int64 version = 2;
+}
+
+message GetPackagekitRequest {
+  string object_path = 1;
+}
+message GetPackagekitResponse {
+  Packagekit state = 1;
+  string error = 2;
+}
+message PackagekitUpdate {
+  string object_path = 1;
+  Packagekit state = 2;
+}
+
+service PackagekitService {
+  rpc Get(GetPackagekitRequest) returns (GetPackagekitResponse);
+}
+
+
+// =============================================
+// pcidecl - PCI device declaration state
+// =============================================
+
+message Pcidecl {
+  google.protobuf.Value items = 1;
+  optional int64 version = 2;
+}
+
+message GetPcideclRequest {
+  string object_path = 1;
+}
+message GetPcideclResponse {
+  Pcidecl state = 1;
+  string error = 2;
+}
+message PcideclUpdate {
+  string object_path = 1;
+  Pcidecl state = 2;
+}
+
+service PcideclService {
+  rpc Get(GetPcideclRequest) returns (GetPcideclResponse);
+}
+
+
+// =============================================
+// persona - Agent persona catalog — built-in agent types, names, descriptions, operations
+// =============================================
+
+message Persona {
+  int64 persona_count = 1;
+  repeated google.protobuf.Struct personas = 2;
+  string status = 3;
+}
+
+message GetPersonaRequest {
+  string object_path = 1;
+}
+message GetPersonaResponse {
+  Persona state = 1;
+  string error = 2;
+}
+message PersonaUpdate {
+  string object_path = 1;
+  Persona state = 2;
+}
+
+service PersonaService {
+  rpc Get(GetPersonaRequest) returns (GetPersonaResponse);
+}
+
+
+// =============================================
+// procfs - Read-only procfs host state projected through PluginSchema.
+// =============================================
+
+message Procfs {
+  optional google.protobuf.Value cpuinfo = 1;
+  optional google.protobuf.Value diskstats = 2;
+  optional google.protobuf.Value kernel = 3;
+  optional google.protobuf.Value loadavg = 4;
+  optional google.protobuf.Value memory = 5;
+  optional google.protobuf.Value mounts = 6;
+  optional google.protobuf.Value net_dev = 7;
+  optional google.protobuf.Value stat = 8;
+  optional google.protobuf.Value uptime = 9;
+  optional google.protobuf.Value vmstat = 10;
+}
+
+message GetProcfsRequest {
+  string object_path = 1;
+}
+message GetProcfsResponse {
+  Procfs state = 1;
+  string error = 2;
+}
+message ProcfsUpdate {
+  string object_path = 1;
+  Procfs state = 2;
+}
+
+service ProcfsService {
+  rpc Get(GetProcfsRequest) returns (GetProcfsResponse);
+}
+
+
+// =============================================
+// proxy_server - Proxy server runtime config
+// =============================================
+
+message ProxyServer {
+  optional bool enabled = 1;
+  optional int64 port = 2;
+}
+
+message GetProxyServerRequest {
+  string object_path = 1;
+}
+message GetProxyServerResponse {
+  ProxyServer state = 1;
+  string error = 2;
+}
+message ProxyServerUpdate {
+  string object_path = 1;
+  ProxyServer state = 2;
+}
+
+service ProxyServerService {
+  rpc Get(GetProxyServerRequest) returns (GetProxyServerResponse);
+}
+
+
+// =============================================
+// qdrant - Qdrant vector search engine — collections, vector config, HNSW, optimizers
+// =============================================
+
+message Qdrant {
+  optional google.protobuf.Value cluster_status = 1;
+  repeated google.protobuf.Struct collections = 2;
+  string commit = 3;
+  string grpc_endpoint = 4;
+  string http_endpoint = 5;
+  optional string source_locator = 6;
+  optional string source_system = 7;
+  optional google.protobuf.Value telemetry = 8;
+  string title = 9;
+  string version = 10;
+}
+
+message GetQdrantRequest {
+  string object_path = 1;
+}
+message GetQdrantResponse {
+  Qdrant state = 1;
+  string error = 2;
+}
+message QdrantUpdate {
+  string object_path = 1;
+  Qdrant state = 2;
+}
+
+service QdrantService {
+  rpc Get(GetQdrantRequest) returns (GetQdrantResponse);
+}
+
+
+// =============================================
+// rovs_commands - Direct OVSDB command execution methods exposed via D-Bus by grpc-bridge
+// =============================================
+
+message RovsCommands {
+  bool available = 1;
+  optional string schema_version = 2;
+}
+
+message GetRovsCommandsRequest {
+  string object_path = 1;
+}
+message GetRovsCommandsResponse {
+  RovsCommands state = 1;
+  string error = 2;
+}
+message RovsCommandsUpdate {
+  string object_path = 1;
+  RovsCommands state = 2;
+}
+
+service RovsCommandsService {
+  rpc Get(GetRovsCommandsRequest) returns (GetRovsCommandsResponse);
+}
+
+
+// =============================================
+// rtnetlink - Native kernel rtnetlink interface management
+// =============================================
+
+message Rtnetlink {
+  repeated google.protobuf.Struct interfaces = 1;
+}
+
+message GetRtnetlinkRequest {
+  string object_path = 1;
+}
+message GetRtnetlinkResponse {
+  Rtnetlink state = 1;
+  string error = 2;
+}
+message RtnetlinkUpdate {
+  string object_path = 1;
+  Rtnetlink state = 2;
+}
+
+service RtnetlinkService {
+  rpc Get(GetRtnetlinkRequest) returns (GetRtnetlinkResponse);
+}
+
+
+// =============================================
+// s6_systemctl - s6 service manager — daemon status and unit control
+// =============================================
+
+message S6Systemctl {
+  string bus_name = 1;
+  bool daemon_running = 2;
+  string interface = 3;
+  string object_path = 4;
+  repeated google.protobuf.Struct units = 5;
+}
+
+message GetS6SystemctlRequest {
+  string object_path = 1;
+}
+message GetS6SystemctlResponse {
+  S6Systemctl state = 1;
+  string error = 2;
+}
+message S6SystemctlUpdate {
+  string object_path = 1;
+  S6Systemctl state = 2;
+}
+
+service S6SystemctlService {
+  rpc Get(GetS6SystemctlRequest) returns (GetS6SystemctlResponse);
+}
+
+
+// =============================================
+// schema_renderer - Schema Renderer - dynamic JSON Schema to React form generation with auto-gallery
+// =============================================
+
+message SchemaRenderer {
+  optional google.protobuf.Value element_types = 1;
+  optional google.protobuf.Value field_mappings = 2;
+  optional google.protobuf.Value gallery_config = 3;
+  optional google.protobuf.Value layouts = 4;
+  optional google.protobuf.Value render_config = 5;
+  optional string status = 6;
+  optional google.protobuf.Value sub_views = 7;
+}
+
+message GetSchemaRendererRequest {
+  string object_path = 1;
+}
+message GetSchemaRendererResponse {
+  SchemaRenderer state = 1;
+  string error = 2;
+}
+message SchemaRendererUpdate {
+  string object_path = 1;
+  SchemaRenderer state = 2;
+}
+
+service SchemaRendererService {
+  rpc Get(GetSchemaRendererRequest) returns (GetSchemaRendererResponse);
+}
+
+
+// =============================================
+// service - Service definition declarations
+// =============================================
+
+message Service {
+  google.protobuf.Value services = 1;
+}
+
+message GetServiceRequest {
+  string object_path = 1;
+}
+message GetServiceResponse {
+  Service state = 1;
+  string error = 2;
+}
+message ServiceUpdate {
+  string object_path = 1;
+  Service state = 2;
+}
+
+service ServiceService {
+  rpc Get(GetServiceRequest) returns (GetServiceResponse);
+}
+
+
+// =============================================
+// sess_decl - Session declaration state
+// =============================================
+
+message SessDecl {
+  google.protobuf.Value sessions = 1;
+}
+
+message GetSessDeclRequest {
+  string object_path = 1;
+}
+message GetSessDeclResponse {
+  SessDecl state = 1;
+  string error = 2;
+}
+message SessDeclUpdate {
+  string object_path = 1;
+  SessDecl state = 2;
+}
+
+service SessDeclService {
+  rpc Get(GetSessDeclRequest) returns (GetSessDeclResponse);
+}
+
+
+// =============================================
+// shared_unix_socket - The one shared container socket: deterministic (name, ports) registrations demuxed by identity; createunixsocket is the canonical registration method
+// =============================================
+
+message SharedUnixSocket {
+  repeated google.protobuf.Struct registrations = 1;
+  optional string shared_socket = 2;
+  optional string source_locator = 3;
+  optional string source_system = 4;
+}
+
+message GetSharedUnixSocketRequest {
+  string object_path = 1;
+}
+message GetSharedUnixSocketResponse {
+  SharedUnixSocket state = 1;
+  string error = 2;
+}
+message SharedUnixSocketUpdate {
+  string object_path = 1;
+  SharedUnixSocket state = 2;
+}
+
+service SharedUnixSocketService {
+  rpc Get(GetSharedUnixSocketRequest) returns (GetSharedUnixSocketResponse);
+}
+
+
+// =============================================
+// software - Software package inventory
+// =============================================
+
+message Software {
+  repeated google.protobuf.Struct packages = 1;
+}
+
+message GetSoftwareRequest {
+  string object_path = 1;
+}
+message GetSoftwareResponse {
+  Software state = 1;
+  string error = 2;
+}
+message SoftwareUpdate {
+  string object_path = 1;
+  Software state = 2;
+}
+
+service SoftwareService {
+  rpc Get(GetSoftwareRequest) returns (GetSoftwareResponse);
+}
+
+
+// =============================================
+// unix_socket - Single shared unix-domain socket for the tonic-web gRPC bridge — all services route through it, demuxed by domain/SNI at xray and by gRPC service/method at the bridge
+// =============================================
+
+message UnixSocket {
+  optional string actor_id = 1;
+  optional string capability_id = 2;
+  repeated google.protobuf.Struct sockets = 3;
+}
+
+message GetUnixSocketRequest {
+  string object_path = 1;
+}
+message GetUnixSocketResponse {
+  UnixSocket state = 1;
+  string error = 2;
+}
+message UnixSocketUpdate {
+  string object_path = 1;
+  UnixSocket state = 2;
+}
+
+service UnixSocketService {
+  rpc Get(GetUnixSocketRequest) returns (GetUnixSocketResponse);
+}
+
+
+// =============================================
+// users - User account declarations
+// =============================================
+
+message Users {
+  repeated google.protobuf.Struct users = 1;
+}
+
+message GetUsersRequest {
+  string object_path = 1;
+}
+message GetUsersResponse {
+  Users state = 1;
+  string error = 2;
+}
+message UsersUpdate {
+  string object_path = 1;
+  Users state = 2;
+}
+
+service UsersService {
+  rpc Get(GetUsersRequest) returns (GetUsersResponse);
+}
+
+
+// =============================================
+// web_ui - Web UI state — identity, tunables, and capabilities
+// =============================================
+
+message WebUi {
+  optional string actor_id = 1;
+  optional google.protobuf.Struct capabilities = 2;
+  optional string capability_id = 3;
+  optional google.protobuf.Struct identity = 4;
+  optional google.protobuf.Struct tunables = 5;
+}
+
+message GetWebUiRequest {
+  string object_path = 1;
+}
+message GetWebUiResponse {
+  WebUi state = 1;
+  string error = 2;
+}
+message WebUiUpdate {
+  string object_path = 1;
+  WebUi state = 2;
+}
+
+service WebUiService {
+  rpc Get(GetWebUiRequest) returns (GetWebUiResponse);
+}
+
+
+// =============================================
+// wg_opdbus - Hypervisor WireGuard identity interface for op-dbus
+// =============================================
+
+message WgOpdbus {
+  optional string config_path = 1;
+  repeated string excluded_plugins = 2;
+  optional string identity_role = 3;
+  optional google.protobuf.Struct interface = 4;
+  optional string netmaker_plugin = 5;
+  repeated string route_targets = 6;
+  optional string wireguard_plugin = 7;
+}
+
+message GetWgOpdbusRequest {
+  string object_path = 1;
+}
+message GetWgOpdbusResponse {
+  WgOpdbus state = 1;
+  string error = 2;
+}
+message WgOpdbusUpdate {
+  string object_path = 1;
+  WgOpdbus state = 2;
+}
+
+service WgOpdbusService {
+  rpc Get(GetWgOpdbusRequest) returns (GetWgOpdbusResponse);
+}
+
+
+// =============================================
+// wgcf - WireGuard Cloudflare (WGCF) state and execution schema
+// =============================================
+
+message Wgcf {
+  optional google.protobuf.Struct config = 1;
+  repeated string dependencies = 2;
+  optional string oscal_source = 3;
+  optional string software = 4;
+  optional string source_locator = 5;
+  optional string source_system = 6;
+  optional google.protobuf.Value tools = 7;
+  optional string version = 8;
+}
+
+message GetWgcfRequest {
+  string object_path = 1;
+}
+message GetWgcfResponse {
+  Wgcf state = 1;
+  string error = 2;
+}
+message WgcfUpdate {
+  string object_path = 1;
+  Wgcf state = 2;
+}
+
+service WgcfService {
+  rpc Get(GetWgcfRequest) returns (GetWgcfResponse);
+}
+
+
+// =============================================
+// wireguard - WireGuard interface state
+// =============================================
+
+message Wireguard {
+  repeated google.protobuf.Struct interfaces = 1;
+}
+
+message GetWireguardRequest {
+  string object_path = 1;
+}
+message GetWireguardResponse {
+  Wireguard state = 1;
+  string error = 2;
+}
+message WireguardUpdate {
+  string object_path = 1;
+  Wireguard state = 2;
+}
+
+service WireguardService {
+  rpc Get(GetWireguardRequest) returns (GetWireguardResponse);
+}
+
+
+// =============================================
+// workflows - Workflow automation — pipelines, triggers, execution
+// =============================================
+
+message Workflows {
+  optional google.protobuf.Value config = 1;
+  optional string status = 2;
+  optional google.protobuf.Value workflows = 3;
+}
+
+message GetWorkflowsRequest {
+  string object_path = 1;
+}
+message GetWorkflowsResponse {
+  Workflows state = 1;
+  string error = 2;
+}
+message WorkflowsUpdate {
+  string object_path = 1;
+  Workflows state = 2;
+}
+
+service WorkflowsService {
+  rpc Get(GetWorkflowsRequest) returns (GetWorkflowsResponse);
+}
+
+
+// =============================================
+// xray - Xray proxy state and execution schema
+// =============================================
+
+message Xray {
+  optional google.protobuf.Struct config = 1;
+  repeated string dependencies = 2;
+  optional string oscal_source = 3;
+  optional bool running = 4;
+  optional string software = 5;
+  optional string source_locator = 6;
+  optional string source_system = 7;
+  optional google.protobuf.Value tools = 8;
+  optional string version = 9;
+}
+
+message GetXrayRequest {
+  string object_path = 1;
+}
+message GetXrayResponse {
+  Xray state = 1;
+  string error = 2;
+}
+message XrayUpdate {
+  string object_path = 1;
+  Xray state = 2;
+}
+
+service XrayService {
+  rpc Get(GetXrayRequest) returns (GetXrayResponse);
+}
+
+
+// =============================================
+// zeroclaw - Zeroclaw schema/RPC-native model router for Antigravity UI, CLI providers, and structured JSON output
+// =============================================
+
+message Zeroclaw {
+  optional string actor_id = 1;
+  optional string capability_id = 2;
+  optional google.protobuf.Struct config_schema = 3;
+  optional google.protobuf.Struct configurable_options = 4;
+  optional google.protobuf.Struct model_assignments = 5;
+  repeated google.protobuf.Struct model_routes = 6;
+  repeated google.protobuf.Struct providers = 7;
+  optional google.protobuf.Struct router = 8;
+  optional string selected_model = 9;
+  optional string selected_provider = 10;
+  optional string status = 11;
+  optional google.protobuf.Struct structured_output = 12;
+  repeated google.protobuf.Struct tools = 13;
+  optional google.protobuf.Struct transport = 14;
+  repeated google.protobuf.Struct ui_surfaces = 15;
+}
+
+message GetZeroclawRequest {
+  string object_path = 1;
+}
+message GetZeroclawResponse {
+  Zeroclaw state = 1;
+  string error = 2;
+}
+message ZeroclawUpdate {
+  string object_path = 1;
+  Zeroclaw state = 2;
+}
+
+service ZeroclawService {
+  rpc Get(GetZeroclawRequest) returns (GetZeroclawResponse);
+}
+
+
+message GenericGetRequest {
+  string object_path = 1;
+  string plugin = 2;
+}
+
+message GenericGetResponse {
+  google.protobuf.Struct state = 1;
+  string error = 2;
+}
+
+service OperationService {
+  rpc Get(GenericGetRequest) returns (GenericGetResponse);
+}

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.packagekit.install_packages;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service InstallPackagesService {
   // subid: mut.software.packagekit.package.install@v1, capability: packagekit.admin
   rpc install_packages(InstallPackagesInput) returns (InstallPackagesOutput);
 }
-
-

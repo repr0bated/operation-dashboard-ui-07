@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.s6_systemctl.stop;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StopService {
   // subid: mut.software.s6.systemctl.stop@v1, capability: s6.systemctl.write
   rpc stop(StopInput) returns (StopOutput);
 }
-
-

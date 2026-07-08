@@ -27,9 +27,17 @@ export interface ScrubStatusInput {
  */
 export interface ScrubStatusOutput {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: int64 errors_found = 1
      */
-    success: boolean;
+    errorsFound: string;
+    /**
+     * @generated from protobuf field: double progress_percent = 2
+     */
+    progressPercent: number;
+    /**
+     * @generated from protobuf field: string state = 3
+     */
+    state: string;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ScrubStatusInput$Type extends MessageType<ScrubStatusInput> {
@@ -82,12 +90,16 @@ export const ScrubStatusInput = new ScrubStatusInput$Type();
 class ScrubStatusOutput$Type extends MessageType<ScrubStatusOutput> {
     constructor() {
         super("operation.method.btrfs.scrub_status.ScrubStatusOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "errors_found", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 2, name: "progress_percent", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
+            { no: 3, name: "state", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ScrubStatusOutput>): ScrubStatusOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
+        message.errorsFound = "0";
+        message.progressPercent = 0;
+        message.state = "";
         if (value !== undefined)
             reflectionMergePartial<ScrubStatusOutput>(this, message, value);
         return message;
@@ -97,8 +109,14 @@ class ScrubStatusOutput$Type extends MessageType<ScrubStatusOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* int64 errors_found */ 1:
+                    message.errorsFound = reader.int64().toString();
+                    break;
+                case /* double progress_percent */ 2:
+                    message.progressPercent = reader.double();
+                    break;
+                case /* string state */ 3:
+                    message.state = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -112,9 +130,15 @@ class ScrubStatusOutput$Type extends MessageType<ScrubStatusOutput> {
         return message;
     }
     internalBinaryWrite(message: ScrubStatusOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
+        /* int64 errors_found = 1; */
+        if (message.errorsFound !== "0")
+            writer.tag(1, WireType.Varint).int64(message.errorsFound);
+        /* double progress_percent = 2; */
+        if (message.progressPercent !== 0)
+            writer.tag(2, WireType.Bit64).double(message.progressPercent);
+        /* string state = 3; */
+        if (message.state !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.state);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

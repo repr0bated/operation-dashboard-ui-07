@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.set_user_linger;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service SetUserLingerService {
   // subid: mut.software.login1.user.linger.set@v1, capability: login1.admin
   rpc set_user_linger(SetUserLingerInput) returns (SetUserLingerOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.gemma_brain.register_tag;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RegisterTagService {
   // subid: mut.service.gemma.tag.register@v1, capability: gemma.invoke
   rpc register_tag(RegisterTagInput) returns (RegisterTagOutput);
 }
-
-

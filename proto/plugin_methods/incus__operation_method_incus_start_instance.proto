@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.start_instance;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StartInstanceService {
   // subid: mut.service.incus.instance.start@v1, capability: cap.service.incus.instance.start@v1
   rpc start_instance(StartInstanceInput) returns (StartInstanceOutput);
 }
-
-

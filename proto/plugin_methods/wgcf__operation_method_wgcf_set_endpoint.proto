@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.set_endpoint;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service SetEndpointService {
   // subid: mut.software.wgcf.endpoint.set@v1, capability: cap.software.wgcf.endpoint.set@v1
   rpc set_endpoint(SetEndpointInput) returns (SetEndpointOutput);
 }
-
-

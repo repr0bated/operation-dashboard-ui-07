@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.hardware.refresh_inventory;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RefreshInventoryService {
   // subid: mut.service.hardware.refresh@v1, capability: hardware.invoke
   rpc refresh_inventory(RefreshInventoryInput) returns (RefreshInventoryOutput);
 }
-
-

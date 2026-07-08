@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.tag_smart_select;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service TagSmartSelectService {
   // subid: obs.service.plugin.notebooklm.tag.select@v1, capability: notebooklm.read
   rpc tag_smart_select(TagSmartSelectInput) returns (TagSmartSelectOutput);
 }
-
-

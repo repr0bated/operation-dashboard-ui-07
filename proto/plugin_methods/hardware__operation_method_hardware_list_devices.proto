@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.hardware.list_devices;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListDevicesService {
   // subid: obs.service.hardware.device.list@v1, capability: hardware.read
   rpc list_devices(ListDevicesInput) returns (ListDevicesOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.memory.get_stats;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service GetStatsService {
   // subid: mut.memory.memory.get-stats@v1, capability: memory.stats.read
   rpc get_stats(GetStatsInput) returns (GetStatsOutput);
 }
-
-

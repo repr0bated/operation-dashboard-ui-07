@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.validate_spec;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service ValidateSpecService {
   // subid: obs.software.plugin.json-render.spec.validate@v1, capability: json_render.read
   rpc validate_spec(ValidateSpecInput) returns (ValidateSpecOutput);
 }
-
-

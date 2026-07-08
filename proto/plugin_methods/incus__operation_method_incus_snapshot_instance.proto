@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.incus.snapshot_instance;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service SnapshotInstanceService {
   // subid: mut.service.incus.instance.snapshot@v1, capability: cap.service.incus.instance.snapshot@v1
   rpc snapshot_instance(SnapshotInstanceInput) returns (SnapshotInstanceOutput);
 }
-
-

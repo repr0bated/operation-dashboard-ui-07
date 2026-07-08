@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.net.apply_interface;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ApplyInterfaceService {
   // subid: mut.network.interface.apply@v1, capability: cap.network.interface.apply@v1
   rpc apply_interface(ApplyInterfaceInput) returns (ApplyInterfaceOutput);
 }
-
-

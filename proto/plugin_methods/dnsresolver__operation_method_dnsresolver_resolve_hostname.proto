@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.dnsresolver.resolve_hostname;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service ResolveHostnameService {
   // subid: obs.software.dnsresolver.hostname.resolve@v1, capability: dnsresolver.read
   rpc resolve_hostname(ResolveHostnameInput) returns (ResolveHostnameOutput);
 }
-
-

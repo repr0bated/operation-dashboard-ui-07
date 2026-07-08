@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.blockchain.list_snapshots;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListSnapshotsService {
   // subid: obs.service.blockchain.snapshot.list@v1, capability: blockchain.read
   rpc list_snapshots(ListSnapshotsInput) returns (ListSnapshotsOutput);
 }
-
-

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package operation.method.embedding_model.contextualized_embed;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ContextualizedEmbedInput {
+  google.protobuf.Value input_type = 1;
+  repeated string inputs = 2;
+  string model = 3;
+  int64 output_dimension = 4;
+  google.protobuf.Value output_dtype = 5;
+}
+
+message ContextualizedEmbedOutput {
+  string chunker_version = 1;
+  repeated google.protobuf.Value results = 2;
+  int64 total_tokens = 3;
+}
+
+service ContextualizedEmbedService {
+  // subid: mut.service.embedding.contextualized-embed@v1, capability: embedding.invoke
+  rpc contextualized_embed(ContextualizedEmbedInput) returns (ContextualizedEmbedOutput);
+}

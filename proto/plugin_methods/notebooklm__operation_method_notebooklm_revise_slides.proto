@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.revise_slides;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ReviseSlidesService {
   // subid: mut.service.plugin.notebooklm.studio.slides.revise@v1, capability: notebooklm.invoke
   rpc revise_slides(ReviseSlidesInput) returns (ReviseSlidesOutput);
 }
-
-

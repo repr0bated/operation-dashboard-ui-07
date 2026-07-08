@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.get_config;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetConfigService {
   // subid: obs.software.plugin.json-render.config.get@v1, capability: json_render.read
   rpc get_config(GetConfigInput) returns (GetConfigOutput);
 }
-
-

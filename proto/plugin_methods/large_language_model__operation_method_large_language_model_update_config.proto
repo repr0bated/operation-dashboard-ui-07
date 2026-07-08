@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.large_language_model.update_config;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service UpdateConfigService {
   // subid: mut.service.llm.config.update@v1, capability: llm.invoke
   rpc update_config(UpdateConfigInput) returns (UpdateConfigOutput);
 }
-
-

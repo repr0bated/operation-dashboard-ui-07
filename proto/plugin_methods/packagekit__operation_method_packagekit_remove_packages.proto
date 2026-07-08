@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.packagekit.remove_packages;
 
 import "google/protobuf/descriptor.proto";
@@ -26,5 +25,3 @@ service RemovePackagesService {
   // subid: mut.software.packagekit.package.remove@v1, capability: packagekit.admin
   rpc remove_packages(RemovePackagesInput) returns (RemovePackagesOutput);
 }
-
-

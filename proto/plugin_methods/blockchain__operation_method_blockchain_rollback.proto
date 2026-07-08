@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.blockchain.rollback;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service RollbackService {
   // subid: mut.service.blockchain.rollback@v1, capability: blockchain.invoke
   rpc rollback(RollbackInput) returns (RollbackOutput);
 }
-
-

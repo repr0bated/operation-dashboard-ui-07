@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.notebooklm.create_slides;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service CreateSlidesService {
   // subid: mut.service.plugin.notebooklm.studio.slides.create@v1, capability: notebooklm.invoke
   rpc create_slides(CreateSlidesInput) returns (CreateSlidesOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.packagekit.resolve;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service ResolveService {
   // subid: obs.software.packagekit.package.resolve@v1, capability: packagekit.read
   rpc resolve(ResolveInput) returns (ResolveOutput);
 }
-
-

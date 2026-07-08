@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.endpoint.list_endpoints;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListEndpointsService {
   // subid: obs.service.endpoint.list@v1, capability: endpoint.read
   rpc list_endpoints(ListEndpointsInput) returns (ListEndpointsOutput);
 }
-
-

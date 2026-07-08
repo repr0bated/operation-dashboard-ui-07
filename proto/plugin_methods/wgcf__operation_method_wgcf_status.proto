@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.wgcf.status;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StatusService {
   // subid: obs.software.wgcf.status@v1, capability: cap.software.wgcf.status@v1
   rpc status(StatusInput) returns (StatusOutput);
 }
-
-

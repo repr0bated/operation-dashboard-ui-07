@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.qdrant.scroll_points;
 
 import "google/protobuf/descriptor.proto";
@@ -25,5 +24,3 @@ service ScrollPointsService {
   // subid: obs.data.qdrant.point.scroll@v1, capability: cap.data.qdrant.point.scroll@v1
   rpc scroll_points(ScrollPointsInput) returns (ScrollPointsOutput);
 }
-
-

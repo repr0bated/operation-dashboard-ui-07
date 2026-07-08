@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.json_render.list_packages;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListPackagesService {
   // subid: obs.software.plugin.json-render.package.list@v1, capability: json_render.read
   rpc list_packages(ListPackagesInput) returns (ListPackagesOutput);
 }
-
-

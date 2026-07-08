@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.oci.start;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service StartService {
   // subid: mut.container.oci.start@v1, capability: cap.container.oci.start@v1
   rpc start(StartInput) returns (StartOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.fail2ban.reload;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ReloadService {
   // subid: mut.security.fail2ban.service.reload@v1, capability: fail2ban.write
   rpc reload(ReloadInput) returns (ReloadOutput);
 }
-
-

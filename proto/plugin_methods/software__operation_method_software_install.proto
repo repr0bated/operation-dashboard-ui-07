@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.software.install;
 
 import "google/protobuf/descriptor.proto";
@@ -24,5 +23,3 @@ service InstallService {
   // subid: mut.software.plugin.software.install@v1, capability: software.write
   rpc install(InstallInput) returns (InstallOutput);
 }
-
-

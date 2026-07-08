@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.blockchain.get_stats;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetStatsService {
   // subid: obs.service.blockchain.stats@v1, capability: blockchain.read
   rpc get_stats(GetStatsInput) returns (GetStatsOutput);
 }
-
-

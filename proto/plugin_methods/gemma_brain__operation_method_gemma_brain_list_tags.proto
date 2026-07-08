@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.gemma_brain.list_tags;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service ListTagsService {
   // subid: obs.service.gemma.tag.list@v1, capability: gemma.read
   rpc list_tags(ListTagsInput) returns (ListTagsOutput);
 }
-
-

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.persona.get_identity;
 
 import "google/protobuf/descriptor.proto";
@@ -23,5 +22,3 @@ service GetIdentityService {
   // subid: obs.agent.persona.identity.get@v1, capability: persona.read
   rpc get_identity(GetIdentityInput) returns (GetIdentityOutput);
 }
-
-

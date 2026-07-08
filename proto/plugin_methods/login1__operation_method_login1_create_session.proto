@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package operation.method.login1.create_session;
 
 import "google/protobuf/descriptor.proto";
@@ -36,5 +35,3 @@ service CreateSessionService {
   // subid: mut.software.login1.session.create@v1, capability: login1.write
   rpc create_session(CreateSessionInput) returns (CreateSessionOutput);
 }
-
-
