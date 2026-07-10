@@ -40,6 +40,7 @@ import GrpcExplorerPage from "./pages/GrpcExplorerPage";
 import GalleryPage from "./pages/GalleryPage";
 import CatalogPage from "./pages/CatalogPage";
 import NotFound from "./pages/NotFound";
+import RegisterPage from "./pages/RegisterPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,7 +48,9 @@ const queryClient = new QueryClient({
   },
 });
 
-function AppInner() {
+// Dashboard routes live inside AppShell; the event stream only runs here so
+// public pages don't open the admin SSE channel.
+function ShellRoutes() {
   useEventStream();
   return (
     <AppShell>
@@ -84,6 +87,16 @@ function AppInner() {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AppShell>
+  );
+}
+
+function AppInner() {
+  return (
+    <Routes>
+      {/* Public registration — no AppShell chrome */}
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/*" element={<ShellRoutes />} />
+    </Routes>
   );
 }
 
