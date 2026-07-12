@@ -55,7 +55,6 @@ const NAV_GROUPS = [
       { title: "Overview", path: "/", icon: BarChart3 },
       { title: "Orchestration", path: "/orchestration", icon: Orbit },
       { title: "Services", path: "/services", icon: Link2 },
-      { title: "Sessions", path: "/sessions", icon: FileText },
       { title: "LLM", path: "/llm", icon: Radio },
     ],
   },
@@ -131,7 +130,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   >({});
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const { connected, health, lastError } = useEventStore();
 
   const isFullHeight =
@@ -199,7 +198,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <button
                   key={m}
                   onClick={() => {
-                    toggleTheme();
+                    setTheme(m);
                   }}
                   className={cn(
                     "h-6 w-6 grid place-items-center rounded-full transition-colors relative z-10",
