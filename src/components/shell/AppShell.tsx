@@ -198,7 +198,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <button
                   key={m}
                   onClick={() => {
-                    toggleTheme();
+                    setTheme(m);
                   }}
                   className={cn(
                     "h-6 w-6 grid place-items-center rounded-full transition-colors relative z-10",
