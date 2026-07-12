@@ -130,7 +130,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   >({});
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme, toggleTheme } = useTheme();
   const { connected, health, lastError } = useEventStore();
 
   const isFullHeight =
