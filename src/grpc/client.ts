@@ -20,6 +20,23 @@
  */
 
 import { GrpcWebFetchTransport } from "@protobuf-ts/grpcweb-transport";
+import type { IMessageType } from "@protobuf-ts/runtime";
+import type { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { identityHeaders } from "@/lib/identity";
+import {
+  StateSync as StateSyncSvc,
+  PluginService as PluginServiceSvc,
+  EventChainService as EventChainServiceSvc,
+  OvsdbMirror as OvsdbMirrorSvc,
+  RuntimeMirror as RuntimeMirrorSvc,
+  DbusPassthrough as DbusPassthroughSvc,
+} from "./gen/operation";
+import { ComponentRegistry as ComponentRegistrySvc } from "./gen/registry";
+import { MailService as MailServiceSvc } from "./gen/mail";
+import { PrivacyNetworkService as PrivacyNetworkServiceSvc } from "./gen/privacy_network";
+import { RegistrationService as RegistrationServiceSvc } from "./gen/registration";
+import { McpService as McpServiceSvc } from "./gen/mcp";
+import { ServiceManager as ServiceManagerSvc } from "./gen/services";
 
 /**
  * Map any backend failure to a generic, user-safe message.
@@ -52,6 +69,9 @@ function safeGrpcError(
  * Auth model: identity = caller's WireGuard public key, enforced at the
  * WG mesh boundary and re-validated by op-web against the identity sled.
  * No bearer tokens are attached client-side.
+ *
+ * Wire format is **binary** gRPC-Web (`application/grpc-web+proto`). tonic-web
+ * does not accept `application/grpc-web+json` (returns HTTP 400).
  */
 
 // ── Transport Configuration ─────────────────────────────────────────────────
@@ -60,14 +80,15 @@ function safeGrpcError(
 //   1. Runtime override:  window.__OPDBUS_CONFIG__.grpcBaseUrl  (injected by op-web)
 //   2. Build-time env:    VITE_GRPC_BASE_URL
 //   3. Same-origin:       window.location.origin   (when served from the gateway itself)
-//
-// This lets the dashboard follow whichever subdomain serves it
-// (assistant.3tched.com, openclaw.3tched.com, dashboard.3tched.com, …)
-// without a rebuild.
 
 declare global {
   interface Window {
-    __OPDBUS_CONFIG__?: { grpcBaseUrl?: string; apiBaseUrl?: string };
+    __OPDBUS_CONFIG__?: {
+      grpcBaseUrl?: string;
+      apiBaseUrl?: string;
+      ghostbridgeFootprint?: string;
+      ghostbridgeTraceId?: string;
+    };
   }
 }
 
@@ -99,6 +120,7 @@ export function getTransport(): GrpcWebFetchTransport {
     _transport = new GrpcWebFetchTransport({
       baseUrl: getBaseUrl(),
       format: "binary",
+      meta: identityMeta(),
     });
   }
   return _transport;
@@ -110,14 +132,87 @@ export function resetTransport(baseUrl?: string): void {
   _transport = new GrpcWebFetchTransport({
     baseUrl: getBaseUrl(),
     format: "binary",
+    meta: identityMeta(),
   });
 }
 
-// ── Generic gRPC-Web call helpers ───────────────────────────────────────────
-// We use gRPC-Web with JSON codec (`application/grpc-web+json`): payloads are
-// JSON wrapped in the standard 5-byte length-prefixed framing.
+// ── Ghostbridge identity headers ────────────────────────────────────────────
+// Server GhostbridgeInterceptor requires x-ghostbridge-footprint +
+// x-ghostbridge-trace-id matching /dev/shm/plugin_schema.dat. Xray injects
+// these on the public path. Locally: pair session, GET /api/identity/sled,
+// VITE_GHOSTBRIDGE_*, or window.__OPDBUS_CONFIG__. See src/lib/identity.ts.
 
-const GRPC_CONTENT_TYPE = "application/grpc-web+json";
+function identityMeta(): Record<string, string> {
+  return { "x-grpc-web": "1", ...identityHeaders() };
+}
+
+// ── Binary codec registry (service/method → protobuf-ts MessageType) ────────
+
+type CodecPair = { I: IMessageType<unknown>; O: IMessageType<unknown> };
+
+const CODEC_REGISTRY: Map<string, CodecPair> = (() => {
+  const map = new Map<string, CodecPair>();
+  const services: ServiceType[] = [
+    StateSyncSvc,
+    PluginServiceSvc,
+    EventChainServiceSvc,
+    OvsdbMirrorSvc,
+    RuntimeMirrorSvc,
+    DbusPassthroughSvc,
+    ComponentRegistrySvc,
+    MailServiceSvc,
+    PrivacyNetworkServiceSvc,
+    RegistrationServiceSvc,
+    McpServiceSvc,
+    ServiceManagerSvc as unknown as ServiceType,
+  ];
+  for (const svc of services) {
+    for (const m of svc.methods) {
+      map.set(`${svc.typeName}/${m.name}`, {
+        I: m.I as IMessageType<unknown>,
+        O: m.O as IMessageType<unknown>,
+      });
+    }
+  }
+  return map;
+})();
+
+function lookupCodec(service: string, method: string): CodecPair | null {
+  return CODEC_REGISTRY.get(`${service}/${method}`) ?? null;
+}
+
+function encodeRequest(service: string, method: string, request: unknown): Uint8Array {
+  const codec = lookupCodec(service, method);
+  if (!codec) {
+    // No codec (stub / view-type only): send empty protobuf message.
+    return new Uint8Array(0);
+  }
+  const msg = codec.I.create(request as object);
+  return codec.I.toBinary(msg);
+}
+
+function decodeResponse<TResp>(service: string, method: string, bytes: Uint8Array): TResp {
+  const codec = lookupCodec(service, method);
+  if (!codec) {
+    return {} as TResp;
+  }
+  if (bytes.length === 0) {
+    return codec.O.create() as TResp;
+  }
+  return codec.O.fromBinary(bytes) as TResp;
+}
+
+// ── Generic gRPC-Web call helpers (binary protobuf framing) ─────────────────
+
+const GRPC_CONTENT_TYPE = "application/grpc-web+proto";
+
+function frameMessage(payloadBytes: Uint8Array): Uint8Array {
+  const frame = new Uint8Array(5 + payloadBytes.length);
+  frame[0] = 0x00; // data frame, uncompressed
+  new DataView(frame.buffer).setUint32(1, payloadBytes.length, false);
+  frame.set(payloadBytes, 5);
+  return frame;
+}
 
 async function grpcUnary<TReq, TResp>(
   service: string,
@@ -125,21 +220,14 @@ async function grpcUnary<TReq, TResp>(
   request: TReq,
 ): Promise<TResp> {
   const url = `${getBaseUrl()}/${service}/${method}`;
-  const payload = JSON.stringify(request);
-  const encoder = new TextEncoder();
-  const payloadBytes = encoder.encode(payload);
-  const frame = new Uint8Array(5 + payloadBytes.length);
-  frame[0] = 0x00;
-  const dv = new DataView(frame.buffer);
-  dv.setUint32(1, payloadBytes.length, false);
-  frame.set(payloadBytes, 5);
+  const frame = frameMessage(encodeRequest(service, method, request));
 
   const res = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": GRPC_CONTENT_TYPE,
       Accept: GRPC_CONTENT_TYPE,
-      "x-grpc-web": "1",
+      ...identityMeta(),
     },
     body: frame,
   });
@@ -153,28 +241,19 @@ async function grpcUnary<TReq, TResp>(
   const buf = new Uint8Array(await res.arrayBuffer());
   const { dataFrames, trailers } = parseGrpcWebResponse(buf);
 
-  // Check trailer status (gRPC-Web encodes status in a trailer frame, flag 0x80).
   const grpcStatus = trailers.get("grpc-status") ?? res.headers.get("grpc-status");
   const grpcMessage = trailers.get("grpc-message") ?? res.headers.get("grpc-message");
   if (grpcStatus && grpcStatus !== "0") {
     throw safeGrpcError(service, method, {
       grpcStatus: grpcStatus ?? undefined,
-      grpcMessage: grpcMessage ?? undefined,
+      grpcMessage: grpcMessage ? decodeURIComponent(grpcMessage) : undefined,
     });
   }
 
-  // Trailers-only / empty body is a valid empty response — return {}.
   if (dataFrames.length === 0) {
-    return {} as TResp;
+    return decodeResponse<TResp>(service, method, new Uint8Array(0));
   }
-  const decoder = new TextDecoder();
-  const body = decoder.decode(dataFrames[0]);
-  if (!body.trim()) return {} as TResp;
-  try {
-    return JSON.parse(body) as TResp;
-  } catch {
-    return {} as TResp;
-  }
+  return decodeResponse<TResp>(service, method, dataFrames[0]);
 }
 
 /** Parse gRPC-Web response: data frames (flag 0x00) and trailer key/values (flag 0x80). */
@@ -208,7 +287,6 @@ function parseGrpcWebResponse(buf: Uint8Array): {
   return { dataFrames, trailers };
 }
 
-
 function grpcServerStream<TReq, TResp>(
   service: string,
   method: string,
@@ -216,22 +294,14 @@ function grpcServerStream<TReq, TResp>(
 ): { stream: ReadableStream<TResp>; abort: () => void } {
   const controller = new AbortController();
   const url = `${getBaseUrl()}/${service}/${method}`;
-
-  const payload = JSON.stringify(request);
-  const encoder = new TextEncoder();
-  const payloadBytes = encoder.encode(payload);
-  const frame = new Uint8Array(5 + payloadBytes.length);
-  frame[0] = 0x00;
-  const frameDv = new DataView(frame.buffer);
-  frameDv.setUint32(1, payloadBytes.length, false);
-  frame.set(payloadBytes, 5);
+  const frame = frameMessage(encodeRequest(service, method, request));
 
   const responsePromise = fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": GRPC_CONTENT_TYPE,
       Accept: GRPC_CONTENT_TYPE,
-      "x-grpc-web": "1",
+      ...identityMeta(),
     },
     body: frame,
     signal: controller.signal,
@@ -243,6 +313,16 @@ function grpcServerStream<TReq, TResp>(
         const res = await responsePromise;
         if (!res.ok || !res.body) {
           ctrl.error(safeGrpcError(service, method, { status: res.status }));
+          return;
+        }
+
+        // Some errors arrive as trailers-only with HTTP 200.
+        const earlyStatus = res.headers.get("grpc-status");
+        if (earlyStatus && earlyStatus !== "0") {
+          ctrl.error(safeGrpcError(service, method, {
+            grpcStatus: earlyStatus,
+            grpcMessage: res.headers.get("grpc-message") ?? undefined,
+          }));
           return;
         }
 
@@ -264,14 +344,29 @@ function grpcServerStream<TReq, TResp>(
             const len = dv.getUint32(0, false);
             if (pending.length < 5 + len) break;
 
-            if (!(flags & 0x80)) {
-              const decoder = new TextDecoder();
-              const body = decoder.decode(pending.slice(5, 5 + len));
+            const payload = pending.slice(5, 5 + len);
+            if (flags & 0x80) {
+              const text = new TextDecoder().decode(payload);
+              const trailers = new Map<string, string>();
+              for (const line of text.split(/\r?\n/)) {
+                const idx = line.indexOf(":");
+                if (idx > 0) {
+                  trailers.set(line.slice(0, idx).trim().toLowerCase(), line.slice(idx + 1).trim());
+                }
+              }
+              const st = trailers.get("grpc-status");
+              if (st && st !== "0") {
+                ctrl.error(safeGrpcError(service, method, {
+                  grpcStatus: st,
+                  grpcMessage: trailers.get("grpc-message"),
+                }));
+                return;
+              }
+            } else {
               try {
-                const msg = JSON.parse(body) as TResp;
-                ctrl.enqueue(msg);
+                ctrl.enqueue(decodeResponse<TResp>(service, method, payload));
               } catch {
-                // non-JSON data frame
+                // skip undecodable frame
               }
             }
             pending = pending.slice(5 + len);

@@ -86,3 +86,28 @@ demo using a `DemoPluginState` struct that mirrors the plugin contract.
    relevant gRPC stream (or expose the schema via a sibling `GetSchema` RPC).
 3. In this crate, decode with `grpc::decode_to_json` and render with
    `schema::render_value` — no per-plugin UI code required.
+
+## Local gRPC (this host)
+
+The React dashboard talks **binary gRPC-Web** to `op-grpc-bridge` on `:8090`.
+
+```bash
+# 1) Ensure bridge + identity sled
+sv status op-grpc-bridge
+test -f /dev/shm/plugin_schema.dat ||   sudo op-identity-sled --refresh --pubkey "$(sudo wg show 3tched public-key)"
+
+# 2) Point .env at local endpoints (already defaults after 2026-07-22 fix)
+#    VITE_GRPC_BASE_URL=http://127.0.0.1:8090
+#    VITE_API_BASE_URL=http://127.0.0.1:8080/api
+#    VITE_GHOSTBRIDGE_FOOTPRINT / TRACE_ID must match the sled
+
+# 3) Dev
+npm install --legacy-peer-deps
+npm run dev          # http://127.0.0.1:5173/
+
+# 4) Production static for op-web
+./deploy-to-op-web.sh
+# → http://127.0.0.1:8080/
+```
+
+**Not JSON gRPC-Web** — tonic-web only accepts `application/grpc-web+proto`.

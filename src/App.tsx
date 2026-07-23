@@ -1,8 +1,6 @@
-// DESIGN-ONLY: All routes defined below are design-only prototypes for the
-// native egui port (zeroclaw-gui). They are NOT production surfaces. Do not
-// wire real inference, auth, or mutable state through these routes. Inference
-// routes through gemma_brain (owned by zeroclaw, OD-28). No Supabase. No
-// Lovable AI Gateway.
+// Dashboard SPA. Identity gate: if no Ghostbridge footprint/trace is available
+// (config, env, pair session, or live sled), show PairingPage before the shell.
+import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -41,6 +39,14 @@ import GalleryPage from "./pages/GalleryPage";
 import CatalogPage from "./pages/CatalogPage";
 import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
+import PairingPage from "./pages/PairingPage";
+import {
+  resolveIdentity,
+  type IdentityStatus,
+  type PairSession,
+} from "@/lib/identity";
+import { resetTransport } from "@/grpc/client";
+import { Loader2 } from "lucide-react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -90,12 +96,60 @@ function ShellRoutes() {
   );
 }
 
+function IdentityGate({ children }: { children: React.ReactNode }) {
+  const [status, setStatus] = useState<IdentityStatus>({ state: "loading" });
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const next = await resolveIdentity();
+      if (cancelled) return;
+      if (next.state === "ready") {
+        resetTransport();
+      }
+      setStatus(next);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (status.state === "loading") {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (status.state === "needs_pairing") {
+    return (
+      <PairingPage
+        reason={status.reason}
+        onPaired={(session: PairSession) => {
+          resetTransport();
+          setStatus({ state: "ready", identity: session });
+        }}
+      />
+    );
+  }
+
+  return <>{children}</>;
+}
+
 function AppInner() {
   return (
     <Routes>
-      {/* Public registration — no AppShell chrome */}
+      {/* Public surfaces — no identity gate */}
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/*" element={<ShellRoutes />} />
+      <Route
+        path="/*"
+        element={
+          <IdentityGate>
+            <ShellRoutes />
+          </IdentityGate>
+        }
+      />
     </Routes>
   );
 }

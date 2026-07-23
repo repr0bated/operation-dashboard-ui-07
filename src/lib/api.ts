@@ -62,9 +62,15 @@ function safeApiError(path: string, status: number, body: string): Error {
  * the identity sled. No bearer tokens are attached client-side.
  */
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  // Lazy import avoids circular deps with grpc client at module load.
+  const { identityHeaders } = await import("@/lib/identity");
   const res = await fetch(`${BASE}${path}`, {
-    headers: { "Content-Type": "application/json" },
     ...init,
+    headers: {
+      "Content-Type": "application/json",
+      ...identityHeaders(),
+      ...(init?.headers ?? {}),
+    },
   });
   if (!res.ok) {
     let body = "";
