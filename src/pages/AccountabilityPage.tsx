@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { accountabilityService } from "@/grpc/client";
 import type { ReasoningEpisode, ChatContextMessage } from "@/grpc/view-types";
+import { ErrorBanner } from "@/components/shell/Feedback";
 
 // ── Chatbot Section (top half) ──────────────────────────────────────────────
 
@@ -78,23 +79,13 @@ function AccountabilityChat({
           timestamp: Date.now(),
         },
       ]);
-    } catch {
-      // Fallback: summarize selected episodes locally
-      const epSummary = selectedEpisodes.length
-        ? selectedEpisodes
-            .map(
-              (e) =>
-                `• [${e.outcomeClass}] ${e.reasoningSummary} (tools: ${e.toolsConsulted.join(", ")})`
-            )
-            .join("\n")
-        : "No episodes selected yet.";
-
+    } catch (e) {
       setMessages((prev) => [
         ...prev,
         {
-          id: `msg-${Date.now()}-resp`,
+          id: `msg-${Date.now()}-err`,
           role: "assistant",
-          content: `Based on the ${selectedEpisodes.length} selected episode(s):\n\n${epSummary}\n\nFor deeper analysis, ensure the accountability gRPC service is running.`,
+          content: `Backend unavailable: ${e instanceof Error ? e.message : String(e)}`,
           timestamp: Date.now(),
         },
       ]);
@@ -334,6 +325,8 @@ function QdrantSearchPanel({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<ReasoningEpisode[]>([]);
   const [searching, setSearching] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
   const [outcomeFilter, setOutcomeFilter] = useState("");
   const [pluginFilter, setPluginFilter] = useState("");
   const [stats, setStats] = useState<{
@@ -350,14 +343,14 @@ function QdrantSearchPanel({
           collectionName: s.collectionName,
         })
       )
-      .catch(() =>
-        setStats({ pointCount: 0, collectionName: "ctl_plane_reasoning_episodes" })
-      );
+      .catch(() => setStats(null));
   }, []);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
     setSearching(true);
+    setError(null);
+    setHasSearched(true);
     try {
       const resp = await accountabilityService.searchEpisodes({
         query: query.trim(),
@@ -366,49 +359,9 @@ function QdrantSearchPanel({
         limit: 20,
       });
       setResults(resp.episodes);
-    } catch {
-      // Demo fallback data
-      setResults([
-        {
-          episodeId: "ep-demo-001",
-          goalText: "Reconfigure firewall rules for container isolation",
-          trigger: "scheduled_policy_check",
-          toolsConsulted: ["firewall.set_rules", "ovs.get_bridge_state"],
-          reasoningSummary:
-            "Detected container network drift from baseline policy. Applied corrective firewall rules to restore isolation between incusbr0 segments.",
-          decisionOutput: "Applied 3 iptables rules, blocked 2 cross-segment routes",
-          outcomeClass: "success",
-          confidence: 0.92,
-          pluginId: "firewall",
-          conversationId: "conv-abc",
-          startedAt: new Date(Date.now() - 3600000).toISOString(),
-          endedAt: new Date(Date.now() - 3599000).toISOString(),
-          durationMs: 1024,
-          exitReason: "goal_achieved",
-          piiFlagged: false,
-          similarity: 0.89,
-        },
-        {
-          episodeId: "ep-demo-002",
-          goalText: "Investigate DNS resolution failure on services container",
-          trigger: "alert_triggered",
-          toolsConsulted: ["dns.check", "network.ping", "service.status"],
-          reasoningSummary:
-            "NextDNS service on 10.149.181.10 was unresponsive. Restarted via s6-svc, confirmed resolution restored.",
-
-          decisionOutput: "Restarted nextdns service, verified with dig query",
-          outcomeClass: "success",
-          confidence: 0.87,
-          pluginId: "dns",
-          conversationId: "conv-def",
-          startedAt: new Date(Date.now() - 7200000).toISOString(),
-          endedAt: new Date(Date.now() - 7198500).toISOString(),
-          durationMs: 1500,
-          exitReason: "goal_achieved",
-          piiFlagged: false,
-          similarity: 0.76,
-        },
-      ]);
+    } catch (e) {
+      setResults([]);
+      setError(e instanceof Error ? e.message : String(e));
     } finally {
       setSearching(false);
     }
@@ -511,13 +464,25 @@ function QdrantSearchPanel({
 
       {/* Results */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2">
-        {results.length === 0 && !searching && (
+        {error && (
+          <ErrorBanner title="Semantic search failed" message={error} />
+        )}
+        {!error && results.length === 0 && !searching && (
           <div className="flex flex-col items-center justify-center h-full text-muted-foreground text-sm gap-2">
             <Search className="h-8 w-8 opacity-30" />
-            <p>Search reasoning episodes by natural language query</p>
-            <p className="text-xs">
-              e.g. "why did the chatbot change DNS settings?"
-            </p>
+            {hasSearched ? (
+              <>
+                <p>No episodes matched</p>
+                <p className="text-xs">Try a different query or clear filters</p>
+              </>
+            ) : (
+              <>
+                <p>Search reasoning episodes by natural language query</p>
+                <p className="text-xs">
+                  e.g. "why did the chatbot change DNS settings?"
+                </p>
+              </>
+            )}
           </div>
         )}
         {results.map((ep) => (
