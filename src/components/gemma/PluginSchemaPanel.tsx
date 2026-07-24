@@ -5,8 +5,7 @@
  * `antigravity_chat` plugin schema.
  */
 import { useEffect, useState } from "react";
-import { SpecRenderer } from "@/components/gemma/SpecRenderer";
-import { dataToSpec } from "@/lib/json-render-catalog";
+import { JsonRenderer } from "@/components/json/JsonRenderer";
 import { resolveApiBase } from "@/lib/api";
 
 interface Props {
