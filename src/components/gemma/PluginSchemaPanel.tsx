@@ -70,7 +70,7 @@ export function PluginSchemaPanel({
         <div className="text-xs text-danger">Failed to load blob schema: {error}</div>
       )}
       {!loading && !error && schema != null && (
-        <JsonRenderer data={schema} defaultMode="tree" maxDepth={4} />
+        <JsonRenderer data={schema} defaultMode="tree" maxDepth={4} fillHeight />
       )}
     </div>
   );
