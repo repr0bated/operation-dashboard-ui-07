@@ -463,13 +463,25 @@ function QdrantSearchPanel({
 
       {/* Results */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2">
-        {results.length === 0 && !searching && (
+        {error && (
+          <ErrorBanner title="Semantic search failed" message={error} />
+        )}
+        {!error && results.length === 0 && !searching && (
           <div className="flex flex-col items-center justify-center h-full text-muted-foreground text-sm gap-2">
             <Search className="h-8 w-8 opacity-30" />
-            <p>Search reasoning episodes by natural language query</p>
-            <p className="text-xs">
-              e.g. "why did the chatbot change DNS settings?"
-            </p>
+            {hasSearched ? (
+              <>
+                <p>No episodes matched</p>
+                <p className="text-xs">Try a different query or clear filters</p>
+              </>
+            ) : (
+              <>
+                <p>Search reasoning episodes by natural language query</p>
+                <p className="text-xs">
+                  e.g. "why did the chatbot change DNS settings?"
+                </p>
+              </>
+            )}
           </div>
         )}
         {results.map((ep) => (
