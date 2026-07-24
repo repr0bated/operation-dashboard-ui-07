@@ -1,36 +1,10 @@
-import { useState, useEffect } from "react";
-import { HardDrive, Database, Activity, Shield, AlertTriangle, CheckCircle, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { HardDrive, Database, Activity, Shield, AlertTriangle, CheckCircle, ChevronDown, ChevronUp, Loader2, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { btrfsService } from "@/grpc/client";
 import type { BtrfsSubvolumeView as BtrfsSubvolume, BtrfsSnapshotView as BtrfsSnapshot, DrRecoveryStatusView as DrRecoveryStatus, SendState } from "@/grpc/view-types";
-
-// ── Mock fallback data ──────────────────────────────────────────────────────
-
-const MOCK_SUBVOLS: BtrfsSubvolume[] = [
-  { name: "timing_subvol", path: "/timing_subvol", purpose: "audit_ledger", sizeBytes: 2147483648, usedBytes: 892614656, snapshotCount: 14, lastModified: new Date(Date.now() - 60000).toISOString() },
-  { name: "state_subvol", path: "/state_subvol", purpose: "dr_state", sizeBytes: 1073741824, usedBytes: 134217728, snapshotCount: 3, lastModified: new Date(Date.now() - 300000).toISOString() },
-  { name: "vectors", path: "/vectors", purpose: "vector_storage", sizeBytes: 10737418240, usedBytes: 4294967296, snapshotCount: 7, lastModified: new Date(Date.now() - 120000).toISOString() },
-];
-
-const MOCK_SNAPSHOTS: BtrfsSnapshot[] = [
-  { id: "snap-014", subvolume: "timing_subvol", createdAt: new Date(Date.now() - 3600000).toISOString(), sizeBytes: 67108864, parentSnapshotId: "snap-013", pinned: true, pinnedRemotes: ["offsite-nas"] },
-  { id: "snap-013", subvolume: "timing_subvol", createdAt: new Date(Date.now() - 7200000).toISOString(), sizeBytes: 62914560, parentSnapshotId: "snap-012", pinned: false, pinnedRemotes: [] },
-  { id: "snap-007", subvolume: "vectors", createdAt: new Date(Date.now() - 14400000).toISOString(), sizeBytes: 536870912, pinned: true, pinnedRemotes: ["offsite-nas", "backup-host"] },
-];
-
-const MOCK_SEND_STATE: SendState[] = [
-  { remoteName: "offsite-nas", remoteHost: "nas.internal", remotePath: "/backup/btrfs", lastSentSnapshotId: "snap-013", lastSentAt: new Date(Date.now() - 7200000).toISOString(), status: "idle", bytesTransferred: 67108864 },
-  { remoteName: "backup-host", remoteHost: "backup.3tched.com", remotePath: "/btrfs-recv", lastSentSnapshotId: "snap-006", lastSentAt: new Date(Date.now() - 86400000).toISOString(), status: "error", lastError: "SSH connection refused", bytesTransferred: 0 },
-];
-
-const MOCK_DR: DrRecoveryStatus = {
-  lastCheckpoint: new Date(Date.now() - 3600000).toISOString(),
-  stateSubvolCurrent: true,
-  vectorSnapshotAvailable: true,
-  blocksToReplay: 42,
-  recoverySteps: ["Boot baseline Debian", "Apply state_subvol/current.json", "Restore Qdrant vectors from snapshot", "Replay timing_subvol blocks from last DR checkpoint"],
-};
+import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -51,41 +25,47 @@ function UsageBar({ used, total, className }: { used: number; total: number; cla
   );
 }
 
+const REFRESH_MS = 20000;
+
 export default function BtrfsPage() {
   const [subvolumes, setSubvolumes] = useState<BtrfsSubvolume[]>([]);
   const [snapshots, setSnapshots] = useState<BtrfsSnapshot[]>([]);
   const [sendState, setSendState] = useState<SendState[]>([]);
   const [drStatus, setDrStatus] = useState<DrRecoveryStatus | null>(null);
-  const [raidInfo, setRaidInfo] = useState({ raidLevel: "RAID-1", devices: ["/dev/sda", "/dev/sdb"], totalBytes: 0, usedBytes: 0 });
+  const [raidInfo, setRaidInfo] = useState({ raidLevel: "", devices: [] as string[], totalBytes: 0, usedBytes: 0 });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
   const [expandedSnap, setExpandedSnap] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const [subRes, snapRes, sendRes, drRes] = await Promise.all([
-          btrfsService.getSubvolumes(),
-          btrfsService.getSnapshots({}),
-          btrfsService.getSendState(),
-          btrfsService.getDrStatus(),
-        ]);
-        setSubvolumes(subRes.subvolumes);
-        setRaidInfo({ raidLevel: subRes.raidLevel ?? "", devices: subRes.devices ?? [], totalBytes: subRes.totalBytes ?? 0, usedBytes: subRes.usedBytes ?? 0 });
-        setSnapshots(snapRes.snapshots);
-        setSendState(sendRes.remotes);
-        setDrStatus(drRes.status);
-      } catch {
-        setSubvolumes(MOCK_SUBVOLS);
-        setSnapshots(MOCK_SNAPSHOTS);
-        setSendState(MOCK_SEND_STATE);
-        setDrStatus(MOCK_DR);
-        setRaidInfo({ raidLevel: "RAID-1", devices: ["/dev/sda", "/dev/sdb"], totalBytes: 21474836480, usedBytes: 5321799680 });
-      } finally {
-        setLoading(false);
-      }
+  const load = useCallback(async (silent = false) => {
+    if (silent) setRefreshing(true);
+    try {
+      const [subRes, snapRes, sendRes, drRes] = await Promise.all([
+        btrfsService.getSubvolumes(),
+        btrfsService.getSnapshots({}),
+        btrfsService.getSendState(),
+        btrfsService.getDrStatus(),
+      ]);
+      setSubvolumes(subRes.subvolumes ?? []);
+      setRaidInfo({ raidLevel: subRes.raidLevel ?? "", devices: subRes.devices ?? [], totalBytes: subRes.totalBytes ?? 0, usedBytes: subRes.usedBytes ?? 0 });
+      setSnapshots(snapRes.snapshots ?? []);
+      setSendState(sendRes.remotes ?? []);
+      setDrStatus(drRes.status ?? null);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
     }
-    load();
   }, []);
+
+  useEffect(() => {
+    load();
+    const t = setInterval(() => load(true), REFRESH_MS);
+    return () => clearInterval(t);
+  }, [load]);
 
   if (loading) {
     return (
@@ -94,6 +74,36 @@ export default function BtrfsPage() {
       </div>
     );
   }
+
+  const isEmpty = subvolumes.length === 0 && snapshots.length === 0 && sendState.length === 0 && !drStatus;
+
+  if (error || isEmpty) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-[26px] font-bold tracking-tight text-foreground">BTRFS Storage</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">
+              Subvolume layout, snapshots, incremental send state, and disaster recovery status.
+            </p>
+          </div>
+          <button
+            onClick={() => load(true)}
+            disabled={refreshing}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors text-muted-foreground hover:text-foreground disabled:opacity-50"
+          >
+            <RefreshCw className={cn("h-3 w-3", refreshing && "animate-spin")} /> Refresh
+          </button>
+        </div>
+        {error ? (
+          <ErrorBanner title="BTRFS service unavailable" message={error} />
+        ) : (
+          <EmptyState title="No BTRFS state reported" hint="The BTRFS service is reachable but hasn't returned any subvolumes, snapshots, or DR status yet." icon={HardDrive} />
+        )}
+      </div>
+    );
+  }
+
 
   const purposeLabels: Record<string, string> = {
     audit_ledger: "Audit Ledger (Blockchain)",
