@@ -3,6 +3,8 @@ import type { Spec } from "@json-render/core";
 import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
 import { SpecRenderer } from "@/components/gemma/SpecRenderer";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
+import { antigravityService } from "@/grpc/client";
+import { structToObject } from "@/grpc/google/protobuf/struct";
 
 interface SpecEntry {
   id: string;
@@ -23,6 +25,9 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [antigravitySpecs, setAntigravitySpecs] = useState<{ id: string; spec: Spec }[]>([]);
+  const [agLoading, setAgLoading] = useState(false);
+  const [agError, setAgError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -43,6 +48,30 @@ export default function GalleryPage() {
     const t = setInterval(() => void load(), 5000);
     return () => clearInterval(t);
   }, [load]);
+
+  const loadAntigravity = useCallback(async () => {
+    setAgLoading(true);
+    setAgError(null);
+    try {
+      const resp = await antigravityService.get({ objectPath: "" });
+      const surfaces = resp.state?.uiSurfaces ?? [];
+      const mapped = surfaces.map((s, i) => ({
+        id: `antigravity-${i}-${Date.now()}`,
+        spec: structToObject(s) as Spec,
+      }));
+      setAntigravitySpecs(mapped);
+    } catch (e) {
+      setAgError((e as Error).message);
+    } finally {
+      setAgLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadAntigravity();
+    const t = setInterval(() => void loadAntigravity(), 5000);
+    return () => clearInterval(t);
+  }, [loadAntigravity]);
 
   const promote = async (id: string) => {
     setBusy(id);
@@ -121,6 +150,29 @@ export default function GalleryPage() {
             )}
           </Card>
         ))}
+      </div>
+
+      {/* Antigravity UI surfaces rendered from the live antigravity plugin state */}
+      <div className="pt-4 border-t border-border">
+        <h2 className="text-lg font-semibold mb-2">Antigravity UI Surfaces</h2>
+        {agError && <Callout variant="danger">{agError}</Callout>}
+        {agLoading && antigravitySpecs.length === 0 && (
+          <div className="text-sm text-muted-foreground">Loading Antigravity surfaces…</div>
+        )}
+        {!agLoading && antigravitySpecs.length === 0 && !agError && (
+          <Callout variant="default">
+            No Antigravity UI surfaces returned. Ensure the antigravity plugin is registered and has ui_surfaces in its state.
+          </Callout>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {antigravitySpecs.map((entry) => (
+            <Card key={entry.id} title={entry.id}>
+              <div className="rounded-md border border-border bg-background/40 p-2 max-h-[360px] overflow-auto">
+                <SpecRenderer spec={entry.spec} />
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

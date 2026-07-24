@@ -7,7 +7,8 @@ import { LiveLogPanel } from "@/components/chat/LiveLogPanel";
 import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
-import { assistantService } from "@/grpc/client";
+import { chatService } from "@/grpc/client";
+import type { ChatFrame } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 import { X, Maximize2, MessageSquare, FileText, ScrollText } from "lucide-react";
 
@@ -44,9 +45,9 @@ export default function ChatPage() {
   const [sidebarContent, setSidebarContent] = useState<unknown>(null);
   const [focusMode, setFocusMode] = useState(false);
   const [sending, setSending] = useState(false);
-  const [loadingHistory, setLoadingHistory] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const threadRef = useRef<HTMLDivElement>(null);
+  const streamRef = useRef<{ abort: () => void } | null>(null);
 
   const scrollToBottom = useCallback(() => {
     threadRef.current?.scrollTo({ top: threadRef.current.scrollHeight, behavior: "smooth" });
@@ -54,35 +55,22 @@ export default function ChatPage() {
 
   useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
 
-  /** Load history for the active session from the backend. */
-  const loadHistory = useCallback(async (sid: string) => {
-    setLoadingHistory(true);
-    setError(null);
-    try {
-      const resp = await assistantService.getSessionHistory({ sessionId: sid });
-      const mapped: LocalMessage[] = (resp.messages ?? []).map((m, i) => ({
-        id: `hist-${sid}-${i}`,
-        role: mapBackendRole(m.role),
-        content: normalizeContent(m.content),
-        timestamp: m.timestamp ? Number(m.timestamp.seconds) * 1000 : Date.now(),
-      }));
-      setMessages(
-        mapped.length > 0
-          ? mapped
-          : [{ id: makeId("sys"), role: "system", content: `Session "${sid}" ready.`, timestamp: Date.now() }],
-      );
-    } catch (err) {
-      setError((err as Error).message);
-      setMessages([{ id: makeId("sys"), role: "system", content: `Failed to load history: ${(err as Error).message}`, timestamp: Date.now() }]);
-    } finally {
-      setLoadingHistory(false);
-    }
+  /** Reset the thread for a new conversation id. */
+  const resetThread = useCallback((sid: string) => {
+    streamRef.current?.abort();
+    streamRef.current = null;
+    setMessages([
+      { id: makeId("sys"), role: "system", content: `Conversation "${sid}" ready.`, timestamp: Date.now() },
+    ]);
   }, []);
 
-  // Load history whenever session changes
+  // Reset thread whenever the conversation id changes
   useEffect(() => {
-    void loadHistory(sessionKey);
-  }, [sessionKey, loadHistory]);
+    resetThread(sessionKey);
+  }, [sessionKey, resetThread]);
+
+  // Abort any active stream on unmount
+  useEffect(() => () => streamRef.current?.abort(), []);
 
   const handleSend = async () => {
     const text = draft.trim();
@@ -98,29 +86,72 @@ export default function ChatPage() {
     setDraft("");
     setSending(true);
     setError(null);
+    streamRef.current?.abort();
+
+    const { stream, abort } = chatService.send({
+      conversationId: sessionKey,
+      content: text,
+      provider: "",
+      model: "",
+    });
+    streamRef.current = { abort };
 
     try {
-      const resp = await assistantService.sendMessage({
-        sessionId: sessionKey,
-        content: text
-      });
-      // Handle the gRPC response directly
-      const assistantMsg: LocalMessage = {
-        id: makeId("resp"),
-        role: "assistant",
-        content: normalizeContent(resp.content),
-        timestamp: resp.timestamp ? Number(resp.timestamp.seconds) * 1000 : Date.now(),
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
+      const reader = stream.getReader();
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const frame = value as ChatFrame;
+        const body = frame.body;
+        if (body.oneofKind === "part") {
+          const part = body.part;
+          const payload = new TextDecoder().decode(part.payload);
+          let content = payload;
+          if (part.kind !== "text") {
+            content = `[${part.kind}] ${payload}`;
+          }
+          const assistantMsg: LocalMessage = {
+            id: makeId("part"),
+            role: mapBackendRole(part.role),
+            content: normalizeContent(content),
+            timestamp: Date.now(),
+          };
+          setMessages((prev) => [...prev, assistantMsg]);
+        } else if (body.oneofKind === "error") {
+          setError(body.error.message);
+          setMessages((prev) => [
+            ...prev,
+            { id: makeId("err"), role: "system", content: body.error.message, timestamp: Date.now() },
+          ]);
+        } else if (body.oneofKind === "approval") {
+          const approval = body.approval;
+          const input = new TextDecoder().decode(approval.toolInput);
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: makeId("approval"),
+              role: "system",
+              content: `Approval required: ${approval.toolName}(${input}) — ${approval.description}`,
+              timestamp: Date.now(),
+            },
+          ]);
+        } else if (body.oneofKind === "done") {
+          // stream complete
+        }
+      }
     } catch (err) {
       const msg = (err as Error).message;
-      setError(msg);
-      setMessages((prev) => [
-        ...prev,
-        { id: makeId("err"), role: "system", content: `Request failed: ${msg}`, timestamp: Date.now() },
-      ]);
+      if (msg !== "AbortError") {
+        setError(msg);
+        setMessages((prev) => [
+          ...prev,
+          { id: makeId("err"), role: "system", content: `Request failed: ${msg}`, timestamp: Date.now() },
+        ]);
+      }
     } finally {
       setSending(false);
+      streamRef.current = null;
     }
   };
 
@@ -131,20 +162,9 @@ export default function ChatPage() {
     }
   };
 
-  const handleNewSession = async () => {
+  const handleNewSession = () => {
     setError(null);
-    try {
-      const session = await assistantService.createSession({ agentId: "default" });
-      setSessionKey(session.id);
-      // history load happens via the useEffect on sessionKey change
-    } catch (err) {
-      const msg = (err as Error).message;
-      setError(msg);
-      setMessages((prev) => [
-        ...prev,
-        { id: makeId("err"), role: "system", content: `Failed to create session: ${msg}`, timestamp: Date.now() },
-      ]);
-    }
+    setSessionKey(makeId("conv"));
   };
 
   const openInSidebar = (data: unknown) => {
@@ -225,9 +245,6 @@ export default function ChatPage() {
           {/* Thread */}
           <div className={cn("flex flex-col flex-1 min-w-0", sidebarOpen && "flex-[0_0_60%]")}>
             <div ref={threadRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4" role="log">
-              {loadingHistory && (
-                <div className="text-xs text-muted-foreground text-center">Loading history…</div>
-              )}
               {messages.map((msg) => (
                 <MessageBubble
                   key={msg.id}

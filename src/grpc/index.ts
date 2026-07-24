@@ -13,16 +13,17 @@ export {
   serviceManager,
   mcpService,
   accountabilityService,
+  chatService,
   // Architecture services (§2,5,6,8,9)
   blockchainService,
   btrfsService,
   personaService,
   dataStoreService,
   embeddingService,
-  // D-Bus passthrough
-  dbusPassthrough,
-  // Assistant services (via D-Bus passthrough)
-  assistantService,
+  antigravityService,
+  // Assistant services (direct gRPC)
+  soulService,
+  namespaceMemoryService,
   // Transport
   getTransport,
   resetTransport,

@@ -2,7 +2,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Callout } from "@/components/shell/Primitives";
 import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubble";
 import { useEventStore } from "@/stores/event-store";
-import { assistantService } from "@/grpc/client";
+import { chatService } from "@/grpc/client";
+import type { ChatFrame } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 
 /** Coerce arbitrary backend content into a renderable string. */
@@ -39,9 +40,9 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
   const [draft, setDraft] = useState("");
   const [sessionKey, setSessionKey] = useState<string | null>(initialSessionId || null);
   const [sending, setSending] = useState(false);
-  const [loadingHistory, setLoadingHistory] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const threadRef = useRef<HTMLDivElement>(null);
+  const streamRef = useRef<{ abort: () => void } | null>(null);
 
   const scrollToBottom = useCallback(() => {
     threadRef.current?.scrollTo({ top: threadRef.current.scrollHeight, behavior: "smooth" });
@@ -49,45 +50,30 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
 
   useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
 
-  // Create session if we don't have one
+  // Create conversation id if we don't have one
   useEffect(() => {
     if (!sessionKey) {
-      assistantService.createSession({ agentId })
-        .then((s) => setSessionKey(s.id))
-        .catch((err) => setError(err.message));
+      setSessionKey(makeId("conv"));
     }
   }, [agentId, sessionKey]);
 
-  /** Load history for the active session from the backend. */
-  const loadHistory = useCallback(async (sid: string) => {
-    setLoadingHistory(true);
-    setError(null);
-    try {
-      const resp = await assistantService.getSessionHistory({ sessionId: sid });
-      const mapped: LocalMessage[] = (resp.messages ?? []).map((m, i) => ({
-        id: `hist-${sid}-${i}`,
-        role: mapBackendRole(m.role),
-        content: normalizeContent(m.content),
-        timestamp: m.timestamp ? Number(m.timestamp.seconds) * 1000 : Date.now(),
-      }));
-      setMessages(
-        mapped.length > 0
-          ? mapped
-          : [{ id: makeId("sys"), role: "system", content: `Session "${sid}" ready.`, timestamp: Date.now() }],
-      );
-    } catch (err) {
-      setError((err as Error).message);
-      setMessages([{ id: makeId("sys"), role: "system", content: `Failed to load history: ${(err as Error).message}`, timestamp: Date.now() }]);
-    } finally {
-      setLoadingHistory(false);
-    }
+  /** Reset the thread when the conversation id changes. */
+  const resetThread = useCallback((sid: string) => {
+    streamRef.current?.abort();
+    streamRef.current = null;
+    setMessages([
+      { id: makeId("sys"), role: "system", content: `Conversation "${sid}" ready.`, timestamp: Date.now() },
+    ]);
   }, []);
 
   useEffect(() => {
     if (sessionKey) {
-      void loadHistory(sessionKey);
+      resetThread(sessionKey);
     }
-  }, [sessionKey, loadHistory]);
+  }, [sessionKey, resetThread]);
+
+  // Abort any active stream on unmount
+  useEffect(() => () => streamRef.current?.abort(), []);
 
   const handleSend = async () => {
     if (!sessionKey) return;
@@ -104,29 +90,70 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
     setDraft("");
     setSending(true);
     setError(null);
+    streamRef.current?.abort();
+
+    const { stream, abort } = chatService.send({
+      conversationId: sessionKey,
+      content: text,
+      provider: "",
+      model: "",
+    });
+    streamRef.current = { abort };
 
     try {
-      const resp = await assistantService.sendMessage({
-        sessionId: sessionKey,
-        content: text
-      });
-      
-      const assistantMsg: LocalMessage = {
-        id: makeId("resp"),
-        role: "assistant",
-        content: normalizeContent(resp.content),
-        timestamp: resp.timestamp ? Number(resp.timestamp.seconds) * 1000 : Date.now(),
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
+      const reader = stream.getReader();
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const frame = value as ChatFrame;
+        const body = frame.body;
+        if (body.oneofKind === "part") {
+          const part = body.part;
+          const payload = new TextDecoder().decode(part.payload);
+          let content = payload;
+          if (part.kind !== "text") {
+            content = `[${part.kind}] ${payload}`;
+          }
+          const assistantMsg: LocalMessage = {
+            id: makeId("part"),
+            role: mapBackendRole(part.role),
+            content: normalizeContent(content),
+            timestamp: Date.now(),
+          };
+          setMessages((prev) => [...prev, assistantMsg]);
+        } else if (body.oneofKind === "error") {
+          setError(body.error.message);
+          setMessages((prev) => [
+            ...prev,
+            { id: makeId("err"), role: "system", content: body.error.message, timestamp: Date.now() },
+          ]);
+        } else if (body.oneofKind === "approval") {
+          const approval = body.approval;
+          const input = new TextDecoder().decode(approval.toolInput);
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: makeId("approval"),
+              role: "system",
+              content: `Approval required: ${approval.toolName}(${input}) — ${approval.description}`,
+              timestamp: Date.now(),
+            },
+          ]);
+        }
+      }
     } catch (err) {
       const msg = (err as Error).message;
-      setError(msg);
-      setMessages((prev) => [
-        ...prev,
-        { id: makeId("err"), role: "system", content: `Request failed: ${msg}`, timestamp: Date.now() },
-      ]);
+      if (msg !== "AbortError") {
+        setError(msg);
+        setMessages((prev) => [
+          ...prev,
+          { id: makeId("err"), role: "system", content: `Request failed: ${msg}`, timestamp: Date.now() },
+        ]);
+      }
     } finally {
       setSending(false);
+      streamRef.current = null;
     }
   };
 
@@ -145,9 +172,6 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
     <div className={cn("flex flex-col min-w-0 border border-border rounded-lg bg-card overflow-hidden", className)} style={{ height }}>
       {/* Thread */}
       <div ref={threadRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4" role="log">
-        {loadingHistory && (
-          <div className="text-xs text-muted-foreground text-center animate-pulse">Loading history…</div>
-        )}
         {messages.map((msg) => (
           <MessageBubble
             key={msg.id}

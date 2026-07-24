@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { assistantService } from "@/grpc/client";
+import { soulService, namespaceMemoryService } from "@/grpc/client";
 import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import type { SoulMemory } from "@/grpc/gen/assistant/soul";
@@ -46,8 +46,8 @@ export default function AssistantPage() {
     setError(null);
     try {
       const [soulResp, nsResp] = await Promise.all([
-        assistantService.listSoulMemories(),
-        assistantService.listMemoryNamespaces(),
+        soulService.listSoulMemories(),
+        namespaceMemoryService.listMemoryNamespaces(),
       ]);
       setSouls(soulResp.memories);
       setNamespaces(nsResp.namespaces);
@@ -70,7 +70,7 @@ export default function AssistantPage() {
   async function handleUpdateSoul() {
     if (!editSoul) return;
     try {
-      await assistantService.updateSoulMemory({
+      await soulService.updateSoulMemory({
         agentId: editSoul.agentId,
         identity: editIdentity || undefined,
         personality: editPersonality || undefined,
@@ -84,7 +84,7 @@ export default function AssistantPage() {
 
   async function handleDeleteSoul(agentId: string) {
     try {
-      await assistantService.deleteSoulMemory(agentId);
+      await soulService.deleteSoulMemory({ agentId });
       refresh();
     } catch (e) {
       setError((e as Error).message);

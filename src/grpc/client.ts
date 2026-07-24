@@ -37,6 +37,10 @@ import { PrivacyNetworkService as PrivacyNetworkServiceSvc } from "./gen/privacy
 import { RegistrationService as RegistrationServiceSvc } from "./gen/registration";
 import { McpService as McpServiceSvc } from "./gen/mcp";
 import { ServiceManager as ServiceManagerSvc } from "./gen/services";
+import { ChatService as ChatServiceSvc } from "./gen/chat";
+import { SoulService as SoulServiceSvc } from "./gen/assistant/soul";
+import { NamespaceMemoryService as NamespaceMemoryServiceSvc } from "./gen/assistant/namespace";
+import { AntigravityService as AntigravityServiceSvc } from "./gen/plugin_methods_unified";
 
 /**
  * Map any backend failure to a generic, user-safe message.
@@ -48,7 +52,6 @@ function safeGrpcError(
   method: string,
   detail: { status?: number; grpcStatus?: string; grpcMessage?: string; body?: string; cause?: unknown },
 ): Error {
-  // eslint-disable-next-line no-console
   console.error("[grpc] call failed", { service, method, ...detail });
   if (detail.status === 401 || detail.grpcStatus === "16") {
     return new Error("Authentication required.");
@@ -165,6 +168,10 @@ const CODEC_REGISTRY: Map<string, CodecPair> = (() => {
     RegistrationServiceSvc,
     McpServiceSvc,
     ServiceManagerSvc as unknown as ServiceType,
+    ChatServiceSvc,
+    SoulServiceSvc,
+    NamespaceMemoryServiceSvc,
+    AntigravityServiceSvc,
   ];
   for (const svc of services) {
     for (const m of svc.methods) {
@@ -490,6 +497,15 @@ import type {
 } from "./gen/privacy_network";
 
 import type {
+  SendRequest,
+  ChatFrame,
+  ApproveRequest,
+  ApproveResponse,
+  CancelRequest,
+  CancelResponse,
+} from "./gen/chat";
+
+import type {
   SendMagicLinkRequest,
   SendMagicLinkResponse,
   VerifyMagicLinkRequest,
@@ -570,6 +586,13 @@ import type {
   GetPersonaRequest,
   GetPersonaResponse,
 } from "./gen/persona";
+
+import type { Empty } from "./gen/assistant/common";
+
+import type {
+  GetAntigravityRequest,
+  GetAntigravityResponse,
+} from "./gen/plugin_methods_unified";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BRIDGE SERVICES (op-grpc-bridge)
@@ -1281,6 +1304,131 @@ export const mcpService = {
   },
 };
 
+// ── ChatService (op_chat.chat.v1) ───────────────────────────────────────
+
+export const chatService = {
+  send(req: {
+    conversationId?: string;
+    content: string;
+    personaId?: string;
+    provider?: string;
+    model?: string;
+  }) {
+    const uiMessages = JSON.stringify([
+      { role: "user", content: req.content },
+    ]);
+    const sendReq: SendRequest = {
+      conversationId: req.conversationId ?? "",
+      uiMessages: new TextEncoder().encode(uiMessages),
+      personaId: req.personaId ?? "",
+      provider: req.provider ?? "",
+      model: req.model ?? "",
+    };
+    return grpcServerStream<SendRequest, ChatFrame>(
+      "op_chat.chat.ChatService",
+      "Send",
+      sendReq,
+    );
+  },
+
+  approve(req: { conversationId: string; toolCallId: string; approved: boolean; operatorNote?: string }) {
+    return grpcUnary<ApproveRequest, ApproveResponse>(
+      "op_chat.chat.ChatService",
+      "Approve",
+      {
+        conversationId: req.conversationId,
+        toolCallId: req.toolCallId,
+        approved: req.approved,
+        operatorNote: req.operatorNote ?? "",
+      },
+    );
+  },
+
+  cancel(req: { conversationId: string }) {
+    return grpcUnary<CancelRequest, CancelResponse>(
+      "op_chat.chat.ChatService",
+      "Cancel",
+      { conversationId: req.conversationId },
+    );
+  },
+};
+
+// ── SoulService (assistant.v1.SoulService) ─────────────────────────────────
+
+export const soulService = {
+  listSoulMemories(req: Partial<ListSoulMemoriesRequest> = {}) {
+    return grpcUnary<ListSoulMemoriesRequest, ListSoulMemoriesResponse>(
+      "assistant.v1.SoulService",
+      "ListSoulMemories",
+      {
+        pagination: req.pagination,
+      },
+    );
+  },
+
+  getSoulMemory(req: GetSoulMemoryRequest) {
+    return grpcUnary<GetSoulMemoryRequest, SoulMemory>(
+      "assistant.v1.SoulService",
+      "GetSoulMemory",
+      req,
+    );
+  },
+
+  updateSoulMemory(req: UpdateSoulMemoryRequest) {
+    return grpcUnary<UpdateSoulMemoryRequest, SoulMemory>(
+      "assistant.v1.SoulService",
+      "UpdateSoulMemory",
+      req,
+    );
+  },
+
+  deleteSoulMemory(req: { agentId: string }) {
+    return grpcUnary<{ agentId: string }, Empty>(
+      "assistant.v1.SoulService",
+      "DeleteSoulMemory",
+      req,
+    );
+  },
+};
+
+// ── NamespaceMemoryService (assistant.v1.NamespaceMemoryService) ─────────────
+
+export const namespaceMemoryService = {
+  listMemoryNamespaces(req: Partial<ListMemoryNamespacesRequest> = {}) {
+    return grpcUnary<ListMemoryNamespacesRequest, ListMemoryNamespacesResponse>(
+      "assistant.v1.NamespaceMemoryService",
+      "ListMemoryNamespaces",
+      {
+        pagination: req.pagination,
+      },
+    );
+  },
+
+  getMemoryNamespace(req: { agentId: string }) {
+    return grpcUnary<{ agentId: string }, MemoryNamespace>(
+      "assistant.v1.NamespaceMemoryService",
+      "GetMemoryNamespace",
+      req,
+    );
+  },
+
+  setMemoryNamespace(req: SetMemoryNamespaceRequest) {
+    return grpcUnary<SetMemoryNamespaceRequest, MemoryNamespace>(
+      "assistant.v1.NamespaceMemoryService",
+      "SetMemoryNamespace",
+      req,
+    );
+  },
+
+  clearMemoryNamespace(req: { agentId: string }) {
+    return grpcUnary<{ agentId: string }, Empty>(
+      "assistant.v1.NamespaceMemoryService",
+      "ClearMemoryNamespace",
+      req,
+    );
+  },
+};
+
 // ── ChatbotAccountabilityService (operation.accountability.v1) ──────────────
 
 export const accountabilityService = {
@@ -1345,7 +1493,9 @@ export const accountabilityService = {
   },
 };
 
-// ── BlockchainService (operation.blockchain.v1) ─────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════
+// BlockchainService (operation.blockchain.v1)
+// ══════════════════════════════════════════════════════════════════════════════
 
 export const blockchainService = {
   getFootprints(req: Partial<GetFootprintsRequest> = {}) {
@@ -1535,6 +1685,20 @@ export const embeddingService = {
       "operation.embedding.v1.EmbeddingService",
       "GetChannelDiagnostics",
       {},
+    );
+  },
+};
+
+// ── AntigravityService (operation.catalog.v1.AntigravityService) ─────────────
+
+export const antigravityService = {
+  get(req: Partial<GetAntigravityRequest> = {}) {
+    return grpcUnary<GetAntigravityRequest, GetAntigravityResponse>(
+      "operation.catalog.v1.AntigravityService",
+      "Get",
+      {
+        objectPath: req.objectPath ?? "",
+      },
     );
   },
 };
