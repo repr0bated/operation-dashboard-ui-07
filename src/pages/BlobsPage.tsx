@@ -86,9 +86,13 @@ export default function BlobsPage() {
           </div>
         </aside>
 
-        <section className="rounded-lg border border-border bg-card/40 p-4 overflow-auto">
+        <section className="rounded-lg border border-border bg-card/40 p-4 overflow-hidden flex flex-col min-h-0">
           {selected ? (
-            <PluginSchemaPanel plugin={selected} title={`${selected} · sealed blob`} />
+            <PluginSchemaPanel
+              plugin={selected}
+              title={`${selected} · sealed blob`}
+              className="flex-1 flex flex-col min-h-0"
+            />
           ) : (
             <div className="text-xs text-muted-foreground">
               Select a plugin to view its sealed-blob schema.
