@@ -305,7 +305,7 @@ function grpcServerStream<TReq, TResp>(
       Accept: GRPC_CONTENT_TYPE,
       ...identityMeta(),
     },
-    body: frame,
+    body: frame as BodyInit,
     signal: controller.signal,
   });
 
