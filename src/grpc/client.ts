@@ -148,7 +148,7 @@ function identityMeta(): Record<string, string> {
 
 // ── Binary codec registry (service/method → protobuf-ts MessageType) ────────
 
-type CodecPair = { I: IMessageType<unknown>; O: IMessageType<unknown> };
+type CodecPair = { I: IMessageType<object>; O: IMessageType<object> };
 
 const CODEC_REGISTRY: Map<string, CodecPair> = (() => {
   const map = new Map<string, CodecPair>();
@@ -169,13 +169,14 @@ const CODEC_REGISTRY: Map<string, CodecPair> = (() => {
   for (const svc of services) {
     for (const m of svc.methods) {
       map.set(`${svc.typeName}/${m.name}`, {
-        I: m.I as IMessageType<unknown>,
-        O: m.O as IMessageType<unknown>,
+        I: m.I as IMessageType<object>,
+        O: m.O as IMessageType<object>,
       });
     }
   }
   return map;
 })();
+
 
 function lookupCodec(service: string, method: string): CodecPair | null {
   return CODEC_REGISTRY.get(`${service}/${method}`) ?? null;
@@ -229,7 +230,8 @@ async function grpcUnary<TReq, TResp>(
       Accept: GRPC_CONTENT_TYPE,
       ...identityMeta(),
     },
-    body: frame,
+    body: frame as BodyInit,
+
   });
 
   if (!res.ok) {
@@ -303,7 +305,7 @@ function grpcServerStream<TReq, TResp>(
       Accept: GRPC_CONTENT_TYPE,
       ...identityMeta(),
     },
-    body: frame,
+    body: frame as BodyInit,
     signal: controller.signal,
   });
 

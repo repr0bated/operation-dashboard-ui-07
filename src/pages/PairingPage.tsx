@@ -77,7 +77,7 @@ const PairingPage = ({ reason, onPaired }: Props) => {
         resetTransport();
         onPaired(status.identity);
       } else {
-        setError(status.reason);
+        setError(status.state === "needs_pairing" ? status.reason : "Still probing identity…");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Identity probe failed.");
