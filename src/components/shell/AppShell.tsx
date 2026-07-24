@@ -30,6 +30,7 @@ import {
   Sparkles,
   Eye,
   Activity,
+  Package,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StatusDot, Pill } from "@/components/shell/Primitives";
@@ -118,6 +119,10 @@ const NAV_GROUPS = [
         placeholder: true,
       },
     ],
+  },
+  {
+    label: "Blobs",
+    items: [{ title: "Sealed Blobs", path: "/blobs", icon: Package }],
   },
 ];
 

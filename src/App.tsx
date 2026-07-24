@@ -37,6 +37,7 @@ import AssistantPage from "./pages/AssistantPage";
 import GrpcExplorerPage from "./pages/GrpcExplorerPage";
 import GalleryPage from "./pages/GalleryPage";
 import CatalogPage from "./pages/CatalogPage";
+import BlobsPage from "./pages/BlobsPage";
 import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
 import PairingPage from "./pages/PairingPage";
@@ -90,6 +91,7 @@ function ShellRoutes() {
         <Route path="/data-stores" element={<DataStoresPage />} />
         <Route path="/embedding" element={<EmbeddingPipelinePage />} />
         <Route path="/assistant" element={<AssistantPage />} />
+        <Route path="/blobs" element={<BlobsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AppShell>
