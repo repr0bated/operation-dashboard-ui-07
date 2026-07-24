@@ -6,9 +6,10 @@ interface JsonRendererProps {
   defaultMode?: "tree" | "raw";
   maxDepth?: number;
   className?: string;
+  fillHeight?: boolean;
 }
 
-export function JsonRenderer({ data, defaultMode = "tree", maxDepth = 6, className }: JsonRendererProps) {
+export function JsonRenderer({ data, defaultMode = "tree", maxDepth = 6, className, fillHeight = false }: JsonRendererProps) {
   const [mode, setMode] = useState<"tree" | "raw">(defaultMode);
 
   const handleCopy = () => {
@@ -16,7 +17,7 @@ export function JsonRenderer({ data, defaultMode = "tree", maxDepth = 6, classNa
   };
 
   return (
-    <div className={cn("rounded-lg border border-border bg-card overflow-hidden", className)}>
+    <div className={cn("rounded-lg border border-border bg-card overflow-hidden", fillHeight && "flex flex-col min-h-0 flex-1", className)}>
       <div className="flex items-center justify-between border-b border-border px-3 py-1.5">
         <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">Inspector</span>
         <div className="flex gap-1">
@@ -29,7 +30,7 @@ export function JsonRenderer({ data, defaultMode = "tree", maxDepth = 6, classNa
           <button onClick={handleCopy} className="px-2 py-0.5 text-xs rounded-md text-muted-foreground hover:text-foreground transition-colors">Copy</button>
         </div>
       </div>
-      <div className="p-3 overflow-auto max-h-[500px] font-mono text-xs leading-relaxed">
+      <div className={cn("p-3 overflow-auto font-mono text-xs leading-relaxed", fillHeight ? "flex-1 min-h-0" : "max-h-[500px]")}>
         {mode === "raw" ? (
           <pre className="text-foreground whitespace-pre-wrap break-all">{JSON.stringify(data, null, 2)}</pre>
         ) : (
