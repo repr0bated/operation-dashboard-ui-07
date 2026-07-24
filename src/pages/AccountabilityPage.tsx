@@ -78,23 +78,13 @@ function AccountabilityChat({
           timestamp: Date.now(),
         },
       ]);
-    } catch {
-      // Fallback: summarize selected episodes locally
-      const epSummary = selectedEpisodes.length
-        ? selectedEpisodes
-            .map(
-              (e) =>
-                `• [${e.outcomeClass}] ${e.reasoningSummary} (tools: ${e.toolsConsulted.join(", ")})`
-            )
-            .join("\n")
-        : "No episodes selected yet.";
-
+    } catch (e) {
       setMessages((prev) => [
         ...prev,
         {
-          id: `msg-${Date.now()}-resp`,
+          id: `msg-${Date.now()}-err`,
           role: "assistant",
-          content: `Based on the ${selectedEpisodes.length} selected episode(s):\n\n${epSummary}\n\nFor deeper analysis, ensure the accountability gRPC service is running.`,
+          content: `Backend unavailable: ${e instanceof Error ? e.message : String(e)}`,
           timestamp: Date.now(),
         },
       ]);
