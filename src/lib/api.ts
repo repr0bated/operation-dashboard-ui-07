@@ -31,7 +31,7 @@ import type {
  *   2. Build-time env:    VITE_API_BASE_URL
  *   3. Same-origin:       "/api"
  */
-function resolveApiBase(): string {
+export function resolveApiBase(): string {
   if (typeof window !== "undefined") {
     const runtime = window.__OPDBUS_CONFIG__?.apiBaseUrl;
     if (runtime) return runtime.replace(/\/+$/, "");

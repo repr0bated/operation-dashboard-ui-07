@@ -7,6 +7,7 @@
 import { useEffect, useState } from "react";
 import { SpecRenderer } from "@/components/gemma/SpecRenderer";
 import { dataToSpec } from "@/lib/json-render-catalog";
+import { resolveApiBase } from "@/lib/api";
 
 interface Props {
   plugin?: string;
@@ -35,7 +36,7 @@ export function PluginSchemaPanel({
     setLoading(true);
     (async () => {
       try {
-        const r = await fetch(`/api/gemma/plugin-schema/${plugin}`);
+        const r = await fetch(`${resolveApiBase()}/gemma/plugin-schema/${plugin}`);
         if (!r.ok) throw new Error(`schema HTTP ${r.status}`);
         const j: SchemaResponse = await r.json();
         if (!alive) return;
