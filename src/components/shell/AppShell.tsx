@@ -119,6 +119,10 @@ const NAV_GROUPS = [
       },
     ],
   },
+  {
+    label: "Blobs",
+    items: [{ title: "Sealed Blobs", path: "/blobs", icon: Package }],
+  },
 ];
 
 const themeIcons = { dark: Moon, light: Sun, system: Laptop } as const;

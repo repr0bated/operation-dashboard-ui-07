@@ -91,6 +91,7 @@ function ShellRoutes() {
         <Route path="/data-stores" element={<DataStoresPage />} />
         <Route path="/embedding" element={<EmbeddingPipelinePage />} />
         <Route path="/assistant" element={<AssistantPage />} />
+        <Route path="/blobs" element={<BlobsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AppShell>
