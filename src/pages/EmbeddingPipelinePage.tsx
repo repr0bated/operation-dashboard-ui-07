@@ -1,35 +1,9 @@
-import { useState, useEffect } from "react";
-import { Loader2, Activity, AlertTriangle, CheckCircle, Zap, Clock, BarChart3 } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Loader2, Activity, AlertTriangle, CheckCircle, Zap, Clock, BarChart3, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { embeddingService, blockchainService } from "@/grpc/client";
 import type { EmbedRequestInfo, EmbeddingWorkerStatus, ChannelDiagnostics, QdrantCollectionRole } from "@/grpc/view-types";
-
-// ── Mock data ───────────────────────────────────────────────────────────────
-
-const MOCK_WORKER: EmbeddingWorkerStatus = {
-  active: true, currentRequest: "block-abc123", provider: "axon:embedder-voyage4lite",
-  model: "voyage-4-lite", vectorDimension: 1024,
-  retryConfig: { maxAttempts: 5, baseDelayMs: 500, backoffMultiplier: 2 },
-  stats: { embedsCompleted: 2847, embedsFailed: 3, avgLatencyMs: 142, uptime: "4d 12h" },
-};
-
-const MOCK_CHANNEL: ChannelDiagnostics = {
-  capacity: 1024, currentUsage: 7, dropPolicy: "try_send, silent drop on full",
-  rationale: "embedding is runtime cognitive ability, not audit",
-  auditSourceOfTruth: "BTRFS timing_subvol (never dropped)",
-  totalDropped: 0, dropRate: 0,
-};
-
-const MOCK_QUEUE: EmbedRequestInfo[] = [
-  { blockHash: "block-abc123", embeddingText: "plugin=firewall operation=set_rules actor=chatbot outcome=success summary=Applied isolation rules", collection: "op_footprints", payload: {}, status: "processing", attempt: 1, queuedAt: new Date(Date.now() - 5000).toISOString() },
-  { blockHash: "block-def456", embeddingText: "plugin=dns operation=restart actor=chatbot outcome=success summary=Restarted NextDNS", collection: "op_footprints", payload: {}, status: "queued", attempt: 0, queuedAt: new Date(Date.now() - 2000).toISOString() },
-];
-
-const MOCK_ROLES: QdrantCollectionRole[] = [
-  { name: "op_footprints", role: "ai_analysis", pointCount: 2847, diskSizeBytes: 1073741824, lastUpdated: new Date(Date.now() - 60000).toISOString() },
-  { name: "ctl_plane_reasoning_episodes", role: "ai_analysis", pointCount: 384, diskSizeBytes: 268435456, lastUpdated: new Date(Date.now() - 300000).toISOString() },
-  { name: "op_footprints_snapshot", role: "disaster_recovery", pointCount: 2800, diskSizeBytes: 1048576000, lastUpdated: new Date(Date.now() - 86400000).toISOString() },
-];
+import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
 
 function formatBytes(b: number): string {
   if (b < 1048576) return `${(b / 1024).toFixed(0)} KB`;
@@ -45,48 +19,75 @@ const statusColors: Record<string, string> = {
   dropped: "bg-destructive/10 text-destructive",
 };
 
+const REFRESH_MS = 15000;
+
 export default function EmbeddingPipelinePage() {
   const [worker, setWorker] = useState<EmbeddingWorkerStatus | null>(null);
   const [channel, setChannel] = useState<ChannelDiagnostics | null>(null);
   const [queue, setQueue] = useState<EmbedRequestInfo[]>([]);
   const [roles, setRoles] = useState<QdrantCollectionRole[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const load = useCallback(async (silent = false) => {
+    if (silent) setRefreshing(true);
+    try {
+      const [wRes, cRes, qRes, rRes] = await Promise.all([
+        embeddingService.getWorkerStatus(),
+        embeddingService.getChannelDiagnostics(),
+        embeddingService.getQueue({ limit: 20 }),
+        blockchainService.getQdrantRoles(),
+      ]);
+      setWorker(wRes.worker ?? null);
+      setChannel(cRes.channel ?? null);
+      setQueue(qRes.requests ?? []);
+      setRoles(rRes.roles ?? []);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, []);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const [wRes, cRes, qRes, rRes] = await Promise.all([
-          embeddingService.getWorkerStatus(),
-          embeddingService.getChannelDiagnostics(),
-          embeddingService.getQueue({ limit: 20 }),
-          blockchainService.getQdrantRoles(),
-        ]);
-        setWorker(wRes.worker);
-        setChannel(cRes.channel);
-        setQueue(qRes.requests);
-        setRoles(rRes.roles);
-      } catch {
-        setWorker(MOCK_WORKER);
-        setChannel(MOCK_CHANNEL);
-        setQueue(MOCK_QUEUE);
-        setRoles(MOCK_ROLES);
-      } finally {
-        setLoading(false);
-      }
-    }
     load();
-  }, []);
+    const t = setInterval(() => load(true), REFRESH_MS);
+    return () => clearInterval(t);
+  }, [load]);
 
   if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
 
+  const isEmpty = !worker && !channel && queue.length === 0 && roles.length === 0;
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-[26px] font-bold tracking-tight text-foreground">Embedding Pipeline</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">
-          Footprint → mpsc channel → Embedding Worker → Axon/Voyage → Qdrant
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-[26px] font-bold tracking-tight text-foreground">Embedding Pipeline</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            Footprint → mpsc channel → Embedding Worker → Axon/Voyage → Qdrant
+          </p>
+        </div>
+        <button
+          onClick={() => load(true)}
+          disabled={refreshing}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors text-muted-foreground hover:text-foreground disabled:opacity-50"
+        >
+          <RefreshCw className={cn("h-3 w-3", refreshing && "animate-spin")} /> Refresh
+        </button>
       </div>
+
+      {error && <ErrorBanner title="Embedding service unavailable" message={error} />}
+      {!error && isEmpty && (
+        <EmptyState
+          title="No pipeline activity"
+          hint="The embedding worker is reachable but hasn't reported any state, queue, or Qdrant roles yet."
+        />
+      )}
+
 
       {/* Worker + Channel side by side */}
       <div className="grid gap-4 md:grid-cols-2">
