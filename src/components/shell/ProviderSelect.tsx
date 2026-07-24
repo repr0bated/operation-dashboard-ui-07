@@ -1,0 +1,120 @@
+/**
+ * Model/provider picker — backed by zeroclaw's real provider catalog
+ * (schema-driven; new providers registered there show up here automatically,
+ * no hardcoded list). Populated via `ListProviders` + `GetRouter`
+ * (obs.service.zeroclaw.providers.list@v1 / obs.service.zeroclaw.router.get@v1),
+ * applied via `SetProvider` (mut.service.zeroclaw.provider.set@v1).
+ */
+import { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { pluginMethods } from "@/grpc/plugin-methods";
+import { valueToJs } from "@/grpc/google/protobuf/struct";
+import { Cpu, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface ZeroclawProvider {
+  id?: string;
+  kind?: string;
+  description?: string;
+}
+
+const FALLBACK_PROVIDER = "salad";
+
+interface Props {
+  className?: string;
+}
+
+export function ProviderSelect({ className }: Props) {
+  const [providers, setProviders] = useState<ZeroclawProvider[]>([]);
+  const [value, setValue] = useState<string>(FALLBACK_PROVIDER);
+  const [loading, setLoading] = useState(true);
+  const [applying, setApplying] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const [providersResp, routerResp] = await Promise.all([
+          pluginMethods.callSubid<object, { providers?: unknown[] }>(
+            "obs.service.zeroclaw.providers.list@v1",
+            {},
+          ),
+          pluginMethods.callSubid<object, { router?: unknown }>(
+            "obs.service.zeroclaw.router.get@v1",
+            {},
+          ),
+        ]);
+        if (!alive) return;
+        const list = (providersResp.providers ?? []).map(
+          (p) => valueToJs(p) as ZeroclawProvider,
+        );
+        setProviders(list);
+        const activeProvider = (valueToJs(routerResp.router) as { provider?: string } | undefined)
+          ?.provider;
+        const initial =
+          activeProvider && list.some((p) => p.id === activeProvider)
+            ? activeProvider
+            : list.some((p) => p.id === FALLBACK_PROVIDER)
+              ? FALLBACK_PROVIDER
+              : (list[0]?.id ?? FALLBACK_PROVIDER);
+        setValue(initial);
+        setError(null);
+      } catch (e) {
+        if (alive) setError((e as Error).message);
+      } finally {
+        if (alive) setLoading(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const apply = async (providerId: string) => {
+    const prev = value;
+    setValue(providerId);
+    setApplying(true);
+    setError(null);
+    try {
+      await pluginMethods.callSubid("mut.service.zeroclaw.provider.set@v1", {
+        providerId,
+      });
+    } catch (e) {
+      setValue(prev);
+      setError((e as Error).message);
+    } finally {
+      setApplying(false);
+    }
+  };
+
+  return (
+    <div className={cn("flex items-center gap-1.5", className)}>
+      <Select value={value} onValueChange={(v) => void apply(v)} disabled={loading}>
+        <SelectTrigger className="h-8 w-[200px] text-xs font-mono">
+          {loading || applying ? (
+            <Loader2 className="h-3.5 w-3.5 mr-1.5 text-muted-foreground shrink-0 animate-spin" />
+          ) : (
+            <Cpu className="h-3.5 w-3.5 mr-1.5 text-muted-foreground shrink-0" />
+          )}
+          <SelectValue placeholder="Provider…" />
+        </SelectTrigger>
+        <SelectContent>
+          {providers.map((p) => (
+            <SelectItem key={p.id} value={p.id ?? ""} className="text-xs font-mono">
+              {p.id}
+              {p.kind ? ` · ${p.kind}` : ""}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      {error && <span className="text-[10px] text-danger font-mono">{error}</span>}
+    </div>
+  );
+}

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { assistantService } from "@/grpc/client";
 import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
+import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import type { SoulMemory } from "@/grpc/gen/assistant/soul";
 import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
 import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
@@ -103,6 +104,7 @@ export default function AssistantPage() {
       <PageHeader
         title="Assistant Gateway"
         subtitle="Soul memory, namespace bindings, and cognitive store"
+        actions={<ProviderSelect />}
       />
 
       {error && (

@@ -5,6 +5,7 @@ import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubbl
 import { SystemPromptEditor } from "@/components/chat/SystemPromptEditor";
 import { LiveLogPanel } from "@/components/chat/LiveLogPanel";
 import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
+import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
 import { assistantService } from "@/grpc/client";
 import { cn } from "@/lib/utils";
@@ -171,6 +172,7 @@ export default function ChatPage() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <ProviderSelect />
               <input
                 value={sessionKey}
                 onChange={(e) => setSessionKey(e.target.value)}
