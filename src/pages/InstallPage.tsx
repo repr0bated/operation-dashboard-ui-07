@@ -220,7 +220,7 @@ tls_cert = "/etc/zeroclaw/tls/fullchain.pem"
 tls_key  = "/etc/zeroclaw/tls/privkey.pem"
 
 [grpc]
-state_addr     = "127.0.0.1:50051"
+state_addr     = "127.0.0.1:8090"
 assistant_addr = "127.0.0.1:50052"
 
 [qdrant]
@@ -349,7 +349,7 @@ sudo s6-rc -a list
 
 
 # 2. gRPC reflection
-grpcurl -plaintext 127.0.0.1:50051 list
+grpcurl -plaintext $(grep -oP '(?<=grpcBaseUrl":")[^"]*' window.__OPDBUS_CONFIG__ 2>/dev/null || echo "localhost:8090"):8090 list
 
 # 3. Web UI
 curl -kI https://ops.zeroclaw.local/
