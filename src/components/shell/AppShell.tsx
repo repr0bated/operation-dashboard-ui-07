@@ -30,6 +30,7 @@ import {
   Sparkles,
   Eye,
   Activity,
+  Package,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StatusDot, Pill } from "@/components/shell/Primitives";
