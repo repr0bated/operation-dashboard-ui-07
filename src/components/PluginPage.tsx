@@ -282,7 +282,7 @@ export function schemaToSpec(schema: PluginSchemaShape, pluginId: string): Spec 
     );
   }
 
-  elements["root"] = { type: "container", children: rootChildren };
+  elements["root"] = { type: "container", bindings: {}, children: rootChildren };
 
   return { root: "root", elements } as Spec;
 }
