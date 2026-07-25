@@ -98,6 +98,7 @@ function ShellRoutes() {
         <Route path="/knowledge" element={<KnowledgePage />} />
         <Route path="/grpc" element={<GrpcDiagnosticsPage />} />
         <Route path="/explorer" element={<GrpcExplorerPage />} />
+        <Route path="/invoke" element={<InvokePage />} />
         <Route path="/accountability" element={<AccountabilityPage />} />
         <Route path="/btrfs" element={<BtrfsPage />} />
         <Route path="/data-stores" element={<DataStoresPage />} />
