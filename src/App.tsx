@@ -111,11 +111,13 @@ function ShellRoutes() {
         <Route path="/integrations" element={<IntegrationsPage />} />
         <Route path="/estop" element={<EStopPage />} />
         <Route path="/hardware" element={<HardwarePage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AppShell>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AppShell>
+    </JsonRenderProvider>
   );
 }
+
 
 function IdentityGate({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<IdentityStatus>({ state: "loading" });
