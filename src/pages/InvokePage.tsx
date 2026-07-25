@@ -1,9 +1,14 @@
 /**
  * Invoke — unary gRPC method console.
  *
- * Enumerates every generated plugin method from PLUGIN_METHOD_ENTRIES,
- * lets the operator edit a JSON request payload, and renders the response
- * (or error) inline. Complements /explorer, which handles server-streaming.
+ * The method picker is populated by *live gRPC server reflection* —
+ * `grpc.reflection.v1.ServerReflection/ServerReflectionInfo` — so it
+ * reflects whatever the backend currently exposes (D-Bus plugins register
+ * services dynamically). The static plugin index is no longer consulted.
+ *
+ * Invocation still requires a compile-time protobuf codec (encode request
+ * bytes / decode response bytes). Methods without a codec are shown but
+ * greyed out — hover their tooltip for the reason.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -14,16 +19,30 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { JsonRenderer } from "@/components/json/JsonRenderer";
-import { Play, Trash2, Search, ChevronRight, ChevronDown, Zap } from "lucide-react";
+import {
+  Play,
+  Trash2,
+  Search,
+  ChevronRight,
+  ChevronDown,
+  Zap,
+  RefreshCw,
+  Radio,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import { pluginMethods, PLUGIN_METHOD_ENTRIES, type PluginMethodEntry } from "@/grpc/plugin-methods";
+import { callUnary, hasCodec } from "@/grpc/client";
+import {
+  useReflectionRegistry,
+  type ReflectedMethod,
+  type ReflectedService,
+} from "@/hooks/use-reflection-registry";
 
 type Status = "idle" | "running" | "ok" | "error";
 
-const STORAGE_KEY = "invoke.settings.v1";
+const STORAGE_KEY = "invoke.payloads.v2";
 
 interface PersistedPayloads {
-  [typeName: string]: string;
+  [key: string]: string; // key = "service/method"
 }
 
 function loadPayloads(): PersistedPayloads {
@@ -39,90 +58,126 @@ function savePayloads(next: PersistedPayloads) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   } catch {
-    // ignore quota / private-mode
+    /* ignore */
   }
 }
 
-const groupedByPlugin = (() => {
-  const groups = new Map<string, PluginMethodEntry[]>();
-  for (const e of PLUGIN_METHOD_ENTRIES) {
-    const arr = groups.get(e.plugin) ?? [];
-    arr.push(e);
-    groups.set(e.plugin, arr);
-  }
-  return Array.from(groups.entries()).sort(([a], [b]) => a.localeCompare(b));
-})();
+interface Selection {
+  service: ReflectedService;
+  method: ReflectedMethod;
+  key: string; // service.name + "/" + method.name
+}
+
+function methodKey(s: ReflectedService, m: ReflectedMethod) {
+  return `${s.name}/${m.name}`;
+}
 
 export default function InvokePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialTypeName = searchParams.get("m") ?? PLUGIN_METHOD_ENTRIES[0]?.typeName ?? "";
+  const registry = useReflectionRegistry(30_000);
 
-  const [selectedTypeName, setSelectedTypeName] = useState(initialTypeName);
+  const [selectedKey, setSelectedKey] = useState<string>(searchParams.get("m") ?? "");
   const [filter, setFilter] = useState("");
-  const [expanded, setExpanded] = useState<Set<string>>(() => {
-    const entry = PLUGIN_METHOD_ENTRIES.find((e) => e.typeName === initialTypeName);
-    return new Set(entry ? [entry.plugin] : []);
-  });
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
   const payloadsRef = useRef<PersistedPayloads>(loadPayloads());
-  const [payload, setPayload] = useState<string>(payloadsRef.current[initialTypeName] ?? "{}");
+  const [payload, setPayload] = useState<string>("{}");
   const [status, setStatus] = useState<Status>("idle");
   const [response, setResponse] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
   const [elapsedMs, setElapsedMs] = useState<number | null>(null);
 
-  const selected = useMemo(
-    () => PLUGIN_METHOD_ENTRIES.find((e) => e.typeName === selectedTypeName) ?? PLUGIN_METHOD_ENTRIES[0],
-    [selectedTypeName],
-  );
+  // Resolve the current selection out of the live registry each render.
+  const selection = useMemo<Selection | null>(() => {
+    for (const svc of registry.services) {
+      for (const m of svc.methods) {
+        if (methodKey(svc, m) === selectedKey) {
+          return { service: svc, method: m, key: selectedKey };
+        }
+      }
+    }
+    // Default to first method with a codec once reflection lands.
+    for (const svc of registry.services) {
+      for (const m of svc.methods) {
+        if (hasCodec(svc.name, m.name)) {
+          const key = methodKey(svc, m);
+          return { service: svc, method: m, key };
+        }
+      }
+    }
+    // Or the first method at all.
+    const first = registry.services.find((s) => s.methods.length > 0);
+    if (first) {
+      const m = first.methods[0];
+      return { service: first, method: m, key: methodKey(first, m) };
+    }
+    return null;
+  }, [registry.services, selectedKey]);
 
-  // Persist selection to URL; load payload for the new method.
+  // Sync URL + payload when selection changes.
   useEffect(() => {
-    if (!selected) return;
-    const next = new URLSearchParams(searchParams);
-    next.set("m", selected.typeName);
-    setSearchParams(next, { replace: true });
-    setPayload(payloadsRef.current[selected.typeName] ?? "{}");
+    if (!selection) return;
+    if (searchParams.get("m") !== selection.key) {
+      const next = new URLSearchParams(searchParams);
+      next.set("m", selection.key);
+      setSearchParams(next, { replace: true });
+    }
+    setPayload(payloadsRef.current[selection.key] ?? "{}");
     setStatus("idle");
     setResponse(null);
     setError(null);
     setElapsedMs(null);
+    // Auto-expand the containing service group.
+    setExpanded((prev) => {
+      if (prev.has(selection.service.name)) return prev;
+      const next = new Set(prev);
+      next.add(selection.service.name);
+      return next;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected?.typeName]);
+  }, [selection?.key]);
 
-  const filteredGroups = useMemo(() => {
-    if (!filter) return groupedByPlugin;
+  const filteredServices = useMemo(() => {
+    if (!filter) return registry.services;
     const needle = filter.toLowerCase();
-    return groupedByPlugin
-      .map(([plugin, entries]) => {
-        const matched = entries.filter(
-          (e) =>
-            e.method.toLowerCase().includes(needle) ||
-            e.typeName.toLowerCase().includes(needle) ||
-            (e.subid ?? "").toLowerCase().includes(needle) ||
-            plugin.toLowerCase().includes(needle),
-        );
-        return [plugin, matched] as const;
-      })
-      .filter(([, entries]) => entries.length > 0);
-  }, [filter]);
+    return registry.services
+      .map((s) => ({
+        ...s,
+        methods: s.methods.filter(
+          (m) =>
+            m.name.toLowerCase().includes(needle) ||
+            s.name.toLowerCase().includes(needle) ||
+            m.inputType.toLowerCase().includes(needle) ||
+            m.outputType.toLowerCase().includes(needle),
+        ),
+      }))
+      .filter((s) => s.methods.length > 0);
+  }, [filter, registry.services]);
 
-  // Auto-expand groups when filtering surfaces matches.
   useEffect(() => {
     if (!filter) return;
-    setExpanded(new Set(filteredGroups.map(([p]) => p)));
-  }, [filter, filteredGroups]);
+    setExpanded(new Set(filteredServices.map((s) => s.name)));
+  }, [filter, filteredServices]);
 
-  const toggleGroup = (plugin: string) =>
+  const toggleGroup = (name: string) =>
     setExpanded((prev) => {
       const next = new Set(prev);
-      if (next.has(plugin)) next.delete(plugin);
-      else next.add(plugin);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
       return next;
     });
 
+  const totalMethods = registry.services.reduce((n, s) => n + s.methods.length, 0);
+  const filteredCount = filteredServices.reduce((n, s) => n + s.methods.length, 0);
+
+  const canInvoke =
+    !!selection &&
+    !selection.method.clientStreaming &&
+    !selection.method.serverStreaming &&
+    hasCodec(selection.service.name, selection.method.name);
+
   const invoke = async () => {
-    if (!selected) return;
+    if (!selection || !canInvoke) return;
     let input: object;
     try {
       const parsed = payload.trim() === "" ? {} : JSON.parse(payload);
@@ -137,8 +192,7 @@ export default function InvokePage() {
       return;
     }
 
-    // Persist the last-good payload for this method.
-    payloadsRef.current[selected.typeName] = payload;
+    payloadsRef.current[selection.key] = payload;
     savePayloads(payloadsRef.current);
 
     setStatus("running");
@@ -147,10 +201,7 @@ export default function InvokePage() {
     setElapsedMs(null);
     const t0 = performance.now();
     try {
-      const out = await pluginMethods.callTypeName(
-        `${selected.typeName}/${selected.method}`,
-        input,
-      );
+      const out = await callUnary(selection.service.name, selection.method.name, input);
       setResponse(out);
       setStatus("ok");
     } catch (e) {
@@ -172,10 +223,31 @@ export default function InvokePage() {
     <>
       <PageHeader
         title="Invoke"
-        subtitle={`Call any of ${PLUGIN_METHOD_ENTRIES.length} generated plugin RPCs directly.`}
+        subtitle={
+          registry.loading && totalMethods === 0
+            ? "Discovering services via gRPC reflection…"
+            : registry.error
+              ? `Reflection error — ${registry.error}`
+              : `Live reflection · ${registry.services.length} services · ${totalMethods} methods`
+        }
+        actions={
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={registry.refresh}
+            disabled={registry.loading}
+            className="h-7 gap-1.5"
+          >
+            <RefreshCw className={cn("h-3 w-3", registry.loading && "animate-spin")} />
+            Refresh
+          </Button>
+        }
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-4" style={{ minHeight: "calc(100vh - 220px)" }}>
+      <div
+        className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-4"
+        style={{ minHeight: "calc(100vh - 220px)" }}
+      >
         {/* Method list */}
         <div className="rounded-lg border border-border bg-card overflow-hidden flex flex-col min-h-0">
           <div className="px-3 py-2 border-b border-border flex items-center gap-2">
@@ -187,17 +259,22 @@ export default function InvokePage() {
               className="h-7 text-xs font-mono border-0 bg-transparent focus-visible:ring-0 px-0"
             />
             <Badge variant="outline" className="text-[10px] font-mono">
-              {filteredGroups.reduce((n, [, es]) => n + es.length, 0)}
+              {filteredCount}
             </Badge>
           </div>
           <ScrollArea className="flex-1">
             <div className="p-1.5">
-              {filteredGroups.map(([plugin, entries]) => {
-                const isOpen = expanded.has(plugin);
+              {filteredServices.length === 0 && !registry.loading && (
+                <div className="px-3 py-6 text-xs text-muted-foreground text-center">
+                  {registry.error ? "Reflection unavailable." : "No services discovered."}
+                </div>
+              )}
+              {filteredServices.map((svc) => {
+                const isOpen = expanded.has(svc.name);
                 return (
-                  <div key={plugin} className="mb-0.5">
+                  <div key={svc.name} className="mb-0.5">
                     <button
-                      onClick={() => toggleGroup(plugin)}
+                      onClick={() => toggleGroup(svc.name)}
                       className="w-full flex items-center gap-1.5 px-2 py-1.5 rounded-md hover:bg-muted/30 text-left"
                     >
                       {isOpen ? (
@@ -205,28 +282,47 @@ export default function InvokePage() {
                       ) : (
                         <ChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />
                       )}
-                      <span className="font-mono text-xs font-semibold text-foreground truncate">{plugin}</span>
+                      <span
+                        className="font-mono text-xs font-semibold text-foreground truncate"
+                        title={svc.name}
+                      >
+                        {svc.name}
+                      </span>
                       <Badge variant="outline" className="ml-auto text-[10px] font-mono">
-                        {entries.length}
+                        {svc.methods.length}
                       </Badge>
                     </button>
                     {isOpen && (
                       <div className="ml-4 border-l border-border/50 pl-1.5 space-y-0.5">
-                        {entries.map((e) => (
-                          <button
-                            key={e.typeName}
-                            onClick={() => setSelectedTypeName(e.typeName)}
-                            className={cn(
-                              "w-full text-left px-2 py-1 rounded-md transition-colors font-mono text-[11px] truncate",
-                              selected?.typeName === e.typeName
-                                ? "bg-primary/10 text-primary"
-                                : "text-muted-foreground hover:bg-muted/30 hover:text-foreground",
-                            )}
-                            title={e.subid ?? undefined}
-                          >
-                            {e.method}
-                          </button>
-                        ))}
+                        {svc.methods.map((m) => {
+                          const key = methodKey(svc, m);
+                          const streaming = m.clientStreaming || m.serverStreaming;
+                          const invokable = !streaming && hasCodec(svc.name, m.name);
+                          const active = selection?.key === key;
+                          return (
+                            <button
+                              key={key}
+                              onClick={() => setSelectedKey(key)}
+                              className={cn(
+                                "w-full text-left px-2 py-1 rounded-md transition-colors font-mono text-[11px] truncate flex items-center gap-1.5",
+                                active
+                                  ? "bg-primary/10 text-primary"
+                                  : "text-muted-foreground hover:bg-muted/30 hover:text-foreground",
+                                !invokable && !active && "opacity-60",
+                              )}
+                              title={
+                                streaming
+                                  ? `${m.name} — streaming, use /explorer`
+                                  : !invokable
+                                    ? `${m.name} — no local codec (unknown proto)`
+                                    : `${m.name}(${m.inputType}) → ${m.outputType}`
+                              }
+                            >
+                              <span className="truncate">{m.name}</span>
+                              {streaming && <Radio className="h-2.5 w-2.5 shrink-0" />}
+                            </button>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -238,24 +334,30 @@ export default function InvokePage() {
 
         {/* Detail */}
         <div className="rounded-lg border border-border bg-card overflow-hidden flex flex-col min-h-0">
-          {!selected ? (
-            <div className="p-6 text-sm text-muted-foreground">No method selected.</div>
+          {!selection ? (
+            <div className="p-6 text-sm text-muted-foreground">
+              {registry.loading ? "Loading reflection…" : "No method selected."}
+            </div>
           ) : (
             <>
               <div className="px-3 py-2 border-b border-border flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex items-center gap-2 min-w-0">
                   <Zap className="h-3.5 w-3.5 text-primary shrink-0" />
                   <span className="font-mono text-sm font-semibold text-foreground truncate">
-                    {selected.plugin}.{selected.method}
+                    {selection.service.name}.{selection.method.name}
                   </span>
-                  {selected.subid && (
-                    <Badge variant="outline" className="text-[10px] font-mono">
-                      {selected.subid}
+                  {(selection.method.clientStreaming || selection.method.serverStreaming) && (
+                    <Badge variant="outline" className="text-[10px] font-mono border-info/40 text-info">
+                      {selection.method.clientStreaming && selection.method.serverStreaming
+                        ? "bidi stream"
+                        : selection.method.clientStreaming
+                          ? "client stream"
+                          : "server stream"}
                     </Badge>
                   )}
-                  {selected.capability && (
-                    <Badge variant="outline" className="text-[10px] font-mono border-info/40 text-info">
-                      {selected.capability}
+                  {!hasCodec(selection.service.name, selection.method.name) && (
+                    <Badge variant="outline" className="text-[10px] font-mono border-warning/40 text-warning">
+                      no codec
                     </Badge>
                   )}
                   <Badge
@@ -279,8 +381,13 @@ export default function InvokePage() {
                   <Button
                     size="sm"
                     onClick={invoke}
-                    disabled={status === "running"}
+                    disabled={status === "running" || !canInvoke}
                     className="h-7 gap-1.5"
+                    title={
+                      !canInvoke
+                        ? "Streaming or codec-less methods cannot be invoked from this console."
+                        : undefined
+                    }
                   >
                     <Play className="h-3 w-3" /> Invoke
                   </Button>
@@ -297,7 +404,9 @@ export default function InvokePage() {
               </div>
 
               <div className="px-3 py-1.5 border-b border-border text-[10px] font-mono text-muted-foreground truncate">
-                {selected.typeName}
+                <span className="text-foreground">in</span> {selection.method.inputType || "?"}
+                <span className="mx-2 text-border">→</span>
+                <span className="text-foreground">out</span> {selection.method.outputType || "?"}
               </div>
 
               <div className="grid grid-rows-[minmax(160px,1fr)_1fr] flex-1 min-h-0">
@@ -317,7 +426,7 @@ export default function InvokePage() {
                     }}
                     spellCheck={false}
                     className="flex-1 font-mono text-xs resize-none rounded-none border-0 focus-visible:ring-0 bg-transparent"
-                    placeholder='{ }'
+                    placeholder="{ }"
                   />
                 </div>
 
@@ -328,14 +437,18 @@ export default function InvokePage() {
                   </div>
                   <div className="flex-1 min-h-0 overflow-hidden">
                     {error ? (
-                      <div className="p-3 text-xs font-mono text-danger whitespace-pre-wrap">{error}</div>
+                      <div className="p-3 text-xs font-mono text-danger whitespace-pre-wrap">
+                        {error}
+                      </div>
                     ) : response !== null ? (
                       <JsonRenderer data={response} fillHeight />
                     ) : (
                       <div className="p-3 text-xs font-mono text-muted-foreground">
                         {status === "running"
                           ? "Invoking…"
-                          : "Press Invoke (or ⌘/Ctrl+Enter) to call this method."}
+                          : canInvoke
+                            ? "Press Invoke (or ⌘/Ctrl+Enter) to call this method."
+                            : "This method cannot be invoked from the console."}
                       </div>
                     )}
                   </div>
