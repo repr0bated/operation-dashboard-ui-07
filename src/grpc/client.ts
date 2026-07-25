@@ -1838,7 +1838,6 @@ import type {
 import type {
   MemoryNamespace,
   SetMemoryNamespaceRequest,
-  ListMemoryNamespacesResponse,
 } from "./gen/assistant/namespace";
 
 import type {

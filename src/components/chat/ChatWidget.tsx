@@ -3,7 +3,7 @@ import { Callout } from "@/components/shell/Primitives";
 import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubble";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
-import type { ChatFrame } from "@/grpc/gen/chat";
+import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 
 /** Coerce arbitrary backend content into a renderable string. */
