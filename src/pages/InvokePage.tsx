@@ -235,8 +235,8 @@ export default function InvokePage() {
         subtitle={
           registry.loading && totalMethods === 0
             ? "Discovering services via gRPC reflection…"
-            : registry.error
-              ? `Reflection error — ${registry.error}`
+            : usingFallback
+              ? `Reflection unavailable${registry.error ? ` (${registry.error})` : ""} — showing ${services.length} compiled services · ${totalMethods} methods`
               : `Live reflection · ${services.length} services · ${totalMethods} methods`
         }
         actions={
