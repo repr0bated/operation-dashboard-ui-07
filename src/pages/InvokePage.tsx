@@ -80,7 +80,7 @@ export default function InvokePage() {
   // picker from the compiled protobuf-ts codec registry so the console stays
   // usable even if the backend proxy doesn't expose ServerReflection.
   const services: ReflectedService[] = useMemo(() => {
-    if (registry.services.length > 0) return registry.services;
+    if (registry.services.length > 0) return services;
     return getStaticServiceCatalog();
   }, [registry.services]);
   const usingFallback = registry.services.length === 0 && !registry.loading;
@@ -98,7 +98,7 @@ export default function InvokePage() {
 
   // Resolve the current selection out of the live registry each render.
   const selection = useMemo<Selection | null>(() => {
-    for (const svc of registry.services) {
+    for (const svc of services) {
       for (const m of svc.methods) {
         if (methodKey(svc, m) === selectedKey) {
           return { service: svc, method: m, key: selectedKey };
@@ -106,7 +106,7 @@ export default function InvokePage() {
       }
     }
     // Default to first method with a codec once reflection lands.
-    for (const svc of registry.services) {
+    for (const svc of services) {
       for (const m of svc.methods) {
         if (hasCodec(svc.name, m.name)) {
           const key = methodKey(svc, m);
@@ -115,13 +115,13 @@ export default function InvokePage() {
       }
     }
     // Or the first method at all.
-    const first = registry.services.find((s) => s.methods.length > 0);
+    const first = services.find((s) => s.methods.length > 0);
     if (first) {
       const m = first.methods[0];
       return { service: first, method: m, key: methodKey(first, m) };
     }
     return null;
-  }, [registry.services, selectedKey]);
+  }, [services, selectedKey]);
 
   // Sync URL + payload when selection changes.
   useEffect(() => {
@@ -147,9 +147,9 @@ export default function InvokePage() {
   }, [selection?.key]);
 
   const filteredServices = useMemo(() => {
-    if (!filter) return registry.services;
+    if (!filter) return services;
     const needle = filter.toLowerCase();
-    return registry.services
+    return services
       .map((s) => ({
         ...s,
         methods: s.methods.filter(
@@ -161,7 +161,7 @@ export default function InvokePage() {
         ),
       }))
       .filter((s) => s.methods.length > 0);
-  }, [filter, registry.services]);
+  }, [filter, services]);
 
   useEffect(() => {
     if (!filter) return;
@@ -176,7 +176,7 @@ export default function InvokePage() {
       return next;
     });
 
-  const totalMethods = registry.services.reduce((n, s) => n + s.methods.length, 0);
+  const totalMethods = services.reduce((n, s) => n + s.methods.length, 0);
   const filteredCount = filteredServices.reduce((n, s) => n + s.methods.length, 0);
 
   const canInvoke =
@@ -237,7 +237,7 @@ export default function InvokePage() {
             ? "Discovering services via gRPC reflection…"
             : registry.error
               ? `Reflection error — ${registry.error}`
-              : `Live reflection · ${registry.services.length} services · ${totalMethods} methods`
+              : `Live reflection · ${services.length} services · ${totalMethods} methods`
         }
         actions={
           <Button
