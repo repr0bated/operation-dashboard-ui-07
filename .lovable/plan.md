@@ -1,72 +1,52 @@
 ## Goal
 
-A new **Reflection** page that talks to `grpc.reflection.v1.ServerReflection` on the bridge and shows the *live* set of services + methods (and their input/output message types) projected from whatever D-Bus plugin objects are currently registered. The list re-syncs automatically so new plugins appear without a reload.
+Turn the current Operation Dashboard into a reusable **JSON Render base app**: a trusted shell + trusted component catalog + capability-filtered navigation + route/page specs rendered into a single content region. Existing routes and pages keep working via a fallback adapter; Overview becomes the first spec-rendered page.
 
-The existing `GrpcExplorerPage` keeps its hand-curated streams. This new view is the schemaless, "what's actually on the wire right now" counterpart.
+No visual redesign, no new backend, no destructive rewrites. Existing `@json-render/core` and `@json-render/react` are already installed and in use — we build on them.
 
-## What gets built
-
-### 1. Reflection proto + client
-- Add `proto/reflection/v1/reflection.proto` (the canonical `grpc.reflection.v1` definitions: `ServerReflectionRequest`, `ServerReflectionResponse`, `ListServiceResponse`, `FileDescriptorResponse`, etc.).
-- Wire it into the existing `protoc` codegen pipeline so `src/grpc/gen/reflection/v1/reflection.{ts,client.ts}` is produced alongside the others.
-- Add `getServerReflectionClient()` to `src/grpc/transport.ts`.
-
-### 2. Descriptor decoder
-- `src/lib/reflection/decode.ts` — feed `FileDescriptorProto` bytes (returned by reflection) into `protobufjs`'s `Root.fromDescriptor` to build an in-memory `Root` that knows every service, method, and message.
-- Use `protobufjs/minimal` plus the descriptor-decoding helpers (already a transitive dep of `@protobuf-ts/runtime`, will add `protobufjs` explicitly if missing).
-- Export typed records:
-  ```ts
-  type ReflectedMethod = {
-    service: string; method: string;
-    inputType: string; outputType: string;
-    clientStreaming: boolean; serverStreaming: boolean;
-  };
-  type ReflectedService = { fullName: string; methods: ReflectedMethod[]; fileName: string; };
-  ```
-
-### 3. Live registry hook
-- `src/hooks/use-reflection-registry.ts`
-  - Opens a single bidi `ServerReflectionInfo` stream.
-  - Sends `ListServices` on connect, then `FileContainingSymbol` for each unseen service.
-  - Stores results in a Zustand slice (`useReflectionStore`) keyed by service full name.
-  - Re-polls `ListServices` every N seconds (default 5s) **and** on a `ComponentRegistry.Watch` event (plugins come/go signal), so newly minted D-Bus-backed services show up promptly without rebuilding the descriptor cache from scratch.
-  - Diff old vs new service set → emits `added` / `removed` for UI badges.
-
-### 4. Page: `src/pages/ReflectionPage.tsx`
-- Route `/reflection`, added to `AppShell` nav under the gRPC section.
-- Layout: left rail = service tree (grouped by proto file / package), right pane = selected service detail.
-- Service detail shows:
-  - Full name, source file, method count.
-  - Methods table: name, kind (unary / server-stream / client-stream / bidi), input type, output type.
-  - Click a message type → side drawer with the decoded `MessageDescriptor` (fields, types, repeated/optional, nested enums) using the existing `SchemaRenderer`.
-- Header chips: total services, total methods, "+N new" since last poll, last-sync timestamp, refresh button.
-- Empty / loading / error states use existing `PageHeader` + `Card` primitives.
-- "Open in Explorer" button on streaming methods deep-links to `/explorer?method=…` when the method id is also in the curated catalog; otherwise greyed with tooltip "not yet in invoke catalog".
-
-### 5. Tests
-- `src/lib/reflection/decode.test.ts` — feed a fixture `FileDescriptorSet` (a couple of the project's existing protos compiled with `protoc --descriptor_set_out`) and assert the parsed service/method shape.
-- `src/hooks/use-reflection-registry.test.ts` — mocked transport that emits two ListServices snapshots with a new service in the second; assert the store diff fires `added`.
-
-## Technical notes
+## New structure
 
 ```text
-┌──────────────────┐  bidi stream   ┌──────────────────────────┐
-│ ReflectionPage   │ ─────────────▶ │ grpc.reflection.v1       │
-│   useReflection  │ ◀───────────── │ ServerReflectionInfo     │
-│   Registry()     │  FileDesc+List │ (op-grpc-bridge)         │
-└────────┬─────────┘                └──────────────────────────┘
-         │                                  ▲
-         │ ComponentRegistry.Watch          │ dbus object
-         ▼                                  │ created/destroyed
-   re-list services ────────────────────────┘
+src/json-render/
+  catalog/
+    shell.tsx           shell primitives: appShell, header, sidebar, navGroup, navItem, contentRegion, statusBanner, pageHeader
+    dashboard.tsx       reuses Card, StatCard, Pill, StatusDot, Callout, JsonRenderer, JsonValueRenderer
+    index.ts            merges both into `baseRegistry` (extends existing `jsonRenderRegistry`)
+  navigation/
+    manifest.ts         NavItem { id, label, route, icon, section, order, requiredCapabilities? }
+    capabilities.ts     hasCapability(user, cap) — stub returning true today; wired to future capability source
+  shell/
+    shellSpec.ts        base Spec with explicit `content` slot element id
+    ShellRenderer.tsx   renders shellSpec via <Renderer>, injects nav manifest + slot children
+  pages/
+    overview.spec.ts    Overview page as a JSON Render Spec using dashboard catalog
+  runtime/
+    JsonRenderProvider.tsx   context: registry, capabilities, current route, slot registry
+    PageSpecOutlet.tsx       resolves current route → page spec, else renders <Outlet/> fallback
+  index.ts              public exports
 ```
 
-- Reflection responses are deduped by file name (`FileDescriptorProto.name`) so descriptors are only parsed once even if many services share a file.
-- All work is client-side projection; no backend changes are required as long as `op-grpc-bridge` already enables `tonic-reflection` (the Rust `.zeroclaw/` GUI uses it, so it's on).
-- Pure presentation — fits "all UI rendering goes through json-render.dev" because the per-method/message detail uses the existing `SchemaRenderer`, not a bespoke widget.
+## Approach (incremental, no rewrites)
 
-## Out of scope (follow-ups)
+1. **Catalog extraction.** Wrap existing components (`AppShell` header/sidebar bits, `PageHeader`, `Card`, `StatCard`, `Pill`, `StatusDot`, `Callout`, `ErrorBanner`, `EmptyState`, `JsonRenderer`) as json-render components. No visual changes — thin adapters mapping `element.props`/`children` to existing React components.
+2. **Nav manifest.** Read the current sidebar sections in `AppShell.tsx` and port them verbatim into `navigation/manifest.ts` typed as `NavItem[]`. `AppShell` keeps rendering, but now iterates the manifest (filtered by capabilities) instead of hard-coded arrays. Icons resolved via a `lucide-react` name map.
+3. **Shell spec.** `shellSpec.ts` describes the permanent chrome: `appShell → { header, sidebar(navGroups from manifest), main → { pageHeader?, statusBanner?, contentRegion(id: "content") } }`. `contentRegion` is a **slot** — its children are provided at render time by `PageSpecOutlet`.
+4. **Runtime.** `JsonRenderProvider` holds the registry + capability checker + a slot map. `PageSpecOutlet` looks up the active route in a `pageSpecs` map; if present, renders that spec into the `content` slot; otherwise renders React Router `<Outlet/>` (the existing pages). This preserves every current route.
+5. **Overview spec.** Convert `OverviewPage.tsx` into `overview.spec.ts` using the dashboard catalog (`card`, `statCard`, `pill`, `pageHeader`, `row`, `container`). Existing page component stays until spec parity is verified, then the route swaps to spec rendering.
+6. **App wiring.** `App.tsx` wraps routes in `JsonRenderProvider`; `AppShell` becomes a thin bridge that renders `ShellRenderer` + `PageSpecOutlet`. Existing routes/components untouched.
+7. **Types & build.** Strict types on `NavItem`, `PageSpec`, `Capability`. Run `tsgo` and fix anything the refactor breaks.
 
-- Dynamic *invocation* of arbitrary unary methods from the Reflection view (the Rust GUI has this; the web version would need a `DynamicMessage` encoder — separate task).
-- Persisting reflected descriptors to disk / IndexedDB for offline browsing.
-- Surfacing the underlying D-Bus object path for each reflected service (needs a bridge-side annotation; tracked separately).
+## Non-goals
+
+- No new backend, Supabase tables, or fake data.
+- No redesign, no color/spacing changes.
+- No removal of pages, routes, or gRPC wiring.
+- Not converting every page to a spec — only Overview in this pass; the rest render via the fallback outlet.
+
+## Deliverables
+
+- `src/json-render/` tree above, populated.
+- `AppShell` reads from `navigation/manifest.ts` (behavior identical).
+- Overview route renders from `overview.spec.ts`.
+- All other routes continue to work via the fallback outlet inside the same shell.
+- `tsgo` clean.
