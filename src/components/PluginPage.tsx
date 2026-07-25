@@ -121,8 +121,8 @@ export function schemaToSpec(schema: PluginSchemaShape, pluginId: string): Spec 
   const elements: Record<string, unknown> = {};
   const rootChildren: string[] = [];
 
-  const add = (key: string, element: unknown) => {
-    elements[key] = element;
+  const add = (key: string, element: Record<string, unknown>) => {
+    elements[key] = { bindings: {}, ...element };
     return key;
   };
 
