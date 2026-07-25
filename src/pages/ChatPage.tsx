@@ -8,7 +8,7 @@ import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
-import type { ChatFrame } from "@/grpc/gen/chat";
+import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 import { X, Maximize2, MessageSquare, FileText, ScrollText } from "lucide-react";
 
@@ -105,7 +105,7 @@ export default function ChatPage() {
         const frame = value as ChatFrame;
         const body = frame.body;
         if (body.oneofKind === "part") {
-          const part = body.part;
+          const part = (body as { oneofKind: "part"; part: UIMessagePart }).part;
           const payload = new TextDecoder().decode(part.payload);
           let content = payload;
           if (part.kind !== "text") {
@@ -119,13 +119,14 @@ export default function ChatPage() {
           };
           setMessages((prev) => [...prev, assistantMsg]);
         } else if (body.oneofKind === "error") {
-          setError(body.error.message);
+          const err = (body as { oneofKind: "error"; error: StreamError }).error;
+          setError(err.message);
           setMessages((prev) => [
             ...prev,
-            { id: makeId("err"), role: "system", content: body.error.message, timestamp: Date.now() },
+            { id: makeId("err"), role: "system", content: err.message, timestamp: Date.now() },
           ]);
         } else if (body.oneofKind === "approval") {
-          const approval = body.approval;
+          const approval = (body as { oneofKind: "approval"; approval: ApprovalRequired }).approval;
           const input = new TextDecoder().decode(approval.toolInput);
           setMessages((prev) => [
             ...prev,

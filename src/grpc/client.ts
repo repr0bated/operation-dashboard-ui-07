@@ -39,7 +39,11 @@ import { McpService as McpServiceSvc } from "./gen/mcp";
 import { ServiceManager as ServiceManagerSvc } from "./gen/services";
 import { ChatService as ChatServiceSvc } from "./gen/chat";
 import { SoulService as SoulServiceSvc } from "./gen/assistant/soul";
-import { NamespaceMemoryService as NamespaceMemoryServiceSvc } from "./gen/assistant/namespace";
+import {
+  NamespaceMemoryService as NamespaceMemoryServiceSvc,
+  ListMemoryNamespacesRequest,
+  ListMemoryNamespacesResponse,
+} from "./gen/assistant/namespace";
 import { AntigravityService as AntigravityServiceSvc } from "./gen/plugin_methods_unified";
 
 /**
@@ -1834,7 +1838,6 @@ import type {
 import type {
   MemoryNamespace,
   SetMemoryNamespaceRequest,
-  ListMemoryNamespacesResponse,
 } from "./gen/assistant/namespace";
 
 import type {

@@ -57,7 +57,7 @@ export default function GalleryPage() {
       const surfaces = resp.state?.uiSurfaces ?? [];
       const mapped = surfaces.map((s, i) => ({
         id: `antigravity-${i}-${Date.now()}`,
-        spec: structToObject(s) as Spec,
+        spec: structToObject(s as unknown as Record<string, unknown>) as unknown as Spec,
       }));
       setAntigravitySpecs(mapped);
     } catch (e) {
