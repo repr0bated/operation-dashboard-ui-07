@@ -10,7 +10,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { Renderer } from "@json-render/react";
 import type { Spec } from "@json-render/core";
 import { useJsonRender } from "./JsonRenderProvider";
-import { overviewSpec } from "@/json-render/pages/overview.spec";
+import { overviewSpec } from "@/json-render/pages/overview.pagespec";
 
 /**
  * Path → Spec map. Add new entries as pages are converted.

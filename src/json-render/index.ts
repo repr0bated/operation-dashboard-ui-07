@@ -11,7 +11,7 @@ export { SpecPage } from "./runtime/SpecPage";
 
 export { ShellRenderer } from "./shell/ShellRenderer";
 export { shellSpec, CONTENT_SLOT } from "./shell/shellSpec";
-export { overviewSpec } from "./pages/overview.spec";
+export { overviewSpec } from "./pages/overview.pagespec";
 export {
   NAV_MANIFEST,
   SECTION_ORDER,

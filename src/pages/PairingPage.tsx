@@ -25,6 +25,22 @@ type Props = {
   onPaired: (session: PairSession) => void;
 };
 
+/**
+ * The paircode endpoint, on whatever origin is actually serving this page.
+ *
+ * Hardcoding 127.0.0.1 only works when you are shelled into the host — from a
+ * browser on 10.0.0.2, the mesh, or the public edge it is a command that
+ * cannot succeed. The origin that just served this page is reachable by
+ * definition, so derive from it.
+ */
+function paircodeEndpoint(): string {
+  const origin =
+    typeof window !== "undefined" && window.location?.origin
+      ? window.location.origin
+      : "http://127.0.0.1:8080";
+  return `${origin}/admin/paircode/new`;
+}
+
 const PairingPage = ({ reason, onPaired }: Props) => {
   const [code, setCode] = useState("");
   const [deviceName, setDeviceName] = useState("dashboard");
@@ -177,9 +193,9 @@ const PairingPage = ({ reason, onPaired }: Props) => {
           </div>
 
           <p className="text-center text-xs text-muted-foreground">
-            On the host:{" "}
+            To mint a code:{" "}
             <code className="rounded bg-muted px-1 py-0.5">
-              curl -X POST http://127.0.0.1:8080/admin/paircode/new
+              curl -X POST {paircodeEndpoint()}
             </code>
           </p>
         </CardContent>
