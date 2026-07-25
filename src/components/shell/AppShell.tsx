@@ -31,6 +31,12 @@ import {
   Eye,
   Activity,
   Package,
+  Webhook,
+  Wifi,
+  Puzzle,
+  AlertTriangle,
+  Usb,
+  Key,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StatusDot, Pill } from "@/components/shell/Primitives";
@@ -86,12 +92,23 @@ const NAV_GROUPS = [
     ],
   },
   {
+    label: "ZeroClaw",
+    items: [
+      { title: "Gateway", path: "/gateway", icon: Webhook },
+      { title: "Channels", path: "/channels", icon: Wifi },
+      { title: "Cron", path: "/cron", icon: Clock },
+      { title: "Integrations", path: "/integrations", icon: Puzzle },
+      { title: "Hardware", path: "/hardware", icon: Usb },
+    ],
+  },
+  {
     label: "Settings",
     items: [
       { title: "Config", path: "/config", icon: Settings },
       { title: "Inspector", path: "/inspector", icon: Bug },
       { title: "State", path: "/state", icon: Monitor },
       { title: "Logs", path: "/logs", icon: ScrollText },
+      { title: "E-Stop", path: "/estop", icon: AlertTriangle },
       { title: "gRPC Diagnostics", path: "/grpc", icon: Radio },
       { title: "gRPC Explorer", path: "/explorer", icon: Radio },
     ],

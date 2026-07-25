@@ -41,6 +41,12 @@ import BlobsPage from "./pages/BlobsPage";
 import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
 import PairingPage from "./pages/PairingPage";
+import GatewayPage from "./pages/GatewayPage";
+import ChannelsPage from "./pages/ChannelsPage";
+import CronPage from "./pages/CronPage";
+import IntegrationsPage from "./pages/IntegrationsPage";
+import EStopPage from "./pages/EStopPage";
+import HardwarePage from "./pages/HardwarePage";
 import {
   resolveIdentity,
   type IdentityStatus,
@@ -92,6 +98,12 @@ function ShellRoutes() {
         <Route path="/embedding" element={<EmbeddingPipelinePage />} />
         <Route path="/assistant" element={<AssistantPage />} />
         <Route path="/blobs" element={<BlobsPage />} />
+        <Route path="/gateway" element={<GatewayPage />} />
+        <Route path="/channels" element={<ChannelsPage />} />
+        <Route path="/cron" element={<CronPage />} />
+        <Route path="/integrations" element={<IntegrationsPage />} />
+        <Route path="/estop" element={<EStopPage />} />
+        <Route path="/hardware" element={<HardwarePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AppShell>
