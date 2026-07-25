@@ -8,7 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppShell } from "@/components/shell/AppShell";
 import { useEventStream } from "@/hooks/use-event-stream";
-import OverviewPage from "./pages/OverviewPage";
+import { JsonRenderProvider, SpecPage, overviewSpec } from "@/json-render";
+
 import ChatPage from "./pages/ChatPage";
 import ToolsPage from "./pages/ToolsPage";
 import RoutableModelsPage from "./pages/RoutableModelsPage";
@@ -68,9 +69,11 @@ const queryClient = new QueryClient({
 function ShellRoutes() {
   useEventStream();
   return (
-    <AppShell>
-      <Routes>
-        <Route path="/" element={<OverviewPage />} />
+    <JsonRenderProvider>
+      <AppShell>
+        <Routes>
+          <Route path="/" element={<SpecPage spec={overviewSpec} />} />
+
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/catalog" element={<CatalogPage />} />

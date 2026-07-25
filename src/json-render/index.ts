@@ -7,6 +7,8 @@
 export { baseRegistry, shellCatalog, dashboardCatalog } from "./catalog";
 export { JsonRenderProvider, useJsonRender, useSlot } from "./runtime/JsonRenderProvider";
 export { PageSpecOutlet, pageSpecs } from "./runtime/PageSpecOutlet";
+export { SpecPage } from "./runtime/SpecPage";
+
 export { ShellRenderer } from "./shell/ShellRenderer";
 export { shellSpec, CONTENT_SLOT } from "./shell/shellSpec";
 export { overviewSpec } from "./pages/overview.spec";
