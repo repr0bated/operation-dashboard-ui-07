@@ -76,6 +76,15 @@ export default function InvokePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const registry = useReflectionRegistry(30_000);
 
+  // Static fallback: when reflection fails or returns nothing, drive the
+  // picker from the compiled protobuf-ts codec registry so the console stays
+  // usable even if the backend proxy doesn't expose ServerReflection.
+  const services: ReflectedService[] = useMemo(() => {
+    if (registry.services.length > 0) return registry.services;
+    return getStaticServiceCatalog();
+  }, [registry.services]);
+  const usingFallback = registry.services.length === 0 && !registry.loading;
+
   const [selectedKey, setSelectedKey] = useState<string>(searchParams.get("m") ?? "");
   const [filter, setFilter] = useState("");
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
