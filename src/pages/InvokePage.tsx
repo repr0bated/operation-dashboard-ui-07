@@ -30,7 +30,7 @@ import {
   Radio,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { callUnary, hasCodec } from "@/grpc/client";
+import { callUnary, hasCodec, getStaticServiceCatalog } from "@/grpc/client";
 import {
   useReflectionRegistry,
   type ReflectedMethod,
