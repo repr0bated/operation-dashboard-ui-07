@@ -1,150 +1,32 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  MessageSquare,
-  BarChart3,
-  Link2,
-  Radio,
   FileText,
-  Clock,
-  Folder,
-  Zap,
-  Monitor,
-  Settings,
-  Bug,
-  ScrollText,
   Sun,
   Moon,
   Laptop,
   Menu,
   Shield,
-  GitBranch,
-  Orbit,
-  Box,
-  Globe,
-  Network,
-  Workflow,
-  Brain,
-  Bot,
-  Moon as DreamIcon,
-  Sparkles,
-  Eye,
-  Activity,
-  Package,
-  Webhook,
-  Wifi,
-  Puzzle,
-  AlertTriangle,
-  Usb,
-  Key,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StatusDot, Pill } from "@/components/shell/Primitives";
 import { useTheme } from "@/hooks/use-theme";
 import { useEventStore } from "@/stores/event-store";
+import { NAV_MANIFEST, buildNavGroups } from "@/json-render/navigation/manifest";
+import { ALLOW_ALL } from "@/json-render/navigation/capabilities";
+import { resolveIcon } from "@/json-render/navigation/icons";
 
-/** Axon nav groups */
-const NAV_GROUPS = [
-  {
-    label: "Chat",
-    items: [{ title: "Chat", path: "/chat", icon: MessageSquare }],
-  },
-  {
-    label: "UI Model",
-    items: [
-      { title: "Gallery", path: "/gallery", icon: Sparkles },
-      { title: "Catalog", path: "/catalog", icon: FileText },
-    ],
-  },
-  {
-    label: "Control",
-    items: [
-      { title: "Overview", path: "/", icon: BarChart3 },
-      { title: "Orchestration", path: "/orchestration", icon: Orbit },
-      { title: "Services", path: "/services", icon: Link2 },
-      { title: "LLM", path: "/llm", icon: Radio },
-    ],
-  },
-  {
-    label: "Agent",
-    items: [
-      { title: "Agents", path: "/agents", icon: Folder },
-      { title: "Assistant", path: "/assistant", icon: Bot },
-      { title: "Routable Models", path: "/models", icon: Radio },
-      { title: "Tools", path: "/tools", icon: Zap },
-      { title: "Workflows", path: "/workflows", icon: GitBranch },
-      { title: "Security", path: "/security", icon: Shield },
-      { title: "Accountability", path: "/accountability", icon: ScrollText },
-      { title: "Skills", path: "/skills", icon: ScrollText },
-      { title: "Knowledge", path: "/knowledge", icon: Brain },
-      { title: "Embedding Pipeline", path: "/embedding", icon: Orbit },
-    ],
-  },
-  {
-    label: "Infrastructure",
-    items: [
-      { title: "Containers", path: "/containers", icon: Box },
-      { title: "Privacy Network", path: "/privacy-network", icon: Globe },
-      { title: "Open vSwitch", path: "/ovs", icon: Network },
-      { title: "OpenFlow", path: "/openflow", icon: Workflow },
-      { title: "BTRFS Storage", path: "/btrfs", icon: Monitor },
-      { title: "Data Stores", path: "/data-stores", icon: Monitor },
-    ],
-  },
-  {
-    label: "ZeroClaw",
-    items: [
-      { title: "Gateway", path: "/gateway", icon: Webhook },
-      { title: "Channels", path: "/channels", icon: Wifi },
-      { title: "Cron", path: "/cron", icon: Clock },
-      { title: "Integrations", path: "/integrations", icon: Puzzle },
-      { title: "Hardware", path: "/hardware", icon: Usb },
-    ],
-  },
-  {
-    label: "Settings",
-    items: [
-      { title: "Config", path: "/config", icon: Settings },
-      { title: "Inspector", path: "/inspector", icon: Bug },
-      { title: "State", path: "/state", icon: Monitor },
-      { title: "Logs", path: "/logs", icon: ScrollText },
-      { title: "E-Stop", path: "/estop", icon: AlertTriangle },
-      { title: "gRPC Diagnostics", path: "/grpc", icon: Radio },
-      { title: "gRPC Explorer", path: "/explorer", icon: Radio },
-    ],
-  },
-  {
-    label: "Coming Soon",
-    items: [
-      { title: "Dreams", path: "/dreams", icon: DreamIcon, placeholder: true },
-      {
-        title: "Reflections",
-        path: "/reflections",
-        icon: Sparkles,
-        placeholder: true,
-      },
-      {
-        title: "Observability",
-        path: "/observability",
-        icon: Eye,
-        placeholder: true,
-      },
-      {
-        title: "Live Trace",
-        path: "/live-trace",
-        icon: Activity,
-        placeholder: true,
-      },
-    ],
-  },
-  {
-    label: "Blobs",
-    items: [
-      { title: "Sealed Blobs", path: "/blobs", icon: Package },
-      { title: "Plugins", path: "/plugins", icon: Package },
-    ],
-  },
-];
+/** Nav groups derived from the shared manifest (capability-filtered). */
+const NAV_GROUPS = buildNavGroups(NAV_MANIFEST, ALLOW_ALL).map((g) => ({
+  label: g.section,
+  items: g.items.map((it) => ({
+    title: it.label,
+    path: it.route,
+    icon: resolveIcon(it.icon),
+    placeholder: it.placeholder,
+  })),
+}));
+
 
 const themeIcons = { dark: Moon, light: Sun, system: Laptop } as const;
 
