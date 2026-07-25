@@ -80,6 +80,7 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "estop", label: "E-Stop", route: "/estop", icon: "AlertTriangle", section: "Settings", order: 50 },
   { id: "grpc", label: "gRPC Diagnostics", route: "/grpc", icon: "Radio", section: "Settings", order: 60 },
   { id: "explorer", label: "gRPC Explorer", route: "/explorer", icon: "Radio", section: "Settings", order: 70 },
+  { id: "invoke", label: "Invoke", route: "/invoke", icon: "Zap", section: "Settings", order: 80 },
 
   // Coming Soon (placeholders)
   { id: "dreams", label: "Dreams", route: "/dreams", icon: "Moon", section: "Coming Soon", order: 10, placeholder: true },

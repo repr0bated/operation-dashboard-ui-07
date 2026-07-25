@@ -36,6 +36,7 @@ import DataStoresPage from "./pages/DataStoresPage";
 import EmbeddingPipelinePage from "./pages/EmbeddingPipelinePage";
 import AssistantPage from "./pages/AssistantPage";
 import GrpcExplorerPage from "./pages/GrpcExplorerPage";
+import InvokePage from "./pages/InvokePage";
 import GalleryPage from "./pages/GalleryPage";
 import CatalogPage from "./pages/CatalogPage";
 import BlobsPage from "./pages/BlobsPage";
@@ -97,6 +98,7 @@ function ShellRoutes() {
         <Route path="/knowledge" element={<KnowledgePage />} />
         <Route path="/grpc" element={<GrpcDiagnosticsPage />} />
         <Route path="/explorer" element={<GrpcExplorerPage />} />
+        <Route path="/invoke" element={<InvokePage />} />
         <Route path="/accountability" element={<AccountabilityPage />} />
         <Route path="/btrfs" element={<BtrfsPage />} />
         <Route path="/data-stores" element={<DataStoresPage />} />
