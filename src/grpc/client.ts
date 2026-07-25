@@ -210,9 +210,6 @@ export async function callUnary<TResp = Record<string, unknown>>(
   return grpcUnary<unknown, TResp>(service, method, request);
 }
 
-function _lookupCodecShim(service: string, method: string): CodecPair | null {
-  return CODEC_REGISTRY.get(`${service}/${method}`) ?? null;
-}
 
 function encodeRequest(service: string, method: string, request: unknown): Uint8Array {
   const codec = lookupCodec(service, method);
