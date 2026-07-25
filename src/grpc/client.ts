@@ -199,6 +199,43 @@ export function hasCodec(service: string, method: string): boolean {
 }
 
 /**
+ * Static service catalog derived from the compiled protobuf-ts codec registry.
+ * Used as a fallback for the Invoke picker when gRPC reflection is unavailable.
+ */
+export interface StaticMethod {
+  name: string;
+  inputType: string;
+  outputType: string;
+  clientStreaming: boolean;
+  serverStreaming: boolean;
+}
+export interface StaticService {
+  name: string;
+  methods: StaticMethod[];
+}
+export function getStaticServiceCatalog(): StaticService[] {
+  const services: ServiceType[] = [
+    StateSyncSvc, PluginServiceSvc, EventChainServiceSvc, OvsdbMirrorSvc,
+    RuntimeMirrorSvc, DbusPassthroughSvc, ComponentRegistrySvc, MailServiceSvc,
+    PrivacyNetworkServiceSvc, RegistrationServiceSvc, McpServiceSvc,
+    ServiceManagerSvc as unknown as ServiceType, ChatServiceSvc, SoulServiceSvc,
+    NamespaceMemoryServiceSvc, AntigravityServiceSvc,
+  ];
+  return services
+    .map((svc) => ({
+      name: svc.typeName,
+      methods: svc.methods.map((m) => ({
+        name: m.name,
+        inputType: (m.I as { typeName?: string }).typeName ?? "",
+        outputType: (m.O as { typeName?: string }).typeName ?? "",
+        clientStreaming: !!(m as { clientStreaming?: boolean }).clientStreaming,
+        serverStreaming: !!(m as { serverStreaming?: boolean }).serverStreaming,
+      })),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/**
  * Generic unary caller for arbitrary reflection-discovered methods.
  * Requires a codec (see `hasCodec`).
  */
