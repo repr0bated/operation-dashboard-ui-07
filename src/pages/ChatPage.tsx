@@ -8,7 +8,7 @@ import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
-import type { ChatFrame } from "@/grpc/gen/chat";
+import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 import { X, Maximize2, MessageSquare, FileText, ScrollText } from "lucide-react";
 
