@@ -15,7 +15,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { soulService, namespaceMemoryService } from "@/grpc/client";
-import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
+import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import type { SoulMemory } from "@/grpc/gen/assistant/soul";
 import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";

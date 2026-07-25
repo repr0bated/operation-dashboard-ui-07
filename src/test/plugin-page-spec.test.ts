@@ -60,3 +60,45 @@ describe("schemaToSpec", () => {
     expect(elements["method-0"].props?.label).toBe("do_thing");
   });
 });
+
+import procfsSchema from "./fixtures/plugin-schema-procfs.json";
+
+/**
+ * procfs is the first plugin with genuinely nested field types. Before it was
+ * typed, every field was the string "any"; now `loadavg` is {object:{…}} and
+ * `mounts` is {array:{object:{…}}}. Interpolating those into a string yields
+ * "[object Object]", so the renderer has to walk them.
+ */
+describe("schemaToSpec with nested field types", () => {
+  it("renders a nested object field as a card of typed rows", () => {
+    const spec = schemaToSpec(procfsSchema, "procfs");
+    const els = spec.elements as Record<string, any>;
+    const loadavg = Object.values(els).find(
+      (e: any) => e.type === "card" && String(e.props?.title).startsWith("loadavg"),
+    );
+    expect(loadavg, "loadavg should render as its own card").toBeDefined();
+
+    const rows = (loadavg as any).children.map((k: string) => els[k].props);
+    const byLabel = Object.fromEntries(rows.map((r: any) => [r.label, r.value]));
+    expect(byLabel.load1).toBe("float");
+    expect(byLabel.procs_running).toBe("integer");
+  });
+
+  it("renders an array-of-objects field as its columns", () => {
+    const spec = schemaToSpec(procfsSchema, "procfs");
+    const els = spec.elements as Record<string, any>;
+    const mounts = Object.values(els).find(
+      (e: any) => e.type === "card" && String(e.props?.title).startsWith("mounts[]"),
+    );
+    expect(mounts, "mounts should render as a columns card").toBeDefined();
+
+    const labels = (mounts as any).children.map((k: string) => els[k].props.label);
+    expect(labels).toEqual(expect.arrayContaining(["device", "mountpoint", "fstype", "options"]));
+  });
+
+  it("never emits [object Object]", () => {
+    const spec = schemaToSpec(procfsSchema, "procfs");
+    const serialized = JSON.stringify(spec.elements);
+    expect(serialized).not.toContain("[object Object]");
+  });
+});

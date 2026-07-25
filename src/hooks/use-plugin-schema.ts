@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { resolveApiBase } from "@/lib/api";
 
 /**
  * Hook to read a plugin's schema from the sealed SHM blob catalog.
@@ -24,8 +25,14 @@ export function usePluginSchema(pluginId: string) {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`/api/plugin-schema/${pluginId}`);
+        const response = await fetch(`${resolveApiBase()}/plugin-schema/${encodeURIComponent(pluginId)}`);
         if (!response.ok) throw new Error(`Failed to load schema: ${response.statusText}`);
+        const ct = response.headers.get("content-type") ?? "";
+        if (!ct.includes("application/json")) {
+          // An HTML body here means the request fell through to the SPA
+          // fallback instead of reaching the API.
+          throw new Error(`schema returned ${ct || "unknown type"}, not JSON — check the API base`);
+        }
         const data = await response.json();
         if (!cancelled) setSchema(data);
       } catch (err) {

@@ -3,11 +3,11 @@
  *
  * Lists every plugin discovered in the auto-generated plugin-methods index and
  * renders the currently selected plugin's sealed-blob schema through
- * PluginSchemaPanel (fetched from /api/gemma/plugin-schema/:plugin).
+ * PluginSchemaPanel (fetched from /api/ui-model/plugin-schema/:plugin).
  */
 import { useMemo, useState } from "react";
 import { PLUGIN_METHOD_BY_PLUGIN } from "@/grpc/plugin-methods";
-import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
+import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Package, Search } from "lucide-react";
@@ -42,7 +42,7 @@ export default function BlobsPage() {
           </h1>
           <p className="text-xs text-muted-foreground mt-1 font-mono">
             {plugins.length} plugins · sealed-blob schemas served from
-            /api/gemma/plugin-schema/:plugin
+            /api/ui-model/plugin-schema/:plugin
           </p>
         </div>
       </header>

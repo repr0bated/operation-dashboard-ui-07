@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Spec } from "@json-render/core";
 import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
-import { SpecRenderer } from "@/components/gemma/SpecRenderer";
+import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
+import { resolveApiBase } from "@/lib/api";
 
 interface CatalogEntry {
   id: string;
@@ -27,7 +28,7 @@ export default function CatalogPage() {
 
   const load = useCallback(async () => {
     try {
-      const r = await fetch("/api/gemma/catalog");
+      const r = await fetch(`${resolveApiBase()}/ui-model/catalog`);
       if (!r.ok) throw new Error(`catalog HTTP ${r.status}`);
       const c: Catalog = await r.json();
       setEntries(c.entries ?? []);
@@ -46,7 +47,7 @@ export default function CatalogPage() {
   const remove = async (id: string) => {
     setBusy(id);
     try {
-      const r = await fetch(`/api/gemma/catalog/${id}`, { method: "DELETE" });
+      const r = await fetch(`${resolveApiBase()}/ui-model/catalog/${id}`, { method: "DELETE" });
       if (!r.ok && r.status !== 204) throw new Error(`delete HTTP ${r.status}`);
       setEntries((prev) => prev.filter((e) => e.id !== id));
     } catch (e) {
@@ -59,7 +60,7 @@ export default function CatalogPage() {
   return (
     <div className="space-y-4">
       <PageHeader
-        title="Gemma Catalog"
+        title="UI Model Catalog"
         subtitle="Finalized json-render specs promoted from the gallery."
       />
       {error && <Callout variant="danger">{error}</Callout>}

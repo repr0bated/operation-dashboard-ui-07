@@ -1,6 +1,6 @@
 /**
  * Renders a plugin's live sealed-blob schema via json-render. The schema is the
- * render source — fetched from `/api/gemma/plugin-schema/:plugin`, which reads
+ * render source — fetched from `/api/ui-model/plugin-schema/:plugin`, which reads
  * the sealed blob catalog. Used by both chat surfaces to surface the
  * `antigravity_chat` plugin schema.
  */
@@ -35,7 +35,7 @@ export function PluginSchemaPanel({
     setLoading(true);
     (async () => {
       try {
-        const r = await fetch(`${resolveApiBase()}/gemma/plugin-schema/${plugin}`);
+        const r = await fetch(`${resolveApiBase()}/ui-model/plugin-schema/${plugin}`);
         if (!r.ok) throw new Error(`schema HTTP ${r.status}`);
         const j: SchemaResponse = await r.json();
         if (!alive) return;

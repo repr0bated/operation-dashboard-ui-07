@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
+import { resolveApiBase } from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { Package, Search } from "lucide-react";
 
@@ -20,8 +21,12 @@ export default function PluginsPage() {
 
     async function load() {
       try {
-        const r = await fetch("/api/gemma/plugins");
+        const r = await fetch(`${resolveApiBase()}/plugins`);
         if (!r.ok) throw new Error(`plugins HTTP ${r.status}`);
+        const ct = r.headers.get("content-type") ?? "";
+        if (!ct.includes("application/json")) {
+          throw new Error(`plugins returned ${ct || "unknown type"}, not JSON — check the API base`);
+        }
         const body = await r.json();
         const ids: string[] = body.plugins ?? body.data?.plugins ?? [];
         if (!cancelled) {

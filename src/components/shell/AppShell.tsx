@@ -50,7 +50,7 @@ const NAV_GROUPS = [
     items: [{ title: "Chat", path: "/chat", icon: MessageSquare }],
   },
   {
-    label: "Gemma",
+    label: "UI Model",
     items: [
       { title: "Gallery", path: "/gallery", icon: Sparkles },
       { title: "Catalog", path: "/catalog", icon: FileText },

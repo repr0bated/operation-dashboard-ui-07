@@ -4,7 +4,7 @@ import { JsonRenderer } from "@/components/json/JsonRenderer";
 import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubble";
 import { SystemPromptEditor } from "@/components/chat/SystemPromptEditor";
 import { LiveLogPanel } from "@/components/chat/LiveLogPanel";
-import { PluginSchemaPanel } from "@/components/gemma/PluginSchemaPanel";
+import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";

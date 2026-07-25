@@ -41,7 +41,7 @@ export default PluginPage;
  * by name, not arrays.
  */
 interface SchemaField {
-  field_type?: string;
+  field_type?: string | Record<string, unknown>;
   description?: string | null;
   required?: boolean;
   read_only?: boolean;
@@ -67,6 +67,38 @@ interface PluginSchemaShape {
   fields?: Record<string, SchemaField> | SchemaField[];
   methods?: Record<string, SchemaMethod> | SchemaMethod[];
   guarantees?: Record<string, boolean>;
+}
+
+type FieldType = string | Record<string, unknown> | undefined;
+
+/** Readable name for a field type: "integer", "object", "array<object>". */
+function typeLabel(ft: FieldType): string {
+  if (!ft) return "unknown";
+  if (typeof ft === "string") return ft;
+  const [kind, inner] = Object.entries(ft)[0] ?? [];
+  if (kind === "array") return `array<${typeLabel(inner as FieldType)}>`;
+  if (kind === "enum") return "enum";
+  if (kind === "oneOf") return "oneOf";
+  return kind ?? "unknown";
+}
+
+/** The primitive name, for KV's colour coding. Nested shapes have none. */
+function primitiveOf(ft: FieldType): string | undefined {
+  return typeof ft === "string" ? ft : undefined;
+}
+
+/** Subfields when the type is an object, else null. */
+function objectShape(ft: FieldType): Record<string, SchemaField> | null {
+  if (!ft || typeof ft === "string") return null;
+  const obj = (ft as { object?: Record<string, SchemaField> }).object;
+  return obj ?? null;
+}
+
+/** Column shape when the type is an array of objects, else null. */
+function arrayRowShape(ft: FieldType): Record<string, SchemaField> | null {
+  if (!ft || typeof ft === "string") return null;
+  const item = (ft as { array?: unknown }).array;
+  return item ? objectShape(item as FieldType) : null;
 }
 
 /** Accept either the map form (sealed blob) or an array, always yield [key, value]. */
@@ -122,18 +154,67 @@ export function schemaToSpec(schema: PluginSchemaShape, pluginId: string): Spec 
   );
 
   // ── Fields ───────────────────────────────────────────────────────────────
+  // A field_type is either a primitive string ("integer") or a nested shape
+  // ({object:{…}} / {array:…}). Typed plugins are mostly the latter, so render
+  // the structure rather than stringifying it — `${ft}` on an object yields
+  // "[object Object]", which is how this looked before procfs was typed.
   const fields = entriesOf<SchemaField>(schema.fields);
   if (fields.length > 0) {
-    const fieldKeys = fields.map(([name, f], i) =>
-      add(`field-${i}`, {
-        type: "kv",
-        props: {
-          label: f.required ? `${name} *` : name,
-          value: f.read_only ? `${f.field_type ?? "unknown"} (read-only)` : f.field_type ?? "unknown",
-          kind: f.field_type,
-        },
-      }),
-    );
+    const fieldKeys: string[] = [];
+
+    fields.forEach(([name, f], i) => {
+      const label = f.required ? `${name} *` : name;
+      const shape = objectShape(f.field_type);
+      const rowShape = arrayRowShape(f.field_type);
+
+      if (shape && Object.keys(shape).length > 0) {
+        // Nested object: one row per subfield, so `loadavg` shows its floats.
+        const kids = Object.entries(shape).map(([sub, sf], j) =>
+          add(`field-${i}-${j}`, {
+            type: "kv",
+            props: { label: sub, value: typeLabel(sf?.field_type), kind: primitiveOf(sf?.field_type) },
+          }),
+        );
+        fieldKeys.push(
+          add(`field-${i}`, {
+            type: "card",
+            props: { title: `${label} · object` },
+            children: kids,
+          }),
+        );
+        return;
+      }
+
+      if (rowShape && Object.keys(rowShape).length > 0) {
+        // Array of objects: show the row's columns, e.g. `mounts[]`.
+        const kids = Object.entries(rowShape).map(([col, cf], j) =>
+          add(`field-${i}-${j}`, {
+            type: "kv",
+            props: { label: col, value: typeLabel(cf?.field_type), kind: primitiveOf(cf?.field_type) },
+          }),
+        );
+        fieldKeys.push(
+          add(`field-${i}`, {
+            type: "card",
+            props: { title: `${label}[] · ${Object.keys(rowShape).length} columns` },
+            children: kids,
+          }),
+        );
+        return;
+      }
+
+      fieldKeys.push(
+        add(`field-${i}`, {
+          type: "kv",
+          props: {
+            label,
+            value: f.read_only ? `${typeLabel(f.field_type)} (read-only)` : typeLabel(f.field_type),
+            kind: primitiveOf(f.field_type),
+          },
+        }),
+      );
+    });
+
     rootChildren.push(
       add("fields", {
         type: "card",

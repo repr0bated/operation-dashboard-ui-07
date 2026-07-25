@@ -106,7 +106,7 @@ npm install --legacy-peer-deps
 npm run dev          # http://127.0.0.1:5173/
 
 # 4) Production static for op-web
-./deploy-to-op-web.sh
+./ui-render-update.sh
 # → http://127.0.0.1:8080/
 ```
 
