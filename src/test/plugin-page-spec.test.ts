@@ -102,3 +102,15 @@ describe("schemaToSpec with nested field types", () => {
     expect(serialized).not.toContain("[object Object]");
   });
 });
+
+import { callUnary } from "@/grpc/client";
+
+describe("callUnary codec guard", () => {
+  it("throws rather than silently sending an empty request", async () => {
+    // encodeRequest falls back to an empty protobuf when no codec exists, which
+    // would make a reflection-picked method look like it succeeded with {}.
+    await expect(
+      callUnary("some.unknown.Service", "NoSuchMethod", {}),
+    ).rejects.toThrow(/No compiled protobuf codec/);
+  });
+});

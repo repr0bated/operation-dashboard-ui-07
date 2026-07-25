@@ -239,11 +239,32 @@ export function getStaticServiceCatalog(): StaticService[] {
  * Generic unary caller for arbitrary reflection-discovered methods.
  * Requires a codec (see `hasCodec`).
  */
+/**
+ * Invoke any unary RPC by name, for reflection-driven callers that pick a
+ * method at runtime rather than importing a generated stub.
+ *
+ * Strict about codecs on purpose. `encodeRequest` deliberately falls back to an
+ * empty protobuf for stub/view-type services, which is fine for the typed
+ * wrappers that opt into it — but for a caller that chose this method from a
+ * reflection listing, that fallback would send an empty request and hand back
+ * `{}` as though it had succeeded. A silent wrong-success is the worst failure
+ * shape to debug, so a missing codec is an error here instead.
+ *
+ * Callers should gate on {@link hasCodec} first; this throw is the backstop.
+ */
 export async function callUnary<TResp = Record<string, unknown>>(
   service: string,
   method: string,
   request: unknown,
 ): Promise<TResp> {
+  if (!hasCodec(service, method)) {
+    throw new Error(
+      `No compiled protobuf codec for ${service}/${method}. ` +
+        `The method exists on the server but this build cannot encode its ` +
+        `request or decode its response — regenerate protos (npm run proto:gen) ` +
+        `to invoke it.`,
+    );
+  }
   return grpcUnary<unknown, TResp>(service, method, request);
 }
 
