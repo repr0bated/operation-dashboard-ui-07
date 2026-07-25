@@ -141,14 +141,15 @@ async function discover(signal: AbortSignal): Promise<ReflectedService[]> {
   );
   const serviceNames = new Set<string>();
   for (const m of listResp) {
-    if (m.messageResponse.oneofKind === "listServicesResponse") {
-      for (const s of m.messageResponse.listServicesResponse.service) {
+    const mr = m.messageResponse;
+    if (mr.oneofKind === "listServicesResponse") {
+      for (const s of mr.listServicesResponse.service) {
         if (s.name && s.name !== "grpc.reflection.v1.ServerReflection") {
           serviceNames.add(s.name);
         }
       }
-    } else if (m.messageResponse.oneofKind === "errorResponse") {
-      throw new Error(m.messageResponse.errorResponse.errorMessage);
+    } else if (mr.oneofKind === "errorResponse") {
+      throw new Error(mr.errorResponse.errorMessage);
     }
   }
 
