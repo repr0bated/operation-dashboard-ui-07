@@ -193,6 +193,24 @@ function lookupCodec(service: string, method: string): CodecPair | null {
   return CODEC_REGISTRY.get(`${service}/${method}`) ?? null;
 }
 
+/** True iff a static protobuf-ts codec is registered for this service/method. */
+export function hasCodec(service: string, method: string): boolean {
+  return CODEC_REGISTRY.has(`${service}/${method}`);
+}
+
+/**
+ * Generic unary caller for arbitrary reflection-discovered methods.
+ * Requires a codec (see `hasCodec`).
+ */
+export async function callUnary<TResp = Record<string, unknown>>(
+  service: string,
+  method: string,
+  request: unknown,
+): Promise<TResp> {
+  return grpcUnary<unknown, TResp>(service, method, request);
+}
+
+
 function encodeRequest(service: string, method: string, request: unknown): Uint8Array {
   const codec = lookupCodec(service, method);
   if (!codec) {
