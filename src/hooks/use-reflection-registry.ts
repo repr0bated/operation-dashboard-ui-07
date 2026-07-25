@@ -141,15 +141,17 @@ async function discover(signal: AbortSignal): Promise<ReflectedService[]> {
   );
   const serviceNames = new Set<string>();
   for (const m of listResp) {
-    const mr = m.messageResponse;
+    const mr = m.messageResponse as Record<string, unknown> & { oneofKind?: string };
     if (mr.oneofKind === "listServicesResponse") {
-      for (const s of mr.listServicesResponse.service) {
+      const lsr = mr.listServicesResponse as { service: { name: string }[] };
+      for (const s of lsr.service) {
         if (s.name && s.name !== "grpc.reflection.v1.ServerReflection") {
           serviceNames.add(s.name);
         }
       }
     } else if (mr.oneofKind === "errorResponse") {
-      throw new Error(mr.errorResponse.errorMessage);
+      const er = mr.errorResponse as { errorMessage: string };
+      throw new Error(er.errorMessage);
     }
   }
 
