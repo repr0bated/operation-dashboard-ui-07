@@ -8,6 +8,7 @@ import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
+import { unwrapContentBlocks } from "@/lib/chat-content";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 import { X, Maximize2, MessageSquare, FileText, ScrollText } from "lucide-react";
@@ -107,7 +108,9 @@ export default function ChatPage() {
         if (body.oneofKind === "part") {
           const part = (body as { oneofKind: "part"; part: UIMessagePart }).part;
           const payload = new TextDecoder().decode(part.payload);
-          let content = payload;
+          // Text parts arrive as a serialized content block; show the message,
+          // not its envelope. Other kinds stay raw behind a [kind] prefix.
+          let content = unwrapContentBlocks(payload);
           if (part.kind !== "text") {
             content = `[${part.kind}] ${payload}`;
           }

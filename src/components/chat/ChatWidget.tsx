@@ -3,6 +3,7 @@ import { Callout } from "@/components/shell/Primitives";
 import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubble";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
+import { unwrapContentBlocks } from "@/lib/chat-content";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 
@@ -111,7 +112,9 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
         if (body.oneofKind === "part") {
           const part = (body as { oneofKind: "part"; part: UIMessagePart }).part;
           const payload = new TextDecoder().decode(part.payload);
-          let content = payload;
+          // Text parts arrive as a serialized content block; show the message,
+          // not its envelope. Other kinds stay raw behind a [kind] prefix.
+          let content = unwrapContentBlocks(payload);
           if (part.kind !== "text") {
             content = `[${part.kind}] ${payload}`;
           }
