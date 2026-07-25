@@ -174,8 +174,10 @@ async function discover(signal: AbortSignal): Promise<ReflectedService[]> {
         );
 
         for (const m of resp) {
-          if (m.messageResponse.oneofKind !== "fileDescriptorResponse") continue;
-          for (const bytes of m.messageResponse.fileDescriptorResponse.fileDescriptorProto) {
+          const mr = m.messageResponse as Record<string, unknown> & { oneofKind?: string };
+          if (mr.oneofKind !== "fileDescriptorResponse") continue;
+          const fdr = mr.fileDescriptorResponse as { fileDescriptorProto: Uint8Array[] };
+          for (const bytes of fdr.fileDescriptorProto) {
             let fd;
             try {
               fd = FileDescriptorProto.fromBinary(bytes);
