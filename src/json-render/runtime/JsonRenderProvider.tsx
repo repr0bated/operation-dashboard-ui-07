@@ -48,7 +48,11 @@ export function JsonRenderProvider({
     }),
     [registry, capabilities, manifest, slots],
   );
-  return <JsonRenderContext.Provider value={value}>{children}</JsonRenderContext.Provider>;
+  return (
+    <JsonRenderContext.Provider value={value}>
+      <JSONUIProvider registry={registry}>{children}</JSONUIProvider>
+    </JsonRenderContext.Provider>
+  );
 }
 
 export function useJsonRender(): JsonRenderContextValue {
