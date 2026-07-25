@@ -80,7 +80,7 @@ export default function InvokePage() {
   // picker from the compiled protobuf-ts codec registry so the console stays
   // usable even if the backend proxy doesn't expose ServerReflection.
   const services: ReflectedService[] = useMemo(() => {
-    if (registry.services.length > 0) return services;
+    if (registry.services.length > 0) return registry.services;
     return getStaticServiceCatalog();
   }, [registry.services]);
   const usingFallback = registry.services.length === 0 && !registry.loading;
