@@ -139,7 +139,10 @@ const NAV_GROUPS = [
   },
   {
     label: "Blobs",
-    items: [{ title: "Sealed Blobs", path: "/blobs", icon: Package }],
+    items: [
+      { title: "Sealed Blobs", path: "/blobs", icon: Package },
+      { title: "Plugins", path: "/plugins", icon: Package },
+    ],
   },
 ];
 

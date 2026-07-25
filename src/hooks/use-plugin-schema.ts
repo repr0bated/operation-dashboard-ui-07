@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { gRPCClient } from "@/grpc/client";
 
 /**
  * Hook to read a plugin's schema from the sealed SHM blob catalog.
- * Uses gRPC to call the plugin method that reads the schema.
+ * op-web serves it straight out of `op_blob::catalog::read_plugin_schema_shm`,
+ * so a plugin exists here iff its blob is sealed.
  */
 export function usePluginSchema(pluginId: string) {
   const [schema, setSchema] = useState<any>(null);
@@ -13,10 +13,17 @@ export function usePluginSchema(pluginId: string) {
   useEffect(() => {
     let cancelled = false;
 
+    if (!pluginId) {
+      setSchema(null);
+      setError("no plugin id");
+      setLoading(false);
+      return;
+    }
+
     async function loadSchema() {
       try {
         setLoading(true);
-        // Call the gRPC method to get plugin schema
+        setError(null);
         const response = await fetch(`/api/plugin-schema/${pluginId}`);
         if (!response.ok) throw new Error(`Failed to load schema: ${response.statusText}`);
         const data = await response.json();
@@ -28,8 +35,10 @@ export function usePluginSchema(pluginId: string) {
       }
     }
 
-    loadSchema();
-    return () => { cancelled = true; };
+    void loadSchema();
+    return () => {
+      cancelled = true;
+    };
   }, [pluginId]);
 
   return { schema, loading, error };

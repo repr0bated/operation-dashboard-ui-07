@@ -38,6 +38,8 @@ import GrpcExplorerPage from "./pages/GrpcExplorerPage";
 import GalleryPage from "./pages/GalleryPage";
 import CatalogPage from "./pages/CatalogPage";
 import BlobsPage from "./pages/BlobsPage";
+import PluginsPage from "./pages/PluginsPage";
+import PluginPage from "./components/PluginPage";
 import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
 import PairingPage from "./pages/PairingPage";
@@ -98,6 +100,8 @@ function ShellRoutes() {
         <Route path="/embedding" element={<EmbeddingPipelinePage />} />
         <Route path="/assistant" element={<AssistantPage />} />
         <Route path="/blobs" element={<BlobsPage />} />
+        <Route path="/plugins" element={<PluginsPage />} />
+        <Route path="/plugin/:pluginId" element={<PluginPage />} />
         <Route path="/gateway" element={<GatewayPage />} />
         <Route path="/channels" element={<ChannelsPage />} />
         <Route path="/cron" element={<CronPage />} />
