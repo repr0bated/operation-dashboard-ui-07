@@ -47,8 +47,6 @@ message OnClientConnectRequest {
   map<string, string> auth_attrs = 6;
 }
 message OnClientConnectResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnClientConnackRequest {
@@ -59,16 +57,12 @@ message OnClientConnackRequest {
   uint32 rc = 5;
 }
 message OnClientConnackResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnClientConnectedRequest {
   ClientInfo client = 1;
 }
 message OnClientConnectedResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnClientDisconnectedRequest {
@@ -77,8 +71,6 @@ message OnClientDisconnectedRequest {
   uint32 reason = 3;
 }
 message OnClientDisconnectedResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnClientSubscribeRequest {
@@ -89,8 +81,6 @@ message OnClientSubscribeRequest {
   uint32 rrh = 5;
 }
 message OnClientSubscribeResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnClientUnsubscribeRequest {
@@ -98,8 +88,6 @@ message OnClientUnsubscribeRequest {
   string topic = 2;
 }
 message OnClientUnsubscribeResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnMessagePublishRequest {
@@ -111,8 +99,6 @@ message OnMessagePublishRequest {
   uint32 rp = 6;
 }
 message OnMessagePublishResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnMessageDeliveredRequest {
@@ -122,8 +108,6 @@ message OnMessageDeliveredRequest {
   uint32 qos = 4;
 }
 message OnMessageDeliveredResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnMessageAckedRequest {
@@ -132,16 +116,12 @@ message OnMessageAckedRequest {
   uint32 qos = 3;
 }
 message OnMessageAckedResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnSessionCreatedRequest {
   ClientInfo client = 1;
 }
 message OnSessionCreatedResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnSessionSubscribedRequest {
@@ -150,8 +130,6 @@ message OnSessionSubscribedRequest {
   uint32 qos = 3;
 }
 message OnSessionSubscribedResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnSessionUnsubscribedRequest {
@@ -159,8 +137,6 @@ message OnSessionUnsubscribedRequest {
   string topic = 2;
 }
 message OnSessionUnsubscribedResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnSessionGotOfflineMsgsRequest {
@@ -169,8 +145,6 @@ message OnSessionGotOfflineMsgsRequest {
   uint32 total_msgs = 3;
 }
 message OnSessionGotOfflineMsgsResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message OnSessionDiscardedMsgsRequest {
@@ -179,8 +153,6 @@ message OnSessionDiscardedMsgsRequest {
   uint32 total_msgs = 3;
 }
 message OnSessionDiscardedMsgsResponse {
-  bool success = 1;
-  string error = 2;
 }
 
 message ThrottleRequest {
@@ -189,6 +161,4 @@ message ThrottleRequest {
   uint32 bytes_per_sec = 3;
 }
 message ThrottleResponse {
-  bool success = 1;
-  string error = 2;
 }

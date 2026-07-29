@@ -2,9 +2,18 @@ syntax = "proto3";
 
 package operation.datastore.v1;
 
+// ============ Enums ============
+
+enum DataStoreHealthStatus {
+  DATA_STORE_HEALTH_STATUS_UNSPECIFIED = 0;
+  DATA_STORE_HEALTH_STATUS_HEALTHY = 1;
+  DATA_STORE_HEALTH_STATUS_DEGRADED = 2;
+  DATA_STORE_HEALTH_STATUS_UNHEALTHY = 3;
+}
+
 // Data store status
 message DataStoreStatus {
-  string status = 1;
+  DataStoreHealthStatus status = 1;
   uint64 object_count = 2;
   uint64 execution_count = 3;
   uint64 blockchain_count = 4;

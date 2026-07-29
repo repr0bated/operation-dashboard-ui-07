@@ -2,6 +2,24 @@ syntax = "proto3";
 
 package operation.btrfs.v1;
 
+// ============ Enums ============
+
+enum SendState {
+  SEND_STATE_UNSPECIFIED = 0;
+  SEND_STATE_IDLE = 1;
+  SEND_STATE_SENDING = 2;
+  SEND_STATE_COMPLETED = 3;
+  SEND_STATE_FAILED = 4;
+}
+
+enum RecoveryStatus {
+  RECOVERY_STATUS_UNSPECIFIED = 0;
+  RECOVERY_STATUS_IDLE = 1;
+  RECOVERY_STATUS_IN_PROGRESS = 2;
+  RECOVERY_STATUS_COMPLETED = 3;
+  RECOVERY_STATUS_FAILED = 4;
+}
+
 // Btrfs subvolume info
 message BtrfsSubvolume {
   string path = 1;
@@ -13,14 +31,13 @@ message BtrfsSnapshot {
   string source = 1;
   string destination = 2;
   bool readonly = 3;
-  string send_state = 4;
+  SendState send_state = 4;
   int64 timestamp = 5;
 }
 
 // DR recovery status
 message DrRecoveryStatus {
-  string status = 1;
-  string message = 2;
+  RecoveryStatus status = 1;
 }
 
 // Request types
