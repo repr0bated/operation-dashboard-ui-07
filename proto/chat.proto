@@ -15,6 +15,27 @@ syntax = "proto3";
 
 package op_chat.chat;
 
+import "google/protobuf/struct.proto";
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+enum UIMessageRole {
+  UI_MESSAGE_ROLE_UNSPECIFIED = 0;
+  UI_MESSAGE_ROLE_ASSISTANT = 1;
+  UI_MESSAGE_ROLE_TOOL = 2;
+  UI_MESSAGE_ROLE_SYSTEM = 3;
+}
+
+enum UIMessageKind {
+  UI_MESSAGE_KIND_UNSPECIFIED = 0;
+  UI_MESSAGE_KIND_TEXT = 1;
+  UI_MESSAGE_KIND_TOOL_CALL = 2;
+  UI_MESSAGE_KIND_TOOL_RESULT = 3;
+  UI_MESSAGE_KIND_REASONING = 4;
+}
+
 // ============================================================================
 // CHAT SERVICE
 // ============================================================================
@@ -75,9 +96,9 @@ message ChatFrame {
 
 message UIMessagePart {
   string message_id = 1;
-  string role = 2;              // "assistant" | "tool" | "system"
-  string kind = 3;              // "text" | "tool-call" | "tool-result" | "reasoning"
-  bytes  payload = 4;           // JSON bytes matching the AI SDK part shape
+  UIMessageRole role = 2;
+  UIMessageKind kind = 3;
+  bytes payload = 4;
 }
 
 message ApprovalRequired {
@@ -88,9 +109,9 @@ message ApprovalRequired {
 }
 
 message StreamError {
-  string code = 1;              // Machine-readable error code
-  string message = 2;           // Human-readable error message
-  bool retryable = 3;           // Whether the client should retry
+  string code = 1;
+  string message = 2;
+  bool retryable = 3;
   optional uint32 retry_after_ms = 4;
 }
 
@@ -108,12 +129,9 @@ message StreamDone {
 // ============================================================================
 
 message ApproveResponse {
-  bool success = 1;
-  string tool_call_id = 2;
-  optional string error = 3;
+  string tool_call_id = 1;
 }
 
 message CancelResponse {
-  bool success = 1;
-  string conversation_id = 2;
+  string conversation_id = 1;
 }

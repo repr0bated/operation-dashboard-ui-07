@@ -7,14 +7,36 @@ import "google/protobuf/struct.proto";
 
 message Empty {}
 
-message Error {
-  int32 code = 1;
+// Rich error details following google.rpc.Status pattern.
+// Use gRPC status codes for primary error; include this for domain-specific context.
+message ErrorDetails {
+  string error_code = 1;
   string message = 2;
-  optional google.protobuf.Struct details = 3;
+  optional google.protobuf.Struct context = 3;
 }
 
 message Pagination {
   uint32 limit = 1;
   uint32 offset = 2;
   string cursor = 3;
+}
+
+// Common enums for state machines
+
+enum RunStatus {
+  RUN_STATUS_UNSPECIFIED = 0;
+  RUN_STATUS_PENDING = 1;
+  RUN_STATUS_RUNNING = 2;
+  RUN_STATUS_COMPLETED = 3;
+  RUN_STATUS_FAILED = 4;
+  RUN_STATUS_CANCELLED = 5;
+}
+
+enum EventType {
+  EVENT_TYPE_UNSPECIFIED = 0;
+  EVENT_TYPE_TOOL_CALL = 1;
+  EVENT_TYPE_TOOL_RESULT = 2;
+  EVENT_TYPE_MESSAGE = 3;
+  EVENT_TYPE_STATUS = 4;
+  EVENT_TYPE_ERROR = 5;
 }
