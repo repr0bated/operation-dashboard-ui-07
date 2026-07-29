@@ -59,7 +59,7 @@ message SubscribeRequest {
 
 message McpEvent {
   string event_type = 1;
-  string data_json = 2;
+  google.protobuf.Struct data = 2;
   int64 timestamp = 3;
   uint32 sequence = 4;
 }
@@ -135,12 +135,13 @@ message ToolParameter {
 }
 
 enum ParameterType {
-  PARAMETER_TYPE_STRING = 0;
-  PARAMETER_TYPE_INTEGER = 1;
-  PARAMETER_TYPE_NUMBER = 2;
-  PARAMETER_TYPE_BOOLEAN = 3;
-  PARAMETER_TYPE_ARRAY = 4;
-  PARAMETER_TYPE_OBJECT = 5;
+  PARAMETER_TYPE_UNSPECIFIED = 0;
+  PARAMETER_TYPE_STRING = 1;
+  PARAMETER_TYPE_INTEGER = 2;
+  PARAMETER_TYPE_NUMBER = 3;
+  PARAMETER_TYPE_BOOLEAN = 4;
+  PARAMETER_TYPE_ARRAY = 5;
+  PARAMETER_TYPE_OBJECT = 6;
 }
 
 message GetToolSchemaRequest {
@@ -177,19 +178,31 @@ message FileSystemArgs {
 }
 
 enum FileOperation {
-  FILE_OPERATION_READ = 0;
-  FILE_OPERATION_WRITE = 1;
-  FILE_OPERATION_DELETE = 2;
-  FILE_OPERATION_LIST = 3;
+  FILE_OPERATION_UNSPECIFIED = 0;
+  FILE_OPERATION_READ = 1;
+  FILE_OPERATION_WRITE = 2;
+  FILE_OPERATION_DELETE = 3;
+  FILE_OPERATION_LIST = 4;
 }
 
 message FileMode {
   uint32 mode = 1;
 }
 
+enum HTTPMethod {
+  HTTP_METHOD_UNSPECIFIED = 0;
+  HTTP_METHOD_GET = 1;
+  HTTP_METHOD_POST = 2;
+  HTTP_METHOD_PUT = 3;
+  HTTP_METHOD_DELETE = 4;
+  HTTP_METHOD_PATCH = 5;
+  HTTP_METHOD_HEAD = 6;
+  HTTP_METHOD_OPTIONS = 7;
+}
+
 message NetworkArgs {
   string url = 1;
-  string method = 2;
+  HTTPMethod method = 2;
   map<string, string> headers = 3;
   optional bytes body = 4;
 }
@@ -207,10 +220,9 @@ message ShellArgs {
 }
 
 message CallToolResponse {
-  bool success = 1;
-  google.protobuf.Struct result = 2;  // Structured result
-  optional string error = 3;
-  uint64 duration_ms = 4;
+  google.protobuf.Struct result = 1;  // Structured result
+  optional string error = 2;
+  uint64 duration_ms = 3;
 }
 
 // Streaming tool output
