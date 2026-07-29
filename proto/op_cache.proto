@@ -240,7 +240,8 @@ message RegisterAgentRequest {
 }
 
 message RegisterAgentResponse {
-    string agent_id = 2;
+    string agent_id = 1;
+    optional string error = 2;
 }
 
 message UnregisterAgentRequest {
@@ -248,7 +249,7 @@ message UnregisterAgentRequest {
 }
 
 message UnregisterAgentResponse {
-    Agent removed_agent = 2;
+    Agent removed_agent = 1;
 }
 
 message ExecuteAgentRequest {
@@ -261,7 +262,8 @@ message ExecuteAgentRequest {
 message ExecuteAgentResponse {
     bytes output = 1;
     uint64 latency_ms = 2;
-    map<string, string> metadata = 5;
+    optional string error = 3;
+    map<string, string> metadata = 4;
 }
 
 message ExecuteAgentChunk {
@@ -399,7 +401,8 @@ message PromotePatternRequest {
 }
 
 message PromotePatternResponse {
-    string workstack_id = 2;
+    string workstack_id = 1;
+    optional string error = 2;
 }
 
 message PatternSuggestion {
@@ -459,9 +462,9 @@ message PutStepRequest {
 }
 
 message PutStepResponse {
-    string cache_key = 2;
-    uint64 size_bytes = 3;
-    bool compressed = 4;
+    string cache_key = 1;
+    uint64 size_bytes = 2;
+    bool compressed = 3;
 }
 
 message InvalidateWorkstackRequest {
