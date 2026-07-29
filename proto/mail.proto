@@ -5,6 +5,40 @@ package operation.mail.v1;
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 
+// ============ Enums ============
+
+enum MailFolder {
+  MAIL_FOLDER_UNSPECIFIED = 0;
+  MAIL_FOLDER_INBOX = 1;
+  MAIL_FOLDER_SENT = 2;
+  MAIL_FOLDER_DRAFTS = 3;
+  MAIL_FOLDER_TRASH = 4;
+}
+
+enum MailServerType {
+  MAIL_SERVER_TYPE_UNSPECIFIED = 0;
+  MAIL_SERVER_TYPE_MADDY = 1;
+  MAIL_SERVER_TYPE_POSTFIX = 2;
+  MAIL_SERVER_TYPE_SENDMAIL = 3;
+  MAIL_SERVER_TYPE_EXIM = 4;
+}
+
+enum MailServiceStatus {
+  MAIL_SERVICE_STATUS_UNSPECIFIED = 0;
+  MAIL_SERVICE_STATUS_HEALTHY = 1;
+  MAIL_SERVICE_STATUS_DEGRADED = 2;
+  MAIL_SERVICE_STATUS_UNHEALTHY = 3;
+}
+
+enum AdminMailAction {
+  ADMIN_MAIL_ACTION_UNSPECIFIED = 0;
+  ADMIN_MAIL_ACTION_SEND_TEST = 1;
+  ADMIN_MAIL_ACTION_RESTART_SERVER = 2;
+  ADMIN_MAIL_ACTION_CREATE_ACCOUNT = 3;
+  ADMIN_MAIL_ACTION_SUSPEND_ACCOUNT = 4;
+  ADMIN_MAIL_ACTION_GET_LOGS = 5;
+}
+
 // =============================================================================
 // MAIL SERVICE - Email and Webmail Operations
 // Similar to registration.proto but focused on email functionality
@@ -48,10 +82,8 @@ message SendEmailRequest {
 }
 
 message SendEmailResponse {
-  bool success = 1;
-  string message = 2;
-  string message_id = 3;
-  google.protobuf.Timestamp sent_at = 4;
+  string message_id = 1;
+  google.protobuf.Timestamp sent_at = 2;
 }
 
 message GetInboxRequest {
@@ -59,14 +91,14 @@ message GetInboxRequest {
   string domain = 2;
   uint32 limit = 3;
   uint32 offset = 4;
-  string folder = 5; // "inbox", "sent", "drafts", "trash"
+  MailFolder folder = 5;
 }
 
 message GetInboxResponse {
   repeated EmailMessage messages = 1;
   uint32 total_count = 2;
   uint32 unread_count = 3;
-  string folder = 4;
+  MailFolder folder = 4;
 }
 
 message EmailMessage {
@@ -79,7 +111,7 @@ message EmailMessage {
   bool has_attachments = 7;
   google.protobuf.Timestamp received_at = 8;
   int32 size_bytes = 9;
-  string folder = 10;
+  MailFolder folder = 10;
 }
 
 message GetMessageRequest {
@@ -89,12 +121,11 @@ message GetMessageRequest {
 }
 
 message GetMessageResponse {
-  bool success = 1;
-  EmailMessage header = 2;
-  string body = 3;
-  bool is_html = 4;
-  repeated EmailAttachment attachments = 5;
-  string raw_content = 6;
+  EmailMessage header = 1;
+  string body = 2;
+  bool is_html = 3;
+  repeated EmailAttachment attachments = 4;
+  string raw_content = 5;
 }
 
 message EmailAttachment {
@@ -111,14 +142,13 @@ message GetMailStatusRequest {
 message GetMailStatusResponse {
   bool is_configured = 1;
   bool is_running = 2;
-  string mail_server_type = 3; // "maddy", "postfix", etc
+  MailServerType mail_server_type = 3;
   string webmail_url = 4;
-  string smtp_status = 5;
-  string imap_status = 6;
+  MailServiceStatus smtp_status = 5;
+  MailServiceStatus imap_status = 6;
   uint32 total_accounts = 7;
   uint32 total_messages = 8;
   google.protobuf.Timestamp last_checked = 9;
-  string message = 10;
 }
 
 message ListMailAccountsRequest {
@@ -143,18 +173,16 @@ message MailAccount {
 }
 
 message AdminMailActionRequest {
-  string action = 1; // "send_test", "restart_server", "create_account", "suspend_account", "get_logs"
+  AdminMailAction action = 1;
   string email = 2;
   string domain = 3;
   optional google.protobuf.Struct parameters = 4;
 }
 
 message AdminMailActionResponse {
-  bool success = 1;
-  string message = 2;
-  string action_id = 3;
-  google.protobuf.Timestamp timestamp = 4;
-  optional google.protobuf.Struct result = 5;
+  string action_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  optional google.protobuf.Struct result = 3;
 }
 
 message CheckMailServerRequest {
@@ -166,14 +194,10 @@ message CheckMailServerRequest {
 
 message CheckMailServerResponse {
   bool all_healthy = 1;
-  bool smtp_healthy = 2;
-  bool imap_healthy = 3;
-  bool webmail_healthy = 4;
-  string smtp_status = 5;
-  string imap_status = 6;
-  string webmail_status = 7;
-  string message = 8;
-  repeated string issues = 9;
+  MailServiceStatus smtp_status = 2;
+  MailServiceStatus imap_status = 3;
+  MailServiceStatus webmail_status = 4;
+  repeated string issues = 5;
 }
 
 // =============================================================================
