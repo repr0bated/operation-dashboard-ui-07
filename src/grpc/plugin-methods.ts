@@ -114,6 +114,9 @@ export const pluginMethods = {
   ): Promise<TOut> {
     const entry = PLUGIN_METHOD_BY_TYPENAME.get(key);
     if (!entry) throw new Error(`plugin method not found: ${key}`);
-    return runUnary(entry.invoke(getTransport(), input, options) as UnaryCall<object, TOut>);
+    return runUnary(
+      entry.invoke(routedTransport(entry.plugin), input, options) as UnaryCall<object, TOut>,
+    );
+
   },
 };
