@@ -131,14 +131,22 @@ export default function GalleryPage() {
 
   const loadAntigravity = useCallback(async () => {
     try {
-      const resp = await antigravityService.get({ objectPath: "" });
-      const surfaces = resp.state?.uiSurfaces ?? [];
-      const list: SpecEntry[] = surfaces.map((s, i) => ({
-        id: `antigravity/surface-${i}`,
-        source: "antigravity" as const,
-        spec: structToObject(s as unknown as Record<string, unknown>) as unknown as Spec,
-        managed: false,
-      }));
+      // The Antigravity UI is served by the zeroclaw router plugin
+      // (operation.plugin.v1.ZeroclawPluginMethods/ListUiSurfaces).
+      const out = await pluginMethods.callSubid<
+        Record<string, never>,
+        { uiSurfaces?: unknown[] }
+      >("obs.service.zeroclaw.ui-surfaces.list@v1", {});
+      const surfaces = out.uiSurfaces ?? [];
+      const list: SpecEntry[] = surfaces
+        .map((s) => valueToJs(s as never) as unknown as Spec | null)
+        .filter((s): s is Spec => !!s && typeof s === "object")
+        .map((spec, i) => ({
+          id: `antigravity/surface-${i}`,
+          source: "antigravity" as const,
+          spec,
+          managed: false,
+        }));
       setEntries((prev) => ({ ...prev, antigravity: list }));
       setSource("antigravity", { status: "ok", count: list.length });
     } catch (e) {
@@ -146,6 +154,7 @@ export default function GalleryPage() {
       setSource("antigravity", classifyError(e));
     }
   }, []);
+
 
   const refreshAll = useCallback(async () => {
     setRefreshing(true);
