@@ -1,87 +1,187 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Spec } from "@json-render/core";
+import { RefreshCw } from "lucide-react";
 import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
+import { EmptyState, ErrorBanner } from "@/components/shell/Feedback";
 import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { antigravityService } from "@/grpc/client";
-import { structToObject } from "@/grpc/google/protobuf/struct";
+import { pluginMethods } from "@/grpc/plugin-methods";
+import { structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
 import { resolveApiBase } from "@/lib/api";
+
+type SourceId = "catalog" | "gemma" | "antigravity";
 
 interface SpecEntry {
   id: string;
+  source: SourceId;
   spec: Spec;
-  prompt: string;
-  tags: string[];
-  created_at: number;
-  signature: string;
+  prompt?: string;
+  tags?: string[];
+  created_at?: number;
+  /** Only catalog-backed entries can be promoted / deleted. */
+  managed: boolean;
 }
 
-interface Gallery {
-  version: number;
-  specs: SpecEntry[];
+interface SourceState {
+  status: "loading" | "ok" | "unimplemented" | "error";
+  message?: string;
+  count: number;
+}
+
+const SOURCE_LABEL: Record<SourceId, string> = {
+  catalog: "Gallery catalog (REST)",
+  gemma: "gemma_brain.get_ui_spec",
+  antigravity: "AntigravityService.Get",
+};
+
+const POLL_MS = 15000;
+
+function classifyError(e: unknown): SourceState {
+  const message = e instanceof Error ? e.message : String(e);
+  // grpc-status 12 = UNIMPLEMENTED — the service is advertised but not served.
+  if (/\b12\b/.test(message) && /unimplemented|status/i.test(message)) {
+    return { status: "unimplemented", message, count: 0 };
+  }
+  if (/unimplemented/i.test(message)) return { status: "unimplemented", message, count: 0 };
+  return { status: "error", message, count: 0 };
+}
+
+function StatusChip({ id, state }: { id: SourceId; state: SourceState }) {
+  const tone =
+    state.status === "ok"
+      ? "border-primary/40 text-primary bg-primary/10"
+      : state.status === "loading"
+        ? "border-border text-muted-foreground bg-muted/20"
+        : state.status === "unimplemented"
+          ? "border-amber-500/40 text-amber-500 bg-amber-500/10"
+          : "border-destructive/40 text-destructive bg-destructive/10";
+  const label =
+    state.status === "ok"
+      ? `${state.count} spec${state.count === 1 ? "" : "s"}`
+      : state.status === "loading"
+        ? "probing…"
+        : state.status === "unimplemented"
+          ? "not served"
+          : "unreachable";
+  return (
+    <div
+      className={`flex items-center gap-2 rounded-md border px-2.5 py-1 text-[11px] font-mono ${tone}`}
+      title={state.message}
+    >
+      <span className="opacity-70">{SOURCE_LABEL[id]}</span>
+      <span className="font-semibold">{label}</span>
+    </div>
+  );
 }
 
 export default function GalleryPage() {
-  const [specs, setSpecs] = useState<SpecEntry[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [entries, setEntries] = useState<Record<SourceId, SpecEntry[]>>({
+    catalog: [],
+    gemma: [],
+    antigravity: [],
+  });
+  const [sources, setSources] = useState<Record<SourceId, SourceState>>({
+    catalog: { status: "loading", count: 0 },
+    gemma: { status: "loading", count: 0 },
+    antigravity: { status: "loading", count: 0 },
+  });
   const [busy, setBusy] = useState<string | null>(null);
-  const [antigravitySpecs, setAntigravitySpecs] = useState<{ id: string; spec: Spec }[]>([]);
-  const [agLoading, setAgLoading] = useState(false);
-  const [agError, setAgError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
+  const setSource = (id: SourceId, state: SourceState) =>
+    setSources((prev) => ({ ...prev, [id]: state }));
+
+  const loadCatalog = useCallback(async () => {
     try {
       const r = await fetch(`${resolveApiBase()}/ui-model/gallery`);
       if (!r.ok) throw new Error(`gallery HTTP ${r.status}`);
-      const g: Gallery = await r.json();
-      setSpecs(g.specs ?? []);
-      setError(null);
+      const g = (await r.json()) as { specs?: Array<Omit<SpecEntry, "source" | "managed">> };
+      const list: SpecEntry[] = (g.specs ?? []).map((s) => ({
+        ...s,
+        source: "catalog" as const,
+        managed: true,
+      }));
+      setEntries((prev) => ({ ...prev, catalog: list }));
+      setSource("catalog", { status: "ok", count: list.length });
     } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setLoading(false);
+      setEntries((prev) => ({ ...prev, catalog: [] }));
+      setSource("catalog", classifyError(e));
     }
   }, []);
 
-  useEffect(() => {
-    void load();
-    const t = setInterval(() => void load(), 5000);
-    return () => clearInterval(t);
-  }, [load]);
+  const loadGemma = useCallback(async () => {
+    try {
+      const out = await pluginMethods.callSubid<
+        Record<string, never>,
+        { spec?: unknown }
+      >("obs.service.gemma.ui-spec.get@v1", {});
+      const spec = valueToJs(out.spec as never) as unknown as Spec | null;
+      const list: SpecEntry[] = spec
+        ? [{ id: "gemma_brain/get_ui_spec", source: "gemma", spec, managed: false }]
+        : [];
+      setEntries((prev) => ({ ...prev, gemma: list }));
+      setSource("gemma", { status: "ok", count: list.length });
+    } catch (e) {
+      setEntries((prev) => ({ ...prev, gemma: [] }));
+      setSource("gemma", classifyError(e));
+    }
+  }, []);
 
   const loadAntigravity = useCallback(async () => {
-    setAgLoading(true);
-    setAgError(null);
     try {
       const resp = await antigravityService.get({ objectPath: "" });
       const surfaces = resp.state?.uiSurfaces ?? [];
-      const mapped = surfaces.map((s, i) => ({
-        id: `antigravity-${i}-${Date.now()}`,
+      const list: SpecEntry[] = surfaces.map((s, i) => ({
+        id: `antigravity/surface-${i}`,
+        source: "antigravity" as const,
         spec: structToObject(s as unknown as Record<string, unknown>) as unknown as Spec,
+        managed: false,
       }));
-      setAntigravitySpecs(mapped);
+      setEntries((prev) => ({ ...prev, antigravity: list }));
+      setSource("antigravity", { status: "ok", count: list.length });
     } catch (e) {
-      setAgError((e as Error).message);
-    } finally {
-      setAgLoading(false);
+      setEntries((prev) => ({ ...prev, antigravity: [] }));
+      setSource("antigravity", classifyError(e));
     }
   }, []);
 
+  const refreshAll = useCallback(async () => {
+    setRefreshing(true);
+    await Promise.allSettled([loadCatalog(), loadGemma(), loadAntigravity()]);
+    setRefreshing(false);
+  }, [loadCatalog, loadGemma, loadAntigravity]);
+
   useEffect(() => {
-    void loadAntigravity();
-    const t = setInterval(() => void loadAntigravity(), 5000);
+    void refreshAll();
+    const t = setInterval(() => void refreshAll(), POLL_MS);
     return () => clearInterval(t);
-  }, [loadAntigravity]);
+  }, [refreshAll]);
+
+  const all = useMemo(
+    () => [...entries.catalog, ...entries.gemma, ...entries.antigravity],
+    [entries],
+  );
+
+  const anyLive = (Object.keys(sources) as SourceId[]).some(
+    (k) => sources[k].status === "ok",
+  );
+  const stillLoading = (Object.keys(sources) as SourceId[]).some(
+    (k) => sources[k].status === "loading",
+  );
 
   const promote = async (id: string) => {
     setBusy(id);
+    setActionError(null);
     try {
-      const r = await fetch(`${resolveApiBase()}/ui-model/catalog/promote/${id}`, { method: "POST" });
+      const r = await fetch(`${resolveApiBase()}/ui-model/catalog/promote/${id}`, {
+        method: "POST",
+      });
       if (!r.ok) throw new Error(`promote HTTP ${r.status}`);
-      setSpecs((prev) => prev.filter((s) => s.id !== id));
+      setEntries((prev) => ({ ...prev, catalog: prev.catalog.filter((s) => s.id !== id) }));
     } catch (e) {
-      setError((e as Error).message);
+      setActionError((e as Error).message);
     } finally {
       setBusy(null);
     }
@@ -89,12 +189,13 @@ export default function GalleryPage() {
 
   const remove = async (id: string) => {
     setBusy(id);
+    setActionError(null);
     try {
       const r = await fetch(`${resolveApiBase()}/ui-model/gallery/${id}`, { method: "DELETE" });
       if (!r.ok && r.status !== 204) throw new Error(`delete HTTP ${r.status}`);
-      setSpecs((prev) => prev.filter((s) => s.id !== id));
+      setEntries((prev) => ({ ...prev, catalog: prev.catalog.filter((s) => s.id !== id) }));
     } catch (e) {
-      setError((e as Error).message);
+      setActionError((e as Error).message);
     } finally {
       setBusy(null);
     }
@@ -104,76 +205,88 @@ export default function GalleryPage() {
     <div className="space-y-4">
       <PageHeader
         title="UI Model Gallery"
-        subtitle="Live json-render specs generated by the UI model from the sealed blob catalog. Promote moves a spec into the finalized catalog."
-        actions={<ProviderSelect />}
+        subtitle="Live json-render specs from the gallery catalog, gemma_brain and the Antigravity plugin surface."
+        actions={
+          <div className="flex items-center gap-2">
+            <ProviderSelect />
+            <button
+              onClick={() => void refreshAll()}
+              disabled={refreshing}
+              className="flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-[11px] hover:bg-muted/30 disabled:opacity-50"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
+              Refresh
+            </button>
+          </div>
+        }
       />
-      {error && <Callout variant="danger">{error}</Callout>}
-      {loading && specs.length === 0 && (
-        <div className="text-sm text-muted-foreground">Loading gallery…</div>
+
+      <div className="flex flex-wrap gap-2">
+        {(Object.keys(SOURCE_LABEL) as SourceId[]).map((id) => (
+          <StatusChip key={id} id={id} state={sources[id]} />
+        ))}
+      </div>
+
+      {actionError && <ErrorBanner title="Action failed" message={actionError} />}
+
+      {!stillLoading && all.length === 0 && !anyLive && (
+        <ErrorBanner
+          title="No spec source is serving"
+          message={(Object.keys(sources) as SourceId[])
+            .map((k) => `${SOURCE_LABEL[k]}: ${sources[k].message ?? sources[k].status}`)
+            .join(" · ")}
+        />
       )}
-      {!loading && specs.length === 0 && !error && (
-        <Callout variant="default">
-          Gallery is empty. Run the UI-model generator with a provider
-          configured to generate specs.
-        </Callout>
+
+      {!stillLoading && all.length === 0 && anyLive && (
+        <EmptyState
+          title="No specs available"
+          hint="Sources responded but returned no UI surfaces. Generate a spec with the UI model, or check that the antigravity plugin publishes ui_surfaces."
+        />
       )}
+
+      {stillLoading && all.length === 0 && (
+        <Callout variant="default">Probing spec sources…</Callout>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {specs.map((entry) => (
+        {all.map((entry) => (
           <Card
-            key={entry.id}
+            key={`${entry.source}:${entry.id}`}
             title={entry.id}
             actions={
-              <div className="flex gap-1.5">
-                <button
-                  disabled={busy === entry.id}
-                  onClick={() => void promote(entry.id)}
-                  className="px-2 py-1 text-[11px] rounded-md bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
-                >
-                  Promote
-                </button>
-                <button
-                  disabled={busy === entry.id}
-                  onClick={() => void remove(entry.id)}
-                  className="px-2 py-1 text-[11px] rounded-md border border-border hover:bg-muted/30 disabled:opacity-50"
-                >
-                  Delete
-                </button>
-              </div>
+              entry.managed ? (
+                <div className="flex gap-1.5">
+                  <button
+                    disabled={busy === entry.id}
+                    onClick={() => void promote(entry.id)}
+                    className="px-2 py-1 text-[11px] rounded-md bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+                  >
+                    Promote
+                  </button>
+                  <button
+                    disabled={busy === entry.id}
+                    onClick={() => void remove(entry.id)}
+                    className="px-2 py-1 text-[11px] rounded-md border border-border hover:bg-muted/30 disabled:opacity-50"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ) : (
+                <span className="rounded border border-border px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground">
+                  {entry.source}
+                </span>
+              )
             }
           >
             <div className="rounded-md border border-border bg-background/40 p-2 max-h-[360px] overflow-auto">
               <SpecRenderer spec={entry.spec} />
             </div>
             {entry.prompt && (
-              <p className="mt-2 text-[11px] text-muted-foreground line-clamp-3">
-                {entry.prompt}
-              </p>
+              <p className="mt-2 text-[11px] text-muted-foreground line-clamp-3">{entry.prompt}</p>
             )}
           </Card>
         ))}
-      </div>
-
-      {/* Antigravity UI surfaces rendered from the live antigravity plugin state */}
-      <div className="pt-4 border-t border-border">
-        <h2 className="text-lg font-semibold mb-2">Antigravity UI Surfaces</h2>
-        {agError && <Callout variant="danger">{agError}</Callout>}
-        {agLoading && antigravitySpecs.length === 0 && (
-          <div className="text-sm text-muted-foreground">Loading Antigravity surfaces…</div>
-        )}
-        {!agLoading && antigravitySpecs.length === 0 && !agError && (
-          <Callout variant="default">
-            No Antigravity UI surfaces returned. Ensure the antigravity plugin is registered and has ui_surfaces in its state.
-          </Callout>
-        )}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {antigravitySpecs.map((entry) => (
-            <Card key={entry.id} title={entry.id}>
-              <div className="rounded-md border border-border bg-background/40 p-2 max-h-[360px] overflow-auto">
-                <SpecRenderer spec={entry.spec} />
-              </div>
-            </Card>
-          ))}
-        </div>
       </div>
     </div>
   );
