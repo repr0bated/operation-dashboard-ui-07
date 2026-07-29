@@ -2,6 +2,23 @@ syntax = "proto3";
 
 package operation.cognitive.v1;
 
+import "google/protobuf/struct.proto";
+
+// ============ Enums ============
+
+enum SourceType {
+  SOURCE_TYPE_UNSPECIFIED = 0;
+  SOURCE_TYPE_URL = 1;
+  SOURCE_TYPE_TEXT = 2;
+  SOURCE_TYPE_FILE = 3;
+}
+
+enum AuthMethod {
+  AUTH_METHOD_UNSPECIFIED = 0;
+  AUTH_METHOD_CHROME_PROFILE = 1;
+  AUTH_METHOD_COOKIE = 2;
+}
+
 // CognitiveToolService — NotebookLM MCP gRPC Ingress
 //
 // Implements all service methods from the Technical Specification v0.2.
@@ -128,8 +145,7 @@ message GetNotebookRequest {
 
 message GetNotebookResponse {
   NotebookInfo notebook = 1;
-  // Arbitrary metadata as JSON string.
-  string metadata_json = 2;
+  google.protobuf.Struct metadata = 2;
 }
 
 // ---------------------------------------------------------------------------
@@ -166,8 +182,7 @@ message BatchCreateNotebooksResponse {
 
 message AddSourceRequest {
   string notebook_id = 1;
-  // "url", "text", "file"
-  string source_type = 2;
+  SourceType source_type = 2;
   string content = 3;
   string title = 4;
   repeated string tags = 5;
@@ -175,7 +190,6 @@ message AddSourceRequest {
 
 message AddSourceResponse {
   string source_id = 1;
-  bool success = 2;
 }
 
 // ---------------------------------------------------------------------------
@@ -209,7 +223,7 @@ message ListSourcesRequest {
 message SourceInfo {
   string id = 1;
   string title = 2;
-  string source_type = 3;
+  SourceType source_type = 3;
   repeated string tags = 4;
   string created_at = 5;
 }
@@ -230,7 +244,7 @@ message GetSourceContentRequest {
 
 message GetSourceContentResponse {
   string content = 1;
-  string source_type = 2;
+  SourceType source_type = 2;
   string title = 3;
 }
 
@@ -246,8 +260,7 @@ message GenerateDataTableRequest {
 }
 
 message GenerateDataTableResponse {
-  // JSON string of [{column: value, ...}, ...]
-  string data_json = 1;
+  repeated google.protobuf.Struct rows = 1;
   int32 row_count = 2;
 }
 
@@ -261,13 +274,10 @@ message GetHealthRequest {
 
 message GetHealthResponse {
   bool healthy = 1;
-  string status = 2;
-  // Component-level status as JSON
-  string components_json = 3;
-  // Quota info (R11)
-  int32 queries_remaining = 4;
-  int32 queries_limit = 5;
-  string auth_status = 6;
+  google.protobuf.Struct components = 2;
+  int32 queries_remaining = 3;
+  int32 queries_limit = 4;
+  bool authenticated = 5;
 }
 
 // ---------------------------------------------------------------------------
@@ -275,15 +285,11 @@ message GetHealthResponse {
 // ---------------------------------------------------------------------------
 
 message SetupAuthRequest {
-  // "chrome_profile" or "cookie"
-  string auth_method = 1;
-  // Path to Chrome profile or cookie value
+  AuthMethod auth_method = 1;
   string credential = 2;
 }
 
 message SetupAuthResponse {
-  bool success = 1;
-  string message = 2;
 }
 
 // ---------------------------------------------------------------------------
@@ -296,7 +302,12 @@ message RemoveSourceRequest {
 }
 
 message RemoveSourceResponse {
-  bool success = 1;
+}
+
+enum QueryMode {
+  QUERY_MODE_UNSPECIFIED = 0;
+  QUERY_MODE_QUERY = 1;
+  QUERY_MODE_DEEP_RESEARCH = 2;
 }
 
 // ---------------------------------------------------------------------------
@@ -305,11 +316,8 @@ message RemoveSourceResponse {
 
 message GeminiQueryRequest {
   string query = 1;
-  // Optional context to ground the query
   string context = 2;
-  // "query" or "deep_research"
-  string mode = 3;
-  // Depth for deep_research (1-5, default 3)
+  QueryMode mode = 3;
   int32 depth = 4;
 }
 
@@ -318,8 +326,7 @@ message GeminiQueryResponse {
   repeated Citation citations = 2;
   string model = 3;
   bool is_fallback = 4;
-  // For deep_research: JSON of sections
-  string sections_json = 5;
+  repeated google.protobuf.Struct sections = 5;
 }
 
 // ---------------------------------------------------------------------------

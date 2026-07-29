@@ -7,6 +7,35 @@ syntax = "proto3";
 
 package op_agents;
 
+import "google/protobuf/struct.proto";
+
+// ============ Enums ============
+
+enum AgentLifecycleStatus {
+  AGENT_LIFECYCLE_STATUS_UNSPECIFIED = 0;
+  AGENT_LIFECYCLE_STATUS_STARTING = 1;
+  AGENT_LIFECYCLE_STATUS_RUNNING = 2;
+  AGENT_LIFECYCLE_STATUS_STOPPING = 3;
+  AGENT_LIFECYCLE_STATUS_STOPPED = 4;
+  AGENT_LIFECYCLE_STATUS_ERROR = 5;
+}
+
+enum StreamType {
+  STREAM_TYPE_UNSPECIFIED = 0;
+  STREAM_TYPE_STDOUT = 1;
+  STREAM_TYPE_STDERR = 2;
+  STREAM_TYPE_PROGRESS = 3;
+  STREAM_TYPE_RESULT = 4;
+}
+
+enum ExportFormat {
+  EXPORT_FORMAT_UNSPECIFIED = 0;
+  EXPORT_FORMAT_JSON = 1;
+  EXPORT_FORMAT_YAML = 2;
+}
+
+// ============ Services ============
+
 // Agent Lifecycle Service
 // Used by MCP server to manage run-on-connection agents
 service AgentLifecycle {
@@ -94,9 +123,7 @@ message StartRequest {
 }
 
 message StartResponse {
-    bool success = 1;
-    string message = 2;
-    int64 started_at = 3;
+    int64 started_at = 1;
 }
 
 message StopRequest {
@@ -105,8 +132,6 @@ message StopRequest {
 }
 
 message StopResponse {
-    bool success = 1;
-    string message = 2;
 }
 
 message HealthRequest {
@@ -126,7 +151,7 @@ message WatchRequest {
 
 message AgentStatus {
     string agent_id = 1;
-    string status = 2;  // starting, running, stopping, stopped, error
+    AgentLifecycleStatus status = 2;
     int64 timestamp = 3;
     map<string, string> metadata = 4;
 }
@@ -134,24 +159,22 @@ message AgentStatus {
 message ExecuteRequest {
     string agent_id = 1;
     string operation = 2;
-    string arguments_json = 3;
+    google.protobuf.Struct arguments = 3;
     int64 timeout_ms = 4;
     string correlation_id = 5;
 }
 
 message ExecuteResponse {
-    bool success = 1;
-    string result_json = 2;
-    string error = 3;
-    int64 execution_time_ms = 4;
-    string correlation_id = 5;
+    google.protobuf.Struct result = 1;
+    int64 execution_time_ms = 2;
+    string correlation_id = 3;
 }
 
 message ExecuteChunk {
     string correlation_id = 1;
     string chunk = 2;
-    bool is_final = 3;
-    bool is_error = 4;
+    StreamType stream_type = 3;
+    bool is_final = 4;
 }
 
 // Memory messages
@@ -163,8 +186,7 @@ message RememberRequest {
 }
 
 message RememberResponse {
-    bool success = 1;
-    string key = 2;
+    string key = 1;
 }
 
 message RecallRequest {
@@ -172,11 +194,10 @@ message RecallRequest {
 }
 
 message RecallResponse {
-    bool found = 1;
-    string key = 2;
-    string value = 3;
-    int64 created_at = 4;
-    int64 accessed_at = 5;
+    string key = 1;
+    string value = 2;
+    int64 created_at = 3;
+    int64 accessed_at = 4;
 }
 
 message ForgetRequest {
@@ -184,7 +205,6 @@ message ForgetRequest {
 }
 
 message ForgetResponse {
-    bool success = 1;
 }
 
 message ListRequest {
@@ -240,8 +260,7 @@ message ThoughtResponse {
     string chain_id = 1;
     int32 step = 2;
     string thought = 3;
-    string status = 4;  // thinking, analyzing, concluding, complete
-    bool is_final = 5;
+    bool is_final = 4;
 }
 
 message ConcludeRequest {
@@ -263,9 +282,8 @@ message SaveContextRequest {
 }
 
 message SaveContextResponse {
-    bool success = 1;
-    string name = 2;
-    int64 size_bytes = 3;
+    string name = 1;
+    int64 size_bytes = 2;
 }
 
 message LoadContextRequest {
@@ -273,12 +291,11 @@ message LoadContextRequest {
 }
 
 message LoadContextResponse {
-    bool found = 1;
-    string name = 2;
-    string content = 3;
-    repeated string tags = 4;
-    int64 created_at = 5;
-    int64 updated_at = 6;
+    string name = 1;
+    string content = 2;
+    repeated string tags = 3;
+    int64 created_at = 4;
+    int64 updated_at = 5;
 }
 
 message ListContextRequest {
@@ -301,12 +318,11 @@ message DeleteContextRequest {
 }
 
 message DeleteContextResponse {
-    bool success = 1;
 }
 
 message ExportRequest {
-    repeated string names = 1;  // empty = all
-    string format = 2;  // json, yaml
+    repeated string names = 1;
+    ExportFormat format = 2;
 }
 
 message ExportChunk {
@@ -336,16 +352,15 @@ message CargoRequest {
 }
 
 message CargoResponse {
-    bool success = 1;
-    string stdout = 2;
-    string stderr = 3;
-    int32 exit_code = 4;
-    int64 duration_ms = 5;
+    string stdout = 1;
+    string stderr = 2;
+    int32 exit_code = 3;
+    int64 duration_ms = 4;
 }
 
 message CargoOutput {
     string line = 1;
-    string stream = 2;  // stdout, stderr
+    StreamType stream_type = 2;
     bool is_final = 3;
-    int32 exit_code = 4;  // only set when is_final
+    int32 exit_code = 4;
 }

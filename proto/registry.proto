@@ -59,9 +59,9 @@ message RegisterRequest {
   // what this component does and when an LLM should invoke it.
   string description = 4;
 
-  // JSON Schema (draft-07 compatible) describing the input accepted by this
+  // Schema (draft-07 compatible) describing the input accepted by this
   // component's primary operation. Used to auto-generate MCP tool schemas.
-  string schema_json = 5;
+  google.protobuf.Struct schema = 5;
 
   // Arbitrary metadata for component-specific needs.
   map<string, string> metadata = 6;
@@ -83,11 +83,8 @@ message RegisterRequest {
 }
 
 message RegisterResponse {
-  bool success = 1;
-  string message = 2;
-  // Server-assigned lease token — must be presented in Heartbeat and Deregister.
-  string lease_token = 3;
-  google.protobuf.Timestamp registered_at = 4;
+  string lease_token = 1;
+  google.protobuf.Timestamp registered_at = 2;
 }
 
 // =============================================================================
@@ -100,8 +97,6 @@ message DeregisterRequest {
 }
 
 message DeregisterResponse {
-  bool success = 1;
-  string message = 2;
 }
 
 // =============================================================================

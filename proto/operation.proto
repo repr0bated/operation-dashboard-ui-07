@@ -156,18 +156,14 @@ enum OperationType {
 }
 
 message MutateResponse {
-  // Whether mutation succeeded
-  bool success = 1;
   // Event chain event ID
-  uint64 event_id = 2;
+  uint64 event_id = 1;
   // Event hash
-  string event_hash = 3;
+  string event_hash = 2;
   // Result value (for method calls)
-  google.protobuf.Value result = 4;
-  // Error details if failed
-  MutationError error = 5;
+  google.protobuf.Value result = 3;
   // Resulting effective state hash
-  string effective_hash = 6;
+  string effective_hash = 4;
 }
 
 message MutationError {
@@ -233,10 +229,7 @@ message BatchMutateRequest {
 }
 
 message BatchMutateResponse {
-  bool success = 1;
-  repeated MutateResponse results = 2;
-  // If atomic and failed, which index failed
-  int32 failed_index = 3;
+  repeated MutateResponse results = 1;
 }
 
 // =============================================================================
@@ -264,7 +257,7 @@ message GetSchemaRequest {
 }
 
 message GetSchemaResponse {
-  string schema_json = 1;
+  google.protobuf.Struct schema = 1;
   string dialect = 2;
   string version = 3;
 }
@@ -280,11 +273,9 @@ message CallMethodRequest {
 }
 
 message CallMethodResponse {
-  bool success = 1;
-  google.protobuf.Value result = 2;
-  uint64 event_id = 3;
-  string event_hash = 4;
-  MutationError error = 5;
+  google.protobuf.Value result = 1;
+  uint64 event_id = 2;
+  string event_hash = 3;
 }
 
 message GetPropertyRequest {
