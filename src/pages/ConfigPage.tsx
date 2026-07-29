@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { PageHeader, Pill } from "@/components/shell/Primitives";
 import { SchemaRenderer } from "@/components/json/SchemaRenderer";
 import { useEventStore } from "@/stores/event-store";
+import { useLlmRouting } from "@/hooks/use-llm-routing";
+import type { JsonSchema } from "@/types/api";
 import { cn } from "@/lib/utils";
 import { Settings, Shield, Zap, Bot, Globe, Terminal, Network } from "lucide-react";
 
@@ -14,7 +16,7 @@ const SECTIONS = [
   { key: "network", label: "Network", icon: Network },
 ];
 
-const SECTION_SCHEMAS: Record<string, Record<string, unknown>> = {
+const SECTION_SCHEMAS: Record<string, JsonSchema> = {
   general: {
     type: "object",
     properties: {
@@ -40,12 +42,16 @@ const SECTION_SCHEMAS: Record<string, Record<string, unknown>> = {
   llm: {
     type: "object",
     properties: {
-      default_model: { type: "string", title: "Default Model", enum: ["gpt-4o", "gpt-4o-mini", "claude-sonnet-4", "gemini-2.5-pro"] },
+      // `default_model` / `fallback_model` enums are injected at render time
+      // from the live gateway — see `llmSchemaWithLiveModels`. They are NOT
+      // hardcoded: this page used to offer gpt-4o/gpt-4o-mini regardless of
+      // what the gateway actually routes.
+      default_model: { type: "string", title: "Default Model" },
       temperature: { type: "number", title: "Temperature", minimum: 0, maximum: 2 },
       max_tokens: { type: "number", title: "Max Tokens", minimum: 256, maximum: 128000 },
       streaming: { type: "boolean", title: "Streaming Enabled" },
       rate_limit_rpm: { type: "number", title: "Rate Limit (RPM)", minimum: 1, maximum: 10000 },
-      fallback_model: { type: "string", title: "Fallback Model", enum: ["gpt-4o-mini", "gemini-2.5-flash", "none"] },
+      fallback_model: { type: "string", title: "Fallback Model" },
     },
   },
   agents: {
@@ -85,11 +91,40 @@ const SECTION_SCHEMAS: Record<string, Record<string, unknown>> = {
   },
 };
 
+/**
+ * Inject the live routable-model list into the LLM section's model pickers.
+ *
+ * When the gateway cannot supply a list, the fields stay free-text strings
+ * rather than offering model names that this deployment may not route.
+ */
+function llmSchemaWithLiveModels(base: JsonSchema, modelIds: string[]): JsonSchema {
+  if (modelIds.length === 0) return base;
+  const props = { ...(base.properties ?? {}) } as Record<string, JsonSchema>;
+  props.default_model = { ...props.default_model, enum: modelIds };
+  props.fallback_model = { ...props.fallback_model, enum: [...modelIds, "none"] };
+  return { ...base, properties: props };
+}
+
 export default function ConfigPage() {
   const { latestState } = useEventStore();
   const [activeSection, setActiveSection] = useState("general");
   const [mode, setMode] = useState<"structured" | "raw">("structured");
   const [localValues, setLocalValues] = useState<Record<string, Record<string, unknown>>>({});
+
+  // Live gateway state, so the LLM section offers real models.
+  const { status, models, modelsError } = useLlmRouting();
+
+  const modelIds = useMemo(() => {
+    const ids = models.map((m) => m.id).filter(Boolean);
+    // The active model may not appear in the projection; never hide it.
+    if (status?.model && !ids.includes(status.model)) ids.unshift(status.model);
+    return ids;
+  }, [models, status?.model]);
+
+  const activeSchema = useMemo(() => {
+    const base = SECTION_SCHEMAS[activeSection];
+    return activeSection === "llm" ? llmSchemaWithLiveModels(base, modelIds) : base;
+  }, [activeSection, modelIds]);
 
   const sectionData = useMemo(() => {
     const live = latestState[`config.${activeSection}`] ?? latestState[`config:${activeSection}`];
@@ -153,11 +188,25 @@ export default function ConfigPage() {
               <textarea value={rawValue} readOnly
                 className="w-full h-full min-h-[500px] px-3 py-2 rounded-md border border-input bg-card text-sm font-mono resize-y focus:border-ring outline-none" />
             ) : (
-              <SchemaRenderer
-                schema={SECTION_SCHEMAS[activeSection] as any}
-                data={sectionData}
-                onChange={handleChange}
-              />
+              <>
+                {activeSection === "llm" && modelsError && (
+                  <div className="mb-3 rounded-md border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
+                    Model options unavailable — showing free-text fields instead of a
+                    picker. Reason: <span className="font-mono">{modelsError}</span>
+                  </div>
+                )}
+                {activeSection === "llm" && !modelsError && modelIds.length > 0 && (
+                  <div className="mb-3 text-[11px] font-mono text-muted-foreground">
+                    {modelIds.length} model{modelIds.length === 1 ? "" : "s"} from the live
+                    gateway
+                  </div>
+                )}
+                <SchemaRenderer
+                  schema={activeSchema}
+                  data={sectionData}
+                  onChange={handleChange}
+                />
+              </>
             )}
           </div>
         </div>

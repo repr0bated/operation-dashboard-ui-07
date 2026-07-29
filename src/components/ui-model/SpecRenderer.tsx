@@ -6,7 +6,7 @@
  */
 import { Renderer } from "@json-render/react";
 import type { Spec } from "@json-render/core";
-import { jsonRenderRegistry } from "@/lib/json-render-catalog";
+import { registry as jsonRenderRegistry } from "@/json-render/catalog/registry";
 
 const CATALOG = new Set(Object.keys(jsonRenderRegistry));
 

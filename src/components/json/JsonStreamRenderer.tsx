@@ -7,7 +7,8 @@
  */
 import { useMemo } from "react";
 import { Renderer } from "@json-render/react";
-import { jsonRenderRegistry, streamToSpec, dataToSpec } from "@/lib/json-render-catalog";
+import { registry as jsonRenderRegistry } from "@/json-render/catalog/registry";
+import { streamToSpec, dataToSpec } from "@/json-render/spec-builders";
 
 interface JsonStreamRendererProps {
   messages: unknown[];

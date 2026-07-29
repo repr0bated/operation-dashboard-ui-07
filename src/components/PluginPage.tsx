@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Renderer } from "@json-render/react";
 import type { Spec } from "@json-render/core";
-import { jsonRenderRegistry } from "@/lib/json-render-catalog";
+import { registry as jsonRenderRegistry } from "@/json-render/catalog/registry";
 import { usePluginSchema } from "@/hooks/use-plugin-schema";
 
 /**

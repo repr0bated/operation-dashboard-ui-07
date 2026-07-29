@@ -1,36 +1,51 @@
 /**
  * Blobs — browse sealed plugin blob schemas.
  *
- * Lists every plugin discovered in the auto-generated plugin-methods index and
- * renders the currently selected plugin's sealed-blob schema through
- * PluginSchemaPanel (fetched from /api/ui-model/plugin-schema/:plugin).
+ * The plugin list comes from `GET /api/ui-model/plugins`, i.e. the sealed blob
+ * catalog itself: a plugin is listed iff its `.blob` is sealed. The generated
+ * `PLUGIN_METHOD_BY_PLUGIN` index is only used to annotate a row with its
+ * method count, never to decide what exists — it is build-time protobuf
+ * codegen and omits plugins that ship no method clients (antigravity was
+ * invisible here for exactly that reason).
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PLUGIN_METHOD_BY_PLUGIN } from "@/grpc/plugin-methods";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
+import { useBlobCatalog } from "@/hooks/use-blob-catalog";
+import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Package, Search } from "lucide-react";
+import { Package, Search, Loader2 } from "lucide-react";
 
 export default function BlobsPage() {
+  const { plugins: catalog, loading, error } = useBlobCatalog();
+
   const plugins = useMemo(
     () =>
-      Array.from(PLUGIN_METHOD_BY_PLUGIN.entries())
-        .map(([name, entries]) => ({ name, count: entries.length }))
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    [],
+      catalog.map((name) => ({
+        name,
+        /** undefined = sealed blob with no generated gRPC method clients. */
+        count: PLUGIN_METHOD_BY_PLUGIN.get(name)?.length,
+      })),
+    [catalog],
   );
 
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<string>(
-    plugins.find((p) => p.name === "antigravity_chat")?.name ??
-      plugins[0]?.name ??
-      "",
-  );
+  const [selected, setSelected] = useState<string>("");
+
+  // Select a default once the catalog arrives, without clobbering a user pick.
+  useEffect(() => {
+    if (selected || plugins.length === 0) return;
+    setSelected(
+      plugins.find((p) => p.name === "antigravity_chat")?.name ?? plugins[0].name,
+    );
+  }, [plugins, selected]);
 
   const filtered = plugins.filter((p) =>
     p.name.toLowerCase().includes(query.toLowerCase()),
   );
+
+  const withoutClients = plugins.filter((p) => p.count === undefined).length;
 
   return (
     <div className="p-6 space-y-4">
@@ -41,11 +56,21 @@ export default function BlobsPage() {
             Sealed Blobs
           </h1>
           <p className="text-xs text-muted-foreground mt-1 font-mono">
-            {plugins.length} plugins · sealed-blob schemas served from
-            /api/ui-model/plugin-schema/:plugin
+            {loading
+              ? "reading sealed blob catalog…"
+              : `${plugins.length} sealed plugins${
+                  withoutClients > 0 ? ` · ${withoutClients} without gRPC clients` : ""
+                } · /api/ui-model/plugins`}
           </p>
         </div>
       </header>
+
+      {error && (
+        <ErrorBanner
+          title="Sealed blob catalog unavailable"
+          message={error}
+        />
+      )}
 
       <div className="grid grid-cols-[280px_1fr] gap-4 min-h-[calc(100vh-180px)]">
         <aside className="rounded-lg border border-border bg-card/40 flex flex-col overflow-hidden">
@@ -61,7 +86,18 @@ export default function BlobsPage() {
             </div>
           </div>
           <div className="flex-1 overflow-auto">
-            {filtered.length === 0 && (
+            {loading && (
+              <div className="flex items-center gap-2 p-4 text-xs text-muted-foreground">
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                Loading catalog…
+              </div>
+            )}
+            {!loading && plugins.length === 0 && !error && (
+              <div className="p-4 text-xs text-muted-foreground">
+                No sealed blobs in the catalog.
+              </div>
+            )}
+            {!loading && plugins.length > 0 && filtered.length === 0 && (
               <div className="p-4 text-xs text-muted-foreground">
                 No plugins match "{query}".
               </div>
@@ -78,8 +114,15 @@ export default function BlobsPage() {
                 )}
               >
                 <span className="truncate">{p.name}</span>
-                <span className="text-[10px] tabular-nums text-muted-foreground/70">
-                  {p.count}
+                <span
+                  className="text-[10px] tabular-nums text-muted-foreground/70"
+                  title={
+                    p.count === undefined
+                      ? "sealed blob with no generated gRPC method clients"
+                      : `${p.count} gRPC methods`
+                  }
+                >
+                  {p.count ?? "—"}
                 </span>
               </button>
             ))}
@@ -94,9 +137,10 @@ export default function BlobsPage() {
               className="flex-1 flex flex-col min-h-0"
             />
           ) : (
-            <div className="text-xs text-muted-foreground">
-              Select a plugin to view its sealed-blob schema.
-            </div>
+            <EmptyState
+              title="No plugin selected"
+              hint="Pick a sealed blob from the list to view its schema."
+            />
           )}
         </section>
       </div>

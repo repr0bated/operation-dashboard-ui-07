@@ -1,19 +1,11 @@
 /**
- * Dashboard primitives + smart widgets exposed to json-render specs.
+ * Dashboard components: layout primitives plus the live Overview widgets.
  *
- * Two flavours:
- *   • Presentational primitives (`grid`, `card`, `statCard`, `pill`, `statusDot`,
- *     `callout`, `notes`) that map spec props onto existing shell components.
- *   • Overview widgets (`overviewStats`, `resourcePanel`, `gatewayAccess`,
- *     `componentsPanel`, `eventDistributionPanel`, `connectedPeersPanel`,
- *     `eventTapePanel`, `stateProjectionPanel`, `rawStatsPanel`, `notesPanel`)
- *     that read live data from `useEventStore` internally. Widgets keep the
- *     Overview spec compact and let future plugin specs compose the same
- *     dashboard vocabulary without re-wiring stores.
+ * The widgets read the event-stream store internally, which is what lets the
+ * Overview page spec stay pure composition. Ported from the previous
+ * `catalog/dashboard.tsx`; only the call signature changed.
  */
-import { useState, type ReactNode } from "react";
-import type { ComponentRegistry } from "@json-render/react";
-import type { UIElement } from "@json-render/core";
+import { useState } from "react";
 import {
   Card,
   StatCard,
@@ -37,21 +29,16 @@ import {
   Layers, Bot, MessageSquare, Shield, Wrench, Clock, ChevronRight, Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { El } from "./types";
 
 // ── presentational primitives ────────────────────────────────────────────
 
-const Grid = ({
-  element,
-  children,
-}: {
-  element: UIElement<string, { cols?: number; gap?: number; className?: string }>;
-  children?: ReactNode;
-}) => {
-  const cols = element.props.cols ?? 2;
-  const gap = element.props.gap ?? 4;
+export const GridEl: El<"grid"> = ({ props, children }) => {
+  const cols = props.cols ?? 2;
+  const gap = props.gap ?? 4;
   return (
     <div
-      className={cn("grid", element.props.className)}
+      className={cn("grid", props.className)}
       style={{
         gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
         gap: `${gap * 0.25}rem`,
@@ -62,61 +49,51 @@ const Grid = ({
   );
 };
 
-const CardEl = ({
-  element,
-  children,
-}: {
-  element: UIElement<string, { title?: string; subtitle?: string; className?: string }>;
-  children?: ReactNode;
-}) => (
+export const CardElEl: El<"cardEl"> = ({ props, children }) => (
   <Card
-    title={element.props.title}
-    subtitle={element.props.subtitle}
-    className={element.props.className}
+    title={props.title ?? undefined}
+    subtitle={props.subtitle ?? undefined}
+    className={props.className ?? undefined}
   >
     {children}
   </Card>
 );
 
-const StatCardEl = ({
-  element,
-}: {
-  element: UIElement<string, {
-    label: string;
-    value: React.ReactNode;
-    sub?: string;
-    variant?: "default" | "ok" | "warn" | "danger";
-  }>;
-}) => (
+export const StatCardEl: El<"statCard"> = ({ props }) => (
   <StatCard
-    label={element.props.label}
-    value={element.props.value}
-    sub={element.props.sub}
-    variant={element.props.variant}
+    label={props.label}
+    value={props.value}
+    sub={props.sub ?? undefined}
+    variant={props.variant ?? undefined}
   />
 );
 
-const PillEl = ({
-  element,
-}: {
-  element: UIElement<string, { text: string; variant?: "default" | "danger" | "ok" | "warn" }>;
-}) => <Pill variant={element.props.variant}>{element.props.text}</Pill>;
+export const PillEl: El<"pill"> = ({ props }) => (
+  <Pill variant={props.variant ?? undefined}>{props.text}</Pill>
+);
 
-const StatusDotEl = ({
-  element,
-}: {
-  element: UIElement<string, { status: "ok" | "warn" | "error" | "offline" }>;
-}) => <StatusDot status={element.props.status} />;
+export const StatusDotEl: El<"statusDot"> = ({ props }) => (
+  <StatusDot status={props.status} />
+);
 
-const CalloutEl = ({
-  element,
-  children,
-}: {
-  element: UIElement<string, { variant?: "default" | "danger" | "warn" | "ok" }>;
-  children?: ReactNode;
-}) => <Callout variant={element.props.variant}>{children}</Callout>;
+export const CalloutEl: El<"callout"> = ({ props, children }) => (
+  <Callout variant={props.variant ?? undefined}>{children}</Callout>
+);
 
-// ── smart widgets (Overview spec vocabulary) ─────────────────────────────
+export const NotesPanelEl: El<"notesPanel"> = ({ props }) => (
+  <Card title={props.title ?? "Notes"} subtitle={props.subtitle ?? undefined}>
+    <div className="space-y-3 mt-1">
+      {props.notes.map((n) => (
+        <div key={n.title}>
+          <div className="text-xs font-semibold text-foreground">{n.title}</div>
+          <div className="text-[11px] text-muted-foreground mt-0.5">{n.desc}</div>
+        </div>
+      ))}
+    </div>
+  </Card>
+);
+
+// ── live Overview widgets ────────────────────────────────────────────────
 
 function formatUptime(ms: number): string {
   const s = Math.floor(ms / 1000);
@@ -128,7 +105,35 @@ function formatUptime(ms: number): string {
   return `${m}m ${s % 60}s`;
 }
 
-const OverviewStats = () => {
+export const OverviewHeaderEl: El<"overviewHeader"> = () => {
+  const { connected } = useEventStore();
+  return (
+    <div className="flex items-end justify-between gap-4 px-2 py-1">
+      <div>
+        <h1 className="text-[26px] font-bold tracking-tight leading-tight text-foreground">
+          Overview
+        </h1>
+        <p className="mt-1.5 text-sm text-muted-foreground">
+          System status, resource utilization, and live event stream.
+        </p>
+      </div>
+      <div className="flex items-center gap-2">
+        <StatusDot status={connected ? "ok" : "warn"} />
+        <span className="text-xs font-mono text-muted-foreground">
+          {connected ? "Connected" : "Disconnected"}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const OverviewLastErrorEl: El<"overviewLastError"> = () => {
+  const { lastError } = useEventStore();
+  if (!lastError) return null;
+  return <Callout variant="danger">{lastError}</Callout>;
+};
+
+export const OverviewStatsEl: El<"overviewStats"> = () => {
   const { connected, health } = useEventStore();
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -150,10 +155,12 @@ const OverviewStats = () => {
   );
 };
 
-const ResourcePanel = () => {
+export const ResourcePanelEl: El<"resourcePanel"> = () => {
   const { health, latestStats } = useEventStore();
   const cpu = health?.cpuPercent ?? (latestStats?.cpu as number | undefined) ?? 0;
-  const memory = health?.memoryMb ? Math.min((health.memoryMb / 2048) * 100, 100) : (latestStats?.memory as number | undefined) ?? 0;
+  const memory = health?.memoryMb
+    ? Math.min((health.memoryMb / 2048) * 100, 100)
+    : (latestStats?.memory as number | undefined) ?? 0;
   const disk = (latestStats?.disk as number | undefined) ?? 0;
   const networkMbps = (latestStats?.network as number | undefined) ?? 0;
   return (
@@ -178,7 +185,7 @@ const ResourcePanel = () => {
   );
 };
 
-const GatewayAccess = () => (
+export const GatewayAccessEl: El<"gatewayAccess"> = () => (
   <Card title="Gateway Access" subtitle="Connection and authentication details.">
     <div className="space-y-3 mt-1">
       <div className="space-y-1.5">
@@ -205,7 +212,7 @@ const GatewayAccess = () => (
   </Card>
 );
 
-const ComponentsPanel = () => {
+export const ComponentsPanelEl: El<"componentsPanel"> = () => {
   const { connected, health } = useEventStore();
   const items = [
     { name: "D-Bus Monitor", icon: Layers, ok: connected },
@@ -234,7 +241,7 @@ const ComponentsPanel = () => {
   );
 };
 
-const EventDistributionPanel = () => {
+export const EventDistributionPanelEl: El<"eventDistributionPanel"> = () => {
   const { eventCounts } = useEventStore();
   return (
     <Card
@@ -263,16 +270,19 @@ interface ConnectedPeer {
   state?: Record<string, unknown>;
 }
 
-const ConnectedPeersPanel = () => {
+export const ConnectedPeersPanelEl: El<"connectedPeersPanel"> = () => {
   const { latestState } = useEventStore();
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
-  const raw = latestState["peers"] ?? latestState["peers.connected"] ?? latestState["connected_peers"];
+  const raw =
+    latestState["peers"] ?? latestState["peers.connected"] ?? latestState["connected_peers"];
   const peers: ConnectedPeer[] = Array.isArray(raw) ? (raw as ConnectedPeer[]) : [];
-  const toggle = (id: string) => setExpanded((prev) => {
-    const next = new Set(prev);
-    if (next.has(id)) next.delete(id); else next.add(id);
-    return next;
-  });
+  const toggle = (id: string) =>
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   const dur = (iso: string) => {
     const ms = Date.now() - new Date(iso).getTime();
     const s = Math.floor(ms / 1000);
@@ -356,17 +366,17 @@ const ConnectedPeersPanel = () => {
   );
 };
 
-const EventTapePanel = () => {
+export const EventTapePanelEl: El<"eventTapePanel"> = () => {
   const { events } = useEventStore();
   return <EventTape events={events} />;
 };
 
-const StateProjectionPanelEl = () => {
+export const StateProjectionPanelEl: El<"stateProjectionPanel"> = () => {
   const { latestState } = useEventStore();
   return <StateProjectionPanel state={latestState} />;
 };
 
-const RawStatsPanel = () => {
+export const RawStatsPanelEl: El<"rawStatsPanel"> = () => {
   const { latestStats } = useEventStore();
   return latestStats ? (
     <Card title="Raw System Stats" subtitle="Latest system_stats event payload.">
@@ -377,72 +387,4 @@ const RawStatsPanel = () => {
       <div className="text-sm text-muted-foreground mt-2 font-mono">No stats data received.</div>
     </Card>
   );
-};
-
-const NotesPanel = ({
-  element,
-}: {
-  element: UIElement<string, { title?: string; subtitle?: string; notes?: { title: string; desc: string }[] }>;
-}) => {
-  const notes = element.props.notes ?? [];
-  return (
-    <Card title={element.props.title ?? "Notes"} subtitle={element.props.subtitle}>
-      <div className="space-y-3 mt-1">
-        {notes.map((n) => (
-          <div key={n.title}>
-            <div className="text-xs font-semibold text-foreground">{n.title}</div>
-            <div className="text-[11px] text-muted-foreground mt-0.5">{n.desc}</div>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-};
-
-const OverviewLastErrorBanner = () => {
-  const { lastError } = useEventStore();
-  if (!lastError) return null;
-  return <Callout variant="danger">{lastError}</Callout>;
-};
-
-const OverviewHeader = () => {
-  const { connected } = useEventStore();
-  return (
-    <div className="flex items-end justify-between gap-4 px-2 py-1">
-      <div>
-        <h1 className="text-[26px] font-bold tracking-tight leading-tight text-foreground">Overview</h1>
-        <p className="mt-1.5 text-sm text-muted-foreground">
-          System status, resource utilization, and live event stream.
-        </p>
-      </div>
-      <div className="flex items-center gap-2">
-        <StatusDot status={connected ? "ok" : "warn"} />
-        <span className="text-xs font-mono text-muted-foreground">
-          {connected ? "Connected" : "Disconnected"}
-        </span>
-      </div>
-    </div>
-  );
-};
-
-export const dashboardCatalog: ComponentRegistry = {
-  grid: Grid as never,
-  cardEl: CardEl as never,
-  statCard: StatCardEl as never,
-  pill: PillEl as never,
-  statusDot: StatusDotEl as never,
-  callout: CalloutEl as never,
-
-  overviewHeader: OverviewHeader as never,
-  overviewLastError: OverviewLastErrorBanner as never,
-  overviewStats: OverviewStats as never,
-  resourcePanel: ResourcePanel as never,
-  gatewayAccess: GatewayAccess as never,
-  componentsPanel: ComponentsPanel as never,
-  eventDistributionPanel: EventDistributionPanel as never,
-  connectedPeersPanel: ConnectedPeersPanel as never,
-  eventTapePanel: EventTapePanel as never,
-  stateProjectionPanel: StateProjectionPanelEl as never,
-  rawStatsPanel: RawStatsPanel as never,
-  notesPanel: NotesPanel as never,
 };

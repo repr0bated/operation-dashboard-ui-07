@@ -1,7 +1,7 @@
 /**
- * Renders a JSON Render page spec inside the current shell using the trusted
- * base registry. Used at the route level to swap a legacy React page for a
- * spec-driven one without touching the router shape.
+ * Renders a single page spec inside the current shell using the catalog
+ * registry. Useful for mounting a spec at a route explicitly, when you do not
+ * want `PageSpecOutlet`'s pathname lookup.
  */
 import { Renderer } from "@json-render/react";
 import type { Spec } from "@json-render/core";

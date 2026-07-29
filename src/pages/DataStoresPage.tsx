@@ -2,15 +2,12 @@ import { useState, useEffect } from "react";
 import { Database, Activity, AlertTriangle, CheckCircle, Loader2, HardDrive, Wifi } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { dataStoreService } from "@/grpc/client";
+import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
 import type { DataStoreViewStatus as DataStoreStatus } from "@/grpc/view-types";
 
-const MOCK_STORES: DataStoreStatus[] = [
-  { name: "op-state-store", location: "SQLite (op-dbus host)", description: "Plugin state, cognitive memory, user memory", durability: "Persistent", status: "healthy", sizeBytes: 52428800, usedBytes: 31457280, lastChecked: new Date().toISOString(), latencyMs: 2, details: { walMode: true, tables: 14 } },
-  { name: "BTRFS timing_subvol", location: "/timing_subvol", description: "Blockchain footprints (audit, immutable)", durability: "Persistent + replicated", status: "healthy", sizeBytes: 2147483648, usedBytes: 892614656, lastChecked: new Date().toISOString(), details: { snapshotCount: 14 } },
-  { name: "BTRFS state_subvol", location: "/state_subvol", description: "DR current.json snapshots", durability: "Persistent + replicated", status: "healthy", sizeBytes: 1073741824, usedBytes: 134217728, lastChecked: new Date().toISOString(), details: {} },
-  { name: "Qdrant", location: "qdrant container (10.149.181.190)", description: "Vectors: footprints, reasoning episodes", durability: "Persistent + snapshotted", status: "healthy", sizeBytes: 10737418240, usedBytes: 4294967296, lastChecked: new Date().toISOString(), latencyMs: 8, details: { collections: 3, protocol: "gRPC:6334" } },
-  { name: "Embedding channel", location: "in-process mpsc", description: "In-flight embed requests", durability: "Best-effort (runtime only)", status: "healthy", lastChecked: new Date().toISOString(), details: { capacity: 1024, used: 12, dropped: 0 } },
-];
+// NOTE: this page used to fall back to a hardcoded MOCK_STORES array when the
+// gRPC call failed, which made a dead backend look like five healthy stores.
+// A failure is now reported as a failure.
 
 function formatBytes(bytes: number): string {
   if (bytes < 1048576) return `${(bytes / 1024).toFixed(0)} KB`;
@@ -27,11 +24,12 @@ const statusIcon = (s: string) => {
 export default function DataStoresPage() {
   const [stores, setStores] = useState<DataStoreStatus[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     dataStoreService.getDataStores()
-      .then((r) => setStores(r.stores))
-      .catch(() => setStores(MOCK_STORES))
+      .then((r) => { setStores(r.stores); setError(null); })
+      .catch((e: unknown) => setError((e as Error)?.message ?? "data store query failed"))
       .finally(() => setLoading(false));
   }, []);
 
@@ -45,6 +43,15 @@ export default function DataStoresPage() {
         <h1 className="text-[26px] font-bold tracking-tight text-foreground">Data Stores</h1>
         <p className="text-sm text-muted-foreground mt-0.5">Health and status of all persistent and runtime data stores.</p>
       </div>
+
+      {error && <ErrorBanner title="Data store status unavailable" message={error} />}
+
+      {!error && stores.length === 0 && (
+        <EmptyState
+          title="No data stores reported"
+          hint="The control plane returned an empty store list."
+        />
+      )}
 
       <div className="grid gap-3">
         {stores.map((store) => (

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { schemaToSpec } from "@/components/PluginPage";
-import { jsonRenderRegistry } from "@/lib/json-render-catalog";
+import { registry as jsonRenderRegistry } from "@/json-render/catalog/registry";
 import cronSchema from "./fixtures/plugin-schema-cron.json";
 
 /**

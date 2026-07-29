@@ -6,9 +6,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppShell } from "@/components/shell/AppShell";
 import { useEventStream } from "@/hooks/use-event-stream";
-import { JsonRenderProvider, SpecPage, overviewSpec } from "@/json-render";
+import { ShellRenderer, PageSpecOutlet } from "@/json-render";
 
 import ChatPage from "./pages/ChatPage";
 import ToolsPage from "./pages/ToolsPage";
@@ -65,15 +64,18 @@ const queryClient = new QueryClient({
   },
 });
 
-// Dashboard routes live inside AppShell; the event stream only runs here so
-// public pages don't open the admin SSE channel.
+// Dashboard routes live inside the spec-driven shell; the event stream only
+// runs here so public pages don't open the admin SSE channel.
+//
+// The index route renders through PageSpecOutlet, which resolves the current
+// pathname against PAGE_SPECS (json-render/pages). Routes with no registered
+// spec fall through to the React pages listed below.
 function ShellRoutes() {
   useEventStream();
   return (
-    <JsonRenderProvider>
-      <AppShell>
-        <Routes>
-          <Route path="/" element={<SpecPage spec={overviewSpec} />} />
+    <ShellRenderer>
+      <Routes>
+        <Route path="/" element={<PageSpecOutlet />} />
 
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
@@ -113,10 +115,9 @@ function ShellRoutes() {
         <Route path="/integrations" element={<IntegrationsPage />} />
         <Route path="/estop" element={<EStopPage />} />
         <Route path="/hardware" element={<HardwarePage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </AppShell>
-    </JsonRenderProvider>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </ShellRenderer>
   );
 }
 

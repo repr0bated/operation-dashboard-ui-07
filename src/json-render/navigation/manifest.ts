@@ -28,7 +28,20 @@ export interface NavItem {
   section: NavSection;
   order: number;
   requiredCapabilities?: Capability[];
+  /** Not implemented at all — nav entry is disabled. */
   placeholder?: boolean;
+  /**
+   * Work in progress: the page renders but is not wired to live control-plane
+   * data. Set this ONLY for pages that show static/invented content — a page
+   * that calls a real backend and fails is *not* WIP, because that failure is
+   * useful signal and must stay visible.
+   *
+   * Marking this drives both the sidebar badge and the on-page banner; no
+   * per-page edit is required.
+   */
+  wip?: boolean;
+  /** Shown in the WIP banner so the gap is explicit. */
+  wipReason?: string;
 }
 
 export const NAV_MANIFEST: NavItem[] = [
@@ -66,18 +79,20 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "data-stores", label: "Data Stores", route: "/data-stores", icon: "Monitor", section: "Infrastructure", order: 60 },
 
   // ZeroClaw
-  { id: "gateway", label: "Gateway", route: "/gateway", icon: "Webhook", section: "ZeroClaw", order: 10 },
-  { id: "channels", label: "Channels", route: "/channels", icon: "Wifi", section: "ZeroClaw", order: 20 },
-  { id: "cron", label: "Cron", route: "/cron", icon: "Clock", section: "ZeroClaw", order: 30 },
-  { id: "integrations", label: "Integrations", route: "/integrations", icon: "Puzzle", section: "ZeroClaw", order: 40 },
-  { id: "hardware", label: "Hardware", route: "/hardware", icon: "Usb", section: "ZeroClaw", order: 50 },
+  // These five render static layout only — no @/grpc or @/lib/api import at
+  // all — so they are marked WIP. Verified by import audit, not by guesswork.
+  { id: "gateway", label: "Gateway", route: "/gateway", icon: "Webhook", section: "ZeroClaw", order: 10, wip: true, wipReason: "Layout only — not wired to the ZeroClaw gateway API yet." },
+  { id: "channels", label: "Channels", route: "/channels", icon: "Wifi", section: "ZeroClaw", order: 20, wip: true, wipReason: "Channel list is a static placeholder — no channel API call yet." },
+  { id: "cron", label: "Cron", route: "/cron", icon: "Clock", section: "ZeroClaw", order: 30, wip: true, wipReason: "The cron plugin is sealed and exposes 9 methods, but this page does not call them yet." },
+  { id: "integrations", label: "Integrations", route: "/integrations", icon: "Puzzle", section: "ZeroClaw", order: 40, wip: true, wipReason: "Integration tiles are static — no live integration state." },
+  { id: "hardware", label: "Hardware", route: "/hardware", icon: "Usb", section: "ZeroClaw", order: 50, wip: true, wipReason: "The hardware plugin exposes scan/list/get methods; this page does not call them yet." },
 
   // Settings
   { id: "config", label: "Config", route: "/config", icon: "Settings", section: "Settings", order: 10 },
   { id: "inspector", label: "Inspector", route: "/inspector", icon: "Bug", section: "Settings", order: 20 },
   { id: "state", label: "State", route: "/state", icon: "Monitor", section: "Settings", order: 30 },
   { id: "logs", label: "Logs", route: "/logs", icon: "ScrollText", section: "Settings", order: 40 },
-  { id: "estop", label: "E-Stop", route: "/estop", icon: "AlertTriangle", section: "Settings", order: 50 },
+  { id: "estop", label: "E-Stop", route: "/estop", icon: "AlertTriangle", section: "Settings", order: 50, wip: true, wipReason: "Emergency-stop controls are not wired to a backend — the buttons do nothing. Do not rely on this page to halt anything." },
   { id: "grpc", label: "gRPC Diagnostics", route: "/grpc", icon: "Radio", section: "Settings", order: 60 },
   { id: "explorer", label: "gRPC Explorer", route: "/explorer", icon: "Radio", section: "Settings", order: 70 },
   { id: "invoke", label: "Invoke", route: "/invoke", icon: "Zap", section: "Settings", order: 80 },
@@ -111,6 +126,34 @@ export interface NavGroup {
 }
 
 import { hasAll, type CapabilitySet } from "./capabilities";
+
+/**
+ * Stable, pointer-safe slug for a section label.
+ *
+ * Section labels are human strings ("UI Model", "Coming Soon") but they are
+ * also used as JSON Pointer segments in the shell state
+ * (`/shell/collapsedSections/<slug>`), so they must not contain spaces.
+ */
+export function sectionSlug(section: NavSection | string): string {
+  return section
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** Slug of the section that owns `route`, or "" when none matches. */
+export function activeSectionSlug(
+  route: string,
+  manifest: NavItem[] = NAV_MANIFEST,
+): string {
+  // Exact match wins; "/" must not be treated as a prefix of everything.
+  const exact = manifest.find((i) => i.route === route);
+  if (exact) return sectionSlug(exact.section);
+  const prefixed = manifest.find(
+    (i) => i.route !== "/" && route.startsWith(i.route),
+  );
+  return prefixed ? sectionSlug(prefixed.section) : "";
+}
 
 /** Filter + group manifest entries into ordered sections. */
 export function buildNavGroups(
