@@ -56,8 +56,9 @@ function routedTransport(plugin: string): RpcTransport {
     mergeOptions: (options) => base.mergeOptions(options),
     unary: (m, i, o) => base.unary(reroute(m, plugin), i, o),
     serverStreaming: (m, i, o) => base.serverStreaming(reroute(m, plugin), i, o),
-    clientStreaming: (m, o) => base.clientStreaming(reroute(m, plugin), o),
-    duplex: (m, o) => base.duplex(reroute(m, plugin), o),
+    clientStreaming: (m) => base.clientStreaming(reroute(m, plugin)),
+    duplex: (m) => base.duplex(reroute(m, plugin)),
+
   } as RpcTransport;
 }
 
