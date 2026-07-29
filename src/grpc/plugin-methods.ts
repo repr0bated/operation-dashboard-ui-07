@@ -9,7 +9,12 @@
  * UI code should prefer `pluginMethods.callSubid(subid, input)` for anything
  * driven by discovery, or the direct helpers for known-at-compile-time RPCs.
  */
-import type { RpcOptions, UnaryCall } from "@protobuf-ts/runtime-rpc";
+import type {
+  MethodInfo,
+  RpcOptions,
+  RpcTransport,
+  UnaryCall,
+} from "@protobuf-ts/runtime-rpc";
 import { getTransport } from "./client";
 import {
   PLUGIN_METHOD_ENTRIES,
@@ -22,10 +27,45 @@ import {
 export type { PluginMethodEntry };
 export { PLUGIN_METHOD_ENTRIES, PLUGIN_METHOD_BY_SUBID, PLUGIN_METHOD_BY_PLUGIN };
 
+/**
+ * The bridge does NOT serve the per-method `operation.method.<plugin>.<rpc>.<Rpc>Service`
+ * routes the generated clients derive their URL from — reflection advertises those
+ * descriptors, but every handler lives on one aggregate service per plugin:
+ *   operation.plugin.v1.<Plugin>PluginMethods/<Rpc>
+ * so we rewrite the service typeName on the way out.
+ */
+export function aggregateServiceName(plugin: string): string {
+  const pascal = plugin
+    .split("_")
+    .filter(Boolean)
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join("");
+  return `operation.plugin.v1.${pascal}PluginMethods`;
+}
+
+function reroute(method: MethodInfo, plugin: string): MethodInfo {
+  return {
+    ...method,
+    service: { ...method.service, typeName: aggregateServiceName(plugin) },
+  } as MethodInfo;
+}
+
+function routedTransport(plugin: string): RpcTransport {
+  const base = getTransport();
+  return {
+    mergeOptions: (options) => base.mergeOptions(options),
+    unary: (m, i, o) => base.unary(reroute(m, plugin), i, o),
+    serverStreaming: (m, i, o) => base.serverStreaming(reroute(m, plugin), i, o),
+    clientStreaming: (m, o) => base.clientStreaming(reroute(m, plugin), o),
+    duplex: (m, o) => base.duplex(reroute(m, plugin), o),
+  } as RpcTransport;
+}
+
 async function runUnary<TOut extends object>(call: UnaryCall<object, TOut>): Promise<TOut> {
   const { response } = await call;
   return response;
 }
+
 
 export const pluginMethods = {
   /** All registered entries (sorted by file). */
