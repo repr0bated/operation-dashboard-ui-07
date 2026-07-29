@@ -30,6 +30,7 @@ import {
   Radio,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ReflectionFallbackBanner } from "@/components/shell/ReflectionFallbackBanner";
 import { callUnary, hasCodec, getStaticServiceCatalog } from "@/grpc/client";
 import {
   useReflectionRegistry,
