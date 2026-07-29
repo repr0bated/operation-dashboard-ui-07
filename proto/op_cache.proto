@@ -114,10 +114,41 @@ message FileSystemInput {
 }
 
 enum FileOperation {
-    FILE_OPERATION_READ = 0;
-    FILE_OPERATION_WRITE = 1;
-    FILE_OPERATION_DELETE = 2;
-    FILE_OPERATION_LIST = 3;
+    FILE_OPERATION_UNSPECIFIED = 0;
+    FILE_OPERATION_READ = 1;
+    FILE_OPERATION_WRITE = 2;
+    FILE_OPERATION_DELETE = 3;
+    FILE_OPERATION_LIST = 4;
+}
+
+enum CodeIssueType {
+    CODE_ISSUE_TYPE_UNSPECIFIED = 0;
+    CODE_ISSUE_TYPE_ERROR = 1;
+    CODE_ISSUE_TYPE_WARNING = 2;
+    CODE_ISSUE_TYPE_INFO = 3;
+}
+
+enum CodeIssueSeverity {
+    CODE_ISSUE_SEVERITY_UNSPECIFIED = 0;
+    CODE_ISSUE_SEVERITY_LOW = 1;
+    CODE_ISSUE_SEVERITY_MEDIUM = 2;
+    CODE_ISSUE_SEVERITY_HIGH = 3;
+    CODE_ISSUE_SEVERITY_CRITICAL = 4;
+}
+
+enum CodeSuggestionType {
+    CODE_SUGGESTION_TYPE_UNSPECIFIED = 0;
+    CODE_SUGGESTION_TYPE_OPTIMIZATION = 1;
+    CODE_SUGGESTION_TYPE_REFACTORING = 2;
+    CODE_SUGGESTION_TYPE_BUG_FIX = 3;
+    CODE_SUGGESTION_TYPE_STYLE = 4;
+}
+
+enum HealthCheckStatus {
+    HEALTH_CHECK_STATUS_UNSPECIFIED = 0;
+    HEALTH_CHECK_STATUS_HEALTHY = 1;
+    HEALTH_CHECK_STATUS_DEGRADED = 2;
+    HEALTH_CHECK_STATUS_UNHEALTHY = 3;
 }
 
 // Output types
@@ -134,15 +165,15 @@ message CodeOutput {
 }
 
 message CodeIssue {
-    string type = 1;
+    CodeIssueType type = 1;
     string message = 2;
     uint32 line = 3;
     uint32 column = 4;
-    string severity = 5;
+    CodeIssueSeverity severity = 5;
 }
 
 message CodeSuggestion {
-    string type = 1;
+    CodeSuggestionType type = 1;
     string description = 2;
     string code = 3;
 }
@@ -183,8 +214,6 @@ message FileInfo {
 }
 
 message OperationResult {
-    bool success = 1;
-    optional string error = 2;
 }
 
 // ============================================================================
@@ -211,9 +240,7 @@ message RegisterAgentRequest {
 }
 
 message RegisterAgentResponse {
-    bool success = 1;
     string agent_id = 2;
-    string error = 3;
 }
 
 message UnregisterAgentRequest {
@@ -221,7 +248,6 @@ message UnregisterAgentRequest {
 }
 
 message UnregisterAgentResponse {
-    bool success = 1;
     Agent removed_agent = 2;
 }
 
@@ -235,8 +261,6 @@ message ExecuteAgentRequest {
 message ExecuteAgentResponse {
     bytes output = 1;
     uint64 latency_ms = 2;
-    bool success = 3;
-    string error = 4;
     map<string, string> metadata = 5;
 }
 
@@ -299,7 +323,6 @@ message HealthCheckRequest {
 
 message HealthCheckResponse {
     bool healthy = 1;
-    string status = 2;
     uint64 uptime_seconds = 3;
 }
 
@@ -351,8 +374,6 @@ message WorkstackStepResult {
     uint64 latency_ms = 4;
     bool cached = 5;
     uint64 output_size = 6;
-    bool success = 7;
-    string error = 8;
 }
 
 message ResolveRequest {
@@ -378,9 +399,7 @@ message PromotePatternRequest {
 }
 
 message PromotePatternResponse {
-    bool success = 1;
     string workstack_id = 2;
-    string error = 3;
 }
 
 message PatternSuggestion {
@@ -425,7 +444,6 @@ message GetStepRequest {
 }
 
 message GetStepResponse {
-    bool found = 1;
     bytes output = 2;
     uint64 created_at = 3;
     uint64 expires_at = 4;
@@ -441,7 +459,6 @@ message PutStepRequest {
 }
 
 message PutStepResponse {
-    bool success = 1;
     string cache_key = 2;
     uint64 size_bytes = 3;
     bool compressed = 4;
