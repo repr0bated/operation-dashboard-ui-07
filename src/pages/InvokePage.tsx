@@ -30,6 +30,7 @@ import {
   Radio,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ReflectionFallbackBanner } from "@/components/shell/ReflectionFallbackBanner";
 import { callUnary, hasCodec, getStaticServiceCatalog } from "@/grpc/client";
 import {
   useReflectionRegistry,
@@ -252,6 +253,19 @@ export default function InvokePage() {
           </Button>
         }
       />
+
+      {usingFallback && (
+        <ReflectionFallbackBanner
+          reason={registry.error}
+          serviceCount={services.length}
+          methodCount={totalMethods}
+          onRetry={registry.refresh}
+          retrying={registry.loading}
+          className="mb-4"
+        />
+      )}
+
+
 
       <div
         className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-4"
