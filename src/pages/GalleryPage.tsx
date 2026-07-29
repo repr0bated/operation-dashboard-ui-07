@@ -10,7 +10,7 @@ import { pluginMethods } from "@/grpc/plugin-methods";
 import { structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
 import { resolveApiBase } from "@/lib/api";
 
-type SourceId = "catalog" | "gemma" | "antigravity";
+type SourceId = "catalog" | "inference" | "antigravity";
 
 interface SpecEntry {
   id: string;
@@ -31,7 +31,7 @@ interface SourceState {
 
 const SOURCE_LABEL: Record<SourceId, string> = {
   catalog: "Gallery catalog (REST)",
-  gemma: "gemma_brain.get_ui_spec",
+  inference: "UI model (active inference provider)",
   antigravity: "AntigravityService.Get",
 };
 
@@ -78,12 +78,12 @@ function StatusChip({ id, state }: { id: SourceId; state: SourceState }) {
 export default function GalleryPage() {
   const [entries, setEntries] = useState<Record<SourceId, SpecEntry[]>>({
     catalog: [],
-    gemma: [],
+    inference: [],
     antigravity: [],
   });
   const [sources, setSources] = useState<Record<SourceId, SourceState>>({
     catalog: { status: "loading", count: 0 },
-    gemma: { status: "loading", count: 0 },
+    inference: { status: "loading", count: 0 },
     antigravity: { status: "loading", count: 0 },
   });
   const [busy, setBusy] = useState<string | null>(null);
@@ -111,7 +111,7 @@ export default function GalleryPage() {
     }
   }, []);
 
-  const loadGemma = useCallback(async () => {
+  const loadInferenceSpec = useCallback(async () => {
     try {
       const out = await pluginMethods.callSubid<
         Record<string, never>,
@@ -119,13 +119,13 @@ export default function GalleryPage() {
       >("obs.service.gemma.ui-spec.get@v1", {});
       const spec = valueToJs(out.spec as never) as unknown as Spec | null;
       const list: SpecEntry[] = spec
-        ? [{ id: "gemma_brain/get_ui_spec", source: "gemma", spec, managed: false }]
+        ? [{ id: "ui-model/get_ui_spec", source: "inference", spec, managed: false }]
         : [];
-      setEntries((prev) => ({ ...prev, gemma: list }));
-      setSource("gemma", { status: "ok", count: list.length });
+      setEntries((prev) => ({ ...prev, inference: list }));
+      setSource("inference", { status: "ok", count: list.length });
     } catch (e) {
-      setEntries((prev) => ({ ...prev, gemma: [] }));
-      setSource("gemma", classifyError(e));
+      setEntries((prev) => ({ ...prev, inference: [] }));
+      setSource("inference", classifyError(e));
     }
   }, []);
 
@@ -149,9 +149,9 @@ export default function GalleryPage() {
 
   const refreshAll = useCallback(async () => {
     setRefreshing(true);
-    await Promise.allSettled([loadCatalog(), loadGemma(), loadAntigravity()]);
+    await Promise.allSettled([loadCatalog(), loadInferenceSpec(), loadAntigravity()]);
     setRefreshing(false);
-  }, [loadCatalog, loadGemma, loadAntigravity]);
+  }, [loadCatalog, loadInferenceSpec, loadAntigravity]);
 
   useEffect(() => {
     void refreshAll();
@@ -160,7 +160,7 @@ export default function GalleryPage() {
   }, [refreshAll]);
 
   const all = useMemo(
-    () => [...entries.catalog, ...entries.gemma, ...entries.antigravity],
+    () => [...entries.catalog, ...entries.inference, ...entries.antigravity],
     [entries],
   );
 
@@ -205,7 +205,7 @@ export default function GalleryPage() {
     <div className="space-y-4">
       <PageHeader
         title="UI Model Gallery"
-        subtitle="Live json-render specs from the gallery catalog, gemma_brain and the Antigravity plugin surface."
+        subtitle="Live json-render specs from the gallery catalog, the active inference model and the Antigravity plugin surface."
         actions={
           <div className="flex items-center gap-2">
             <ProviderSelect />
