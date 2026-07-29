@@ -5,9 +5,9 @@ import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
 import { EmptyState, ErrorBanner } from "@/components/shell/Feedback";
 import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
-import { antigravityService } from "@/grpc/client";
 import { pluginMethods } from "@/grpc/plugin-methods";
-import { structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
+import { valueToJs } from "@/grpc/google/protobuf/struct";
+
 import { resolveApiBase } from "@/lib/api";
 
 type SourceId = "catalog" | "inference" | "antigravity";
@@ -24,7 +24,7 @@ interface SpecEntry {
 }
 
 interface SourceState {
-  status: "loading" | "ok" | "unimplemented" | "error";
+  status: "loading" | "ok" | "unimplemented" | "denied" | "error";
   message?: string;
   count: number;
 }
@@ -32,13 +32,17 @@ interface SourceState {
 const SOURCE_LABEL: Record<SourceId, string> = {
   catalog: "Gallery catalog (REST)",
   inference: "UI model (active inference provider)",
-  antigravity: "AntigravityService.Get",
+  antigravity: "Antigravity UI (zeroclaw.ListUiSurfaces)",
 };
 
 const POLL_MS = 15000;
 
 function classifyError(e: unknown): SourceState {
   const message = e instanceof Error ? e.message : String(e);
+  // grpc-status 7 = PERMISSION_DENIED — identity accepted, capability not granted.
+  if (/permission_denied|accessdenied|access denied|requires capability/i.test(message)) {
+    return { status: "denied", message, count: 0 };
+  }
   // grpc-status 12 = UNIMPLEMENTED — the service is advertised but not served.
   if (/\b12\b/.test(message) && /unimplemented|status/i.test(message)) {
     return { status: "unimplemented", message, count: 0 };
@@ -53,7 +57,7 @@ function StatusChip({ id, state }: { id: SourceId; state: SourceState }) {
       ? "border-primary/40 text-primary bg-primary/10"
       : state.status === "loading"
         ? "border-border text-muted-foreground bg-muted/20"
-        : state.status === "unimplemented"
+        : state.status === "unimplemented" || state.status === "denied"
           ? "border-amber-500/40 text-amber-500 bg-amber-500/10"
           : "border-destructive/40 text-destructive bg-destructive/10";
   const label =
@@ -63,7 +67,10 @@ function StatusChip({ id, state }: { id: SourceId; state: SourceState }) {
         ? "probing…"
         : state.status === "unimplemented"
           ? "not served"
-          : "unreachable";
+          : state.status === "denied"
+            ? "capability denied"
+            : "unreachable";
+
   return (
     <div
       className={`flex items-center gap-2 rounded-md border px-2.5 py-1 text-[11px] font-mono ${tone}`}
@@ -131,14 +138,22 @@ export default function GalleryPage() {
 
   const loadAntigravity = useCallback(async () => {
     try {
-      const resp = await antigravityService.get({ objectPath: "" });
-      const surfaces = resp.state?.uiSurfaces ?? [];
-      const list: SpecEntry[] = surfaces.map((s, i) => ({
-        id: `antigravity/surface-${i}`,
-        source: "antigravity" as const,
-        spec: structToObject(s as unknown as Record<string, unknown>) as unknown as Spec,
-        managed: false,
-      }));
+      // The Antigravity UI is served by the zeroclaw router plugin
+      // (operation.plugin.v1.ZeroclawPluginMethods/ListUiSurfaces).
+      const out = await pluginMethods.callSubid<
+        Record<string, never>,
+        { uiSurfaces?: unknown[] }
+      >("obs.service.zeroclaw.ui-surfaces.list@v1", {});
+      const surfaces = out.uiSurfaces ?? [];
+      const list: SpecEntry[] = surfaces
+        .map((s) => valueToJs(s as never) as unknown as Spec | null)
+        .filter((s): s is Spec => !!s && typeof s === "object")
+        .map((spec, i) => ({
+          id: `antigravity/surface-${i}`,
+          source: "antigravity" as const,
+          spec,
+          managed: false,
+        }));
       setEntries((prev) => ({ ...prev, antigravity: list }));
       setSource("antigravity", { status: "ok", count: list.length });
     } catch (e) {
@@ -146,6 +161,7 @@ export default function GalleryPage() {
       setSource("antigravity", classifyError(e));
     }
   }, []);
+
 
   const refreshAll = useCallback(async () => {
     setRefreshing(true);
@@ -241,7 +257,7 @@ export default function GalleryPage() {
       {!stillLoading && all.length === 0 && anyLive && (
         <EmptyState
           title="No specs available"
-          hint="Sources responded but returned no UI surfaces. Generate a spec with the UI model, or check that the antigravity plugin publishes ui_surfaces."
+          hint="No source returned a surface. If a chip reads “capability denied”, grant this identity cap.software.zeroclaw.ui-surfaces.read@v1 (Antigravity UI) or gemma.read (UI model) on the bridge."
         />
       )}
 
