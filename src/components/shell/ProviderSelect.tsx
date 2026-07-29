@@ -52,9 +52,18 @@ export function ProviderSelect({ className }: Props) {
           ),
         ]);
         if (!alive) return;
-        const list = (providersResp.providers ?? []).map(
-          (p) => valueToJs(p) as ZeroclawProvider,
-        );
+        const list = (providersResp.providers ?? [])
+          .map((p) => {
+            const o = (valueToJs(p) ?? {}) as Record<string, unknown>;
+            const id = o.id ?? o.provider_id ?? o.providerId ?? o.name;
+            return {
+              id: typeof id === "string" ? id : undefined,
+              kind: typeof o.kind === "string" ? o.kind : undefined,
+              description:
+                typeof o.description === "string" ? o.description : undefined,
+            } as ZeroclawProvider;
+          })
+          .filter((p): p is ZeroclawProvider & { id: string } => !!p.id);
         setProviders(list);
         const activeProvider = (valueToJs(routerResp.router) as { provider?: string } | undefined)
           ?.provider;
@@ -107,7 +116,7 @@ export function ProviderSelect({ className }: Props) {
         </SelectTrigger>
         <SelectContent>
           {providers.map((p) => (
-            <SelectItem key={p.id} value={p.id ?? ""} className="text-xs font-mono">
+            <SelectItem key={p.id} value={p.id as string} className="text-xs font-mono">
               {p.id}
               {p.kind ? ` · ${p.kind}` : ""}
             </SelectItem>
