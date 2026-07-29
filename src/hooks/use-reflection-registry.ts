@@ -155,6 +155,10 @@ async function discover(signal: AbortSignal): Promise<ReflectedService[]> {
     }
   }
 
+  if (serviceNames.size === 0) {
+    throw new Error("reflection returned no services");
+  }
+
   // 2. Fetch each service's file descriptor to enumerate methods + types.
   const services: ReflectedService[] = [];
   const seenFiles = new Set<string>();
@@ -216,6 +220,12 @@ async function discover(signal: AbortSignal): Promise<ReflectedService[]> {
   );
 
   services.sort((a, b) => a.name.localeCompare(b.name));
+
+  const methodCount = services.reduce((n, svc) => n + svc.methods.length, 0);
+  if (methodCount === 0) {
+    throw new Error("reflection returned no method descriptors");
+  }
+
   return services;
 }
 
