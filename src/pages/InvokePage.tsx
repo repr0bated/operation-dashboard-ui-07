@@ -253,6 +253,19 @@ export default function InvokePage() {
         }
       />
 
+      {usingFallback && (
+        <ReflectionFallbackBanner
+          reason={registry.error}
+          serviceCount={services.length}
+          methodCount={totalMethods}
+          onRetry={registry.refresh}
+          retrying={registry.loading}
+          className="mb-4"
+        />
+      )}
+
+
+
       <div
         className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-4"
         style={{ minHeight: "calc(100vh - 220px)" }}
