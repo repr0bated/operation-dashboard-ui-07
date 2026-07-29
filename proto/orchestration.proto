@@ -9,6 +9,8 @@ syntax = "proto3";
 
 package op_chat.orchestration;
 
+import "google/protobuf/struct.proto";
+
 // ============================================================================
 // AGENT LIFECYCLE SERVICE
 // ============================================================================
@@ -40,11 +42,10 @@ message StartSessionRequest {
 }
 
 message StartSessionResponse {
-    bool success = 1;
-    string session_id = 2;
-    repeated AgentInfo started_agents = 3;
-    repeated AgentError failed_agents = 4;
-    int64 started_at_ms = 5;
+    string session_id = 1;
+    repeated AgentInfo started_agents = 2;
+    repeated AgentError failed_agents = 3;
+    int64 started_at_ms = 4;
 }
 
 message EndSessionRequest {
@@ -54,9 +55,8 @@ message EndSessionRequest {
 }
 
 message EndSessionResponse {
-    bool success = 1;
-    repeated string stopped_agents = 2;
-    int64 session_duration_ms = 3;
+    repeated string stopped_agents = 1;
+    int64 session_duration_ms = 2;
 }
 
 message HealthCheckRequest {
@@ -93,9 +93,8 @@ message ShutdownRequest {
 }
 
 message ShutdownResponse {
-    bool success = 1;
-    int32 agents_stopped = 2;
-    repeated string errors = 3;
+    int32 agents_stopped = 1;
+    repeated string errors = 2;
 }
 
 message AgentInfo {
@@ -148,7 +147,7 @@ message ExecuteRequest {
     string session_id = 1;
     string agent_id = 2;
     string operation = 3;
-    string arguments_json = 4;
+    google.protobuf.Struct arguments = 4;
     int64 timeout_ms = 5;
     string correlation_id = 6;
     ExecutionOptions options = 7;
@@ -166,11 +165,10 @@ message ExecuteResponse {
     string correlation_id = 1;
     string agent_id = 2;
     string operation = 3;
-    bool success = 4;
-    string result_json = 5;
-    ExecuteError error = 6;
-    int64 execution_time_ms = 7;
-    map<string, string> metadata = 8;
+    google.protobuf.Struct result = 4;
+    ExecuteError error = 5;
+    int64 execution_time_ms = 6;
+    map<string, string> metadata = 7;
 }
 
 message ExecuteError {
@@ -215,9 +213,8 @@ message CancelRequest {
 }
 
 message CancelResponse {
-    bool success = 1;
-    string correlation_id = 2;
-    bool was_running = 3;
+    string correlation_id = 1;
+    bool was_running = 2;
 }
 
 // ============================================================================
@@ -247,10 +244,9 @@ message RememberRequest {
 }
 
 message RememberResponse {
-    bool success = 1;
-    string key = 2;
-    bool was_overwrite = 3;
-    int64 expires_at_ms = 4;  // 0 if no expiry
+    string key = 1;
+    bool was_overwrite = 2;
+    int64 expires_at_ms = 3;  // 0 if no expiry
 }
 
 message RecallRequest {
@@ -276,8 +272,7 @@ message ForgetRequest {
 }
 
 message ForgetResponse {
-    bool success = 1;
-    bool existed = 2;
+    bool existed = 1;
 }
 
 message ListKeysRequest {
@@ -375,9 +370,8 @@ enum ThinkingStyle {
 }
 
 message StartChainResponse {
-    bool success = 1;
-    string chain_id = 2;
-    int32 max_steps = 3;
+    string chain_id = 1;
+    int32 max_steps = 2;
 }
 
 message AddThoughtRequest {
@@ -398,10 +392,9 @@ enum ThoughtType {
 }
 
 message AddThoughtResponse {
-    bool success = 1;
-    string chain_id = 2;
-    int32 step = 3;
-    int32 remaining_steps = 4;
+    string chain_id = 1;
+    int32 step = 2;
+    int32 remaining_steps = 3;
 }
 
 message ThoughtEvent {
@@ -432,12 +425,11 @@ message ConcludeRequest {
 }
 
 message ConcludeResponse {
-    bool success = 1;
-    string chain_id = 2;
-    string conclusion = 3;
-    float overall_confidence = 4;
-    int32 steps_used = 5;
-    repeated string key_insights = 6;
+    string chain_id = 1;
+    string conclusion = 2;
+    float overall_confidence = 3;
+    int32 steps_used = 4;
+    repeated string key_insights = 5;
 }
 
 message GetChainRequest {
@@ -501,11 +493,17 @@ enum ContextType {
     CONTEXT_TYPE_KNOWLEDGE = 4;
 }
 
+enum ExportFormat {
+    EXPORT_FORMAT_UNSPECIFIED = 0;
+    EXPORT_FORMAT_JSON = 1;
+    EXPORT_FORMAT_YAML = 2;
+    EXPORT_FORMAT_TAR = 3;
+}
+
 message SaveContextResponse {
-    bool success = 1;
-    string name = 2;
-    int64 size_bytes = 3;
-    string version = 4;
+    string name = 1;
+    int64 size_bytes = 2;
+    string version = 3;
 }
 
 message LoadContextRequest {
@@ -554,14 +552,13 @@ message DeleteContextRequest {
 }
 
 message DeleteContextResponse {
-    bool success = 1;
-    int32 versions_deleted = 2;
+    int32 versions_deleted = 1;
 }
 
 message ExportContextRequest {
     string session_id = 1;
     repeated string names = 2;  // Empty = all
-    string format = 3;  // json, yaml, tar
+    ExportFormat format = 3;
     bool include_history = 4;
 }
 
@@ -575,15 +572,14 @@ message ExportChunk {
 message ImportChunk {
     bytes data = 1;
     bool is_final = 2;
-    string format = 3;
+    ExportFormat format = 3;
     bool overwrite_existing = 4;
 }
 
 message ImportContextResponse {
-    bool success = 1;
-    int32 imported_count = 2;
-    int32 skipped_count = 3;
-    repeated string errors = 4;
+    int32 imported_count = 1;
+    int32 skipped_count = 2;
+    repeated string errors = 3;
 }
 
 message MergeContextsRequest {
@@ -600,9 +596,8 @@ enum MergeStrategy {
 }
 
 message MergeContextsResponse {
-    bool success = 1;
-    string target_name = 2;
-    int64 merged_size_bytes = 3;
+    string target_name = 1;
+    int64 merged_size_bytes = 2;
 }
 
 // ============================================================================
@@ -641,12 +636,11 @@ message CargoRequest {
 }
 
 message CargoResponse {
-    bool success = 1;
-    string stdout = 2;
-    string stderr = 3;
-    int32 exit_code = 4;
-    int64 duration_ms = 5;
-    CargoMetadata metadata = 6;
+    string stdout = 1;
+    string stderr = 2;
+    int32 exit_code = 3;
+    int64 duration_ms = 4;
+    CargoMetadata metadata = 5;
 }
 
 message CargoMetadata {
@@ -695,9 +689,23 @@ enum AnalysisType {
     ANALYSIS_TYPE_UNUSED = 3;
 }
 
+enum FindingCategory {
+    FINDING_CATEGORY_UNSPECIFIED = 0;
+    FINDING_CATEGORY_STRUCTURE = 1;
+    FINDING_CATEGORY_DEPENDENCY = 2;
+    FINDING_CATEGORY_PATTERN = 3;
+    FINDING_CATEGORY_CONCERN = 4;
+}
+
+enum Severity {
+    SEVERITY_UNSPECIFIED = 0;
+    SEVERITY_INFO = 1;
+    SEVERITY_WARNING = 2;
+    SEVERITY_CRITICAL = 3;
+}
+
 message AnalyzeResponse {
-    bool success = 1;
-    string result_json = 2;
+    google.protobuf.Struct result = 1;
 }
 
 // ============================================================================
@@ -720,14 +728,13 @@ message ArchitectAnalyzeRequest {
 }
 
 message ArchitectAnalyzeResponse {
-    bool success = 1;
-    string analysis_json = 2;
-    repeated ArchitectureFinding findings = 3;
+    google.protobuf.Struct analysis = 1;
+    repeated ArchitectureFinding findings = 2;
 }
 
 message ArchitectureFinding {
-    string category = 1;  // structure, dependency, pattern, concern
-    string severity = 2;  // info, warning, critical
+    FindingCategory category = 1;
+    Severity severity = 2;
     string message = 3;
     string location = 4;
     string suggestion = 5;
@@ -748,11 +755,10 @@ enum DesignStyle {
 }
 
 message ArchitectDesignResponse {
-    bool success = 1;
-    string design_json = 2;
-    repeated string components = 3;
-    repeated string interfaces = 4;
-    repeated string trade_offs = 5;
+    google.protobuf.Struct design = 1;
+    repeated string components = 2;
+    repeated string interfaces = 3;
+    repeated string trade_offs = 4;
 }
 
 message ArchitectReviewRequest {
@@ -762,16 +768,15 @@ message ArchitectReviewRequest {
 }
 
 message ArchitectReviewResponse {
-    bool success = 1;
-    string review_json = 2;
-    int32 score = 3;  // 0-100
-    repeated ReviewIssue issues = 4;
-    repeated string strengths = 5;
+    google.protobuf.Struct review = 1;
+    int32 score = 2;  // 0-100
+    repeated ReviewIssue issues = 3;
+    repeated string strengths = 4;
 }
 
 message ReviewIssue {
-    string category = 1;
-    string severity = 2;
+    FindingCategory category = 1;
+    Severity severity = 2;
     string description = 3;
     string recommendation = 4;
 }
@@ -784,8 +789,7 @@ message ArchitectSuggestRequest {
 }
 
 message ArchitectSuggestResponse {
-    bool success = 1;
-    repeated Suggestion suggestions = 2;
+    repeated Suggestion suggestions = 1;
 }
 
 message Suggestion {
@@ -851,7 +855,7 @@ message WorkstackEvent {
     WorkstackEventType event_type = 3;
     string phase_id = 4;
     string message = 5;
-    string details_json = 6;
+    google.protobuf.Struct details = 6;
     int64 timestamp_ms = 7;
     WorkstackProgress progress = 8;
 }
@@ -906,7 +910,7 @@ message PhaseStatus {
     string phase_id = 1;
     string phase_name = 2;
     WorkstackExecutionStatus status = 3;
-    string result_json = 4;
+    google.protobuf.Struct result = 4;
     string error = 5;
     int64 started_at_ms = 6;
     int64 completed_at_ms = 7;
@@ -919,8 +923,7 @@ message WorkstackCancelRequest {
 }
 
 message WorkstackCancelResponse {
-    bool success = 1;
-    bool will_rollback = 2;
+    bool will_rollback = 1;
 }
 
 message WorkstackRollbackRequest {
@@ -930,9 +933,8 @@ message WorkstackRollbackRequest {
 }
 
 message WorkstackRollbackResponse {
-    bool success = 1;
-    repeated string rolled_back_phases = 2;
-    repeated string errors = 3;
+    repeated string rolled_back_phases = 1;
+    repeated string errors = 2;
 }
 
 message ListWorkstacksRequest {
