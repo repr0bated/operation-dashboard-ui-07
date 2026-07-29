@@ -6,6 +6,77 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 
 // =============================================================================
+// ENUMS
+// =============================================================================
+
+enum ComponentStatus {
+  COMPONENT_STATUS_UNSPECIFIED = 0;
+  COMPONENT_STATUS_UP = 1;
+  COMPONENT_STATUS_DOWN = 2;
+  COMPONENT_STATUS_CONFIGURING = 3;
+}
+
+enum OverallStatus {
+  OVERALL_STATUS_UNSPECIFIED = 0;
+  OVERALL_STATUS_HEALTHY = 1;
+  OVERALL_STATUS_DEGRADED = 2;
+  OVERALL_STATUS_UNHEALTHY = 3;
+}
+
+enum ComponentType {
+  COMPONENT_TYPE_UNSPECIFIED = 0;
+  COMPONENT_TYPE_WIREGUARD = 1;
+  COMPONENT_TYPE_BRIDGE = 2;
+  COMPONENT_TYPE_PROXY = 3;
+  COMPONENT_TYPE_INTERFACE = 4;
+}
+
+enum ComponentName {
+  COMPONENT_NAME_UNSPECIFIED = 0;
+  COMPONENT_NAME_WGCF = 1;
+  COMPONENT_NAME_OVSBR0 = 2;
+  COMPONENT_NAME_XRAY = 3;
+  COMPONENT_NAME_ALL = 4;
+}
+
+enum ContainerType {
+  CONTAINER_TYPE_UNSPECIFIED = 0;
+  CONTAINER_TYPE_INTERNAL = 1;
+  CONTAINER_TYPE_USER = 2;
+}
+
+enum ManagementAction {
+  MANAGEMENT_ACTION_UNSPECIFIED = 0;
+  MANAGEMENT_ACTION_START = 1;
+  MANAGEMENT_ACTION_STOP = 2;
+  MANAGEMENT_ACTION_RESTART = 3;
+  MANAGEMENT_ACTION_STATUS = 4;
+  MANAGEMENT_ACTION_RECONFIGURE = 5;
+}
+
+enum ProxyMode {
+  PROXY_MODE_UNSPECIFIED = 0;
+  PROXY_MODE_SOCKS_HTTP = 1;
+  PROXY_MODE_HTTP_ONLY = 2;
+  PROXY_MODE_TPROXY = 3;
+}
+
+enum ProxyType {
+  PROXY_TYPE_UNSPECIFIED = 0;
+  PROXY_TYPE_SOCKS = 1;
+  PROXY_TYPE_HTTP = 2;
+  PROXY_TYPE_TPROXY = 3;
+  PROXY_TYPE_DOKODEMO_DOOR = 4;
+}
+
+enum IssueSeverity {
+  ISSUE_SEVERITY_UNSPECIFIED = 0;
+  ISSUE_SEVERITY_CRITICAL = 1;
+  ISSUE_SEVERITY_WARNING = 2;
+  ISSUE_SEVERITY_INFO = 3;
+}
+
+// =============================================================================
 // PRIVACY NETWORK SERVICE - wgcf + OVS + Xray Privacy Infrastructure
 // Comprehensive service for the entire privacy network stack
 // =============================================================================
@@ -50,32 +121,31 @@ message EnsurePrivacyNetworkRequest {
 }
 
 message EnsurePrivacyNetworkResponse {
-  bool success = 1;
-  string message = 2;
-  string bridge_name = 3; // "ovsbr0"
-  string wgcf_status = 4;
-  string xray_status = 5;
-  repeated string active_ports = 6;
-  google.protobuf.Timestamp provisioned_at = 7;
-  string topology_summary = 8;
+  string message = 1;
+  string bridge_name = 2; // "ovsbr0"
+  ComponentStatus wgcf_status = 3;
+  ComponentStatus xray_status = 4;
+  repeated string active_ports = 5;
+  google.protobuf.Timestamp provisioned_at = 6;
+  string topology_summary = 7;
 }
 
 message GetNetworkStatusRequest {
-  string component = 1; // "all", "wgcf", "ovs", "xray", "ports"
+  ComponentName component = 1;
 }
 
 message GetNetworkStatusResponse {
   bool healthy = 1;
-  string overall_status = 2; // "healthy", "degraded", "unhealthy"
+  OverallStatus overall_status = 2;
   repeated NetworkComponent components = 3;
   string message = 4;
   google.protobuf.Timestamp last_updated = 5;
 }
 
 message NetworkComponent {
-  string name = 1; // "wgcf", "ovsbr0", "xray", "gbr_xray", etc
-  string status = 2; // "up", "down", "configuring"
-  string type = 3; // "wireguard", "bridge", "proxy", "interface"
+  string name = 1;
+  ComponentStatus status = 2;
+  ComponentType type = 3;
   string ip_address = 4;
   string details = 5;
   bool critical = 6;
@@ -86,18 +156,17 @@ message ProvisionUserRequest {
   string wireguard_public_key = 2;
   bool is_admin = 3;
   string domain = 4;
-  string container_type = 5; // "internal" or "user"
+  ContainerType container_type = 5;
   optional google.protobuf.Struct metadata = 6;
 }
 
 message ProvisionUserResponse {
-  bool success = 1;
-  string user_id = 2;
-  string assigned_ip = 3; // e.g. "10.200.0.100"
-  string privacy_config = 4; // Full WireGuard config for privacy network
-  string message = 5;
-  google.protobuf.Timestamp provisioned_at = 6;
-  string xray_endpoint = 7;
+  string user_id = 1;
+  string assigned_ip = 2; // e.g. "10.200.0.100"
+  string privacy_config = 3; // Full WireGuard config for privacy network
+  optional string message = 4;
+  google.protobuf.Timestamp provisioned_at = 5;
+  string xray_endpoint = 6;
 }
 
 message GetPrivacyWireGuardConfigRequest {
@@ -107,29 +176,27 @@ message GetPrivacyWireGuardConfigRequest {
 }
 
 message GetPrivacyWireGuardConfigResponse {
-  bool success = 1;
-  string wireguard_config = 2;
-  string public_key = 3;
-  string endpoint = 4; // "registration.3tched.com:51820"
-  string assigned_ip = 5;
-  string dns_servers = 6;
-  string message = 7;
-  google.protobuf.Timestamp generated_at = 8;
+  string wireguard_config = 1;
+  string public_key = 2;
+  string endpoint = 3; // "registration.3tched.com:51820"
+  string assigned_ip = 4;
+  string dns_servers = 5;
+  optional string message = 6;
+  google.protobuf.Timestamp generated_at = 7;
 }
 
 message ManageComponentRequest {
-  string action = 1; // "start", "stop", "restart", "status", "reconfigure"
-  string component = 2; // "wgcf", "ovsbr0", "xray", "all"
+  ManagementAction action = 1;
+  ComponentName component = 2;
   optional google.protobuf.Struct parameters = 3;
 }
 
 message ManageComponentResponse {
-  bool success = 1;
-  string message = 2;
-  string component = 3;
-  string status = 4;
-  string output = 5;
-  google.protobuf.Timestamp completed_at = 6;
+  optional string message = 1;
+  string component = 2;
+  ComponentStatus status = 3;
+  string output = 4;
+  google.protobuf.Timestamp completed_at = 5;
 }
 
 message GetNetworkTopologyRequest {
@@ -150,12 +217,12 @@ message GetNetworkTopologyResponse {
 
 message ProxyConfig {
   string container_name = 1;
-  string container_type = 2; // "internal", "user"
+  ContainerType container_type = 2;
   bool http_proxy_enabled = 3;
   bool grpc_proxy_enabled = 4;
   uint32 http_port = 5; // 1080 for SOCKS
   uint32 grpc_port = 6;
-  string proxy_mode = 7; // "socks+http", "http-only", "tproxy"
+  ProxyMode proxy_mode = 7;
 }
 
 message NetworkRoute {
@@ -183,46 +250,44 @@ message HealthCheckResponse {
 
 message HealthIssue {
   string component = 1;
-  string severity = 2; // "critical", "warning", "info"
+  IssueSeverity severity = 2;
   string message = 3;
   string suggested_fix = 4;
 }
 
 message ConfigurePacketRoutingRequest {
   string container_name = 1;
-  string container_type = 2; // "internal", "user"
+  ContainerType container_type = 2;
   bool enable_http_proxy = 3;
   bool enable_grpc_proxy = 4;
-  string proxy_type = 5; // "socks", "http", "tproxy", "dokodemo-door"
+  ProxyType proxy_type = 5;
   uint32 socks_port = 6; // default 1080
   uint32 http_port = 7;
   bool enable_tproxy = 8;
 }
 
 message ConfigurePacketRoutingResponse {
-  bool success = 1;
-  string message = 2;
-  string container_name = 3;
-  string proxy_config_summary = 4;
-  google.protobuf.Timestamp configured_at = 5;
-  repeated string applied_rules = 6;
+  optional string message = 1;
+  string container_name = 2;
+  string proxy_config_summary = 3;
+  google.protobuf.Timestamp configured_at = 4;
+  repeated string applied_rules = 5;
 }
 
 message GenerateWireGuardKeyPairRequest {
-  string user_token = 1;           // Magic link token from registration
+  string user_token = 1;
   string user_email = 2;
   bool is_admin = 3;
-  string container_type = 4;       // "user" or "internal"
+  ContainerType container_type = 4;
 }
 
 message GenerateWireGuardKeyPairResponse {
-  bool success = 1;
-  string client_public_key = 2;    // Client's public key (for server registration)
-  string wireguard_config = 3;     // Complete config with private key
-  string assigned_ip = 4;
-  string key_id = 5;               // For tracking/revocation
-  string message = 6;
-  google.protobuf.Timestamp generated_at = 7;
+  string client_public_key = 1;
+  string wireguard_config = 2;
+  string assigned_ip = 3;
+  string key_id = 4;
+  optional string message = 5;
+  google.protobuf.Timestamp generated_at = 6;
 }
 
 // =============================================================================
