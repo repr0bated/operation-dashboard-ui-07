@@ -32,13 +32,17 @@ interface SourceState {
 const SOURCE_LABEL: Record<SourceId, string> = {
   catalog: "Gallery catalog (REST)",
   inference: "UI model (active inference provider)",
-  antigravity: "AntigravityService.Get",
+  antigravity: "Antigravity UI (zeroclaw.ListUiSurfaces)",
 };
 
 const POLL_MS = 15000;
 
 function classifyError(e: unknown): SourceState {
   const message = e instanceof Error ? e.message : String(e);
+  // grpc-status 7 = PERMISSION_DENIED — identity accepted, capability not granted.
+  if (/permission_denied|accessdenied|access denied|requires capability/i.test(message)) {
+    return { status: "denied", message, count: 0 };
+  }
   // grpc-status 12 = UNIMPLEMENTED — the service is advertised but not served.
   if (/\b12\b/.test(message) && /unimplemented|status/i.test(message)) {
     return { status: "unimplemented", message, count: 0 };
@@ -53,7 +57,7 @@ function StatusChip({ id, state }: { id: SourceId; state: SourceState }) {
       ? "border-primary/40 text-primary bg-primary/10"
       : state.status === "loading"
         ? "border-border text-muted-foreground bg-muted/20"
-        : state.status === "unimplemented"
+        : state.status === "unimplemented" || state.status === "denied"
           ? "border-amber-500/40 text-amber-500 bg-amber-500/10"
           : "border-destructive/40 text-destructive bg-destructive/10";
   const label =
@@ -63,7 +67,10 @@ function StatusChip({ id, state }: { id: SourceId; state: SourceState }) {
         ? "probing…"
         : state.status === "unimplemented"
           ? "not served"
-          : "unreachable";
+          : state.status === "denied"
+            ? "capability denied"
+            : "unreachable";
+
   return (
     <div
       className={`flex items-center gap-2 rounded-md border px-2.5 py-1 text-[11px] font-mono ${tone}`}
