@@ -100,7 +100,10 @@ export const pluginMethods = {
   ): Promise<TOut> {
     const entry = PLUGIN_METHOD_BY_SUBID.get(subid);
     if (!entry) throw new Error(`plugin method not found for subid: ${subid}`);
-    return runUnary(entry.invoke(getTransport(), input, options) as UnaryCall<object, TOut>);
+    return runUnary(
+      entry.invoke(routedTransport(entry.plugin), input, options) as UnaryCall<object, TOut>,
+    );
+
   },
 
   /** Invoke a plugin method by `<serviceTypeName>/<rpcMethod>`. */
