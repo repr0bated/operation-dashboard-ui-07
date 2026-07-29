@@ -5,9 +5,9 @@ import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
 import { EmptyState, ErrorBanner } from "@/components/shell/Feedback";
 import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
-import { antigravityService } from "@/grpc/client";
 import { pluginMethods } from "@/grpc/plugin-methods";
-import { structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
+import { valueToJs } from "@/grpc/google/protobuf/struct";
+
 import { resolveApiBase } from "@/lib/api";
 
 type SourceId = "catalog" | "inference" | "antigravity";
