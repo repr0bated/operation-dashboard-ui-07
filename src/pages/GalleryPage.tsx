@@ -257,7 +257,7 @@ export default function GalleryPage() {
       {!stillLoading && all.length === 0 && anyLive && (
         <EmptyState
           title="No specs available"
-          hint="Sources responded but returned no UI surfaces. Generate a spec with the UI model, or check that the antigravity plugin publishes ui_surfaces."
+          hint="No source returned a surface. If a chip reads “capability denied”, grant this identity cap.software.zeroclaw.ui-surfaces.read@v1 (Antigravity UI) or gemma.read (UI model) on the bridge."
         />
       )}
 
