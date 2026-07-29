@@ -4,10 +4,17 @@ This document tracks the refactoring of all proto files to follow the gRPC Servi
 
 ## Refactored Files ✅
 
-- [x] `assistant/common.proto` — Added enums (RunStatus, EventType), error handling
+### Phase 1 Complete (4 files)
+- [x] `assistant/common.proto` — Added enums (RunStatus, EventType, AgentHealthStatus), error handling
 - [x] `assistant/agent.proto` — Removed success fields, replaced string payloads with structured types
 - [x] `agents.proto` — Removed all success/bool fields, replaced JSON strings with Struct, added enums (StreamType, ThinkingStatus, AnalysisScope, DocumentFormat)
 - [x] `chat.proto` — Added UI role/kind enums, removed success fields
+
+### Phase 2 Partial (5 files)
+- [x] `internal_agents.proto` — Removed 8+ success fields, replaced JSON strings with Struct, added StreamType/ExportFormat enums
+- [x] `operation.proto` — Removed success fields, changed schema_json → Struct
+- [x] `cognitive.proto` — Added SourceType/AuthMethod/QueryMode enums, removed 4+ JSON string fields, removed success fields
+- [x] `registry.proto` — Changed schema_json → Struct, removed success fields from responses
 
 ## Refactoring Template
 
@@ -37,17 +44,20 @@ Copy this template when refactoring a proto file:
 **Status:** ✅ Complete
 
 ### Phase 2: High-Priority Services
-- [ ] op_chat.agents - internal_agents.proto
-- [ ] Other core control-plane services
-- [ ] Services used by multiple clients
+**Partial Complete** (5/20 files done)
+- [x] internal_agents.proto — Internal agent protocol
+- [x] operation.proto — D-Bus state sync
+- [x] cognitive.proto — NotebookLM integration
+- [x] registry.proto — Component registry
+- [ ] **Remaining:** orchestration.proto, mcp.proto, adapters.proto, mail.proto, op_cache.proto, privacy_network.proto, plugin_methods/* (15+ files)
 
-**Estimated:** 15-20 files
+**Status:** Can be parallelized or run by subagent for faster completion
 
 ### Phase 3: Domain Services
 - [ ] blockchain.proto
 - [ ] btrfs.proto
 - [ ] datastore.proto
-- [ ] cognitive.proto
+- [x] cognitive.proto ← Moved to Phase 2 (high priority)
 - [ ] Other domain-specific services
 
 **Estimated:** 100-150 files
