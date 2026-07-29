@@ -44,11 +44,17 @@ export function aggregateServiceName(plugin: string): string {
 }
 
 function reroute(method: MethodInfo, plugin: string): MethodInfo {
+  // The aggregate service always exposes PascalCase RPC names, even where the
+  // per-method descriptor uses snake_case (e.g. gemma_brain `get_ui_spec`).
+  const local = method.localName ?? method.name;
+  const rpcName = local.charAt(0).toUpperCase() + local.slice(1);
   return {
     ...method,
+    name: rpcName,
     service: { ...method.service, typeName: aggregateServiceName(plugin) },
   } as MethodInfo;
 }
+
 
 function routedTransport(plugin: string): RpcTransport {
   const base = getTransport();
