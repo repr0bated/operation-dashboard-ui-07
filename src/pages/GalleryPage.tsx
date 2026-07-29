@@ -24,7 +24,7 @@ interface SpecEntry {
 }
 
 interface SourceState {
-  status: "loading" | "ok" | "unimplemented" | "error";
+  status: "loading" | "ok" | "unimplemented" | "denied" | "error";
   message?: string;
   count: number;
 }
