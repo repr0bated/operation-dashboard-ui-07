@@ -2,7 +2,39 @@ syntax = "proto3";
 
 package op.adapters.v1;
 
+import "google/protobuf/struct.proto";
+
 // ── Mail ─────────────────────────────────────────────────────────────────────
+
+// ── Enums ────────────────────────────────────────────────────────────────────
+
+enum MailEventType {
+  MAIL_EVENT_TYPE_UNSPECIFIED = 0;
+  MAIL_EVENT_TYPE_NEW_MESSAGE = 1;
+  MAIL_EVENT_TYPE_DELETED = 2;
+  MAIL_EVENT_TYPE_SEEN = 3;
+}
+
+enum HealthStatus {
+  HEALTH_STATUS_UNSPECIFIED = 0;
+  HEALTH_STATUS_HEALTHY = 1;
+  HEALTH_STATUS_DEGRADED = 2;
+  HEALTH_STATUS_UNHEALTHY = 3;
+}
+
+enum NetmakerEventType {
+  NETMAKER_EVENT_TYPE_UNSPECIFIED = 0;
+  NETMAKER_EVENT_TYPE_NODE_JOINED = 1;
+  NETMAKER_EVENT_TYPE_NODE_LEFT = 2;
+  NETMAKER_EVENT_TYPE_NETWORK_CHANGED = 3;
+}
+
+enum ServiceType {
+  SERVICE_TYPE_UNSPECIFIED = 0;
+  SERVICE_TYPE_NETCLIENT = 1;
+  SERVICE_TYPE_NETSERVER = 2;
+  SERVICE_TYPE_WIREGUARD = 3;
+}
 
 service MailService {
   // IMAP
@@ -50,12 +82,12 @@ message Attachment { string filename = 1; string mime_type = 2; bytes data = 3; 
 message SearchMessagesRequest { string query = 1; string folder = 2; }
 message SearchMessagesResponse { repeated MailHeader messages = 1; }
 message MoveMessageRequest { uint64 uid = 1; string from_folder = 2; string to_folder = 3; }
-message MoveMessageResponse { bool success = 1; }
+message MoveMessageResponse {}
 message DeleteMessageRequest { uint64 uid = 1; string folder = 2; }
-message DeleteMessageResponse { bool success = 1; }
+message DeleteMessageResponse {}
 message StreamInboxRequest {}
 message MailEvent {
-  string event_type = 1; // "new_message" | "deleted" | "seen"
+  MailEventType event_type = 1;
   MailHeader message = 2;
 }
 
@@ -67,7 +99,7 @@ message SendMessageRequest {
   repeated string cc = 5;
   repeated string bcc = 6;
 }
-message SendMessageResponse { bool success = 1; string message_id = 2; }
+message SendMessageResponse { string message_id = 1; }
 
 // ── Netmaker ──────────────────────────────────────────────────────────────────
 
@@ -86,7 +118,7 @@ service NetmakerService {
 }
 
 message HealthRequest {}
-message HealthResponse { string status = 1; string version = 2; }
+message HealthResponse { HealthStatus status = 1; string version = 2; }
 message ListNetworksRequest {}
 message Network {
   string name = 1;
@@ -113,11 +145,11 @@ message ListHostsRequest {}
 message Host { string id = 1; string name = 2; string public_key = 3; string version = 4; }
 message ListHostsResponse { repeated Host hosts = 1; }
 message JoinNetworkRequest { string network = 1; string token = 2; }
-message JoinNetworkResponse { bool success = 1; string message = 2; }
+message JoinNetworkResponse { string message = 1; }
 message LeaveNetworkRequest { string network = 1; }
-message LeaveNetworkResponse { bool success = 1; string message = 2; }
-message RestartServiceRequest { string service = 1; }
-message RestartServiceResponse { bool success = 1; string message = 2; }
+message LeaveNetworkResponse { string message = 1; }
+message RestartServiceRequest { ServiceType service = 1; }
+message RestartServiceResponse { string message = 1; }
 message ExecuteCommandRequest {
   oneof command {
     JoinNetworkRequest join = 1;
@@ -152,13 +184,12 @@ message UninstallRequest {}
 message UseRequest { string version = 1; }
 message VersionRequest {}
 message ExecuteCommandResponse {
-  bool success = 1;
-  int32 exit_code = 2;
-  string stdout = 3;
-  string stderr = 4;
+  int32 exit_code = 1;
+  string stdout = 2;
+  string stderr = 3;
 }
 message StreamEventsRequest {}
-message NetmakerEvent { string event_type = 1; string payload_json = 2; }
+message NetmakerEvent { NetmakerEventType event_type = 1; google.protobuf.Struct payload = 2; }
 
 // ── MQTT / Message Queue ──────────────────────────────────────────────────────
 
@@ -174,7 +205,7 @@ message PublishRequest {
   uint32 qos = 3;
   bool retain = 4;
 }
-message PublishResponse { bool success = 1; }
+message PublishResponse {}
 message SubscribeRequest { repeated string topics = 1; uint32 qos = 2; }
 message MqMessage { string topic = 1; bytes payload = 2; uint64 timestamp = 3; }
 message ListTopicsRequest {}
