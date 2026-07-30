@@ -384,10 +384,8 @@ message VerifyChainRequest {
 }
 
 message VerifyChainResponse {
-  bool valid = 1;
-  uint64 events_verified = 2;
-  uint64 batches_verified = 3;
-  repeated string errors = 4;
+  uint64 events_verified = 1;
+  uint64 batches_verified = 2;
 }
 
 message GetProofRequest {
@@ -525,7 +523,6 @@ message OvsdbTransactResponse {
   string results_json = 1;
   // Event chain event ID (if recorded)
   uint64 event_id = 2;
-  string error = 3;
 }
 
 message OvsdbMonitorRequest {
@@ -751,7 +748,6 @@ message DbusCallRequest {
 
 message dbusCallResponse {
   string json_result = 1;    // JSON-encoded return value
-  string error = 2;          // error message if failed
 }
 
 message DbusGetPropertyRequest {
@@ -764,7 +760,6 @@ message DbusGetPropertyRequest {
 
 message DbusGetPropertyResponse {
   string json_value = 1;
-  string error = 2;
 }
 
 message DbusSetPropertyRequest {
@@ -776,9 +771,7 @@ message DbusSetPropertyRequest {
   string json_value = 6;
 }
 
-message DbusSetPropertyResponse {
-  string error = 1;
-}
+message DbusSetPropertyResponse {}
 
 message DbusWatchRequest {
   string bus = 1;
