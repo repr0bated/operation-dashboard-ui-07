@@ -32,8 +32,6 @@ export function useEventStream() {
     async function seedFromSnapshots() {
       const store = useEventStore.getState();
       const snapshots: Array<[string, () => Promise<unknown>]> = [
-        ["snapshot.state", () => stateSync.getState({ pluginId: "", objectPath: "" })],
-        ["snapshot.ovsdb.bridges", () => ovsdbMirror.getBridgeState()],
         ["snapshot.runtime.systemInfo", () => runtimeMirror.getSystemInfo()],
         ["snapshot.runtime.services", () => runtimeMirror.listServices()],
         ["snapshot.runtime.interfaces", () => runtimeMirror.listInterfaces()],
