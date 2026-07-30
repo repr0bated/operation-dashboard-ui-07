@@ -16,7 +16,6 @@ message ValidateSchemaInput {
 
 message ValidateSchemaOutput {
   repeated string errors = 1;
-  bool valid = 2;
 }
 
 service ValidateSchemaService {
