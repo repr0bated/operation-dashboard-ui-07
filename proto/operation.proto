@@ -301,10 +301,9 @@ message SetPropertyRequest {
 }
 
 message SetPropertyResponse {
-  bool success = 1;
-  uint64 event_id = 2;
-  string event_hash = 3;
-  MutationError error = 4;
+  uint64 event_id = 1;
+  string event_hash = 2;
+  MutationError error = 3;
 }
 
 message SubscribeSignalsRequest {
@@ -522,12 +521,11 @@ message OvsdbTransactRequest {
 }
 
 message OvsdbTransactResponse {
-  bool success = 1;
   // Array of per-operation results as JSON
-  string results_json = 2;
+  string results_json = 1;
   // Event chain event ID (if recorded)
-  uint64 event_id = 3;
-  string error = 4;
+  uint64 event_id = 2;
+  string error = 3;
 }
 
 message OvsdbMonitorRequest {
@@ -752,9 +750,8 @@ message DbusCallRequest {
 }
 
 message dbusCallResponse {
-  bool success = 1;
-  string json_result = 2;    // JSON-encoded return value
-  string error = 3;          // error message if failed
+  string json_result = 1;    // JSON-encoded return value
+  string error = 2;          // error message if failed
 }
 
 message DbusGetPropertyRequest {
@@ -766,9 +763,8 @@ message DbusGetPropertyRequest {
 }
 
 message DbusGetPropertyResponse {
-  bool success = 1;
-  string json_value = 2;
-  string error = 3;
+  string json_value = 1;
+  string error = 2;
 }
 
 message DbusSetPropertyRequest {
@@ -781,8 +777,7 @@ message DbusSetPropertyRequest {
 }
 
 message DbusSetPropertyResponse {
-  bool success = 1;
-  string error = 2;
+  string error = 1;
 }
 
 message DbusWatchRequest {
