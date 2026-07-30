@@ -14,9 +14,7 @@ message TagListInput {
   // Empty schema object.
 }
 
-message TagListOutput {
-  bool success = 1;
-}
+message TagListOutput {}
 
 service TagListService {
   // subid: obs.service.plugin.notebooklm.tag.list@v1, capability: notebooklm.read

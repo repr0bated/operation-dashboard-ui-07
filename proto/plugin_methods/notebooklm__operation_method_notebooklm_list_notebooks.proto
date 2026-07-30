@@ -14,9 +14,7 @@ message ListNotebooksInput {
   // Empty schema object.
 }
 
-message ListNotebooksOutput {
-  bool success = 1;
-}
+message ListNotebooksOutput {}
 
 service ListNotebooksService {
   // subid: obs.service.plugin.notebooklm.notebook.list@v1, capability: notebooklm.read

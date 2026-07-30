@@ -14,9 +14,7 @@ message TerminateSessionInput {
   string session_id = 1;
 }
 
-message TerminateSessionOutput {
-  bool success = 1;
-}
+message TerminateSessionOutput {}
 
 service TerminateSessionService {
   // subid: mut.software.login1.session.terminate@v1, capability: login1.write

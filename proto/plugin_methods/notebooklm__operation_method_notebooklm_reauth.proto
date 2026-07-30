@@ -14,9 +14,7 @@ message ReauthInput {
   // Empty schema object.
 }
 
-message ReauthOutput {
-  bool success = 1;
-}
+message ReauthOutput {}
 
 service ReauthService {
   // subid: mut.service.plugin.notebooklm.auth.reauth@v1, capability: notebooklm.admin

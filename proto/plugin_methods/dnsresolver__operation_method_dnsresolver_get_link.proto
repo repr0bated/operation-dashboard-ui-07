@@ -14,9 +14,7 @@ message GetLinkInput {
   int64 ifindex = 1;
 }
 
-message GetLinkOutput {
-  bool success = 1;
-}
+message GetLinkOutput {}
 
 service GetLinkService {
   // subid: obs.software.dnsresolver.link.get@v1, capability: dnsresolver.read

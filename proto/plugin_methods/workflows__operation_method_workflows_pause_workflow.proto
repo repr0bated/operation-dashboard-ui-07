@@ -14,9 +14,7 @@ message PauseWorkflowInput {
   string workflow_id = 1;
 }
 
-message PauseWorkflowOutput {
-  bool success = 1;
-}
+message PauseWorkflowOutput {}
 
 service PauseWorkflowService {
   // subid: mut.software.plugin.workflows.pause@v1, capability: workflows.write

@@ -16,9 +16,7 @@ message MonitorCondInput {
   string monitor_id = 3;
 }
 
-message MonitorCondOutput {
-  bool success = 1;
-}
+message MonitorCondOutput {}
 
 service MonitorCondService {
   // subid: obs.network.ovsdb.monitor_cond@v1, capability: ovsdb.read

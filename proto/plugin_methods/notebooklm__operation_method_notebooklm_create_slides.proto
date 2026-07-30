@@ -14,9 +14,7 @@ message CreateSlidesInput {
   // Empty schema object.
 }
 
-message CreateSlidesOutput {
-  bool success = 1;
-}
+message CreateSlidesOutput {}
 
 service CreateSlidesService {
   // subid: mut.service.plugin.notebooklm.studio.slides.create@v1, capability: notebooklm.invoke

@@ -15,9 +15,7 @@ message RunInput {
   string name = 2;
 }
 
-message RunOutput {
-  bool success = 1;
-}
+message RunOutput {}
 
 service RunService {
   // subid: mut.service.lifecycle.run@v1, capability: cap.service.lifecycle.run@v1

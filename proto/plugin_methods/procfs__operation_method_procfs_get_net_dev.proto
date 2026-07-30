@@ -14,9 +14,7 @@ message GetNetDevInput {
   // Empty schema object.
 }
 
-message GetNetDevOutput {
-  bool success = 1;
-}
+message GetNetDevOutput {}
 
 service GetNetDevService {
   // subid: obs.service.procfs.net-dev.get@v1, capability: procfs.read

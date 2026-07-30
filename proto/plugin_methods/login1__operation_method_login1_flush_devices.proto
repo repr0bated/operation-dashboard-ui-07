@@ -14,9 +14,7 @@ message FlushDevicesInput {
   bool interactive = 1;
 }
 
-message FlushDevicesOutput {
-  bool success = 1;
-}
+message FlushDevicesOutput {}
 
 service FlushDevicesService {
   // subid: mut.software.login1.devices.flush@v1, capability: login1.admin

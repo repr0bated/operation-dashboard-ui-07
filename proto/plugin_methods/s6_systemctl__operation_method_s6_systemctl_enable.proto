@@ -14,9 +14,7 @@ message EnableInput {
   string name = 1;
 }
 
-message EnableOutput {
-  bool success = 1;
-}
+message EnableOutput {}
 
 service EnableService {
   // subid: mut.software.s6.systemctl.enable@v1, capability: s6.systemctl.write

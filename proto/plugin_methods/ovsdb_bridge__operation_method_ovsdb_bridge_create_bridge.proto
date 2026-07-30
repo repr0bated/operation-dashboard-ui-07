@@ -17,9 +17,7 @@ message CreateBridgeInput {
   bool stp_enable = 4;
 }
 
-message CreateBridgeOutput {
-  bool success = 1;
-}
+message CreateBridgeOutput {}
 
 service CreateBridgeService {
   // subid: mut.network.ovsdb.bridge.create@v1, capability: ovsdb.write

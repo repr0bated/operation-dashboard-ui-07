@@ -16,9 +16,7 @@ message CreatePayloadIndexInput {
   google.protobuf.Value field_schema = 3;
 }
 
-message CreatePayloadIndexOutput {
-  bool success = 1;
-}
+message CreatePayloadIndexOutput {}
 
 service CreatePayloadIndexService {
   // subid: mut.data.qdrant.payload-index.create@v1, capability: cap.data.qdrant.payload-index.create@v1

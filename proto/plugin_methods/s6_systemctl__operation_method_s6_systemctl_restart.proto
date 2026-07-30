@@ -14,9 +14,7 @@ message RestartInput {
   string name = 1;
 }
 
-message RestartOutput {
-  bool success = 1;
-}
+message RestartOutput {}
 
 service RestartService {
   // subid: mut.software.s6.systemctl.restart@v1, capability: s6.systemctl.write

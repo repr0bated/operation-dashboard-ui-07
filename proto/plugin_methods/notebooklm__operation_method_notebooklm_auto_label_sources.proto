@@ -14,9 +14,7 @@ message AutoLabelSourcesInput {
   // Empty schema object.
 }
 
-message AutoLabelSourcesOutput {
-  bool success = 1;
-}
+message AutoLabelSourcesOutput {}
 
 service AutoLabelSourcesService {
   // subid: mut.service.plugin.notebooklm.source.label-auto@v1, capability: notebooklm.invoke

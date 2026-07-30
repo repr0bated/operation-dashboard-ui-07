@@ -15,9 +15,7 @@ message UninstallInput {
   string name = 2;
 }
 
-message UninstallOutput {
-  bool success = 1;
-}
+message UninstallOutput {}
 
 service UninstallService {
   // subid: mut.software.plugin.software.uninstall@v1, capability: software.write

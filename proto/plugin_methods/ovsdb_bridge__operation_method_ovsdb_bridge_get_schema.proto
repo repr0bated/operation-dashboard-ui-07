@@ -14,9 +14,7 @@ message GetSchemaInput {
   string db_name = 1;
 }
 
-message GetSchemaOutput {
-  bool success = 1;
-}
+message GetSchemaOutput {}
 
 service GetSchemaService {
   // subid: obs.network.ovsdb.schema.get@v1, capability: ovsdb.read

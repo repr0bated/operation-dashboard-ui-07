@@ -14,9 +14,7 @@ message GetJailStatusInput {
   string jail = 1;
 }
 
-message GetJailStatusOutput {
-  bool success = 1;
-}
+message GetJailStatusOutput {}
 
 service GetJailStatusService {
   // subid: obs.security.fail2ban.jail.status@v1, capability: fail2ban.read

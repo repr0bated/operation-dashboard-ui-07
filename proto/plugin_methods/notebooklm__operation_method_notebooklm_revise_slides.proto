@@ -14,9 +14,7 @@ message ReviseSlidesInput {
   // Empty schema object.
 }
 
-message ReviseSlidesOutput {
-  bool success = 1;
-}
+message ReviseSlidesOutput {}
 
 service ReviseSlidesService {
   // subid: mut.service.plugin.notebooklm.studio.slides.revise@v1, capability: notebooklm.invoke

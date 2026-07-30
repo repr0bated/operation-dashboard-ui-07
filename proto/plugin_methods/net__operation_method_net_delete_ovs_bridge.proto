@@ -14,9 +14,7 @@ message DeleteOvsBridgeInput {
   string name = 1;
 }
 
-message DeleteOvsBridgeOutput {
-  bool success = 1;
-}
+message DeleteOvsBridgeOutput {}
 
 service DeleteOvsBridgeService {
   // subid: mut.network.ovs-bridge.delete@v1, capability: cap.network.ovs-bridge.delete@v1

@@ -14,9 +14,7 @@ message RegisterToolInput {
   // Empty schema object.
 }
 
-message RegisterToolOutput {
-  bool success = 1;
-}
+message RegisterToolOutput {}
 
 service RegisterToolService {
   // subid: mut.service.agent.tool.register@v1, capability: agent.invoke

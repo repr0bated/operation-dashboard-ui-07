@@ -14,9 +14,7 @@ message FlushQueueInput {
   // Empty schema object.
 }
 
-message FlushQueueOutput {
-  bool success = 1;
-}
+message FlushQueueOutput {}
 
 service FlushQueueService {
   // subid: mut.service.mail.queue.flush@v1, capability: mail.write

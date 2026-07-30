@@ -15,9 +15,7 @@ message DeleteFlowInput {
   google.protobuf.Struct match_fields = 2;
 }
 
-message DeleteFlowOutput {
-  bool success = 1;
-}
+message DeleteFlowOutput {}
 
 service DeleteFlowService {
   // subid: mut.network.openflow.flow.delete@v1, capability: openflow.write

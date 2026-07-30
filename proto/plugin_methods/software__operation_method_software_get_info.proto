@@ -14,9 +14,7 @@ message GetInfoInput {
   string name = 1;
 }
 
-message GetInfoOutput {
-  bool success = 1;
-}
+message GetInfoOutput {}
 
 service GetInfoService {
   // subid: obs.software.plugin.software.get-info@v1, capability: software.read

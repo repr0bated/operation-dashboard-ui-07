@@ -15,9 +15,7 @@ message AddMailboxInput {
   string user = 2;
 }
 
-message AddMailboxOutput {
-  bool success = 1;
-}
+message AddMailboxOutput {}
 
 service AddMailboxService {
   // subid: mut.service.mail.mailbox.add@v1, capability: mail.write

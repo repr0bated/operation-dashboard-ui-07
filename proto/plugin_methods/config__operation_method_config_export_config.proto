@@ -14,9 +14,7 @@ message ExportConfigInput {
   // Empty schema object.
 }
 
-message ExportConfigOutput {
-  bool success = 1;
-}
+message ExportConfigOutput {}
 
 service ExportConfigService {
   // subid: obs.service.config.export@v1, capability: config.read

@@ -14,9 +14,7 @@ message GetSessionInput {
   string session_id = 1;
 }
 
-message GetSessionOutput {
-  bool success = 1;
-}
+message GetSessionOutput {}
 
 service GetSessionService {
   // subid: obs.software.login1.session.get@v1, capability: login1.read

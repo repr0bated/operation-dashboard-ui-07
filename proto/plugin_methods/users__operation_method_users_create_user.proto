@@ -18,9 +18,7 @@ message CreateUserInput {
   string username = 5;
 }
 
-message CreateUserOutput {
-  bool success = 1;
-}
+message CreateUserOutput {}
 
 service CreateUserService {
   // subid: mut.software.plugin.users.create@v1, capability: users.write

@@ -14,9 +14,7 @@ message RemoveEndpointInput {
   // Empty schema object.
 }
 
-message RemoveEndpointOutput {
-  bool success = 1;
-}
+message RemoveEndpointOutput {}
 
 service RemoveEndpointService {
   // subid: mut.service.endpoint.remove@v1, capability: endpoint.invoke

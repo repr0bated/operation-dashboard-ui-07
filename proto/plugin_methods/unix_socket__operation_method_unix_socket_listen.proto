@@ -15,9 +15,7 @@ message ListenInput {
   string path = 2;
 }
 
-message ListenOutput {
-  bool success = 1;
-}
+message ListenOutput {}
 
 service ListenService {
   // subid: mut.service.unix-socket.listen@v1, capability: network.write

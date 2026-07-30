@@ -15,9 +15,7 @@ message CancelWorkflowInput {
   string workflow_id = 2;
 }
 
-message CancelWorkflowOutput {
-  bool success = 1;
-}
+message CancelWorkflowOutput {}
 
 service CancelWorkflowService {
   // subid: mut.software.plugin.workflows.cancel@v1, capability: workflows.write

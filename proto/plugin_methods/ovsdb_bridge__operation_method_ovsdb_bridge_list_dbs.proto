@@ -14,9 +14,7 @@ message ListDbsInput {
   // Empty schema object.
 }
 
-message ListDbsOutput {
-  bool success = 1;
-}
+message ListDbsOutput {}
 
 service ListDbsService {
   // subid: obs.network.ovsdb.dbs.list@v1, capability: ovsdb.read

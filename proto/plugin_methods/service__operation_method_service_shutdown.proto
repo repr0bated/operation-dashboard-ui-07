@@ -15,9 +15,7 @@ message ShutdownInput {
   string name = 2;
 }
 
-message ShutdownOutput {
-  bool success = 1;
-}
+message ShutdownOutput {}
 
 service ShutdownService {
   // subid: mut.service.lifecycle.shutdown@v1, capability: cap.service.lifecycle.shutdown@v1

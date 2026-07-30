@@ -14,9 +14,7 @@ message RegisterTagInput {
   // Empty schema object.
 }
 
-message RegisterTagOutput {
-  bool success = 1;
-}
+message RegisterTagOutput {}
 
 service RegisterTagService {
   // subid: mut.service.gemma.tag.register@v1, capability: gemma.invoke

@@ -15,9 +15,7 @@ message GetNodeInput {
   string node_id = 2;
 }
 
-message GetNodeOutput {
-  bool success = 1;
-}
+message GetNodeOutput {}
 
 service GetNodeService {
   // subid: obs.network.netmaker.node.get@v1, capability: cap.network.netmaker.node.get@v1

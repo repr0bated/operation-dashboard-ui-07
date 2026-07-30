@@ -14,9 +14,7 @@ message ScrubStartInput {
   string path = 1;
 }
 
-message ScrubStartOutput {
-  bool success = 1;
-}
+message ScrubStartOutput {}
 
 service ScrubStartService {
   // subid: mut.storage.btrfs.scrub.start@v1, capability: cap.storage.btrfs.scrub.start@v1

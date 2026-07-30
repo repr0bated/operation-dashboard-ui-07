@@ -14,9 +14,7 @@ message BatchOperationInput {
   // Empty schema object.
 }
 
-message BatchOperationOutput {
-  bool success = 1;
-}
+message BatchOperationOutput {}
 
 service BatchOperationService {
   // subid: mut.service.plugin.notebooklm.batch.run@v1, capability: notebooklm.invoke

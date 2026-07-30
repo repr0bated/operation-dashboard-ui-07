@@ -14,9 +14,7 @@ message CloseSessionInput {
   // Empty schema object.
 }
 
-message CloseSessionOutput {
-  bool success = 1;
-}
+message CloseSessionOutput {}
 
 service CloseSessionService {
   // subid: mut.service.plugin.notebooklm.session.close@v1, capability: notebooklm.invoke

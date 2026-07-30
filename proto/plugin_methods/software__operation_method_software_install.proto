@@ -15,9 +15,7 @@ message InstallInput {
   string version = 2;
 }
 
-message InstallOutput {
-  bool success = 1;
-}
+message InstallOutput {}
 
 service InstallService {
   // subid: mut.software.plugin.software.install@v1, capability: software.write

@@ -14,9 +14,7 @@ message ApplyInterfaceInput {
   google.protobuf.Value interface = 1;
 }
 
-message ApplyInterfaceOutput {
-  bool success = 1;
-}
+message ApplyInterfaceOutput {}
 
 service ApplyInterfaceService {
   // subid: mut.network.interface.apply@v1, capability: cap.network.interface.apply@v1

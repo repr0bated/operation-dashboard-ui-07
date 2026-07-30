@@ -14,9 +14,7 @@ message SetProviderInput {
   // Empty schema object.
 }
 
-message SetProviderOutput {
-  bool success = 1;
-}
+message SetProviderOutput {}
 
 service SetProviderService {
   // subid: mut.service.llm.provider.set@v1, capability: llm.invoke

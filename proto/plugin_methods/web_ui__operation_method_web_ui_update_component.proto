@@ -15,9 +15,7 @@ message UpdateComponentInput {
   google.protobuf.Value properties = 2;
 }
 
-message UpdateComponentOutput {
-  bool success = 1;
-}
+message UpdateComponentOutput {}
 
 service UpdateComponentService {
   // subid: mut.software.plugin.web-ui.update-component@v1, capability: ui.write

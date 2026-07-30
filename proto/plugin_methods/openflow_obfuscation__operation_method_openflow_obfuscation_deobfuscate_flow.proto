@@ -15,9 +15,7 @@ message DeobfuscateFlowInput {
   string match_spec = 2;
 }
 
-message DeobfuscateFlowOutput {
-  bool success = 1;
-}
+message DeobfuscateFlowOutput {}
 
 service DeobfuscateFlowService {
   // subid: mut.network.openflow.obfuscation.deobfuscate@v1, capability: openflow_obfuscation.write

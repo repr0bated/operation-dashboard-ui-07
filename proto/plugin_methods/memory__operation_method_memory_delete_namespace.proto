@@ -16,7 +16,6 @@ message DeleteNamespaceInput {
 
 message DeleteNamespaceOutput {
   int64 deleted_entries = 1;
-  bool success = 2;
 }
 
 service DeleteNamespaceService {

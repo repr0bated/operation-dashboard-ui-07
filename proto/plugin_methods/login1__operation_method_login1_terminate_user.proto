@@ -14,9 +14,7 @@ message TerminateUserInput {
   int64 uid = 1;
 }
 
-message TerminateUserOutput {
-  bool success = 1;
-}
+message TerminateUserOutput {}
 
 service TerminateUserService {
   // subid: mut.software.login1.user.terminate@v1, capability: login1.admin

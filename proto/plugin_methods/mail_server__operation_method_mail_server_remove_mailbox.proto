@@ -15,9 +15,7 @@ message RemoveMailboxInput {
   string user = 2;
 }
 
-message RemoveMailboxOutput {
-  bool success = 1;
-}
+message RemoveMailboxOutput {}
 
 service RemoveMailboxService {
   // subid: mut.service.mail.mailbox.remove@v1, capability: mail.write

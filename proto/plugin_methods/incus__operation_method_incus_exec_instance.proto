@@ -15,9 +15,7 @@ message ExecInstanceInput {
   string name = 2;
 }
 
-message ExecInstanceOutput {
-  bool success = 1;
-}
+message ExecInstanceOutput {}
 
 service ExecInstanceService {
   // subid: mut.service.incus.instance.exec@v1, capability: cap.service.incus.instance.exec@v1

@@ -14,9 +14,7 @@ message DownloadArtifactInput {
   // Empty schema object.
 }
 
-message DownloadArtifactOutput {
-  bool success = 1;
-}
+message DownloadArtifactOutput {}
 
 service DownloadArtifactService {
   // subid: obs.service.plugin.notebooklm.studio.artifact.download@v1, capability: notebooklm.read

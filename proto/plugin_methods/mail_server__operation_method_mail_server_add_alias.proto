@@ -16,9 +16,7 @@ message AddAliasInput {
   string domain = 3;
 }
 
-message AddAliasOutput {
-  bool success = 1;
-}
+message AddAliasOutput {}
 
 service AddAliasService {
   // subid: mut.service.mail.alias.add@v1, capability: mail.write

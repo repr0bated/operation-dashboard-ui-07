@@ -27,9 +27,7 @@ message CreateSessionInput {
   int64 vtnr = 14;
 }
 
-message CreateSessionOutput {
-  bool success = 1;
-}
+message CreateSessionOutput {}
 
 service CreateSessionService {
   // subid: mut.software.login1.session.create@v1, capability: login1.write

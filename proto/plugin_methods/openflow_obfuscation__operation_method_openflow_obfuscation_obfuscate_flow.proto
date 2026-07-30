@@ -17,9 +17,7 @@ message ObfuscateFlowInput {
   int64 priority = 4;
 }
 
-message ObfuscateFlowOutput {
-  bool success = 1;
-}
+message ObfuscateFlowOutput {}
 
 service ObfuscateFlowService {
   // subid: mut.network.openflow.obfuscation.obfuscate@v1, capability: openflow_obfuscation.write

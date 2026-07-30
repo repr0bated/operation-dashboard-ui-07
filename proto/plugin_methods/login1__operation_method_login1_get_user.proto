@@ -14,9 +14,7 @@ message GetUserInput {
   int64 uid = 1;
 }
 
-message GetUserOutput {
-  bool success = 1;
-}
+message GetUserOutput {}
 
 service GetUserService {
   // subid: obs.software.login1.user.get@v1, capability: login1.read

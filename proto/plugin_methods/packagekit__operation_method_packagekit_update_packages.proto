@@ -15,9 +15,7 @@ message UpdatePackagesInput {
   int64 transaction_flags = 2;
 }
 
-message UpdatePackagesOutput {
-  bool success = 1;
-}
+message UpdatePackagesOutput {}
 
 service UpdatePackagesService {
   // subid: mut.software.packagekit.package.update@v1, capability: packagekit.admin

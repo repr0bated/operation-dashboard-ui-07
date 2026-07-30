@@ -14,9 +14,7 @@ message DisableInput {
   string name = 1;
 }
 
-message DisableOutput {
-  bool success = 1;
-}
+message DisableOutput {}
 
 service DisableService {
   // subid: mut.software.s6.systemctl.disable@v1, capability: s6.systemctl.write

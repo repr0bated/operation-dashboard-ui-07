@@ -14,9 +14,7 @@ message TagAddInput {
   // Empty schema object.
 }
 
-message TagAddOutput {
-  bool success = 1;
-}
+message TagAddOutput {}
 
 service TagAddService {
   // subid: mut.service.plugin.notebooklm.tag.add@v1, capability: notebooklm.invoke

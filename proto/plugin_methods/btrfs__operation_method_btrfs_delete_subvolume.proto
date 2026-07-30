@@ -14,9 +14,7 @@ message DeleteSubvolumeInput {
   string path = 1;
 }
 
-message DeleteSubvolumeOutput {
-  bool success = 1;
-}
+message DeleteSubvolumeOutput {}
 
 service DeleteSubvolumeService {
   // subid: mut.storage.btrfs.subvolume.delete@v1, capability: cap.storage.btrfs.subvolume.delete@v1

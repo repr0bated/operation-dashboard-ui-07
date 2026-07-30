@@ -14,9 +14,7 @@ message GetMachineIdInput {
   // Empty schema object.
 }
 
-message GetMachineIdOutput {
-  bool success = 1;
-}
+message GetMachineIdOutput {}
 
 service GetMachineIdService {
   // subid: obs.software.freedesktop.machine_id.get@v1, capability: freedesktop.read

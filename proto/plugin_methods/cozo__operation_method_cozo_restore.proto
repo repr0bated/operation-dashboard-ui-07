@@ -14,9 +14,7 @@ message RestoreInput {
   string path = 1;
 }
 
-message RestoreOutput {
-  bool success = 1;
-}
+message RestoreOutput {}
 
 service RestoreService {
   // subid: mut.data.cozo.backup.restore@v1, capability: cap.data.cozo.backup.restore@v1

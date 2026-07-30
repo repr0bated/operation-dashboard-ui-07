@@ -17,9 +17,7 @@ message ResolveAddressInput {
   int64 ifindex = 4;
 }
 
-message ResolveAddressOutput {
-  bool success = 1;
-}
+message ResolveAddressOutput {}
 
 service ResolveAddressService {
   // subid: obs.software.dnsresolver.address.resolve@v1, capability: dnsresolver.read

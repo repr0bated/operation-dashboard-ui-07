@@ -14,9 +14,7 @@ message DisableJobInput {
   // Empty schema object.
 }
 
-message DisableJobOutput {
-  bool success = 1;
-}
+message DisableJobOutput {}
 
 service DisableJobService {
   // subid: mut.service.cron.job.disable@v1, capability: cron.invoke

@@ -14,9 +14,7 @@ message EchoInput {
   repeated google.protobuf.Value params = 1;
 }
 
-message EchoOutput {
-  bool success = 1;
-}
+message EchoOutput {}
 
 service EchoService {
   // subid: obs.network.ovsdb.echo@v1, capability: ovsdb.read

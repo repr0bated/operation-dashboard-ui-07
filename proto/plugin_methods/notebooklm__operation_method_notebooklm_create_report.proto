@@ -14,9 +14,7 @@ message CreateReportInput {
   // Empty schema object.
 }
 
-message CreateReportOutput {
-  bool success = 1;
-}
+message CreateReportOutput {}
 
 service CreateReportService {
   // subid: mut.service.plugin.notebooklm.studio.report.create@v1, capability: notebooklm.invoke

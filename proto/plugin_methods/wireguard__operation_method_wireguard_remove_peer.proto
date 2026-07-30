@@ -15,9 +15,7 @@ message RemovePeerInput {
   string public_key = 2;
 }
 
-message RemovePeerOutput {
-  bool success = 1;
-}
+message RemovePeerOutput {}
 
 service RemovePeerService {
   // subid: mut.network.wireguard.peer.remove@v1, capability: wireguard.write

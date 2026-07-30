@@ -15,9 +15,7 @@ message StopInstanceInput {
   string name = 2;
 }
 
-message StopInstanceOutput {
-  bool success = 1;
-}
+message StopInstanceOutput {}
 
 service StopInstanceService {
   // subid: mut.service.incus.instance.stop@v1, capability: cap.service.incus.instance.stop@v1

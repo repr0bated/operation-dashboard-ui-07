@@ -15,9 +15,7 @@ message DeleteUserInput {
   string username = 2;
 }
 
-message DeleteUserOutput {
-  bool success = 1;
-}
+message DeleteUserOutput {}
 
 service DeleteUserService {
   // subid: mut.software.plugin.users.delete@v1, capability: users.write

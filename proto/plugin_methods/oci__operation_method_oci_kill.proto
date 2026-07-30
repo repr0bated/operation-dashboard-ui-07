@@ -15,9 +15,7 @@ message KillInput {
   int64 signal = 2;
 }
 
-message KillOutput {
-  bool success = 1;
-}
+message KillOutput {}
 
 service KillService {
   // subid: mut.container.oci.kill@v1, capability: cap.container.oci.kill@v1

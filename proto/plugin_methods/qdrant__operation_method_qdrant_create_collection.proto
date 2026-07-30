@@ -15,9 +15,7 @@ message CreateCollectionInput {
   google.protobuf.Value vectors_config = 2;
 }
 
-message CreateCollectionOutput {
-  bool success = 1;
-}
+message CreateCollectionOutput {}
 
 service CreateCollectionService {
   // subid: mut.data.qdrant.collection.create@v1, capability: cap.data.qdrant.collection.create@v1

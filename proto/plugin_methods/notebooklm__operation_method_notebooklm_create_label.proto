@@ -14,9 +14,7 @@ message CreateLabelInput {
   // Empty schema object.
 }
 
-message CreateLabelOutput {
-  bool success = 1;
-}
+message CreateLabelOutput {}
 
 service CreateLabelService {
   // subid: mut.service.plugin.notebooklm.source.label-create@v1, capability: notebooklm.invoke

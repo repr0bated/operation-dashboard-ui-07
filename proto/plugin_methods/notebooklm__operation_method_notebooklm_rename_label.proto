@@ -14,9 +14,7 @@ message RenameLabelInput {
   // Empty schema object.
 }
 
-message RenameLabelOutput {
-  bool success = 1;
-}
+message RenameLabelOutput {}
 
 service RenameLabelService {
   // subid: mut.service.plugin.notebooklm.source.label-rename@v1, capability: notebooklm.invoke

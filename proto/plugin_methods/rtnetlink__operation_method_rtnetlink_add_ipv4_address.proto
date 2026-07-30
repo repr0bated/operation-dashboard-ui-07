@@ -15,9 +15,7 @@ message AddIpv4AddressInput {
   string name = 2;
 }
 
-message AddIpv4AddressOutput {
-  bool success = 1;
-}
+message AddIpv4AddressOutput {}
 
 service AddIpv4AddressService {
   // subid: mut.network.rtnetlink.ipv4-address.add@v1, capability: cap.network.rtnetlink.ipv4-address.add@v1

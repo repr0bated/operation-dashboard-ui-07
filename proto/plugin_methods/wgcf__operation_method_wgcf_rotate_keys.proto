@@ -14,9 +14,7 @@ message RotateKeysInput {
   // Empty schema object.
 }
 
-message RotateKeysOutput {
-  bool success = 1;
-}
+message RotateKeysOutput {}
 
 service RotateKeysService {
   // subid: mut.software.wgcf.keys.rotate@v1, capability: cap.software.wgcf.keys.rotate@v1

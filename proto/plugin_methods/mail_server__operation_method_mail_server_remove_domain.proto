@@ -14,9 +14,7 @@ message RemoveDomainInput {
   string domain = 1;
 }
 
-message RemoveDomainOutput {
-  bool success = 1;
-}
+message RemoveDomainOutput {}
 
 service RemoveDomainService {
   // subid: mut.service.mail.domain.remove@v1, capability: mail.write

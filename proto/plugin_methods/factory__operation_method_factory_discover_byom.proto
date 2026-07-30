@@ -14,9 +14,7 @@ message DiscoverByomInput {
   // Empty schema object.
 }
 
-message DiscoverByomOutput {
-  bool success = 1;
-}
+message DiscoverByomOutput {}
 
 service DiscoverByomService {
   // subid: mut.service.factory.byom.discover@v1, capability: factory.invoke

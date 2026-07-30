@@ -16,9 +16,7 @@ message AttachDeviceInput {
   string sysfs_path = 3;
 }
 
-message AttachDeviceOutput {
-  bool success = 1;
-}
+message AttachDeviceOutput {}
 
 service AttachDeviceService {
   // subid: mut.software.login1.device.attach@v1, capability: login1.admin

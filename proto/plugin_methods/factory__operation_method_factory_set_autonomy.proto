@@ -14,9 +14,7 @@ message SetAutonomyInput {
   // Empty schema object.
 }
 
-message SetAutonomyOutput {
-  bool success = 1;
-}
+message SetAutonomyOutput {}
 
 service SetAutonomyService {
   // subid: mut.service.factory.autonomy.set@v1, capability: factory.invoke

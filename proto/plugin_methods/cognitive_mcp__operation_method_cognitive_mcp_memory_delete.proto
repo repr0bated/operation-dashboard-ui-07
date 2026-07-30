@@ -16,7 +16,6 @@ message MemoryDeleteInput {
 
 message MemoryDeleteOutput {
   int64 keys_deleted = 1;
-  bool success = 2;
 }
 
 service MemoryDeleteService {

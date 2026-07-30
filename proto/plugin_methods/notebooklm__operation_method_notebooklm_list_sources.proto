@@ -14,9 +14,7 @@ message ListSourcesInput {
   // Empty schema object.
 }
 
-message ListSourcesOutput {
-  bool success = 1;
-}
+message ListSourcesOutput {}
 
 service ListSourcesService {
   // subid: obs.service.plugin.notebooklm.source.list@v1, capability: notebooklm.read

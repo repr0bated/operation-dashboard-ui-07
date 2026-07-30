@@ -14,9 +14,7 @@ message ReleaseSessionInput {
   string session_id = 1;
 }
 
-message ReleaseSessionOutput {
-  bool success = 1;
-}
+message ReleaseSessionOutput {}
 
 service ReleaseSessionService {
   // subid: mut.software.login1.session.release@v1, capability: login1.write

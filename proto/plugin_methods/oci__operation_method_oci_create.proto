@@ -15,9 +15,7 @@ message CreateInput {
   string id = 2;
 }
 
-message CreateOutput {
-  bool success = 1;
-}
+message CreateOutput {}
 
 service CreateService {
   // subid: mut.container.oci.create@v1, capability: cap.container.oci.create@v1

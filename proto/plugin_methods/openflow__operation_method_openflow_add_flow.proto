@@ -21,9 +21,7 @@ message AddFlowInput {
   int64 table = 8;
 }
 
-message AddFlowOutput {
-  bool success = 1;
-}
+message AddFlowOutput {}
 
 service AddFlowService {
   // subid: mut.network.openflow.flow.add@v1, capability: openflow.write

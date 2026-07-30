@@ -14,9 +14,7 @@ message UnregisterServiceInput {
   string service_path = 1;
 }
 
-message UnregisterServiceOutput {
-  bool success = 1;
-}
+message UnregisterServiceOutput {}
 
 service UnregisterServiceService {
   // subid: mut.software.dnsresolver.service.unregister@v1, capability: dnsresolver.write

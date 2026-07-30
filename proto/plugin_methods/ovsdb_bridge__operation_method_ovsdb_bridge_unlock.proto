@@ -14,9 +14,7 @@ message UnlockInput {
   string lock_id = 1;
 }
 
-message UnlockOutput {
-  bool success = 1;
-}
+message UnlockOutput {}
 
 service UnlockService {
   // subid: mut.network.ovsdb.lock.unlock@v1, capability: ovsdb.write

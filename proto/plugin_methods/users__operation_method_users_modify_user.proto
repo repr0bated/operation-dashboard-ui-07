@@ -18,9 +18,7 @@ message ModifyUserInput {
   string username = 5;
 }
 
-message ModifyUserOutput {
-  bool success = 1;
-}
+message ModifyUserOutput {}
 
 service ModifyUserService {
   // subid: mut.software.plugin.users.modify@v1, capability: users.write

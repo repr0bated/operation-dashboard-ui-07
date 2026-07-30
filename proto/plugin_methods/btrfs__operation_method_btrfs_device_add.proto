@@ -15,9 +15,7 @@ message DeviceAddInput {
   string path = 2;
 }
 
-message DeviceAddOutput {
-  bool success = 1;
-}
+message DeviceAddOutput {}
 
 service DeviceAddService {
   // subid: mut.storage.btrfs.device.add@v1, capability: cap.storage.btrfs.device.add@v1

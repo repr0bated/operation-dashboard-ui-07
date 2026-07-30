@@ -15,9 +15,7 @@ message SetLinkDnsOverTlsInput {
   string mode = 2;
 }
 
-message SetLinkDnsOverTlsOutput {
-  bool success = 1;
-}
+message SetLinkDnsOverTlsOutput {}
 
 service SetLinkDnsOverTlsService {
   // subid: mut.software.dnsresolver.link.set-dot@v1, capability: dnsresolver.write

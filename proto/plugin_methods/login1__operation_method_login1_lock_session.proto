@@ -14,9 +14,7 @@ message LockSessionInput {
   string session_id = 1;
 }
 
-message LockSessionOutput {
-  bool success = 1;
-}
+message LockSessionOutput {}
 
 service LockSessionService {
   // subid: mut.software.login1.session.lock@v1, capability: login1.write

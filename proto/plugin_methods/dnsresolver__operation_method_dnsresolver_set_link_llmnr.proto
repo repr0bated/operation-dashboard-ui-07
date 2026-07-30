@@ -15,9 +15,7 @@ message SetLinkLlmnrInput {
   string mode = 2;
 }
 
-message SetLinkLlmnrOutput {
-  bool success = 1;
-}
+message SetLinkLlmnrOutput {}
 
 service SetLinkLlmnrService {
   // subid: mut.software.dnsresolver.link.set-llmnr@v1, capability: dnsresolver.write

@@ -14,9 +14,7 @@ message ListProcessesInput {
   // Empty schema object.
 }
 
-message ListProcessesOutput {
-  bool success = 1;
-}
+message ListProcessesOutput {}
 
 service ListProcessesService {
   // subid: obs.service.procfs.process.list@v1, capability: procfs.read

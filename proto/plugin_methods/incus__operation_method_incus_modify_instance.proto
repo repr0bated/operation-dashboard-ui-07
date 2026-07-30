@@ -16,9 +16,7 @@ message ModifyInstanceInput {
   string name = 3;
 }
 
-message ModifyInstanceOutput {
-  bool success = 1;
-}
+message ModifyInstanceOutput {}
 
 service ModifyInstanceService {
   // subid: mut.service.incus.instance.modify@v1, capability: cap.service.incus.instance.modify@v1

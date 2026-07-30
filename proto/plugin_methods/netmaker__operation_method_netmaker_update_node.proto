@@ -16,9 +16,7 @@ message UpdateNodeInput {
   google.protobuf.Value payload = 3;
 }
 
-message UpdateNodeOutput {
-  bool success = 1;
-}
+message UpdateNodeOutput {}
 
 service UpdateNodeService {
   // subid: mut.network.netmaker.node.update@v1, capability: cap.network.netmaker.node.update@v1

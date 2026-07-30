@@ -14,9 +14,7 @@ message CreateInfographicInput {
   // Empty schema object.
 }
 
-message CreateInfographicOutput {
-  bool success = 1;
-}
+message CreateInfographicOutput {}
 
 service CreateInfographicService {
   // subid: mut.service.plugin.notebooklm.studio.infographic.create@v1, capability: notebooklm.invoke

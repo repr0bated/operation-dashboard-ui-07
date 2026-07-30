@@ -16,9 +16,7 @@ message SetQuotaInput {
   string user = 3;
 }
 
-message SetQuotaOutput {
-  bool success = 1;
-}
+message SetQuotaOutput {}
 
 service SetQuotaService {
   // subid: mut.service.mail.quota.set@v1, capability: mail.write

@@ -14,9 +14,7 @@ message StartInput {
   string id = 1;
 }
 
-message StartOutput {
-  bool success = 1;
-}
+message StartOutput {}
 
 service StartService {
   // subid: mut.container.oci.start@v1, capability: cap.container.oci.start@v1

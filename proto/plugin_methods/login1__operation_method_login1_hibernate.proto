@@ -14,9 +14,7 @@ message HibernateInput {
   bool interactive = 1;
 }
 
-message HibernateOutput {
-  bool success = 1;
-}
+message HibernateOutput {}
 
 service HibernateService {
   // subid: mut.software.login1.system.hibernate@v1, capability: login1.admin

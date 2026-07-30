@@ -14,9 +14,7 @@ message StartInstanceInput {
   string name = 1;
 }
 
-message StartInstanceOutput {
-  bool success = 1;
-}
+message StartInstanceOutput {}
 
 service StartInstanceService {
   // subid: mut.service.incus.instance.start@v1, capability: cap.service.incus.instance.start@v1

@@ -14,9 +14,7 @@ message GetHealthInput {
   // Empty schema object.
 }
 
-message GetHealthOutput {
-  bool success = 1;
-}
+message GetHealthOutput {}
 
 service GetHealthService {
   // subid: obs.service.plugin.notebooklm.health@v1, capability: notebooklm.read

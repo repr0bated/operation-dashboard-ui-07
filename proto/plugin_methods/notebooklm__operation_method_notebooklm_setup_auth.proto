@@ -14,9 +14,7 @@ message SetupAuthInput {
   // Empty schema object.
 }
 
-message SetupAuthOutput {
-  bool success = 1;
-}
+message SetupAuthOutput {}
 
 service SetupAuthService {
   // subid: mut.service.plugin.notebooklm.auth.setup@v1, capability: notebooklm.admin

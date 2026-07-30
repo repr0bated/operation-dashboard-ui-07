@@ -14,9 +14,7 @@ message RefreshInventoryInput {
   // Empty schema object.
 }
 
-message RefreshInventoryOutput {
-  bool success = 1;
-}
+message RefreshInventoryOutput {}
 
 service RefreshInventoryService {
   // subid: mut.service.hardware.refresh@v1, capability: hardware.invoke

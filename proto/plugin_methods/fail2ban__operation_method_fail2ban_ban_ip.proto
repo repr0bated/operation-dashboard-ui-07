@@ -15,9 +15,7 @@ message BanIpInput {
   string jail = 2;
 }
 
-message BanIpOutput {
-  bool success = 1;
-}
+message BanIpOutput {}
 
 service BanIpService {
   // subid: mut.security.fail2ban.ip.ban@v1, capability: fail2ban.write

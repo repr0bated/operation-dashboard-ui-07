@@ -14,9 +14,7 @@ message BalanceStartInput {
   string path = 1;
 }
 
-message BalanceStartOutput {
-  bool success = 1;
-}
+message BalanceStartOutput {}
 
 service BalanceStartService {
   // subid: mut.storage.btrfs.balance.start@v1, capability: cap.storage.btrfs.balance.start@v1

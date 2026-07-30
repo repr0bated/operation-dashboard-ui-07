@@ -14,9 +14,7 @@ message ScanHardwareInput {
   // Empty schema object.
 }
 
-message ScanHardwareOutput {
-  bool success = 1;
-}
+message ScanHardwareOutput {}
 
 service ScanHardwareService {
   // subid: mut.service.hardware.scan@v1, capability: hardware.invoke

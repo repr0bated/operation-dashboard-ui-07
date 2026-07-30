@@ -18,9 +18,7 @@ message ResolveRecordInput {
   int64 record_type = 5;
 }
 
-message ResolveRecordOutput {
-  bool success = 1;
-}
+message ResolveRecordOutput {}
 
 service ResolveRecordService {
   // subid: obs.software.dnsresolver.record.resolve@v1, capability: dnsresolver.read

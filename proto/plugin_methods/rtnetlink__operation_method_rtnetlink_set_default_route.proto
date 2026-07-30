@@ -15,9 +15,7 @@ message SetDefaultRouteInput {
   string name = 2;
 }
 
-message SetDefaultRouteOutput {
-  bool success = 1;
-}
+message SetDefaultRouteOutput {}
 
 service SetDefaultRouteService {
   // subid: mut.network.rtnetlink.default-route.set@v1, capability: cap.network.rtnetlink.default-route.set@v1

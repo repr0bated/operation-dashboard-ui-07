@@ -16,9 +16,7 @@ message SetUserLingerInput {
   int64 uid = 3;
 }
 
-message SetUserLingerOutput {
-  bool success = 1;
-}
+message SetUserLingerOutput {}
 
 service SetUserLingerService {
   // subid: mut.software.login1.user.linger.set@v1, capability: login1.admin

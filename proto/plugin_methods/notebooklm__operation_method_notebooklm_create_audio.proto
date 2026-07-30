@@ -14,9 +14,7 @@ message CreateAudioInput {
   // Empty schema object.
 }
 
-message CreateAudioOutput {
-  bool success = 1;
-}
+message CreateAudioOutput {}
 
 service CreateAudioService {
   // subid: mut.service.plugin.notebooklm.studio.audio.create@v1, capability: notebooklm.invoke

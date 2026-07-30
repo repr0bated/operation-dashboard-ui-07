@@ -20,9 +20,7 @@ message RegisterServiceInput {
   int64 weight = 7;
 }
 
-message RegisterServiceOutput {
-  bool success = 1;
-}
+message RegisterServiceOutput {}
 
 service RegisterServiceService {
   // subid: mut.software.dnsresolver.service.register@v1, capability: dnsresolver.write

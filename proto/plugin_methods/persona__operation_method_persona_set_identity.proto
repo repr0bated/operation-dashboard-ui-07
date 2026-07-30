@@ -16,9 +16,7 @@ message SetIdentityInput {
   string name = 3;
 }
 
-message SetIdentityOutput {
-  bool success = 1;
-}
+message SetIdentityOutput {}
 
 service SetIdentityService {
   // subid: mut.agent.persona.identity.set@v1, capability: persona.write

@@ -15,9 +15,7 @@ message JoinNetworkInput {
   string token = 2;
 }
 
-message JoinNetworkOutput {
-  bool success = 1;
-}
+message JoinNetworkOutput {}
 
 service JoinNetworkService {
   // subid: mut.network.netmaker.network.join@v1, capability: cap.network.netmaker.network.join@v1

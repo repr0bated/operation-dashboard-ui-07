@@ -15,9 +15,7 @@ message RemoveDeviceInput {
   string instance_name = 2;
 }
 
-message RemoveDeviceOutput {
-  bool success = 1;
-}
+message RemoveDeviceOutput {}
 
 service RemoveDeviceService {
   // subid: mut.service.incus.device.remove@v1, capability: cap.service.incus.device.remove@v1

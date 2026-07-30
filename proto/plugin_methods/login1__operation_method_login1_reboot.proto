@@ -14,9 +14,7 @@ message RebootInput {
   bool interactive = 1;
 }
 
-message RebootOutput {
-  bool success = 1;
-}
+message RebootOutput {}
 
 service RebootService {
   // subid: mut.software.login1.system.reboot@v1, capability: login1.admin

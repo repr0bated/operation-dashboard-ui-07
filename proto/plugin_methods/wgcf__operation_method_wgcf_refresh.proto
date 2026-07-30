@@ -14,9 +14,7 @@ message RefreshInput {
   string refresh_type = 1;
 }
 
-message RefreshOutput {
-  bool success = 1;
-}
+message RefreshOutput {}
 
 service RefreshService {
   // subid: mut.software.wgcf.refresh@v1, capability: wgcf.write

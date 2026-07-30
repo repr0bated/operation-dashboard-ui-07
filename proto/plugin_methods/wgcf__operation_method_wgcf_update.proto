@@ -14,9 +14,7 @@ message UpdateInput {
   // Empty schema object.
 }
 
-message UpdateOutput {
-  bool success = 1;
-}
+message UpdateOutput {}
 
 service UpdateService {
   // subid: mut.software.wgcf.update@v1, capability: cap.software.wgcf.update@v1

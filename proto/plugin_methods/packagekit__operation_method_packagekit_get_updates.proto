@@ -14,9 +14,7 @@ message GetUpdatesInput {
   int64 filter = 1;
 }
 
-message GetUpdatesOutput {
-  bool success = 1;
-}
+message GetUpdatesOutput {}
 
 service GetUpdatesService {
   // subid: obs.software.packagekit.updates.get@v1, capability: packagekit.read

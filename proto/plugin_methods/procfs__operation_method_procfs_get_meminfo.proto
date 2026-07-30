@@ -14,9 +14,7 @@ message GetMeminfoInput {
   // Empty schema object.
 }
 
-message GetMeminfoOutput {
-  bool success = 1;
-}
+message GetMeminfoOutput {}
 
 service GetMeminfoService {
   // subid: obs.service.procfs.meminfo.get@v1, capability: procfs.read

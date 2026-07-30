@@ -14,9 +14,7 @@ message AddDomainInput {
   string domain = 1;
 }
 
-message AddDomainOutput {
-  bool success = 1;
-}
+message AddDomainOutput {}
 
 service AddDomainService {
   // subid: mut.service.mail.domain.add@v1, capability: mail.write

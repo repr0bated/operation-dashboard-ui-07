@@ -14,9 +14,7 @@ message PingInput {
   // Empty schema object.
 }
 
-message PingOutput {
-  bool success = 1;
-}
+message PingOutput {}
 
 service PingService {
   // subid: obs.software.freedesktop.ping@v1, capability: freedesktop.read

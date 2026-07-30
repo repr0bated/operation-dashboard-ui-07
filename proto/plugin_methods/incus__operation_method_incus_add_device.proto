@@ -16,9 +16,7 @@ message AddDeviceInput {
   string instance_name = 3;
 }
 
-message AddDeviceOutput {
-  bool success = 1;
-}
+message AddDeviceOutput {}
 
 service AddDeviceService {
   // subid: mut.service.incus.device.add@v1, capability: cap.service.incus.device.add@v1

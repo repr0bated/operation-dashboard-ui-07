@@ -17,9 +17,7 @@ message ConfigureInput {
   string upstream = 4;
 }
 
-message ConfigureOutput {
-  bool success = 1;
-}
+message ConfigureOutput {}
 
 service ConfigureService {
   // subid: mut.network.proxy.configure@v1, capability: cap.network.proxy.configure@v1

@@ -15,9 +15,7 @@ message CreateBridgeInput {
   string datapath_type = 2;
 }
 
-message CreateBridgeOutput {
-  bool success = 1;
-}
+message CreateBridgeOutput {}
 
 service CreateBridgeService {
   // subid: mut.network.ovsdb.bridge.create@v1, capability: cap.network.ovsdb.bridge.create@v1

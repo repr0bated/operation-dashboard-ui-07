@@ -14,9 +14,7 @@ message DeleteJobInput {
   // Empty schema object.
 }
 
-message DeleteJobOutput {
-  bool success = 1;
-}
+message DeleteJobOutput {}
 
 service DeleteJobService {
   // subid: mut.service.cron.job.delete@v1, capability: cron.invoke

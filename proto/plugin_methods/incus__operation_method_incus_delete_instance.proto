@@ -14,9 +14,7 @@ message DeleteInstanceInput {
   string name = 1;
 }
 
-message DeleteInstanceOutput {
-  bool success = 1;
-}
+message DeleteInstanceOutput {}
 
 service DeleteInstanceService {
   // subid: mut.service.incus.instance.delete@v1, capability: cap.service.incus.instance.delete@v1

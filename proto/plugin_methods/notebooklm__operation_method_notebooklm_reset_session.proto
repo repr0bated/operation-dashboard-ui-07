@@ -14,9 +14,7 @@ message ResetSessionInput {
   // Empty schema object.
 }
 
-message ResetSessionOutput {
-  bool success = 1;
-}
+message ResetSessionOutput {}
 
 service ResetSessionService {
   // subid: mut.service.plugin.notebooklm.session.reset@v1, capability: notebooklm.invoke

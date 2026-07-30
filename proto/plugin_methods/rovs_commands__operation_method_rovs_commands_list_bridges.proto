@@ -14,9 +14,7 @@ message ListBridgesInput {
   // Empty schema object.
 }
 
-message ListBridgesOutput {
-  bool success = 1;
-}
+message ListBridgesOutput {}
 
 service ListBridgesService {
   // subid: obs.network.ovsdb.bridge.list@v1, capability: cap.network.ovsdb.bridge.list@v1

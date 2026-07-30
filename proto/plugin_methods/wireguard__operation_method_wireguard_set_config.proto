@@ -15,9 +15,7 @@ message SetConfigInput {
   string interface = 2;
 }
 
-message SetConfigOutput {
-  bool success = 1;
-}
+message SetConfigOutput {}
 
 service SetConfigService {
   // subid: mut.network.wireguard.config.set@v1, capability: wireguard.write

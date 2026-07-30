@@ -14,9 +14,7 @@ message SearchNotebooksInput {
   // Empty schema object.
 }
 
-message SearchNotebooksOutput {
-  bool success = 1;
-}
+message SearchNotebooksOutput {}
 
 service SearchNotebooksService {
   // subid: obs.service.plugin.notebooklm.notebook.search@v1, capability: notebooklm.read

@@ -15,9 +15,7 @@ message DeviceRemoveInput {
   string path = 2;
 }
 
-message DeviceRemoveOutput {
-  bool success = 1;
-}
+message DeviceRemoveOutput {}
 
 service DeviceRemoveService {
   // subid: mut.storage.btrfs.device.remove@v1, capability: cap.storage.btrfs.device.remove@v1

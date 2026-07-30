@@ -14,9 +14,7 @@ message SuspendInput {
   bool interactive = 1;
 }
 
-message SuspendOutput {
-  bool success = 1;
-}
+message SuspendOutput {}
 
 service SuspendService {
   // subid: mut.software.login1.system.suspend@v1, capability: login1.admin

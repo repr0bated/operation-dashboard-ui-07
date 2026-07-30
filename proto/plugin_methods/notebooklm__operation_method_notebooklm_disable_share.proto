@@ -14,9 +14,7 @@ message DisableShareInput {
   // Empty schema object.
 }
 
-message DisableShareOutput {
-  bool success = 1;
-}
+message DisableShareOutput {}
 
 service DisableShareService {
   // subid: mut.service.plugin.notebooklm.share.disable@v1, capability: notebooklm.invoke

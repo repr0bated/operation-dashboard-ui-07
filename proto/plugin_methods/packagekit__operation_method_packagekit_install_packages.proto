@@ -15,9 +15,7 @@ message InstallPackagesInput {
   int64 transaction_flags = 2;
 }
 
-message InstallPackagesOutput {
-  bool success = 1;
-}
+message InstallPackagesOutput {}
 
 service InstallPackagesService {
   // subid: mut.software.packagekit.package.install@v1, capability: packagekit.admin

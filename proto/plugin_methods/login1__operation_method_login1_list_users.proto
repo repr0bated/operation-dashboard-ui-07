@@ -14,9 +14,7 @@ message ListUsersInput {
   // Empty schema object.
 }
 
-message ListUsersOutput {
-  bool success = 1;
-}
+message ListUsersOutput {}
 
 service ListUsersService {
   // subid: obs.software.login1.users.list@v1, capability: login1.read

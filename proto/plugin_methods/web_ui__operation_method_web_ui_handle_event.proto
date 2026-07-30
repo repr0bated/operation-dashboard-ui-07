@@ -16,9 +16,7 @@ message HandleEventInput {
   string session_id = 3;
 }
 
-message HandleEventOutput {
-  bool success = 1;
-}
+message HandleEventOutput {}
 
 service HandleEventService {
   // subid: mut.software.plugin.web-ui.handle-event@v1, capability: ui.write

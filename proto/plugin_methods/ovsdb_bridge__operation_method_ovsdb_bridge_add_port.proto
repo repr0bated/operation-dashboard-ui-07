@@ -17,9 +17,7 @@ message AddPortInput {
   int64 tag = 4;
 }
 
-message AddPortOutput {
-  bool success = 1;
-}
+message AddPortOutput {}
 
 service AddPortService {
   // subid: mut.network.ovsdb.port.add@v1, capability: ovsdb.write

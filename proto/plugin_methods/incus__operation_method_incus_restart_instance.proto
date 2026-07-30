@@ -15,9 +15,7 @@ message RestartInstanceInput {
   string name = 2;
 }
 
-message RestartInstanceOutput {
-  bool success = 1;
-}
+message RestartInstanceOutput {}
 
 service RestartInstanceService {
   // subid: mut.service.incus.instance.restart@v1, capability: cap.service.incus.instance.restart@v1

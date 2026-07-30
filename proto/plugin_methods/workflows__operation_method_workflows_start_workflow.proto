@@ -15,9 +15,7 @@ message StartWorkflowInput {
   string workflow_id = 2;
 }
 
-message StartWorkflowOutput {
-  bool success = 1;
-}
+message StartWorkflowOutput {}
 
 service StartWorkflowService {
   // subid: mut.software.plugin.workflows.start@v1, capability: workflows.write

@@ -14,9 +14,7 @@ message DelLinkInput {
   string name = 1;
 }
 
-message DelLinkOutput {
-  bool success = 1;
-}
+message DelLinkOutput {}
 
 service DelLinkService {
   // subid: mut.network.rtnetlink.link.del@v1, capability: cap.network.rtnetlink.link.del@v1

@@ -14,9 +14,7 @@ message PowerOffInput {
   bool interactive = 1;
 }
 
-message PowerOffOutput {
-  bool success = 1;
-}
+message PowerOffOutput {}
 
 service PowerOffService {
   // subid: mut.software.login1.system.poweroff@v1, capability: login1.admin

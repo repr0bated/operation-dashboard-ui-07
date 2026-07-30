@@ -15,9 +15,7 @@ message TransactInput {
   repeated google.protobuf.Value operations = 2;
 }
 
-message TransactOutput {
-  bool success = 1;
-}
+message TransactOutput {}
 
 service TransactService {
   // subid: mut.network.ovsdb.transact@v1, capability: ovsdb.write

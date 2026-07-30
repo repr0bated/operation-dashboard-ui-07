@@ -15,9 +15,7 @@ message CreateUnixSocketInput {
   repeated int64 ports = 2;
 }
 
-message CreateUnixSocketOutput {
-  bool success = 1;
-}
+message CreateUnixSocketOutput {}
 
 service CreateUnixSocketService {
   // subid: mut.service.shared-unix-socket.create@v1, capability: shared_unix_socket.invoke

@@ -15,9 +15,7 @@ message KillUserInput {
   int64 uid = 2;
 }
 
-message KillUserOutput {
-  bool success = 1;
-}
+message KillUserOutput {}
 
 service KillUserService {
   // subid: mut.software.login1.user.kill@v1, capability: login1.admin

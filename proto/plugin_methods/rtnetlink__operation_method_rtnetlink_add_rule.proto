@@ -14,9 +14,7 @@ message AddRuleInput {
   string rule = 1;
 }
 
-message AddRuleOutput {
-  bool success = 1;
-}
+message AddRuleOutput {}
 
 service AddRuleService {
   // subid: mut.network.rtnetlink.rule.add@v1, capability: cap.network.rtnetlink.rule.add@v1

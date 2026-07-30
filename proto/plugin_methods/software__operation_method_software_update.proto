@@ -15,9 +15,7 @@ message UpdateInput {
   string version = 2;
 }
 
-message UpdateOutput {
-  bool success = 1;
-}
+message UpdateOutput {}
 
 service UpdateService {
   // subid: mut.software.plugin.software.update@v1, capability: software.write

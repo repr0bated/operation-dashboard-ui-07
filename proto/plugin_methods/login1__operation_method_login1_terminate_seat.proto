@@ -14,9 +14,7 @@ message TerminateSeatInput {
   string seat_id = 1;
 }
 
-message TerminateSeatOutput {
-  bool success = 1;
-}
+message TerminateSeatOutput {}
 
 service TerminateSeatService {
   // subid: mut.software.login1.seat.terminate@v1, capability: login1.admin

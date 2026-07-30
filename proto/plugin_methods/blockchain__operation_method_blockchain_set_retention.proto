@@ -14,9 +14,7 @@ message SetRetentionInput {
   // Empty schema object.
 }
 
-message SetRetentionOutput {
-  bool success = 1;
-}
+message SetRetentionOutput {}
 
 service SetRetentionService {
   // subid: mut.service.blockchain.retention.set@v1, capability: blockchain.invoke

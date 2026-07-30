@@ -15,9 +15,7 @@ message SetLinkDefaultRouteInput {
   int64 ifindex = 2;
 }
 
-message SetLinkDefaultRouteOutput {
-  bool success = 1;
-}
+message SetLinkDefaultRouteOutput {}
 
 service SetLinkDefaultRouteService {
   // subid: mut.software.dnsresolver.link.set-default-route@v1, capability: dnsresolver.write

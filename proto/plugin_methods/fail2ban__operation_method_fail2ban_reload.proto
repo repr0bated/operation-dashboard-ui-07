@@ -14,9 +14,7 @@ message ReloadInput {
   // Empty schema object.
 }
 
-message ReloadOutput {
-  bool success = 1;
-}
+message ReloadOutput {}
 
 service ReloadService {
   // subid: mut.security.fail2ban.service.reload@v1, capability: fail2ban.write

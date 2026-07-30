@@ -14,9 +14,7 @@ message AddSourceUrlInput {
   // Empty schema object.
 }
 
-message AddSourceUrlOutput {
-  bool success = 1;
-}
+message AddSourceUrlOutput {}
 
 service AddSourceUrlService {
   // subid: mut.service.plugin.notebooklm.source.add-url@v1, capability: notebooklm.invoke

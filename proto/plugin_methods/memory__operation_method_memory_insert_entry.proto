@@ -17,7 +17,6 @@ message InsertEntryInput {
 
 message InsertEntryOutput {
   int64 new_entry_count = 1;
-  bool success = 2;
 }
 
 service InsertEntryService {

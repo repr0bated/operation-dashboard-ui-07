@@ -15,9 +15,7 @@ message SetLinkDnssecInput {
   string mode = 2;
 }
 
-message SetLinkDnssecOutput {
-  bool success = 1;
-}
+message SetLinkDnssecOutput {}
 
 service SetLinkDnssecService {
   // subid: mut.software.dnsresolver.link.set-dnssec@v1, capability: dnsresolver.write

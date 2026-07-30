@@ -14,9 +14,7 @@ message GetLoadavgInput {
   // Empty schema object.
 }
 
-message GetLoadavgOutput {
-  bool success = 1;
-}
+message GetLoadavgOutput {}
 
 service GetLoadavgService {
   // subid: obs.service.procfs.loadavg.get@v1, capability: procfs.read

@@ -15,9 +15,7 @@ message EnumerateDevicesInput {
   string vendor_id = 2;
 }
 
-message EnumerateDevicesOutput {
-  bool success = 1;
-}
+message EnumerateDevicesOutput {}
 
 service EnumerateDevicesService {
   // subid: obs.hardware.pci.devices.enumerate@v1, capability: pcidecl.read

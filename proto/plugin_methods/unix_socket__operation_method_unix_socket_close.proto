@@ -15,9 +15,7 @@ message CloseInput {
   string path = 2;
 }
 
-message CloseOutput {
-  bool success = 1;
-}
+message CloseOutput {}
 
 service CloseService {
   // subid: mut.service.unix-socket.close@v1, capability: network.write

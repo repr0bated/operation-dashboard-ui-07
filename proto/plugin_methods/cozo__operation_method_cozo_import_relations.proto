@@ -14,9 +14,7 @@ message ImportRelationsInput {
   google.protobuf.Value data = 1;
 }
 
-message ImportRelationsOutput {
-  bool success = 1;
-}
+message ImportRelationsOutput {}
 
 service ImportRelationsService {
   // subid: mut.data.cozo.relations.import@v1, capability: cap.data.cozo.relations.import@v1

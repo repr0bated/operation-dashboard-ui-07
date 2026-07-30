@@ -14,9 +14,7 @@ message StopProxyInput {
   string name = 1;
 }
 
-message StopProxyOutput {
-  bool success = 1;
-}
+message StopProxyOutput {}
 
 service StopProxyService {
   // subid: mut.network.proxy.stop@v1, capability: cap.network.proxy.stop@v1

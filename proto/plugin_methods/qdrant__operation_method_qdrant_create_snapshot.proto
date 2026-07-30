@@ -14,9 +14,7 @@ message CreateSnapshotInput {
   string collection_name = 1;
 }
 
-message CreateSnapshotOutput {
-  bool success = 1;
-}
+message CreateSnapshotOutput {}
 
 service CreateSnapshotService {
   // subid: mut.data.qdrant.snapshot.create@v1, capability: cap.data.qdrant.snapshot.create@v1

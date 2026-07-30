@@ -14,9 +14,7 @@ message UpdateConfigInput {
   // Empty schema object.
 }
 
-message UpdateConfigOutput {
-  bool success = 1;
-}
+message UpdateConfigOutput {}
 
 service UpdateConfigService {
   // subid: mut.service.embedding.config.update@v1, capability: embedding.invoke

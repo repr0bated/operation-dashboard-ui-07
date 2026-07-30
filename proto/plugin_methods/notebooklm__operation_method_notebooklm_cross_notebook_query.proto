@@ -14,9 +14,7 @@ message CrossNotebookQueryInput {
   // Empty schema object.
 }
 
-message CrossNotebookQueryOutput {
-  bool success = 1;
-}
+message CrossNotebookQueryOutput {}
 
 service CrossNotebookQueryService {
   // subid: obs.service.plugin.notebooklm.cross.query@v1, capability: notebooklm.read

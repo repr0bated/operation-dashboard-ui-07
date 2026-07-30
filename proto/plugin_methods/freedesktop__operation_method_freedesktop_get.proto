@@ -15,9 +15,7 @@ message GetInput {
   string property_name = 2;
 }
 
-message GetOutput {
-  bool success = 1;
-}
+message GetOutput {}
 
 service GetService {
   // subid: obs.software.freedesktop.property.get@v1, capability: freedesktop.read

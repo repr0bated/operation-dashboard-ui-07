@@ -14,9 +14,7 @@ message SelectNotebookInput {
   // Empty schema object.
 }
 
-message SelectNotebookOutput {
-  bool success = 1;
-}
+message SelectNotebookOutput {}
 
 service SelectNotebookService {
   // subid: mut.service.plugin.notebooklm.notebook.select@v1, capability: notebooklm.invoke

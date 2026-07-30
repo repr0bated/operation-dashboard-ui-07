@@ -14,9 +14,7 @@ message ResetConfigInput {
   // Empty schema object.
 }
 
-message ResetConfigOutput {
-  bool success = 1;
-}
+message ResetConfigOutput {}
 
 service ResetConfigService {
   // subid: mut.service.agent.config.reset@v1, capability: agent.invoke

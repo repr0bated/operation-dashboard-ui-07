@@ -14,9 +14,7 @@ message FlushCachesInput {
   // Empty schema object.
 }
 
-message FlushCachesOutput {
-  bool success = 1;
-}
+message FlushCachesOutput {}
 
 service FlushCachesService {
   // subid: mut.software.dnsresolver.caches.flush@v1, capability: dnsresolver.write

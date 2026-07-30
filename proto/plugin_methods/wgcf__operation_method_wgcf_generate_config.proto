@@ -15,9 +15,7 @@ message GenerateConfigInput {
   string interface = 2;
 }
 
-message GenerateConfigOutput {
-  bool success = 1;
-}
+message GenerateConfigOutput {}
 
 service GenerateConfigService {
   // subid: mut.software.wgcf.config.generate@v1, capability: wgcf.write

@@ -19,9 +19,7 @@ message AddPeerInput {
   string public_key = 6;
 }
 
-message AddPeerOutput {
-  bool success = 1;
-}
+message AddPeerOutput {}
 
 service AddPeerService {
   // subid: mut.network.wireguard.peer.add@v1, capability: wireguard.write

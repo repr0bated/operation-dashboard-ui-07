@@ -14,9 +14,7 @@ message ResetStatisticsInput {
   // Empty schema object.
 }
 
-message ResetStatisticsOutput {
-  bool success = 1;
-}
+message ResetStatisticsOutput {}
 
 service ResetStatisticsService {
   // subid: mut.software.dnsresolver.statistics.reset@v1, capability: dnsresolver.write

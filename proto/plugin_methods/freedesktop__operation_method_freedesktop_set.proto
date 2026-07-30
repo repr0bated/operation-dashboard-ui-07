@@ -16,9 +16,7 @@ message SetInput {
   string value = 3;
 }
 
-message SetOutput {
-  bool success = 1;
-}
+message SetOutput {}
 
 service SetService {
   // subid: mut.software.freedesktop.property.set@v1, capability: freedesktop.write

@@ -14,9 +14,7 @@ message PullImageInput {
   string image = 1;
 }
 
-message PullImageOutput {
-  bool success = 1;
-}
+message PullImageOutput {}
 
 service PullImageService {
   // subid: mut.container.oci.image.pull@v1, capability: cap.container.oci.image.pull@v1

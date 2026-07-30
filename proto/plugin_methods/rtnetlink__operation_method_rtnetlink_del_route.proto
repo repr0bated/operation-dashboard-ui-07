@@ -14,9 +14,7 @@ message DelRouteInput {
   string destination = 1;
 }
 
-message DelRouteOutput {
-  bool success = 1;
-}
+message DelRouteOutput {}
 
 service DelRouteService {
   // subid: mut.network.rtnetlink.route.del@v1, capability: cap.network.rtnetlink.route.del@v1

@@ -16,9 +16,7 @@ message RemoveAliasInput {
   string domain = 3;
 }
 
-message RemoveAliasOutput {
-  bool success = 1;
-}
+message RemoveAliasOutput {}
 
 service RemoveAliasService {
   // subid: mut.service.mail.alias.remove@v1, capability: mail.write

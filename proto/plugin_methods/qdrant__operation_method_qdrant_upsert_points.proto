@@ -15,9 +15,7 @@ message UpsertPointsInput {
   repeated google.protobuf.Value points = 2;
 }
 
-message UpsertPointsOutput {
-  bool success = 1;
-}
+message UpsertPointsOutput {}
 
 service UpsertPointsService {
   // subid: mut.data.qdrant.point.upsert@v1, capability: cap.data.qdrant.point.upsert@v1

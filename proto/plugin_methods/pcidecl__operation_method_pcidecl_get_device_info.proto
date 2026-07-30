@@ -14,9 +14,7 @@ message GetDeviceInfoInput {
   string address = 1;
 }
 
-message GetDeviceInfoOutput {
-  bool success = 1;
-}
+message GetDeviceInfoOutput {}
 
 service GetDeviceInfoService {
   // subid: obs.hardware.pci.device.info@v1, capability: pcidecl.read

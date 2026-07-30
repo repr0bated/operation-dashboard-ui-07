@@ -16,9 +16,7 @@ message UpdateDeviceInput {
   string instance_name = 3;
 }
 
-message UpdateDeviceOutput {
-  bool success = 1;
-}
+message UpdateDeviceOutput {}
 
 service UpdateDeviceService {
   // subid: mut.service.incus.device.update@v1, capability: cap.service.incus.device.update@v1

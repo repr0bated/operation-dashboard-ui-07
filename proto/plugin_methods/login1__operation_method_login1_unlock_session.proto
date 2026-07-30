@@ -14,9 +14,7 @@ message UnlockSessionInput {
   string session_id = 1;
 }
 
-message UnlockSessionOutput {
-  bool success = 1;
-}
+message UnlockSessionOutput {}
 
 service UnlockSessionService {
   // subid: mut.software.login1.session.unlock@v1, capability: login1.write

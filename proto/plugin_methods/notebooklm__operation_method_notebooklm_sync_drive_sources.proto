@@ -14,9 +14,7 @@ message SyncDriveSourcesInput {
   // Empty schema object.
 }
 
-message SyncDriveSourcesOutput {
-  bool success = 1;
-}
+message SyncDriveSourcesOutput {}
 
 service SyncDriveSourcesService {
   // subid: mut.service.plugin.notebooklm.source.sync-drive@v1, capability: notebooklm.invoke

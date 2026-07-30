@@ -16,9 +16,7 @@ message MonitorInput {
   google.protobuf.Struct monitor_requests = 3;
 }
 
-message MonitorOutput {
-  bool success = 1;
-}
+message MonitorOutput {}
 
 service MonitorService {
   // subid: obs.network.ovsdb.monitor@v1, capability: ovsdb.read

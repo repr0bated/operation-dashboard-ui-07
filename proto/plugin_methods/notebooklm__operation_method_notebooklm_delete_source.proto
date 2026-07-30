@@ -14,9 +14,7 @@ message DeleteSourceInput {
   // Empty schema object.
 }
 
-message DeleteSourceOutput {
-  bool success = 1;
-}
+message DeleteSourceOutput {}
 
 service DeleteSourceService {
   // subid: mut.service.plugin.notebooklm.source.delete@v1, capability: notebooklm.invoke

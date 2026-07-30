@@ -14,9 +14,7 @@ message CreateSubvolumeInput {
   string path = 1;
 }
 
-message CreateSubvolumeOutput {
-  bool success = 1;
-}
+message CreateSubvolumeOutput {}
 
 service CreateSubvolumeService {
   // subid: mut.storage.btrfs.subvolume.create@v1, capability: cap.storage.btrfs.subvolume.create@v1

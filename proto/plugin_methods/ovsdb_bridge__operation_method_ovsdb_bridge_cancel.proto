@@ -14,9 +14,7 @@ message CancelInput {
   string id = 1;
 }
 
-message CancelOutput {
-  bool success = 1;
-}
+message CancelOutput {}
 
 service CancelService {
   // subid: mut.network.ovsdb.cancel@v1, capability: ovsdb.write

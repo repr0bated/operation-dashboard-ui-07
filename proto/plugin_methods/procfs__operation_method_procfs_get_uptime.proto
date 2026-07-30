@@ -14,9 +14,7 @@ message GetUptimeInput {
   // Empty schema object.
 }
 
-message GetUptimeOutput {
-  bool success = 1;
-}
+message GetUptimeOutput {}
 
 service GetUptimeService {
   // subid: obs.service.procfs.uptime.get@v1, capability: procfs.read

@@ -16,9 +16,7 @@ message SnapshotInput {
   string source = 3;
 }
 
-message SnapshotOutput {
-  bool success = 1;
-}
+message SnapshotOutput {}
 
 service SnapshotService {
   // subid: mut.storage.btrfs.snapshot.create@v1, capability: cap.storage.btrfs.snapshot.create@v1

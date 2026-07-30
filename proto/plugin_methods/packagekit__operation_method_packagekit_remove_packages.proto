@@ -17,9 +17,7 @@ message RemovePackagesInput {
   int64 transaction_flags = 4;
 }
 
-message RemovePackagesOutput {
-  bool success = 1;
-}
+message RemovePackagesOutput {}
 
 service RemovePackagesService {
   // subid: mut.software.packagekit.package.remove@v1, capability: packagekit.admin

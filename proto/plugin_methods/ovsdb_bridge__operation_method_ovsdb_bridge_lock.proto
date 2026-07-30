@@ -14,9 +14,7 @@ message LockInput {
   string lock_id = 1;
 }
 
-message LockOutput {
-  bool success = 1;
-}
+message LockOutput {}
 
 service LockService {
   // subid: mut.network.ovsdb.lock@v1, capability: ovsdb.write

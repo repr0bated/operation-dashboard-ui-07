@@ -17,9 +17,7 @@ message SetDeviceInput {
   string private_key = 4;
 }
 
-message SetDeviceOutput {
-  bool success = 1;
-}
+message SetDeviceOutput {}
 
 service SetDeviceService {
   // subid: mut.network.wireguard.device.set@v1, capability: wireguard.write

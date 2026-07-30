@@ -14,9 +14,7 @@ message SetValueInput {
   // Empty schema object.
 }
 
-message SetValueOutput {
-  bool success = 1;
-}
+message SetValueOutput {}
 
 service SetValueService {
   // subid: mut.service.config.value.set@v1, capability: config.invoke

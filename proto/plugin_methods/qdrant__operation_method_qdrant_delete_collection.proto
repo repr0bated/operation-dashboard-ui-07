@@ -14,9 +14,7 @@ message DeleteCollectionInput {
   string name = 1;
 }
 
-message DeleteCollectionOutput {
-  bool success = 1;
-}
+message DeleteCollectionOutput {}
 
 service DeleteCollectionService {
   // subid: mut.data.qdrant.collection.delete@v1, capability: cap.data.qdrant.collection.delete@v1

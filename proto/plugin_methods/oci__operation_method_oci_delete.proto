@@ -14,9 +14,7 @@ message DeleteInput {
   string id = 1;
 }
 
-message DeleteOutput {
-  bool success = 1;
-}
+message DeleteOutput {}
 
 service DeleteService {
   // subid: mut.container.oci.delete@v1, capability: cap.container.oci.delete@v1

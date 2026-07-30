@@ -14,9 +14,7 @@ message SleepInput {
   int64 sleep_operation = 1;
 }
 
-message SleepOutput {
-  bool success = 1;
-}
+message SleepOutput {}
 
 service SleepService {
   // subid: mut.software.login1.system.sleep@v1, capability: login1.admin

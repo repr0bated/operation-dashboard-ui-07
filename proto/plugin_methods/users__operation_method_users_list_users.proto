@@ -14,9 +14,7 @@ message ListUsersInput {
   string group = 1;
 }
 
-message ListUsersOutput {
-  bool success = 1;
-}
+message ListUsersOutput {}
 
 service ListUsersService {
   // subid: obs.software.plugin.users.list@v1, capability: users.read

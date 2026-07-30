@@ -14,9 +14,7 @@ message SetLabelEmojiInput {
   // Empty schema object.
 }
 
-message SetLabelEmojiOutput {
-  bool success = 1;
-}
+message SetLabelEmojiOutput {}
 
 service SetLabelEmojiService {
   // subid: mut.service.plugin.notebooklm.source.label-emoji@v1, capability: notebooklm.invoke

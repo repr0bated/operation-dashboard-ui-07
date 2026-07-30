@@ -14,9 +14,7 @@ message MoveSourceLabelInput {
   // Empty schema object.
 }
 
-message MoveSourceLabelOutput {
-  bool success = 1;
-}
+message MoveSourceLabelOutput {}
 
 service MoveSourceLabelService {
   // subid: mut.service.plugin.notebooklm.source.label-move@v1, capability: notebooklm.invoke

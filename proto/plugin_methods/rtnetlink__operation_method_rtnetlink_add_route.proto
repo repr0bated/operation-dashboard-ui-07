@@ -16,9 +16,7 @@ message AddRouteInput {
   string interface = 3;
 }
 
-message AddRouteOutput {
-  bool success = 1;
-}
+message AddRouteOutput {}
 
 service AddRouteService {
   // subid: mut.network.rtnetlink.route.add@v1, capability: cap.network.rtnetlink.route.add@v1

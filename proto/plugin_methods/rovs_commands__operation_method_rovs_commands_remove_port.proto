@@ -15,9 +15,7 @@ message RemovePortInput {
   string port_name = 2;
 }
 
-message RemovePortOutput {
-  bool success = 1;
-}
+message RemovePortOutput {}
 
 service RemovePortService {
   // subid: mut.network.ovsdb.port.delete@v1, capability: cap.network.ovsdb.port.delete@v1

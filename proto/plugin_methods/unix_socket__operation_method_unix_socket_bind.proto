@@ -17,9 +17,7 @@ message BindInput {
   string protocol = 4;
 }
 
-message BindOutput {
-  bool success = 1;
-}
+message BindOutput {}
 
 service BindService {
   // subid: mut.service.unix-socket.bind@v1, capability: network.write

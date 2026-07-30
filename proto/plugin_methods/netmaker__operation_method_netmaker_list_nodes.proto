@@ -14,9 +14,7 @@ message ListNodesInput {
   string network = 1;
 }
 
-message ListNodesOutput {
-  bool success = 1;
-}
+message ListNodesOutput {}
 
 service ListNodesService {
   // subid: obs.network.netmaker.nodes.list@v1, capability: cap.network.netmaker.nodes.list@v1

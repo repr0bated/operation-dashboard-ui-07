@@ -15,9 +15,7 @@ message SetMacAddressInput {
   string name = 2;
 }
 
-message SetMacAddressOutput {
-  bool success = 1;
-}
+message SetMacAddressOutput {}
 
 service SetMacAddressService {
   // subid: mut.network.rtnetlink.mac-address.set@v1, capability: cap.network.rtnetlink.mac-address.set@v1

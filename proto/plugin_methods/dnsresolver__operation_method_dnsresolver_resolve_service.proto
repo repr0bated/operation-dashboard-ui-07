@@ -17,9 +17,7 @@ message ResolveServiceInput {
   string name = 4;
 }
 
-message ResolveServiceOutput {
-  bool success = 1;
-}
+message ResolveServiceOutput {}
 
 service ResolveServiceService {
   // subid: obs.software.dnsresolver.service.resolve@v1, capability: dnsresolver.read

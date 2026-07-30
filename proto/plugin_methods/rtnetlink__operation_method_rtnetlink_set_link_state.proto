@@ -15,9 +15,7 @@ message SetLinkStateInput {
   string state = 2;
 }
 
-message SetLinkStateOutput {
-  bool success = 1;
-}
+message SetLinkStateOutput {}
 
 service SetLinkStateService {
   // subid: mut.network.rtnetlink.link-state.set@v1, capability: cap.network.rtnetlink.link-state.set@v1

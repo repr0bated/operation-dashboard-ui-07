@@ -15,9 +15,7 @@ message ResolveInput {
   repeated string packages = 2;
 }
 
-message ResolveOutput {
-  bool success = 1;
-}
+message ResolveOutput {}
 
 service ResolveService {
   // subid: obs.software.packagekit.package.resolve@v1, capability: packagekit.read

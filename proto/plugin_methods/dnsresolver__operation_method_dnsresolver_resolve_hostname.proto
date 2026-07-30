@@ -17,9 +17,7 @@ message ResolveHostnameInput {
   string name = 4;
 }
 
-message ResolveHostnameOutput {
-  bool success = 1;
-}
+message ResolveHostnameOutput {}
 
 service ResolveHostnameService {
   // subid: obs.software.dnsresolver.hostname.resolve@v1, capability: dnsresolver.read

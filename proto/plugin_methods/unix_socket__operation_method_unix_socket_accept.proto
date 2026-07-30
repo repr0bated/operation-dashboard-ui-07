@@ -15,9 +15,7 @@ message AcceptInput {
   int64 timeout_secs = 2;
 }
 
-message AcceptOutput {
-  bool success = 1;
-}
+message AcceptOutput {}
 
 service AcceptService {
   // subid: obs.service.unix-socket.accept@v1, capability: network.read

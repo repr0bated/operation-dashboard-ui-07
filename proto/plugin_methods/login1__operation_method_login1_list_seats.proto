@@ -14,9 +14,7 @@ message ListSeatsInput {
   // Empty schema object.
 }
 
-message ListSeatsOutput {
-  bool success = 1;
-}
+message ListSeatsOutput {}
 
 service ListSeatsService {
   // subid: obs.software.login1.seats.list@v1, capability: login1.read

@@ -16,8 +16,7 @@ message MemoryRetrieveInput {
 
 message MemoryRetrieveOutput {
   string namespace = 1;
-  bool success = 2;
-  string value = 3;
+  string value = 2;
 }
 
 service MemoryRetrieveService {

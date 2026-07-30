@@ -14,9 +14,7 @@ message BackupInput {
   string path = 1;
 }
 
-message BackupOutput {
-  bool success = 1;
-}
+message BackupOutput {}
 
 service BackupService {
   // subid: mut.data.cozo.backup.create@v1, capability: cap.data.cozo.backup.create@v1

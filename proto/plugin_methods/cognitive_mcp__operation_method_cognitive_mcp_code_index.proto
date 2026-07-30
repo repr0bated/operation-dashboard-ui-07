@@ -16,7 +16,6 @@ message CodeIndexInput {
 
 message CodeIndexOutput {
   int64 files_indexed = 1;
-  bool success = 2;
 }
 
 service CodeIndexService {

@@ -14,9 +14,7 @@ message SetEndpointInput {
   string endpoint = 1;
 }
 
-message SetEndpointOutput {
-  bool success = 1;
-}
+message SetEndpointOutput {}
 
 service SetEndpointService {
   // subid: mut.software.wgcf.endpoint.set@v1, capability: cap.software.wgcf.endpoint.set@v1

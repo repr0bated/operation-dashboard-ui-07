@@ -16,9 +16,7 @@ message AddPortInput {
   string port_name = 3;
 }
 
-message AddPortOutput {
-  bool success = 1;
-}
+message AddPortOutput {}
 
 service AddPortService {
   // subid: mut.network.ovsdb.port.add@v1, capability: cap.network.ovsdb.port.add@v1

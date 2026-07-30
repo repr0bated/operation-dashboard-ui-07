@@ -14,9 +14,7 @@ message GetQueueInput {
   // Empty schema object.
 }
 
-message GetQueueOutput {
-  bool success = 1;
-}
+message GetQueueOutput {}
 
 service GetQueueService {
   // subid: obs.service.mail.queue.get@v1, capability: mail.read

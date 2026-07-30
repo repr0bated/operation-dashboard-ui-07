@@ -16,9 +16,7 @@ message KillSessionInput {
   string who = 3;
 }
 
-message KillSessionOutput {
-  bool success = 1;
-}
+message KillSessionOutput {}
 
 service KillSessionService {
   // subid: mut.software.login1.session.kill@v1, capability: login1.write

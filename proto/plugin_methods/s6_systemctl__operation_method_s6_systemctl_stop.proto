@@ -14,9 +14,7 @@ message StopInput {
   string name = 1;
 }
 
-message StopOutput {
-  bool success = 1;
-}
+message StopOutput {}
 
 service StopService {
   // subid: mut.software.s6.systemctl.stop@v1, capability: s6.systemctl.write

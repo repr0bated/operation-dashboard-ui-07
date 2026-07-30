@@ -15,9 +15,7 @@ message DeletePointsInput {
   repeated google.protobuf.Value points = 2;
 }
 
-message DeletePointsOutput {
-  bool success = 1;
-}
+message DeletePointsOutput {}
 
 service DeletePointsService {
   // subid: mut.data.qdrant.point.delete@v1, capability: cap.data.qdrant.point.delete@v1

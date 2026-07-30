@@ -14,9 +14,7 @@ message LeaveNetworkInput {
   string network = 1;
 }
 
-message LeaveNetworkOutput {
-  bool success = 1;
-}
+message LeaveNetworkOutput {}
 
 service LeaveNetworkService {
   // subid: mut.network.netmaker.network.leave@v1, capability: cap.network.netmaker.network.leave@v1

@@ -15,9 +15,7 @@ message SetLinkMulticastDnsInput {
   string mode = 2;
 }
 
-message SetLinkMulticastDnsOutput {
-  bool success = 1;
-}
+message SetLinkMulticastDnsOutput {}
 
 service SetLinkMulticastDnsService {
   // subid: mut.software.dnsresolver.link.set-mdns@v1, capability: dnsresolver.write

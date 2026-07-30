@@ -14,9 +14,7 @@ message DescribeStudioInput {
   // Empty schema object.
 }
 
-message DescribeStudioOutput {
-  bool success = 1;
-}
+message DescribeStudioOutput {}
 
 service DescribeStudioService {
   // subid: obs.service.plugin.notebooklm.studio.describe@v1, capability: notebooklm.read

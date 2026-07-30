@@ -15,9 +15,7 @@ message ApplyConfigInput {
   bool immediate = 2;
 }
 
-message ApplyConfigOutput {
-  bool success = 1;
-}
+message ApplyConfigOutput {}
 
 service ApplyConfigService {
   // subid: mut.software.wgcf.config.apply@v1, capability: wgcf.write

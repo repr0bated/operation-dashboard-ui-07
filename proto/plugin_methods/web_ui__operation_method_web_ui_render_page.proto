@@ -15,9 +15,7 @@ message RenderPageInput {
   string page_id = 2;
 }
 
-message RenderPageOutput {
-  bool success = 1;
-}
+message RenderPageOutput {}
 
 service RenderPageService {
   // subid: obs.software.plugin.web-ui.render-page@v1, capability: ui.read

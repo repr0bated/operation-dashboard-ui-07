@@ -14,9 +14,7 @@ message RollbackInput {
   // Empty schema object.
 }
 
-message RollbackOutput {
-  bool success = 1;
-}
+message RollbackOutput {}
 
 service RollbackService {
   // subid: mut.service.blockchain.rollback@v1, capability: blockchain.invoke

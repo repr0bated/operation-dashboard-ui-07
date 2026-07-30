@@ -15,9 +15,7 @@ message SnapshotInstanceInput {
   string snapshot_name = 2;
 }
 
-message SnapshotInstanceOutput {
-  bool success = 1;
-}
+message SnapshotInstanceOutput {}
 
 service SnapshotInstanceService {
   // subid: mut.service.incus.instance.snapshot@v1, capability: cap.service.incus.instance.snapshot@v1

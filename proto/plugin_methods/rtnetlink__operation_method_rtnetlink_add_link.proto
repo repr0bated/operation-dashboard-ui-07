@@ -15,9 +15,7 @@ message AddLinkInput {
   string name = 2;
 }
 
-message AddLinkOutput {
-  bool success = 1;
-}
+message AddLinkOutput {}
 
 service AddLinkService {
   // subid: mut.network.rtnetlink.link.add@v1, capability: cap.network.rtnetlink.link.add@v1

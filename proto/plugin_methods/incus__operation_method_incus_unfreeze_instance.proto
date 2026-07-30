@@ -14,9 +14,7 @@ message UnfreezeInstanceInput {
   string name = 1;
 }
 
-message UnfreezeInstanceOutput {
-  bool success = 1;
-}
+message UnfreezeInstanceOutput {}
 
 service UnfreezeInstanceService {
   // subid: mut.service.incus.instance.unfreeze@v1, capability: cap.service.incus.instance.unfreeze@v1

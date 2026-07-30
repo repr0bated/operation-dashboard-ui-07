@@ -15,9 +15,7 @@ message SetLinkDnsInput {
   int64 ifindex = 2;
 }
 
-message SetLinkDnsOutput {
-  bool success = 1;
-}
+message SetLinkDnsOutput {}
 
 service SetLinkDnsService {
   // subid: mut.software.dnsresolver.link.set-dns@v1, capability: dnsresolver.write

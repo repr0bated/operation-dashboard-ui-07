@@ -20,9 +20,7 @@ message CreateInterfaceInput {
   string wireguard_plugin = 7;
 }
 
-message CreateInterfaceOutput {
-  bool success = 1;
-}
+message CreateInterfaceOutput {}
 
 service CreateInterfaceService {
   // subid: mut.network.wg-opdbus.interface.create@v1, capability: wg_opdbus.invoke

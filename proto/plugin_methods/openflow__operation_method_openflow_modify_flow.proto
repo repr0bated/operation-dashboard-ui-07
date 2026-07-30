@@ -17,9 +17,7 @@ message ModifyFlowInput {
   int64 priority = 4;
 }
 
-message ModifyFlowOutput {
-  bool success = 1;
-}
+message ModifyFlowOutput {}
 
 service ModifyFlowService {
   // subid: mut.network.openflow.flow.modify@v1, capability: openflow.write
