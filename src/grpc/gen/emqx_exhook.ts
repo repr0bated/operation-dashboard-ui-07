@@ -71,6 +71,14 @@ export interface OnClientConnectRequest {
  * @generated from protobuf message emqx.exhook.v1.OnClientConnectResponse
  */
 export interface OnClientConnectResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnClientConnackRequest
@@ -101,6 +109,14 @@ export interface OnClientConnackRequest {
  * @generated from protobuf message emqx.exhook.v1.OnClientConnackResponse
  */
 export interface OnClientConnackResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnClientConnectedRequest
@@ -115,6 +131,14 @@ export interface OnClientConnectedRequest {
  * @generated from protobuf message emqx.exhook.v1.OnClientConnectedResponse
  */
 export interface OnClientConnectedResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnClientDisconnectedRequest
@@ -137,6 +161,14 @@ export interface OnClientDisconnectedRequest {
  * @generated from protobuf message emqx.exhook.v1.OnClientDisconnectedResponse
  */
 export interface OnClientDisconnectedResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnClientSubscribeRequest
@@ -167,6 +199,14 @@ export interface OnClientSubscribeRequest {
  * @generated from protobuf message emqx.exhook.v1.OnClientSubscribeResponse
  */
 export interface OnClientSubscribeResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnClientUnsubscribeRequest
@@ -185,6 +225,14 @@ export interface OnClientUnsubscribeRequest {
  * @generated from protobuf message emqx.exhook.v1.OnClientUnsubscribeResponse
  */
 export interface OnClientUnsubscribeResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnMessagePublishRequest
@@ -219,6 +267,14 @@ export interface OnMessagePublishRequest {
  * @generated from protobuf message emqx.exhook.v1.OnMessagePublishResponse
  */
 export interface OnMessagePublishResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnMessageDeliveredRequest
@@ -245,6 +301,14 @@ export interface OnMessageDeliveredRequest {
  * @generated from protobuf message emqx.exhook.v1.OnMessageDeliveredResponse
  */
 export interface OnMessageDeliveredResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnMessageAckedRequest
@@ -267,6 +331,14 @@ export interface OnMessageAckedRequest {
  * @generated from protobuf message emqx.exhook.v1.OnMessageAckedResponse
  */
 export interface OnMessageAckedResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnSessionCreatedRequest
@@ -281,6 +353,14 @@ export interface OnSessionCreatedRequest {
  * @generated from protobuf message emqx.exhook.v1.OnSessionCreatedResponse
  */
 export interface OnSessionCreatedResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnSessionSubscribedRequest
@@ -303,6 +383,14 @@ export interface OnSessionSubscribedRequest {
  * @generated from protobuf message emqx.exhook.v1.OnSessionSubscribedResponse
  */
 export interface OnSessionSubscribedResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnSessionUnsubscribedRequest
@@ -321,6 +409,14 @@ export interface OnSessionUnsubscribedRequest {
  * @generated from protobuf message emqx.exhook.v1.OnSessionUnsubscribedResponse
  */
 export interface OnSessionUnsubscribedResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnSessionGotOfflineMsgsRequest
@@ -343,6 +439,14 @@ export interface OnSessionGotOfflineMsgsRequest {
  * @generated from protobuf message emqx.exhook.v1.OnSessionGotOfflineMsgsResponse
  */
 export interface OnSessionGotOfflineMsgsResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.OnSessionDiscardedMsgsRequest
@@ -365,6 +469,14 @@ export interface OnSessionDiscardedMsgsRequest {
  * @generated from protobuf message emqx.exhook.v1.OnSessionDiscardedMsgsResponse
  */
 export interface OnSessionDiscardedMsgsResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message emqx.exhook.v1.ThrottleRequest
@@ -387,6 +499,14 @@ export interface ThrottleRequest {
  * @generated from protobuf message emqx.exhook.v1.ThrottleResponse
  */
 export interface ThrottleResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 2
+     */
+    error: string;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ClientInfo$Type extends MessageType<ClientInfo> {
@@ -564,10 +684,15 @@ export const OnClientConnectRequest = new OnClientConnectRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnClientConnectResponse$Type extends MessageType<OnClientConnectResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnClientConnectResponse", []);
+        super("emqx.exhook.v1.OnClientConnectResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnClientConnectResponse>): OnClientConnectResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnClientConnectResponse>(this, message, value);
         return message;
@@ -577,6 +702,12 @@ class OnClientConnectResponse$Type extends MessageType<OnClientConnectResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -589,6 +720,12 @@ class OnClientConnectResponse$Type extends MessageType<OnClientConnectResponse> 
         return message;
     }
     internalBinaryWrite(message: OnClientConnectResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -680,10 +817,15 @@ export const OnClientConnackRequest = new OnClientConnackRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnClientConnackResponse$Type extends MessageType<OnClientConnackResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnClientConnackResponse", []);
+        super("emqx.exhook.v1.OnClientConnackResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnClientConnackResponse>): OnClientConnackResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnClientConnackResponse>(this, message, value);
         return message;
@@ -693,6 +835,12 @@ class OnClientConnackResponse$Type extends MessageType<OnClientConnackResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -705,6 +853,12 @@ class OnClientConnackResponse$Type extends MessageType<OnClientConnackResponse> 
         return message;
     }
     internalBinaryWrite(message: OnClientConnackResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -764,10 +918,15 @@ export const OnClientConnectedRequest = new OnClientConnectedRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnClientConnectedResponse$Type extends MessageType<OnClientConnectedResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnClientConnectedResponse", []);
+        super("emqx.exhook.v1.OnClientConnectedResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnClientConnectedResponse>): OnClientConnectedResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnClientConnectedResponse>(this, message, value);
         return message;
@@ -777,6 +936,12 @@ class OnClientConnectedResponse$Type extends MessageType<OnClientConnectedRespon
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -789,6 +954,12 @@ class OnClientConnectedResponse$Type extends MessageType<OnClientConnectedRespon
         return message;
     }
     internalBinaryWrite(message: OnClientConnectedResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -864,10 +1035,15 @@ export const OnClientDisconnectedRequest = new OnClientDisconnectedRequest$Type(
 // @generated message type with reflection information, may provide speed optimized methods
 class OnClientDisconnectedResponse$Type extends MessageType<OnClientDisconnectedResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnClientDisconnectedResponse", []);
+        super("emqx.exhook.v1.OnClientDisconnectedResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnClientDisconnectedResponse>): OnClientDisconnectedResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnClientDisconnectedResponse>(this, message, value);
         return message;
@@ -877,6 +1053,12 @@ class OnClientDisconnectedResponse$Type extends MessageType<OnClientDisconnected
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -889,6 +1071,12 @@ class OnClientDisconnectedResponse$Type extends MessageType<OnClientDisconnected
         return message;
     }
     internalBinaryWrite(message: OnClientDisconnectedResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -980,10 +1168,15 @@ export const OnClientSubscribeRequest = new OnClientSubscribeRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnClientSubscribeResponse$Type extends MessageType<OnClientSubscribeResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnClientSubscribeResponse", []);
+        super("emqx.exhook.v1.OnClientSubscribeResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnClientSubscribeResponse>): OnClientSubscribeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnClientSubscribeResponse>(this, message, value);
         return message;
@@ -993,6 +1186,12 @@ class OnClientSubscribeResponse$Type extends MessageType<OnClientSubscribeRespon
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1005,6 +1204,12 @@ class OnClientSubscribeResponse$Type extends MessageType<OnClientSubscribeRespon
         return message;
     }
     internalBinaryWrite(message: OnClientSubscribeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1072,10 +1277,15 @@ export const OnClientUnsubscribeRequest = new OnClientUnsubscribeRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnClientUnsubscribeResponse$Type extends MessageType<OnClientUnsubscribeResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnClientUnsubscribeResponse", []);
+        super("emqx.exhook.v1.OnClientUnsubscribeResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnClientUnsubscribeResponse>): OnClientUnsubscribeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnClientUnsubscribeResponse>(this, message, value);
         return message;
@@ -1085,6 +1295,12 @@ class OnClientUnsubscribeResponse$Type extends MessageType<OnClientUnsubscribeRe
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1097,6 +1313,12 @@ class OnClientUnsubscribeResponse$Type extends MessageType<OnClientUnsubscribeRe
         return message;
     }
     internalBinaryWrite(message: OnClientUnsubscribeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1196,10 +1418,15 @@ export const OnMessagePublishRequest = new OnMessagePublishRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnMessagePublishResponse$Type extends MessageType<OnMessagePublishResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnMessagePublishResponse", []);
+        super("emqx.exhook.v1.OnMessagePublishResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnMessagePublishResponse>): OnMessagePublishResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnMessagePublishResponse>(this, message, value);
         return message;
@@ -1209,6 +1436,12 @@ class OnMessagePublishResponse$Type extends MessageType<OnMessagePublishResponse
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1221,6 +1454,12 @@ class OnMessagePublishResponse$Type extends MessageType<OnMessagePublishResponse
         return message;
     }
     internalBinaryWrite(message: OnMessagePublishResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1304,10 +1543,15 @@ export const OnMessageDeliveredRequest = new OnMessageDeliveredRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnMessageDeliveredResponse$Type extends MessageType<OnMessageDeliveredResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnMessageDeliveredResponse", []);
+        super("emqx.exhook.v1.OnMessageDeliveredResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnMessageDeliveredResponse>): OnMessageDeliveredResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnMessageDeliveredResponse>(this, message, value);
         return message;
@@ -1317,6 +1561,12 @@ class OnMessageDeliveredResponse$Type extends MessageType<OnMessageDeliveredResp
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1329,6 +1579,12 @@ class OnMessageDeliveredResponse$Type extends MessageType<OnMessageDeliveredResp
         return message;
     }
     internalBinaryWrite(message: OnMessageDeliveredResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1404,10 +1660,15 @@ export const OnMessageAckedRequest = new OnMessageAckedRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnMessageAckedResponse$Type extends MessageType<OnMessageAckedResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnMessageAckedResponse", []);
+        super("emqx.exhook.v1.OnMessageAckedResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnMessageAckedResponse>): OnMessageAckedResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnMessageAckedResponse>(this, message, value);
         return message;
@@ -1417,6 +1678,12 @@ class OnMessageAckedResponse$Type extends MessageType<OnMessageAckedResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1429,6 +1696,12 @@ class OnMessageAckedResponse$Type extends MessageType<OnMessageAckedResponse> {
         return message;
     }
     internalBinaryWrite(message: OnMessageAckedResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1488,10 +1761,15 @@ export const OnSessionCreatedRequest = new OnSessionCreatedRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnSessionCreatedResponse$Type extends MessageType<OnSessionCreatedResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnSessionCreatedResponse", []);
+        super("emqx.exhook.v1.OnSessionCreatedResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnSessionCreatedResponse>): OnSessionCreatedResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnSessionCreatedResponse>(this, message, value);
         return message;
@@ -1501,6 +1779,12 @@ class OnSessionCreatedResponse$Type extends MessageType<OnSessionCreatedResponse
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1513,6 +1797,12 @@ class OnSessionCreatedResponse$Type extends MessageType<OnSessionCreatedResponse
         return message;
     }
     internalBinaryWrite(message: OnSessionCreatedResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1588,10 +1878,15 @@ export const OnSessionSubscribedRequest = new OnSessionSubscribedRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OnSessionSubscribedResponse$Type extends MessageType<OnSessionSubscribedResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnSessionSubscribedResponse", []);
+        super("emqx.exhook.v1.OnSessionSubscribedResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnSessionSubscribedResponse>): OnSessionSubscribedResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnSessionSubscribedResponse>(this, message, value);
         return message;
@@ -1601,6 +1896,12 @@ class OnSessionSubscribedResponse$Type extends MessageType<OnSessionSubscribedRe
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1613,6 +1914,12 @@ class OnSessionSubscribedResponse$Type extends MessageType<OnSessionSubscribedRe
         return message;
     }
     internalBinaryWrite(message: OnSessionSubscribedResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1680,10 +1987,15 @@ export const OnSessionUnsubscribedRequest = new OnSessionUnsubscribedRequest$Typ
 // @generated message type with reflection information, may provide speed optimized methods
 class OnSessionUnsubscribedResponse$Type extends MessageType<OnSessionUnsubscribedResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnSessionUnsubscribedResponse", []);
+        super("emqx.exhook.v1.OnSessionUnsubscribedResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnSessionUnsubscribedResponse>): OnSessionUnsubscribedResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnSessionUnsubscribedResponse>(this, message, value);
         return message;
@@ -1693,6 +2005,12 @@ class OnSessionUnsubscribedResponse$Type extends MessageType<OnSessionUnsubscrib
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1705,6 +2023,12 @@ class OnSessionUnsubscribedResponse$Type extends MessageType<OnSessionUnsubscrib
         return message;
     }
     internalBinaryWrite(message: OnSessionUnsubscribedResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1780,10 +2104,15 @@ export const OnSessionGotOfflineMsgsRequest = new OnSessionGotOfflineMsgsRequest
 // @generated message type with reflection information, may provide speed optimized methods
 class OnSessionGotOfflineMsgsResponse$Type extends MessageType<OnSessionGotOfflineMsgsResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnSessionGotOfflineMsgsResponse", []);
+        super("emqx.exhook.v1.OnSessionGotOfflineMsgsResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnSessionGotOfflineMsgsResponse>): OnSessionGotOfflineMsgsResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnSessionGotOfflineMsgsResponse>(this, message, value);
         return message;
@@ -1793,6 +2122,12 @@ class OnSessionGotOfflineMsgsResponse$Type extends MessageType<OnSessionGotOffli
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1805,6 +2140,12 @@ class OnSessionGotOfflineMsgsResponse$Type extends MessageType<OnSessionGotOffli
         return message;
     }
     internalBinaryWrite(message: OnSessionGotOfflineMsgsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1880,10 +2221,15 @@ export const OnSessionDiscardedMsgsRequest = new OnSessionDiscardedMsgsRequest$T
 // @generated message type with reflection information, may provide speed optimized methods
 class OnSessionDiscardedMsgsResponse$Type extends MessageType<OnSessionDiscardedMsgsResponse> {
     constructor() {
-        super("emqx.exhook.v1.OnSessionDiscardedMsgsResponse", []);
+        super("emqx.exhook.v1.OnSessionDiscardedMsgsResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OnSessionDiscardedMsgsResponse>): OnSessionDiscardedMsgsResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OnSessionDiscardedMsgsResponse>(this, message, value);
         return message;
@@ -1893,6 +2239,12 @@ class OnSessionDiscardedMsgsResponse$Type extends MessageType<OnSessionDiscarded
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1905,6 +2257,12 @@ class OnSessionDiscardedMsgsResponse$Type extends MessageType<OnSessionDiscarded
         return message;
     }
     internalBinaryWrite(message: OnSessionDiscardedMsgsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1980,10 +2338,15 @@ export const ThrottleRequest = new ThrottleRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ThrottleResponse$Type extends MessageType<ThrottleResponse> {
     constructor() {
-        super("emqx.exhook.v1.ThrottleResponse", []);
+        super("emqx.exhook.v1.ThrottleResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<ThrottleResponse>): ThrottleResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<ThrottleResponse>(this, message, value);
         return message;
@@ -1993,6 +2356,12 @@ class ThrottleResponse$Type extends MessageType<ThrottleResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -2005,6 +2374,12 @@ class ThrottleResponse$Type extends MessageType<ThrottleResponse> {
         return message;
     }
     internalBinaryWrite(message: ThrottleResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string error = 2; */
+        if (message.error !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

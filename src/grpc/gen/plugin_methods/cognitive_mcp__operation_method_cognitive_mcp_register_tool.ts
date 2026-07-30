@@ -25,6 +25,10 @@ export interface RegisterToolInput {
  */
 export interface RegisterToolOutput {
     /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
      * @generated from protobuf field: string tool_name = 2
      */
     toolName: string;
@@ -71,11 +75,13 @@ export const RegisterToolInput = new RegisterToolInput$Type();
 class RegisterToolOutput$Type extends MessageType<RegisterToolOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.register_tool.RegisterToolOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 2, name: "tool_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RegisterToolOutput>): RegisterToolOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.toolName = "";
         if (value !== undefined)
             reflectionMergePartial<RegisterToolOutput>(this, message, value);
@@ -86,6 +92,9 @@ class RegisterToolOutput$Type extends MessageType<RegisterToolOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 case /* string tool_name */ 2:
                     message.toolName = reader.string();
                     break;
@@ -101,6 +110,9 @@ class RegisterToolOutput$Type extends MessageType<RegisterToolOutput> {
         return message;
     }
     internalBinaryWrite(message: RegisterToolOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         /* string tool_name = 2; */
         if (message.toolName !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.toolName);

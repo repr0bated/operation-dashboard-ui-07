@@ -13,7 +13,6 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
-import { Struct } from "./google/protobuf/struct";
 // ---------------------------------------------------------------------------
 // Citation — returned by grounded queries
 // ---------------------------------------------------------------------------
@@ -212,9 +211,11 @@ export interface GetNotebookResponse {
      */
     notebook?: NotebookInfo;
     /**
-     * @generated from protobuf field: google.protobuf.Struct metadata = 2
+     * Arbitrary metadata as JSON string.
+     *
+     * @generated from protobuf field: string metadata_json = 2
      */
-    metadata?: Struct;
+    metadataJson: string;
 }
 // ---------------------------------------------------------------------------
 // CreateNotebook (R4)
@@ -289,9 +290,11 @@ export interface AddSourceRequest {
      */
     notebookId: string;
     /**
-     * @generated from protobuf field: operation.cognitive.v1.SourceType source_type = 2
+     * "url", "text", "file"
+     *
+     * @generated from protobuf field: string source_type = 2
      */
-    sourceType: SourceType;
+    sourceType: string;
     /**
      * @generated from protobuf field: string content = 3
      */
@@ -313,6 +316,10 @@ export interface AddSourceResponse {
      * @generated from protobuf field: string source_id = 1
      */
     sourceId: string;
+    /**
+     * @generated from protobuf field: bool success = 2
+     */
+    success: boolean;
 }
 // ---------------------------------------------------------------------------
 // AddFolder (R5 — bulk ingest)
@@ -392,9 +399,9 @@ export interface SourceInfo {
      */
     title: string;
     /**
-     * @generated from protobuf field: operation.cognitive.v1.SourceType source_type = 3
+     * @generated from protobuf field: string source_type = 3
      */
-    sourceType: SourceType;
+    sourceType: string;
     /**
      * @generated from protobuf field: repeated string tags = 4
      */
@@ -443,9 +450,9 @@ export interface GetSourceContentResponse {
      */
     content: string;
     /**
-     * @generated from protobuf field: operation.cognitive.v1.SourceType source_type = 2
+     * @generated from protobuf field: string source_type = 2
      */
-    sourceType: SourceType;
+    sourceType: string;
     /**
      * @generated from protobuf field: string title = 3
      */
@@ -479,9 +486,11 @@ export interface GenerateDataTableRequest {
  */
 export interface GenerateDataTableResponse {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Struct rows = 1
+     * JSON string of [{column: value, ...}, ...]
+     *
+     * @generated from protobuf field: string data_json = 1
      */
-    rows: Struct[];
+    dataJson: string;
     /**
      * @generated from protobuf field: int32 row_count = 2
      */
@@ -509,21 +518,29 @@ export interface GetHealthResponse {
      */
     healthy: boolean;
     /**
-     * @generated from protobuf field: google.protobuf.Struct components = 2
+     * @generated from protobuf field: string status = 2
      */
-    components?: Struct;
+    status: string;
     /**
-     * @generated from protobuf field: int32 queries_remaining = 3
+     * Component-level status as JSON
+     *
+     * @generated from protobuf field: string components_json = 3
+     */
+    componentsJson: string;
+    /**
+     * Quota info (R11)
+     *
+     * @generated from protobuf field: int32 queries_remaining = 4
      */
     queriesRemaining: number;
     /**
-     * @generated from protobuf field: int32 queries_limit = 4
+     * @generated from protobuf field: int32 queries_limit = 5
      */
     queriesLimit: number;
     /**
-     * @generated from protobuf field: bool authenticated = 5
+     * @generated from protobuf field: string auth_status = 6
      */
-    authenticated: boolean;
+    authStatus: string;
 }
 // ---------------------------------------------------------------------------
 // SetupAuth (R9)
@@ -534,10 +551,14 @@ export interface GetHealthResponse {
  */
 export interface SetupAuthRequest {
     /**
-     * @generated from protobuf field: operation.cognitive.v1.AuthMethod auth_method = 1
+     * "chrome_profile" or "cookie"
+     *
+     * @generated from protobuf field: string auth_method = 1
      */
-    authMethod: AuthMethod;
+    authMethod: string;
     /**
+     * Path to Chrome profile or cookie value
+     *
      * @generated from protobuf field: string credential = 2
      */
     credential: string;
@@ -546,6 +567,14 @@ export interface SetupAuthRequest {
  * @generated from protobuf message operation.cognitive.v1.SetupAuthResponse
  */
 export interface SetupAuthResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string message = 2
+     */
+    message: string;
 }
 // ---------------------------------------------------------------------------
 // RemoveSource (R6)
@@ -568,6 +597,10 @@ export interface RemoveSourceRequest {
  * @generated from protobuf message operation.cognitive.v1.RemoveSourceResponse
  */
 export interface RemoveSourceResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // ---------------------------------------------------------------------------
 // GeminiQuery (R12 — fallback when browser breaks)
@@ -582,14 +615,20 @@ export interface GeminiQueryRequest {
      */
     query: string;
     /**
+     * Optional context to ground the query
+     *
      * @generated from protobuf field: string context = 2
      */
     context: string;
     /**
-     * @generated from protobuf field: operation.cognitive.v1.QueryMode mode = 3
+     * "query" or "deep_research"
+     *
+     * @generated from protobuf field: string mode = 3
      */
-    mode: QueryMode;
+    mode: string;
     /**
+     * Depth for deep_research (1-5, default 3)
+     *
      * @generated from protobuf field: int32 depth = 4
      */
     depth: number;
@@ -615,9 +654,11 @@ export interface GeminiQueryResponse {
      */
     isFallback: boolean;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Struct sections = 5
+     * For deep_research: JSON of sections
+     *
+     * @generated from protobuf field: string sections_json = 5
      */
-    sections: Struct[];
+    sectionsJson: string;
 }
 // ---------------------------------------------------------------------------
 // GetToolProfile (R14)
@@ -757,63 +798,6 @@ export interface GetQueryHistoryResponse {
      * @generated from protobuf field: int32 total = 2
      */
     total: number;
-}
-// ============ Enums ============
-
-/**
- * @generated from protobuf enum operation.cognitive.v1.SourceType
- */
-export enum SourceType {
-    /**
-     * @generated from protobuf enum value: SOURCE_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: SOURCE_TYPE_URL = 1;
-     */
-    URL = 1,
-    /**
-     * @generated from protobuf enum value: SOURCE_TYPE_TEXT = 2;
-     */
-    TEXT = 2,
-    /**
-     * @generated from protobuf enum value: SOURCE_TYPE_FILE = 3;
-     */
-    FILE = 3
-}
-/**
- * @generated from protobuf enum operation.cognitive.v1.AuthMethod
- */
-export enum AuthMethod {
-    /**
-     * @generated from protobuf enum value: AUTH_METHOD_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: AUTH_METHOD_CHROME_PROFILE = 1;
-     */
-    CHROME_PROFILE = 1,
-    /**
-     * @generated from protobuf enum value: AUTH_METHOD_COOKIE = 2;
-     */
-    COOKIE = 2
-}
-/**
- * @generated from protobuf enum operation.cognitive.v1.QueryMode
- */
-export enum QueryMode {
-    /**
-     * @generated from protobuf enum value: QUERY_MODE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: QUERY_MODE_QUERY = 1;
-     */
-    QUERY = 1,
-    /**
-     * @generated from protobuf enum value: QUERY_MODE_DEEP_RESEARCH = 2;
-     */
-    DEEP_RESEARCH = 2
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Citation$Type extends MessageType<Citation> {
@@ -1411,11 +1395,12 @@ class GetNotebookResponse$Type extends MessageType<GetNotebookResponse> {
     constructor() {
         super("operation.cognitive.v1.GetNotebookResponse", [
             { no: 1, name: "notebook", kind: "message", T: () => NotebookInfo },
-            { no: 2, name: "metadata", kind: "message", T: () => Struct }
+            { no: 2, name: "metadata_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetNotebookResponse>): GetNotebookResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.metadataJson = "";
         if (value !== undefined)
             reflectionMergePartial<GetNotebookResponse>(this, message, value);
         return message;
@@ -1428,8 +1413,8 @@ class GetNotebookResponse$Type extends MessageType<GetNotebookResponse> {
                 case /* operation.cognitive.v1.NotebookInfo notebook */ 1:
                     message.notebook = NotebookInfo.internalBinaryRead(reader, reader.uint32(), options, message.notebook);
                     break;
-                case /* google.protobuf.Struct metadata */ 2:
-                    message.metadata = Struct.internalBinaryRead(reader, reader.uint32(), options, message.metadata);
+                case /* string metadata_json */ 2:
+                    message.metadataJson = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1446,9 +1431,9 @@ class GetNotebookResponse$Type extends MessageType<GetNotebookResponse> {
         /* operation.cognitive.v1.NotebookInfo notebook = 1; */
         if (message.notebook)
             NotebookInfo.internalBinaryWrite(message.notebook, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Struct metadata = 2; */
-        if (message.metadata)
-            Struct.internalBinaryWrite(message.metadata, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* string metadata_json = 2; */
+        if (message.metadataJson !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.metadataJson);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1683,7 +1668,7 @@ class AddSourceRequest$Type extends MessageType<AddSourceRequest> {
     constructor() {
         super("operation.cognitive.v1.AddSourceRequest", [
             { no: 1, name: "notebook_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "source_type", kind: "enum", T: () => ["operation.cognitive.v1.SourceType", SourceType, "SOURCE_TYPE_"] },
+            { no: 2, name: "source_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "content", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "title", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "tags", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
@@ -1692,7 +1677,7 @@ class AddSourceRequest$Type extends MessageType<AddSourceRequest> {
     create(value?: PartialMessage<AddSourceRequest>): AddSourceRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.notebookId = "";
-        message.sourceType = 0;
+        message.sourceType = "";
         message.content = "";
         message.title = "";
         message.tags = [];
@@ -1708,8 +1693,8 @@ class AddSourceRequest$Type extends MessageType<AddSourceRequest> {
                 case /* string notebook_id */ 1:
                     message.notebookId = reader.string();
                     break;
-                case /* operation.cognitive.v1.SourceType source_type */ 2:
-                    message.sourceType = reader.int32();
+                case /* string source_type */ 2:
+                    message.sourceType = reader.string();
                     break;
                 case /* string content */ 3:
                     message.content = reader.string();
@@ -1735,9 +1720,9 @@ class AddSourceRequest$Type extends MessageType<AddSourceRequest> {
         /* string notebook_id = 1; */
         if (message.notebookId !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.notebookId);
-        /* operation.cognitive.v1.SourceType source_type = 2; */
-        if (message.sourceType !== 0)
-            writer.tag(2, WireType.Varint).int32(message.sourceType);
+        /* string source_type = 2; */
+        if (message.sourceType !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.sourceType);
         /* string content = 3; */
         if (message.content !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.content);
@@ -1761,12 +1746,14 @@ export const AddSourceRequest = new AddSourceRequest$Type();
 class AddSourceResponse$Type extends MessageType<AddSourceResponse> {
     constructor() {
         super("operation.cognitive.v1.AddSourceResponse", [
-            { no: 1, name: "source_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "source_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<AddSourceResponse>): AddSourceResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.sourceId = "";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddSourceResponse>(this, message, value);
         return message;
@@ -1778,6 +1765,9 @@ class AddSourceResponse$Type extends MessageType<AddSourceResponse> {
             switch (fieldNo) {
                 case /* string source_id */ 1:
                     message.sourceId = reader.string();
+                    break;
+                case /* bool success */ 2:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1794,6 +1784,9 @@ class AddSourceResponse$Type extends MessageType<AddSourceResponse> {
         /* string source_id = 1; */
         if (message.sourceId !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.sourceId);
+        /* bool success = 2; */
+        if (message.success !== false)
+            writer.tag(2, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2007,7 +2000,7 @@ class SourceInfo$Type extends MessageType<SourceInfo> {
         super("operation.cognitive.v1.SourceInfo", [
             { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "title", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "source_type", kind: "enum", T: () => ["operation.cognitive.v1.SourceType", SourceType, "SOURCE_TYPE_"] },
+            { no: 3, name: "source_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "tags", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "created_at", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
@@ -2016,7 +2009,7 @@ class SourceInfo$Type extends MessageType<SourceInfo> {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.id = "";
         message.title = "";
-        message.sourceType = 0;
+        message.sourceType = "";
         message.tags = [];
         message.createdAt = "";
         if (value !== undefined)
@@ -2034,8 +2027,8 @@ class SourceInfo$Type extends MessageType<SourceInfo> {
                 case /* string title */ 2:
                     message.title = reader.string();
                     break;
-                case /* operation.cognitive.v1.SourceType source_type */ 3:
-                    message.sourceType = reader.int32();
+                case /* string source_type */ 3:
+                    message.sourceType = reader.string();
                     break;
                 case /* repeated string tags */ 4:
                     message.tags.push(reader.string());
@@ -2061,9 +2054,9 @@ class SourceInfo$Type extends MessageType<SourceInfo> {
         /* string title = 2; */
         if (message.title !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.title);
-        /* operation.cognitive.v1.SourceType source_type = 3; */
-        if (message.sourceType !== 0)
-            writer.tag(3, WireType.Varint).int32(message.sourceType);
+        /* string source_type = 3; */
+        if (message.sourceType !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.sourceType);
         /* repeated string tags = 4; */
         for (let i = 0; i < message.tags.length; i++)
             writer.tag(4, WireType.LengthDelimited).string(message.tags[i]);
@@ -2195,14 +2188,14 @@ class GetSourceContentResponse$Type extends MessageType<GetSourceContentResponse
     constructor() {
         super("operation.cognitive.v1.GetSourceContentResponse", [
             { no: 1, name: "content", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "source_type", kind: "enum", T: () => ["operation.cognitive.v1.SourceType", SourceType, "SOURCE_TYPE_"] },
+            { no: 2, name: "source_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "title", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetSourceContentResponse>): GetSourceContentResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.content = "";
-        message.sourceType = 0;
+        message.sourceType = "";
         message.title = "";
         if (value !== undefined)
             reflectionMergePartial<GetSourceContentResponse>(this, message, value);
@@ -2216,8 +2209,8 @@ class GetSourceContentResponse$Type extends MessageType<GetSourceContentResponse
                 case /* string content */ 1:
                     message.content = reader.string();
                     break;
-                case /* operation.cognitive.v1.SourceType source_type */ 2:
-                    message.sourceType = reader.int32();
+                case /* string source_type */ 2:
+                    message.sourceType = reader.string();
                     break;
                 case /* string title */ 3:
                     message.title = reader.string();
@@ -2237,9 +2230,9 @@ class GetSourceContentResponse$Type extends MessageType<GetSourceContentResponse
         /* string content = 1; */
         if (message.content !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.content);
-        /* operation.cognitive.v1.SourceType source_type = 2; */
-        if (message.sourceType !== 0)
-            writer.tag(2, WireType.Varint).int32(message.sourceType);
+        /* string source_type = 2; */
+        if (message.sourceType !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.sourceType);
         /* string title = 3; */
         if (message.title !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.title);
@@ -2320,13 +2313,13 @@ export const GenerateDataTableRequest = new GenerateDataTableRequest$Type();
 class GenerateDataTableResponse$Type extends MessageType<GenerateDataTableResponse> {
     constructor() {
         super("operation.cognitive.v1.GenerateDataTableResponse", [
-            { no: 1, name: "rows", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Struct },
+            { no: 1, name: "data_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "row_count", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<GenerateDataTableResponse>): GenerateDataTableResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.rows = [];
+        message.dataJson = "";
         message.rowCount = 0;
         if (value !== undefined)
             reflectionMergePartial<GenerateDataTableResponse>(this, message, value);
@@ -2337,8 +2330,8 @@ class GenerateDataTableResponse$Type extends MessageType<GenerateDataTableRespon
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Struct rows */ 1:
-                    message.rows.push(Struct.internalBinaryRead(reader, reader.uint32(), options));
+                case /* string data_json */ 1:
+                    message.dataJson = reader.string();
                     break;
                 case /* int32 row_count */ 2:
                     message.rowCount = reader.int32();
@@ -2355,9 +2348,9 @@ class GenerateDataTableResponse$Type extends MessageType<GenerateDataTableRespon
         return message;
     }
     internalBinaryWrite(message: GenerateDataTableResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Struct rows = 1; */
-        for (let i = 0; i < message.rows.length; i++)
-            Struct.internalBinaryWrite(message.rows[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* string data_json = 1; */
+        if (message.dataJson !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.dataJson);
         /* int32 row_count = 2; */
         if (message.rowCount !== 0)
             writer.tag(2, WireType.Varint).int32(message.rowCount);
@@ -2423,18 +2416,21 @@ class GetHealthResponse$Type extends MessageType<GetHealthResponse> {
     constructor() {
         super("operation.cognitive.v1.GetHealthResponse", [
             { no: 1, name: "healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "components", kind: "message", T: () => Struct },
-            { no: 3, name: "queries_remaining", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 4, name: "queries_limit", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 5, name: "authenticated", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 2, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "components_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "queries_remaining", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "queries_limit", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 6, name: "auth_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetHealthResponse>): GetHealthResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.healthy = false;
+        message.status = "";
+        message.componentsJson = "";
         message.queriesRemaining = 0;
         message.queriesLimit = 0;
-        message.authenticated = false;
+        message.authStatus = "";
         if (value !== undefined)
             reflectionMergePartial<GetHealthResponse>(this, message, value);
         return message;
@@ -2447,17 +2443,20 @@ class GetHealthResponse$Type extends MessageType<GetHealthResponse> {
                 case /* bool healthy */ 1:
                     message.healthy = reader.bool();
                     break;
-                case /* google.protobuf.Struct components */ 2:
-                    message.components = Struct.internalBinaryRead(reader, reader.uint32(), options, message.components);
+                case /* string status */ 2:
+                    message.status = reader.string();
                     break;
-                case /* int32 queries_remaining */ 3:
+                case /* string components_json */ 3:
+                    message.componentsJson = reader.string();
+                    break;
+                case /* int32 queries_remaining */ 4:
                     message.queriesRemaining = reader.int32();
                     break;
-                case /* int32 queries_limit */ 4:
+                case /* int32 queries_limit */ 5:
                     message.queriesLimit = reader.int32();
                     break;
-                case /* bool authenticated */ 5:
-                    message.authenticated = reader.bool();
+                case /* string auth_status */ 6:
+                    message.authStatus = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2474,18 +2473,21 @@ class GetHealthResponse$Type extends MessageType<GetHealthResponse> {
         /* bool healthy = 1; */
         if (message.healthy !== false)
             writer.tag(1, WireType.Varint).bool(message.healthy);
-        /* google.protobuf.Struct components = 2; */
-        if (message.components)
-            Struct.internalBinaryWrite(message.components, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* int32 queries_remaining = 3; */
+        /* string status = 2; */
+        if (message.status !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.status);
+        /* string components_json = 3; */
+        if (message.componentsJson !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.componentsJson);
+        /* int32 queries_remaining = 4; */
         if (message.queriesRemaining !== 0)
-            writer.tag(3, WireType.Varint).int32(message.queriesRemaining);
-        /* int32 queries_limit = 4; */
+            writer.tag(4, WireType.Varint).int32(message.queriesRemaining);
+        /* int32 queries_limit = 5; */
         if (message.queriesLimit !== 0)
-            writer.tag(4, WireType.Varint).int32(message.queriesLimit);
-        /* bool authenticated = 5; */
-        if (message.authenticated !== false)
-            writer.tag(5, WireType.Varint).bool(message.authenticated);
+            writer.tag(5, WireType.Varint).int32(message.queriesLimit);
+        /* string auth_status = 6; */
+        if (message.authStatus !== "")
+            writer.tag(6, WireType.LengthDelimited).string(message.authStatus);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2500,13 +2502,13 @@ export const GetHealthResponse = new GetHealthResponse$Type();
 class SetupAuthRequest$Type extends MessageType<SetupAuthRequest> {
     constructor() {
         super("operation.cognitive.v1.SetupAuthRequest", [
-            { no: 1, name: "auth_method", kind: "enum", T: () => ["operation.cognitive.v1.AuthMethod", AuthMethod, "AUTH_METHOD_"] },
+            { no: 1, name: "auth_method", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "credential", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetupAuthRequest>): SetupAuthRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.authMethod = 0;
+        message.authMethod = "";
         message.credential = "";
         if (value !== undefined)
             reflectionMergePartial<SetupAuthRequest>(this, message, value);
@@ -2517,8 +2519,8 @@ class SetupAuthRequest$Type extends MessageType<SetupAuthRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* operation.cognitive.v1.AuthMethod auth_method */ 1:
-                    message.authMethod = reader.int32();
+                case /* string auth_method */ 1:
+                    message.authMethod = reader.string();
                     break;
                 case /* string credential */ 2:
                     message.credential = reader.string();
@@ -2535,9 +2537,9 @@ class SetupAuthRequest$Type extends MessageType<SetupAuthRequest> {
         return message;
     }
     internalBinaryWrite(message: SetupAuthRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* operation.cognitive.v1.AuthMethod auth_method = 1; */
-        if (message.authMethod !== 0)
-            writer.tag(1, WireType.Varint).int32(message.authMethod);
+        /* string auth_method = 1; */
+        if (message.authMethod !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.authMethod);
         /* string credential = 2; */
         if (message.credential !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.credential);
@@ -2554,10 +2556,15 @@ export const SetupAuthRequest = new SetupAuthRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetupAuthResponse$Type extends MessageType<SetupAuthResponse> {
     constructor() {
-        super("operation.cognitive.v1.SetupAuthResponse", []);
+        super("operation.cognitive.v1.SetupAuthResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<SetupAuthResponse>): SetupAuthResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.message = "";
         if (value !== undefined)
             reflectionMergePartial<SetupAuthResponse>(this, message, value);
         return message;
@@ -2567,6 +2574,12 @@ class SetupAuthResponse$Type extends MessageType<SetupAuthResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
+                    message.message = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -2579,6 +2592,12 @@ class SetupAuthResponse$Type extends MessageType<SetupAuthResponse> {
         return message;
     }
     internalBinaryWrite(message: SetupAuthResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
+        if (message.message !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2647,10 +2666,13 @@ export const RemoveSourceRequest = new RemoveSourceRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RemoveSourceResponse$Type extends MessageType<RemoveSourceResponse> {
     constructor() {
-        super("operation.cognitive.v1.RemoveSourceResponse", []);
+        super("operation.cognitive.v1.RemoveSourceResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RemoveSourceResponse>): RemoveSourceResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RemoveSourceResponse>(this, message, value);
         return message;
@@ -2660,6 +2682,9 @@ class RemoveSourceResponse$Type extends MessageType<RemoveSourceResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -2672,6 +2697,9 @@ class RemoveSourceResponse$Type extends MessageType<RemoveSourceResponse> {
         return message;
     }
     internalBinaryWrite(message: RemoveSourceResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2688,7 +2716,7 @@ class GeminiQueryRequest$Type extends MessageType<GeminiQueryRequest> {
         super("operation.cognitive.v1.GeminiQueryRequest", [
             { no: 1, name: "query", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "context", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "mode", kind: "enum", T: () => ["operation.cognitive.v1.QueryMode", QueryMode, "QUERY_MODE_"] },
+            { no: 3, name: "mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "depth", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
@@ -2696,7 +2724,7 @@ class GeminiQueryRequest$Type extends MessageType<GeminiQueryRequest> {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.query = "";
         message.context = "";
-        message.mode = 0;
+        message.mode = "";
         message.depth = 0;
         if (value !== undefined)
             reflectionMergePartial<GeminiQueryRequest>(this, message, value);
@@ -2713,8 +2741,8 @@ class GeminiQueryRequest$Type extends MessageType<GeminiQueryRequest> {
                 case /* string context */ 2:
                     message.context = reader.string();
                     break;
-                case /* operation.cognitive.v1.QueryMode mode */ 3:
-                    message.mode = reader.int32();
+                case /* string mode */ 3:
+                    message.mode = reader.string();
                     break;
                 case /* int32 depth */ 4:
                     message.depth = reader.int32();
@@ -2737,9 +2765,9 @@ class GeminiQueryRequest$Type extends MessageType<GeminiQueryRequest> {
         /* string context = 2; */
         if (message.context !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.context);
-        /* operation.cognitive.v1.QueryMode mode = 3; */
-        if (message.mode !== 0)
-            writer.tag(3, WireType.Varint).int32(message.mode);
+        /* string mode = 3; */
+        if (message.mode !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.mode);
         /* int32 depth = 4; */
         if (message.depth !== 0)
             writer.tag(4, WireType.Varint).int32(message.depth);
@@ -2761,7 +2789,7 @@ class GeminiQueryResponse$Type extends MessageType<GeminiQueryResponse> {
             { no: 2, name: "citations", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Citation },
             { no: 3, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "is_fallback", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 5, name: "sections", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Struct }
+            { no: 5, name: "sections_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GeminiQueryResponse>): GeminiQueryResponse {
@@ -2770,7 +2798,7 @@ class GeminiQueryResponse$Type extends MessageType<GeminiQueryResponse> {
         message.citations = [];
         message.model = "";
         message.isFallback = false;
-        message.sections = [];
+        message.sectionsJson = "";
         if (value !== undefined)
             reflectionMergePartial<GeminiQueryResponse>(this, message, value);
         return message;
@@ -2792,8 +2820,8 @@ class GeminiQueryResponse$Type extends MessageType<GeminiQueryResponse> {
                 case /* bool is_fallback */ 4:
                     message.isFallback = reader.bool();
                     break;
-                case /* repeated google.protobuf.Struct sections */ 5:
-                    message.sections.push(Struct.internalBinaryRead(reader, reader.uint32(), options));
+                case /* string sections_json */ 5:
+                    message.sectionsJson = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2819,9 +2847,9 @@ class GeminiQueryResponse$Type extends MessageType<GeminiQueryResponse> {
         /* bool is_fallback = 4; */
         if (message.isFallback !== false)
             writer.tag(4, WireType.Varint).bool(message.isFallback);
-        /* repeated google.protobuf.Struct sections = 5; */
-        for (let i = 0; i < message.sections.length; i++)
-            Struct.internalBinaryWrite(message.sections[i], writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* string sections_json = 5; */
+        if (message.sectionsJson !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.sectionsJson);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

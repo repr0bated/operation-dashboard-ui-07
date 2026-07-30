@@ -30,6 +30,10 @@ export interface CreateUnixSocketInput {
  * @generated from protobuf message operation.method.shared_unix_socket.create_unix_socket.CreateUnixSocketOutput
  */
 export interface CreateUnixSocketOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateUnixSocketInput$Type extends MessageType<CreateUnixSocketInput> {
@@ -97,10 +101,13 @@ export const CreateUnixSocketInput = new CreateUnixSocketInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateUnixSocketOutput$Type extends MessageType<CreateUnixSocketOutput> {
     constructor() {
-        super("operation.method.shared_unix_socket.create_unix_socket.CreateUnixSocketOutput", []);
+        super("operation.method.shared_unix_socket.create_unix_socket.CreateUnixSocketOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateUnixSocketOutput>): CreateUnixSocketOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateUnixSocketOutput>(this, message, value);
         return message;
@@ -110,6 +117,9 @@ class CreateUnixSocketOutput$Type extends MessageType<CreateUnixSocketOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -122,6 +132,9 @@ class CreateUnixSocketOutput$Type extends MessageType<CreateUnixSocketOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateUnixSocketOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

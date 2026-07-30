@@ -41,31 +41,35 @@ export interface EnsurePrivacyNetworkRequest {
  */
 export interface EnsurePrivacyNetworkResponse {
     /**
-     * @generated from protobuf field: string message = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string message = 2
      */
     message: string;
     /**
-     * @generated from protobuf field: string bridge_name = 2
+     * @generated from protobuf field: string bridge_name = 3
      */
     bridgeName: string; // "ovsbr0"
     /**
-     * @generated from protobuf field: operation.privacy.v1.ComponentStatus wgcf_status = 3
+     * @generated from protobuf field: string wgcf_status = 4
      */
-    wgcfStatus: ComponentStatus;
+    wgcfStatus: string;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ComponentStatus xray_status = 4
+     * @generated from protobuf field: string xray_status = 5
      */
-    xrayStatus: ComponentStatus;
+    xrayStatus: string;
     /**
-     * @generated from protobuf field: repeated string active_ports = 5
+     * @generated from protobuf field: repeated string active_ports = 6
      */
     activePorts: string[];
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp provisioned_at = 6
+     * @generated from protobuf field: google.protobuf.Timestamp provisioned_at = 7
      */
     provisionedAt?: Timestamp;
     /**
-     * @generated from protobuf field: string topology_summary = 7
+     * @generated from protobuf field: string topology_summary = 8
      */
     topologySummary: string;
 }
@@ -74,9 +78,9 @@ export interface EnsurePrivacyNetworkResponse {
  */
 export interface GetNetworkStatusRequest {
     /**
-     * @generated from protobuf field: operation.privacy.v1.ComponentName component = 1
+     * @generated from protobuf field: string component = 1
      */
-    component: ComponentName;
+    component: string; // "all", "wgcf", "ovs", "xray", "ports"
 }
 /**
  * @generated from protobuf message operation.privacy.v1.GetNetworkStatusResponse
@@ -87,9 +91,9 @@ export interface GetNetworkStatusResponse {
      */
     healthy: boolean;
     /**
-     * @generated from protobuf field: operation.privacy.v1.OverallStatus overall_status = 2
+     * @generated from protobuf field: string overall_status = 2
      */
-    overallStatus: OverallStatus;
+    overallStatus: string; // "healthy", "degraded", "unhealthy"
     /**
      * @generated from protobuf field: repeated operation.privacy.v1.NetworkComponent components = 3
      */
@@ -110,15 +114,15 @@ export interface NetworkComponent {
     /**
      * @generated from protobuf field: string name = 1
      */
-    name: string;
+    name: string; // "wgcf", "ovsbr0", "xray", "gbr_xray", etc
     /**
-     * @generated from protobuf field: operation.privacy.v1.ComponentStatus status = 2
+     * @generated from protobuf field: string status = 2
      */
-    status: ComponentStatus;
+    status: string; // "up", "down", "configuring"
     /**
-     * @generated from protobuf field: operation.privacy.v1.ComponentType type = 3
+     * @generated from protobuf field: string type = 3
      */
-    type: ComponentType;
+    type: string; // "wireguard", "bridge", "proxy", "interface"
     /**
      * @generated from protobuf field: string ip_address = 4
      */
@@ -153,9 +157,9 @@ export interface ProvisionUserRequest {
      */
     domain: string;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ContainerType container_type = 5
+     * @generated from protobuf field: string container_type = 5
      */
-    containerType: ContainerType;
+    containerType: string; // "internal" or "user"
     /**
      * @generated from protobuf field: optional google.protobuf.Struct metadata = 6
      */
@@ -166,27 +170,31 @@ export interface ProvisionUserRequest {
  */
 export interface ProvisionUserResponse {
     /**
-     * @generated from protobuf field: string user_id = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string user_id = 2
      */
     userId: string;
     /**
-     * @generated from protobuf field: string assigned_ip = 2
+     * @generated from protobuf field: string assigned_ip = 3
      */
     assignedIp: string; // e.g. "10.200.0.100"
     /**
-     * @generated from protobuf field: string privacy_config = 3
+     * @generated from protobuf field: string privacy_config = 4
      */
     privacyConfig: string; // Full WireGuard config for privacy network
     /**
-     * @generated from protobuf field: optional string message = 4
+     * @generated from protobuf field: string message = 5
      */
-    message?: string;
+    message: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp provisioned_at = 5
+     * @generated from protobuf field: google.protobuf.Timestamp provisioned_at = 6
      */
     provisionedAt?: Timestamp;
     /**
-     * @generated from protobuf field: string xray_endpoint = 6
+     * @generated from protobuf field: string xray_endpoint = 7
      */
     xrayEndpoint: string;
 }
@@ -212,31 +220,35 @@ export interface GetPrivacyWireGuardConfigRequest {
  */
 export interface GetPrivacyWireGuardConfigResponse {
     /**
-     * @generated from protobuf field: string wireguard_config = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string wireguard_config = 2
      */
     wireguardConfig: string;
     /**
-     * @generated from protobuf field: string public_key = 2
+     * @generated from protobuf field: string public_key = 3
      */
     publicKey: string;
     /**
-     * @generated from protobuf field: string endpoint = 3
+     * @generated from protobuf field: string endpoint = 4
      */
     endpoint: string; // "registration.3tched.com:51820"
     /**
-     * @generated from protobuf field: string assigned_ip = 4
+     * @generated from protobuf field: string assigned_ip = 5
      */
     assignedIp: string;
     /**
-     * @generated from protobuf field: string dns_servers = 5
+     * @generated from protobuf field: string dns_servers = 6
      */
     dnsServers: string;
     /**
-     * @generated from protobuf field: optional string message = 6
+     * @generated from protobuf field: string message = 7
      */
-    message?: string;
+    message: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp generated_at = 7
+     * @generated from protobuf field: google.protobuf.Timestamp generated_at = 8
      */
     generatedAt?: Timestamp;
 }
@@ -245,13 +257,13 @@ export interface GetPrivacyWireGuardConfigResponse {
  */
 export interface ManageComponentRequest {
     /**
-     * @generated from protobuf field: operation.privacy.v1.ManagementAction action = 1
+     * @generated from protobuf field: string action = 1
      */
-    action: ManagementAction;
+    action: string; // "start", "stop", "restart", "status", "reconfigure"
     /**
-     * @generated from protobuf field: operation.privacy.v1.ComponentName component = 2
+     * @generated from protobuf field: string component = 2
      */
-    component: ComponentName;
+    component: string; // "wgcf", "ovsbr0", "xray", "all"
     /**
      * @generated from protobuf field: optional google.protobuf.Struct parameters = 3
      */
@@ -262,23 +274,27 @@ export interface ManageComponentRequest {
  */
 export interface ManageComponentResponse {
     /**
-     * @generated from protobuf field: optional string message = 1
+     * @generated from protobuf field: bool success = 1
      */
-    message?: string;
+    success: boolean;
     /**
-     * @generated from protobuf field: string component = 2
+     * @generated from protobuf field: string message = 2
+     */
+    message: string;
+    /**
+     * @generated from protobuf field: string component = 3
      */
     component: string;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ComponentStatus status = 3
+     * @generated from protobuf field: string status = 4
      */
-    status: ComponentStatus;
+    status: string;
     /**
-     * @generated from protobuf field: string output = 4
+     * @generated from protobuf field: string output = 5
      */
     output: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp completed_at = 5
+     * @generated from protobuf field: google.protobuf.Timestamp completed_at = 6
      */
     completedAt?: Timestamp;
 }
@@ -341,9 +357,9 @@ export interface ProxyConfig {
      */
     containerName: string;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ContainerType container_type = 2
+     * @generated from protobuf field: string container_type = 2
      */
-    containerType: ContainerType;
+    containerType: string; // "internal", "user"
     /**
      * @generated from protobuf field: bool http_proxy_enabled = 3
      */
@@ -361,9 +377,9 @@ export interface ProxyConfig {
      */
     grpcPort: number;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ProxyMode proxy_mode = 7
+     * @generated from protobuf field: string proxy_mode = 7
      */
-    proxyMode: ProxyMode;
+    proxyMode: string; // "socks+http", "http-only", "tproxy"
 }
 /**
  * @generated from protobuf message operation.privacy.v1.NetworkRoute
@@ -445,9 +461,9 @@ export interface HealthIssue {
      */
     component: string;
     /**
-     * @generated from protobuf field: operation.privacy.v1.IssueSeverity severity = 2
+     * @generated from protobuf field: string severity = 2
      */
-    severity: IssueSeverity;
+    severity: string; // "critical", "warning", "info"
     /**
      * @generated from protobuf field: string message = 3
      */
@@ -466,9 +482,9 @@ export interface ConfigurePacketRoutingRequest {
      */
     containerName: string;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ContainerType container_type = 2
+     * @generated from protobuf field: string container_type = 2
      */
-    containerType: ContainerType;
+    containerType: string; // "internal", "user"
     /**
      * @generated from protobuf field: bool enable_http_proxy = 3
      */
@@ -478,9 +494,9 @@ export interface ConfigurePacketRoutingRequest {
      */
     enableGrpcProxy: boolean;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ProxyType proxy_type = 5
+     * @generated from protobuf field: string proxy_type = 5
      */
-    proxyType: ProxyType;
+    proxyType: string; // "socks", "http", "tproxy", "dokodemo-door"
     /**
      * @generated from protobuf field: uint32 socks_port = 6
      */
@@ -499,23 +515,27 @@ export interface ConfigurePacketRoutingRequest {
  */
 export interface ConfigurePacketRoutingResponse {
     /**
-     * @generated from protobuf field: optional string message = 1
+     * @generated from protobuf field: bool success = 1
      */
-    message?: string;
+    success: boolean;
     /**
-     * @generated from protobuf field: string container_name = 2
+     * @generated from protobuf field: string message = 2
+     */
+    message: string;
+    /**
+     * @generated from protobuf field: string container_name = 3
      */
     containerName: string;
     /**
-     * @generated from protobuf field: string proxy_config_summary = 3
+     * @generated from protobuf field: string proxy_config_summary = 4
      */
     proxyConfigSummary: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp configured_at = 4
+     * @generated from protobuf field: google.protobuf.Timestamp configured_at = 5
      */
     configuredAt?: Timestamp;
     /**
-     * @generated from protobuf field: repeated string applied_rules = 5
+     * @generated from protobuf field: repeated string applied_rules = 6
      */
     appliedRules: string[];
 }
@@ -526,7 +546,7 @@ export interface GenerateWireGuardKeyPairRequest {
     /**
      * @generated from protobuf field: string user_token = 1
      */
-    userToken: string;
+    userToken: string; // Magic link token from registration
     /**
      * @generated from protobuf field: string user_email = 2
      */
@@ -536,36 +556,40 @@ export interface GenerateWireGuardKeyPairRequest {
      */
     isAdmin: boolean;
     /**
-     * @generated from protobuf field: operation.privacy.v1.ContainerType container_type = 4
+     * @generated from protobuf field: string container_type = 4
      */
-    containerType: ContainerType;
+    containerType: string; // "user" or "internal"
 }
 /**
  * @generated from protobuf message operation.privacy.v1.GenerateWireGuardKeyPairResponse
  */
 export interface GenerateWireGuardKeyPairResponse {
     /**
-     * @generated from protobuf field: string client_public_key = 1
+     * @generated from protobuf field: bool success = 1
      */
-    clientPublicKey: string;
+    success: boolean;
     /**
-     * @generated from protobuf field: string wireguard_config = 2
+     * @generated from protobuf field: string client_public_key = 2
      */
-    wireguardConfig: string;
+    clientPublicKey: string; // Client's public key (for server registration)
     /**
-     * @generated from protobuf field: string assigned_ip = 3
+     * @generated from protobuf field: string wireguard_config = 3
+     */
+    wireguardConfig: string; // Complete config with private key
+    /**
+     * @generated from protobuf field: string assigned_ip = 4
      */
     assignedIp: string;
     /**
-     * @generated from protobuf field: string key_id = 4
+     * @generated from protobuf field: string key_id = 5
      */
-    keyId: string;
+    keyId: string; // For tracking/revocation
     /**
-     * @generated from protobuf field: optional string message = 5
+     * @generated from protobuf field: string message = 6
      */
-    message?: string;
+    message: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp generated_at = 6
+     * @generated from protobuf field: google.protobuf.Timestamp generated_at = 7
      */
     generatedAt?: Timestamp;
 }
@@ -589,215 +613,6 @@ export interface PrivacyError {
      * @generated from protobuf field: optional google.protobuf.Struct details = 3
      */
     details?: Struct;
-}
-// =============================================================================
-// ENUMS
-// =============================================================================
-
-/**
- * @generated from protobuf enum operation.privacy.v1.ComponentStatus
- */
-export enum ComponentStatus {
-    /**
-     * @generated from protobuf enum value: COMPONENT_STATUS_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: COMPONENT_STATUS_UP = 1;
-     */
-    UP = 1,
-    /**
-     * @generated from protobuf enum value: COMPONENT_STATUS_DOWN = 2;
-     */
-    DOWN = 2,
-    /**
-     * @generated from protobuf enum value: COMPONENT_STATUS_CONFIGURING = 3;
-     */
-    CONFIGURING = 3
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.OverallStatus
- */
-export enum OverallStatus {
-    /**
-     * @generated from protobuf enum value: OVERALL_STATUS_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: OVERALL_STATUS_HEALTHY = 1;
-     */
-    HEALTHY = 1,
-    /**
-     * @generated from protobuf enum value: OVERALL_STATUS_DEGRADED = 2;
-     */
-    DEGRADED = 2,
-    /**
-     * @generated from protobuf enum value: OVERALL_STATUS_UNHEALTHY = 3;
-     */
-    UNHEALTHY = 3
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.ComponentType
- */
-export enum ComponentType {
-    /**
-     * @generated from protobuf enum value: COMPONENT_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: COMPONENT_TYPE_WIREGUARD = 1;
-     */
-    WIREGUARD = 1,
-    /**
-     * @generated from protobuf enum value: COMPONENT_TYPE_BRIDGE = 2;
-     */
-    BRIDGE = 2,
-    /**
-     * @generated from protobuf enum value: COMPONENT_TYPE_PROXY = 3;
-     */
-    PROXY = 3,
-    /**
-     * @generated from protobuf enum value: COMPONENT_TYPE_INTERFACE = 4;
-     */
-    INTERFACE = 4
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.ComponentName
- */
-export enum ComponentName {
-    /**
-     * @generated from protobuf enum value: COMPONENT_NAME_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: COMPONENT_NAME_WGCF = 1;
-     */
-    WGCF = 1,
-    /**
-     * @generated from protobuf enum value: COMPONENT_NAME_OVSBR0 = 2;
-     */
-    OVSBR0 = 2,
-    /**
-     * @generated from protobuf enum value: COMPONENT_NAME_XRAY = 3;
-     */
-    XRAY = 3,
-    /**
-     * @generated from protobuf enum value: COMPONENT_NAME_ALL = 4;
-     */
-    ALL = 4
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.ContainerType
- */
-export enum ContainerType {
-    /**
-     * @generated from protobuf enum value: CONTAINER_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: CONTAINER_TYPE_INTERNAL = 1;
-     */
-    INTERNAL = 1,
-    /**
-     * @generated from protobuf enum value: CONTAINER_TYPE_USER = 2;
-     */
-    USER = 2
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.ManagementAction
- */
-export enum ManagementAction {
-    /**
-     * @generated from protobuf enum value: MANAGEMENT_ACTION_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: MANAGEMENT_ACTION_START = 1;
-     */
-    START = 1,
-    /**
-     * @generated from protobuf enum value: MANAGEMENT_ACTION_STOP = 2;
-     */
-    STOP = 2,
-    /**
-     * @generated from protobuf enum value: MANAGEMENT_ACTION_RESTART = 3;
-     */
-    RESTART = 3,
-    /**
-     * @generated from protobuf enum value: MANAGEMENT_ACTION_STATUS = 4;
-     */
-    STATUS = 4,
-    /**
-     * @generated from protobuf enum value: MANAGEMENT_ACTION_RECONFIGURE = 5;
-     */
-    RECONFIGURE = 5
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.ProxyMode
- */
-export enum ProxyMode {
-    /**
-     * @generated from protobuf enum value: PROXY_MODE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: PROXY_MODE_SOCKS_HTTP = 1;
-     */
-    SOCKS_HTTP = 1,
-    /**
-     * @generated from protobuf enum value: PROXY_MODE_HTTP_ONLY = 2;
-     */
-    HTTP_ONLY = 2,
-    /**
-     * @generated from protobuf enum value: PROXY_MODE_TPROXY = 3;
-     */
-    TPROXY = 3
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.ProxyType
- */
-export enum ProxyType {
-    /**
-     * @generated from protobuf enum value: PROXY_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: PROXY_TYPE_SOCKS = 1;
-     */
-    SOCKS = 1,
-    /**
-     * @generated from protobuf enum value: PROXY_TYPE_HTTP = 2;
-     */
-    HTTP = 2,
-    /**
-     * @generated from protobuf enum value: PROXY_TYPE_TPROXY = 3;
-     */
-    TPROXY = 3,
-    /**
-     * @generated from protobuf enum value: PROXY_TYPE_DOKODEMO_DOOR = 4;
-     */
-    DOKODEMO_DOOR = 4
-}
-/**
- * @generated from protobuf enum operation.privacy.v1.IssueSeverity
- */
-export enum IssueSeverity {
-    /**
-     * @generated from protobuf enum value: ISSUE_SEVERITY_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: ISSUE_SEVERITY_CRITICAL = 1;
-     */
-    CRITICAL = 1,
-    /**
-     * @generated from protobuf enum value: ISSUE_SEVERITY_WARNING = 2;
-     */
-    WARNING = 2,
-    /**
-     * @generated from protobuf enum value: ISSUE_SEVERITY_INFO = 3;
-     */
-    INFO = 3
 }
 /**
  * @generated from protobuf enum operation.privacy.v1.PrivacyErrorCode
@@ -898,21 +713,23 @@ export const EnsurePrivacyNetworkRequest = new EnsurePrivacyNetworkRequest$Type(
 class EnsurePrivacyNetworkResponse$Type extends MessageType<EnsurePrivacyNetworkResponse> {
     constructor() {
         super("operation.privacy.v1.EnsurePrivacyNetworkResponse", [
-            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "bridge_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "wgcf_status", kind: "enum", T: () => ["operation.privacy.v1.ComponentStatus", ComponentStatus, "COMPONENT_STATUS_"] },
-            { no: 4, name: "xray_status", kind: "enum", T: () => ["operation.privacy.v1.ComponentStatus", ComponentStatus, "COMPONENT_STATUS_"] },
-            { no: 5, name: "active_ports", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "provisioned_at", kind: "message", T: () => Timestamp },
-            { no: 7, name: "topology_summary", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "bridge_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "wgcf_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "xray_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "active_ports", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 7, name: "provisioned_at", kind: "message", T: () => Timestamp },
+            { no: 8, name: "topology_summary", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<EnsurePrivacyNetworkResponse>): EnsurePrivacyNetworkResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.message = "";
         message.bridgeName = "";
-        message.wgcfStatus = 0;
-        message.xrayStatus = 0;
+        message.wgcfStatus = "";
+        message.xrayStatus = "";
         message.activePorts = [];
         message.topologySummary = "";
         if (value !== undefined)
@@ -924,25 +741,28 @@ class EnsurePrivacyNetworkResponse$Type extends MessageType<EnsurePrivacyNetwork
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string message */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
                     message.message = reader.string();
                     break;
-                case /* string bridge_name */ 2:
+                case /* string bridge_name */ 3:
                     message.bridgeName = reader.string();
                     break;
-                case /* operation.privacy.v1.ComponentStatus wgcf_status */ 3:
-                    message.wgcfStatus = reader.int32();
+                case /* string wgcf_status */ 4:
+                    message.wgcfStatus = reader.string();
                     break;
-                case /* operation.privacy.v1.ComponentStatus xray_status */ 4:
-                    message.xrayStatus = reader.int32();
+                case /* string xray_status */ 5:
+                    message.xrayStatus = reader.string();
                     break;
-                case /* repeated string active_ports */ 5:
+                case /* repeated string active_ports */ 6:
                     message.activePorts.push(reader.string());
                     break;
-                case /* google.protobuf.Timestamp provisioned_at */ 6:
+                case /* google.protobuf.Timestamp provisioned_at */ 7:
                     message.provisionedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.provisionedAt);
                     break;
-                case /* string topology_summary */ 7:
+                case /* string topology_summary */ 8:
                     message.topologySummary = reader.string();
                     break;
                 default:
@@ -957,27 +777,30 @@ class EnsurePrivacyNetworkResponse$Type extends MessageType<EnsurePrivacyNetwork
         return message;
     }
     internalBinaryWrite(message: EnsurePrivacyNetworkResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string message = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
         if (message.message !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.message);
-        /* string bridge_name = 2; */
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* string bridge_name = 3; */
         if (message.bridgeName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.bridgeName);
-        /* operation.privacy.v1.ComponentStatus wgcf_status = 3; */
-        if (message.wgcfStatus !== 0)
-            writer.tag(3, WireType.Varint).int32(message.wgcfStatus);
-        /* operation.privacy.v1.ComponentStatus xray_status = 4; */
-        if (message.xrayStatus !== 0)
-            writer.tag(4, WireType.Varint).int32(message.xrayStatus);
-        /* repeated string active_ports = 5; */
+            writer.tag(3, WireType.LengthDelimited).string(message.bridgeName);
+        /* string wgcf_status = 4; */
+        if (message.wgcfStatus !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.wgcfStatus);
+        /* string xray_status = 5; */
+        if (message.xrayStatus !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.xrayStatus);
+        /* repeated string active_ports = 6; */
         for (let i = 0; i < message.activePorts.length; i++)
-            writer.tag(5, WireType.LengthDelimited).string(message.activePorts[i]);
-        /* google.protobuf.Timestamp provisioned_at = 6; */
+            writer.tag(6, WireType.LengthDelimited).string(message.activePorts[i]);
+        /* google.protobuf.Timestamp provisioned_at = 7; */
         if (message.provisionedAt)
-            Timestamp.internalBinaryWrite(message.provisionedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
-        /* string topology_summary = 7; */
+            Timestamp.internalBinaryWrite(message.provisionedAt, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
+        /* string topology_summary = 8; */
         if (message.topologySummary !== "")
-            writer.tag(7, WireType.LengthDelimited).string(message.topologySummary);
+            writer.tag(8, WireType.LengthDelimited).string(message.topologySummary);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -992,12 +815,12 @@ export const EnsurePrivacyNetworkResponse = new EnsurePrivacyNetworkResponse$Typ
 class GetNetworkStatusRequest$Type extends MessageType<GetNetworkStatusRequest> {
     constructor() {
         super("operation.privacy.v1.GetNetworkStatusRequest", [
-            { no: 1, name: "component", kind: "enum", T: () => ["operation.privacy.v1.ComponentName", ComponentName, "COMPONENT_NAME_"] }
+            { no: 1, name: "component", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetNetworkStatusRequest>): GetNetworkStatusRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.component = 0;
+        message.component = "";
         if (value !== undefined)
             reflectionMergePartial<GetNetworkStatusRequest>(this, message, value);
         return message;
@@ -1007,8 +830,8 @@ class GetNetworkStatusRequest$Type extends MessageType<GetNetworkStatusRequest> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* operation.privacy.v1.ComponentName component */ 1:
-                    message.component = reader.int32();
+                case /* string component */ 1:
+                    message.component = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1022,9 +845,9 @@ class GetNetworkStatusRequest$Type extends MessageType<GetNetworkStatusRequest> 
         return message;
     }
     internalBinaryWrite(message: GetNetworkStatusRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* operation.privacy.v1.ComponentName component = 1; */
-        if (message.component !== 0)
-            writer.tag(1, WireType.Varint).int32(message.component);
+        /* string component = 1; */
+        if (message.component !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.component);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1040,7 +863,7 @@ class GetNetworkStatusResponse$Type extends MessageType<GetNetworkStatusResponse
     constructor() {
         super("operation.privacy.v1.GetNetworkStatusResponse", [
             { no: 1, name: "healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "overall_status", kind: "enum", T: () => ["operation.privacy.v1.OverallStatus", OverallStatus, "OVERALL_STATUS_"] },
+            { no: 2, name: "overall_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "components", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => NetworkComponent },
             { no: 4, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "last_updated", kind: "message", T: () => Timestamp }
@@ -1049,7 +872,7 @@ class GetNetworkStatusResponse$Type extends MessageType<GetNetworkStatusResponse
     create(value?: PartialMessage<GetNetworkStatusResponse>): GetNetworkStatusResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.healthy = false;
-        message.overallStatus = 0;
+        message.overallStatus = "";
         message.components = [];
         message.message = "";
         if (value !== undefined)
@@ -1064,8 +887,8 @@ class GetNetworkStatusResponse$Type extends MessageType<GetNetworkStatusResponse
                 case /* bool healthy */ 1:
                     message.healthy = reader.bool();
                     break;
-                case /* operation.privacy.v1.OverallStatus overall_status */ 2:
-                    message.overallStatus = reader.int32();
+                case /* string overall_status */ 2:
+                    message.overallStatus = reader.string();
                     break;
                 case /* repeated operation.privacy.v1.NetworkComponent components */ 3:
                     message.components.push(NetworkComponent.internalBinaryRead(reader, reader.uint32(), options));
@@ -1091,9 +914,9 @@ class GetNetworkStatusResponse$Type extends MessageType<GetNetworkStatusResponse
         /* bool healthy = 1; */
         if (message.healthy !== false)
             writer.tag(1, WireType.Varint).bool(message.healthy);
-        /* operation.privacy.v1.OverallStatus overall_status = 2; */
-        if (message.overallStatus !== 0)
-            writer.tag(2, WireType.Varint).int32(message.overallStatus);
+        /* string overall_status = 2; */
+        if (message.overallStatus !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.overallStatus);
         /* repeated operation.privacy.v1.NetworkComponent components = 3; */
         for (let i = 0; i < message.components.length; i++)
             NetworkComponent.internalBinaryWrite(message.components[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
@@ -1118,8 +941,8 @@ class NetworkComponent$Type extends MessageType<NetworkComponent> {
     constructor() {
         super("operation.privacy.v1.NetworkComponent", [
             { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "status", kind: "enum", T: () => ["operation.privacy.v1.ComponentStatus", ComponentStatus, "COMPONENT_STATUS_"] },
-            { no: 3, name: "type", kind: "enum", T: () => ["operation.privacy.v1.ComponentType", ComponentType, "COMPONENT_TYPE_"] },
+            { no: 2, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "ip_address", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "details", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 6, name: "critical", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
@@ -1128,8 +951,8 @@ class NetworkComponent$Type extends MessageType<NetworkComponent> {
     create(value?: PartialMessage<NetworkComponent>): NetworkComponent {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.name = "";
-        message.status = 0;
-        message.type = 0;
+        message.status = "";
+        message.type = "";
         message.ipAddress = "";
         message.details = "";
         message.critical = false;
@@ -1145,11 +968,11 @@ class NetworkComponent$Type extends MessageType<NetworkComponent> {
                 case /* string name */ 1:
                     message.name = reader.string();
                     break;
-                case /* operation.privacy.v1.ComponentStatus status */ 2:
-                    message.status = reader.int32();
+                case /* string status */ 2:
+                    message.status = reader.string();
                     break;
-                case /* operation.privacy.v1.ComponentType type */ 3:
-                    message.type = reader.int32();
+                case /* string type */ 3:
+                    message.type = reader.string();
                     break;
                 case /* string ip_address */ 4:
                     message.ipAddress = reader.string();
@@ -1175,12 +998,12 @@ class NetworkComponent$Type extends MessageType<NetworkComponent> {
         /* string name = 1; */
         if (message.name !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* operation.privacy.v1.ComponentStatus status = 2; */
-        if (message.status !== 0)
-            writer.tag(2, WireType.Varint).int32(message.status);
-        /* operation.privacy.v1.ComponentType type = 3; */
-        if (message.type !== 0)
-            writer.tag(3, WireType.Varint).int32(message.type);
+        /* string status = 2; */
+        if (message.status !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.status);
+        /* string type = 3; */
+        if (message.type !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.type);
         /* string ip_address = 4; */
         if (message.ipAddress !== "")
             writer.tag(4, WireType.LengthDelimited).string(message.ipAddress);
@@ -1208,7 +1031,7 @@ class ProvisionUserRequest$Type extends MessageType<ProvisionUserRequest> {
             { no: 2, name: "wireguard_public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "is_admin", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 4, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "container_type", kind: "enum", T: () => ["operation.privacy.v1.ContainerType", ContainerType, "CONTAINER_TYPE_"] },
+            { no: 5, name: "container_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 6, name: "metadata", kind: "message", T: () => Struct }
         ]);
     }
@@ -1218,7 +1041,7 @@ class ProvisionUserRequest$Type extends MessageType<ProvisionUserRequest> {
         message.wireguardPublicKey = "";
         message.isAdmin = false;
         message.domain = "";
-        message.containerType = 0;
+        message.containerType = "";
         if (value !== undefined)
             reflectionMergePartial<ProvisionUserRequest>(this, message, value);
         return message;
@@ -1240,8 +1063,8 @@ class ProvisionUserRequest$Type extends MessageType<ProvisionUserRequest> {
                 case /* string domain */ 4:
                     message.domain = reader.string();
                     break;
-                case /* operation.privacy.v1.ContainerType container_type */ 5:
-                    message.containerType = reader.int32();
+                case /* string container_type */ 5:
+                    message.containerType = reader.string();
                     break;
                 case /* optional google.protobuf.Struct metadata */ 6:
                     message.metadata = Struct.internalBinaryRead(reader, reader.uint32(), options, message.metadata);
@@ -1270,9 +1093,9 @@ class ProvisionUserRequest$Type extends MessageType<ProvisionUserRequest> {
         /* string domain = 4; */
         if (message.domain !== "")
             writer.tag(4, WireType.LengthDelimited).string(message.domain);
-        /* operation.privacy.v1.ContainerType container_type = 5; */
-        if (message.containerType !== 0)
-            writer.tag(5, WireType.Varint).int32(message.containerType);
+        /* string container_type = 5; */
+        if (message.containerType !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.containerType);
         /* optional google.protobuf.Struct metadata = 6; */
         if (message.metadata)
             Struct.internalBinaryWrite(message.metadata, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
@@ -1290,19 +1113,22 @@ export const ProvisionUserRequest = new ProvisionUserRequest$Type();
 class ProvisionUserResponse$Type extends MessageType<ProvisionUserResponse> {
     constructor() {
         super("operation.privacy.v1.ProvisionUserResponse", [
-            { no: 1, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "privacy_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "message", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "provisioned_at", kind: "message", T: () => Timestamp },
-            { no: 6, name: "xray_endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "privacy_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "provisioned_at", kind: "message", T: () => Timestamp },
+            { no: 7, name: "xray_endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ProvisionUserResponse>): ProvisionUserResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.userId = "";
         message.assignedIp = "";
         message.privacyConfig = "";
+        message.message = "";
         message.xrayEndpoint = "";
         if (value !== undefined)
             reflectionMergePartial<ProvisionUserResponse>(this, message, value);
@@ -1313,22 +1139,25 @@ class ProvisionUserResponse$Type extends MessageType<ProvisionUserResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string user_id */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string user_id */ 2:
                     message.userId = reader.string();
                     break;
-                case /* string assigned_ip */ 2:
+                case /* string assigned_ip */ 3:
                     message.assignedIp = reader.string();
                     break;
-                case /* string privacy_config */ 3:
+                case /* string privacy_config */ 4:
                     message.privacyConfig = reader.string();
                     break;
-                case /* optional string message */ 4:
+                case /* string message */ 5:
                     message.message = reader.string();
                     break;
-                case /* google.protobuf.Timestamp provisioned_at */ 5:
+                case /* google.protobuf.Timestamp provisioned_at */ 6:
                     message.provisionedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.provisionedAt);
                     break;
-                case /* string xray_endpoint */ 6:
+                case /* string xray_endpoint */ 7:
                     message.xrayEndpoint = reader.string();
                     break;
                 default:
@@ -1343,24 +1172,27 @@ class ProvisionUserResponse$Type extends MessageType<ProvisionUserResponse> {
         return message;
     }
     internalBinaryWrite(message: ProvisionUserResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string user_id = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string user_id = 2; */
         if (message.userId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.userId);
-        /* string assigned_ip = 2; */
+            writer.tag(2, WireType.LengthDelimited).string(message.userId);
+        /* string assigned_ip = 3; */
         if (message.assignedIp !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.assignedIp);
-        /* string privacy_config = 3; */
+            writer.tag(3, WireType.LengthDelimited).string(message.assignedIp);
+        /* string privacy_config = 4; */
         if (message.privacyConfig !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.privacyConfig);
-        /* optional string message = 4; */
-        if (message.message !== undefined)
-            writer.tag(4, WireType.LengthDelimited).string(message.message);
-        /* google.protobuf.Timestamp provisioned_at = 5; */
+            writer.tag(4, WireType.LengthDelimited).string(message.privacyConfig);
+        /* string message = 5; */
+        if (message.message !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.message);
+        /* google.protobuf.Timestamp provisioned_at = 6; */
         if (message.provisionedAt)
-            Timestamp.internalBinaryWrite(message.provisionedAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
-        /* string xray_endpoint = 6; */
+            Timestamp.internalBinaryWrite(message.provisionedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+        /* string xray_endpoint = 7; */
         if (message.xrayEndpoint !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.xrayEndpoint);
+            writer.tag(7, WireType.LengthDelimited).string(message.xrayEndpoint);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1438,22 +1270,25 @@ export const GetPrivacyWireGuardConfigRequest = new GetPrivacyWireGuardConfigReq
 class GetPrivacyWireGuardConfigResponse$Type extends MessageType<GetPrivacyWireGuardConfigResponse> {
     constructor() {
         super("operation.privacy.v1.GetPrivacyWireGuardConfigResponse", [
-            { no: 1, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "dns_servers", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "message", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 7, name: "generated_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "dns_servers", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 7, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 8, name: "generated_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<GetPrivacyWireGuardConfigResponse>): GetPrivacyWireGuardConfigResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.wireguardConfig = "";
         message.publicKey = "";
         message.endpoint = "";
         message.assignedIp = "";
         message.dnsServers = "";
+        message.message = "";
         if (value !== undefined)
             reflectionMergePartial<GetPrivacyWireGuardConfigResponse>(this, message, value);
         return message;
@@ -1463,25 +1298,28 @@ class GetPrivacyWireGuardConfigResponse$Type extends MessageType<GetPrivacyWireG
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string wireguard_config */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string wireguard_config */ 2:
                     message.wireguardConfig = reader.string();
                     break;
-                case /* string public_key */ 2:
+                case /* string public_key */ 3:
                     message.publicKey = reader.string();
                     break;
-                case /* string endpoint */ 3:
+                case /* string endpoint */ 4:
                     message.endpoint = reader.string();
                     break;
-                case /* string assigned_ip */ 4:
+                case /* string assigned_ip */ 5:
                     message.assignedIp = reader.string();
                     break;
-                case /* string dns_servers */ 5:
+                case /* string dns_servers */ 6:
                     message.dnsServers = reader.string();
                     break;
-                case /* optional string message */ 6:
+                case /* string message */ 7:
                     message.message = reader.string();
                     break;
-                case /* google.protobuf.Timestamp generated_at */ 7:
+                case /* google.protobuf.Timestamp generated_at */ 8:
                     message.generatedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.generatedAt);
                     break;
                 default:
@@ -1496,27 +1334,30 @@ class GetPrivacyWireGuardConfigResponse$Type extends MessageType<GetPrivacyWireG
         return message;
     }
     internalBinaryWrite(message: GetPrivacyWireGuardConfigResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string wireguard_config = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string wireguard_config = 2; */
         if (message.wireguardConfig !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.wireguardConfig);
-        /* string public_key = 2; */
+            writer.tag(2, WireType.LengthDelimited).string(message.wireguardConfig);
+        /* string public_key = 3; */
         if (message.publicKey !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.publicKey);
-        /* string endpoint = 3; */
+            writer.tag(3, WireType.LengthDelimited).string(message.publicKey);
+        /* string endpoint = 4; */
         if (message.endpoint !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.endpoint);
-        /* string assigned_ip = 4; */
+            writer.tag(4, WireType.LengthDelimited).string(message.endpoint);
+        /* string assigned_ip = 5; */
         if (message.assignedIp !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.assignedIp);
-        /* string dns_servers = 5; */
+            writer.tag(5, WireType.LengthDelimited).string(message.assignedIp);
+        /* string dns_servers = 6; */
         if (message.dnsServers !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.dnsServers);
-        /* optional string message = 6; */
-        if (message.message !== undefined)
-            writer.tag(6, WireType.LengthDelimited).string(message.message);
-        /* google.protobuf.Timestamp generated_at = 7; */
+            writer.tag(6, WireType.LengthDelimited).string(message.dnsServers);
+        /* string message = 7; */
+        if (message.message !== "")
+            writer.tag(7, WireType.LengthDelimited).string(message.message);
+        /* google.protobuf.Timestamp generated_at = 8; */
         if (message.generatedAt)
-            Timestamp.internalBinaryWrite(message.generatedAt, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.generatedAt, writer.tag(8, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1531,15 +1372,15 @@ export const GetPrivacyWireGuardConfigResponse = new GetPrivacyWireGuardConfigRe
 class ManageComponentRequest$Type extends MessageType<ManageComponentRequest> {
     constructor() {
         super("operation.privacy.v1.ManageComponentRequest", [
-            { no: 1, name: "action", kind: "enum", T: () => ["operation.privacy.v1.ManagementAction", ManagementAction, "MANAGEMENT_ACTION_"] },
-            { no: 2, name: "component", kind: "enum", T: () => ["operation.privacy.v1.ComponentName", ComponentName, "COMPONENT_NAME_"] },
+            { no: 1, name: "action", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "component", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "parameters", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<ManageComponentRequest>): ManageComponentRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.action = 0;
-        message.component = 0;
+        message.action = "";
+        message.component = "";
         if (value !== undefined)
             reflectionMergePartial<ManageComponentRequest>(this, message, value);
         return message;
@@ -1549,11 +1390,11 @@ class ManageComponentRequest$Type extends MessageType<ManageComponentRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* operation.privacy.v1.ManagementAction action */ 1:
-                    message.action = reader.int32();
+                case /* string action */ 1:
+                    message.action = reader.string();
                     break;
-                case /* operation.privacy.v1.ComponentName component */ 2:
-                    message.component = reader.int32();
+                case /* string component */ 2:
+                    message.component = reader.string();
                     break;
                 case /* optional google.protobuf.Struct parameters */ 3:
                     message.parameters = Struct.internalBinaryRead(reader, reader.uint32(), options, message.parameters);
@@ -1570,12 +1411,12 @@ class ManageComponentRequest$Type extends MessageType<ManageComponentRequest> {
         return message;
     }
     internalBinaryWrite(message: ManageComponentRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* operation.privacy.v1.ManagementAction action = 1; */
-        if (message.action !== 0)
-            writer.tag(1, WireType.Varint).int32(message.action);
-        /* operation.privacy.v1.ComponentName component = 2; */
-        if (message.component !== 0)
-            writer.tag(2, WireType.Varint).int32(message.component);
+        /* string action = 1; */
+        if (message.action !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.action);
+        /* string component = 2; */
+        if (message.component !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.component);
         /* optional google.protobuf.Struct parameters = 3; */
         if (message.parameters)
             Struct.internalBinaryWrite(message.parameters, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
@@ -1593,17 +1434,20 @@ export const ManageComponentRequest = new ManageComponentRequest$Type();
 class ManageComponentResponse$Type extends MessageType<ManageComponentResponse> {
     constructor() {
         super("operation.privacy.v1.ManageComponentResponse", [
-            { no: 1, name: "message", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "component", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "status", kind: "enum", T: () => ["operation.privacy.v1.ComponentStatus", ComponentStatus, "COMPONENT_STATUS_"] },
-            { no: 4, name: "output", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "completed_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "component", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "output", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "completed_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<ManageComponentResponse>): ManageComponentResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.message = "";
         message.component = "";
-        message.status = 0;
+        message.status = "";
         message.output = "";
         if (value !== undefined)
             reflectionMergePartial<ManageComponentResponse>(this, message, value);
@@ -1614,19 +1458,22 @@ class ManageComponentResponse$Type extends MessageType<ManageComponentResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* optional string message */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
                     message.message = reader.string();
                     break;
-                case /* string component */ 2:
+                case /* string component */ 3:
                     message.component = reader.string();
                     break;
-                case /* operation.privacy.v1.ComponentStatus status */ 3:
-                    message.status = reader.int32();
+                case /* string status */ 4:
+                    message.status = reader.string();
                     break;
-                case /* string output */ 4:
+                case /* string output */ 5:
                     message.output = reader.string();
                     break;
-                case /* google.protobuf.Timestamp completed_at */ 5:
+                case /* google.protobuf.Timestamp completed_at */ 6:
                     message.completedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.completedAt);
                     break;
                 default:
@@ -1641,21 +1488,24 @@ class ManageComponentResponse$Type extends MessageType<ManageComponentResponse> 
         return message;
     }
     internalBinaryWrite(message: ManageComponentResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* optional string message = 1; */
-        if (message.message !== undefined)
-            writer.tag(1, WireType.LengthDelimited).string(message.message);
-        /* string component = 2; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
+        if (message.message !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* string component = 3; */
         if (message.component !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.component);
-        /* operation.privacy.v1.ComponentStatus status = 3; */
-        if (message.status !== 0)
-            writer.tag(3, WireType.Varint).int32(message.status);
-        /* string output = 4; */
+            writer.tag(3, WireType.LengthDelimited).string(message.component);
+        /* string status = 4; */
+        if (message.status !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.status);
+        /* string output = 5; */
         if (message.output !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.output);
-        /* google.protobuf.Timestamp completed_at = 5; */
+            writer.tag(5, WireType.LengthDelimited).string(message.output);
+        /* google.protobuf.Timestamp completed_at = 6; */
         if (message.completedAt)
-            Timestamp.internalBinaryWrite(message.completedAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.completedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1828,23 +1678,23 @@ class ProxyConfig$Type extends MessageType<ProxyConfig> {
     constructor() {
         super("operation.privacy.v1.ProxyConfig", [
             { no: 1, name: "container_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "container_type", kind: "enum", T: () => ["operation.privacy.v1.ContainerType", ContainerType, "CONTAINER_TYPE_"] },
+            { no: 2, name: "container_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "http_proxy_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 4, name: "grpc_proxy_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 5, name: "http_port", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 6, name: "grpc_port", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 7, name: "proxy_mode", kind: "enum", T: () => ["operation.privacy.v1.ProxyMode", ProxyMode, "PROXY_MODE_"] }
+            { no: 7, name: "proxy_mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ProxyConfig>): ProxyConfig {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.containerName = "";
-        message.containerType = 0;
+        message.containerType = "";
         message.httpProxyEnabled = false;
         message.grpcProxyEnabled = false;
         message.httpPort = 0;
         message.grpcPort = 0;
-        message.proxyMode = 0;
+        message.proxyMode = "";
         if (value !== undefined)
             reflectionMergePartial<ProxyConfig>(this, message, value);
         return message;
@@ -1857,8 +1707,8 @@ class ProxyConfig$Type extends MessageType<ProxyConfig> {
                 case /* string container_name */ 1:
                     message.containerName = reader.string();
                     break;
-                case /* operation.privacy.v1.ContainerType container_type */ 2:
-                    message.containerType = reader.int32();
+                case /* string container_type */ 2:
+                    message.containerType = reader.string();
                     break;
                 case /* bool http_proxy_enabled */ 3:
                     message.httpProxyEnabled = reader.bool();
@@ -1872,8 +1722,8 @@ class ProxyConfig$Type extends MessageType<ProxyConfig> {
                 case /* uint32 grpc_port */ 6:
                     message.grpcPort = reader.uint32();
                     break;
-                case /* operation.privacy.v1.ProxyMode proxy_mode */ 7:
-                    message.proxyMode = reader.int32();
+                case /* string proxy_mode */ 7:
+                    message.proxyMode = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1890,9 +1740,9 @@ class ProxyConfig$Type extends MessageType<ProxyConfig> {
         /* string container_name = 1; */
         if (message.containerName !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.containerName);
-        /* operation.privacy.v1.ContainerType container_type = 2; */
-        if (message.containerType !== 0)
-            writer.tag(2, WireType.Varint).int32(message.containerType);
+        /* string container_type = 2; */
+        if (message.containerType !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.containerType);
         /* bool http_proxy_enabled = 3; */
         if (message.httpProxyEnabled !== false)
             writer.tag(3, WireType.Varint).bool(message.httpProxyEnabled);
@@ -1905,9 +1755,9 @@ class ProxyConfig$Type extends MessageType<ProxyConfig> {
         /* uint32 grpc_port = 6; */
         if (message.grpcPort !== 0)
             writer.tag(6, WireType.Varint).uint32(message.grpcPort);
-        /* operation.privacy.v1.ProxyMode proxy_mode = 7; */
-        if (message.proxyMode !== 0)
-            writer.tag(7, WireType.Varint).int32(message.proxyMode);
+        /* string proxy_mode = 7; */
+        if (message.proxyMode !== "")
+            writer.tag(7, WireType.LengthDelimited).string(message.proxyMode);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2151,7 +2001,7 @@ class HealthIssue$Type extends MessageType<HealthIssue> {
     constructor() {
         super("operation.privacy.v1.HealthIssue", [
             { no: 1, name: "component", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "severity", kind: "enum", T: () => ["operation.privacy.v1.IssueSeverity", IssueSeverity, "ISSUE_SEVERITY_"] },
+            { no: 2, name: "severity", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "suggested_fix", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
@@ -2159,7 +2009,7 @@ class HealthIssue$Type extends MessageType<HealthIssue> {
     create(value?: PartialMessage<HealthIssue>): HealthIssue {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.component = "";
-        message.severity = 0;
+        message.severity = "";
         message.message = "";
         message.suggestedFix = "";
         if (value !== undefined)
@@ -2174,8 +2024,8 @@ class HealthIssue$Type extends MessageType<HealthIssue> {
                 case /* string component */ 1:
                     message.component = reader.string();
                     break;
-                case /* operation.privacy.v1.IssueSeverity severity */ 2:
-                    message.severity = reader.int32();
+                case /* string severity */ 2:
+                    message.severity = reader.string();
                     break;
                 case /* string message */ 3:
                     message.message = reader.string();
@@ -2198,9 +2048,9 @@ class HealthIssue$Type extends MessageType<HealthIssue> {
         /* string component = 1; */
         if (message.component !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.component);
-        /* operation.privacy.v1.IssueSeverity severity = 2; */
-        if (message.severity !== 0)
-            writer.tag(2, WireType.Varint).int32(message.severity);
+        /* string severity = 2; */
+        if (message.severity !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.severity);
         /* string message = 3; */
         if (message.message !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.message);
@@ -2222,10 +2072,10 @@ class ConfigurePacketRoutingRequest$Type extends MessageType<ConfigurePacketRout
     constructor() {
         super("operation.privacy.v1.ConfigurePacketRoutingRequest", [
             { no: 1, name: "container_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "container_type", kind: "enum", T: () => ["operation.privacy.v1.ContainerType", ContainerType, "CONTAINER_TYPE_"] },
+            { no: 2, name: "container_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "enable_http_proxy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 4, name: "enable_grpc_proxy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 5, name: "proxy_type", kind: "enum", T: () => ["operation.privacy.v1.ProxyType", ProxyType, "PROXY_TYPE_"] },
+            { no: 5, name: "proxy_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 6, name: "socks_port", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 7, name: "http_port", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 8, name: "enable_tproxy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
@@ -2234,10 +2084,10 @@ class ConfigurePacketRoutingRequest$Type extends MessageType<ConfigurePacketRout
     create(value?: PartialMessage<ConfigurePacketRoutingRequest>): ConfigurePacketRoutingRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.containerName = "";
-        message.containerType = 0;
+        message.containerType = "";
         message.enableHttpProxy = false;
         message.enableGrpcProxy = false;
-        message.proxyType = 0;
+        message.proxyType = "";
         message.socksPort = 0;
         message.httpPort = 0;
         message.enableTproxy = false;
@@ -2253,8 +2103,8 @@ class ConfigurePacketRoutingRequest$Type extends MessageType<ConfigurePacketRout
                 case /* string container_name */ 1:
                     message.containerName = reader.string();
                     break;
-                case /* operation.privacy.v1.ContainerType container_type */ 2:
-                    message.containerType = reader.int32();
+                case /* string container_type */ 2:
+                    message.containerType = reader.string();
                     break;
                 case /* bool enable_http_proxy */ 3:
                     message.enableHttpProxy = reader.bool();
@@ -2262,8 +2112,8 @@ class ConfigurePacketRoutingRequest$Type extends MessageType<ConfigurePacketRout
                 case /* bool enable_grpc_proxy */ 4:
                     message.enableGrpcProxy = reader.bool();
                     break;
-                case /* operation.privacy.v1.ProxyType proxy_type */ 5:
-                    message.proxyType = reader.int32();
+                case /* string proxy_type */ 5:
+                    message.proxyType = reader.string();
                     break;
                 case /* uint32 socks_port */ 6:
                     message.socksPort = reader.uint32();
@@ -2289,18 +2139,18 @@ class ConfigurePacketRoutingRequest$Type extends MessageType<ConfigurePacketRout
         /* string container_name = 1; */
         if (message.containerName !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.containerName);
-        /* operation.privacy.v1.ContainerType container_type = 2; */
-        if (message.containerType !== 0)
-            writer.tag(2, WireType.Varint).int32(message.containerType);
+        /* string container_type = 2; */
+        if (message.containerType !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.containerType);
         /* bool enable_http_proxy = 3; */
         if (message.enableHttpProxy !== false)
             writer.tag(3, WireType.Varint).bool(message.enableHttpProxy);
         /* bool enable_grpc_proxy = 4; */
         if (message.enableGrpcProxy !== false)
             writer.tag(4, WireType.Varint).bool(message.enableGrpcProxy);
-        /* operation.privacy.v1.ProxyType proxy_type = 5; */
-        if (message.proxyType !== 0)
-            writer.tag(5, WireType.Varint).int32(message.proxyType);
+        /* string proxy_type = 5; */
+        if (message.proxyType !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.proxyType);
         /* uint32 socks_port = 6; */
         if (message.socksPort !== 0)
             writer.tag(6, WireType.Varint).uint32(message.socksPort);
@@ -2324,15 +2174,18 @@ export const ConfigurePacketRoutingRequest = new ConfigurePacketRoutingRequest$T
 class ConfigurePacketRoutingResponse$Type extends MessageType<ConfigurePacketRoutingResponse> {
     constructor() {
         super("operation.privacy.v1.ConfigurePacketRoutingResponse", [
-            { no: 1, name: "message", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "container_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "proxy_config_summary", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "configured_at", kind: "message", T: () => Timestamp },
-            { no: 5, name: "applied_rules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "container_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "proxy_config_summary", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "configured_at", kind: "message", T: () => Timestamp },
+            { no: 6, name: "applied_rules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ConfigurePacketRoutingResponse>): ConfigurePacketRoutingResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.message = "";
         message.containerName = "";
         message.proxyConfigSummary = "";
         message.appliedRules = [];
@@ -2345,19 +2198,22 @@ class ConfigurePacketRoutingResponse$Type extends MessageType<ConfigurePacketRou
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* optional string message */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
                     message.message = reader.string();
                     break;
-                case /* string container_name */ 2:
+                case /* string container_name */ 3:
                     message.containerName = reader.string();
                     break;
-                case /* string proxy_config_summary */ 3:
+                case /* string proxy_config_summary */ 4:
                     message.proxyConfigSummary = reader.string();
                     break;
-                case /* google.protobuf.Timestamp configured_at */ 4:
+                case /* google.protobuf.Timestamp configured_at */ 5:
                     message.configuredAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.configuredAt);
                     break;
-                case /* repeated string applied_rules */ 5:
+                case /* repeated string applied_rules */ 6:
                     message.appliedRules.push(reader.string());
                     break;
                 default:
@@ -2372,21 +2228,24 @@ class ConfigurePacketRoutingResponse$Type extends MessageType<ConfigurePacketRou
         return message;
     }
     internalBinaryWrite(message: ConfigurePacketRoutingResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* optional string message = 1; */
-        if (message.message !== undefined)
-            writer.tag(1, WireType.LengthDelimited).string(message.message);
-        /* string container_name = 2; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
+        if (message.message !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* string container_name = 3; */
         if (message.containerName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.containerName);
-        /* string proxy_config_summary = 3; */
+            writer.tag(3, WireType.LengthDelimited).string(message.containerName);
+        /* string proxy_config_summary = 4; */
         if (message.proxyConfigSummary !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.proxyConfigSummary);
-        /* google.protobuf.Timestamp configured_at = 4; */
+            writer.tag(4, WireType.LengthDelimited).string(message.proxyConfigSummary);
+        /* google.protobuf.Timestamp configured_at = 5; */
         if (message.configuredAt)
-            Timestamp.internalBinaryWrite(message.configuredAt, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
-        /* repeated string applied_rules = 5; */
+            Timestamp.internalBinaryWrite(message.configuredAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* repeated string applied_rules = 6; */
         for (let i = 0; i < message.appliedRules.length; i++)
-            writer.tag(5, WireType.LengthDelimited).string(message.appliedRules[i]);
+            writer.tag(6, WireType.LengthDelimited).string(message.appliedRules[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2404,7 +2263,7 @@ class GenerateWireGuardKeyPairRequest$Type extends MessageType<GenerateWireGuard
             { no: 1, name: "user_token", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "user_email", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "is_admin", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "container_type", kind: "enum", T: () => ["operation.privacy.v1.ContainerType", ContainerType, "CONTAINER_TYPE_"] }
+            { no: 4, name: "container_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GenerateWireGuardKeyPairRequest>): GenerateWireGuardKeyPairRequest {
@@ -2412,7 +2271,7 @@ class GenerateWireGuardKeyPairRequest$Type extends MessageType<GenerateWireGuard
         message.userToken = "";
         message.userEmail = "";
         message.isAdmin = false;
-        message.containerType = 0;
+        message.containerType = "";
         if (value !== undefined)
             reflectionMergePartial<GenerateWireGuardKeyPairRequest>(this, message, value);
         return message;
@@ -2431,8 +2290,8 @@ class GenerateWireGuardKeyPairRequest$Type extends MessageType<GenerateWireGuard
                 case /* bool is_admin */ 3:
                     message.isAdmin = reader.bool();
                     break;
-                case /* operation.privacy.v1.ContainerType container_type */ 4:
-                    message.containerType = reader.int32();
+                case /* string container_type */ 4:
+                    message.containerType = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2455,9 +2314,9 @@ class GenerateWireGuardKeyPairRequest$Type extends MessageType<GenerateWireGuard
         /* bool is_admin = 3; */
         if (message.isAdmin !== false)
             writer.tag(3, WireType.Varint).bool(message.isAdmin);
-        /* operation.privacy.v1.ContainerType container_type = 4; */
-        if (message.containerType !== 0)
-            writer.tag(4, WireType.Varint).int32(message.containerType);
+        /* string container_type = 4; */
+        if (message.containerType !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.containerType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2472,20 +2331,23 @@ export const GenerateWireGuardKeyPairRequest = new GenerateWireGuardKeyPairReque
 class GenerateWireGuardKeyPairResponse$Type extends MessageType<GenerateWireGuardKeyPairResponse> {
     constructor() {
         super("operation.privacy.v1.GenerateWireGuardKeyPairResponse", [
-            { no: 1, name: "client_public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "key_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "message", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "generated_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "client_public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "key_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 7, name: "generated_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<GenerateWireGuardKeyPairResponse>): GenerateWireGuardKeyPairResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.clientPublicKey = "";
         message.wireguardConfig = "";
         message.assignedIp = "";
         message.keyId = "";
+        message.message = "";
         if (value !== undefined)
             reflectionMergePartial<GenerateWireGuardKeyPairResponse>(this, message, value);
         return message;
@@ -2495,22 +2357,25 @@ class GenerateWireGuardKeyPairResponse$Type extends MessageType<GenerateWireGuar
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string client_public_key */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string client_public_key */ 2:
                     message.clientPublicKey = reader.string();
                     break;
-                case /* string wireguard_config */ 2:
+                case /* string wireguard_config */ 3:
                     message.wireguardConfig = reader.string();
                     break;
-                case /* string assigned_ip */ 3:
+                case /* string assigned_ip */ 4:
                     message.assignedIp = reader.string();
                     break;
-                case /* string key_id */ 4:
+                case /* string key_id */ 5:
                     message.keyId = reader.string();
                     break;
-                case /* optional string message */ 5:
+                case /* string message */ 6:
                     message.message = reader.string();
                     break;
-                case /* google.protobuf.Timestamp generated_at */ 6:
+                case /* google.protobuf.Timestamp generated_at */ 7:
                     message.generatedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.generatedAt);
                     break;
                 default:
@@ -2525,24 +2390,27 @@ class GenerateWireGuardKeyPairResponse$Type extends MessageType<GenerateWireGuar
         return message;
     }
     internalBinaryWrite(message: GenerateWireGuardKeyPairResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string client_public_key = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string client_public_key = 2; */
         if (message.clientPublicKey !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.clientPublicKey);
-        /* string wireguard_config = 2; */
+            writer.tag(2, WireType.LengthDelimited).string(message.clientPublicKey);
+        /* string wireguard_config = 3; */
         if (message.wireguardConfig !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.wireguardConfig);
-        /* string assigned_ip = 3; */
+            writer.tag(3, WireType.LengthDelimited).string(message.wireguardConfig);
+        /* string assigned_ip = 4; */
         if (message.assignedIp !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.assignedIp);
-        /* string key_id = 4; */
+            writer.tag(4, WireType.LengthDelimited).string(message.assignedIp);
+        /* string key_id = 5; */
         if (message.keyId !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.keyId);
-        /* optional string message = 5; */
-        if (message.message !== undefined)
-            writer.tag(5, WireType.LengthDelimited).string(message.message);
-        /* google.protobuf.Timestamp generated_at = 6; */
+            writer.tag(5, WireType.LengthDelimited).string(message.keyId);
+        /* string message = 6; */
+        if (message.message !== "")
+            writer.tag(6, WireType.LengthDelimited).string(message.message);
+        /* google.protobuf.Timestamp generated_at = 7; */
         if (message.generatedAt)
-            Timestamp.internalBinaryWrite(message.generatedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.generatedAt, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

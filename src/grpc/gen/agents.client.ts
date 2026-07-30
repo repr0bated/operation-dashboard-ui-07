@@ -77,8 +77,6 @@ import type { StartSessionResponse } from "./agents";
 import type { StartSessionRequest } from "./agents";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
-// ============ Services ============
-
 /**
  * Main agent service - unified interface for all agents
  *
@@ -122,8 +120,6 @@ export interface IAgentServiceClient {
      */
     session(options?: RpcOptions): DuplexStreamingCall<SessionMessage, SessionMessage>;
 }
-// ============ Services ============
-
 /**
  * Main agent service - unified interface for all agents
  *

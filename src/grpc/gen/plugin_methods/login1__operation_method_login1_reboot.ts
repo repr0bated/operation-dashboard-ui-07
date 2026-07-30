@@ -26,6 +26,10 @@ export interface RebootInput {
  * @generated from protobuf message operation.method.login1.reboot.RebootOutput
  */
 export interface RebootOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RebootInput$Type extends MessageType<RebootInput> {
@@ -77,10 +81,13 @@ export const RebootInput = new RebootInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RebootOutput$Type extends MessageType<RebootOutput> {
     constructor() {
-        super("operation.method.login1.reboot.RebootOutput", []);
+        super("operation.method.login1.reboot.RebootOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RebootOutput>): RebootOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RebootOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class RebootOutput$Type extends MessageType<RebootOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class RebootOutput$Type extends MessageType<RebootOutput> {
         return message;
     }
     internalBinaryWrite(message: RebootOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

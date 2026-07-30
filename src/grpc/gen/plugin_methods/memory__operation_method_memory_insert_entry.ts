@@ -35,6 +35,10 @@ export interface InsertEntryOutput {
      * @generated from protobuf field: int64 new_entry_count = 1
      */
     newEntryCount: string;
+    /**
+     * @generated from protobuf field: bool success = 2
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class InsertEntryInput$Type extends MessageType<InsertEntryInput> {
@@ -94,12 +98,14 @@ export const InsertEntryInput = new InsertEntryInput$Type();
 class InsertEntryOutput$Type extends MessageType<InsertEntryOutput> {
     constructor() {
         super("operation.method.memory.insert_entry.InsertEntryOutput", [
-            { no: 1, name: "new_entry_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "new_entry_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 2, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<InsertEntryOutput>): InsertEntryOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.newEntryCount = "0";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<InsertEntryOutput>(this, message, value);
         return message;
@@ -111,6 +117,9 @@ class InsertEntryOutput$Type extends MessageType<InsertEntryOutput> {
             switch (fieldNo) {
                 case /* int64 new_entry_count */ 1:
                     message.newEntryCount = reader.int64().toString();
+                    break;
+                case /* bool success */ 2:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -127,6 +136,9 @@ class InsertEntryOutput$Type extends MessageType<InsertEntryOutput> {
         /* int64 new_entry_count = 1; */
         if (message.newEntryCount !== "0")
             writer.tag(1, WireType.Varint).int64(message.newEntryCount);
+        /* bool success = 2; */
+        if (message.success !== false)
+            writer.tag(2, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

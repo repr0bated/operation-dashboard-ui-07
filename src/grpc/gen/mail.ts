@@ -57,11 +57,19 @@ export interface SendEmailRequest {
  */
 export interface SendEmailResponse {
     /**
-     * @generated from protobuf field: string message_id = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string message = 2
+     */
+    message: string;
+    /**
+     * @generated from protobuf field: string message_id = 3
      */
     messageId: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp sent_at = 2
+     * @generated from protobuf field: google.protobuf.Timestamp sent_at = 4
      */
     sentAt?: Timestamp;
 }
@@ -86,9 +94,9 @@ export interface GetInboxRequest {
      */
     offset: number;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailFolder folder = 5
+     * @generated from protobuf field: string folder = 5
      */
-    folder: MailFolder;
+    folder: string; // "inbox", "sent", "drafts", "trash"
 }
 /**
  * @generated from protobuf message operation.mail.v1.GetInboxResponse
@@ -107,9 +115,9 @@ export interface GetInboxResponse {
      */
     unreadCount: number;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailFolder folder = 4
+     * @generated from protobuf field: string folder = 4
      */
-    folder: MailFolder;
+    folder: string;
 }
 /**
  * @generated from protobuf message operation.mail.v1.EmailMessage
@@ -152,9 +160,9 @@ export interface EmailMessage {
      */
     sizeBytes: number;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailFolder folder = 10
+     * @generated from protobuf field: string folder = 10
      */
-    folder: MailFolder;
+    folder: string;
 }
 /**
  * @generated from protobuf message operation.mail.v1.GetMessageRequest
@@ -178,23 +186,27 @@ export interface GetMessageRequest {
  */
 export interface GetMessageResponse {
     /**
-     * @generated from protobuf field: operation.mail.v1.EmailMessage header = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: operation.mail.v1.EmailMessage header = 2
      */
     header?: EmailMessage;
     /**
-     * @generated from protobuf field: string body = 2
+     * @generated from protobuf field: string body = 3
      */
     body: string;
     /**
-     * @generated from protobuf field: bool is_html = 3
+     * @generated from protobuf field: bool is_html = 4
      */
     isHtml: boolean;
     /**
-     * @generated from protobuf field: repeated operation.mail.v1.EmailAttachment attachments = 4
+     * @generated from protobuf field: repeated operation.mail.v1.EmailAttachment attachments = 5
      */
     attachments: EmailAttachment[];
     /**
-     * @generated from protobuf field: string raw_content = 5
+     * @generated from protobuf field: string raw_content = 6
      */
     rawContent: string;
 }
@@ -241,21 +253,21 @@ export interface GetMailStatusResponse {
      */
     isRunning: boolean;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailServerType mail_server_type = 3
+     * @generated from protobuf field: string mail_server_type = 3
      */
-    mailServerType: MailServerType;
+    mailServerType: string; // "maddy", "postfix", etc
     /**
      * @generated from protobuf field: string webmail_url = 4
      */
     webmailUrl: string;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailServiceStatus smtp_status = 5
+     * @generated from protobuf field: string smtp_status = 5
      */
-    smtpStatus: MailServiceStatus;
+    smtpStatus: string;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailServiceStatus imap_status = 6
+     * @generated from protobuf field: string imap_status = 6
      */
-    imapStatus: MailServiceStatus;
+    imapStatus: string;
     /**
      * @generated from protobuf field: uint32 total_accounts = 7
      */
@@ -268,6 +280,10 @@ export interface GetMailStatusResponse {
      * @generated from protobuf field: google.protobuf.Timestamp last_checked = 9
      */
     lastChecked?: Timestamp;
+    /**
+     * @generated from protobuf field: string message = 10
+     */
+    message: string;
 }
 /**
  * @generated from protobuf message operation.mail.v1.ListMailAccountsRequest
@@ -337,9 +353,9 @@ export interface MailAccount {
  */
 export interface AdminMailActionRequest {
     /**
-     * @generated from protobuf field: operation.mail.v1.AdminMailAction action = 1
+     * @generated from protobuf field: string action = 1
      */
-    action: AdminMailAction;
+    action: string; // "send_test", "restart_server", "create_account", "suspend_account", "get_logs"
     /**
      * @generated from protobuf field: string email = 2
      */
@@ -358,15 +374,23 @@ export interface AdminMailActionRequest {
  */
 export interface AdminMailActionResponse {
     /**
-     * @generated from protobuf field: string action_id = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string message = 2
+     */
+    message: string;
+    /**
+     * @generated from protobuf field: string action_id = 3
      */
     actionId: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp timestamp = 2
+     * @generated from protobuf field: google.protobuf.Timestamp timestamp = 4
      */
     timestamp?: Timestamp;
     /**
-     * @generated from protobuf field: optional google.protobuf.Struct result = 3
+     * @generated from protobuf field: optional google.protobuf.Struct result = 5
      */
     result?: Struct;
 }
@@ -400,19 +424,35 @@ export interface CheckMailServerResponse {
      */
     allHealthy: boolean;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailServiceStatus smtp_status = 2
+     * @generated from protobuf field: bool smtp_healthy = 2
      */
-    smtpStatus: MailServiceStatus;
+    smtpHealthy: boolean;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailServiceStatus imap_status = 3
+     * @generated from protobuf field: bool imap_healthy = 3
      */
-    imapStatus: MailServiceStatus;
+    imapHealthy: boolean;
     /**
-     * @generated from protobuf field: operation.mail.v1.MailServiceStatus webmail_status = 4
+     * @generated from protobuf field: bool webmail_healthy = 4
      */
-    webmailStatus: MailServiceStatus;
+    webmailHealthy: boolean;
     /**
-     * @generated from protobuf field: repeated string issues = 5
+     * @generated from protobuf field: string smtp_status = 5
+     */
+    smtpStatus: string;
+    /**
+     * @generated from protobuf field: string imap_status = 6
+     */
+    imapStatus: string;
+    /**
+     * @generated from protobuf field: string webmail_status = 7
+     */
+    webmailStatus: string;
+    /**
+     * @generated from protobuf field: string message = 8
+     */
+    message: string;
+    /**
+     * @generated from protobuf field: repeated string issues = 9
      */
     issues: string[];
 }
@@ -436,108 +476,6 @@ export interface MailError {
      * @generated from protobuf field: optional google.protobuf.Struct details = 3
      */
     details?: Struct;
-}
-// ============ Enums ============
-
-/**
- * @generated from protobuf enum operation.mail.v1.MailFolder
- */
-export enum MailFolder {
-    /**
-     * @generated from protobuf enum value: MAIL_FOLDER_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: MAIL_FOLDER_INBOX = 1;
-     */
-    INBOX = 1,
-    /**
-     * @generated from protobuf enum value: MAIL_FOLDER_SENT = 2;
-     */
-    SENT = 2,
-    /**
-     * @generated from protobuf enum value: MAIL_FOLDER_DRAFTS = 3;
-     */
-    DRAFTS = 3,
-    /**
-     * @generated from protobuf enum value: MAIL_FOLDER_TRASH = 4;
-     */
-    TRASH = 4
-}
-/**
- * @generated from protobuf enum operation.mail.v1.MailServerType
- */
-export enum MailServerType {
-    /**
-     * @generated from protobuf enum value: MAIL_SERVER_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: MAIL_SERVER_TYPE_MADDY = 1;
-     */
-    MADDY = 1,
-    /**
-     * @generated from protobuf enum value: MAIL_SERVER_TYPE_POSTFIX = 2;
-     */
-    POSTFIX = 2,
-    /**
-     * @generated from protobuf enum value: MAIL_SERVER_TYPE_SENDMAIL = 3;
-     */
-    SENDMAIL = 3,
-    /**
-     * @generated from protobuf enum value: MAIL_SERVER_TYPE_EXIM = 4;
-     */
-    EXIM = 4
-}
-/**
- * @generated from protobuf enum operation.mail.v1.MailServiceStatus
- */
-export enum MailServiceStatus {
-    /**
-     * @generated from protobuf enum value: MAIL_SERVICE_STATUS_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: MAIL_SERVICE_STATUS_HEALTHY = 1;
-     */
-    HEALTHY = 1,
-    /**
-     * @generated from protobuf enum value: MAIL_SERVICE_STATUS_DEGRADED = 2;
-     */
-    DEGRADED = 2,
-    /**
-     * @generated from protobuf enum value: MAIL_SERVICE_STATUS_UNHEALTHY = 3;
-     */
-    UNHEALTHY = 3
-}
-/**
- * @generated from protobuf enum operation.mail.v1.AdminMailAction
- */
-export enum AdminMailAction {
-    /**
-     * @generated from protobuf enum value: ADMIN_MAIL_ACTION_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: ADMIN_MAIL_ACTION_SEND_TEST = 1;
-     */
-    SEND_TEST = 1,
-    /**
-     * @generated from protobuf enum value: ADMIN_MAIL_ACTION_RESTART_SERVER = 2;
-     */
-    RESTART_SERVER = 2,
-    /**
-     * @generated from protobuf enum value: ADMIN_MAIL_ACTION_CREATE_ACCOUNT = 3;
-     */
-    CREATE_ACCOUNT = 3,
-    /**
-     * @generated from protobuf enum value: ADMIN_MAIL_ACTION_SUSPEND_ACCOUNT = 4;
-     */
-    SUSPEND_ACCOUNT = 4,
-    /**
-     * @generated from protobuf enum value: ADMIN_MAIL_ACTION_GET_LOGS = 5;
-     */
-    GET_LOGS = 5
 }
 /**
  * @generated from protobuf enum operation.mail.v1.MailErrorCode
@@ -670,12 +608,16 @@ export const SendEmailRequest = new SendEmailRequest$Type();
 class SendEmailResponse$Type extends MessageType<SendEmailResponse> {
     constructor() {
         super("operation.mail.v1.SendEmailResponse", [
-            { no: 1, name: "message_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "sent_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "message_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "sent_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<SendEmailResponse>): SendEmailResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.message = "";
         message.messageId = "";
         if (value !== undefined)
             reflectionMergePartial<SendEmailResponse>(this, message, value);
@@ -686,10 +628,16 @@ class SendEmailResponse$Type extends MessageType<SendEmailResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string message_id */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
+                    message.message = reader.string();
+                    break;
+                case /* string message_id */ 3:
                     message.messageId = reader.string();
                     break;
-                case /* google.protobuf.Timestamp sent_at */ 2:
+                case /* google.protobuf.Timestamp sent_at */ 4:
                     message.sentAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.sentAt);
                     break;
                 default:
@@ -704,12 +652,18 @@ class SendEmailResponse$Type extends MessageType<SendEmailResponse> {
         return message;
     }
     internalBinaryWrite(message: SendEmailResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string message_id = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
+        if (message.message !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* string message_id = 3; */
         if (message.messageId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.messageId);
-        /* google.protobuf.Timestamp sent_at = 2; */
+            writer.tag(3, WireType.LengthDelimited).string(message.messageId);
+        /* google.protobuf.Timestamp sent_at = 4; */
         if (message.sentAt)
-            Timestamp.internalBinaryWrite(message.sentAt, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.sentAt, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -728,7 +682,7 @@ class GetInboxRequest$Type extends MessageType<GetInboxRequest> {
             { no: 2, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "limit", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 4, name: "offset", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 5, name: "folder", kind: "enum", T: () => ["operation.mail.v1.MailFolder", MailFolder, "MAIL_FOLDER_"] }
+            { no: 5, name: "folder", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetInboxRequest>): GetInboxRequest {
@@ -737,7 +691,7 @@ class GetInboxRequest$Type extends MessageType<GetInboxRequest> {
         message.domain = "";
         message.limit = 0;
         message.offset = 0;
-        message.folder = 0;
+        message.folder = "";
         if (value !== undefined)
             reflectionMergePartial<GetInboxRequest>(this, message, value);
         return message;
@@ -759,8 +713,8 @@ class GetInboxRequest$Type extends MessageType<GetInboxRequest> {
                 case /* uint32 offset */ 4:
                     message.offset = reader.uint32();
                     break;
-                case /* operation.mail.v1.MailFolder folder */ 5:
-                    message.folder = reader.int32();
+                case /* string folder */ 5:
+                    message.folder = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -786,9 +740,9 @@ class GetInboxRequest$Type extends MessageType<GetInboxRequest> {
         /* uint32 offset = 4; */
         if (message.offset !== 0)
             writer.tag(4, WireType.Varint).uint32(message.offset);
-        /* operation.mail.v1.MailFolder folder = 5; */
-        if (message.folder !== 0)
-            writer.tag(5, WireType.Varint).int32(message.folder);
+        /* string folder = 5; */
+        if (message.folder !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.folder);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -806,7 +760,7 @@ class GetInboxResponse$Type extends MessageType<GetInboxResponse> {
             { no: 1, name: "messages", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => EmailMessage },
             { no: 2, name: "total_count", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 3, name: "unread_count", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 4, name: "folder", kind: "enum", T: () => ["operation.mail.v1.MailFolder", MailFolder, "MAIL_FOLDER_"] }
+            { no: 4, name: "folder", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetInboxResponse>): GetInboxResponse {
@@ -814,7 +768,7 @@ class GetInboxResponse$Type extends MessageType<GetInboxResponse> {
         message.messages = [];
         message.totalCount = 0;
         message.unreadCount = 0;
-        message.folder = 0;
+        message.folder = "";
         if (value !== undefined)
             reflectionMergePartial<GetInboxResponse>(this, message, value);
         return message;
@@ -833,8 +787,8 @@ class GetInboxResponse$Type extends MessageType<GetInboxResponse> {
                 case /* uint32 unread_count */ 3:
                     message.unreadCount = reader.uint32();
                     break;
-                case /* operation.mail.v1.MailFolder folder */ 4:
-                    message.folder = reader.int32();
+                case /* string folder */ 4:
+                    message.folder = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -857,9 +811,9 @@ class GetInboxResponse$Type extends MessageType<GetInboxResponse> {
         /* uint32 unread_count = 3; */
         if (message.unreadCount !== 0)
             writer.tag(3, WireType.Varint).uint32(message.unreadCount);
-        /* operation.mail.v1.MailFolder folder = 4; */
-        if (message.folder !== 0)
-            writer.tag(4, WireType.Varint).int32(message.folder);
+        /* string folder = 4; */
+        if (message.folder !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.folder);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -883,7 +837,7 @@ class EmailMessage$Type extends MessageType<EmailMessage> {
             { no: 7, name: "has_attachments", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 8, name: "received_at", kind: "message", T: () => Timestamp },
             { no: 9, name: "size_bytes", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 10, name: "folder", kind: "enum", T: () => ["operation.mail.v1.MailFolder", MailFolder, "MAIL_FOLDER_"] }
+            { no: 10, name: "folder", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<EmailMessage>): EmailMessage {
@@ -896,7 +850,7 @@ class EmailMessage$Type extends MessageType<EmailMessage> {
         message.isRead = false;
         message.hasAttachments = false;
         message.sizeBytes = 0;
-        message.folder = 0;
+        message.folder = "";
         if (value !== undefined)
             reflectionMergePartial<EmailMessage>(this, message, value);
         return message;
@@ -933,8 +887,8 @@ class EmailMessage$Type extends MessageType<EmailMessage> {
                 case /* int32 size_bytes */ 9:
                     message.sizeBytes = reader.int32();
                     break;
-                case /* operation.mail.v1.MailFolder folder */ 10:
-                    message.folder = reader.int32();
+                case /* string folder */ 10:
+                    message.folder = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -975,9 +929,9 @@ class EmailMessage$Type extends MessageType<EmailMessage> {
         /* int32 size_bytes = 9; */
         if (message.sizeBytes !== 0)
             writer.tag(9, WireType.Varint).int32(message.sizeBytes);
-        /* operation.mail.v1.MailFolder folder = 10; */
-        if (message.folder !== 0)
-            writer.tag(10, WireType.Varint).int32(message.folder);
+        /* string folder = 10; */
+        if (message.folder !== "")
+            writer.tag(10, WireType.LengthDelimited).string(message.folder);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1055,15 +1009,17 @@ export const GetMessageRequest = new GetMessageRequest$Type();
 class GetMessageResponse$Type extends MessageType<GetMessageResponse> {
     constructor() {
         super("operation.mail.v1.GetMessageResponse", [
-            { no: 1, name: "header", kind: "message", T: () => EmailMessage },
-            { no: 2, name: "body", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "is_html", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "attachments", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => EmailAttachment },
-            { no: 5, name: "raw_content", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "header", kind: "message", T: () => EmailMessage },
+            { no: 3, name: "body", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "is_html", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 5, name: "attachments", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => EmailAttachment },
+            { no: 6, name: "raw_content", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetMessageResponse>): GetMessageResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.body = "";
         message.isHtml = false;
         message.attachments = [];
@@ -1077,19 +1033,22 @@ class GetMessageResponse$Type extends MessageType<GetMessageResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* operation.mail.v1.EmailMessage header */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* operation.mail.v1.EmailMessage header */ 2:
                     message.header = EmailMessage.internalBinaryRead(reader, reader.uint32(), options, message.header);
                     break;
-                case /* string body */ 2:
+                case /* string body */ 3:
                     message.body = reader.string();
                     break;
-                case /* bool is_html */ 3:
+                case /* bool is_html */ 4:
                     message.isHtml = reader.bool();
                     break;
-                case /* repeated operation.mail.v1.EmailAttachment attachments */ 4:
+                case /* repeated operation.mail.v1.EmailAttachment attachments */ 5:
                     message.attachments.push(EmailAttachment.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* string raw_content */ 5:
+                case /* string raw_content */ 6:
                     message.rawContent = reader.string();
                     break;
                 default:
@@ -1104,21 +1063,24 @@ class GetMessageResponse$Type extends MessageType<GetMessageResponse> {
         return message;
     }
     internalBinaryWrite(message: GetMessageResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* operation.mail.v1.EmailMessage header = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* operation.mail.v1.EmailMessage header = 2; */
         if (message.header)
-            EmailMessage.internalBinaryWrite(message.header, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string body = 2; */
+            EmailMessage.internalBinaryWrite(message.header, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* string body = 3; */
         if (message.body !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.body);
-        /* bool is_html = 3; */
+            writer.tag(3, WireType.LengthDelimited).string(message.body);
+        /* bool is_html = 4; */
         if (message.isHtml !== false)
-            writer.tag(3, WireType.Varint).bool(message.isHtml);
-        /* repeated operation.mail.v1.EmailAttachment attachments = 4; */
+            writer.tag(4, WireType.Varint).bool(message.isHtml);
+        /* repeated operation.mail.v1.EmailAttachment attachments = 5; */
         for (let i = 0; i < message.attachments.length; i++)
-            EmailAttachment.internalBinaryWrite(message.attachments[i], writer.tag(4, WireType.LengthDelimited).fork(), options).join();
-        /* string raw_content = 5; */
+            EmailAttachment.internalBinaryWrite(message.attachments[i], writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* string raw_content = 6; */
         if (message.rawContent !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.rawContent);
+            writer.tag(6, WireType.LengthDelimited).string(message.rawContent);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1253,25 +1215,27 @@ class GetMailStatusResponse$Type extends MessageType<GetMailStatusResponse> {
         super("operation.mail.v1.GetMailStatusResponse", [
             { no: 1, name: "is_configured", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 2, name: "is_running", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "mail_server_type", kind: "enum", T: () => ["operation.mail.v1.MailServerType", MailServerType, "MAIL_SERVER_TYPE_"] },
+            { no: 3, name: "mail_server_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "webmail_url", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "smtp_status", kind: "enum", T: () => ["operation.mail.v1.MailServiceStatus", MailServiceStatus, "MAIL_SERVICE_STATUS_"] },
-            { no: 6, name: "imap_status", kind: "enum", T: () => ["operation.mail.v1.MailServiceStatus", MailServiceStatus, "MAIL_SERVICE_STATUS_"] },
+            { no: 5, name: "smtp_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "imap_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 7, name: "total_accounts", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 8, name: "total_messages", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 9, name: "last_checked", kind: "message", T: () => Timestamp }
+            { no: 9, name: "last_checked", kind: "message", T: () => Timestamp },
+            { no: 10, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetMailStatusResponse>): GetMailStatusResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.isConfigured = false;
         message.isRunning = false;
-        message.mailServerType = 0;
+        message.mailServerType = "";
         message.webmailUrl = "";
-        message.smtpStatus = 0;
-        message.imapStatus = 0;
+        message.smtpStatus = "";
+        message.imapStatus = "";
         message.totalAccounts = 0;
         message.totalMessages = 0;
+        message.message = "";
         if (value !== undefined)
             reflectionMergePartial<GetMailStatusResponse>(this, message, value);
         return message;
@@ -1287,17 +1251,17 @@ class GetMailStatusResponse$Type extends MessageType<GetMailStatusResponse> {
                 case /* bool is_running */ 2:
                     message.isRunning = reader.bool();
                     break;
-                case /* operation.mail.v1.MailServerType mail_server_type */ 3:
-                    message.mailServerType = reader.int32();
+                case /* string mail_server_type */ 3:
+                    message.mailServerType = reader.string();
                     break;
                 case /* string webmail_url */ 4:
                     message.webmailUrl = reader.string();
                     break;
-                case /* operation.mail.v1.MailServiceStatus smtp_status */ 5:
-                    message.smtpStatus = reader.int32();
+                case /* string smtp_status */ 5:
+                    message.smtpStatus = reader.string();
                     break;
-                case /* operation.mail.v1.MailServiceStatus imap_status */ 6:
-                    message.imapStatus = reader.int32();
+                case /* string imap_status */ 6:
+                    message.imapStatus = reader.string();
                     break;
                 case /* uint32 total_accounts */ 7:
                     message.totalAccounts = reader.uint32();
@@ -1307,6 +1271,9 @@ class GetMailStatusResponse$Type extends MessageType<GetMailStatusResponse> {
                     break;
                 case /* google.protobuf.Timestamp last_checked */ 9:
                     message.lastChecked = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.lastChecked);
+                    break;
+                case /* string message */ 10:
+                    message.message = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1326,18 +1293,18 @@ class GetMailStatusResponse$Type extends MessageType<GetMailStatusResponse> {
         /* bool is_running = 2; */
         if (message.isRunning !== false)
             writer.tag(2, WireType.Varint).bool(message.isRunning);
-        /* operation.mail.v1.MailServerType mail_server_type = 3; */
-        if (message.mailServerType !== 0)
-            writer.tag(3, WireType.Varint).int32(message.mailServerType);
+        /* string mail_server_type = 3; */
+        if (message.mailServerType !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.mailServerType);
         /* string webmail_url = 4; */
         if (message.webmailUrl !== "")
             writer.tag(4, WireType.LengthDelimited).string(message.webmailUrl);
-        /* operation.mail.v1.MailServiceStatus smtp_status = 5; */
-        if (message.smtpStatus !== 0)
-            writer.tag(5, WireType.Varint).int32(message.smtpStatus);
-        /* operation.mail.v1.MailServiceStatus imap_status = 6; */
-        if (message.imapStatus !== 0)
-            writer.tag(6, WireType.Varint).int32(message.imapStatus);
+        /* string smtp_status = 5; */
+        if (message.smtpStatus !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.smtpStatus);
+        /* string imap_status = 6; */
+        if (message.imapStatus !== "")
+            writer.tag(6, WireType.LengthDelimited).string(message.imapStatus);
         /* uint32 total_accounts = 7; */
         if (message.totalAccounts !== 0)
             writer.tag(7, WireType.Varint).uint32(message.totalAccounts);
@@ -1347,6 +1314,9 @@ class GetMailStatusResponse$Type extends MessageType<GetMailStatusResponse> {
         /* google.protobuf.Timestamp last_checked = 9; */
         if (message.lastChecked)
             Timestamp.internalBinaryWrite(message.lastChecked, writer.tag(9, WireType.LengthDelimited).fork(), options).join();
+        /* string message = 10; */
+        if (message.message !== "")
+            writer.tag(10, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1573,7 +1543,7 @@ export const MailAccount = new MailAccount$Type();
 class AdminMailActionRequest$Type extends MessageType<AdminMailActionRequest> {
     constructor() {
         super("operation.mail.v1.AdminMailActionRequest", [
-            { no: 1, name: "action", kind: "enum", T: () => ["operation.mail.v1.AdminMailAction", AdminMailAction, "ADMIN_MAIL_ACTION_"] },
+            { no: 1, name: "action", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "email", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "parameters", kind: "message", T: () => Struct }
@@ -1581,7 +1551,7 @@ class AdminMailActionRequest$Type extends MessageType<AdminMailActionRequest> {
     }
     create(value?: PartialMessage<AdminMailActionRequest>): AdminMailActionRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.action = 0;
+        message.action = "";
         message.email = "";
         message.domain = "";
         if (value !== undefined)
@@ -1593,8 +1563,8 @@ class AdminMailActionRequest$Type extends MessageType<AdminMailActionRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* operation.mail.v1.AdminMailAction action */ 1:
-                    message.action = reader.int32();
+                case /* string action */ 1:
+                    message.action = reader.string();
                     break;
                 case /* string email */ 2:
                     message.email = reader.string();
@@ -1617,9 +1587,9 @@ class AdminMailActionRequest$Type extends MessageType<AdminMailActionRequest> {
         return message;
     }
     internalBinaryWrite(message: AdminMailActionRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* operation.mail.v1.AdminMailAction action = 1; */
-        if (message.action !== 0)
-            writer.tag(1, WireType.Varint).int32(message.action);
+        /* string action = 1; */
+        if (message.action !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.action);
         /* string email = 2; */
         if (message.email !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.email);
@@ -1643,13 +1613,17 @@ export const AdminMailActionRequest = new AdminMailActionRequest$Type();
 class AdminMailActionResponse$Type extends MessageType<AdminMailActionResponse> {
     constructor() {
         super("operation.mail.v1.AdminMailActionResponse", [
-            { no: 1, name: "action_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "timestamp", kind: "message", T: () => Timestamp },
-            { no: 3, name: "result", kind: "message", T: () => Struct }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "action_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "timestamp", kind: "message", T: () => Timestamp },
+            { no: 5, name: "result", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<AdminMailActionResponse>): AdminMailActionResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.message = "";
         message.actionId = "";
         if (value !== undefined)
             reflectionMergePartial<AdminMailActionResponse>(this, message, value);
@@ -1660,13 +1634,19 @@ class AdminMailActionResponse$Type extends MessageType<AdminMailActionResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string action_id */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
+                    message.message = reader.string();
+                    break;
+                case /* string action_id */ 3:
                     message.actionId = reader.string();
                     break;
-                case /* google.protobuf.Timestamp timestamp */ 2:
+                case /* google.protobuf.Timestamp timestamp */ 4:
                     message.timestamp = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.timestamp);
                     break;
-                case /* optional google.protobuf.Struct result */ 3:
+                case /* optional google.protobuf.Struct result */ 5:
                     message.result = Struct.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
                 default:
@@ -1681,15 +1661,21 @@ class AdminMailActionResponse$Type extends MessageType<AdminMailActionResponse> 
         return message;
     }
     internalBinaryWrite(message: AdminMailActionResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string action_id = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
+        if (message.message !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* string action_id = 3; */
         if (message.actionId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.actionId);
-        /* google.protobuf.Timestamp timestamp = 2; */
+            writer.tag(3, WireType.LengthDelimited).string(message.actionId);
+        /* google.protobuf.Timestamp timestamp = 4; */
         if (message.timestamp)
-            Timestamp.internalBinaryWrite(message.timestamp, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* optional google.protobuf.Struct result = 3; */
+            Timestamp.internalBinaryWrite(message.timestamp, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
+        /* optional google.protobuf.Struct result = 5; */
         if (message.result)
-            Struct.internalBinaryWrite(message.result, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Struct.internalBinaryWrite(message.result, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1776,18 +1762,26 @@ class CheckMailServerResponse$Type extends MessageType<CheckMailServerResponse> 
     constructor() {
         super("operation.mail.v1.CheckMailServerResponse", [
             { no: 1, name: "all_healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "smtp_status", kind: "enum", T: () => ["operation.mail.v1.MailServiceStatus", MailServiceStatus, "MAIL_SERVICE_STATUS_"] },
-            { no: 3, name: "imap_status", kind: "enum", T: () => ["operation.mail.v1.MailServiceStatus", MailServiceStatus, "MAIL_SERVICE_STATUS_"] },
-            { no: 4, name: "webmail_status", kind: "enum", T: () => ["operation.mail.v1.MailServiceStatus", MailServiceStatus, "MAIL_SERVICE_STATUS_"] },
-            { no: 5, name: "issues", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "smtp_healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 3, name: "imap_healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 4, name: "webmail_healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 5, name: "smtp_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "imap_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 7, name: "webmail_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 8, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 9, name: "issues", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CheckMailServerResponse>): CheckMailServerResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.allHealthy = false;
-        message.smtpStatus = 0;
-        message.imapStatus = 0;
-        message.webmailStatus = 0;
+        message.smtpHealthy = false;
+        message.imapHealthy = false;
+        message.webmailHealthy = false;
+        message.smtpStatus = "";
+        message.imapStatus = "";
+        message.webmailStatus = "";
+        message.message = "";
         message.issues = [];
         if (value !== undefined)
             reflectionMergePartial<CheckMailServerResponse>(this, message, value);
@@ -1801,16 +1795,28 @@ class CheckMailServerResponse$Type extends MessageType<CheckMailServerResponse> 
                 case /* bool all_healthy */ 1:
                     message.allHealthy = reader.bool();
                     break;
-                case /* operation.mail.v1.MailServiceStatus smtp_status */ 2:
-                    message.smtpStatus = reader.int32();
+                case /* bool smtp_healthy */ 2:
+                    message.smtpHealthy = reader.bool();
                     break;
-                case /* operation.mail.v1.MailServiceStatus imap_status */ 3:
-                    message.imapStatus = reader.int32();
+                case /* bool imap_healthy */ 3:
+                    message.imapHealthy = reader.bool();
                     break;
-                case /* operation.mail.v1.MailServiceStatus webmail_status */ 4:
-                    message.webmailStatus = reader.int32();
+                case /* bool webmail_healthy */ 4:
+                    message.webmailHealthy = reader.bool();
                     break;
-                case /* repeated string issues */ 5:
+                case /* string smtp_status */ 5:
+                    message.smtpStatus = reader.string();
+                    break;
+                case /* string imap_status */ 6:
+                    message.imapStatus = reader.string();
+                    break;
+                case /* string webmail_status */ 7:
+                    message.webmailStatus = reader.string();
+                    break;
+                case /* string message */ 8:
+                    message.message = reader.string();
+                    break;
+                case /* repeated string issues */ 9:
                     message.issues.push(reader.string());
                     break;
                 default:
@@ -1828,18 +1834,30 @@ class CheckMailServerResponse$Type extends MessageType<CheckMailServerResponse> 
         /* bool all_healthy = 1; */
         if (message.allHealthy !== false)
             writer.tag(1, WireType.Varint).bool(message.allHealthy);
-        /* operation.mail.v1.MailServiceStatus smtp_status = 2; */
-        if (message.smtpStatus !== 0)
-            writer.tag(2, WireType.Varint).int32(message.smtpStatus);
-        /* operation.mail.v1.MailServiceStatus imap_status = 3; */
-        if (message.imapStatus !== 0)
-            writer.tag(3, WireType.Varint).int32(message.imapStatus);
-        /* operation.mail.v1.MailServiceStatus webmail_status = 4; */
-        if (message.webmailStatus !== 0)
-            writer.tag(4, WireType.Varint).int32(message.webmailStatus);
-        /* repeated string issues = 5; */
+        /* bool smtp_healthy = 2; */
+        if (message.smtpHealthy !== false)
+            writer.tag(2, WireType.Varint).bool(message.smtpHealthy);
+        /* bool imap_healthy = 3; */
+        if (message.imapHealthy !== false)
+            writer.tag(3, WireType.Varint).bool(message.imapHealthy);
+        /* bool webmail_healthy = 4; */
+        if (message.webmailHealthy !== false)
+            writer.tag(4, WireType.Varint).bool(message.webmailHealthy);
+        /* string smtp_status = 5; */
+        if (message.smtpStatus !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.smtpStatus);
+        /* string imap_status = 6; */
+        if (message.imapStatus !== "")
+            writer.tag(6, WireType.LengthDelimited).string(message.imapStatus);
+        /* string webmail_status = 7; */
+        if (message.webmailStatus !== "")
+            writer.tag(7, WireType.LengthDelimited).string(message.webmailStatus);
+        /* string message = 8; */
+        if (message.message !== "")
+            writer.tag(8, WireType.LengthDelimited).string(message.message);
+        /* repeated string issues = 9; */
         for (let i = 0; i < message.issues.length; i++)
-            writer.tag(5, WireType.LengthDelimited).string(message.issues[i]);
+            writer.tag(9, WireType.LengthDelimited).string(message.issues[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

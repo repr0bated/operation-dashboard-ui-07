@@ -13,8 +13,8 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
-import { Timestamp } from "./google/protobuf/timestamp";
 import { Struct } from "./google/protobuf/struct";
+import { Timestamp } from "./google/protobuf/timestamp";
 // =============================================================================
 // REGISTRATION
 // =============================================================================
@@ -51,12 +51,12 @@ export interface RegisterRequest {
      */
     description: string;
     /**
-     * Schema (draft-07 compatible) describing the input accepted by this
+     * JSON Schema (draft-07 compatible) describing the input accepted by this
      * component's primary operation. Used to auto-generate MCP tool schemas.
      *
-     * @generated from protobuf field: google.protobuf.Struct schema = 5
+     * @generated from protobuf field: string schema_json = 5
      */
-    schema?: Struct;
+    schemaJson: string;
     /**
      * Arbitrary metadata for component-specific needs.
      *
@@ -98,11 +98,21 @@ export interface RegisterRequest {
  */
 export interface RegisterResponse {
     /**
-     * @generated from protobuf field: string lease_token = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string message = 2
+     */
+    message: string;
+    /**
+     * Server-assigned lease token — must be presented in Heartbeat and Deregister.
+     *
+     * @generated from protobuf field: string lease_token = 3
      */
     leaseToken: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp registered_at = 2
+     * @generated from protobuf field: google.protobuf.Timestamp registered_at = 4
      */
     registeredAt?: Timestamp;
 }
@@ -127,6 +137,14 @@ export interface DeregisterRequest {
  * @generated from protobuf message operation.registry.v1.DeregisterResponse
  */
 export interface DeregisterResponse {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string message = 2
+     */
+    message: string;
 }
 // =============================================================================
 // DISCOVERY
@@ -438,7 +456,7 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
             { no: 2, name: "component_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "schema", kind: "message", T: () => Struct },
+            { no: 5, name: "schema_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 6, name: "metadata", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } },
             { no: 7, name: "capabilities", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
             { no: 8, name: "endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
@@ -452,6 +470,7 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
         message.componentType = "";
         message.name = "";
         message.description = "";
+        message.schemaJson = "";
         message.metadata = {};
         message.capabilities = [];
         message.endpoint = "";
@@ -478,8 +497,8 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
                 case /* string description */ 4:
                     message.description = reader.string();
                     break;
-                case /* google.protobuf.Struct schema */ 5:
-                    message.schema = Struct.internalBinaryRead(reader, reader.uint32(), options, message.schema);
+                case /* string schema_json */ 5:
+                    message.schemaJson = reader.string();
                     break;
                 case /* map<string, string> metadata */ 6:
                     this.binaryReadMap6(message.metadata, reader, options);
@@ -536,9 +555,9 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
         /* string description = 4; */
         if (message.description !== "")
             writer.tag(4, WireType.LengthDelimited).string(message.description);
-        /* google.protobuf.Struct schema = 5; */
-        if (message.schema)
-            Struct.internalBinaryWrite(message.schema, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* string schema_json = 5; */
+        if (message.schemaJson !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.schemaJson);
         /* map<string, string> metadata = 6; */
         for (let k of globalThis.Object.keys(message.metadata))
             writer.tag(6, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.metadata[k]).join();
@@ -568,12 +587,16 @@ export const RegisterRequest = new RegisterRequest$Type();
 class RegisterResponse$Type extends MessageType<RegisterResponse> {
     constructor() {
         super("operation.registry.v1.RegisterResponse", [
-            { no: 1, name: "lease_token", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "registered_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "lease_token", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "registered_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<RegisterResponse>): RegisterResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.message = "";
         message.leaseToken = "";
         if (value !== undefined)
             reflectionMergePartial<RegisterResponse>(this, message, value);
@@ -584,10 +607,16 @@ class RegisterResponse$Type extends MessageType<RegisterResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string lease_token */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
+                    message.message = reader.string();
+                    break;
+                case /* string lease_token */ 3:
                     message.leaseToken = reader.string();
                     break;
-                case /* google.protobuf.Timestamp registered_at */ 2:
+                case /* google.protobuf.Timestamp registered_at */ 4:
                     message.registeredAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.registeredAt);
                     break;
                 default:
@@ -602,12 +631,18 @@ class RegisterResponse$Type extends MessageType<RegisterResponse> {
         return message;
     }
     internalBinaryWrite(message: RegisterResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string lease_token = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
+        if (message.message !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* string lease_token = 3; */
         if (message.leaseToken !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.leaseToken);
-        /* google.protobuf.Timestamp registered_at = 2; */
+            writer.tag(3, WireType.LengthDelimited).string(message.leaseToken);
+        /* google.protobuf.Timestamp registered_at = 4; */
         if (message.registeredAt)
-            Timestamp.internalBinaryWrite(message.registeredAt, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.registeredAt, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -676,10 +711,15 @@ export const DeregisterRequest = new DeregisterRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeregisterResponse$Type extends MessageType<DeregisterResponse> {
     constructor() {
-        super("operation.registry.v1.DeregisterResponse", []);
+        super("operation.registry.v1.DeregisterResponse", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<DeregisterResponse>): DeregisterResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
+        message.message = "";
         if (value !== undefined)
             reflectionMergePartial<DeregisterResponse>(this, message, value);
         return message;
@@ -689,6 +729,12 @@ class DeregisterResponse$Type extends MessageType<DeregisterResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string message */ 2:
+                    message.message = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -701,6 +747,12 @@ class DeregisterResponse$Type extends MessageType<DeregisterResponse> {
         return message;
     }
     internalBinaryWrite(message: DeregisterResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string message = 2; */
+        if (message.message !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

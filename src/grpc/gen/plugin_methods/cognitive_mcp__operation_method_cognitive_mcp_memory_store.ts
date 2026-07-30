@@ -28,6 +28,10 @@ export interface MemoryStoreOutput {
      * @generated from protobuf field: string key = 1
      */
     key: string;
+    /**
+     * @generated from protobuf field: bool success = 2
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class MemoryStoreInput$Type extends MessageType<MemoryStoreInput> {
@@ -71,12 +75,14 @@ export const MemoryStoreInput = new MemoryStoreInput$Type();
 class MemoryStoreOutput$Type extends MessageType<MemoryStoreOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.memory_store.MemoryStoreOutput", [
-            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<MemoryStoreOutput>): MemoryStoreOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.key = "";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<MemoryStoreOutput>(this, message, value);
         return message;
@@ -88,6 +94,9 @@ class MemoryStoreOutput$Type extends MessageType<MemoryStoreOutput> {
             switch (fieldNo) {
                 case /* string key */ 1:
                     message.key = reader.string();
+                    break;
+                case /* bool success */ 2:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -104,6 +113,9 @@ class MemoryStoreOutput$Type extends MessageType<MemoryStoreOutput> {
         /* string key = 1; */
         if (message.key !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.key);
+        /* bool success = 2; */
+        if (message.success !== false)
+            writer.tag(2, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

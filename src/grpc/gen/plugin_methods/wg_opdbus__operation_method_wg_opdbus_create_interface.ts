@@ -51,6 +51,10 @@ export interface CreateInterfaceInput {
  * @generated from protobuf message operation.method.wg_opdbus.create_interface.CreateInterfaceOutput
  */
 export interface CreateInterfaceOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateInterfaceInput$Type extends MessageType<CreateInterfaceInput> {
@@ -149,10 +153,13 @@ export const CreateInterfaceInput = new CreateInterfaceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateInterfaceOutput$Type extends MessageType<CreateInterfaceOutput> {
     constructor() {
-        super("operation.method.wg_opdbus.create_interface.CreateInterfaceOutput", []);
+        super("operation.method.wg_opdbus.create_interface.CreateInterfaceOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateInterfaceOutput>): CreateInterfaceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateInterfaceOutput>(this, message, value);
         return message;
@@ -162,6 +169,9 @@ class CreateInterfaceOutput$Type extends MessageType<CreateInterfaceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -174,6 +184,9 @@ class CreateInterfaceOutput$Type extends MessageType<CreateInterfaceOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateInterfaceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -4,6 +4,7 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -23,6 +24,10 @@ export interface SetAutonomyInput {
  * @generated from protobuf message operation.method.factory.set_autonomy.SetAutonomyOutput
  */
 export interface SetAutonomyOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetAutonomyInput$Type extends MessageType<SetAutonomyInput> {
@@ -65,10 +70,13 @@ export const SetAutonomyInput = new SetAutonomyInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetAutonomyOutput$Type extends MessageType<SetAutonomyOutput> {
     constructor() {
-        super("operation.method.factory.set_autonomy.SetAutonomyOutput", []);
+        super("operation.method.factory.set_autonomy.SetAutonomyOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetAutonomyOutput>): SetAutonomyOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetAutonomyOutput>(this, message, value);
         return message;
@@ -78,6 +86,9 @@ class SetAutonomyOutput$Type extends MessageType<SetAutonomyOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -90,6 +101,9 @@ class SetAutonomyOutput$Type extends MessageType<SetAutonomyOutput> {
         return message;
     }
     internalBinaryWrite(message: SetAutonomyOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

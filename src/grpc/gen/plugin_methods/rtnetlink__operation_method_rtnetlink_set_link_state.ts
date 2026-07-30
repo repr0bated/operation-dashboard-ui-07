@@ -30,6 +30,10 @@ export interface SetLinkStateInput {
  * @generated from protobuf message operation.method.rtnetlink.set_link_state.SetLinkStateOutput
  */
 export interface SetLinkStateOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkStateInput$Type extends MessageType<SetLinkStateInput> {
@@ -89,10 +93,13 @@ export const SetLinkStateInput = new SetLinkStateInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkStateOutput$Type extends MessageType<SetLinkStateOutput> {
     constructor() {
-        super("operation.method.rtnetlink.set_link_state.SetLinkStateOutput", []);
+        super("operation.method.rtnetlink.set_link_state.SetLinkStateOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkStateOutput>): SetLinkStateOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkStateOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetLinkStateOutput$Type extends MessageType<SetLinkStateOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetLinkStateOutput$Type extends MessageType<SetLinkStateOutput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkStateOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

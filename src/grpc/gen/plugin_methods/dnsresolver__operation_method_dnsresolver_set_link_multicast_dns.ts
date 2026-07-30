@@ -30,6 +30,10 @@ export interface SetLinkMulticastDnsInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_multicast_dns.SetLinkMulticastDnsOutput
  */
 export interface SetLinkMulticastDnsOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkMulticastDnsInput$Type extends MessageType<SetLinkMulticastDnsInput> {
@@ -89,10 +93,13 @@ export const SetLinkMulticastDnsInput = new SetLinkMulticastDnsInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkMulticastDnsOutput$Type extends MessageType<SetLinkMulticastDnsOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_multicast_dns.SetLinkMulticastDnsOutput", []);
+        super("operation.method.dnsresolver.set_link_multicast_dns.SetLinkMulticastDnsOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkMulticastDnsOutput>): SetLinkMulticastDnsOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkMulticastDnsOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetLinkMulticastDnsOutput$Type extends MessageType<SetLinkMulticastDnsOutp
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetLinkMulticastDnsOutput$Type extends MessageType<SetLinkMulticastDnsOutp
         return message;
     }
     internalBinaryWrite(message: SetLinkMulticastDnsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -51,6 +51,10 @@ export interface CreateNamespaceOutput {
      * @generated from protobuf field: google.protobuf.Value namespace = 3
      */
     namespace?: Value;
+    /**
+     * @generated from protobuf field: bool success = 4
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateNamespaceInput$Type extends MessageType<CreateNamespaceInput> {
@@ -128,13 +132,15 @@ class CreateNamespaceOutput$Type extends MessageType<CreateNamespaceOutput> {
         super("operation.method.memory.create_namespace.CreateNamespaceOutput", [
             { no: 1, name: "actual_max_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
             { no: 2, name: "current_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "namespace", kind: "message", T: () => Value }
+            { no: 3, name: "namespace", kind: "message", T: () => Value },
+            { no: 4, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<CreateNamespaceOutput>): CreateNamespaceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.actualMaxEntries = "0";
         message.currentEntries = "0";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateNamespaceOutput>(this, message, value);
         return message;
@@ -152,6 +158,9 @@ class CreateNamespaceOutput$Type extends MessageType<CreateNamespaceOutput> {
                     break;
                 case /* google.protobuf.Value namespace */ 3:
                     message.namespace = Value.internalBinaryRead(reader, reader.uint32(), options, message.namespace);
+                    break;
+                case /* bool success */ 4:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -174,6 +183,9 @@ class CreateNamespaceOutput$Type extends MessageType<CreateNamespaceOutput> {
         /* google.protobuf.Value namespace = 3; */
         if (message.namespace)
             Value.internalBinaryWrite(message.namespace, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* bool success = 4; */
+        if (message.success !== false)
+            writer.tag(4, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

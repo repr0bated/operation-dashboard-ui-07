@@ -30,6 +30,10 @@ export interface SetLinkDefaultRouteInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_default_route.SetLinkDefaultRouteOutput
  */
 export interface SetLinkDefaultRouteOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDefaultRouteInput$Type extends MessageType<SetLinkDefaultRouteInput> {
@@ -89,10 +93,13 @@ export const SetLinkDefaultRouteInput = new SetLinkDefaultRouteInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDefaultRouteOutput$Type extends MessageType<SetLinkDefaultRouteOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_default_route.SetLinkDefaultRouteOutput", []);
+        super("operation.method.dnsresolver.set_link_default_route.SetLinkDefaultRouteOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkDefaultRouteOutput>): SetLinkDefaultRouteOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkDefaultRouteOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetLinkDefaultRouteOutput$Type extends MessageType<SetLinkDefaultRouteOutp
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetLinkDefaultRouteOutput$Type extends MessageType<SetLinkDefaultRouteOutp
         return message;
     }
     internalBinaryWrite(message: SetLinkDefaultRouteOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

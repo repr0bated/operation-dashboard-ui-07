@@ -296,9 +296,9 @@ export interface CodeOutput {
  */
 export interface CodeIssue {
     /**
-     * @generated from protobuf field: op_cache.CodeIssueType type = 1
+     * @generated from protobuf field: string type = 1
      */
-    type: CodeIssueType;
+    type: string;
     /**
      * @generated from protobuf field: string message = 2
      */
@@ -312,18 +312,18 @@ export interface CodeIssue {
      */
     column: number;
     /**
-     * @generated from protobuf field: op_cache.CodeIssueSeverity severity = 5
+     * @generated from protobuf field: string severity = 5
      */
-    severity: CodeIssueSeverity;
+    severity: string;
 }
 /**
  * @generated from protobuf message op_cache.CodeSuggestion
  */
 export interface CodeSuggestion {
     /**
-     * @generated from protobuf field: op_cache.CodeSuggestionType type = 1
+     * @generated from protobuf field: string type = 1
      */
-    type: CodeSuggestionType;
+    type: string;
     /**
      * @generated from protobuf field: string description = 2
      */
@@ -439,6 +439,14 @@ export interface FileInfo {
  * @generated from protobuf message op_cache.OperationResult
  */
 export interface OperationResult {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: optional string error = 2
+     */
+    error?: string;
 }
 /**
  * @generated from protobuf message op_cache.Empty
@@ -463,13 +471,17 @@ export interface RegisterAgentRequest {
  */
 export interface RegisterAgentResponse {
     /**
-     * @generated from protobuf field: string agent_id = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string agent_id = 2
      */
     agentId: string;
     /**
-     * @generated from protobuf field: optional string error = 2
+     * @generated from protobuf field: string error = 3
      */
-    error?: string;
+    error: string;
 }
 /**
  * @generated from protobuf message op_cache.UnregisterAgentRequest
@@ -485,7 +497,11 @@ export interface UnregisterAgentRequest {
  */
 export interface UnregisterAgentResponse {
     /**
-     * @generated from protobuf field: op_cache.Agent removed_agent = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: op_cache.Agent removed_agent = 2
      */
     removedAgent?: Agent;
 }
@@ -525,11 +541,15 @@ export interface ExecuteAgentResponse {
      */
     latencyMs: string;
     /**
-     * @generated from protobuf field: optional string error = 3
+     * @generated from protobuf field: bool success = 3
      */
-    error?: string;
+    success: boolean;
     /**
-     * @generated from protobuf field: map<string, string> metadata = 4
+     * @generated from protobuf field: string error = 4
+     */
+    error: string;
+    /**
+     * @generated from protobuf field: map<string, string> metadata = 5
      */
     metadata: {
         [key: string]: string;
@@ -690,6 +710,10 @@ export interface HealthCheckResponse {
      */
     healthy: boolean;
     /**
+     * @generated from protobuf field: string status = 2
+     */
+    status: string;
+    /**
      * @generated from protobuf field: uint64 uptime_seconds = 3
      */
     uptimeSeconds: string;
@@ -809,6 +833,14 @@ export interface WorkstackStepResult {
      * @generated from protobuf field: uint64 output_size = 6
      */
     outputSize: string;
+    /**
+     * @generated from protobuf field: bool success = 7
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string error = 8
+     */
+    error: string;
 }
 /**
  * @generated from protobuf message op_cache.ResolveRequest
@@ -875,13 +907,17 @@ export interface PromotePatternRequest {
  */
 export interface PromotePatternResponse {
     /**
-     * @generated from protobuf field: string workstack_id = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string workstack_id = 2
      */
     workstackId: string;
     /**
-     * @generated from protobuf field: optional string error = 2
+     * @generated from protobuf field: string error = 3
      */
-    error?: string;
+    error: string;
 }
 /**
  * @generated from protobuf message op_cache.PatternSuggestion
@@ -975,6 +1011,10 @@ export interface GetStepRequest {
  */
 export interface GetStepResponse {
     /**
+     * @generated from protobuf field: bool found = 1
+     */
+    found: boolean;
+    /**
      * @generated from protobuf field: bytes output = 2
      */
     output: Uint8Array;
@@ -1021,15 +1061,19 @@ export interface PutStepRequest {
  */
 export interface PutStepResponse {
     /**
-     * @generated from protobuf field: string cache_key = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string cache_key = 2
      */
     cacheKey: string;
     /**
-     * @generated from protobuf field: uint64 size_bytes = 2
+     * @generated from protobuf field: uint64 size_bytes = 3
      */
     sizeBytes: string;
     /**
-     * @generated from protobuf field: bool compressed = 3
+     * @generated from protobuf field: bool compressed = 4
      */
     compressed: boolean;
 }
@@ -1395,117 +1439,21 @@ export enum Priority {
  */
 export enum FileOperation {
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_UNSPECIFIED = 0;
+     * @generated from protobuf enum value: FILE_OPERATION_READ = 0;
      */
-    UNSPECIFIED = 0,
+    READ = 0,
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_READ = 1;
+     * @generated from protobuf enum value: FILE_OPERATION_WRITE = 1;
      */
-    READ = 1,
+    WRITE = 1,
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_WRITE = 2;
+     * @generated from protobuf enum value: FILE_OPERATION_DELETE = 2;
      */
-    WRITE = 2,
+    DELETE = 2,
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_DELETE = 3;
+     * @generated from protobuf enum value: FILE_OPERATION_LIST = 3;
      */
-    DELETE = 3,
-    /**
-     * @generated from protobuf enum value: FILE_OPERATION_LIST = 4;
-     */
-    LIST = 4
-}
-/**
- * @generated from protobuf enum op_cache.CodeIssueType
- */
-export enum CodeIssueType {
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_TYPE_ERROR = 1;
-     */
-    ERROR = 1,
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_TYPE_WARNING = 2;
-     */
-    WARNING = 2,
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_TYPE_INFO = 3;
-     */
-    INFO = 3
-}
-/**
- * @generated from protobuf enum op_cache.CodeIssueSeverity
- */
-export enum CodeIssueSeverity {
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_SEVERITY_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_SEVERITY_LOW = 1;
-     */
-    LOW = 1,
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_SEVERITY_MEDIUM = 2;
-     */
-    MEDIUM = 2,
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_SEVERITY_HIGH = 3;
-     */
-    HIGH = 3,
-    /**
-     * @generated from protobuf enum value: CODE_ISSUE_SEVERITY_CRITICAL = 4;
-     */
-    CRITICAL = 4
-}
-/**
- * @generated from protobuf enum op_cache.CodeSuggestionType
- */
-export enum CodeSuggestionType {
-    /**
-     * @generated from protobuf enum value: CODE_SUGGESTION_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: CODE_SUGGESTION_TYPE_OPTIMIZATION = 1;
-     */
-    OPTIMIZATION = 1,
-    /**
-     * @generated from protobuf enum value: CODE_SUGGESTION_TYPE_REFACTORING = 2;
-     */
-    REFACTORING = 2,
-    /**
-     * @generated from protobuf enum value: CODE_SUGGESTION_TYPE_BUG_FIX = 3;
-     */
-    BUG_FIX = 3,
-    /**
-     * @generated from protobuf enum value: CODE_SUGGESTION_TYPE_STYLE = 4;
-     */
-    STYLE = 4
-}
-/**
- * @generated from protobuf enum op_cache.HealthCheckStatus
- */
-export enum HealthCheckStatus {
-    /**
-     * @generated from protobuf enum value: HEALTH_CHECK_STATUS_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: HEALTH_CHECK_STATUS_HEALTHY = 1;
-     */
-    HEALTHY = 1,
-    /**
-     * @generated from protobuf enum value: HEALTH_CHECK_STATUS_DEGRADED = 2;
-     */
-    DEGRADED = 2,
-    /**
-     * @generated from protobuf enum value: HEALTH_CHECK_STATUS_UNHEALTHY = 3;
-     */
-    UNHEALTHY = 3
+    LIST = 3
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Agent$Type extends MessageType<Agent> {
@@ -2337,20 +2285,20 @@ export const CodeOutput = new CodeOutput$Type();
 class CodeIssue$Type extends MessageType<CodeIssue> {
     constructor() {
         super("op_cache.CodeIssue", [
-            { no: 1, name: "type", kind: "enum", T: () => ["op_cache.CodeIssueType", CodeIssueType, "CODE_ISSUE_TYPE_"] },
+            { no: 1, name: "type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "line", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 4, name: "column", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 5, name: "severity", kind: "enum", T: () => ["op_cache.CodeIssueSeverity", CodeIssueSeverity, "CODE_ISSUE_SEVERITY_"] }
+            { no: 5, name: "severity", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CodeIssue>): CodeIssue {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.type = 0;
+        message.type = "";
         message.message = "";
         message.line = 0;
         message.column = 0;
-        message.severity = 0;
+        message.severity = "";
         if (value !== undefined)
             reflectionMergePartial<CodeIssue>(this, message, value);
         return message;
@@ -2360,8 +2308,8 @@ class CodeIssue$Type extends MessageType<CodeIssue> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* op_cache.CodeIssueType type */ 1:
-                    message.type = reader.int32();
+                case /* string type */ 1:
+                    message.type = reader.string();
                     break;
                 case /* string message */ 2:
                     message.message = reader.string();
@@ -2372,8 +2320,8 @@ class CodeIssue$Type extends MessageType<CodeIssue> {
                 case /* uint32 column */ 4:
                     message.column = reader.uint32();
                     break;
-                case /* op_cache.CodeIssueSeverity severity */ 5:
-                    message.severity = reader.int32();
+                case /* string severity */ 5:
+                    message.severity = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2387,9 +2335,9 @@ class CodeIssue$Type extends MessageType<CodeIssue> {
         return message;
     }
     internalBinaryWrite(message: CodeIssue, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* op_cache.CodeIssueType type = 1; */
-        if (message.type !== 0)
-            writer.tag(1, WireType.Varint).int32(message.type);
+        /* string type = 1; */
+        if (message.type !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.type);
         /* string message = 2; */
         if (message.message !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.message);
@@ -2399,9 +2347,9 @@ class CodeIssue$Type extends MessageType<CodeIssue> {
         /* uint32 column = 4; */
         if (message.column !== 0)
             writer.tag(4, WireType.Varint).uint32(message.column);
-        /* op_cache.CodeIssueSeverity severity = 5; */
-        if (message.severity !== 0)
-            writer.tag(5, WireType.Varint).int32(message.severity);
+        /* string severity = 5; */
+        if (message.severity !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.severity);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2416,14 +2364,14 @@ export const CodeIssue = new CodeIssue$Type();
 class CodeSuggestion$Type extends MessageType<CodeSuggestion> {
     constructor() {
         super("op_cache.CodeSuggestion", [
-            { no: 1, name: "type", kind: "enum", T: () => ["op_cache.CodeSuggestionType", CodeSuggestionType, "CODE_SUGGESTION_TYPE_"] },
+            { no: 1, name: "type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "code", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CodeSuggestion>): CodeSuggestion {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.type = 0;
+        message.type = "";
         message.description = "";
         message.code = "";
         if (value !== undefined)
@@ -2435,8 +2383,8 @@ class CodeSuggestion$Type extends MessageType<CodeSuggestion> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* op_cache.CodeSuggestionType type */ 1:
-                    message.type = reader.int32();
+                case /* string type */ 1:
+                    message.type = reader.string();
                     break;
                 case /* string description */ 2:
                     message.description = reader.string();
@@ -2456,9 +2404,9 @@ class CodeSuggestion$Type extends MessageType<CodeSuggestion> {
         return message;
     }
     internalBinaryWrite(message: CodeSuggestion, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* op_cache.CodeSuggestionType type = 1; */
-        if (message.type !== 0)
-            writer.tag(1, WireType.Varint).int32(message.type);
+        /* string type = 1; */
+        if (message.type !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.type);
         /* string description = 2; */
         if (message.description !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.description);
@@ -2837,10 +2785,14 @@ export const FileInfo = new FileInfo$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class OperationResult$Type extends MessageType<OperationResult> {
     constructor() {
-        super("op_cache.OperationResult", []);
+        super("op_cache.OperationResult", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+        ]);
     }
     create(value?: PartialMessage<OperationResult>): OperationResult {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<OperationResult>(this, message, value);
         return message;
@@ -2850,6 +2802,12 @@ class OperationResult$Type extends MessageType<OperationResult> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* optional string error */ 2:
+                    message.error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -2862,6 +2820,12 @@ class OperationResult$Type extends MessageType<OperationResult> {
         return message;
     }
     internalBinaryWrite(message: OperationResult, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* optional string error = 2; */
+        if (message.error !== undefined)
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2968,13 +2932,16 @@ export const RegisterAgentRequest = new RegisterAgentRequest$Type();
 class RegisterAgentResponse$Type extends MessageType<RegisterAgentResponse> {
     constructor() {
         super("op_cache.RegisterAgentResponse", [
-            { no: 1, name: "agent_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "agent_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RegisterAgentResponse>): RegisterAgentResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.agentId = "";
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<RegisterAgentResponse>(this, message, value);
         return message;
@@ -2984,10 +2951,13 @@ class RegisterAgentResponse$Type extends MessageType<RegisterAgentResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string agent_id */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string agent_id */ 2:
                     message.agentId = reader.string();
                     break;
-                case /* optional string error */ 2:
+                case /* string error */ 3:
                     message.error = reader.string();
                     break;
                 default:
@@ -3002,12 +2972,15 @@ class RegisterAgentResponse$Type extends MessageType<RegisterAgentResponse> {
         return message;
     }
     internalBinaryWrite(message: RegisterAgentResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string agent_id = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string agent_id = 2; */
         if (message.agentId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.agentId);
-        /* optional string error = 2; */
-        if (message.error !== undefined)
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
+            writer.tag(2, WireType.LengthDelimited).string(message.agentId);
+        /* string error = 3; */
+        if (message.error !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3069,11 +3042,13 @@ export const UnregisterAgentRequest = new UnregisterAgentRequest$Type();
 class UnregisterAgentResponse$Type extends MessageType<UnregisterAgentResponse> {
     constructor() {
         super("op_cache.UnregisterAgentResponse", [
-            { no: 1, name: "removed_agent", kind: "message", T: () => Agent }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "removed_agent", kind: "message", T: () => Agent }
         ]);
     }
     create(value?: PartialMessage<UnregisterAgentResponse>): UnregisterAgentResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UnregisterAgentResponse>(this, message, value);
         return message;
@@ -3083,7 +3058,10 @@ class UnregisterAgentResponse$Type extends MessageType<UnregisterAgentResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* op_cache.Agent removed_agent */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* op_cache.Agent removed_agent */ 2:
                     message.removedAgent = Agent.internalBinaryRead(reader, reader.uint32(), options, message.removedAgent);
                     break;
                 default:
@@ -3098,9 +3076,12 @@ class UnregisterAgentResponse$Type extends MessageType<UnregisterAgentResponse> 
         return message;
     }
     internalBinaryWrite(message: UnregisterAgentResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* op_cache.Agent removed_agent = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* op_cache.Agent removed_agent = 2; */
         if (message.removedAgent)
-            Agent.internalBinaryWrite(message.removedAgent, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Agent.internalBinaryWrite(message.removedAgent, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3204,14 +3185,17 @@ class ExecuteAgentResponse$Type extends MessageType<ExecuteAgentResponse> {
         super("op_cache.ExecuteAgentResponse", [
             { no: 1, name: "output", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 2, name: "latency_ms", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 3, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "metadata", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
+            { no: 3, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 4, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "metadata", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
         ]);
     }
     create(value?: PartialMessage<ExecuteAgentResponse>): ExecuteAgentResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.output = new Uint8Array(0);
         message.latencyMs = "0";
+        message.success = false;
+        message.error = "";
         message.metadata = {};
         if (value !== undefined)
             reflectionMergePartial<ExecuteAgentResponse>(this, message, value);
@@ -3228,11 +3212,14 @@ class ExecuteAgentResponse$Type extends MessageType<ExecuteAgentResponse> {
                 case /* uint64 latency_ms */ 2:
                     message.latencyMs = reader.uint64().toString();
                     break;
-                case /* optional string error */ 3:
+                case /* bool success */ 3:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 4:
                     message.error = reader.string();
                     break;
-                case /* map<string, string> metadata */ 4:
-                    this.binaryReadMap4(message.metadata, reader, options);
+                case /* map<string, string> metadata */ 5:
+                    this.binaryReadMap5(message.metadata, reader, options);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -3245,7 +3232,7 @@ class ExecuteAgentResponse$Type extends MessageType<ExecuteAgentResponse> {
         }
         return message;
     }
-    private binaryReadMap4(map: ExecuteAgentResponse["metadata"], reader: IBinaryReader, options: BinaryReadOptions): void {
+    private binaryReadMap5(map: ExecuteAgentResponse["metadata"], reader: IBinaryReader, options: BinaryReadOptions): void {
         let len = reader.uint32(), end = reader.pos + len, key: keyof ExecuteAgentResponse["metadata"] | undefined, val: ExecuteAgentResponse["metadata"][any] | undefined;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -3268,12 +3255,15 @@ class ExecuteAgentResponse$Type extends MessageType<ExecuteAgentResponse> {
         /* uint64 latency_ms = 2; */
         if (message.latencyMs !== "0")
             writer.tag(2, WireType.Varint).uint64(message.latencyMs);
-        /* optional string error = 3; */
-        if (message.error !== undefined)
-            writer.tag(3, WireType.LengthDelimited).string(message.error);
-        /* map<string, string> metadata = 4; */
+        /* bool success = 3; */
+        if (message.success !== false)
+            writer.tag(3, WireType.Varint).bool(message.success);
+        /* string error = 4; */
+        if (message.error !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.error);
+        /* map<string, string> metadata = 5; */
         for (let k of globalThis.Object.keys(message.metadata))
-            writer.tag(4, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.metadata[k]).join();
+            writer.tag(5, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.metadata[k]).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3953,12 +3943,14 @@ class HealthCheckResponse$Type extends MessageType<HealthCheckResponse> {
     constructor() {
         super("op_cache.HealthCheckResponse", [
             { no: 1, name: "healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "uptime_seconds", kind: "scalar", T: 4 /*ScalarType.UINT64*/ }
         ]);
     }
     create(value?: PartialMessage<HealthCheckResponse>): HealthCheckResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.healthy = false;
+        message.status = "";
         message.uptimeSeconds = "0";
         if (value !== undefined)
             reflectionMergePartial<HealthCheckResponse>(this, message, value);
@@ -3971,6 +3963,9 @@ class HealthCheckResponse$Type extends MessageType<HealthCheckResponse> {
             switch (fieldNo) {
                 case /* bool healthy */ 1:
                     message.healthy = reader.bool();
+                    break;
+                case /* string status */ 2:
+                    message.status = reader.string();
                     break;
                 case /* uint64 uptime_seconds */ 3:
                     message.uptimeSeconds = reader.uint64().toString();
@@ -3990,6 +3985,9 @@ class HealthCheckResponse$Type extends MessageType<HealthCheckResponse> {
         /* bool healthy = 1; */
         if (message.healthy !== false)
             writer.tag(1, WireType.Varint).bool(message.healthy);
+        /* string status = 2; */
+        if (message.status !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.status);
         /* uint64 uptime_seconds = 3; */
         if (message.uptimeSeconds !== "0")
             writer.tag(3, WireType.Varint).uint64(message.uptimeSeconds);
@@ -4297,7 +4295,9 @@ class WorkstackStepResult$Type extends MessageType<WorkstackStepResult> {
             { no: 3, name: "output", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 4, name: "latency_ms", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
             { no: 5, name: "cached", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 6, name: "output_size", kind: "scalar", T: 4 /*ScalarType.UINT64*/ }
+            { no: 6, name: "output_size", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
+            { no: 7, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 8, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<WorkstackStepResult>): WorkstackStepResult {
@@ -4308,6 +4308,8 @@ class WorkstackStepResult$Type extends MessageType<WorkstackStepResult> {
         message.latencyMs = "0";
         message.cached = false;
         message.outputSize = "0";
+        message.success = false;
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<WorkstackStepResult>(this, message, value);
         return message;
@@ -4334,6 +4336,12 @@ class WorkstackStepResult$Type extends MessageType<WorkstackStepResult> {
                     break;
                 case /* uint64 output_size */ 6:
                     message.outputSize = reader.uint64().toString();
+                    break;
+                case /* bool success */ 7:
+                    message.success = reader.bool();
+                    break;
+                case /* string error */ 8:
+                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -4365,6 +4373,12 @@ class WorkstackStepResult$Type extends MessageType<WorkstackStepResult> {
         /* uint64 output_size = 6; */
         if (message.outputSize !== "0")
             writer.tag(6, WireType.Varint).uint64(message.outputSize);
+        /* bool success = 7; */
+        if (message.success !== false)
+            writer.tag(7, WireType.Varint).bool(message.success);
+        /* string error = 8; */
+        if (message.error !== "")
+            writer.tag(8, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4639,13 +4653,16 @@ export const PromotePatternRequest = new PromotePatternRequest$Type();
 class PromotePatternResponse$Type extends MessageType<PromotePatternResponse> {
     constructor() {
         super("op_cache.PromotePatternResponse", [
-            { no: 1, name: "workstack_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "workstack_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<PromotePatternResponse>): PromotePatternResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.workstackId = "";
+        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<PromotePatternResponse>(this, message, value);
         return message;
@@ -4655,10 +4672,13 @@ class PromotePatternResponse$Type extends MessageType<PromotePatternResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string workstack_id */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string workstack_id */ 2:
                     message.workstackId = reader.string();
                     break;
-                case /* optional string error */ 2:
+                case /* string error */ 3:
                     message.error = reader.string();
                     break;
                 default:
@@ -4673,12 +4693,15 @@ class PromotePatternResponse$Type extends MessageType<PromotePatternResponse> {
         return message;
     }
     internalBinaryWrite(message: PromotePatternResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string workstack_id = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string workstack_id = 2; */
         if (message.workstackId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.workstackId);
-        /* optional string error = 2; */
-        if (message.error !== undefined)
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
+            writer.tag(2, WireType.LengthDelimited).string(message.workstackId);
+        /* string error = 3; */
+        if (message.error !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4954,6 +4977,7 @@ export const GetStepRequest = new GetStepRequest$Type();
 class GetStepResponse$Type extends MessageType<GetStepResponse> {
     constructor() {
         super("op_cache.GetStepResponse", [
+            { no: 1, name: "found", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 2, name: "output", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 3, name: "created_at", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
             { no: 4, name: "expires_at", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
@@ -4962,6 +4986,7 @@ class GetStepResponse$Type extends MessageType<GetStepResponse> {
     }
     create(value?: PartialMessage<GetStepResponse>): GetStepResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.found = false;
         message.output = new Uint8Array(0);
         message.createdAt = "0";
         message.expiresAt = "0";
@@ -4975,6 +5000,9 @@ class GetStepResponse$Type extends MessageType<GetStepResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool found */ 1:
+                    message.found = reader.bool();
+                    break;
                 case /* bytes output */ 2:
                     message.output = reader.bytes();
                     break;
@@ -4999,6 +5027,9 @@ class GetStepResponse$Type extends MessageType<GetStepResponse> {
         return message;
     }
     internalBinaryWrite(message: GetStepResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool found = 1; */
+        if (message.found !== false)
+            writer.tag(1, WireType.Varint).bool(message.found);
         /* bytes output = 2; */
         if (message.output.length)
             writer.tag(2, WireType.LengthDelimited).bytes(message.output);
@@ -5104,13 +5135,15 @@ export const PutStepRequest = new PutStepRequest$Type();
 class PutStepResponse$Type extends MessageType<PutStepResponse> {
     constructor() {
         super("op_cache.PutStepResponse", [
-            { no: 1, name: "cache_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "size_bytes", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 3, name: "compressed", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "cache_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "size_bytes", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
+            { no: 4, name: "compressed", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<PutStepResponse>): PutStepResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.cacheKey = "";
         message.sizeBytes = "0";
         message.compressed = false;
@@ -5123,13 +5156,16 @@ class PutStepResponse$Type extends MessageType<PutStepResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string cache_key */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* string cache_key */ 2:
                     message.cacheKey = reader.string();
                     break;
-                case /* uint64 size_bytes */ 2:
+                case /* uint64 size_bytes */ 3:
                     message.sizeBytes = reader.uint64().toString();
                     break;
-                case /* bool compressed */ 3:
+                case /* bool compressed */ 4:
                     message.compressed = reader.bool();
                     break;
                 default:
@@ -5144,15 +5180,18 @@ class PutStepResponse$Type extends MessageType<PutStepResponse> {
         return message;
     }
     internalBinaryWrite(message: PutStepResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string cache_key = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* string cache_key = 2; */
         if (message.cacheKey !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.cacheKey);
-        /* uint64 size_bytes = 2; */
+            writer.tag(2, WireType.LengthDelimited).string(message.cacheKey);
+        /* uint64 size_bytes = 3; */
         if (message.sizeBytes !== "0")
-            writer.tag(2, WireType.Varint).uint64(message.sizeBytes);
-        /* bool compressed = 3; */
+            writer.tag(3, WireType.Varint).uint64(message.sizeBytes);
+        /* bool compressed = 4; */
         if (message.compressed !== false)
-            writer.tag(3, WireType.Varint).bool(message.compressed);
+            writer.tag(4, WireType.Varint).bool(message.compressed);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

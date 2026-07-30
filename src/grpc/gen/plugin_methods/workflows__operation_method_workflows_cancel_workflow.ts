@@ -30,6 +30,10 @@ export interface CancelWorkflowInput {
  * @generated from protobuf message operation.method.workflows.cancel_workflow.CancelWorkflowOutput
  */
 export interface CancelWorkflowOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CancelWorkflowInput$Type extends MessageType<CancelWorkflowInput> {
@@ -89,10 +93,13 @@ export const CancelWorkflowInput = new CancelWorkflowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CancelWorkflowOutput$Type extends MessageType<CancelWorkflowOutput> {
     constructor() {
-        super("operation.method.workflows.cancel_workflow.CancelWorkflowOutput", []);
+        super("operation.method.workflows.cancel_workflow.CancelWorkflowOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CancelWorkflowOutput>): CancelWorkflowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CancelWorkflowOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class CancelWorkflowOutput$Type extends MessageType<CancelWorkflowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class CancelWorkflowOutput$Type extends MessageType<CancelWorkflowOutput> {
         return message;
     }
     internalBinaryWrite(message: CancelWorkflowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

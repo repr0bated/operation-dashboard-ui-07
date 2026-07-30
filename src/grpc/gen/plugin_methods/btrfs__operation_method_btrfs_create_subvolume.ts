@@ -26,6 +26,10 @@ export interface CreateSubvolumeInput {
  * @generated from protobuf message operation.method.btrfs.create_subvolume.CreateSubvolumeOutput
  */
 export interface CreateSubvolumeOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateSubvolumeInput$Type extends MessageType<CreateSubvolumeInput> {
@@ -77,10 +81,13 @@ export const CreateSubvolumeInput = new CreateSubvolumeInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateSubvolumeOutput$Type extends MessageType<CreateSubvolumeOutput> {
     constructor() {
-        super("operation.method.btrfs.create_subvolume.CreateSubvolumeOutput", []);
+        super("operation.method.btrfs.create_subvolume.CreateSubvolumeOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateSubvolumeOutput>): CreateSubvolumeOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateSubvolumeOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class CreateSubvolumeOutput$Type extends MessageType<CreateSubvolumeOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class CreateSubvolumeOutput$Type extends MessageType<CreateSubvolumeOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateSubvolumeOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

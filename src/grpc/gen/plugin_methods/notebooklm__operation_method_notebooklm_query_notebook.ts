@@ -4,6 +4,7 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -23,6 +24,10 @@ export interface QueryNotebookInput {
  * @generated from protobuf message operation.method.notebooklm.query_notebook.QueryNotebookOutput
  */
 export interface QueryNotebookOutput {
+    /**
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class QueryNotebookInput$Type extends MessageType<QueryNotebookInput> {
@@ -65,10 +70,13 @@ export const QueryNotebookInput = new QueryNotebookInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class QueryNotebookOutput$Type extends MessageType<QueryNotebookOutput> {
     constructor() {
-        super("operation.method.notebooklm.query_notebook.QueryNotebookOutput", []);
+        super("operation.method.notebooklm.query_notebook.QueryNotebookOutput", [
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<QueryNotebookOutput>): QueryNotebookOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<QueryNotebookOutput>(this, message, value);
         return message;
@@ -78,6 +86,9 @@ class QueryNotebookOutput$Type extends MessageType<QueryNotebookOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -90,6 +101,9 @@ class QueryNotebookOutput$Type extends MessageType<QueryNotebookOutput> {
         return message;
     }
     internalBinaryWrite(message: QueryNotebookOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
