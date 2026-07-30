@@ -221,8 +221,7 @@ message ShellArgs {
 
 message CallToolResponse {
   google.protobuf.Struct result = 1;  // Structured result
-  optional string error = 2;
-  uint64 duration_ms = 3;
+  uint64 duration_ms = 2;
 }
 
 // Streaming tool output

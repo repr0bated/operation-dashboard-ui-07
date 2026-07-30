@@ -17,7 +17,6 @@ message GetAdcRequest {
 }
 message GetAdcResponse {
   Adc state = 1;
-  string error = 2;
 }
 message AdcUpdate {
   string object_path = 1;
@@ -42,7 +41,6 @@ message GetAgentConfigRequest {
 }
 message GetAgentConfigResponse {
   AgentConfig state = 1;
-  string error = 2;
 }
 message AgentConfigUpdate {
   string object_path = 1;
@@ -83,7 +81,6 @@ message GetAntigravityRequest {
 }
 message GetAntigravityResponse {
   Antigravity state = 1;
-  string error = 2;
 }
 message AntigravityUpdate {
   string object_path = 1;
@@ -114,7 +111,6 @@ message GetAntigravityChatRequest {
 }
 message GetAntigravityChatResponse {
   AntigravityChat state = 1;
-  string error = 2;
 }
 message AntigravityChatUpdate {
   string object_path = 1;
@@ -144,7 +140,6 @@ message GetBlockchainRequest {
 }
 message GetBlockchainResponse {
   Blockchain state = 1;
-  string error = 2;
 }
 message BlockchainUpdate {
   string object_path = 1;
@@ -174,7 +169,6 @@ message GetBtrfsRequest {
 }
 message GetBtrfsResponse {
   Btrfs state = 1;
-  string error = 2;
 }
 message BtrfsUpdate {
   string object_path = 1;
@@ -221,7 +215,6 @@ message GetCognitiveMcpRequest {
 }
 message GetCognitiveMcpResponse {
   CognitiveMcp state = 1;
-  string error = 2;
 }
 message CognitiveMcpUpdate {
   string object_path = 1;
@@ -254,7 +247,6 @@ message GetCompactMcpRequest {
 }
 message GetCompactMcpResponse {
   CompactMcp state = 1;
-  string error = 2;
 }
 message CompactMcpUpdate {
   string object_path = 1;
@@ -281,7 +273,6 @@ message GetConfigRequest {
 }
 message GetConfigResponse {
   Config state = 1;
-  string error = 2;
 }
 message ConfigUpdate {
   string object_path = 1;
@@ -315,7 +306,6 @@ message GetCozoRequest {
 }
 message GetCozoResponse {
   Cozo state = 1;
-  string error = 2;
 }
 message CozoUpdate {
   string object_path = 1;
@@ -345,7 +335,6 @@ message GetCronRequest {
 }
 message GetCronResponse {
   Cron state = 1;
-  string error = 2;
 }
 message CronUpdate {
   string object_path = 1;
@@ -389,7 +378,6 @@ message GetCtlPlaneChatbotRequest {
 }
 message GetCtlPlaneChatbotResponse {
   CtlPlaneChatbot state = 1;
-  string error = 2;
 }
 message CtlPlaneChatbotUpdate {
   string object_path = 1;
@@ -419,7 +407,6 @@ message GetDatastoreRequest {
 }
 message GetDatastoreResponse {
   Datastore state = 1;
-  string error = 2;
 }
 message DatastoreUpdate {
   string object_path = 1;
@@ -445,7 +432,6 @@ message GetDnsresolverRequest {
 }
 message GetDnsresolverResponse {
   Dnsresolver state = 1;
-  string error = 2;
 }
 message DnsresolverUpdate {
   string object_path = 1;
@@ -478,7 +464,6 @@ message GetEmbeddingModelRequest {
 }
 message GetEmbeddingModelResponse {
   EmbeddingModel state = 1;
-  string error = 2;
 }
 message EmbeddingModelUpdate {
   string object_path = 1;
@@ -503,7 +488,6 @@ message GetEndpointRequest {
 }
 message GetEndpointResponse {
   Endpoint state = 1;
-  string error = 2;
 }
 message EndpointUpdate {
   string object_path = 1;
@@ -539,7 +523,6 @@ message GetFactoryRequest {
 }
 message GetFactoryResponse {
   Factory state = 1;
-  string error = 2;
 }
 message FactoryUpdate {
   string object_path = 1;
@@ -570,7 +553,6 @@ message GetFail2banRequest {
 }
 message GetFail2banResponse {
   Fail2ban state = 1;
-  string error = 2;
 }
 message Fail2banUpdate {
   string object_path = 1;
@@ -594,7 +576,6 @@ message GetFreedesktopRequest {
 }
 message GetFreedesktopResponse {
   Freedesktop state = 1;
-  string error = 2;
 }
 message FreedesktopUpdate {
   string object_path = 1;
@@ -629,7 +610,6 @@ message GetFullSystemRequest {
 }
 message GetFullSystemResponse {
   FullSystem state = 1;
-  string error = 2;
 }
 message FullSystemUpdate {
   string object_path = 1;
@@ -656,7 +636,6 @@ message GetGcloudAdcRequest {
 }
 message GetGcloudAdcResponse {
   GcloudAdc state = 1;
-  string error = 2;
 }
 message GcloudAdcUpdate {
   string object_path = 1;
@@ -687,7 +666,6 @@ message GetGemmaBrainRequest {
 }
 message GetGemmaBrainResponse {
   GemmaBrain state = 1;
-  string error = 2;
 }
 message GemmaBrainUpdate {
   string object_path = 1;
@@ -715,7 +693,6 @@ message GetGhostbridgeRequest {
 }
 message GetGhostbridgeResponse {
   Ghostbridge state = 1;
-  string error = 2;
 }
 message GhostbridgeUpdate {
   string object_path = 1;
@@ -742,7 +719,6 @@ message GetHardwareRequest {
 }
 message GetHardwareResponse {
   Hardware state = 1;
-  string error = 2;
 }
 message HardwareUpdate {
   string object_path = 1;
@@ -767,7 +743,6 @@ message GetIncusRequest {
 }
 message GetIncusResponse {
   Incus state = 1;
-  string error = 2;
 }
 message IncusUpdate {
   string object_path = 1;
@@ -805,7 +780,6 @@ message GetJsonRenderRequest {
 }
 message GetJsonRenderResponse {
   JsonRender state = 1;
-  string error = 2;
 }
 message JsonRenderUpdate {
   string object_path = 1;
@@ -830,7 +804,6 @@ message GetKeypairRequest {
 }
 message GetKeypairResponse {
   Keypair state = 1;
-  string error = 2;
 }
 message KeypairUpdate {
   string object_path = 1;
@@ -856,7 +829,6 @@ message GetKeyringRequest {
 }
 message GetKeyringResponse {
   Keyring state = 1;
-  string error = 2;
 }
 message KeyringUpdate {
   string object_path = 1;
@@ -889,7 +861,6 @@ message GetLargeLanguageModelRequest {
 }
 message GetLargeLanguageModelResponse {
   LargeLanguageModel state = 1;
-  string error = 2;
 }
 message LargeLanguageModelUpdate {
   string object_path = 1;
@@ -914,7 +885,6 @@ message GetLogin1Request {
 }
 message GetLogin1Response {
   Login1 state = 1;
-  string error = 2;
 }
 message Login1Update {
   string object_path = 1;
@@ -947,7 +917,6 @@ message GetMailServerRequest {
 }
 message GetMailServerResponse {
   MailServer state = 1;
-  string error = 2;
 }
 message MailServerUpdate {
   string object_path = 1;
@@ -974,7 +943,6 @@ message GetMcpRequest {
 }
 message GetMcpResponse {
   Mcp state = 1;
-  string error = 2;
 }
 message McpUpdate {
   string object_path = 1;
@@ -1003,7 +971,6 @@ message GetMemoryRequest {
 }
 message GetMemoryResponse {
   Memory state = 1;
-  string error = 2;
 }
 message MemoryUpdate {
   string object_path = 1;
@@ -1028,7 +995,6 @@ message GetNetRequest {
 }
 message GetNetResponse {
   Net state = 1;
-  string error = 2;
 }
 message NetUpdate {
   string object_path = 1;
@@ -1062,7 +1028,6 @@ message GetNetmakerRequest {
 }
 message GetNetmakerResponse {
   Netmaker state = 1;
-  string error = 2;
 }
 message NetmakerUpdate {
   string object_path = 1;
@@ -1091,7 +1056,6 @@ message GetNotebooklmRequest {
 }
 message GetNotebooklmResponse {
   Notebooklm state = 1;
-  string error = 2;
 }
 message NotebooklmUpdate {
   string object_path = 1;
@@ -1116,7 +1080,6 @@ message GetOciRequest {
 }
 message GetOciResponse {
   Oci state = 1;
-  string error = 2;
 }
 message OciUpdate {
   string object_path = 1;
@@ -1145,7 +1108,6 @@ message GetOpenflowRequest {
 }
 message GetOpenflowResponse {
   Openflow state = 1;
-  string error = 2;
 }
 message OpenflowUpdate {
   string object_path = 1;
@@ -1174,7 +1136,6 @@ message GetOpenflowObfuscationRequest {
 }
 message GetOpenflowObfuscationResponse {
   OpenflowObfuscation state = 1;
-  string error = 2;
 }
 message OpenflowObfuscationUpdate {
   string object_path = 1;
@@ -1227,7 +1188,6 @@ message GetOscalSubidRegistryRequest {
 }
 message GetOscalSubidRegistryResponse {
   OscalSubidRegistry state = 1;
-  string error = 2;
 }
 message OscalSubidRegistryUpdate {
   string object_path = 1;
@@ -1252,7 +1212,6 @@ message GetOvsdbBridgeRequest {
 }
 message GetOvsdbBridgeResponse {
   OvsdbBridge state = 1;
-  string error = 2;
 }
 message OvsdbBridgeUpdate {
   string object_path = 1;
@@ -1278,7 +1237,6 @@ message GetPackagekitRequest {
 }
 message GetPackagekitResponse {
   Packagekit state = 1;
-  string error = 2;
 }
 message PackagekitUpdate {
   string object_path = 1;
@@ -1304,7 +1262,6 @@ message GetPcideclRequest {
 }
 message GetPcideclResponse {
   Pcidecl state = 1;
-  string error = 2;
 }
 message PcideclUpdate {
   string object_path = 1;
@@ -1331,7 +1288,6 @@ message GetPersonaRequest {
 }
 message GetPersonaResponse {
   Persona state = 1;
-  string error = 2;
 }
 message PersonaUpdate {
   string object_path = 1;
@@ -1365,7 +1321,6 @@ message GetProcfsRequest {
 }
 message GetProcfsResponse {
   Procfs state = 1;
-  string error = 2;
 }
 message ProcfsUpdate {
   string object_path = 1;
@@ -1391,7 +1346,6 @@ message GetProxyServerRequest {
 }
 message GetProxyServerResponse {
   ProxyServer state = 1;
-  string error = 2;
 }
 message ProxyServerUpdate {
   string object_path = 1;
@@ -1425,7 +1379,6 @@ message GetQdrantRequest {
 }
 message GetQdrantResponse {
   Qdrant state = 1;
-  string error = 2;
 }
 message QdrantUpdate {
   string object_path = 1;
@@ -1451,7 +1404,6 @@ message GetRovsCommandsRequest {
 }
 message GetRovsCommandsResponse {
   RovsCommands state = 1;
-  string error = 2;
 }
 message RovsCommandsUpdate {
   string object_path = 1;
@@ -1476,7 +1428,6 @@ message GetRtnetlinkRequest {
 }
 message GetRtnetlinkResponse {
   Rtnetlink state = 1;
-  string error = 2;
 }
 message RtnetlinkUpdate {
   string object_path = 1;
@@ -1505,7 +1456,6 @@ message GetS6SystemctlRequest {
 }
 message GetS6SystemctlResponse {
   S6Systemctl state = 1;
-  string error = 2;
 }
 message S6SystemctlUpdate {
   string object_path = 1;
@@ -1536,7 +1486,6 @@ message GetSchemaRendererRequest {
 }
 message GetSchemaRendererResponse {
   SchemaRenderer state = 1;
-  string error = 2;
 }
 message SchemaRendererUpdate {
   string object_path = 1;
@@ -1561,7 +1510,6 @@ message GetServiceRequest {
 }
 message GetServiceResponse {
   Service state = 1;
-  string error = 2;
 }
 message ServiceUpdate {
   string object_path = 1;
@@ -1586,7 +1534,6 @@ message GetSessDeclRequest {
 }
 message GetSessDeclResponse {
   SessDecl state = 1;
-  string error = 2;
 }
 message SessDeclUpdate {
   string object_path = 1;
@@ -1614,7 +1561,6 @@ message GetSharedUnixSocketRequest {
 }
 message GetSharedUnixSocketResponse {
   SharedUnixSocket state = 1;
-  string error = 2;
 }
 message SharedUnixSocketUpdate {
   string object_path = 1;
@@ -1639,7 +1585,6 @@ message GetSoftwareRequest {
 }
 message GetSoftwareResponse {
   Software state = 1;
-  string error = 2;
 }
 message SoftwareUpdate {
   string object_path = 1;
@@ -1666,7 +1611,6 @@ message GetUnixSocketRequest {
 }
 message GetUnixSocketResponse {
   UnixSocket state = 1;
-  string error = 2;
 }
 message UnixSocketUpdate {
   string object_path = 1;
@@ -1691,7 +1635,6 @@ message GetUsersRequest {
 }
 message GetUsersResponse {
   Users state = 1;
-  string error = 2;
 }
 message UsersUpdate {
   string object_path = 1;
@@ -1720,7 +1663,6 @@ message GetWebUiRequest {
 }
 message GetWebUiResponse {
   WebUi state = 1;
-  string error = 2;
 }
 message WebUiUpdate {
   string object_path = 1;
@@ -1751,7 +1693,6 @@ message GetWgOpdbusRequest {
 }
 message GetWgOpdbusResponse {
   WgOpdbus state = 1;
-  string error = 2;
 }
 message WgOpdbusUpdate {
   string object_path = 1;
@@ -1783,7 +1724,6 @@ message GetWgcfRequest {
 }
 message GetWgcfResponse {
   Wgcf state = 1;
-  string error = 2;
 }
 message WgcfUpdate {
   string object_path = 1;
@@ -1808,7 +1748,6 @@ message GetWireguardRequest {
 }
 message GetWireguardResponse {
   Wireguard state = 1;
-  string error = 2;
 }
 message WireguardUpdate {
   string object_path = 1;
@@ -1835,7 +1774,6 @@ message GetWorkflowsRequest {
 }
 message GetWorkflowsResponse {
   Workflows state = 1;
-  string error = 2;
 }
 message WorkflowsUpdate {
   string object_path = 1;
@@ -1868,7 +1806,6 @@ message GetXrayRequest {
 }
 message GetXrayResponse {
   Xray state = 1;
-  string error = 2;
 }
 message XrayUpdate {
   string object_path = 1;
@@ -1907,7 +1844,6 @@ message GetZeroclawRequest {
 }
 message GetZeroclawResponse {
   Zeroclaw state = 1;
-  string error = 2;
 }
 message ZeroclawUpdate {
   string object_path = 1;
@@ -1926,7 +1862,6 @@ message GenericGetRequest {
 
 message GenericGetResponse {
   google.protobuf.Struct state = 1;
-  string error = 2;
 }
 
 service OperationService {

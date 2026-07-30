@@ -241,7 +241,6 @@ message RegisterAgentRequest {
 
 message RegisterAgentResponse {
     string agent_id = 1;
-    optional string error = 2;
 }
 
 message UnregisterAgentRequest {
@@ -262,8 +261,7 @@ message ExecuteAgentRequest {
 message ExecuteAgentResponse {
     bytes output = 1;
     uint64 latency_ms = 2;
-    optional string error = 3;
-    map<string, string> metadata = 4;
+    map<string, string> metadata = 3;
 }
 
 message ExecuteAgentChunk {
@@ -402,7 +400,6 @@ message PromotePatternRequest {
 
 message PromotePatternResponse {
     string workstack_id = 1;
-    optional string error = 2;
 }
 
 message PatternSuggestion {
