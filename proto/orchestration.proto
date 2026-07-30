@@ -456,10 +456,9 @@ message ForkChainRequest {
 }
 
 message ForkChainResponse {
-    bool success = 1;
-    string new_chain_id = 2;
-    string parent_chain_id = 3;
-    int32 forked_at_step = 4;
+    string new_chain_id = 1;
+    string parent_chain_id = 2;
+    int32 forked_at_step = 3;
 }
 
 // ============================================================================
