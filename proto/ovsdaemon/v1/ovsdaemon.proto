@@ -38,8 +38,7 @@ message BridgeRequest {
 
 message BridgeResponse {
   string name = 1;
-  bool success = 2;
-  string message = 3;
+  string message = 2;
 }
 
 message BridgesRequest {
@@ -60,8 +59,7 @@ message PortRequest {
 message PortResponse {
   string name = 1;
   string bridge = 2;
-  bool success = 3;
-  string message = 4;
+  string message = 3;
 }
 
 message PortsRequest {
