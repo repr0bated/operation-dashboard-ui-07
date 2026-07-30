@@ -45,19 +45,15 @@ export interface SendMagicLinkRequest {
  */
 export interface SendMagicLinkResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 2
+     * @generated from protobuf field: string message = 1
      */
     message: string;
     /**
-     * @generated from protobuf field: optional string token = 3
+     * @generated from protobuf field: optional string token = 2
      */
     token?: string; // for testing/debug
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp expires_at = 4
+     * @generated from protobuf field: google.protobuf.Timestamp expires_at = 3
      */
     expiresAt?: Timestamp;
 }
@@ -79,39 +75,35 @@ export interface VerifyMagicLinkRequest {
  */
 export interface VerifyMagicLinkResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string user_id = 2
+     * @generated from protobuf field: string user_id = 1
      */
     userId: string;
     /**
-     * @generated from protobuf field: string email = 3
+     * @generated from protobuf field: string email = 2
      */
     email: string;
     /**
-     * @generated from protobuf field: string wireguard_public_key = 4
+     * @generated from protobuf field: string wireguard_public_key = 3
      */
     wireguardPublicKey: string;
     /**
-     * @generated from protobuf field: string assigned_ip = 5
+     * @generated from protobuf field: string assigned_ip = 4
      */
     assignedIp: string;
     /**
-     * @generated from protobuf field: string wireguard_config = 6
+     * @generated from protobuf field: string wireguard_config = 5
      */
     wireguardConfig: string;
     /**
-     * @generated from protobuf field: string message = 7
+     * @generated from protobuf field: string message = 6
      */
     message: string;
     /**
-     * @generated from protobuf field: bool is_admin = 8
+     * @generated from protobuf field: bool is_admin = 7
      */
     isAdmin: boolean;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp verified_at = 9
+     * @generated from protobuf field: google.protobuf.Timestamp verified_at = 8
      */
     verifiedAt?: Timestamp;
 }
@@ -145,27 +137,23 @@ export interface RegisterUserRequest {
  */
 export interface RegisterUserResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string user_id = 2
+     * @generated from protobuf field: string user_id = 1
      */
     userId: string;
     /**
-     * @generated from protobuf field: string message = 3
+     * @generated from protobuf field: string message = 2
      */
     message: string;
     /**
-     * @generated from protobuf field: string assigned_ip = 4
+     * @generated from protobuf field: string assigned_ip = 3
      */
     assignedIp: string;
     /**
-     * @generated from protobuf field: string wireguard_config = 5
+     * @generated from protobuf field: string wireguard_config = 4
      */
     wireguardConfig: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp registered_at = 6
+     * @generated from protobuf field: google.protobuf.Timestamp registered_at = 5
      */
     registeredAt?: Timestamp;
 }
@@ -328,27 +316,23 @@ export interface GetWireGuardConfigRequest {
  */
 export interface GetWireGuardConfigResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string wireguard_config = 2
+     * @generated from protobuf field: string wireguard_config = 1
      */
     wireguardConfig: string;
     /**
-     * @generated from protobuf field: string public_key = 3
+     * @generated from protobuf field: string public_key = 2
      */
     publicKey: string;
     /**
-     * @generated from protobuf field: string assigned_ip = 4
+     * @generated from protobuf field: string assigned_ip = 3
      */
     assignedIp: string;
     /**
-     * @generated from protobuf field: string message = 5
+     * @generated from protobuf field: string message = 4
      */
     message: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp generated_at = 6
+     * @generated from protobuf field: google.protobuf.Timestamp generated_at = 5
      */
     generatedAt?: Timestamp;
 }
@@ -378,19 +362,15 @@ export interface AdminUserActionRequest {
  */
 export interface AdminUserActionResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 2
+     * @generated from protobuf field: string message = 1
      */
     message: string;
     /**
-     * @generated from protobuf field: string user_id = 3
+     * @generated from protobuf field: string user_id = 2
      */
     userId: string;
     /**
-     * @generated from protobuf field: google.protobuf.Timestamp action_timestamp = 4
+     * @generated from protobuf field: google.protobuf.Timestamp action_timestamp = 3
      */
     actionTimestamp?: Timestamp;
 }
@@ -522,15 +502,13 @@ export const SendMagicLinkRequest = new SendMagicLinkRequest$Type();
 class SendMagicLinkResponse$Type extends MessageType<SendMagicLinkResponse> {
     constructor() {
         super("operation.registration.v1.SendMagicLinkResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "token", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "expires_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "token", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "expires_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<SendMagicLinkResponse>): SendMagicLinkResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.message = "";
         if (value !== undefined)
             reflectionMergePartial<SendMagicLinkResponse>(this, message, value);
@@ -541,16 +519,13 @@ class SendMagicLinkResponse$Type extends MessageType<SendMagicLinkResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 2:
+                case /* string message */ 1:
                     message.message = reader.string();
                     break;
-                case /* optional string token */ 3:
+                case /* optional string token */ 2:
                     message.token = reader.string();
                     break;
-                case /* google.protobuf.Timestamp expires_at */ 4:
+                case /* google.protobuf.Timestamp expires_at */ 3:
                     message.expiresAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.expiresAt);
                     break;
                 default:
@@ -565,18 +540,15 @@ class SendMagicLinkResponse$Type extends MessageType<SendMagicLinkResponse> {
         return message;
     }
     internalBinaryWrite(message: SendMagicLinkResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message = 2; */
+        /* string message = 1; */
         if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
-        /* optional string token = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.message);
+        /* optional string token = 2; */
         if (message.token !== undefined)
-            writer.tag(3, WireType.LengthDelimited).string(message.token);
-        /* google.protobuf.Timestamp expires_at = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.token);
+        /* google.protobuf.Timestamp expires_at = 3; */
         if (message.expiresAt)
-            Timestamp.internalBinaryWrite(message.expiresAt, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.expiresAt, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -646,20 +618,18 @@ export const VerifyMagicLinkRequest = new VerifyMagicLinkRequest$Type();
 class VerifyMagicLinkResponse$Type extends MessageType<VerifyMagicLinkResponse> {
     constructor() {
         super("operation.registration.v1.VerifyMagicLinkResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "email", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "wireguard_public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 7, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 8, name: "is_admin", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 9, name: "verified_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "email", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "wireguard_public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 7, name: "is_admin", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 8, name: "verified_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<VerifyMagicLinkResponse>): VerifyMagicLinkResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.userId = "";
         message.email = "";
         message.wireguardPublicKey = "";
@@ -676,31 +646,28 @@ class VerifyMagicLinkResponse$Type extends MessageType<VerifyMagicLinkResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string user_id */ 2:
+                case /* string user_id */ 1:
                     message.userId = reader.string();
                     break;
-                case /* string email */ 3:
+                case /* string email */ 2:
                     message.email = reader.string();
                     break;
-                case /* string wireguard_public_key */ 4:
+                case /* string wireguard_public_key */ 3:
                     message.wireguardPublicKey = reader.string();
                     break;
-                case /* string assigned_ip */ 5:
+                case /* string assigned_ip */ 4:
                     message.assignedIp = reader.string();
                     break;
-                case /* string wireguard_config */ 6:
+                case /* string wireguard_config */ 5:
                     message.wireguardConfig = reader.string();
                     break;
-                case /* string message */ 7:
+                case /* string message */ 6:
                     message.message = reader.string();
                     break;
-                case /* bool is_admin */ 8:
+                case /* bool is_admin */ 7:
                     message.isAdmin = reader.bool();
                     break;
-                case /* google.protobuf.Timestamp verified_at */ 9:
+                case /* google.protobuf.Timestamp verified_at */ 8:
                     message.verifiedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.verifiedAt);
                     break;
                 default:
@@ -715,33 +682,30 @@ class VerifyMagicLinkResponse$Type extends MessageType<VerifyMagicLinkResponse> 
         return message;
     }
     internalBinaryWrite(message: VerifyMagicLinkResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string user_id = 2; */
+        /* string user_id = 1; */
         if (message.userId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.userId);
-        /* string email = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.userId);
+        /* string email = 2; */
         if (message.email !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.email);
-        /* string wireguard_public_key = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.email);
+        /* string wireguard_public_key = 3; */
         if (message.wireguardPublicKey !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.wireguardPublicKey);
-        /* string assigned_ip = 5; */
+            writer.tag(3, WireType.LengthDelimited).string(message.wireguardPublicKey);
+        /* string assigned_ip = 4; */
         if (message.assignedIp !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.assignedIp);
-        /* string wireguard_config = 6; */
+            writer.tag(4, WireType.LengthDelimited).string(message.assignedIp);
+        /* string wireguard_config = 5; */
         if (message.wireguardConfig !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.wireguardConfig);
-        /* string message = 7; */
+            writer.tag(5, WireType.LengthDelimited).string(message.wireguardConfig);
+        /* string message = 6; */
         if (message.message !== "")
-            writer.tag(7, WireType.LengthDelimited).string(message.message);
-        /* bool is_admin = 8; */
+            writer.tag(6, WireType.LengthDelimited).string(message.message);
+        /* bool is_admin = 7; */
         if (message.isAdmin !== false)
-            writer.tag(8, WireType.Varint).bool(message.isAdmin);
-        /* google.protobuf.Timestamp verified_at = 9; */
+            writer.tag(7, WireType.Varint).bool(message.isAdmin);
+        /* google.protobuf.Timestamp verified_at = 8; */
         if (message.verifiedAt)
-            Timestamp.internalBinaryWrite(message.verifiedAt, writer.tag(9, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.verifiedAt, writer.tag(8, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -834,17 +798,15 @@ export const RegisterUserRequest = new RegisterUserRequest$Type();
 class RegisterUserResponse$Type extends MessageType<RegisterUserResponse> {
     constructor() {
         super("operation.registration.v1.RegisterUserResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "registered_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "registered_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<RegisterUserResponse>): RegisterUserResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.userId = "";
         message.message = "";
         message.assignedIp = "";
@@ -858,22 +820,19 @@ class RegisterUserResponse$Type extends MessageType<RegisterUserResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string user_id */ 2:
+                case /* string user_id */ 1:
                     message.userId = reader.string();
                     break;
-                case /* string message */ 3:
+                case /* string message */ 2:
                     message.message = reader.string();
                     break;
-                case /* string assigned_ip */ 4:
+                case /* string assigned_ip */ 3:
                     message.assignedIp = reader.string();
                     break;
-                case /* string wireguard_config */ 5:
+                case /* string wireguard_config */ 4:
                     message.wireguardConfig = reader.string();
                     break;
-                case /* google.protobuf.Timestamp registered_at */ 6:
+                case /* google.protobuf.Timestamp registered_at */ 5:
                     message.registeredAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.registeredAt);
                     break;
                 default:
@@ -888,24 +847,21 @@ class RegisterUserResponse$Type extends MessageType<RegisterUserResponse> {
         return message;
     }
     internalBinaryWrite(message: RegisterUserResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string user_id = 2; */
+        /* string user_id = 1; */
         if (message.userId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.userId);
-        /* string message = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.userId);
+        /* string message = 2; */
         if (message.message !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.message);
-        /* string assigned_ip = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* string assigned_ip = 3; */
         if (message.assignedIp !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.assignedIp);
-        /* string wireguard_config = 5; */
+            writer.tag(3, WireType.LengthDelimited).string(message.assignedIp);
+        /* string wireguard_config = 4; */
         if (message.wireguardConfig !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.wireguardConfig);
-        /* google.protobuf.Timestamp registered_at = 6; */
+            writer.tag(4, WireType.LengthDelimited).string(message.wireguardConfig);
+        /* google.protobuf.Timestamp registered_at = 5; */
         if (message.registeredAt)
-            Timestamp.internalBinaryWrite(message.registeredAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.registeredAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1397,17 +1353,15 @@ export const GetWireGuardConfigRequest = new GetWireGuardConfigRequest$Type();
 class GetWireGuardConfigResponse$Type extends MessageType<GetWireGuardConfigResponse> {
     constructor() {
         super("operation.registration.v1.GetWireGuardConfigResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "generated_at", kind: "message", T: () => Timestamp }
+            { no: 1, name: "wireguard_config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "assigned_ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "generated_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<GetWireGuardConfigResponse>): GetWireGuardConfigResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.wireguardConfig = "";
         message.publicKey = "";
         message.assignedIp = "";
@@ -1421,22 +1375,19 @@ class GetWireGuardConfigResponse$Type extends MessageType<GetWireGuardConfigResp
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string wireguard_config */ 2:
+                case /* string wireguard_config */ 1:
                     message.wireguardConfig = reader.string();
                     break;
-                case /* string public_key */ 3:
+                case /* string public_key */ 2:
                     message.publicKey = reader.string();
                     break;
-                case /* string assigned_ip */ 4:
+                case /* string assigned_ip */ 3:
                     message.assignedIp = reader.string();
                     break;
-                case /* string message */ 5:
+                case /* string message */ 4:
                     message.message = reader.string();
                     break;
-                case /* google.protobuf.Timestamp generated_at */ 6:
+                case /* google.protobuf.Timestamp generated_at */ 5:
                     message.generatedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.generatedAt);
                     break;
                 default:
@@ -1451,24 +1402,21 @@ class GetWireGuardConfigResponse$Type extends MessageType<GetWireGuardConfigResp
         return message;
     }
     internalBinaryWrite(message: GetWireGuardConfigResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string wireguard_config = 2; */
+        /* string wireguard_config = 1; */
         if (message.wireguardConfig !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.wireguardConfig);
-        /* string public_key = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.wireguardConfig);
+        /* string public_key = 2; */
         if (message.publicKey !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.publicKey);
-        /* string assigned_ip = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.publicKey);
+        /* string assigned_ip = 3; */
         if (message.assignedIp !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.assignedIp);
-        /* string message = 5; */
+            writer.tag(3, WireType.LengthDelimited).string(message.assignedIp);
+        /* string message = 4; */
         if (message.message !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.message);
-        /* google.protobuf.Timestamp generated_at = 6; */
+            writer.tag(4, WireType.LengthDelimited).string(message.message);
+        /* google.protobuf.Timestamp generated_at = 5; */
         if (message.generatedAt)
-            Timestamp.internalBinaryWrite(message.generatedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.generatedAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1553,15 +1501,13 @@ export const AdminUserActionRequest = new AdminUserActionRequest$Type();
 class AdminUserActionResponse$Type extends MessageType<AdminUserActionResponse> {
     constructor() {
         super("operation.registration.v1.AdminUserActionResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "action_timestamp", kind: "message", T: () => Timestamp }
+            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "user_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "action_timestamp", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<AdminUserActionResponse>): AdminUserActionResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.message = "";
         message.userId = "";
         if (value !== undefined)
@@ -1573,16 +1519,13 @@ class AdminUserActionResponse$Type extends MessageType<AdminUserActionResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 2:
+                case /* string message */ 1:
                     message.message = reader.string();
                     break;
-                case /* string user_id */ 3:
+                case /* string user_id */ 2:
                     message.userId = reader.string();
                     break;
-                case /* google.protobuf.Timestamp action_timestamp */ 4:
+                case /* google.protobuf.Timestamp action_timestamp */ 3:
                     message.actionTimestamp = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.actionTimestamp);
                     break;
                 default:
@@ -1597,18 +1540,15 @@ class AdminUserActionResponse$Type extends MessageType<AdminUserActionResponse> 
         return message;
     }
     internalBinaryWrite(message: AdminUserActionResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message = 2; */
+        /* string message = 1; */
         if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
-        /* string user_id = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.message);
+        /* string user_id = 2; */
         if (message.userId !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.userId);
-        /* google.protobuf.Timestamp action_timestamp = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.userId);
+        /* google.protobuf.Timestamp action_timestamp = 3; */
         if (message.actionTimestamp)
-            Timestamp.internalBinaryWrite(message.actionTimestamp, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
+            Timestamp.internalBinaryWrite(message.actionTimestamp, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

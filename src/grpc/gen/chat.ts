@@ -148,17 +148,17 @@ export interface UIMessagePart {
      */
     messageId: string;
     /**
-     * @generated from protobuf field: string role = 2
+     * @generated from protobuf field: op_chat.chat.UIMessageRole role = 2
      */
-    role: string; // "assistant" | "tool" | "system"
+    role: UIMessageRole;
     /**
-     * @generated from protobuf field: string kind = 3
+     * @generated from protobuf field: op_chat.chat.UIMessageKind kind = 3
      */
-    kind: string; // "text" | "tool-call" | "tool-result" | "reasoning"
+    kind: UIMessageKind;
     /**
      * @generated from protobuf field: bytes payload = 4
      */
-    payload: Uint8Array; // JSON bytes matching the AI SDK part shape
+    payload: Uint8Array;
 }
 /**
  * @generated from protobuf message op_chat.chat.ApprovalRequired
@@ -188,15 +188,15 @@ export interface StreamError {
     /**
      * @generated from protobuf field: string code = 1
      */
-    code: string; // Machine-readable error code
+    code: string;
     /**
      * @generated from protobuf field: string message = 2
      */
-    message: string; // Human-readable error message
+    message: string;
     /**
      * @generated from protobuf field: bool retryable = 3
      */
-    retryable: boolean; // Whether the client should retry
+    retryable: boolean;
     /**
      * @generated from protobuf field: optional uint32 retry_after_ms = 4
      */
@@ -233,30 +233,68 @@ export interface StreamDone {
  */
 export interface ApproveResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string tool_call_id = 2
+     * @generated from protobuf field: string tool_call_id = 1
      */
     toolCallId: string;
-    /**
-     * @generated from protobuf field: optional string error = 3
-     */
-    error?: string;
 }
 /**
  * @generated from protobuf message op_chat.chat.CancelResponse
  */
 export interface CancelResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string conversation_id = 2
+     * @generated from protobuf field: string conversation_id = 1
      */
     conversationId: string;
+}
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+/**
+ * @generated from protobuf enum op_chat.chat.UIMessageRole
+ */
+export enum UIMessageRole {
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_ROLE_UNSPECIFIED = 0;
+     */
+    UI_MESSAGE_ROLE_UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_ROLE_ASSISTANT = 1;
+     */
+    UI_MESSAGE_ROLE_ASSISTANT = 1,
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_ROLE_TOOL = 2;
+     */
+    UI_MESSAGE_ROLE_TOOL = 2,
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_ROLE_SYSTEM = 3;
+     */
+    UI_MESSAGE_ROLE_SYSTEM = 3
+}
+/**
+ * @generated from protobuf enum op_chat.chat.UIMessageKind
+ */
+export enum UIMessageKind {
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_KIND_UNSPECIFIED = 0;
+     */
+    UI_MESSAGE_KIND_UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_KIND_TEXT = 1;
+     */
+    UI_MESSAGE_KIND_TEXT = 1,
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_KIND_TOOL_CALL = 2;
+     */
+    UI_MESSAGE_KIND_TOOL_CALL = 2,
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_KIND_TOOL_RESULT = 3;
+     */
+    UI_MESSAGE_KIND_TOOL_RESULT = 3,
+    /**
+     * @generated from protobuf enum value: UI_MESSAGE_KIND_REASONING = 4;
+     */
+    UI_MESSAGE_KIND_REASONING = 4
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SendRequest$Type extends MessageType<SendRequest> {
@@ -563,16 +601,16 @@ class UIMessagePart$Type extends MessageType<UIMessagePart> {
     constructor() {
         super("op_chat.chat.UIMessagePart", [
             { no: 1, name: "message_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "role", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "kind", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "role", kind: "enum", T: () => ["op_chat.chat.UIMessageRole", UIMessageRole] },
+            { no: 3, name: "kind", kind: "enum", T: () => ["op_chat.chat.UIMessageKind", UIMessageKind] },
             { no: 4, name: "payload", kind: "scalar", T: 12 /*ScalarType.BYTES*/ }
         ]);
     }
     create(value?: PartialMessage<UIMessagePart>): UIMessagePart {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.messageId = "";
-        message.role = "";
-        message.kind = "";
+        message.role = 0;
+        message.kind = 0;
         message.payload = new Uint8Array(0);
         if (value !== undefined)
             reflectionMergePartial<UIMessagePart>(this, message, value);
@@ -586,11 +624,11 @@ class UIMessagePart$Type extends MessageType<UIMessagePart> {
                 case /* string message_id */ 1:
                     message.messageId = reader.string();
                     break;
-                case /* string role */ 2:
-                    message.role = reader.string();
+                case /* op_chat.chat.UIMessageRole role */ 2:
+                    message.role = reader.int32();
                     break;
-                case /* string kind */ 3:
-                    message.kind = reader.string();
+                case /* op_chat.chat.UIMessageKind kind */ 3:
+                    message.kind = reader.int32();
                     break;
                 case /* bytes payload */ 4:
                     message.payload = reader.bytes();
@@ -610,12 +648,12 @@ class UIMessagePart$Type extends MessageType<UIMessagePart> {
         /* string message_id = 1; */
         if (message.messageId !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.messageId);
-        /* string role = 2; */
-        if (message.role !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.role);
-        /* string kind = 3; */
-        if (message.kind !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.kind);
+        /* op_chat.chat.UIMessageRole role = 2; */
+        if (message.role !== 0)
+            writer.tag(2, WireType.Varint).int32(message.role);
+        /* op_chat.chat.UIMessageKind kind = 3; */
+        if (message.kind !== 0)
+            writer.tag(3, WireType.Varint).int32(message.kind);
         /* bytes payload = 4; */
         if (message.payload.length)
             writer.tag(4, WireType.LengthDelimited).bytes(message.payload);
@@ -876,14 +914,11 @@ export const StreamDone = new StreamDone$Type();
 class ApproveResponse$Type extends MessageType<ApproveResponse> {
     constructor() {
         super("op_chat.chat.ApproveResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "tool_call_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "tool_call_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ApproveResponse>): ApproveResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.toolCallId = "";
         if (value !== undefined)
             reflectionMergePartial<ApproveResponse>(this, message, value);
@@ -894,14 +929,8 @@ class ApproveResponse$Type extends MessageType<ApproveResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string tool_call_id */ 2:
+                case /* string tool_call_id */ 1:
                     message.toolCallId = reader.string();
-                    break;
-                case /* optional string error */ 3:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -915,15 +944,9 @@ class ApproveResponse$Type extends MessageType<ApproveResponse> {
         return message;
     }
     internalBinaryWrite(message: ApproveResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string tool_call_id = 2; */
+        /* string tool_call_id = 1; */
         if (message.toolCallId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.toolCallId);
-        /* optional string error = 3; */
-        if (message.error !== undefined)
-            writer.tag(3, WireType.LengthDelimited).string(message.error);
+            writer.tag(1, WireType.LengthDelimited).string(message.toolCallId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -938,13 +961,11 @@ export const ApproveResponse = new ApproveResponse$Type();
 class CancelResponse$Type extends MessageType<CancelResponse> {
     constructor() {
         super("op_chat.chat.CancelResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "conversation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "conversation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CancelResponse>): CancelResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.conversationId = "";
         if (value !== undefined)
             reflectionMergePartial<CancelResponse>(this, message, value);
@@ -955,10 +976,7 @@ class CancelResponse$Type extends MessageType<CancelResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string conversation_id */ 2:
+                case /* string conversation_id */ 1:
                     message.conversationId = reader.string();
                     break;
                 default:
@@ -973,12 +991,9 @@ class CancelResponse$Type extends MessageType<CancelResponse> {
         return message;
     }
     internalBinaryWrite(message: CancelResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string conversation_id = 2; */
+        /* string conversation_id = 1; */
         if (message.conversationId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.conversationId);
+            writer.tag(1, WireType.LengthDelimited).string(message.conversationId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

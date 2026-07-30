@@ -30,10 +30,6 @@ export interface RemoveMailboxInput {
  * @generated from protobuf message operation.method.mail_server.remove_mailbox.RemoveMailboxOutput
  */
 export interface RemoveMailboxOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RemoveMailboxInput$Type extends MessageType<RemoveMailboxInput> {
@@ -93,13 +89,10 @@ export const RemoveMailboxInput = new RemoveMailboxInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RemoveMailboxOutput$Type extends MessageType<RemoveMailboxOutput> {
     constructor() {
-        super("operation.method.mail_server.remove_mailbox.RemoveMailboxOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.mail_server.remove_mailbox.RemoveMailboxOutput", []);
     }
     create(value?: PartialMessage<RemoveMailboxOutput>): RemoveMailboxOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RemoveMailboxOutput>(this, message, value);
         return message;
@@ -109,9 +102,6 @@ class RemoveMailboxOutput$Type extends MessageType<RemoveMailboxOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -124,9 +114,6 @@ class RemoveMailboxOutput$Type extends MessageType<RemoveMailboxOutput> {
         return message;
     }
     internalBinaryWrite(message: RemoveMailboxOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

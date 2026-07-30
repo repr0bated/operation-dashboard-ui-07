@@ -66,6 +66,8 @@ import type { StartResponse } from "./internal_agents";
 import type { StartRequest } from "./internal_agents";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
+// ============ Services ============
+
 /**
  * Agent Lifecycle Service
  * Used by MCP server to manage run-on-connection agents
@@ -98,6 +100,8 @@ export interface IAgentLifecycleClient {
      */
     watchStatus(input: WatchRequest, options?: RpcOptions): ServerStreamingCall<WatchRequest, AgentStatus>;
 }
+// ============ Services ============
+
 /**
  * Agent Lifecycle Service
  * Used by MCP server to manage run-on-connection agents

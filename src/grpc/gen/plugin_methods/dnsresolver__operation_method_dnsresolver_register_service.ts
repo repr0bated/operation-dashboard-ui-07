@@ -51,10 +51,6 @@ export interface RegisterServiceInput {
  * @generated from protobuf message operation.method.dnsresolver.register_service.RegisterServiceOutput
  */
 export interface RegisterServiceOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RegisterServiceInput$Type extends MessageType<RegisterServiceInput> {
@@ -154,13 +150,10 @@ export const RegisterServiceInput = new RegisterServiceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RegisterServiceOutput$Type extends MessageType<RegisterServiceOutput> {
     constructor() {
-        super("operation.method.dnsresolver.register_service.RegisterServiceOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.dnsresolver.register_service.RegisterServiceOutput", []);
     }
     create(value?: PartialMessage<RegisterServiceOutput>): RegisterServiceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RegisterServiceOutput>(this, message, value);
         return message;
@@ -170,9 +163,6 @@ class RegisterServiceOutput$Type extends MessageType<RegisterServiceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -185,9 +175,6 @@ class RegisterServiceOutput$Type extends MessageType<RegisterServiceOutput> {
         return message;
     }
     internalBinaryWrite(message: RegisterServiceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

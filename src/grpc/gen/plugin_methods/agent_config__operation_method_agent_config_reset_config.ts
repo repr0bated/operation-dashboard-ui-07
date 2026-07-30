@@ -4,7 +4,6 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
-import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -24,10 +23,6 @@ export interface ResetConfigInput {
  * @generated from protobuf message operation.method.agent_config.reset_config.ResetConfigOutput
  */
 export interface ResetConfigOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ResetConfigInput$Type extends MessageType<ResetConfigInput> {
@@ -70,13 +65,10 @@ export const ResetConfigInput = new ResetConfigInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ResetConfigOutput$Type extends MessageType<ResetConfigOutput> {
     constructor() {
-        super("operation.method.agent_config.reset_config.ResetConfigOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.agent_config.reset_config.ResetConfigOutput", []);
     }
     create(value?: PartialMessage<ResetConfigOutput>): ResetConfigOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ResetConfigOutput>(this, message, value);
         return message;
@@ -86,9 +78,6 @@ class ResetConfigOutput$Type extends MessageType<ResetConfigOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -101,9 +90,6 @@ class ResetConfigOutput$Type extends MessageType<ResetConfigOutput> {
         return message;
     }
     internalBinaryWrite(message: ResetConfigOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

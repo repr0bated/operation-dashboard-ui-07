@@ -103,9 +103,9 @@ export interface McpEvent {
      */
     eventType: string;
     /**
-     * @generated from protobuf field: string data_json = 2
+     * @generated from protobuf field: google.protobuf.Struct data = 2
      */
-    dataJson: string;
+    data?: Struct;
     /**
      * @generated from protobuf field: int64 timestamp = 3
      */
@@ -422,9 +422,9 @@ export interface NetworkArgs {
      */
     url: string;
     /**
-     * @generated from protobuf field: string method = 2
+     * @generated from protobuf field: op.mcp.v1.HTTPMethod method = 2
      */
-    method: string;
+    method: HTTPMethod;
     /**
      * @generated from protobuf field: map<string, string> headers = 3
      */
@@ -479,19 +479,15 @@ export interface ShellArgs {
  */
 export interface CallToolResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: google.protobuf.Struct result = 2
+     * @generated from protobuf field: google.protobuf.Struct result = 1
      */
     result?: Struct; // Structured result
     /**
-     * @generated from protobuf field: optional string error = 3
+     * @generated from protobuf field: optional string error = 2
      */
     error?: string;
     /**
-     * @generated from protobuf field: uint64 duration_ms = 4
+     * @generated from protobuf field: uint64 duration_ms = 3
      */
     durationMs: string;
 }
@@ -548,50 +544,95 @@ export enum ServerMode {
  */
 export enum ParameterType {
     /**
-     * @generated from protobuf enum value: PARAMETER_TYPE_STRING = 0;
+     * @generated from protobuf enum value: PARAMETER_TYPE_UNSPECIFIED = 0;
      */
-    STRING = 0,
+    UNSPECIFIED = 0,
     /**
-     * @generated from protobuf enum value: PARAMETER_TYPE_INTEGER = 1;
+     * @generated from protobuf enum value: PARAMETER_TYPE_STRING = 1;
      */
-    INTEGER = 1,
+    STRING = 1,
     /**
-     * @generated from protobuf enum value: PARAMETER_TYPE_NUMBER = 2;
+     * @generated from protobuf enum value: PARAMETER_TYPE_INTEGER = 2;
      */
-    NUMBER = 2,
+    INTEGER = 2,
     /**
-     * @generated from protobuf enum value: PARAMETER_TYPE_BOOLEAN = 3;
+     * @generated from protobuf enum value: PARAMETER_TYPE_NUMBER = 3;
      */
-    BOOLEAN = 3,
+    NUMBER = 3,
     /**
-     * @generated from protobuf enum value: PARAMETER_TYPE_ARRAY = 4;
+     * @generated from protobuf enum value: PARAMETER_TYPE_BOOLEAN = 4;
      */
-    ARRAY = 4,
+    BOOLEAN = 4,
     /**
-     * @generated from protobuf enum value: PARAMETER_TYPE_OBJECT = 5;
+     * @generated from protobuf enum value: PARAMETER_TYPE_ARRAY = 5;
      */
-    OBJECT = 5
+    ARRAY = 5,
+    /**
+     * @generated from protobuf enum value: PARAMETER_TYPE_OBJECT = 6;
+     */
+    OBJECT = 6
 }
 /**
  * @generated from protobuf enum op.mcp.v1.FileOperation
  */
 export enum FileOperation {
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_READ = 0;
+     * @generated from protobuf enum value: FILE_OPERATION_UNSPECIFIED = 0;
      */
-    READ = 0,
+    UNSPECIFIED = 0,
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_WRITE = 1;
+     * @generated from protobuf enum value: FILE_OPERATION_READ = 1;
      */
-    WRITE = 1,
+    READ = 1,
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_DELETE = 2;
+     * @generated from protobuf enum value: FILE_OPERATION_WRITE = 2;
      */
-    DELETE = 2,
+    WRITE = 2,
     /**
-     * @generated from protobuf enum value: FILE_OPERATION_LIST = 3;
+     * @generated from protobuf enum value: FILE_OPERATION_DELETE = 3;
      */
-    LIST = 3
+    DELETE = 3,
+    /**
+     * @generated from protobuf enum value: FILE_OPERATION_LIST = 4;
+     */
+    LIST = 4
+}
+/**
+ * @generated from protobuf enum op.mcp.v1.HTTPMethod
+ */
+export enum HTTPMethod {
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_UNSPECIFIED = 0;
+     */
+    HTTP_METHOD_UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_GET = 1;
+     */
+    HTTP_METHOD_GET = 1,
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_POST = 2;
+     */
+    HTTP_METHOD_POST = 2,
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_PUT = 3;
+     */
+    HTTP_METHOD_PUT = 3,
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_DELETE = 4;
+     */
+    HTTP_METHOD_DELETE = 4,
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_PATCH = 5;
+     */
+    HTTP_METHOD_PATCH = 5,
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_HEAD = 6;
+     */
+    HTTP_METHOD_HEAD = 6,
+    /**
+     * @generated from protobuf enum value: HTTP_METHOD_OPTIONS = 7;
+     */
+    HTTP_METHOD_OPTIONS = 7
 }
 /**
  * @generated from protobuf enum op.mcp.v1.OutputType
@@ -880,7 +921,7 @@ class McpEvent$Type extends MessageType<McpEvent> {
     constructor() {
         super("op.mcp.v1.McpEvent", [
             { no: 1, name: "event_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "data_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "data", kind: "message", T: () => Struct },
             { no: 3, name: "timestamp", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
             { no: 4, name: "sequence", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
@@ -888,7 +929,6 @@ class McpEvent$Type extends MessageType<McpEvent> {
     create(value?: PartialMessage<McpEvent>): McpEvent {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.eventType = "";
-        message.dataJson = "";
         message.timestamp = "0";
         message.sequence = 0;
         if (value !== undefined)
@@ -903,8 +943,8 @@ class McpEvent$Type extends MessageType<McpEvent> {
                 case /* string event_type */ 1:
                     message.eventType = reader.string();
                     break;
-                case /* string data_json */ 2:
-                    message.dataJson = reader.string();
+                case /* google.protobuf.Struct data */ 2:
+                    message.data = Struct.internalBinaryRead(reader, reader.uint32(), options, message.data);
                     break;
                 case /* int64 timestamp */ 3:
                     message.timestamp = reader.int64().toString();
@@ -927,9 +967,9 @@ class McpEvent$Type extends MessageType<McpEvent> {
         /* string event_type = 1; */
         if (message.eventType !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.eventType);
-        /* string data_json = 2; */
-        if (message.dataJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.dataJson);
+        /* google.protobuf.Struct data = 2; */
+        if (message.data)
+            Struct.internalBinaryWrite(message.data, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         /* int64 timestamp = 3; */
         if (message.timestamp !== "0")
             writer.tag(3, WireType.Varint).int64(message.timestamp);
@@ -1903,7 +1943,7 @@ class NetworkArgs$Type extends MessageType<NetworkArgs> {
     constructor() {
         super("op.mcp.v1.NetworkArgs", [
             { no: 1, name: "url", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "method", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "method", kind: "enum", T: () => ["op.mcp.v1.HTTPMethod", HTTPMethod] },
             { no: 3, name: "headers", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } },
             { no: 4, name: "body", kind: "scalar", opt: true, T: 12 /*ScalarType.BYTES*/ }
         ]);
@@ -1911,7 +1951,7 @@ class NetworkArgs$Type extends MessageType<NetworkArgs> {
     create(value?: PartialMessage<NetworkArgs>): NetworkArgs {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.url = "";
-        message.method = "";
+        message.method = 0;
         message.headers = {};
         if (value !== undefined)
             reflectionMergePartial<NetworkArgs>(this, message, value);
@@ -1925,8 +1965,8 @@ class NetworkArgs$Type extends MessageType<NetworkArgs> {
                 case /* string url */ 1:
                     message.url = reader.string();
                     break;
-                case /* string method */ 2:
-                    message.method = reader.string();
+                case /* op.mcp.v1.HTTPMethod method */ 2:
+                    message.method = reader.int32();
                     break;
                 case /* map<string, string> headers */ 3:
                     this.binaryReadMap3(message.headers, reader, options);
@@ -1965,9 +2005,9 @@ class NetworkArgs$Type extends MessageType<NetworkArgs> {
         /* string url = 1; */
         if (message.url !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.url);
-        /* string method = 2; */
-        if (message.method !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.method);
+        /* op.mcp.v1.HTTPMethod method = 2; */
+        if (message.method !== 0)
+            writer.tag(2, WireType.Varint).int32(message.method);
         /* map<string, string> headers = 3; */
         for (let k of globalThis.Object.keys(message.headers))
             writer.tag(3, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.headers[k]).join();
@@ -2145,15 +2185,13 @@ export const ShellArgs = new ShellArgs$Type();
 class CallToolResponse$Type extends MessageType<CallToolResponse> {
     constructor() {
         super("op.mcp.v1.CallToolResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "result", kind: "message", T: () => Struct },
-            { no: 3, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "duration_ms", kind: "scalar", T: 4 /*ScalarType.UINT64*/ }
+            { no: 1, name: "result", kind: "message", T: () => Struct },
+            { no: 2, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "duration_ms", kind: "scalar", T: 4 /*ScalarType.UINT64*/ }
         ]);
     }
     create(value?: PartialMessage<CallToolResponse>): CallToolResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.durationMs = "0";
         if (value !== undefined)
             reflectionMergePartial<CallToolResponse>(this, message, value);
@@ -2164,16 +2202,13 @@ class CallToolResponse$Type extends MessageType<CallToolResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* google.protobuf.Struct result */ 2:
+                case /* google.protobuf.Struct result */ 1:
                     message.result = Struct.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
-                case /* optional string error */ 3:
+                case /* optional string error */ 2:
                     message.error = reader.string();
                     break;
-                case /* uint64 duration_ms */ 4:
+                case /* uint64 duration_ms */ 3:
                     message.durationMs = reader.uint64().toString();
                     break;
                 default:
@@ -2188,18 +2223,15 @@ class CallToolResponse$Type extends MessageType<CallToolResponse> {
         return message;
     }
     internalBinaryWrite(message: CallToolResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* google.protobuf.Struct result = 2; */
+        /* google.protobuf.Struct result = 1; */
         if (message.result)
-            Struct.internalBinaryWrite(message.result, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* optional string error = 3; */
+            Struct.internalBinaryWrite(message.result, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* optional string error = 2; */
         if (message.error !== undefined)
-            writer.tag(3, WireType.LengthDelimited).string(message.error);
-        /* uint64 duration_ms = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.error);
+        /* uint64 duration_ms = 3; */
         if (message.durationMs !== "0")
-            writer.tag(4, WireType.Varint).uint64(message.durationMs);
+            writer.tag(3, WireType.Varint).uint64(message.durationMs);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

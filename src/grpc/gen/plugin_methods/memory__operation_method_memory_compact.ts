@@ -38,10 +38,6 @@ export interface CompactOutput {
      * @generated from protobuf field: int64 freed_bytes = 2
      */
     freedBytes: string;
-    /**
-     * @generated from protobuf field: bool success = 3
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CompactInput$Type extends MessageType<CompactInput> {
@@ -103,15 +99,13 @@ class CompactOutput$Type extends MessageType<CompactOutput> {
     constructor() {
         super("operation.method.memory.compact.CompactOutput", [
             { no: 1, name: "fragmentation_level", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 2, name: "freed_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 2, name: "freed_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<CompactOutput>): CompactOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.fragmentationLevel = 0;
         message.freedBytes = "0";
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CompactOutput>(this, message, value);
         return message;
@@ -126,9 +120,6 @@ class CompactOutput$Type extends MessageType<CompactOutput> {
                     break;
                 case /* int64 freed_bytes */ 2:
                     message.freedBytes = reader.int64().toString();
-                    break;
-                case /* bool success */ 3:
-                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -148,9 +139,6 @@ class CompactOutput$Type extends MessageType<CompactOutput> {
         /* int64 freed_bytes = 2; */
         if (message.freedBytes !== "0")
             writer.tag(2, WireType.Varint).int64(message.freedBytes);
-        /* bool success = 3; */
-        if (message.success !== false)
-            writer.tag(3, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

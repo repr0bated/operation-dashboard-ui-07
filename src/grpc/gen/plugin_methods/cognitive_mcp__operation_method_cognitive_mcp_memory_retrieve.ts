@@ -29,11 +29,7 @@ export interface MemoryRetrieveOutput {
      */
     namespace: string;
     /**
-     * @generated from protobuf field: bool success = 2
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string value = 3
+     * @generated from protobuf field: string value = 2
      */
     value: string;
 }
@@ -80,14 +76,12 @@ class MemoryRetrieveOutput$Type extends MessageType<MemoryRetrieveOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.memory_retrieve.MemoryRetrieveOutput", [
             { no: 1, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<MemoryRetrieveOutput>): MemoryRetrieveOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.namespace = "";
-        message.success = false;
         message.value = "";
         if (value !== undefined)
             reflectionMergePartial<MemoryRetrieveOutput>(this, message, value);
@@ -101,10 +95,7 @@ class MemoryRetrieveOutput$Type extends MessageType<MemoryRetrieveOutput> {
                 case /* string namespace */ 1:
                     message.namespace = reader.string();
                     break;
-                case /* bool success */ 2:
-                    message.success = reader.bool();
-                    break;
-                case /* string value */ 3:
+                case /* string value */ 2:
                     message.value = reader.string();
                     break;
                 default:
@@ -122,12 +113,9 @@ class MemoryRetrieveOutput$Type extends MessageType<MemoryRetrieveOutput> {
         /* string namespace = 1; */
         if (message.namespace !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.namespace);
-        /* bool success = 2; */
-        if (message.success !== false)
-            writer.tag(2, WireType.Varint).bool(message.success);
-        /* string value = 3; */
+        /* string value = 2; */
         if (message.value !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.value);
+            writer.tag(2, WireType.LengthDelimited).string(message.value);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

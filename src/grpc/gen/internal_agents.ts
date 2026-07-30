@@ -19,6 +19,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Struct } from "./google/protobuf/struct";
 // ============ Messages ============
 
 /**
@@ -41,15 +42,7 @@ export interface StartRequest {
  */
 export interface StartResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 2
-     */
-    message: string;
-    /**
-     * @generated from protobuf field: int64 started_at = 3
+     * @generated from protobuf field: int64 started_at = 1
      */
     startedAt: string;
 }
@@ -70,14 +63,6 @@ export interface StopRequest {
  * @generated from protobuf message op_agents.StopResponse
  */
 export interface StopResponse {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 2
-     */
-    message: string;
 }
 /**
  * @generated from protobuf message op_agents.HealthRequest
@@ -129,9 +114,9 @@ export interface AgentStatus {
      */
     agentId: string;
     /**
-     * @generated from protobuf field: string status = 2
+     * @generated from protobuf field: op_agents.AgentLifecycleStatus status = 2
      */
-    status: string; // starting, running, stopping, stopped, error
+    status: AgentLifecycleStatus;
     /**
      * @generated from protobuf field: int64 timestamp = 3
      */
@@ -156,9 +141,9 @@ export interface ExecuteRequest {
      */
     operation: string;
     /**
-     * @generated from protobuf field: string arguments_json = 3
+     * @generated from protobuf field: google.protobuf.Struct arguments = 3
      */
-    argumentsJson: string;
+    arguments?: Struct;
     /**
      * @generated from protobuf field: int64 timeout_ms = 4
      */
@@ -173,23 +158,15 @@ export interface ExecuteRequest {
  */
 export interface ExecuteResponse {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: google.protobuf.Struct result = 1
      */
-    success: boolean;
+    result?: Struct;
     /**
-     * @generated from protobuf field: string result_json = 2
-     */
-    resultJson: string;
-    /**
-     * @generated from protobuf field: string error = 3
-     */
-    error: string;
-    /**
-     * @generated from protobuf field: int64 execution_time_ms = 4
+     * @generated from protobuf field: int64 execution_time_ms = 2
      */
     executionTimeMs: string;
     /**
-     * @generated from protobuf field: string correlation_id = 5
+     * @generated from protobuf field: string correlation_id = 3
      */
     correlationId: string;
 }
@@ -206,13 +183,13 @@ export interface ExecuteChunk {
      */
     chunk: string;
     /**
-     * @generated from protobuf field: bool is_final = 3
+     * @generated from protobuf field: op_agents.StreamType stream_type = 3
+     */
+    streamType: StreamType;
+    /**
+     * @generated from protobuf field: bool is_final = 4
      */
     isFinal: boolean;
-    /**
-     * @generated from protobuf field: bool is_error = 4
-     */
-    isError: boolean;
 }
 /**
  * Memory messages
@@ -242,11 +219,7 @@ export interface RememberRequest {
  */
 export interface RememberResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string key = 2
+     * @generated from protobuf field: string key = 1
      */
     key: string;
 }
@@ -264,23 +237,19 @@ export interface RecallRequest {
  */
 export interface RecallResponse {
     /**
-     * @generated from protobuf field: bool found = 1
-     */
-    found: boolean;
-    /**
-     * @generated from protobuf field: string key = 2
+     * @generated from protobuf field: string key = 1
      */
     key: string;
     /**
-     * @generated from protobuf field: string value = 3
+     * @generated from protobuf field: string value = 2
      */
     value: string;
     /**
-     * @generated from protobuf field: int64 created_at = 4
+     * @generated from protobuf field: int64 created_at = 3
      */
     createdAt: string;
     /**
-     * @generated from protobuf field: int64 accessed_at = 5
+     * @generated from protobuf field: int64 accessed_at = 4
      */
     accessedAt: string;
 }
@@ -297,10 +266,6 @@ export interface ForgetRequest {
  * @generated from protobuf message op_agents.ForgetResponse
  */
 export interface ForgetResponse {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 /**
  * @generated from protobuf message op_agents.ListRequest
@@ -450,11 +415,7 @@ export interface ThoughtResponse {
      */
     thought: string;
     /**
-     * @generated from protobuf field: string status = 4
-     */
-    status: string; // thinking, analyzing, concluding, complete
-    /**
-     * @generated from protobuf field: bool is_final = 5
+     * @generated from protobuf field: bool is_final = 4
      */
     isFinal: boolean;
 }
@@ -512,15 +473,11 @@ export interface SaveContextRequest {
  */
 export interface SaveContextResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 1
      */
     name: string;
     /**
-     * @generated from protobuf field: int64 size_bytes = 3
+     * @generated from protobuf field: int64 size_bytes = 2
      */
     sizeBytes: string;
 }
@@ -538,27 +495,23 @@ export interface LoadContextRequest {
  */
 export interface LoadContextResponse {
     /**
-     * @generated from protobuf field: bool found = 1
-     */
-    found: boolean;
-    /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 1
      */
     name: string;
     /**
-     * @generated from protobuf field: string content = 3
+     * @generated from protobuf field: string content = 2
      */
     content: string;
     /**
-     * @generated from protobuf field: repeated string tags = 4
+     * @generated from protobuf field: repeated string tags = 3
      */
     tags: string[];
     /**
-     * @generated from protobuf field: int64 created_at = 5
+     * @generated from protobuf field: int64 created_at = 4
      */
     createdAt: string;
     /**
-     * @generated from protobuf field: int64 updated_at = 6
+     * @generated from protobuf field: int64 updated_at = 5
      */
     updatedAt: string;
 }
@@ -614,10 +567,6 @@ export interface DeleteContextRequest {
  * @generated from protobuf message op_agents.DeleteContextResponse
  */
 export interface DeleteContextResponse {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 /**
  * @generated from protobuf message op_agents.ExportRequest
@@ -626,11 +575,11 @@ export interface ExportRequest {
     /**
      * @generated from protobuf field: repeated string names = 1
      */
-    names: string[]; // empty = all
+    names: string[];
     /**
-     * @generated from protobuf field: string format = 2
+     * @generated from protobuf field: op_agents.ExportFormat format = 2
      */
-    format: string; // json, yaml
+    format: ExportFormat;
 }
 /**
  * @generated from protobuf message op_agents.ExportChunk
@@ -711,23 +660,19 @@ export interface CargoRequest {
  */
 export interface CargoResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string stdout = 2
+     * @generated from protobuf field: string stdout = 1
      */
     stdout: string;
     /**
-     * @generated from protobuf field: string stderr = 3
+     * @generated from protobuf field: string stderr = 2
      */
     stderr: string;
     /**
-     * @generated from protobuf field: int32 exit_code = 4
+     * @generated from protobuf field: int32 exit_code = 3
      */
     exitCode: number;
     /**
-     * @generated from protobuf field: int64 duration_ms = 5
+     * @generated from protobuf field: int64 duration_ms = 4
      */
     durationMs: string;
 }
@@ -740,9 +685,9 @@ export interface CargoOutput {
      */
     line: string;
     /**
-     * @generated from protobuf field: string stream = 2
+     * @generated from protobuf field: op_agents.StreamType stream_type = 2
      */
-    stream: string; // stdout, stderr
+    streamType: StreamType;
     /**
      * @generated from protobuf field: bool is_final = 3
      */
@@ -750,7 +695,80 @@ export interface CargoOutput {
     /**
      * @generated from protobuf field: int32 exit_code = 4
      */
-    exitCode: number; // only set when is_final
+    exitCode: number;
+}
+// ============ Enums ============
+
+/**
+ * @generated from protobuf enum op_agents.AgentLifecycleStatus
+ */
+export enum AgentLifecycleStatus {
+    /**
+     * @generated from protobuf enum value: AGENT_LIFECYCLE_STATUS_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: AGENT_LIFECYCLE_STATUS_STARTING = 1;
+     */
+    STARTING = 1,
+    /**
+     * @generated from protobuf enum value: AGENT_LIFECYCLE_STATUS_RUNNING = 2;
+     */
+    RUNNING = 2,
+    /**
+     * @generated from protobuf enum value: AGENT_LIFECYCLE_STATUS_STOPPING = 3;
+     */
+    STOPPING = 3,
+    /**
+     * @generated from protobuf enum value: AGENT_LIFECYCLE_STATUS_STOPPED = 4;
+     */
+    STOPPED = 4,
+    /**
+     * @generated from protobuf enum value: AGENT_LIFECYCLE_STATUS_ERROR = 5;
+     */
+    ERROR = 5
+}
+/**
+ * @generated from protobuf enum op_agents.StreamType
+ */
+export enum StreamType {
+    /**
+     * @generated from protobuf enum value: STREAM_TYPE_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: STREAM_TYPE_STDOUT = 1;
+     */
+    STDOUT = 1,
+    /**
+     * @generated from protobuf enum value: STREAM_TYPE_STDERR = 2;
+     */
+    STDERR = 2,
+    /**
+     * @generated from protobuf enum value: STREAM_TYPE_PROGRESS = 3;
+     */
+    PROGRESS = 3,
+    /**
+     * @generated from protobuf enum value: STREAM_TYPE_RESULT = 4;
+     */
+    RESULT = 4
+}
+/**
+ * @generated from protobuf enum op_agents.ExportFormat
+ */
+export enum ExportFormat {
+    /**
+     * @generated from protobuf enum value: EXPORT_FORMAT_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: EXPORT_FORMAT_JSON = 1;
+     */
+    JSON = 1,
+    /**
+     * @generated from protobuf enum value: EXPORT_FORMAT_YAML = 2;
+     */
+    YAML = 2
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class StartRequest$Type extends MessageType<StartRequest> {
@@ -827,15 +845,11 @@ export const StartRequest = new StartRequest$Type();
 class StartResponse$Type extends MessageType<StartResponse> {
     constructor() {
         super("op_agents.StartResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "started_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "started_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<StartResponse>): StartResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.message = "";
         message.startedAt = "0";
         if (value !== undefined)
             reflectionMergePartial<StartResponse>(this, message, value);
@@ -846,13 +860,7 @@ class StartResponse$Type extends MessageType<StartResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 2:
-                    message.message = reader.string();
-                    break;
-                case /* int64 started_at */ 3:
+                case /* int64 started_at */ 1:
                     message.startedAt = reader.int64().toString();
                     break;
                 default:
@@ -867,15 +875,9 @@ class StartResponse$Type extends MessageType<StartResponse> {
         return message;
     }
     internalBinaryWrite(message: StartResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message = 2; */
-        if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
-        /* int64 started_at = 3; */
+        /* int64 started_at = 1; */
         if (message.startedAt !== "0")
-            writer.tag(3, WireType.Varint).int64(message.startedAt);
+            writer.tag(1, WireType.Varint).int64(message.startedAt);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -944,15 +946,10 @@ export const StopRequest = new StopRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class StopResponse$Type extends MessageType<StopResponse> {
     constructor() {
-        super("op_agents.StopResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
+        super("op_agents.StopResponse", []);
     }
     create(value?: PartialMessage<StopResponse>): StopResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.message = "";
         if (value !== undefined)
             reflectionMergePartial<StopResponse>(this, message, value);
         return message;
@@ -962,12 +959,6 @@ class StopResponse$Type extends MessageType<StopResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 2:
-                    message.message = reader.string();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -980,12 +971,6 @@ class StopResponse$Type extends MessageType<StopResponse> {
         return message;
     }
     internalBinaryWrite(message: StopResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message = 2; */
-        if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1182,7 +1167,7 @@ class AgentStatus$Type extends MessageType<AgentStatus> {
     constructor() {
         super("op_agents.AgentStatus", [
             { no: 1, name: "agent_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "status", kind: "enum", T: () => ["op_agents.AgentLifecycleStatus", AgentLifecycleStatus, "AGENT_LIFECYCLE_STATUS_"] },
             { no: 3, name: "timestamp", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
             { no: 4, name: "metadata", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
         ]);
@@ -1190,7 +1175,7 @@ class AgentStatus$Type extends MessageType<AgentStatus> {
     create(value?: PartialMessage<AgentStatus>): AgentStatus {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.agentId = "";
-        message.status = "";
+        message.status = 0;
         message.timestamp = "0";
         message.metadata = {};
         if (value !== undefined)
@@ -1205,8 +1190,8 @@ class AgentStatus$Type extends MessageType<AgentStatus> {
                 case /* string agent_id */ 1:
                     message.agentId = reader.string();
                     break;
-                case /* string status */ 2:
-                    message.status = reader.string();
+                case /* op_agents.AgentLifecycleStatus status */ 2:
+                    message.status = reader.int32();
                     break;
                 case /* int64 timestamp */ 3:
                     message.timestamp = reader.int64().toString();
@@ -1245,9 +1230,9 @@ class AgentStatus$Type extends MessageType<AgentStatus> {
         /* string agent_id = 1; */
         if (message.agentId !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.agentId);
-        /* string status = 2; */
-        if (message.status !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.status);
+        /* op_agents.AgentLifecycleStatus status = 2; */
+        if (message.status !== 0)
+            writer.tag(2, WireType.Varint).int32(message.status);
         /* int64 timestamp = 3; */
         if (message.timestamp !== "0")
             writer.tag(3, WireType.Varint).int64(message.timestamp);
@@ -1270,7 +1255,7 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
         super("op_agents.ExecuteRequest", [
             { no: 1, name: "agent_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "operation", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "arguments_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "arguments", kind: "message", T: () => Struct },
             { no: 4, name: "timeout_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
             { no: 5, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
@@ -1279,7 +1264,6 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.agentId = "";
         message.operation = "";
-        message.argumentsJson = "";
         message.timeoutMs = "0";
         message.correlationId = "";
         if (value !== undefined)
@@ -1297,8 +1281,8 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
                 case /* string operation */ 2:
                     message.operation = reader.string();
                     break;
-                case /* string arguments_json */ 3:
-                    message.argumentsJson = reader.string();
+                case /* google.protobuf.Struct arguments */ 3:
+                    message.arguments = Struct.internalBinaryRead(reader, reader.uint32(), options, message.arguments);
                     break;
                 case /* int64 timeout_ms */ 4:
                     message.timeoutMs = reader.int64().toString();
@@ -1324,9 +1308,9 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
         /* string operation = 2; */
         if (message.operation !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.operation);
-        /* string arguments_json = 3; */
-        if (message.argumentsJson !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.argumentsJson);
+        /* google.protobuf.Struct arguments = 3; */
+        if (message.arguments)
+            Struct.internalBinaryWrite(message.arguments, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         /* int64 timeout_ms = 4; */
         if (message.timeoutMs !== "0")
             writer.tag(4, WireType.Varint).int64(message.timeoutMs);
@@ -1347,18 +1331,13 @@ export const ExecuteRequest = new ExecuteRequest$Type();
 class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
     constructor() {
         super("op_agents.ExecuteResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "result_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "execution_time_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "result", kind: "message", T: () => Struct },
+            { no: 2, name: "execution_time_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 3, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ExecuteResponse>): ExecuteResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.resultJson = "";
-        message.error = "";
         message.executionTimeMs = "0";
         message.correlationId = "";
         if (value !== undefined)
@@ -1370,19 +1349,13 @@ class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* google.protobuf.Struct result */ 1:
+                    message.result = Struct.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
-                case /* string result_json */ 2:
-                    message.resultJson = reader.string();
-                    break;
-                case /* string error */ 3:
-                    message.error = reader.string();
-                    break;
-                case /* int64 execution_time_ms */ 4:
+                case /* int64 execution_time_ms */ 2:
                     message.executionTimeMs = reader.int64().toString();
                     break;
-                case /* string correlation_id */ 5:
+                case /* string correlation_id */ 3:
                     message.correlationId = reader.string();
                     break;
                 default:
@@ -1397,21 +1370,15 @@ class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
         return message;
     }
     internalBinaryWrite(message: ExecuteResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string result_json = 2; */
-        if (message.resultJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.resultJson);
-        /* string error = 3; */
-        if (message.error !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.error);
-        /* int64 execution_time_ms = 4; */
+        /* google.protobuf.Struct result = 1; */
+        if (message.result)
+            Struct.internalBinaryWrite(message.result, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* int64 execution_time_ms = 2; */
         if (message.executionTimeMs !== "0")
-            writer.tag(4, WireType.Varint).int64(message.executionTimeMs);
-        /* string correlation_id = 5; */
+            writer.tag(2, WireType.Varint).int64(message.executionTimeMs);
+        /* string correlation_id = 3; */
         if (message.correlationId !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.correlationId);
+            writer.tag(3, WireType.LengthDelimited).string(message.correlationId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1428,16 +1395,16 @@ class ExecuteChunk$Type extends MessageType<ExecuteChunk> {
         super("op_agents.ExecuteChunk", [
             { no: 1, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "chunk", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "is_final", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "is_error", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 3, name: "stream_type", kind: "enum", T: () => ["op_agents.StreamType", StreamType, "STREAM_TYPE_"] },
+            { no: 4, name: "is_final", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ExecuteChunk>): ExecuteChunk {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.correlationId = "";
         message.chunk = "";
+        message.streamType = 0;
         message.isFinal = false;
-        message.isError = false;
         if (value !== undefined)
             reflectionMergePartial<ExecuteChunk>(this, message, value);
         return message;
@@ -1453,11 +1420,11 @@ class ExecuteChunk$Type extends MessageType<ExecuteChunk> {
                 case /* string chunk */ 2:
                     message.chunk = reader.string();
                     break;
-                case /* bool is_final */ 3:
-                    message.isFinal = reader.bool();
+                case /* op_agents.StreamType stream_type */ 3:
+                    message.streamType = reader.int32();
                     break;
-                case /* bool is_error */ 4:
-                    message.isError = reader.bool();
+                case /* bool is_final */ 4:
+                    message.isFinal = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1477,12 +1444,12 @@ class ExecuteChunk$Type extends MessageType<ExecuteChunk> {
         /* string chunk = 2; */
         if (message.chunk !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.chunk);
-        /* bool is_final = 3; */
+        /* op_agents.StreamType stream_type = 3; */
+        if (message.streamType !== 0)
+            writer.tag(3, WireType.Varint).int32(message.streamType);
+        /* bool is_final = 4; */
         if (message.isFinal !== false)
-            writer.tag(3, WireType.Varint).bool(message.isFinal);
-        /* bool is_error = 4; */
-        if (message.isError !== false)
-            writer.tag(4, WireType.Varint).bool(message.isError);
+            writer.tag(4, WireType.Varint).bool(message.isFinal);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1568,13 +1535,11 @@ export const RememberRequest = new RememberRequest$Type();
 class RememberResponse$Type extends MessageType<RememberResponse> {
     constructor() {
         super("op_agents.RememberResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RememberResponse>): RememberResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.key = "";
         if (value !== undefined)
             reflectionMergePartial<RememberResponse>(this, message, value);
@@ -1585,10 +1550,7 @@ class RememberResponse$Type extends MessageType<RememberResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string key */ 2:
+                case /* string key */ 1:
                     message.key = reader.string();
                     break;
                 default:
@@ -1603,12 +1565,9 @@ class RememberResponse$Type extends MessageType<RememberResponse> {
         return message;
     }
     internalBinaryWrite(message: RememberResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string key = 2; */
+        /* string key = 1; */
         if (message.key !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.key);
+            writer.tag(1, WireType.LengthDelimited).string(message.key);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1670,16 +1629,14 @@ export const RecallRequest = new RecallRequest$Type();
 class RecallResponse$Type extends MessageType<RecallResponse> {
     constructor() {
         super("op_agents.RecallResponse", [
-            { no: 1, name: "found", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "created_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "accessed_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "created_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 4, name: "accessed_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<RecallResponse>): RecallResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.found = false;
         message.key = "";
         message.value = "";
         message.createdAt = "0";
@@ -1693,19 +1650,16 @@ class RecallResponse$Type extends MessageType<RecallResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool found */ 1:
-                    message.found = reader.bool();
-                    break;
-                case /* string key */ 2:
+                case /* string key */ 1:
                     message.key = reader.string();
                     break;
-                case /* string value */ 3:
+                case /* string value */ 2:
                     message.value = reader.string();
                     break;
-                case /* int64 created_at */ 4:
+                case /* int64 created_at */ 3:
                     message.createdAt = reader.int64().toString();
                     break;
-                case /* int64 accessed_at */ 5:
+                case /* int64 accessed_at */ 4:
                     message.accessedAt = reader.int64().toString();
                     break;
                 default:
@@ -1720,21 +1674,18 @@ class RecallResponse$Type extends MessageType<RecallResponse> {
         return message;
     }
     internalBinaryWrite(message: RecallResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool found = 1; */
-        if (message.found !== false)
-            writer.tag(1, WireType.Varint).bool(message.found);
-        /* string key = 2; */
+        /* string key = 1; */
         if (message.key !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.key);
-        /* string value = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.key);
+        /* string value = 2; */
         if (message.value !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.value);
-        /* int64 created_at = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.value);
+        /* int64 created_at = 3; */
         if (message.createdAt !== "0")
-            writer.tag(4, WireType.Varint).int64(message.createdAt);
-        /* int64 accessed_at = 5; */
+            writer.tag(3, WireType.Varint).int64(message.createdAt);
+        /* int64 accessed_at = 4; */
         if (message.accessedAt !== "0")
-            writer.tag(5, WireType.Varint).int64(message.accessedAt);
+            writer.tag(4, WireType.Varint).int64(message.accessedAt);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1795,13 +1746,10 @@ export const ForgetRequest = new ForgetRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ForgetResponse$Type extends MessageType<ForgetResponse> {
     constructor() {
-        super("op_agents.ForgetResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("op_agents.ForgetResponse", []);
     }
     create(value?: PartialMessage<ForgetResponse>): ForgetResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ForgetResponse>(this, message, value);
         return message;
@@ -1811,9 +1759,6 @@ class ForgetResponse$Type extends MessageType<ForgetResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1826,9 +1771,6 @@ class ForgetResponse$Type extends MessageType<ForgetResponse> {
         return message;
     }
     internalBinaryWrite(message: ForgetResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2365,8 +2307,7 @@ class ThoughtResponse$Type extends MessageType<ThoughtResponse> {
             { no: 1, name: "chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "step", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 3, name: "thought", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "is_final", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 4, name: "is_final", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ThoughtResponse>): ThoughtResponse {
@@ -2374,7 +2315,6 @@ class ThoughtResponse$Type extends MessageType<ThoughtResponse> {
         message.chainId = "";
         message.step = 0;
         message.thought = "";
-        message.status = "";
         message.isFinal = false;
         if (value !== undefined)
             reflectionMergePartial<ThoughtResponse>(this, message, value);
@@ -2394,10 +2334,7 @@ class ThoughtResponse$Type extends MessageType<ThoughtResponse> {
                 case /* string thought */ 3:
                     message.thought = reader.string();
                     break;
-                case /* string status */ 4:
-                    message.status = reader.string();
-                    break;
-                case /* bool is_final */ 5:
+                case /* bool is_final */ 4:
                     message.isFinal = reader.bool();
                     break;
                 default:
@@ -2421,12 +2358,9 @@ class ThoughtResponse$Type extends MessageType<ThoughtResponse> {
         /* string thought = 3; */
         if (message.thought !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.thought);
-        /* string status = 4; */
-        if (message.status !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.status);
-        /* bool is_final = 5; */
+        /* bool is_final = 4; */
         if (message.isFinal !== false)
-            writer.tag(5, WireType.Varint).bool(message.isFinal);
+            writer.tag(4, WireType.Varint).bool(message.isFinal);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2622,14 +2556,12 @@ export const SaveContextRequest = new SaveContextRequest$Type();
 class SaveContextResponse$Type extends MessageType<SaveContextResponse> {
     constructor() {
         super("op_agents.SaveContextResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "size_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "size_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<SaveContextResponse>): SaveContextResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.name = "";
         message.sizeBytes = "0";
         if (value !== undefined)
@@ -2641,13 +2573,10 @@ class SaveContextResponse$Type extends MessageType<SaveContextResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string name */ 2:
+                case /* string name */ 1:
                     message.name = reader.string();
                     break;
-                case /* int64 size_bytes */ 3:
+                case /* int64 size_bytes */ 2:
                     message.sizeBytes = reader.int64().toString();
                     break;
                 default:
@@ -2662,15 +2591,12 @@ class SaveContextResponse$Type extends MessageType<SaveContextResponse> {
         return message;
     }
     internalBinaryWrite(message: SaveContextResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string name = 2; */
+        /* string name = 1; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
-        /* int64 size_bytes = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.name);
+        /* int64 size_bytes = 2; */
         if (message.sizeBytes !== "0")
-            writer.tag(3, WireType.Varint).int64(message.sizeBytes);
+            writer.tag(2, WireType.Varint).int64(message.sizeBytes);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2732,17 +2658,15 @@ export const LoadContextRequest = new LoadContextRequest$Type();
 class LoadContextResponse$Type extends MessageType<LoadContextResponse> {
     constructor() {
         super("op_agents.LoadContextResponse", [
-            { no: 1, name: "found", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "content", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "tags", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "created_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 6, name: "updated_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "content", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "tags", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "created_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 5, name: "updated_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<LoadContextResponse>): LoadContextResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.found = false;
         message.name = "";
         message.content = "";
         message.tags = [];
@@ -2757,22 +2681,19 @@ class LoadContextResponse$Type extends MessageType<LoadContextResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool found */ 1:
-                    message.found = reader.bool();
-                    break;
-                case /* string name */ 2:
+                case /* string name */ 1:
                     message.name = reader.string();
                     break;
-                case /* string content */ 3:
+                case /* string content */ 2:
                     message.content = reader.string();
                     break;
-                case /* repeated string tags */ 4:
+                case /* repeated string tags */ 3:
                     message.tags.push(reader.string());
                     break;
-                case /* int64 created_at */ 5:
+                case /* int64 created_at */ 4:
                     message.createdAt = reader.int64().toString();
                     break;
-                case /* int64 updated_at */ 6:
+                case /* int64 updated_at */ 5:
                     message.updatedAt = reader.int64().toString();
                     break;
                 default:
@@ -2787,24 +2708,21 @@ class LoadContextResponse$Type extends MessageType<LoadContextResponse> {
         return message;
     }
     internalBinaryWrite(message: LoadContextResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool found = 1; */
-        if (message.found !== false)
-            writer.tag(1, WireType.Varint).bool(message.found);
-        /* string name = 2; */
+        /* string name = 1; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
-        /* string content = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.name);
+        /* string content = 2; */
         if (message.content !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.content);
-        /* repeated string tags = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.content);
+        /* repeated string tags = 3; */
         for (let i = 0; i < message.tags.length; i++)
-            writer.tag(4, WireType.LengthDelimited).string(message.tags[i]);
-        /* int64 created_at = 5; */
+            writer.tag(3, WireType.LengthDelimited).string(message.tags[i]);
+        /* int64 created_at = 4; */
         if (message.createdAt !== "0")
-            writer.tag(5, WireType.Varint).int64(message.createdAt);
-        /* int64 updated_at = 6; */
+            writer.tag(4, WireType.Varint).int64(message.createdAt);
+        /* int64 updated_at = 5; */
         if (message.updatedAt !== "0")
-            writer.tag(6, WireType.Varint).int64(message.updatedAt);
+            writer.tag(5, WireType.Varint).int64(message.updatedAt);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3030,13 +2948,10 @@ export const DeleteContextRequest = new DeleteContextRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteContextResponse$Type extends MessageType<DeleteContextResponse> {
     constructor() {
-        super("op_agents.DeleteContextResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("op_agents.DeleteContextResponse", []);
     }
     create(value?: PartialMessage<DeleteContextResponse>): DeleteContextResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteContextResponse>(this, message, value);
         return message;
@@ -3046,9 +2961,6 @@ class DeleteContextResponse$Type extends MessageType<DeleteContextResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -3061,9 +2973,6 @@ class DeleteContextResponse$Type extends MessageType<DeleteContextResponse> {
         return message;
     }
     internalBinaryWrite(message: DeleteContextResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3079,13 +2988,13 @@ class ExportRequest$Type extends MessageType<ExportRequest> {
     constructor() {
         super("op_agents.ExportRequest", [
             { no: 1, name: "names", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "format", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "format", kind: "enum", T: () => ["op_agents.ExportFormat", ExportFormat, "EXPORT_FORMAT_"] }
         ]);
     }
     create(value?: PartialMessage<ExportRequest>): ExportRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.names = [];
-        message.format = "";
+        message.format = 0;
         if (value !== undefined)
             reflectionMergePartial<ExportRequest>(this, message, value);
         return message;
@@ -3098,8 +3007,8 @@ class ExportRequest$Type extends MessageType<ExportRequest> {
                 case /* repeated string names */ 1:
                     message.names.push(reader.string());
                     break;
-                case /* string format */ 2:
-                    message.format = reader.string();
+                case /* op_agents.ExportFormat format */ 2:
+                    message.format = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -3116,9 +3025,9 @@ class ExportRequest$Type extends MessageType<ExportRequest> {
         /* repeated string names = 1; */
         for (let i = 0; i < message.names.length; i++)
             writer.tag(1, WireType.LengthDelimited).string(message.names[i]);
-        /* string format = 2; */
-        if (message.format !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.format);
+        /* op_agents.ExportFormat format = 2; */
+        if (message.format !== 0)
+            writer.tag(2, WireType.Varint).int32(message.format);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3393,16 +3302,14 @@ export const CargoRequest = new CargoRequest$Type();
 class CargoResponse$Type extends MessageType<CargoResponse> {
     constructor() {
         super("op_agents.CargoResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "stdout", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "stderr", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "exit_code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 5, name: "duration_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "stdout", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "stderr", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "exit_code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 4, name: "duration_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<CargoResponse>): CargoResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.stdout = "";
         message.stderr = "";
         message.exitCode = 0;
@@ -3416,19 +3323,16 @@ class CargoResponse$Type extends MessageType<CargoResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string stdout */ 2:
+                case /* string stdout */ 1:
                     message.stdout = reader.string();
                     break;
-                case /* string stderr */ 3:
+                case /* string stderr */ 2:
                     message.stderr = reader.string();
                     break;
-                case /* int32 exit_code */ 4:
+                case /* int32 exit_code */ 3:
                     message.exitCode = reader.int32();
                     break;
-                case /* int64 duration_ms */ 5:
+                case /* int64 duration_ms */ 4:
                     message.durationMs = reader.int64().toString();
                     break;
                 default:
@@ -3443,21 +3347,18 @@ class CargoResponse$Type extends MessageType<CargoResponse> {
         return message;
     }
     internalBinaryWrite(message: CargoResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string stdout = 2; */
+        /* string stdout = 1; */
         if (message.stdout !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.stdout);
-        /* string stderr = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.stdout);
+        /* string stderr = 2; */
         if (message.stderr !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.stderr);
-        /* int32 exit_code = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.stderr);
+        /* int32 exit_code = 3; */
         if (message.exitCode !== 0)
-            writer.tag(4, WireType.Varint).int32(message.exitCode);
-        /* int64 duration_ms = 5; */
+            writer.tag(3, WireType.Varint).int32(message.exitCode);
+        /* int64 duration_ms = 4; */
         if (message.durationMs !== "0")
-            writer.tag(5, WireType.Varint).int64(message.durationMs);
+            writer.tag(4, WireType.Varint).int64(message.durationMs);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3473,7 +3374,7 @@ class CargoOutput$Type extends MessageType<CargoOutput> {
     constructor() {
         super("op_agents.CargoOutput", [
             { no: 1, name: "line", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "stream", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "stream_type", kind: "enum", T: () => ["op_agents.StreamType", StreamType, "STREAM_TYPE_"] },
             { no: 3, name: "is_final", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
             { no: 4, name: "exit_code", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
@@ -3481,7 +3382,7 @@ class CargoOutput$Type extends MessageType<CargoOutput> {
     create(value?: PartialMessage<CargoOutput>): CargoOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.line = "";
-        message.stream = "";
+        message.streamType = 0;
         message.isFinal = false;
         message.exitCode = 0;
         if (value !== undefined)
@@ -3496,8 +3397,8 @@ class CargoOutput$Type extends MessageType<CargoOutput> {
                 case /* string line */ 1:
                     message.line = reader.string();
                     break;
-                case /* string stream */ 2:
-                    message.stream = reader.string();
+                case /* op_agents.StreamType stream_type */ 2:
+                    message.streamType = reader.int32();
                     break;
                 case /* bool is_final */ 3:
                     message.isFinal = reader.bool();
@@ -3520,9 +3421,9 @@ class CargoOutput$Type extends MessageType<CargoOutput> {
         /* string line = 1; */
         if (message.line !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.line);
-        /* string stream = 2; */
-        if (message.stream !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.stream);
+        /* op_agents.StreamType stream_type = 2; */
+        if (message.streamType !== 0)
+            writer.tag(2, WireType.Varint).int32(message.streamType);
         /* bool is_final = 3; */
         if (message.isFinal !== false)
             writer.tag(3, WireType.Varint).bool(message.isFinal);

@@ -19,21 +19,24 @@ import { Struct } from "../google/protobuf/struct";
 export interface Empty {
 }
 /**
- * @generated from protobuf message assistant.v1.Error
+ * Rich error details following google.rpc.Status pattern.
+ * Use gRPC status codes for primary error; include this for domain-specific context.
+ *
+ * @generated from protobuf message assistant.v1.ErrorDetails
  */
-export interface Error {
+export interface ErrorDetails {
     /**
-     * @generated from protobuf field: int32 code = 1
+     * @generated from protobuf field: string error_code = 1
      */
-    code: number;
+    errorCode: string;
     /**
      * @generated from protobuf field: string message = 2
      */
     message: string;
     /**
-     * @generated from protobuf field: optional google.protobuf.Struct details = 3
+     * @generated from protobuf field: optional google.protobuf.Struct context = 3
      */
-    details?: Struct;
+    context?: Struct;
 }
 /**
  * @generated from protobuf message assistant.v1.Pagination
@@ -51,6 +54,91 @@ export interface Pagination {
      * @generated from protobuf field: string cursor = 3
      */
     cursor: string;
+}
+// Common enums for state machines
+
+/**
+ * @generated from protobuf enum assistant.v1.RunStatus
+ */
+export enum RunStatus {
+    /**
+     * @generated from protobuf enum value: RUN_STATUS_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: RUN_STATUS_PENDING = 1;
+     */
+    PENDING = 1,
+    /**
+     * @generated from protobuf enum value: RUN_STATUS_RUNNING = 2;
+     */
+    RUNNING = 2,
+    /**
+     * @generated from protobuf enum value: RUN_STATUS_COMPLETED = 3;
+     */
+    COMPLETED = 3,
+    /**
+     * @generated from protobuf enum value: RUN_STATUS_FAILED = 4;
+     */
+    FAILED = 4,
+    /**
+     * @generated from protobuf enum value: RUN_STATUS_CANCELLED = 5;
+     */
+    CANCELLED = 5
+}
+/**
+ * @generated from protobuf enum assistant.v1.EventType
+ */
+export enum EventType {
+    /**
+     * @generated from protobuf enum value: EVENT_TYPE_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: EVENT_TYPE_TOOL_CALL = 1;
+     */
+    TOOL_CALL = 1,
+    /**
+     * @generated from protobuf enum value: EVENT_TYPE_TOOL_RESULT = 2;
+     */
+    TOOL_RESULT = 2,
+    /**
+     * @generated from protobuf enum value: EVENT_TYPE_MESSAGE = 3;
+     */
+    MESSAGE = 3,
+    /**
+     * @generated from protobuf enum value: EVENT_TYPE_STATUS = 4;
+     */
+    STATUS = 4,
+    /**
+     * @generated from protobuf enum value: EVENT_TYPE_ERROR = 5;
+     */
+    ERROR = 5
+}
+/**
+ * @generated from protobuf enum assistant.v1.AgentHealthStatus
+ */
+export enum AgentHealthStatus {
+    /**
+     * @generated from protobuf enum value: AGENT_HEALTH_STATUS_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: AGENT_HEALTH_STATUS_HEALTHY = 1;
+     */
+    HEALTHY = 1,
+    /**
+     * @generated from protobuf enum value: AGENT_HEALTH_STATUS_DEGRADED = 2;
+     */
+    DEGRADED = 2,
+    /**
+     * @generated from protobuf enum value: AGENT_HEALTH_STATUS_UNHEALTHY = 3;
+     */
+    UNHEALTHY = 3,
+    /**
+     * @generated from protobuf enum value: AGENT_HEALTH_STATUS_OFFLINE = 4;
+     */
+    OFFLINE = 4
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Empty$Type extends MessageType<Empty> {
@@ -91,35 +179,35 @@ class Empty$Type extends MessageType<Empty> {
  */
 export const Empty = new Empty$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class Error$Type extends MessageType<Error> {
+class ErrorDetails$Type extends MessageType<ErrorDetails> {
     constructor() {
-        super("assistant.v1.Error", [
-            { no: 1, name: "code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+        super("assistant.v1.ErrorDetails", [
+            { no: 1, name: "error_code", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "details", kind: "message", T: () => Struct }
+            { no: 3, name: "context", kind: "message", T: () => Struct }
         ]);
     }
-    create(value?: PartialMessage<Error>): Error {
+    create(value?: PartialMessage<ErrorDetails>): ErrorDetails {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.code = 0;
+        message.errorCode = "";
         message.message = "";
         if (value !== undefined)
-            reflectionMergePartial<Error>(this, message, value);
+            reflectionMergePartial<ErrorDetails>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Error): Error {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ErrorDetails): ErrorDetails {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int32 code */ 1:
-                    message.code = reader.int32();
+                case /* string error_code */ 1:
+                    message.errorCode = reader.string();
                     break;
                 case /* string message */ 2:
                     message.message = reader.string();
                     break;
-                case /* optional google.protobuf.Struct details */ 3:
-                    message.details = Struct.internalBinaryRead(reader, reader.uint32(), options, message.details);
+                case /* optional google.protobuf.Struct context */ 3:
+                    message.context = Struct.internalBinaryRead(reader, reader.uint32(), options, message.context);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -132,16 +220,16 @@ class Error$Type extends MessageType<Error> {
         }
         return message;
     }
-    internalBinaryWrite(message: Error, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int32 code = 1; */
-        if (message.code !== 0)
-            writer.tag(1, WireType.Varint).int32(message.code);
+    internalBinaryWrite(message: ErrorDetails, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string error_code = 1; */
+        if (message.errorCode !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.errorCode);
         /* string message = 2; */
         if (message.message !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.message);
-        /* optional google.protobuf.Struct details = 3; */
-        if (message.details)
-            Struct.internalBinaryWrite(message.details, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* optional google.protobuf.Struct context = 3; */
+        if (message.context)
+            Struct.internalBinaryWrite(message.context, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -149,9 +237,9 @@ class Error$Type extends MessageType<Error> {
     }
 }
 /**
- * @generated MessageType for protobuf message assistant.v1.Error
+ * @generated MessageType for protobuf message assistant.v1.ErrorDetails
  */
-export const Error = new Error$Type();
+export const ErrorDetails = new ErrorDetails$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class Pagination$Type extends MessageType<Pagination> {
     constructor() {

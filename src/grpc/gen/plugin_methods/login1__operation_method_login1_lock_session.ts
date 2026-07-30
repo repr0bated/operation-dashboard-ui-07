@@ -26,10 +26,6 @@ export interface LockSessionInput {
  * @generated from protobuf message operation.method.login1.lock_session.LockSessionOutput
  */
 export interface LockSessionOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class LockSessionInput$Type extends MessageType<LockSessionInput> {
@@ -81,13 +77,10 @@ export const LockSessionInput = new LockSessionInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class LockSessionOutput$Type extends MessageType<LockSessionOutput> {
     constructor() {
-        super("operation.method.login1.lock_session.LockSessionOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.login1.lock_session.LockSessionOutput", []);
     }
     create(value?: PartialMessage<LockSessionOutput>): LockSessionOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<LockSessionOutput>(this, message, value);
         return message;
@@ -97,9 +90,6 @@ class LockSessionOutput$Type extends MessageType<LockSessionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -112,9 +102,6 @@ class LockSessionOutput$Type extends MessageType<LockSessionOutput> {
         return message;
     }
     internalBinaryWrite(message: LockSessionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

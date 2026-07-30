@@ -26,10 +26,6 @@ export interface UnregisterServiceInput {
  * @generated from protobuf message operation.method.dnsresolver.unregister_service.UnregisterServiceOutput
  */
 export interface UnregisterServiceOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UnregisterServiceInput$Type extends MessageType<UnregisterServiceInput> {
@@ -81,13 +77,10 @@ export const UnregisterServiceInput = new UnregisterServiceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class UnregisterServiceOutput$Type extends MessageType<UnregisterServiceOutput> {
     constructor() {
-        super("operation.method.dnsresolver.unregister_service.UnregisterServiceOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.dnsresolver.unregister_service.UnregisterServiceOutput", []);
     }
     create(value?: PartialMessage<UnregisterServiceOutput>): UnregisterServiceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UnregisterServiceOutput>(this, message, value);
         return message;
@@ -97,9 +90,6 @@ class UnregisterServiceOutput$Type extends MessageType<UnregisterServiceOutput> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -112,9 +102,6 @@ class UnregisterServiceOutput$Type extends MessageType<UnregisterServiceOutput> 
         return message;
     }
     internalBinaryWrite(message: UnregisterServiceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

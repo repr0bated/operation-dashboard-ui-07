@@ -19,9 +19,9 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DataStoreStatus {
     /**
-     * @generated from protobuf field: string status = 1
+     * @generated from protobuf field: operation.datastore.v1.DataStoreHealthStatus status = 1
      */
-    status: string;
+    status: DataStoreHealthStatus;
     /**
      * @generated from protobuf field: uint64 object_count = 2
      */
@@ -88,11 +88,34 @@ export interface GetDatastoreResponse {
      */
     objects: ObjectRef[];
 }
+// ============ Enums ============
+
+/**
+ * @generated from protobuf enum operation.datastore.v1.DataStoreHealthStatus
+ */
+export enum DataStoreHealthStatus {
+    /**
+     * @generated from protobuf enum value: DATA_STORE_HEALTH_STATUS_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: DATA_STORE_HEALTH_STATUS_HEALTHY = 1;
+     */
+    HEALTHY = 1,
+    /**
+     * @generated from protobuf enum value: DATA_STORE_HEALTH_STATUS_DEGRADED = 2;
+     */
+    DEGRADED = 2,
+    /**
+     * @generated from protobuf enum value: DATA_STORE_HEALTH_STATUS_UNHEALTHY = 3;
+     */
+    UNHEALTHY = 3
+}
 // @generated message type with reflection information, may provide speed optimized methods
 class DataStoreStatus$Type extends MessageType<DataStoreStatus> {
     constructor() {
         super("operation.datastore.v1.DataStoreStatus", [
-            { no: 1, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "status", kind: "enum", T: () => ["operation.datastore.v1.DataStoreHealthStatus", DataStoreHealthStatus, "DATA_STORE_HEALTH_STATUS_"] },
             { no: 2, name: "object_count", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
             { no: 3, name: "execution_count", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
             { no: 4, name: "blockchain_count", kind: "scalar", T: 4 /*ScalarType.UINT64*/ }
@@ -100,7 +123,7 @@ class DataStoreStatus$Type extends MessageType<DataStoreStatus> {
     }
     create(value?: PartialMessage<DataStoreStatus>): DataStoreStatus {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.status = "";
+        message.status = 0;
         message.objectCount = "0";
         message.executionCount = "0";
         message.blockchainCount = "0";
@@ -113,8 +136,8 @@ class DataStoreStatus$Type extends MessageType<DataStoreStatus> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string status */ 1:
-                    message.status = reader.string();
+                case /* operation.datastore.v1.DataStoreHealthStatus status */ 1:
+                    message.status = reader.int32();
                     break;
                 case /* uint64 object_count */ 2:
                     message.objectCount = reader.uint64().toString();
@@ -137,9 +160,9 @@ class DataStoreStatus$Type extends MessageType<DataStoreStatus> {
         return message;
     }
     internalBinaryWrite(message: DataStoreStatus, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string status = 1; */
-        if (message.status !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.status);
+        /* operation.datastore.v1.DataStoreHealthStatus status = 1; */
+        if (message.status !== 0)
+            writer.tag(1, WireType.Varint).int32(message.status);
         /* uint64 object_count = 2; */
         if (message.objectCount !== "0")
             writer.tag(2, WireType.Varint).uint64(message.objectCount);
