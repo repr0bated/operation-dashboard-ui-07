@@ -45,10 +45,9 @@ message SendMagicLinkRequest {
 }
 
 message SendMagicLinkResponse {
-  bool success = 1;
-  string message = 2;
-  optional string token = 3; // for testing/debug
-  google.protobuf.Timestamp expires_at = 4;
+  string message = 1;
+  optional string token = 2; // for testing/debug
+  google.protobuf.Timestamp expires_at = 3;
 }
 
 message VerifyMagicLinkRequest {
@@ -57,15 +56,14 @@ message VerifyMagicLinkRequest {
 }
 
 message VerifyMagicLinkResponse {
-  bool success = 1;
-  string user_id = 2;
-  string email = 3;
-  string wireguard_public_key = 4;
-  string assigned_ip = 5;
-  string wireguard_config = 6;
-  string message = 7;
-  bool is_admin = 8;
-  google.protobuf.Timestamp verified_at = 9;
+  string user_id = 1;
+  string email = 2;
+  string wireguard_public_key = 3;
+  string assigned_ip = 4;
+  string wireguard_config = 5;
+  string message = 6;
+  bool is_admin = 7;
+  google.protobuf.Timestamp verified_at = 8;
 }
 
 message RegisterUserRequest {
@@ -77,12 +75,11 @@ message RegisterUserRequest {
 }
 
 message RegisterUserResponse {
-  bool success = 1;
-  string user_id = 2;
-  string message = 3;
-  string assigned_ip = 4;
-  string wireguard_config = 5;
-  google.protobuf.Timestamp registered_at = 6;
+  string user_id = 1;
+  string message = 2;
+  string assigned_ip = 3;
+  string wireguard_config = 4;
+  google.protobuf.Timestamp registered_at = 5;
 }
 
 message GetUserStatusRequest {
@@ -135,12 +132,11 @@ message GetWireGuardConfigRequest {
 }
 
 message GetWireGuardConfigResponse {
-  bool success = 1;
-  string wireguard_config = 2;
-  string public_key = 3;
-  string assigned_ip = 4;
-  string message = 5;
-  google.protobuf.Timestamp generated_at = 6;
+  string wireguard_config = 1;
+  string public_key = 2;
+  string assigned_ip = 3;
+  string message = 4;
+  google.protobuf.Timestamp generated_at = 5;
 }
 
 message AdminUserActionRequest {
@@ -151,10 +147,9 @@ message AdminUserActionRequest {
 }
 
 message AdminUserActionResponse {
-  bool success = 1;
-  string message = 2;
-  string user_id = 3;
-  google.protobuf.Timestamp action_timestamp = 4;
+  string message = 1;
+  string user_id = 2;
+  google.protobuf.Timestamp action_timestamp = 3;
 }
 
 // =============================================================================
