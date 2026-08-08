@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { stateSync, eventChainService, ovsdbMirror, runtimeMirror, componentRegistry } from "@/grpc/client";
+import { pluginMethods } from "@/grpc/plugin-methods";
 import { useEventStore } from "@/stores/event-store";
 import type { StateChange, ChainEvent, OvsdbUpdate, RuntimeMetricUpdate } from "@/grpc/gen/operation";
 import type { RegistryEvent } from "@/grpc/gen/registry";
@@ -33,7 +34,7 @@ export function useEventStream() {
       const store = useEventStore.getState();
       const snapshots: Array<[string, () => Promise<unknown>]> = [
         ["snapshot.state", () => stateSync.getState({ pluginId: "", objectPath: "" })],
-        ["snapshot.ovsdb.bridges", () => ovsdbMirror.getBridgeState()],
+        ["snapshot.ovsdb.bridges", () => pluginMethods.callSubid("obs.network.ovsdb.bridge.list@v1", {})],
         ["snapshot.runtime.systemInfo", () => runtimeMirror.getSystemInfo()],
         ["snapshot.runtime.services", () => runtimeMirror.listServices()],
         ["snapshot.runtime.interfaces", () => runtimeMirror.listInterfaces()],
