@@ -1,6 +1,6 @@
 // Dashboard SPA. Identity gate: if no Ghostbridge footprint/trace is available
 // (config, env, pair session, or live sled), show PairingPage before the shell.
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,51 +9,50 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEventStream } from "@/hooks/use-event-stream";
 import { ShellRenderer, PageSpecOutlet } from "@/json-render";
 
-import ChatPage from "./pages/ChatPage";
-import ToolsPage from "./pages/ToolsPage";
-import RoutableModelsPage from "./pages/RoutableModelsPage";
-import AgentsPage from "./pages/AgentsPage";
-import LlmPage from "./pages/LlmPage";
-import ServicesPage from "./pages/ServicesPage";
-import SecurityPage from "./pages/SecurityPage";
-import ConfigPage from "./pages/ConfigPage";
-import InspectorPage from "./pages/InspectorPage";
-import StatePage from "./pages/StatePage";
-import LogsPage from "./pages/LogsPage";
-import WorkflowsPage from "./pages/WorkflowsPage";
-import OrchestrationPage from "./pages/OrchestrationPage";
-import SkillsPage from "./pages/SkillsPage";
-import ContainersPage from "./pages/ContainersPage";
-import PrivacyNetworkPage from "./pages/PrivacyNetworkPage";
-import OpenSwitchPage from "./pages/OpenSwitchPage";
-import OpenFlowPage from "./pages/OpenFlowPage";
-import KnowledgePage from "./pages/KnowledgePage";
-import GrpcDiagnosticsPage from "./pages/GrpcDiagnosticsPage";
-import AccountabilityPage from "./pages/AccountabilityPage";
-import BtrfsPage from "./pages/BtrfsPage";
-import DataStoresPage from "./pages/DataStoresPage";
-import EmbeddingPipelinePage from "./pages/EmbeddingPipelinePage";
-import AssistantPage from "./pages/AssistantPage";
-import GrpcExplorerPage from "./pages/GrpcExplorerPage";
-import InvokePage from "./pages/InvokePage";
-import GalleryPage from "./pages/GalleryPage";
-import GalleryGenPage from "./pages/GalleryGenPage";
-import AntiqravityLLMPage from "./pages/AntiqravityLLMPage";
-import CatalogUIGeneratorPage from "./pages/CatalogUIGeneratorPage";
-import CatalogPage from "./pages/CatalogPage";
-import BlobsPage from "./pages/BlobsPage";
-import PluginsPage from "./pages/PluginsPage";
-import PluginPage from "./components/PluginPage";
-import NotFound from "./pages/NotFound";
+const ChatPage = lazy(() => import("./pages/ChatPage"));
+const ToolsPage = lazy(() => import("./pages/ToolsPage"));
+const RoutableModelsPage = lazy(() => import("./pages/RoutableModelsPage"));
+const AgentsPage = lazy(() => import("./pages/AgentsPage"));
+const LlmPage = lazy(() => import("./pages/LlmPage"));
+const ServicesPage = lazy(() => import("./pages/ServicesPage"));
+const SecurityPage = lazy(() => import("./pages/SecurityPage"));
+const ConfigPage = lazy(() => import("./pages/ConfigPage"));
+const InspectorPage = lazy(() => import("./pages/InspectorPage"));
+const StatePage = lazy(() => import("./pages/StatePage"));
+const LogsPage = lazy(() => import("./pages/LogsPage"));
+const WorkflowsPage = lazy(() => import("./pages/WorkflowsPage"));
+const OrchestrationPage = lazy(() => import("./pages/OrchestrationPage"));
+const SkillsPage = lazy(() => import("./pages/SkillsPage"));
+const ContainersPage = lazy(() => import("./pages/ContainersPage"));
+const PrivacyNetworkPage = lazy(() => import("./pages/PrivacyNetworkPage"));
+const OpenSwitchPage = lazy(() => import("./pages/OpenSwitchPage"));
+const OpenFlowPage = lazy(() => import("./pages/OpenFlowPage"));
+const KnowledgePage = lazy(() => import("./pages/KnowledgePage"));
+const GrpcDiagnosticsPage = lazy(() => import("./pages/GrpcDiagnosticsPage"));
+const AccountabilityPage = lazy(() => import("./pages/AccountabilityPage"));
+const BtrfsPage = lazy(() => import("./pages/BtrfsPage"));
+const DataStoresPage = lazy(() => import("./pages/DataStoresPage"));
+const EmbeddingPipelinePage = lazy(() => import("./pages/EmbeddingPipelinePage"));
+const AssistantPage = lazy(() => import("./pages/AssistantPage"));
+const GrpcExplorerPage = lazy(() => import("./pages/GrpcExplorerPage"));
+const InvokePage = lazy(() => import("./pages/InvokePage"));
+const GalleryPage = lazy(() => import("./pages/GalleryPage"));
+const GalleryGenPage = lazy(() => import("./pages/GalleryGenPage"));
+const AntiqravityLLMPage = lazy(() => import("./pages/AntiqravityLLMPage"));
+const CatalogUIGeneratorPage = lazy(() => import("./pages/CatalogUIGeneratorPage"));
+const CatalogPage = lazy(() => import("./pages/CatalogPage"));
+const BlobsPage = lazy(() => import("./pages/BlobsPage"));
+const PluginsPage = lazy(() => import("./pages/PluginsPage"));
+const PluginPage = lazy(() => import("./components/PluginPage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 import RegisterPage from "./pages/RegisterPage";
 import PairingPage from "./pages/PairingPage";
-import GatewayPage from "./pages/GatewayPage";
-import ChannelsPage from "./pages/ChannelsPage";
-import CronPage from "./pages/CronPage";
-import IntegrationsPage from "./pages/IntegrationsPage";
-import EStopPage from "./pages/EStopPage";
-import HardwarePage from "./pages/HardwarePage";
-import GenerativeUICatalogPage from "./pages/GenerativeUICatalogPage";
+const GatewayPage = lazy(() => import("./pages/GatewayPage"));
+const ChannelsPage = lazy(() => import("./pages/ChannelsPage"));
+const CronPage = lazy(() => import("./pages/CronPage"));
+const IntegrationsPage = lazy(() => import("./pages/IntegrationsPage"));
+const EStopPage = lazy(() => import("./pages/EStopPage"));
+const HardwarePage = lazy(() => import("./pages/HardwarePage"));
 import {
   resolveIdentity,
   type IdentityStatus,
@@ -87,7 +86,6 @@ function ShellRoutes() {
           <Route path="/antigravity-llm" element={<AntiqravityLLMPage />} />
           <Route path="/catalog-generator" element={<CatalogUIGeneratorPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog-generative" element={<GenerativeUICatalogPage />} />
           <Route path="/tools" element={<ToolsPage />} />
           <Route path="/agents" element={<AgentsPage />} />
           <Route path="/models" element={<RoutableModelsPage />} />
@@ -195,7 +193,15 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AppInner />
+        <Suspense
+          fallback={
+            <div className="flex min-h-screen items-center justify-center bg-background">
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+          }
+        >
+          <AppInner />
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
