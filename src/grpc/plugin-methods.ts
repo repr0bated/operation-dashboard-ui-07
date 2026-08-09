@@ -8,6 +8,10 @@
  *
  * UI code should prefer `pluginMethods.callSubid(subid, input)` for anything
  * driven by discovery, or the direct helpers for known-at-compile-time RPCs.
+ *
+ * Live wire path (tonic-web): `operation.plugin.v1.<Plugin>PluginMethods/<Rpc>`.
+ * Reflection may also advertise `operation.method.*` type names — those are
+ * descriptor-only; all served plugin RPCs start with `operation.`.
  */
 import type {
   MethodInfo,

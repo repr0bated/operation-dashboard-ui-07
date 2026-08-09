@@ -19,10 +19,7 @@ import {
   stateSync,
   pluginService,
   eventChainService,
-  ovsdbMirror,
-  runtimeMirror,
   componentRegistry,
-  serviceManager,
   accountabilityService,
   mcpService,
 } from "@/grpc/client";
@@ -60,32 +57,11 @@ const STREAMS: StreamMethod[] = [
     factory: () => eventChainService.subscribeEvents({ fromEventId: "0", pluginId: "", tags: [] }),
   },
   {
-    id: "runtime.metrics",
-    service: "RuntimeMirror",
-    method: "StreamMetrics",
-    description: "Continuous runtime metrics snapshots.",
-    factory: () => runtimeMirror.streamMetrics({}),
-  },
-  {
-    id: "services.watch",
-    service: "ServiceManager",
-    method: "WatchStatus",
-    description: "s6-rc service state transitions.",
-    factory: () => serviceManager.watchStatus({}),
-  },
-  {
     id: "registry.watch",
     service: "ComponentRegistry",
     method: "Watch",
     description: "Plugin component registry updates.",
     factory: () => componentRegistry.watch({}),
-  },
-  {
-    id: "ovsdb.monitor",
-    service: "OvsdbMirror",
-    method: "Monitor",
-    description: "Open vSwitch OVSDB row updates.",
-    factory: () => ovsdbMirror.monitor({ database: "Open_vSwitch", monitorRequestsJson: "{}" }),
   },
 
   {

@@ -1,31 +1,42 @@
 import { useEffect, useRef } from "react";
-import { stateSync, eventChainService, ovsdbMirror, runtimeMirror, componentRegistry } from "@/grpc/client";
-import { pluginMethods } from "@/grpc/plugin-methods";
+import { stateSync, eventChainService, componentRegistry } from "@/grpc/client";
+import { hostRuntime } from "@/grpc/host-runtime";
 import { useEventStore } from "@/stores/event-store";
-import type { StateChange, ChainEvent, OvsdbUpdate, RuntimeMetricUpdate } from "@/grpc/gen/operation";
+import type { StateChange, ChainEvent } from "@/grpc/gen/operation";
 import type { RegistryEvent } from "@/grpc/gen/registry";
-import { structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
+import { structToObject } from "@/grpc/google/protobuf/struct";
+import { isStateHeartbeat, stateEntries } from "@/lib/state-sync-frames";
+import { StateFrameKind } from "@/grpc/gen/operation";
 
 /**
- * Subscribes to all live gRPC-Web server-streams from the operation gateway:
+ * Subscribes to live gRPC-Web server-streams from the operation gateway:
  *   1. StateSync.Subscribe          — D-Bus property changes → latestState
  *   2. EventChain.SubscribeEvents   — Audit ledger → events[]
- *   3. OvsdbMirror.Monitor          — OVS bridge/port/interface changes → latestState
- *   4. RuntimeMirror.StreamMetrics  — CPU/memory/network metrics → latestStats
- *   5. ComponentRegistry.Watch      — agent/component discovery → latestState.agents
+ *   3. host_runtime.sample_metrics   — polled CPU/memory/network → latestStats
+ *   4. ComponentRegistry.Watch      — agent/component discovery → latestState.agents
+ *
+ * OVSDB row updates arrive through StateSync (ovsdb_bridge / rovs_commands
+ * mutations), not a separate mirror stream.
  *
  * Each stream auto-reconnects on failure with exponential backoff (capped).
  */
 
-type StreamName = "state" | "chain" | "ovs" | "metrics" | "registry";
+type StreamName = "state" | "chain" | "metrics" | "registry";
 
 const INITIAL_BACKOFF_MS = 1000;
 const MAX_BACKOFF_MS = 30000;
+const METRICS_POLL_MS = 5000;
 
 export function useEventStream() {
   const abortsRef = useRef<Map<StreamName, () => void>>(new Map());
   const timersRef = useRef<Map<StreamName, ReturnType<typeof setTimeout>>>(new Map());
   const backoffRef = useRef<Map<StreamName, number>>(new Map());
+  const metricsSampleRef = useRef<{
+    previousCpuIdle?: number;
+    previousCpuTotal?: number;
+    previousRx?: number;
+    previousTx?: number;
+  }>({});
 
   useEffect(() => {
     let mounted = true;
@@ -33,12 +44,10 @@ export function useEventStream() {
     async function seedFromSnapshots() {
       const store = useEventStore.getState();
       const snapshots: Array<[string, () => Promise<unknown>]> = [
-        ["snapshot.state", () => stateSync.getState({ pluginId: "", objectPath: "" })],
-        ["snapshot.ovsdb.bridges", () => pluginMethods.callSubid("obs.network.ovsdb.bridge.list@v1", {})],
-        ["snapshot.runtime.systemInfo", () => runtimeMirror.getSystemInfo()],
-        ["snapshot.runtime.services", () => runtimeMirror.listServices()],
-        ["snapshot.runtime.interfaces", () => runtimeMirror.listInterfaces()],
-        ["snapshot.runtime.numa", () => runtimeMirror.getNumaTopology()],
+        ["snapshot.runtime.systemInfo", () => hostRuntime.getSystemInfo()],
+        ["snapshot.runtime.services", () => hostRuntime.listServices()],
+        ["snapshot.runtime.interfaces", () => hostRuntime.listInterfaces()],
+        ["snapshot.runtime.numa", () => hostRuntime.getNumaTopology()],
         ["snapshot.registry.components", () => componentRegistry.discover()],
       ];
 
@@ -69,8 +78,6 @@ export function useEventStream() {
         if (firstErr) store.setError((firstErr.reason as Error)?.message ?? String(firstErr.reason));
       }
     }
-
-
 
     /** Schedule a single-stream reconnect with exponential backoff. */
     function scheduleReconnect(name: StreamName, runner: () => void) {
@@ -116,10 +123,14 @@ export function useEventStream() {
               if (done) break;
               const change = value as StateChange;
               const store = useEventStore.getState();
-              const key = change.pluginId
-                ? `${change.pluginId}.${change.memberName}`
-                : change.memberName;
-              store.updateState(key, valueToJs(change.newValue));
+              noteHealthy("state");
+              if (isStateHeartbeat(change)) continue;
+
+              for (const entry of stateEntries(change)) {
+                store.updateState(entry.key, entry.value);
+              }
+
+              if (change.frameKind === StateFrameKind.INITIAL_STATE) continue;
               store.addEvent({
                 id: change.changeId || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
                 event: "state_update",
@@ -127,7 +138,6 @@ export function useEventStream() {
                 payload: change,
               });
               store.incrementEventCount("state_update");
-              noteHealthy("state");
             }
           } catch (err) {
             if (mounted && (err as Error).name !== "AbortError") {
@@ -178,96 +188,68 @@ export function useEventStream() {
       }
     }
 
-    // ── 3. OvsdbMirror.Monitor ─────────────────────────────────────────────
-    function runOvs() {
-      abortOne("ovs");
-      try {
-        const { stream, abort } = ovsdbMirror.monitor({
-          database: "Open_vSwitch",
-          monitorRequestsJson: JSON.stringify({ Bridge: {}, Port: {}, Interface: {} }),
-        });
-        abortsRef.current.set("ovs", abort);
-        const reader = stream.getReader();
-        (async () => {
-          try {
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
-              const update = value as OvsdbUpdate;
-              const store = useEventStore.getState();
-              const key = `ovsdb.${update.table}.${update.uuid}`;
-              store.updateState(key, update.newRow ? structToObject(update.newRow as unknown as Record<string, unknown>) : null);
-              store.addEvent({
-                id: `ovs-${update.uuid}-${Date.now()}`,
-                event: "state_update",
-                ts: Date.now(),
-                payload: update,
-              });
-              store.incrementEventCount("state_update");
-              noteHealthy("ovs");
-            }
-          } catch (err) {
-            if (mounted && (err as Error).name !== "AbortError") {
-              useEventStore.getState().setError(`OvsdbMirror stream error: ${(err as Error).message}`);
-            }
-          } finally {
-            if (mounted) scheduleReconnect("ovs", runOvs);
-          }
-        })();
-      } catch {
-        scheduleReconnect("ovs", runOvs);
-      }
-    }
-
-    // ── 4. RuntimeMirror.StreamMetrics ─────────────────────────────────────
+    // ── 3. host_runtime.sample_metrics (polled) ────────────────────────────
     function runMetrics() {
       abortOne("metrics");
-      try {
-        const { stream, abort } = runtimeMirror.streamMetrics({
-          intervalSeconds: 5,
-          categories: [],
-        });
-        abortsRef.current.set("metrics", abort);
-        const reader = stream.getReader();
-        (async () => {
-          try {
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
-              const metric = value as RuntimeMetricUpdate;
-              const store = useEventStore.getState();
-              const current = store.latestStats ?? {};
-              const labelKey = Object.values(metric.labels || {}).join(".");
-              const metricKey = labelKey
-                ? `${metric.category}.${metric.name}.${labelKey}`
-                : `${metric.category}.${metric.name}`;
-              store.setStats({
-                ...current,
-                [metricKey]: {
-                  value: metric.value,
-                  unit: metric.unit,
-                  labels: metric.labels,
-                  timestamp: metric.timestamp,
-                },
-              });
-              store.incrementEventCount("system_stats");
-              noteHealthy("metrics");
-            }
-          } catch (err) {
-            if (mounted && (err as Error).name !== "AbortError") {
-              useEventStore.getState().setError(`RuntimeMirror metrics error: ${(err as Error).message}`);
-            }
-          } finally {
-            if (mounted) scheduleReconnect("metrics", runMetrics);
+      let pollTimer: ReturnType<typeof setInterval> | null = null;
+      let stopped = false;
+
+      const abort = () => {
+        stopped = true;
+        if (pollTimer) clearInterval(pollTimer);
+      };
+      abortsRef.current.set("metrics", abort);
+
+      const poll = async () => {
+        if (stopped || !mounted) return;
+        try {
+          const sample = await hostRuntime.sampleMetrics(metricsSampleRef.current);
+          metricsSampleRef.current = {
+            previousCpuIdle: Number(sample.cpu_idle ?? 0),
+            previousCpuTotal: Number(sample.cpu_total ?? 0),
+            previousRx: Number(sample.rx_total ?? 0),
+            previousTx: Number(sample.tx_total ?? 0),
+          };
+
+          const store = useEventStore.getState();
+          const current = store.latestStats ?? {};
+          const metrics = Array.isArray(sample.metrics) ? sample.metrics : [];
+          const nextStats = { ...current };
+          for (const metric of metrics) {
+            if (!metric || typeof metric !== "object") continue;
+            const m = metric as Record<string, unknown>;
+            const category = String(m.category ?? "");
+            const name = String(m.name ?? "");
+            if (!category || !name) continue;
+            const labelKey = Object.values((m.labels as Record<string, string>) ?? {}).join(".");
+            const metricKey = labelKey
+              ? `${category}.${name}.${labelKey}`
+              : `${category}.${name}`;
+            nextStats[metricKey] = {
+              value: Number(m.value ?? 0),
+              unit: String(m.unit ?? ""),
+              labels: m.labels ?? {},
+              timestamp: sample.sampled_at ?? new Date().toISOString(),
+            };
           }
-        })();
-      } catch {
-        scheduleReconnect("metrics", runMetrics);
-      }
+          store.setStats(nextStats);
+          store.incrementEventCount("system_stats");
+          noteHealthy("metrics");
+        } catch (err) {
+          if (mounted) {
+            useEventStore.getState().setError(
+              `host_runtime metrics error: ${(err as Error).message}`,
+            );
+            scheduleReconnect("metrics", runMetrics);
+          }
+        }
+      };
+
+      void poll();
+      pollTimer = setInterval(() => void poll(), METRICS_POLL_MS);
     }
 
-    // ── 5. ComponentRegistry.Watch ─────────────────────────────────────────
-    // Registry status enum: 1=RUNNING, 2=OFFLINE, 3=DEGRADED, others=busy
+    // ── 4. ComponentRegistry.Watch ─────────────────────────────────────────
     const statusToLabel = (s: number | undefined): string => {
       switch (s) {
         case 1: return "running";
@@ -349,11 +331,9 @@ export function useEventStream() {
       }
     }
 
-    // Seed snapshots and start every stream.
     void seedFromSnapshots();
     runState();
     runChain();
-    runOvs();
     runMetrics();
     runRegistry();
 

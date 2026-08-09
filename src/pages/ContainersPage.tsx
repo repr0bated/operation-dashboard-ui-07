@@ -7,6 +7,7 @@ import { SchemaRenderer } from "@/components/json/SchemaRenderer";
 import { StatusDot } from "@/components/shell/Primitives";
 import { useEventStore } from "@/stores/event-store";
 import { Box, Cpu, HardDrive, MemoryStick, Network, Settings2 } from "lucide-react";
+import type { JsonSchema } from "@/types/api";
 
 interface IncusInstance {
   id: string;
@@ -27,8 +28,8 @@ const statusColor: Record<string, "ok" | "warn" | "error" | "offline"> = {
   running: "ok", stopped: "offline", frozen: "warn", error: "error",
 };
 
-function configSchema(config: Record<string, unknown>): Record<string, unknown> {
-  const props: Record<string, unknown> = {};
+function configSchema(config: Record<string, unknown>): JsonSchema {
+  const props: Record<string, JsonSchema> = {};
   for (const [k, v] of Object.entries(config)) {
     if (typeof v === "boolean") props[k] = { type: "boolean", title: k };
     else if (typeof v === "number") props[k] = { type: "number", title: k };
@@ -37,11 +38,11 @@ function configSchema(config: Record<string, unknown>): Record<string, unknown> 
   return { type: "object", properties: props };
 }
 
-function devicesSchema(devices: Record<string, unknown>): Record<string, unknown> {
-  const props: Record<string, unknown> = {};
+function devicesSchema(devices: Record<string, unknown>): JsonSchema {
+  const props: Record<string, JsonSchema> = {};
   for (const [k, v] of Object.entries(devices)) {
     if (typeof v === "object" && v !== null) {
-      const inner: Record<string, unknown> = {};
+      const inner: Record<string, JsonSchema> = {};
       for (const [dk, dv] of Object.entries(v as Record<string, unknown>)) {
         inner[dk] = { type: typeof dv === "boolean" ? "boolean" : "string", title: dk };
       }
@@ -57,8 +58,35 @@ export default function ContainersPage() {
   const [localConfigs, setLocalConfigs] = useState<Record<string, Record<string, unknown>>>({});
 
   const containers = useMemo(() => {
-    const raw = latestState["incus.containers"] ?? latestState["containers"] ?? latestState["incus:containers"];
-    if (Array.isArray(raw)) return raw as IncusInstance[];
+    const raw = latestState["incus.instances"] ?? latestState["incus.containers"] ?? latestState["containers"] ?? latestState["incus:containers"];
+    if (Array.isArray(raw)) {
+      return raw.map((item) => {
+        const instance = item as Record<string, unknown>;
+        const config = (instance.config ?? {}) as Record<string, unknown>;
+        const rawDevices = instance.devices;
+        const devices = Array.isArray(rawDevices)
+          ? Object.fromEntries(rawDevices.map((entry) => {
+              const row = entry as Record<string, unknown>;
+              return [String(row.name ?? "device"), row.device ?? row];
+            }))
+          : (rawDevices ?? {}) as Record<string, unknown>;
+        const rawType = String(instance.type ?? "system").toLowerCase();
+        return {
+          id: String(instance.id ?? instance.name ?? "unknown"),
+          name: String(instance.name ?? instance.id ?? "unknown"),
+          type: rawType === "user" ? "user" : "system",
+          status: String(instance.status ?? "stopped").toLowerCase() as IncusInstance["status"],
+          os: String(instance.os ?? instance.image ?? "unknown"),
+          cpu_limit: Number(instance.cpu_limit ?? config["limits.cpu"] ?? 0),
+          memory_limit: String(instance.memory_limit ?? config["limits.memory"] ?? "—"),
+          disk_limit: String(instance.disk_limit ?? config["limits.disk"] ?? "—"),
+          ip: instance.ip ? String(instance.ip) : undefined,
+          created_at: String(instance.created_at ?? ""),
+          config,
+          devices,
+        } satisfies IncusInstance;
+      });
+    }
     return [] as IncusInstance[];
   }, [latestState]);
 
@@ -131,7 +159,7 @@ export default function ContainersPage() {
                 <div>
                   <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Config</h4>
                   <SchemaRenderer
-                    schema={configSchema(editTarget.config ?? {}) as any}
+                    schema={configSchema(editTarget.config ?? {})}
                     data={localConfigs[editTarget.id] ?? editTarget.config ?? {}}
                     onChange={(val) => setLocalConfigs((p) => ({ ...p, [editTarget.id]: val as Record<string, unknown> }))}
                   />
@@ -139,7 +167,7 @@ export default function ContainersPage() {
                 <div>
                   <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Devices</h4>
                   <SchemaRenderer
-                    schema={devicesSchema(editTarget.devices ?? {}) as any}
+                    schema={devicesSchema(editTarget.devices ?? {})}
                     data={editTarget.devices ?? {}}
                     onChange={() => {}}
                   />

@@ -101,6 +101,18 @@ function arrayRowShape(ft: FieldType): Record<string, SchemaField> | null {
   return item ? objectShape(item as FieldType) : null;
 }
 
+/** Format a schema default for display in a kv row. */
+function formatDefault(value: unknown): string {
+  if (value === null) return "null";
+  if (typeof value === "string") return value === "" ? '""' : value;
+  if (typeof value === "boolean" || typeof value === "number") return String(value);
+  try {
+    return JSON.stringify(value);
+  } catch {
+    return String(value);
+  }
+}
+
 /** Accept either the map form (sealed blob) or an array, always yield [key, value]. */
 function entriesOf<T>(v: Record<string, T> | T[] | undefined): Array<[string, T]> {
   if (!v) return [];
@@ -208,8 +220,13 @@ export function schemaToSpec(schema: PluginSchemaShape, pluginId: string): Spec 
           type: "kv",
           props: {
             label,
-            value: f.read_only ? `${typeLabel(f.field_type)} (read-only)` : typeLabel(f.field_type),
-            kind: primitiveOf(f.field_type),
+            value:
+              f.default !== undefined && f.default !== null
+                ? formatDefault(f.default)
+                : f.read_only
+                  ? `${typeLabel(f.field_type)} (read-only)`
+                  : typeLabel(f.field_type),
+            kind: primitiveOf(f.field_type) ?? typeof f.default,
           },
         }),
       );

@@ -157,7 +157,7 @@ export const OverviewStatsEl: El<"overviewStats"> = () => {
 
 export const ResourcePanelEl: El<"resourcePanel"> = () => {
   const { health, latestStats } = useEventStore();
-  // RuntimeMirror.StreamMetrics keys latestStats by `${category}.${name}`
+  // host_runtime.sample_metrics keys latestStats by `${category}.${name}`
   // (see use-event-stream.ts's runMetrics()), each value a
   // {value, unit, labels, timestamp} object — not a flat number under the
   // bare category name.

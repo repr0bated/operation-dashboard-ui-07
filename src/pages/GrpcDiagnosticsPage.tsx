@@ -1,10 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useEventStore } from "@/stores/event-store";
 import {
-  stateSync, eventChainService, ovsdbMirror, runtimeMirror,
+  stateSync, eventChainService,
   pluginService, componentRegistry,
 } from "@/grpc/client";
 import { pluginMethods } from "@/grpc/plugin-methods";
+import { hostRuntime } from "@/grpc/host-runtime";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,18 +51,17 @@ const INITIAL_UNARY_PROBES: ProbeResult[] = [
   { name: "Verify Chain", service: "EventChainService", method: "VerifyChain", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "List DBs (OVS)", service: "ovsdb_bridge", method: "list_dbs", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "Bridge State", service: "rovs_commands", method: "list_bridges", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
-  { name: "System Info", service: "RuntimeMirror", method: "GetSystemInfo", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
-  { name: "List Services", service: "RuntimeMirror", method: "ListServices", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
-  { name: "List Interfaces", service: "RuntimeMirror", method: "ListInterfaces", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
-  { name: "NUMA Topology", service: "RuntimeMirror", method: "GetNumaTopology", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
+  { name: "System Info", service: "host_runtime", method: "get_system_info", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
+  { name: "List Services", service: "host_runtime", method: "list_services", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
+  { name: "List Interfaces", service: "host_runtime", method: "list_interfaces", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
+  { name: "NUMA Topology", service: "host_runtime", method: "get_numa_topology", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
+  { name: "Sample Metrics", service: "host_runtime", method: "sample_metrics", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "Discover Components", service: "ComponentRegistry", method: "Discover", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
 ];
 
 const INITIAL_STREAM_PROBES: StreamProbe[] = [
   { name: "StateSync.Subscribe", service: "StateSync", method: "Subscribe", status: "idle", messagesReceived: 0, firstMessageMs: null, error: null, abort: null },
   { name: "EventChain.SubscribeEvents", service: "EventChainService", method: "SubscribeEvents", status: "idle", messagesReceived: 0, firstMessageMs: null, error: null, abort: null },
-  { name: "OvsdbMirror.Monitor", service: "OvsdbMirror", method: "Monitor", status: "idle", messagesReceived: 0, firstMessageMs: null, error: null, abort: null },
-  { name: "RuntimeMirror.StreamMetrics", service: "RuntimeMirror", method: "StreamMetrics", status: "idle", messagesReceived: 0, firstMessageMs: null, error: null, abort: null },
   { name: "ComponentRegistry.Watch", service: "ComponentRegistry", method: "Watch", status: "idle", messagesReceived: 0, firstMessageMs: null, error: null, abort: null },
 ];
 
@@ -153,17 +153,20 @@ export default function GrpcDiagnosticsPage() {
           response = { bridges, ports };
           break;
         }
-        case "RuntimeMirror.GetSystemInfo":
-          response = await runtimeMirror.getSystemInfo();
+        case "host_runtime.get_system_info":
+          response = await hostRuntime.getSystemInfo();
           break;
-        case "RuntimeMirror.ListServices":
-          response = await runtimeMirror.listServices();
+        case "host_runtime.list_services":
+          response = await hostRuntime.listServices();
           break;
-        case "RuntimeMirror.ListInterfaces":
-          response = await runtimeMirror.listInterfaces();
+        case "host_runtime.list_interfaces":
+          response = await hostRuntime.listInterfaces();
           break;
-        case "RuntimeMirror.GetNumaTopology":
-          response = await runtimeMirror.getNumaTopology();
+        case "host_runtime.get_numa_topology":
+          response = await hostRuntime.getNumaTopology();
+          break;
+        case "host_runtime.sample_metrics":
+          response = await hostRuntime.sampleMetrics();
           break;
         case "ComponentRegistry.Discover":
           response = await componentRegistry.discover();
@@ -210,12 +213,6 @@ export default function GrpcDiagnosticsPage() {
           break;
         case "EventChain.SubscribeEvents":
           result = eventChainService.subscribeEvents({ fromEventId: "0" });
-          break;
-        case "OvsdbMirror.Monitor":
-          result = ovsdbMirror.monitor({ database: "Open_vSwitch", monitorRequestsJson: JSON.stringify({ Bridge: {} }) });
-          break;
-        case "RuntimeMirror.StreamMetrics":
-          result = runtimeMirror.streamMetrics({ intervalSeconds: 5, categories: [] });
           break;
         case "ComponentRegistry.Watch":
           result = componentRegistry.watch({ componentTypes: [], includeExisting: true });
@@ -518,7 +515,7 @@ export default function GrpcDiagnosticsPage() {
             <CardContent>
               <ScrollArea className="max-h-64">
                 {!latestStats || statsKeys === 0 ? (
-                  <p className="text-xs text-muted-foreground">No metrics received — RuntimeMirror.StreamMetrics may not be connected</p>
+                  <p className="text-xs text-muted-foreground">No metrics received — host_runtime.sample_metrics may not be connected</p>
                 ) : (
                   <pre className="text-[11px] font-mono text-muted-foreground whitespace-pre-wrap">
                     {JSON.stringify(latestStats, null, 2)}

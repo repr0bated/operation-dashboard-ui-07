@@ -15,6 +15,7 @@ import {
 } from "@/grpc/gen/grpc/reflection/v1/reflection";
 import { FileDescriptorProto } from "@/grpc/gen/google/protobuf/descriptor";
 import { identityHeaders } from "@/lib/identity";
+import { isDeprecatedReflectionService } from "@/lib/deprecated-reflection-services";
 
 export interface ReflectedMethod {
   name: string;
@@ -196,6 +197,7 @@ async function discover(signal: AbortSignal): Promise<ReflectedService[]> {
             for (const svc of fd.service ?? []) {
               const fqn = pkg ? `${pkg}.${svc.name}` : (svc.name ?? "");
               if (!fqn) continue;
+              if (isDeprecatedReflectionService(fqn)) continue;
               services.push({
                 name: fqn,
                 methods: (svc.method ?? []).map((mm) => ({

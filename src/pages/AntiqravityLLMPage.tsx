@@ -4,7 +4,7 @@ import { RefreshCw, AlertCircle } from "lucide-react";
 import { PageHeader, Card } from "@/components/shell/Primitives";
 import { EmptyState, ErrorBanner } from "@/components/shell/Feedback";
 import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
-import { valueToJs } from "@/grpc/google/protobuf/struct";
+import { fetchAntigravityGalleryBundle } from "@/lib/plugin-ui-surfaces";
 
 interface UISurface {
   id: string;
@@ -20,19 +20,11 @@ export default function AntiqravityLLMPage() {
   const fetchSurfaces = useCallback(async () => {
     try {
       setError(null);
-      const { pluginMethods } = await import("@/grpc/plugin-methods");
-      const out = await pluginMethods.callSubid<
-        Record<string, never>,
-        { ui_surfaces?: unknown[] }
-      >("exp.service.antigravity-llm-projection.ui-surfaces@v1", {});
-
-      const raw = out.ui_surfaces ?? [];
-      const list: UISurface[] = raw
-        .map((s, i) => {
-          const spec = valueToJs(s as never) as unknown as Spec | null;
-          return spec ? { id: `surface-${i}`, spec } : null;
-        })
-        .filter((s): s is UISurface => !!s);
+      const bundle = await fetchAntigravityGalleryBundle();
+      const list: UISurface[] = bundle.surfaces.map((surface) => ({
+        id: surface.id,
+        spec: surface.spec,
+      }));
 
       setSurfaces(list);
     } catch (err) {
@@ -58,7 +50,7 @@ export default function AntiqravityLLMPage() {
     <div className="space-y-4">
       <PageHeader
         title="Antigravity LLM Projection"
-        subtitle="UI surfaces from antigravity-llm-projection service"
+        subtitle="UI routes from Antigravity's sealed plugin projection"
         actions={
           <button
             onClick={handleRefresh}
@@ -88,7 +80,7 @@ export default function AntiqravityLLMPage() {
       ) : surfaces.length === 0 ? (
         <EmptyState
           title="No UI surfaces"
-          message="The antigravity-llm-projection service returned no UI surfaces."
+          message="The sealed Antigravity projection declares no UI surfaces."
         />
       ) : (
         <div className="grid gap-4">

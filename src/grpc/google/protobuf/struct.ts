@@ -1,11 +1,11 @@
 /**
  * google.protobuf.Value / Struct helpers.
- *
- * Depending on transport, a Value arrives either already JSON-shaped
  * (grpc-web+json) or as a decoded protobuf-ts message with a `kind` oneof
  * (`{ kind: { oneofKind: 'stringValue', stringValue: '…' } }`). These helpers
  * normalise both shapes into plain JS.
  */
+import { Value } from "@/grpc/gen/google/protobuf/struct";
+
 export type ProtobufStruct = Record<string, unknown>;
 export type ProtobufValue = unknown;
 
@@ -76,4 +76,9 @@ export function structToObject(s: unknown): Record<string, unknown> {
 /** Convert a JS object to a protobuf Struct */
 export function objectToStruct(obj: Record<string, unknown>): ProtobufStruct {
   return obj;
+}
+
+/** Convert a plain JS value into a protobuf Value (for PluginService.CallMethod args). */
+export function jsObjectToValue(value: unknown): ProtobufValue {
+  return Value.fromJson(value as Parameters<typeof Value.fromJson>[0]);
 }
