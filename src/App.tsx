@@ -53,10 +53,6 @@ import CronPage from "./pages/CronPage";
 import IntegrationsPage from "./pages/IntegrationsPage";
 import EStopPage from "./pages/EStopPage";
 import HardwarePage from "./pages/HardwarePage";
-import ZeroCatalogPage from "./pages/ZeroCatalogPage";
-import ZeroSpecsPage from "./pages/ZeroSpecsPage";
-import ZeroAgentPage from "./pages/ZeroAgentPage";
-import ZeroQueryPage from "./pages/ZeroQueryPage";
 import GenerativeUICatalogPage from "./pages/GenerativeUICatalogPage";
 import {
   resolveIdentity,
@@ -92,10 +88,6 @@ function ShellRoutes() {
           <Route path="/catalog-generator" element={<CatalogUIGeneratorPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/catalog-generative" element={<GenerativeUICatalogPage />} />
-          <Route path="/zero-catalog" element={<ZeroCatalogPage />} />
-          <Route path="/zero-specs" element={<ZeroSpecsPage />} />
-          <Route path="/zero-agent" element={<ZeroAgentPage />} />
-          <Route path="/zero-query" element={<ZeroQueryPage />} />
           <Route path="/tools" element={<ToolsPage />} />
           <Route path="/agents" element={<AgentsPage />} />
           <Route path="/models" element={<RoutableModelsPage />} />
