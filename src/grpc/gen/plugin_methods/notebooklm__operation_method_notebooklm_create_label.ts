@@ -4,7 +4,6 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
-import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -24,10 +23,6 @@ export interface CreateLabelInput {
  * @generated from protobuf message operation.method.notebooklm.create_label.CreateLabelOutput
  */
 export interface CreateLabelOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateLabelInput$Type extends MessageType<CreateLabelInput> {
@@ -70,13 +65,10 @@ export const CreateLabelInput = new CreateLabelInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateLabelOutput$Type extends MessageType<CreateLabelOutput> {
     constructor() {
-        super("operation.method.notebooklm.create_label.CreateLabelOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.notebooklm.create_label.CreateLabelOutput", []);
     }
     create(value?: PartialMessage<CreateLabelOutput>): CreateLabelOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateLabelOutput>(this, message, value);
         return message;
@@ -86,9 +78,6 @@ class CreateLabelOutput$Type extends MessageType<CreateLabelOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -101,9 +90,6 @@ class CreateLabelOutput$Type extends MessageType<CreateLabelOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateLabelOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

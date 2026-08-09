@@ -3,7 +3,7 @@
 // @generated from protobuf file "adapters.proto" (package "op.adapters.v1", syntax proto3)
 // tslint:disable
 // @ts-nocheck
-import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { ServiceType as ServiceType$ } from "@protobuf-ts/runtime-rpc";
 import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
@@ -13,6 +13,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Struct } from "./google/protobuf/struct";
 /**
  * @generated from protobuf message op.adapters.v1.ListFoldersRequest
  */
@@ -176,10 +177,6 @@ export interface MoveMessageRequest {
  * @generated from protobuf message op.adapters.v1.MoveMessageResponse
  */
 export interface MoveMessageResponse {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 /**
  * @generated from protobuf message op.adapters.v1.DeleteMessageRequest
@@ -198,10 +195,6 @@ export interface DeleteMessageRequest {
  * @generated from protobuf message op.adapters.v1.DeleteMessageResponse
  */
 export interface DeleteMessageResponse {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 /**
  * @generated from protobuf message op.adapters.v1.StreamInboxRequest
@@ -213,9 +206,9 @@ export interface StreamInboxRequest {
  */
 export interface MailEvent {
     /**
-     * @generated from protobuf field: string event_type = 1
+     * @generated from protobuf field: op.adapters.v1.MailEventType event_type = 1
      */
-    eventType: string; // "new_message" | "deleted" | "seen"
+    eventType: MailEventType;
     /**
      * @generated from protobuf field: op.adapters.v1.MailHeader message = 2
      */
@@ -255,11 +248,7 @@ export interface SendMessageRequest {
  */
 export interface SendMessageResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message_id = 2
+     * @generated from protobuf field: string message_id = 1
      */
     messageId: string;
 }
@@ -273,9 +262,9 @@ export interface HealthRequest {
  */
 export interface HealthResponse {
     /**
-     * @generated from protobuf field: string status = 1
+     * @generated from protobuf field: op.adapters.v1.HealthStatus status = 1
      */
-    status: string;
+    status: HealthStatus;
     /**
      * @generated from protobuf field: string version = 2
      */
@@ -452,11 +441,7 @@ export interface JoinNetworkRequest {
  */
 export interface JoinNetworkResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 2
+     * @generated from protobuf field: string message = 1
      */
     message: string;
 }
@@ -474,11 +459,7 @@ export interface LeaveNetworkRequest {
  */
 export interface LeaveNetworkResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 2
+     * @generated from protobuf field: string message = 1
      */
     message: string;
 }
@@ -487,20 +468,16 @@ export interface LeaveNetworkResponse {
  */
 export interface RestartServiceRequest {
     /**
-     * @generated from protobuf field: string service = 1
+     * @generated from protobuf field: op.adapters.v1.ServiceType service = 1
      */
-    service: string;
+    service: ServiceType;
 }
 /**
  * @generated from protobuf message op.adapters.v1.RestartServiceResponse
  */
 export interface RestartServiceResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 2
+     * @generated from protobuf field: string message = 1
      */
     message: string;
 }
@@ -709,19 +686,15 @@ export interface VersionRequest {
  */
 export interface ExecuteCommandResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: int32 exit_code = 2
+     * @generated from protobuf field: int32 exit_code = 1
      */
     exitCode: number;
     /**
-     * @generated from protobuf field: string stdout = 3
+     * @generated from protobuf field: string stdout = 2
      */
     stdout: string;
     /**
-     * @generated from protobuf field: string stderr = 4
+     * @generated from protobuf field: string stderr = 3
      */
     stderr: string;
 }
@@ -735,13 +708,13 @@ export interface StreamEventsRequest {
  */
 export interface NetmakerEvent {
     /**
-     * @generated from protobuf field: string event_type = 1
+     * @generated from protobuf field: op.adapters.v1.NetmakerEventType event_type = 1
      */
-    eventType: string;
+    eventType: NetmakerEventType;
     /**
-     * @generated from protobuf field: string payload_json = 2
+     * @generated from protobuf field: google.protobuf.Struct payload = 2
      */
-    payloadJson: string;
+    payload?: Struct;
 }
 /**
  * @generated from protobuf message op.adapters.v1.PublishRequest
@@ -768,10 +741,6 @@ export interface PublishRequest {
  * @generated from protobuf message op.adapters.v1.PublishResponse
  */
 export interface PublishResponse {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 /**
  * @generated from protobuf message op.adapters.v1.SubscribeRequest
@@ -816,6 +785,94 @@ export interface ListTopicsResponse {
      * @generated from protobuf field: repeated string topics = 1
      */
     topics: string[];
+}
+// ── Mail ─────────────────────────────────────────────────────────────────────
+
+// ── Enums ────────────────────────────────────────────────────────────────────
+
+/**
+ * @generated from protobuf enum op.adapters.v1.MailEventType
+ */
+export enum MailEventType {
+    /**
+     * @generated from protobuf enum value: MAIL_EVENT_TYPE_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: MAIL_EVENT_TYPE_NEW_MESSAGE = 1;
+     */
+    NEW_MESSAGE = 1,
+    /**
+     * @generated from protobuf enum value: MAIL_EVENT_TYPE_DELETED = 2;
+     */
+    DELETED = 2,
+    /**
+     * @generated from protobuf enum value: MAIL_EVENT_TYPE_SEEN = 3;
+     */
+    SEEN = 3
+}
+/**
+ * @generated from protobuf enum op.adapters.v1.HealthStatus
+ */
+export enum HealthStatus {
+    /**
+     * @generated from protobuf enum value: HEALTH_STATUS_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: HEALTH_STATUS_HEALTHY = 1;
+     */
+    HEALTHY = 1,
+    /**
+     * @generated from protobuf enum value: HEALTH_STATUS_DEGRADED = 2;
+     */
+    DEGRADED = 2,
+    /**
+     * @generated from protobuf enum value: HEALTH_STATUS_UNHEALTHY = 3;
+     */
+    UNHEALTHY = 3
+}
+/**
+ * @generated from protobuf enum op.adapters.v1.NetmakerEventType
+ */
+export enum NetmakerEventType {
+    /**
+     * @generated from protobuf enum value: NETMAKER_EVENT_TYPE_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: NETMAKER_EVENT_TYPE_NODE_JOINED = 1;
+     */
+    NODE_JOINED = 1,
+    /**
+     * @generated from protobuf enum value: NETMAKER_EVENT_TYPE_NODE_LEFT = 2;
+     */
+    NODE_LEFT = 2,
+    /**
+     * @generated from protobuf enum value: NETMAKER_EVENT_TYPE_NETWORK_CHANGED = 3;
+     */
+    NETWORK_CHANGED = 3
+}
+/**
+ * @generated from protobuf enum op.adapters.v1.ServiceType
+ */
+export enum ServiceType {
+    /**
+     * @generated from protobuf enum value: SERVICE_TYPE_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: SERVICE_TYPE_NETCLIENT = 1;
+     */
+    NETCLIENT = 1,
+    /**
+     * @generated from protobuf enum value: SERVICE_TYPE_NETSERVER = 2;
+     */
+    NETSERVER = 2,
+    /**
+     * @generated from protobuf enum value: SERVICE_TYPE_WIREGUARD = 3;
+     */
+    WIREGUARD = 3
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ListFoldersRequest$Type extends MessageType<ListFoldersRequest> {
@@ -1455,13 +1512,10 @@ export const MoveMessageRequest = new MoveMessageRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class MoveMessageResponse$Type extends MessageType<MoveMessageResponse> {
     constructor() {
-        super("op.adapters.v1.MoveMessageResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("op.adapters.v1.MoveMessageResponse", []);
     }
     create(value?: PartialMessage<MoveMessageResponse>): MoveMessageResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<MoveMessageResponse>(this, message, value);
         return message;
@@ -1471,9 +1525,6 @@ class MoveMessageResponse$Type extends MessageType<MoveMessageResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1486,9 +1537,6 @@ class MoveMessageResponse$Type extends MessageType<MoveMessageResponse> {
         return message;
     }
     internalBinaryWrite(message: MoveMessageResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1557,13 +1605,10 @@ export const DeleteMessageRequest = new DeleteMessageRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteMessageResponse$Type extends MessageType<DeleteMessageResponse> {
     constructor() {
-        super("op.adapters.v1.DeleteMessageResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("op.adapters.v1.DeleteMessageResponse", []);
     }
     create(value?: PartialMessage<DeleteMessageResponse>): DeleteMessageResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteMessageResponse>(this, message, value);
         return message;
@@ -1573,9 +1618,6 @@ class DeleteMessageResponse$Type extends MessageType<DeleteMessageResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -1588,9 +1630,6 @@ class DeleteMessageResponse$Type extends MessageType<DeleteMessageResponse> {
         return message;
     }
     internalBinaryWrite(message: DeleteMessageResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1643,13 +1682,13 @@ export const StreamInboxRequest = new StreamInboxRequest$Type();
 class MailEvent$Type extends MessageType<MailEvent> {
     constructor() {
         super("op.adapters.v1.MailEvent", [
-            { no: 1, name: "event_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "event_type", kind: "enum", T: () => ["op.adapters.v1.MailEventType", MailEventType, "MAIL_EVENT_TYPE_"] },
             { no: 2, name: "message", kind: "message", T: () => MailHeader }
         ]);
     }
     create(value?: PartialMessage<MailEvent>): MailEvent {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.eventType = "";
+        message.eventType = 0;
         if (value !== undefined)
             reflectionMergePartial<MailEvent>(this, message, value);
         return message;
@@ -1659,8 +1698,8 @@ class MailEvent$Type extends MessageType<MailEvent> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string event_type */ 1:
-                    message.eventType = reader.string();
+                case /* op.adapters.v1.MailEventType event_type */ 1:
+                    message.eventType = reader.int32();
                     break;
                 case /* op.adapters.v1.MailHeader message */ 2:
                     message.message = MailHeader.internalBinaryRead(reader, reader.uint32(), options, message.message);
@@ -1677,9 +1716,9 @@ class MailEvent$Type extends MessageType<MailEvent> {
         return message;
     }
     internalBinaryWrite(message: MailEvent, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string event_type = 1; */
-        if (message.eventType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.eventType);
+        /* op.adapters.v1.MailEventType event_type = 1; */
+        if (message.eventType !== 0)
+            writer.tag(1, WireType.Varint).int32(message.eventType);
         /* op.adapters.v1.MailHeader message = 2; */
         if (message.message)
             MailHeader.internalBinaryWrite(message.message, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
@@ -1784,13 +1823,11 @@ export const SendMessageRequest = new SendMessageRequest$Type();
 class SendMessageResponse$Type extends MessageType<SendMessageResponse> {
     constructor() {
         super("op.adapters.v1.SendMessageResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "message_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SendMessageResponse>): SendMessageResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.messageId = "";
         if (value !== undefined)
             reflectionMergePartial<SendMessageResponse>(this, message, value);
@@ -1801,10 +1838,7 @@ class SendMessageResponse$Type extends MessageType<SendMessageResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message_id */ 2:
+                case /* string message_id */ 1:
                     message.messageId = reader.string();
                     break;
                 default:
@@ -1819,12 +1853,9 @@ class SendMessageResponse$Type extends MessageType<SendMessageResponse> {
         return message;
     }
     internalBinaryWrite(message: SendMessageResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message_id = 2; */
+        /* string message_id = 1; */
         if (message.messageId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.messageId);
+            writer.tag(1, WireType.LengthDelimited).string(message.messageId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1877,13 +1908,13 @@ export const HealthRequest = new HealthRequest$Type();
 class HealthResponse$Type extends MessageType<HealthResponse> {
     constructor() {
         super("op.adapters.v1.HealthResponse", [
-            { no: 1, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "status", kind: "enum", T: () => ["op.adapters.v1.HealthStatus", HealthStatus, "HEALTH_STATUS_"] },
             { no: 2, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<HealthResponse>): HealthResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.status = "";
+        message.status = 0;
         message.version = "";
         if (value !== undefined)
             reflectionMergePartial<HealthResponse>(this, message, value);
@@ -1894,8 +1925,8 @@ class HealthResponse$Type extends MessageType<HealthResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string status */ 1:
-                    message.status = reader.string();
+                case /* op.adapters.v1.HealthStatus status */ 1:
+                    message.status = reader.int32();
                     break;
                 case /* string version */ 2:
                     message.version = reader.string();
@@ -1912,9 +1943,9 @@ class HealthResponse$Type extends MessageType<HealthResponse> {
         return message;
     }
     internalBinaryWrite(message: HealthResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string status = 1; */
-        if (message.status !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.status);
+        /* op.adapters.v1.HealthStatus status = 1; */
+        if (message.status !== 0)
+            writer.tag(1, WireType.Varint).int32(message.status);
         /* string version = 2; */
         if (message.version !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.version);
@@ -2666,13 +2697,11 @@ export const JoinNetworkRequest = new JoinNetworkRequest$Type();
 class JoinNetworkResponse$Type extends MessageType<JoinNetworkResponse> {
     constructor() {
         super("op.adapters.v1.JoinNetworkResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<JoinNetworkResponse>): JoinNetworkResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.message = "";
         if (value !== undefined)
             reflectionMergePartial<JoinNetworkResponse>(this, message, value);
@@ -2683,10 +2712,7 @@ class JoinNetworkResponse$Type extends MessageType<JoinNetworkResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 2:
+                case /* string message */ 1:
                     message.message = reader.string();
                     break;
                 default:
@@ -2701,12 +2727,9 @@ class JoinNetworkResponse$Type extends MessageType<JoinNetworkResponse> {
         return message;
     }
     internalBinaryWrite(message: JoinNetworkResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message = 2; */
+        /* string message = 1; */
         if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
+            writer.tag(1, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2768,13 +2791,11 @@ export const LeaveNetworkRequest = new LeaveNetworkRequest$Type();
 class LeaveNetworkResponse$Type extends MessageType<LeaveNetworkResponse> {
     constructor() {
         super("op.adapters.v1.LeaveNetworkResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<LeaveNetworkResponse>): LeaveNetworkResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.message = "";
         if (value !== undefined)
             reflectionMergePartial<LeaveNetworkResponse>(this, message, value);
@@ -2785,10 +2806,7 @@ class LeaveNetworkResponse$Type extends MessageType<LeaveNetworkResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 2:
+                case /* string message */ 1:
                     message.message = reader.string();
                     break;
                 default:
@@ -2803,12 +2821,9 @@ class LeaveNetworkResponse$Type extends MessageType<LeaveNetworkResponse> {
         return message;
     }
     internalBinaryWrite(message: LeaveNetworkResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message = 2; */
+        /* string message = 1; */
         if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
+            writer.tag(1, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2823,12 +2838,12 @@ export const LeaveNetworkResponse = new LeaveNetworkResponse$Type();
 class RestartServiceRequest$Type extends MessageType<RestartServiceRequest> {
     constructor() {
         super("op.adapters.v1.RestartServiceRequest", [
-            { no: 1, name: "service", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "service", kind: "enum", T: () => ["op.adapters.v1.ServiceType", ServiceType, "SERVICE_TYPE_"] }
         ]);
     }
     create(value?: PartialMessage<RestartServiceRequest>): RestartServiceRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.service = "";
+        message.service = 0;
         if (value !== undefined)
             reflectionMergePartial<RestartServiceRequest>(this, message, value);
         return message;
@@ -2838,8 +2853,8 @@ class RestartServiceRequest$Type extends MessageType<RestartServiceRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string service */ 1:
-                    message.service = reader.string();
+                case /* op.adapters.v1.ServiceType service */ 1:
+                    message.service = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2853,9 +2868,9 @@ class RestartServiceRequest$Type extends MessageType<RestartServiceRequest> {
         return message;
     }
     internalBinaryWrite(message: RestartServiceRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string service = 1; */
-        if (message.service !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.service);
+        /* op.adapters.v1.ServiceType service = 1; */
+        if (message.service !== 0)
+            writer.tag(1, WireType.Varint).int32(message.service);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2870,13 +2885,11 @@ export const RestartServiceRequest = new RestartServiceRequest$Type();
 class RestartServiceResponse$Type extends MessageType<RestartServiceResponse> {
     constructor() {
         super("op.adapters.v1.RestartServiceResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RestartServiceResponse>): RestartServiceResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.message = "";
         if (value !== undefined)
             reflectionMergePartial<RestartServiceResponse>(this, message, value);
@@ -2887,10 +2900,7 @@ class RestartServiceResponse$Type extends MessageType<RestartServiceResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 2:
+                case /* string message */ 1:
                     message.message = reader.string();
                     break;
                 default:
@@ -2905,12 +2915,9 @@ class RestartServiceResponse$Type extends MessageType<RestartServiceResponse> {
         return message;
     }
     internalBinaryWrite(message: RestartServiceResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string message = 2; */
+        /* string message = 1; */
         if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
+            writer.tag(1, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3681,15 +3688,13 @@ export const VersionRequest = new VersionRequest$Type();
 class ExecuteCommandResponse$Type extends MessageType<ExecuteCommandResponse> {
     constructor() {
         super("op.adapters.v1.ExecuteCommandResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "exit_code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 3, name: "stdout", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "stderr", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "exit_code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "stdout", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "stderr", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ExecuteCommandResponse>): ExecuteCommandResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.exitCode = 0;
         message.stdout = "";
         message.stderr = "";
@@ -3702,16 +3707,13 @@ class ExecuteCommandResponse$Type extends MessageType<ExecuteCommandResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* int32 exit_code */ 2:
+                case /* int32 exit_code */ 1:
                     message.exitCode = reader.int32();
                     break;
-                case /* string stdout */ 3:
+                case /* string stdout */ 2:
                     message.stdout = reader.string();
                     break;
-                case /* string stderr */ 4:
+                case /* string stderr */ 3:
                     message.stderr = reader.string();
                     break;
                 default:
@@ -3726,18 +3728,15 @@ class ExecuteCommandResponse$Type extends MessageType<ExecuteCommandResponse> {
         return message;
     }
     internalBinaryWrite(message: ExecuteCommandResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* int32 exit_code = 2; */
+        /* int32 exit_code = 1; */
         if (message.exitCode !== 0)
-            writer.tag(2, WireType.Varint).int32(message.exitCode);
-        /* string stdout = 3; */
+            writer.tag(1, WireType.Varint).int32(message.exitCode);
+        /* string stdout = 2; */
         if (message.stdout !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.stdout);
-        /* string stderr = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.stdout);
+        /* string stderr = 3; */
         if (message.stderr !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.stderr);
+            writer.tag(3, WireType.LengthDelimited).string(message.stderr);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3790,14 +3789,13 @@ export const StreamEventsRequest = new StreamEventsRequest$Type();
 class NetmakerEvent$Type extends MessageType<NetmakerEvent> {
     constructor() {
         super("op.adapters.v1.NetmakerEvent", [
-            { no: 1, name: "event_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "payload_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "event_type", kind: "enum", T: () => ["op.adapters.v1.NetmakerEventType", NetmakerEventType, "NETMAKER_EVENT_TYPE_"] },
+            { no: 2, name: "payload", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<NetmakerEvent>): NetmakerEvent {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.eventType = "";
-        message.payloadJson = "";
+        message.eventType = 0;
         if (value !== undefined)
             reflectionMergePartial<NetmakerEvent>(this, message, value);
         return message;
@@ -3807,11 +3805,11 @@ class NetmakerEvent$Type extends MessageType<NetmakerEvent> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string event_type */ 1:
-                    message.eventType = reader.string();
+                case /* op.adapters.v1.NetmakerEventType event_type */ 1:
+                    message.eventType = reader.int32();
                     break;
-                case /* string payload_json */ 2:
-                    message.payloadJson = reader.string();
+                case /* google.protobuf.Struct payload */ 2:
+                    message.payload = Struct.internalBinaryRead(reader, reader.uint32(), options, message.payload);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -3825,12 +3823,12 @@ class NetmakerEvent$Type extends MessageType<NetmakerEvent> {
         return message;
     }
     internalBinaryWrite(message: NetmakerEvent, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string event_type = 1; */
-        if (message.eventType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.eventType);
-        /* string payload_json = 2; */
-        if (message.payloadJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.payloadJson);
+        /* op.adapters.v1.NetmakerEventType event_type = 1; */
+        if (message.eventType !== 0)
+            writer.tag(1, WireType.Varint).int32(message.eventType);
+        /* google.protobuf.Struct payload = 2; */
+        if (message.payload)
+            Struct.internalBinaryWrite(message.payload, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3915,13 +3913,10 @@ export const PublishRequest = new PublishRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class PublishResponse$Type extends MessageType<PublishResponse> {
     constructor() {
-        super("op.adapters.v1.PublishResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("op.adapters.v1.PublishResponse", []);
     }
     create(value?: PartialMessage<PublishResponse>): PublishResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<PublishResponse>(this, message, value);
         return message;
@@ -3931,9 +3926,6 @@ class PublishResponse$Type extends MessageType<PublishResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -3946,9 +3938,6 @@ class PublishResponse$Type extends MessageType<PublishResponse> {
         return message;
     }
     internalBinaryWrite(message: PublishResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4165,7 +4154,7 @@ export const ListTopicsResponse = new ListTopicsResponse$Type();
 /**
  * @generated ServiceType for protobuf service op.adapters.v1.MailService
  */
-export const MailService = new ServiceType("op.adapters.v1.MailService", [
+export const MailService = new ServiceType$("op.adapters.v1.MailService", [
     { name: "ListFolders", options: {}, I: ListFoldersRequest, O: ListFoldersResponse },
     { name: "ListMessages", options: {}, I: ListMessagesRequest, O: ListMessagesResponse },
     { name: "GetMessage", options: {}, I: GetMessageRequest, O: GetMessageResponse },
@@ -4178,7 +4167,7 @@ export const MailService = new ServiceType("op.adapters.v1.MailService", [
 /**
  * @generated ServiceType for protobuf service op.adapters.v1.NetmakerService
  */
-export const NetmakerService = new ServiceType("op.adapters.v1.NetmakerService", [
+export const NetmakerService = new ServiceType$("op.adapters.v1.NetmakerService", [
     { name: "GetServerHealth", options: {}, I: HealthRequest, O: HealthResponse },
     { name: "ListNetworks", options: {}, I: ListNetworksRequest, O: ListNetworksResponse },
     { name: "GetNetwork", options: {}, I: GetNetworkRequest, O: GetNetworkResponse },
@@ -4194,7 +4183,7 @@ export const NetmakerService = new ServiceType("op.adapters.v1.NetmakerService",
 /**
  * @generated ServiceType for protobuf service op.adapters.v1.MqService
  */
-export const MqService = new ServiceType("op.adapters.v1.MqService", [
+export const MqService = new ServiceType$("op.adapters.v1.MqService", [
     { name: "Publish", options: {}, I: PublishRequest, O: PublishResponse },
     { name: "Subscribe", serverStreaming: true, options: {}, I: SubscribeRequest, O: MqMessage },
     { name: "ListTopics", options: {}, I: ListTopicsRequest, O: ListTopicsResponse }

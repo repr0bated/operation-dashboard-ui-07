@@ -73,6 +73,24 @@ async function runUnary<TOut extends object>(call: UnaryCall<object, TOut>): Pro
   return response;
 }
 
+/**
+ * Declare the capability this call exercises, matching the schema's
+ * `required_capability` (see `enforce_bridge_capability_with_schema` in
+ * op-grpc-bridge/src/grpc_server.rs: `x-opdbus-capability` must equal the
+ * method's required capability, or the bridge denies unconditionally — an
+ * absent header is NOT the same as an implicitly-correct one). Every
+ * `PluginMethodEntry` already carries its own `capability` from the schema,
+ * so this is populated automatically rather than left for each call site to
+ * get right (or forget).
+ */
+function withDeclaredCapability(entry: PluginMethodEntry, options?: RpcOptions): RpcOptions {
+  if (!entry.capability) return options ?? {};
+  return {
+    ...options,
+    meta: { ...options?.meta, "x-opdbus-capability": entry.capability },
+  };
+}
+
 
 export const pluginMethods = {
   /** All registered entries (sorted by file). */
@@ -107,7 +125,11 @@ export const pluginMethods = {
     const entry = PLUGIN_METHOD_BY_SUBID.get(subid);
     if (!entry) throw new Error(`plugin method not found for subid: ${subid}`);
     return runUnary(
-      entry.invoke(routedTransport(entry.plugin), input, options) as UnaryCall<object, TOut>,
+      entry.invoke(
+        routedTransport(entry.plugin),
+        input,
+        withDeclaredCapability(entry, options),
+      ) as UnaryCall<object, TOut>,
     );
 
   },
@@ -121,7 +143,11 @@ export const pluginMethods = {
     const entry = PLUGIN_METHOD_BY_TYPENAME.get(key);
     if (!entry) throw new Error(`plugin method not found: ${key}`);
     return runUnary(
-      entry.invoke(routedTransport(entry.plugin), input, options) as UnaryCall<object, TOut>,
+      entry.invoke(
+        routedTransport(entry.plugin),
+        input,
+        withDeclaredCapability(entry, options),
+      ) as UnaryCall<object, TOut>,
     );
 
   },

@@ -13,7 +13,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { pluginMethods } from "@/grpc/plugin-methods";
 import { valueToJs } from "@/grpc/google/protobuf/struct";
 import { Cpu, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -41,6 +40,7 @@ export function ProviderSelect({ className }: Props) {
     let alive = true;
     (async () => {
       try {
+        const { pluginMethods } = await import("@/grpc/plugin-methods");
         const [providersResp, routerResp] = await Promise.all([
           pluginMethods.callSubid<object, { providers?: unknown[] }>(
             "obs.service.zeroclaw.providers.list@v1",
@@ -92,6 +92,7 @@ export function ProviderSelect({ className }: Props) {
     setApplying(true);
     setError(null);
     try {
+      const { pluginMethods } = await import("@/grpc/plugin-methods");
       await pluginMethods.callSubid("mut.service.zeroclaw.provider.set@v1", {
         providerId,
       });

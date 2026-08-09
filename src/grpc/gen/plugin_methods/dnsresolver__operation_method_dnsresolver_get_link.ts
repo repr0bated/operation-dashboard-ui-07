@@ -26,10 +26,6 @@ export interface GetLinkInput {
  * @generated from protobuf message operation.method.dnsresolver.get_link.GetLinkOutput
  */
 export interface GetLinkOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetLinkInput$Type extends MessageType<GetLinkInput> {
@@ -81,13 +77,10 @@ export const GetLinkInput = new GetLinkInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetLinkOutput$Type extends MessageType<GetLinkOutput> {
     constructor() {
-        super("operation.method.dnsresolver.get_link.GetLinkOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.dnsresolver.get_link.GetLinkOutput", []);
     }
     create(value?: PartialMessage<GetLinkOutput>): GetLinkOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetLinkOutput>(this, message, value);
         return message;
@@ -97,9 +90,6 @@ class GetLinkOutput$Type extends MessageType<GetLinkOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -112,9 +102,6 @@ class GetLinkOutput$Type extends MessageType<GetLinkOutput> {
         return message;
     }
     internalBinaryWrite(message: GetLinkOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

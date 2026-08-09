@@ -185,39 +185,27 @@ export interface MutateRequest {
  */
 export interface MutateResponse {
     /**
-     * Whether mutation succeeded
-     *
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
      * Event chain event ID
      *
-     * @generated from protobuf field: uint64 event_id = 2
+     * @generated from protobuf field: uint64 event_id = 1
      */
     eventId: string;
     /**
      * Event hash
      *
-     * @generated from protobuf field: string event_hash = 3
+     * @generated from protobuf field: string event_hash = 2
      */
     eventHash: string;
     /**
      * Result value (for method calls)
      *
-     * @generated from protobuf field: google.protobuf.Value result = 4
+     * @generated from protobuf field: google.protobuf.Value result = 3
      */
     result?: Value;
     /**
-     * Error details if failed
-     *
-     * @generated from protobuf field: operation.v1.MutationError error = 5
-     */
-    error?: MutationError;
-    /**
      * Resulting effective state hash
      *
-     * @generated from protobuf field: string effective_hash = 6
+     * @generated from protobuf field: string effective_hash = 4
      */
     effectiveHash: string;
 }
@@ -373,19 +361,9 @@ export interface BatchMutateRequest {
  */
 export interface BatchMutateResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: repeated operation.v1.MutateResponse results = 2
+     * @generated from protobuf field: repeated operation.v1.MutateResponse results = 1
      */
     results: MutateResponse[];
-    /**
-     * If atomic and failed, which index failed
-     *
-     * @generated from protobuf field: int32 failed_index = 3
-     */
-    failedIndex: number;
 }
 // =============================================================================
 // Message Types - Plugin Service
@@ -453,9 +431,9 @@ export interface GetSchemaRequest {
  */
 export interface GetSchemaResponse {
     /**
-     * @generated from protobuf field: string schema_json = 1
+     * @generated from protobuf field: google.protobuf.Struct schema = 1
      */
-    schemaJson: string;
+    schema?: Struct;
     /**
      * @generated from protobuf field: string dialect = 2
      */
@@ -503,25 +481,17 @@ export interface CallMethodRequest {
  */
 export interface CallMethodResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: google.protobuf.Value result = 2
+     * @generated from protobuf field: google.protobuf.Value result = 1
      */
     result?: Value;
     /**
-     * @generated from protobuf field: uint64 event_id = 3
+     * @generated from protobuf field: uint64 event_id = 2
      */
     eventId: string;
     /**
-     * @generated from protobuf field: string event_hash = 4
+     * @generated from protobuf field: string event_hash = 3
      */
     eventHash: string;
-    /**
-     * @generated from protobuf field: operation.v1.MutationError error = 5
-     */
-    error?: MutationError;
 }
 /**
  * @generated from protobuf message operation.v1.GetPropertyRequest
@@ -595,19 +565,15 @@ export interface SetPropertyRequest {
  */
 export interface SetPropertyResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: uint64 event_id = 2
+     * @generated from protobuf field: uint64 event_id = 1
      */
     eventId: string;
     /**
-     * @generated from protobuf field: string event_hash = 3
+     * @generated from protobuf field: string event_hash = 2
      */
     eventHash: string;
     /**
-     * @generated from protobuf field: operation.v1.MutationError error = 4
+     * @generated from protobuf field: operation.v1.MutationError error = 3
      */
     error?: MutationError;
 }
@@ -821,21 +787,13 @@ export interface VerifyChainRequest {
  */
 export interface VerifyChainResponse {
     /**
-     * @generated from protobuf field: bool valid = 1
-     */
-    valid: boolean;
-    /**
-     * @generated from protobuf field: uint64 events_verified = 2
+     * @generated from protobuf field: uint64 events_verified = 1
      */
     eventsVerified: string;
     /**
-     * @generated from protobuf field: uint64 batches_verified = 3
+     * @generated from protobuf field: uint64 batches_verified = 2
      */
     batchesVerified: string;
-    /**
-     * @generated from protobuf field: repeated string errors = 4
-     */
-    errors: string[];
 }
 /**
  * @generated from protobuf message operation.v1.GetProofRequest
@@ -1111,25 +1069,17 @@ export interface OvsdbTransactRequest {
  */
 export interface OvsdbTransactResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
      * Array of per-operation results as JSON
      *
-     * @generated from protobuf field: string results_json = 2
+     * @generated from protobuf field: string results_json = 1
      */
     resultsJson: string;
     /**
      * Event chain event ID (if recorded)
      *
-     * @generated from protobuf field: uint64 event_id = 3
+     * @generated from protobuf field: uint64 event_id = 2
      */
     eventId: string;
-    /**
-     * @generated from protobuf field: string error = 4
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.v1.OvsdbMonitorRequest
@@ -1638,17 +1588,9 @@ export interface DbusCallRequest {
  */
 export interface dbusCallResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string json_result = 2
+     * @generated from protobuf field: string json_result = 1
      */
     jsonResult: string; // JSON-encoded return value
-    /**
-     * @generated from protobuf field: string error = 3
-     */
-    error: string; // error message if failed
 }
 /**
  * @generated from protobuf message operation.v1.DbusGetPropertyRequest
@@ -1680,17 +1622,9 @@ export interface DbusGetPropertyRequest {
  */
 export interface DbusGetPropertyResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string json_value = 2
+     * @generated from protobuf field: string json_value = 1
      */
     jsonValue: string;
-    /**
-     * @generated from protobuf field: string error = 3
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.v1.DbusSetPropertyRequest
@@ -1725,14 +1659,6 @@ export interface DbusSetPropertyRequest {
  * @generated from protobuf message operation.v1.DbusSetPropertyResponse
  */
 export interface DbusSetPropertyResponse {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.v1.DbusWatchRequest
@@ -2273,17 +2199,14 @@ export const MutateRequest = new MutateRequest$Type();
 class MutateResponse$Type extends MessageType<MutateResponse> {
     constructor() {
         super("operation.v1.MutateResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 3, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "result", kind: "message", T: () => Value },
-            { no: 5, name: "error", kind: "message", T: () => MutationError },
-            { no: 6, name: "effective_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
+            { no: 2, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "result", kind: "message", T: () => Value },
+            { no: 4, name: "effective_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<MutateResponse>): MutateResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.eventId = "0";
         message.eventHash = "";
         message.effectiveHash = "";
@@ -2296,22 +2219,16 @@ class MutateResponse$Type extends MessageType<MutateResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* uint64 event_id */ 2:
+                case /* uint64 event_id */ 1:
                     message.eventId = reader.uint64().toString();
                     break;
-                case /* string event_hash */ 3:
+                case /* string event_hash */ 2:
                     message.eventHash = reader.string();
                     break;
-                case /* google.protobuf.Value result */ 4:
+                case /* google.protobuf.Value result */ 3:
                     message.result = Value.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
-                case /* operation.v1.MutationError error */ 5:
-                    message.error = MutationError.internalBinaryRead(reader, reader.uint32(), options, message.error);
-                    break;
-                case /* string effective_hash */ 6:
+                case /* string effective_hash */ 4:
                     message.effectiveHash = reader.string();
                     break;
                 default:
@@ -2326,24 +2243,18 @@ class MutateResponse$Type extends MessageType<MutateResponse> {
         return message;
     }
     internalBinaryWrite(message: MutateResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* uint64 event_id = 2; */
+        /* uint64 event_id = 1; */
         if (message.eventId !== "0")
-            writer.tag(2, WireType.Varint).uint64(message.eventId);
-        /* string event_hash = 3; */
+            writer.tag(1, WireType.Varint).uint64(message.eventId);
+        /* string event_hash = 2; */
         if (message.eventHash !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.eventHash);
-        /* google.protobuf.Value result = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.eventHash);
+        /* google.protobuf.Value result = 3; */
         if (message.result)
-            Value.internalBinaryWrite(message.result, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
-        /* operation.v1.MutationError error = 5; */
-        if (message.error)
-            MutationError.internalBinaryWrite(message.error, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
-        /* string effective_hash = 6; */
+            Value.internalBinaryWrite(message.result, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* string effective_hash = 4; */
         if (message.effectiveHash !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.effectiveHash);
+            writer.tag(4, WireType.LengthDelimited).string(message.effectiveHash);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2884,16 +2795,12 @@ export const BatchMutateRequest = new BatchMutateRequest$Type();
 class BatchMutateResponse$Type extends MessageType<BatchMutateResponse> {
     constructor() {
         super("operation.v1.BatchMutateResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => MutateResponse },
-            { no: 3, name: "failed_index", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 1, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => MutateResponse }
         ]);
     }
     create(value?: PartialMessage<BatchMutateResponse>): BatchMutateResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.results = [];
-        message.failedIndex = 0;
         if (value !== undefined)
             reflectionMergePartial<BatchMutateResponse>(this, message, value);
         return message;
@@ -2903,14 +2810,8 @@ class BatchMutateResponse$Type extends MessageType<BatchMutateResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* repeated operation.v1.MutateResponse results */ 2:
+                case /* repeated operation.v1.MutateResponse results */ 1:
                     message.results.push(MutateResponse.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                case /* int32 failed_index */ 3:
-                    message.failedIndex = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2924,15 +2825,9 @@ class BatchMutateResponse$Type extends MessageType<BatchMutateResponse> {
         return message;
     }
     internalBinaryWrite(message: BatchMutateResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* repeated operation.v1.MutateResponse results = 2; */
+        /* repeated operation.v1.MutateResponse results = 1; */
         for (let i = 0; i < message.results.length; i++)
-            MutateResponse.internalBinaryWrite(message.results[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* int32 failed_index = 3; */
-        if (message.failedIndex !== 0)
-            writer.tag(3, WireType.Varint).int32(message.failedIndex);
+            MutateResponse.internalBinaryWrite(message.results[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3144,14 +3039,13 @@ export const GetSchemaRequest = new GetSchemaRequest$Type();
 class GetSchemaResponse$Type extends MessageType<GetSchemaResponse> {
     constructor() {
         super("operation.v1.GetSchemaResponse", [
-            { no: 1, name: "schema_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "schema", kind: "message", T: () => Struct },
             { no: 2, name: "dialect", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetSchemaResponse>): GetSchemaResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.schemaJson = "";
         message.dialect = "";
         message.version = "";
         if (value !== undefined)
@@ -3163,8 +3057,8 @@ class GetSchemaResponse$Type extends MessageType<GetSchemaResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string schema_json */ 1:
-                    message.schemaJson = reader.string();
+                case /* google.protobuf.Struct schema */ 1:
+                    message.schema = Struct.internalBinaryRead(reader, reader.uint32(), options, message.schema);
                     break;
                 case /* string dialect */ 2:
                     message.dialect = reader.string();
@@ -3184,9 +3078,9 @@ class GetSchemaResponse$Type extends MessageType<GetSchemaResponse> {
         return message;
     }
     internalBinaryWrite(message: GetSchemaResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string schema_json = 1; */
-        if (message.schemaJson !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.schemaJson);
+        /* google.protobuf.Struct schema = 1; */
+        if (message.schema)
+            Struct.internalBinaryWrite(message.schema, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         /* string dialect = 2; */
         if (message.dialect !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.dialect);
@@ -3302,16 +3196,13 @@ export const CallMethodRequest = new CallMethodRequest$Type();
 class CallMethodResponse$Type extends MessageType<CallMethodResponse> {
     constructor() {
         super("operation.v1.CallMethodResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "result", kind: "message", T: () => Value },
-            { no: 3, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 4, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "error", kind: "message", T: () => MutationError }
+            { no: 1, name: "result", kind: "message", T: () => Value },
+            { no: 2, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
+            { no: 3, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CallMethodResponse>): CallMethodResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.eventId = "0";
         message.eventHash = "";
         if (value !== undefined)
@@ -3323,20 +3214,14 @@ class CallMethodResponse$Type extends MessageType<CallMethodResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* google.protobuf.Value result */ 2:
+                case /* google.protobuf.Value result */ 1:
                     message.result = Value.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
-                case /* uint64 event_id */ 3:
+                case /* uint64 event_id */ 2:
                     message.eventId = reader.uint64().toString();
                     break;
-                case /* string event_hash */ 4:
+                case /* string event_hash */ 3:
                     message.eventHash = reader.string();
-                    break;
-                case /* operation.v1.MutationError error */ 5:
-                    message.error = MutationError.internalBinaryRead(reader, reader.uint32(), options, message.error);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -3350,21 +3235,15 @@ class CallMethodResponse$Type extends MessageType<CallMethodResponse> {
         return message;
     }
     internalBinaryWrite(message: CallMethodResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* google.protobuf.Value result = 2; */
+        /* google.protobuf.Value result = 1; */
         if (message.result)
-            Value.internalBinaryWrite(message.result, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* uint64 event_id = 3; */
+            Value.internalBinaryWrite(message.result, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* uint64 event_id = 2; */
         if (message.eventId !== "0")
-            writer.tag(3, WireType.Varint).uint64(message.eventId);
-        /* string event_hash = 4; */
+            writer.tag(2, WireType.Varint).uint64(message.eventId);
+        /* string event_hash = 3; */
         if (message.eventHash !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.eventHash);
-        /* operation.v1.MutationError error = 5; */
-        if (message.error)
-            MutationError.internalBinaryWrite(message.error, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+            writer.tag(3, WireType.LengthDelimited).string(message.eventHash);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3598,15 +3477,13 @@ export const SetPropertyRequest = new SetPropertyRequest$Type();
 class SetPropertyResponse$Type extends MessageType<SetPropertyResponse> {
     constructor() {
         super("operation.v1.SetPropertyResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 3, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "error", kind: "message", T: () => MutationError }
+            { no: 1, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
+            { no: 2, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "error", kind: "message", T: () => MutationError }
         ]);
     }
     create(value?: PartialMessage<SetPropertyResponse>): SetPropertyResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.eventId = "0";
         message.eventHash = "";
         if (value !== undefined)
@@ -3618,16 +3495,13 @@ class SetPropertyResponse$Type extends MessageType<SetPropertyResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* uint64 event_id */ 2:
+                case /* uint64 event_id */ 1:
                     message.eventId = reader.uint64().toString();
                     break;
-                case /* string event_hash */ 3:
+                case /* string event_hash */ 2:
                     message.eventHash = reader.string();
                     break;
-                case /* operation.v1.MutationError error */ 4:
+                case /* operation.v1.MutationError error */ 3:
                     message.error = MutationError.internalBinaryRead(reader, reader.uint32(), options, message.error);
                     break;
                 default:
@@ -3642,18 +3516,15 @@ class SetPropertyResponse$Type extends MessageType<SetPropertyResponse> {
         return message;
     }
     internalBinaryWrite(message: SetPropertyResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* uint64 event_id = 2; */
+        /* uint64 event_id = 1; */
         if (message.eventId !== "0")
-            writer.tag(2, WireType.Varint).uint64(message.eventId);
-        /* string event_hash = 3; */
+            writer.tag(1, WireType.Varint).uint64(message.eventId);
+        /* string event_hash = 2; */
         if (message.eventHash !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.eventHash);
-        /* operation.v1.MutationError error = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.eventHash);
+        /* operation.v1.MutationError error = 3; */
         if (message.error)
-            MutationError.internalBinaryWrite(message.error, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
+            MutationError.internalBinaryWrite(message.error, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4234,18 +4105,14 @@ export const VerifyChainRequest = new VerifyChainRequest$Type();
 class VerifyChainResponse$Type extends MessageType<VerifyChainResponse> {
     constructor() {
         super("operation.v1.VerifyChainResponse", [
-            { no: 1, name: "valid", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "events_verified", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 3, name: "batches_verified", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 4, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "events_verified", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
+            { no: 2, name: "batches_verified", kind: "scalar", T: 4 /*ScalarType.UINT64*/ }
         ]);
     }
     create(value?: PartialMessage<VerifyChainResponse>): VerifyChainResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.valid = false;
         message.eventsVerified = "0";
         message.batchesVerified = "0";
-        message.errors = [];
         if (value !== undefined)
             reflectionMergePartial<VerifyChainResponse>(this, message, value);
         return message;
@@ -4255,17 +4122,11 @@ class VerifyChainResponse$Type extends MessageType<VerifyChainResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool valid */ 1:
-                    message.valid = reader.bool();
-                    break;
-                case /* uint64 events_verified */ 2:
+                case /* uint64 events_verified */ 1:
                     message.eventsVerified = reader.uint64().toString();
                     break;
-                case /* uint64 batches_verified */ 3:
+                case /* uint64 batches_verified */ 2:
                     message.batchesVerified = reader.uint64().toString();
-                    break;
-                case /* repeated string errors */ 4:
-                    message.errors.push(reader.string());
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -4279,18 +4140,12 @@ class VerifyChainResponse$Type extends MessageType<VerifyChainResponse> {
         return message;
     }
     internalBinaryWrite(message: VerifyChainResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool valid = 1; */
-        if (message.valid !== false)
-            writer.tag(1, WireType.Varint).bool(message.valid);
-        /* uint64 events_verified = 2; */
+        /* uint64 events_verified = 1; */
         if (message.eventsVerified !== "0")
-            writer.tag(2, WireType.Varint).uint64(message.eventsVerified);
-        /* uint64 batches_verified = 3; */
+            writer.tag(1, WireType.Varint).uint64(message.eventsVerified);
+        /* uint64 batches_verified = 2; */
         if (message.batchesVerified !== "0")
-            writer.tag(3, WireType.Varint).uint64(message.batchesVerified);
-        /* repeated string errors = 4; */
-        for (let i = 0; i < message.errors.length; i++)
-            writer.tag(4, WireType.LengthDelimited).string(message.errors[i]);
+            writer.tag(2, WireType.Varint).uint64(message.batchesVerified);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5315,18 +5170,14 @@ export const OvsdbTransactRequest = new OvsdbTransactRequest$Type();
 class OvsdbTransactResponse$Type extends MessageType<OvsdbTransactResponse> {
     constructor() {
         super("operation.v1.OvsdbTransactResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "results_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 4, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "results_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ }
         ]);
     }
     create(value?: PartialMessage<OvsdbTransactResponse>): OvsdbTransactResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.resultsJson = "";
         message.eventId = "0";
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<OvsdbTransactResponse>(this, message, value);
         return message;
@@ -5336,17 +5187,11 @@ class OvsdbTransactResponse$Type extends MessageType<OvsdbTransactResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string results_json */ 2:
+                case /* string results_json */ 1:
                     message.resultsJson = reader.string();
                     break;
-                case /* uint64 event_id */ 3:
+                case /* uint64 event_id */ 2:
                     message.eventId = reader.uint64().toString();
-                    break;
-                case /* string error */ 4:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -5360,18 +5205,12 @@ class OvsdbTransactResponse$Type extends MessageType<OvsdbTransactResponse> {
         return message;
     }
     internalBinaryWrite(message: OvsdbTransactResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string results_json = 2; */
+        /* string results_json = 1; */
         if (message.resultsJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.resultsJson);
-        /* uint64 event_id = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.resultsJson);
+        /* uint64 event_id = 2; */
         if (message.eventId !== "0")
-            writer.tag(3, WireType.Varint).uint64(message.eventId);
-        /* string error = 4; */
-        if (message.error !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.error);
+            writer.tag(2, WireType.Varint).uint64(message.eventId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7045,16 +6884,12 @@ export const DbusCallRequest = new DbusCallRequest$Type();
 class dbusCallResponse$Type extends MessageType<dbusCallResponse> {
     constructor() {
         super("operation.v1.dbusCallResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "json_result", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "json_result", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<dbusCallResponse>): dbusCallResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.jsonResult = "";
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<dbusCallResponse>(this, message, value);
         return message;
@@ -7064,14 +6899,8 @@ class dbusCallResponse$Type extends MessageType<dbusCallResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string json_result */ 2:
+                case /* string json_result */ 1:
                     message.jsonResult = reader.string();
-                    break;
-                case /* string error */ 3:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -7085,15 +6914,9 @@ class dbusCallResponse$Type extends MessageType<dbusCallResponse> {
         return message;
     }
     internalBinaryWrite(message: dbusCallResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string json_result = 2; */
+        /* string json_result = 1; */
         if (message.jsonResult !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.jsonResult);
-        /* string error = 3; */
-        if (message.error !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.error);
+            writer.tag(1, WireType.LengthDelimited).string(message.jsonResult);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7187,16 +7010,12 @@ export const DbusGetPropertyRequest = new DbusGetPropertyRequest$Type();
 class DbusGetPropertyResponse$Type extends MessageType<DbusGetPropertyResponse> {
     constructor() {
         super("operation.v1.DbusGetPropertyResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "json_value", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "json_value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DbusGetPropertyResponse>): DbusGetPropertyResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.jsonValue = "";
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<DbusGetPropertyResponse>(this, message, value);
         return message;
@@ -7206,14 +7025,8 @@ class DbusGetPropertyResponse$Type extends MessageType<DbusGetPropertyResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string json_value */ 2:
+                case /* string json_value */ 1:
                     message.jsonValue = reader.string();
-                    break;
-                case /* string error */ 3:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -7227,15 +7040,9 @@ class DbusGetPropertyResponse$Type extends MessageType<DbusGetPropertyResponse> 
         return message;
     }
     internalBinaryWrite(message: DbusGetPropertyResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string json_value = 2; */
+        /* string json_value = 1; */
         if (message.jsonValue !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.jsonValue);
-        /* string error = 3; */
-        if (message.error !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.error);
+            writer.tag(1, WireType.LengthDelimited).string(message.jsonValue);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7336,15 +7143,10 @@ export const DbusSetPropertyRequest = new DbusSetPropertyRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DbusSetPropertyResponse$Type extends MessageType<DbusSetPropertyResponse> {
     constructor() {
-        super("operation.v1.DbusSetPropertyResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
+        super("operation.v1.DbusSetPropertyResponse", []);
     }
     create(value?: PartialMessage<DbusSetPropertyResponse>): DbusSetPropertyResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<DbusSetPropertyResponse>(this, message, value);
         return message;
@@ -7354,12 +7156,6 @@ class DbusSetPropertyResponse$Type extends MessageType<DbusSetPropertyResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -7372,12 +7168,6 @@ class DbusSetPropertyResponse$Type extends MessageType<DbusSetPropertyResponse> 
         return message;
     }
     internalBinaryWrite(message: DbusSetPropertyResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -70,8 +70,23 @@ export const DEFAULT_CHROME: ShellChrome = {
   resourcesLabel: "Resources",
   resourceLinks: [
     { label: "Docs", href: "https://docs.operation-dbus.dev", icon: "FileText" },
+    {
+      label: "Prometheus",
+      href: (import.meta.env.VITE_PROMETHEUS_URL as string | undefined) || "http://127.0.0.1:9090",
+      icon: "Activity",
+    },
+    {
+      label: "Grafana",
+      href: (import.meta.env.VITE_GRAFANA_URL as string | undefined) || "http://127.0.0.1:3000",
+      icon: "BarChart3",
+    },
+    {
+      label: "json-render",
+      href: "https://json-render.dev/docs",
+      icon: "FileText",
+    },
   ],
-  fullHeightRoutes: ["/chat", "/workflows", "/accountability"],
+  fullHeightRoutes: ["/chat", "/workflows", "/accountability", "/network"],
 };
 
 // ── builder ───────────────────────────────────────────────────────────────

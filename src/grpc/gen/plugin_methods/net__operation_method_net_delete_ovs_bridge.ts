@@ -26,10 +26,6 @@ export interface DeleteOvsBridgeInput {
  * @generated from protobuf message operation.method.net.delete_ovs_bridge.DeleteOvsBridgeOutput
  */
 export interface DeleteOvsBridgeOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteOvsBridgeInput$Type extends MessageType<DeleteOvsBridgeInput> {
@@ -81,13 +77,10 @@ export const DeleteOvsBridgeInput = new DeleteOvsBridgeInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteOvsBridgeOutput$Type extends MessageType<DeleteOvsBridgeOutput> {
     constructor() {
-        super("operation.method.net.delete_ovs_bridge.DeleteOvsBridgeOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.net.delete_ovs_bridge.DeleteOvsBridgeOutput", []);
     }
     create(value?: PartialMessage<DeleteOvsBridgeOutput>): DeleteOvsBridgeOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteOvsBridgeOutput>(this, message, value);
         return message;
@@ -97,9 +90,6 @@ class DeleteOvsBridgeOutput$Type extends MessageType<DeleteOvsBridgeOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -112,9 +102,6 @@ class DeleteOvsBridgeOutput$Type extends MessageType<DeleteOvsBridgeOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteOvsBridgeOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -26,10 +26,6 @@ export interface DelLinkInput {
  * @generated from protobuf message operation.method.rtnetlink.del_link.DelLinkOutput
  */
 export interface DelLinkOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DelLinkInput$Type extends MessageType<DelLinkInput> {
@@ -81,13 +77,10 @@ export const DelLinkInput = new DelLinkInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DelLinkOutput$Type extends MessageType<DelLinkOutput> {
     constructor() {
-        super("operation.method.rtnetlink.del_link.DelLinkOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.rtnetlink.del_link.DelLinkOutput", []);
     }
     create(value?: PartialMessage<DelLinkOutput>): DelLinkOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DelLinkOutput>(this, message, value);
         return message;
@@ -97,9 +90,6 @@ class DelLinkOutput$Type extends MessageType<DelLinkOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -112,9 +102,6 @@ class DelLinkOutput$Type extends MessageType<DelLinkOutput> {
         return message;
     }
     internalBinaryWrite(message: DelLinkOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

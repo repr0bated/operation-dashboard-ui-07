@@ -26,10 +26,6 @@ export interface StartInstanceInput {
  * @generated from protobuf message operation.method.incus.start_instance.StartInstanceOutput
  */
 export interface StartInstanceOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class StartInstanceInput$Type extends MessageType<StartInstanceInput> {
@@ -81,13 +77,10 @@ export const StartInstanceInput = new StartInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class StartInstanceOutput$Type extends MessageType<StartInstanceOutput> {
     constructor() {
-        super("operation.method.incus.start_instance.StartInstanceOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.incus.start_instance.StartInstanceOutput", []);
     }
     create(value?: PartialMessage<StartInstanceOutput>): StartInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<StartInstanceOutput>(this, message, value);
         return message;
@@ -97,9 +90,6 @@ class StartInstanceOutput$Type extends MessageType<StartInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -112,9 +102,6 @@ class StartInstanceOutput$Type extends MessageType<StartInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: StartInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

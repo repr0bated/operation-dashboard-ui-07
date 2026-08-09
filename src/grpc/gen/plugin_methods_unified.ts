@@ -45,10 +45,6 @@ export interface GetAdcResponse {
      * @generated from protobuf field: operation.catalog.v1.Adc state = 1
      */
     state?: Adc;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.AdcUpdate
@@ -93,10 +89,6 @@ export interface GetAgentConfigResponse {
      * @generated from protobuf field: operation.catalog.v1.AgentConfig state = 1
      */
     state?: AgentConfig;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.AgentConfigUpdate
@@ -205,10 +197,6 @@ export interface GetAntigravityResponse {
      * @generated from protobuf field: operation.catalog.v1.Antigravity state = 1
      */
     state?: Antigravity;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.AntigravityUpdate
@@ -277,10 +265,6 @@ export interface GetAntigravityChatResponse {
      * @generated from protobuf field: operation.catalog.v1.AntigravityChat state = 1
      */
     state?: AntigravityChat;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.AntigravityChatUpdate
@@ -345,10 +329,6 @@ export interface GetBlockchainResponse {
      * @generated from protobuf field: operation.catalog.v1.Blockchain state = 1
      */
     state?: Blockchain;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.BlockchainUpdate
@@ -413,10 +393,6 @@ export interface GetBtrfsResponse {
      * @generated from protobuf field: operation.catalog.v1.Btrfs state = 1
      */
     state?: Btrfs;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.BtrfsUpdate
@@ -549,10 +525,6 @@ export interface GetCognitiveMcpResponse {
      * @generated from protobuf field: operation.catalog.v1.CognitiveMcp state = 1
      */
     state?: CognitiveMcp;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.CognitiveMcpUpdate
@@ -629,10 +601,6 @@ export interface GetCompactMcpResponse {
      * @generated from protobuf field: operation.catalog.v1.CompactMcp state = 1
      */
     state?: CompactMcp;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.CompactMcpUpdate
@@ -685,10 +653,6 @@ export interface GetConfigResponse {
      * @generated from protobuf field: operation.catalog.v1.Config state = 1
      */
     state?: Config;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.ConfigUpdate
@@ -769,10 +733,6 @@ export interface GetCozoResponse {
      * @generated from protobuf field: operation.catalog.v1.Cozo state = 1
      */
     state?: Cozo;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.CozoUpdate
@@ -837,10 +797,6 @@ export interface GetCronResponse {
      * @generated from protobuf field: operation.catalog.v1.Cron state = 1
      */
     state?: Cron;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.CronUpdate
@@ -961,10 +917,6 @@ export interface GetCtlPlaneChatbotResponse {
      * @generated from protobuf field: operation.catalog.v1.CtlPlaneChatbot state = 1
      */
     state?: CtlPlaneChatbot;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.CtlPlaneChatbotUpdate
@@ -1029,10 +981,6 @@ export interface GetDatastoreResponse {
      * @generated from protobuf field: operation.catalog.v1.Datastore state = 1
      */
     state?: Datastore;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.DatastoreUpdate
@@ -1081,10 +1029,6 @@ export interface GetDnsresolverResponse {
      * @generated from protobuf field: operation.catalog.v1.Dnsresolver state = 1
      */
     state?: Dnsresolver;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.DnsresolverUpdate
@@ -1161,10 +1105,6 @@ export interface GetEmbeddingModelResponse {
      * @generated from protobuf field: operation.catalog.v1.EmbeddingModel state = 1
      */
     state?: EmbeddingModel;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.EmbeddingModelUpdate
@@ -1209,10 +1149,6 @@ export interface GetEndpointResponse {
      * @generated from protobuf field: operation.catalog.v1.Endpoint state = 1
      */
     state?: Endpoint;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.EndpointUpdate
@@ -1301,10 +1237,6 @@ export interface GetFactoryResponse {
      * @generated from protobuf field: operation.catalog.v1.Factory state = 1
      */
     state?: Factory;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.FactoryUpdate
@@ -1373,10 +1305,6 @@ export interface GetFail2banResponse {
      * @generated from protobuf field: operation.catalog.v1.Fail2ban state = 1
      */
     state?: Fail2ban;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.Fail2banUpdate
@@ -1417,10 +1345,6 @@ export interface GetFreedesktopResponse {
      * @generated from protobuf field: operation.catalog.v1.Freedesktop state = 1
      */
     state?: Freedesktop;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.FreedesktopUpdate
@@ -1505,10 +1429,6 @@ export interface GetFullSystemResponse {
      * @generated from protobuf field: operation.catalog.v1.FullSystem state = 1
      */
     state?: FullSystem;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.FullSystemUpdate
@@ -1561,10 +1481,6 @@ export interface GetGcloudAdcResponse {
      * @generated from protobuf field: operation.catalog.v1.GcloudAdc state = 1
      */
     state?: GcloudAdc;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.GcloudAdcUpdate
@@ -1633,10 +1549,6 @@ export interface GetGemmaBrainResponse {
      * @generated from protobuf field: operation.catalog.v1.GemmaBrain state = 1
      */
     state?: GemmaBrain;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.GemmaBrainUpdate
@@ -1693,10 +1605,6 @@ export interface GetGhostbridgeResponse {
      * @generated from protobuf field: operation.catalog.v1.Ghostbridge state = 1
      */
     state?: Ghostbridge;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.GhostbridgeUpdate
@@ -1749,10 +1657,6 @@ export interface GetHardwareResponse {
      * @generated from protobuf field: operation.catalog.v1.Hardware state = 1
      */
     state?: Hardware;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.HardwareUpdate
@@ -1797,10 +1701,6 @@ export interface GetIncusResponse {
      * @generated from protobuf field: operation.catalog.v1.Incus state = 1
      */
     state?: Incus;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.IncusUpdate
@@ -1897,10 +1797,6 @@ export interface GetJsonRenderResponse {
      * @generated from protobuf field: operation.catalog.v1.JsonRender state = 1
      */
     state?: JsonRender;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.JsonRenderUpdate
@@ -1945,10 +1841,6 @@ export interface GetKeypairResponse {
      * @generated from protobuf field: operation.catalog.v1.Keypair state = 1
      */
     state?: Keypair;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.KeypairUpdate
@@ -1997,10 +1889,6 @@ export interface GetKeyringResponse {
      * @generated from protobuf field: operation.catalog.v1.Keyring state = 1
      */
     state?: Keyring;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.KeyringUpdate
@@ -2077,10 +1965,6 @@ export interface GetLargeLanguageModelResponse {
      * @generated from protobuf field: operation.catalog.v1.LargeLanguageModel state = 1
      */
     state?: LargeLanguageModel;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.LargeLanguageModelUpdate
@@ -2125,10 +2009,6 @@ export interface GetLogin1Response {
      * @generated from protobuf field: operation.catalog.v1.Login1 state = 1
      */
     state?: Login1;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.Login1Update
@@ -2205,10 +2085,6 @@ export interface GetMailServerResponse {
      * @generated from protobuf field: operation.catalog.v1.MailServer state = 1
      */
     state?: MailServer;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.MailServerUpdate
@@ -2261,10 +2137,6 @@ export interface GetMcpResponse {
      * @generated from protobuf field: operation.catalog.v1.Mcp state = 1
      */
     state?: Mcp;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.McpUpdate
@@ -2325,10 +2197,6 @@ export interface GetMemoryResponse {
      * @generated from protobuf field: operation.catalog.v1.Memory state = 1
      */
     state?: Memory;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.MemoryUpdate
@@ -2373,10 +2241,6 @@ export interface GetNetResponse {
      * @generated from protobuf field: operation.catalog.v1.Net state = 1
      */
     state?: Net;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.NetUpdate
@@ -2457,10 +2321,6 @@ export interface GetNetmakerResponse {
      * @generated from protobuf field: operation.catalog.v1.Netmaker state = 1
      */
     state?: Netmaker;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.NetmakerUpdate
@@ -2521,10 +2381,6 @@ export interface GetNotebooklmResponse {
      * @generated from protobuf field: operation.catalog.v1.Notebooklm state = 1
      */
     state?: Notebooklm;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.NotebooklmUpdate
@@ -2569,10 +2425,6 @@ export interface GetOciResponse {
      * @generated from protobuf field: operation.catalog.v1.Oci state = 1
      */
     state?: Oci;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.OciUpdate
@@ -2633,10 +2485,6 @@ export interface GetOpenflowResponse {
      * @generated from protobuf field: operation.catalog.v1.Openflow state = 1
      */
     state?: Openflow;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.OpenflowUpdate
@@ -2697,10 +2545,6 @@ export interface GetOpenflowObfuscationResponse {
      * @generated from protobuf field: operation.catalog.v1.OpenflowObfuscation state = 1
      */
     state?: OpenflowObfuscation;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.OpenflowObfuscationUpdate
@@ -2857,10 +2701,6 @@ export interface GetOscalSubidRegistryResponse {
      * @generated from protobuf field: operation.catalog.v1.OscalSubidRegistry state = 1
      */
     state?: OscalSubidRegistry;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.OscalSubidRegistryUpdate
@@ -2905,10 +2745,6 @@ export interface GetOvsdbBridgeResponse {
      * @generated from protobuf field: operation.catalog.v1.OvsdbBridge state = 1
      */
     state?: OvsdbBridge;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.OvsdbBridgeUpdate
@@ -2957,10 +2793,6 @@ export interface GetPackagekitResponse {
      * @generated from protobuf field: operation.catalog.v1.Packagekit state = 1
      */
     state?: Packagekit;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.PackagekitUpdate
@@ -3009,10 +2841,6 @@ export interface GetPcideclResponse {
      * @generated from protobuf field: operation.catalog.v1.Pcidecl state = 1
      */
     state?: Pcidecl;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.PcideclUpdate
@@ -3065,10 +2893,6 @@ export interface GetPersonaResponse {
      * @generated from protobuf field: operation.catalog.v1.Persona state = 1
      */
     state?: Persona;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.PersonaUpdate
@@ -3149,10 +2973,6 @@ export interface GetProcfsResponse {
      * @generated from protobuf field: operation.catalog.v1.Procfs state = 1
      */
     state?: Procfs;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.ProcfsUpdate
@@ -3201,10 +3021,6 @@ export interface GetProxyServerResponse {
      * @generated from protobuf field: operation.catalog.v1.ProxyServer state = 1
      */
     state?: ProxyServer;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.ProxyServerUpdate
@@ -3285,10 +3101,6 @@ export interface GetQdrantResponse {
      * @generated from protobuf field: operation.catalog.v1.Qdrant state = 1
      */
     state?: Qdrant;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.QdrantUpdate
@@ -3337,10 +3149,6 @@ export interface GetRovsCommandsResponse {
      * @generated from protobuf field: operation.catalog.v1.RovsCommands state = 1
      */
     state?: RovsCommands;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.RovsCommandsUpdate
@@ -3385,10 +3193,6 @@ export interface GetRtnetlinkResponse {
      * @generated from protobuf field: operation.catalog.v1.Rtnetlink state = 1
      */
     state?: Rtnetlink;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.RtnetlinkUpdate
@@ -3449,10 +3253,6 @@ export interface GetS6SystemctlResponse {
      * @generated from protobuf field: operation.catalog.v1.S6Systemctl state = 1
      */
     state?: S6Systemctl;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.S6SystemctlUpdate
@@ -3521,10 +3321,6 @@ export interface GetSchemaRendererResponse {
      * @generated from protobuf field: operation.catalog.v1.SchemaRenderer state = 1
      */
     state?: SchemaRenderer;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.SchemaRendererUpdate
@@ -3569,10 +3365,6 @@ export interface GetServiceResponse {
      * @generated from protobuf field: operation.catalog.v1.Service state = 1
      */
     state?: Service;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.ServiceUpdate
@@ -3617,10 +3409,6 @@ export interface GetSessDeclResponse {
      * @generated from protobuf field: operation.catalog.v1.SessDecl state = 1
      */
     state?: SessDecl;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.SessDeclUpdate
@@ -3677,10 +3465,6 @@ export interface GetSharedUnixSocketResponse {
      * @generated from protobuf field: operation.catalog.v1.SharedUnixSocket state = 1
      */
     state?: SharedUnixSocket;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.SharedUnixSocketUpdate
@@ -3725,10 +3509,6 @@ export interface GetSoftwareResponse {
      * @generated from protobuf field: operation.catalog.v1.Software state = 1
      */
     state?: Software;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.SoftwareUpdate
@@ -3781,10 +3561,6 @@ export interface GetUnixSocketResponse {
      * @generated from protobuf field: operation.catalog.v1.UnixSocket state = 1
      */
     state?: UnixSocket;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.UnixSocketUpdate
@@ -3829,10 +3605,6 @@ export interface GetUsersResponse {
      * @generated from protobuf field: operation.catalog.v1.Users state = 1
      */
     state?: Users;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.UsersUpdate
@@ -3893,10 +3665,6 @@ export interface GetWebUiResponse {
      * @generated from protobuf field: operation.catalog.v1.WebUi state = 1
      */
     state?: WebUi;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.WebUiUpdate
@@ -3965,10 +3733,6 @@ export interface GetWgOpdbusResponse {
      * @generated from protobuf field: operation.catalog.v1.WgOpdbus state = 1
      */
     state?: WgOpdbus;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.WgOpdbusUpdate
@@ -4041,10 +3805,6 @@ export interface GetWgcfResponse {
      * @generated from protobuf field: operation.catalog.v1.Wgcf state = 1
      */
     state?: Wgcf;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.WgcfUpdate
@@ -4089,10 +3849,6 @@ export interface GetWireguardResponse {
      * @generated from protobuf field: operation.catalog.v1.Wireguard state = 1
      */
     state?: Wireguard;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.WireguardUpdate
@@ -4145,10 +3901,6 @@ export interface GetWorkflowsResponse {
      * @generated from protobuf field: operation.catalog.v1.Workflows state = 1
      */
     state?: Workflows;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.WorkflowsUpdate
@@ -4225,10 +3977,6 @@ export interface GetXrayResponse {
      * @generated from protobuf field: operation.catalog.v1.Xray state = 1
      */
     state?: Xray;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.XrayUpdate
@@ -4329,10 +4077,6 @@ export interface GetZeroclawResponse {
      * @generated from protobuf field: operation.catalog.v1.Zeroclaw state = 1
      */
     state?: Zeroclaw;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.ZeroclawUpdate
@@ -4368,10 +4112,6 @@ export interface GenericGetResponse {
      * @generated from protobuf field: google.protobuf.Struct state = 1
      */
     state?: Struct;
-    /**
-     * @generated from protobuf field: string error = 2
-     */
-    error: string;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Adc$Type extends MessageType<Adc> {
@@ -4471,13 +4211,11 @@ export const GetAdcRequest = new GetAdcRequest$Type();
 class GetAdcResponse$Type extends MessageType<GetAdcResponse> {
     constructor() {
         super("operation.catalog.v1.GetAdcResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Adc },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Adc }
         ]);
     }
     create(value?: PartialMessage<GetAdcResponse>): GetAdcResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetAdcResponse>(this, message, value);
         return message;
@@ -4489,9 +4227,6 @@ class GetAdcResponse$Type extends MessageType<GetAdcResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Adc state */ 1:
                     message.state = Adc.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -4508,9 +4243,6 @@ class GetAdcResponse$Type extends MessageType<GetAdcResponse> {
         /* operation.catalog.v1.Adc state = 1; */
         if (message.state)
             Adc.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4673,13 +4405,11 @@ export const GetAgentConfigRequest = new GetAgentConfigRequest$Type();
 class GetAgentConfigResponse$Type extends MessageType<GetAgentConfigResponse> {
     constructor() {
         super("operation.catalog.v1.GetAgentConfigResponse", [
-            { no: 1, name: "state", kind: "message", T: () => AgentConfig },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => AgentConfig }
         ]);
     }
     create(value?: PartialMessage<GetAgentConfigResponse>): GetAgentConfigResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetAgentConfigResponse>(this, message, value);
         return message;
@@ -4691,9 +4421,6 @@ class GetAgentConfigResponse$Type extends MessageType<GetAgentConfigResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.AgentConfig state */ 1:
                     message.state = AgentConfig.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -4710,9 +4437,6 @@ class GetAgentConfigResponse$Type extends MessageType<GetAgentConfigResponse> {
         /* operation.catalog.v1.AgentConfig state = 1; */
         if (message.state)
             AgentConfig.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4991,13 +4715,11 @@ export const GetAntigravityRequest = new GetAntigravityRequest$Type();
 class GetAntigravityResponse$Type extends MessageType<GetAntigravityResponse> {
     constructor() {
         super("operation.catalog.v1.GetAntigravityResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Antigravity },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Antigravity }
         ]);
     }
     create(value?: PartialMessage<GetAntigravityResponse>): GetAntigravityResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetAntigravityResponse>(this, message, value);
         return message;
@@ -5009,9 +4731,6 @@ class GetAntigravityResponse$Type extends MessageType<GetAntigravityResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Antigravity state */ 1:
                     message.state = Antigravity.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -5028,9 +4747,6 @@ class GetAntigravityResponse$Type extends MessageType<GetAntigravityResponse> {
         /* operation.catalog.v1.Antigravity state = 1; */
         if (message.state)
             Antigravity.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5235,13 +4951,11 @@ export const GetAntigravityChatRequest = new GetAntigravityChatRequest$Type();
 class GetAntigravityChatResponse$Type extends MessageType<GetAntigravityChatResponse> {
     constructor() {
         super("operation.catalog.v1.GetAntigravityChatResponse", [
-            { no: 1, name: "state", kind: "message", T: () => AntigravityChat },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => AntigravityChat }
         ]);
     }
     create(value?: PartialMessage<GetAntigravityChatResponse>): GetAntigravityChatResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetAntigravityChatResponse>(this, message, value);
         return message;
@@ -5253,9 +4967,6 @@ class GetAntigravityChatResponse$Type extends MessageType<GetAntigravityChatResp
             switch (fieldNo) {
                 case /* operation.catalog.v1.AntigravityChat state */ 1:
                     message.state = AntigravityChat.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -5272,9 +4983,6 @@ class GetAntigravityChatResponse$Type extends MessageType<GetAntigravityChatResp
         /* operation.catalog.v1.AntigravityChat state = 1; */
         if (message.state)
             AntigravityChat.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5476,13 +5184,11 @@ export const GetBlockchainRequest = new GetBlockchainRequest$Type();
 class GetBlockchainResponse$Type extends MessageType<GetBlockchainResponse> {
     constructor() {
         super("operation.catalog.v1.GetBlockchainResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Blockchain },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Blockchain }
         ]);
     }
     create(value?: PartialMessage<GetBlockchainResponse>): GetBlockchainResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetBlockchainResponse>(this, message, value);
         return message;
@@ -5494,9 +5200,6 @@ class GetBlockchainResponse$Type extends MessageType<GetBlockchainResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Blockchain state */ 1:
                     message.state = Blockchain.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -5513,9 +5216,6 @@ class GetBlockchainResponse$Type extends MessageType<GetBlockchainResponse> {
         /* operation.catalog.v1.Blockchain state = 1; */
         if (message.state)
             Blockchain.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5712,13 +5412,11 @@ export const GetBtrfsRequest = new GetBtrfsRequest$Type();
 class GetBtrfsResponse$Type extends MessageType<GetBtrfsResponse> {
     constructor() {
         super("operation.catalog.v1.GetBtrfsResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Btrfs },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Btrfs }
         ]);
     }
     create(value?: PartialMessage<GetBtrfsResponse>): GetBtrfsResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetBtrfsResponse>(this, message, value);
         return message;
@@ -5730,9 +5428,6 @@ class GetBtrfsResponse$Type extends MessageType<GetBtrfsResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Btrfs state */ 1:
                     message.state = Btrfs.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -5749,9 +5444,6 @@ class GetBtrfsResponse$Type extends MessageType<GetBtrfsResponse> {
         /* operation.catalog.v1.Btrfs state = 1; */
         if (message.state)
             Btrfs.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6067,13 +5759,11 @@ export const GetCognitiveMcpRequest = new GetCognitiveMcpRequest$Type();
 class GetCognitiveMcpResponse$Type extends MessageType<GetCognitiveMcpResponse> {
     constructor() {
         super("operation.catalog.v1.GetCognitiveMcpResponse", [
-            { no: 1, name: "state", kind: "message", T: () => CognitiveMcp },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => CognitiveMcp }
         ]);
     }
     create(value?: PartialMessage<GetCognitiveMcpResponse>): GetCognitiveMcpResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetCognitiveMcpResponse>(this, message, value);
         return message;
@@ -6085,9 +5775,6 @@ class GetCognitiveMcpResponse$Type extends MessageType<GetCognitiveMcpResponse> 
             switch (fieldNo) {
                 case /* operation.catalog.v1.CognitiveMcp state */ 1:
                     message.state = CognitiveMcp.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -6104,9 +5791,6 @@ class GetCognitiveMcpResponse$Type extends MessageType<GetCognitiveMcpResponse> 
         /* operation.catalog.v1.CognitiveMcp state = 1; */
         if (message.state)
             CognitiveMcp.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6324,13 +6008,11 @@ export const GetCompactMcpRequest = new GetCompactMcpRequest$Type();
 class GetCompactMcpResponse$Type extends MessageType<GetCompactMcpResponse> {
     constructor() {
         super("operation.catalog.v1.GetCompactMcpResponse", [
-            { no: 1, name: "state", kind: "message", T: () => CompactMcp },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => CompactMcp }
         ]);
     }
     create(value?: PartialMessage<GetCompactMcpResponse>): GetCompactMcpResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetCompactMcpResponse>(this, message, value);
         return message;
@@ -6342,9 +6024,6 @@ class GetCompactMcpResponse$Type extends MessageType<GetCompactMcpResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.CompactMcp state */ 1:
                     message.state = CompactMcp.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -6361,9 +6040,6 @@ class GetCompactMcpResponse$Type extends MessageType<GetCompactMcpResponse> {
         /* operation.catalog.v1.CompactMcp state = 1; */
         if (message.state)
             CompactMcp.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6539,13 +6215,11 @@ export const GetConfigRequest = new GetConfigRequest$Type();
 class GetConfigResponse$Type extends MessageType<GetConfigResponse> {
     constructor() {
         super("operation.catalog.v1.GetConfigResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Config },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Config }
         ]);
     }
     create(value?: PartialMessage<GetConfigResponse>): GetConfigResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetConfigResponse>(this, message, value);
         return message;
@@ -6557,9 +6231,6 @@ class GetConfigResponse$Type extends MessageType<GetConfigResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Config state */ 1:
                     message.state = Config.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -6576,9 +6247,6 @@ class GetConfigResponse$Type extends MessageType<GetConfigResponse> {
         /* operation.catalog.v1.Config state = 1; */
         if (message.state)
             Config.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6811,13 +6479,11 @@ export const GetCozoRequest = new GetCozoRequest$Type();
 class GetCozoResponse$Type extends MessageType<GetCozoResponse> {
     constructor() {
         super("operation.catalog.v1.GetCozoResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Cozo },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Cozo }
         ]);
     }
     create(value?: PartialMessage<GetCozoResponse>): GetCozoResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetCozoResponse>(this, message, value);
         return message;
@@ -6829,9 +6495,6 @@ class GetCozoResponse$Type extends MessageType<GetCozoResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Cozo state */ 1:
                     message.state = Cozo.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -6848,9 +6511,6 @@ class GetCozoResponse$Type extends MessageType<GetCozoResponse> {
         /* operation.catalog.v1.Cozo state = 1; */
         if (message.state)
             Cozo.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7048,13 +6708,11 @@ export const GetCronRequest = new GetCronRequest$Type();
 class GetCronResponse$Type extends MessageType<GetCronResponse> {
     constructor() {
         super("operation.catalog.v1.GetCronResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Cron },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Cron }
         ]);
     }
     create(value?: PartialMessage<GetCronResponse>): GetCronResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetCronResponse>(this, message, value);
         return message;
@@ -7066,9 +6724,6 @@ class GetCronResponse$Type extends MessageType<GetCronResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Cron state */ 1:
                     message.state = Cron.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -7085,9 +6740,6 @@ class GetCronResponse$Type extends MessageType<GetCronResponse> {
         /* operation.catalog.v1.Cron state = 1; */
         if (message.state)
             Cron.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7382,13 +7034,11 @@ export const GetCtlPlaneChatbotRequest = new GetCtlPlaneChatbotRequest$Type();
 class GetCtlPlaneChatbotResponse$Type extends MessageType<GetCtlPlaneChatbotResponse> {
     constructor() {
         super("operation.catalog.v1.GetCtlPlaneChatbotResponse", [
-            { no: 1, name: "state", kind: "message", T: () => CtlPlaneChatbot },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => CtlPlaneChatbot }
         ]);
     }
     create(value?: PartialMessage<GetCtlPlaneChatbotResponse>): GetCtlPlaneChatbotResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetCtlPlaneChatbotResponse>(this, message, value);
         return message;
@@ -7400,9 +7050,6 @@ class GetCtlPlaneChatbotResponse$Type extends MessageType<GetCtlPlaneChatbotResp
             switch (fieldNo) {
                 case /* operation.catalog.v1.CtlPlaneChatbot state */ 1:
                     message.state = CtlPlaneChatbot.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -7419,9 +7066,6 @@ class GetCtlPlaneChatbotResponse$Type extends MessageType<GetCtlPlaneChatbotResp
         /* operation.catalog.v1.CtlPlaneChatbot state = 1; */
         if (message.state)
             CtlPlaneChatbot.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7620,13 +7264,11 @@ export const GetDatastoreRequest = new GetDatastoreRequest$Type();
 class GetDatastoreResponse$Type extends MessageType<GetDatastoreResponse> {
     constructor() {
         super("operation.catalog.v1.GetDatastoreResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Datastore },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Datastore }
         ]);
     }
     create(value?: PartialMessage<GetDatastoreResponse>): GetDatastoreResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetDatastoreResponse>(this, message, value);
         return message;
@@ -7638,9 +7280,6 @@ class GetDatastoreResponse$Type extends MessageType<GetDatastoreResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Datastore state */ 1:
                     message.state = Datastore.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -7657,9 +7296,6 @@ class GetDatastoreResponse$Type extends MessageType<GetDatastoreResponse> {
         /* operation.catalog.v1.Datastore state = 1; */
         if (message.state)
             Datastore.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7829,13 +7465,11 @@ export const GetDnsresolverRequest = new GetDnsresolverRequest$Type();
 class GetDnsresolverResponse$Type extends MessageType<GetDnsresolverResponse> {
     constructor() {
         super("operation.catalog.v1.GetDnsresolverResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Dnsresolver },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Dnsresolver }
         ]);
     }
     create(value?: PartialMessage<GetDnsresolverResponse>): GetDnsresolverResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetDnsresolverResponse>(this, message, value);
         return message;
@@ -7847,9 +7481,6 @@ class GetDnsresolverResponse$Type extends MessageType<GetDnsresolverResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Dnsresolver state */ 1:
                     message.state = Dnsresolver.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -7866,9 +7497,6 @@ class GetDnsresolverResponse$Type extends MessageType<GetDnsresolverResponse> {
         /* operation.catalog.v1.Dnsresolver state = 1; */
         if (message.state)
             Dnsresolver.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -8087,13 +7715,11 @@ export const GetEmbeddingModelRequest = new GetEmbeddingModelRequest$Type();
 class GetEmbeddingModelResponse$Type extends MessageType<GetEmbeddingModelResponse> {
     constructor() {
         super("operation.catalog.v1.GetEmbeddingModelResponse", [
-            { no: 1, name: "state", kind: "message", T: () => EmbeddingModel },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => EmbeddingModel }
         ]);
     }
     create(value?: PartialMessage<GetEmbeddingModelResponse>): GetEmbeddingModelResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetEmbeddingModelResponse>(this, message, value);
         return message;
@@ -8105,9 +7731,6 @@ class GetEmbeddingModelResponse$Type extends MessageType<GetEmbeddingModelRespon
             switch (fieldNo) {
                 case /* operation.catalog.v1.EmbeddingModel state */ 1:
                     message.state = EmbeddingModel.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -8124,9 +7747,6 @@ class GetEmbeddingModelResponse$Type extends MessageType<GetEmbeddingModelRespon
         /* operation.catalog.v1.EmbeddingModel state = 1; */
         if (message.state)
             EmbeddingModel.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -8289,13 +7909,11 @@ export const GetEndpointRequest = new GetEndpointRequest$Type();
 class GetEndpointResponse$Type extends MessageType<GetEndpointResponse> {
     constructor() {
         super("operation.catalog.v1.GetEndpointResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Endpoint },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Endpoint }
         ]);
     }
     create(value?: PartialMessage<GetEndpointResponse>): GetEndpointResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetEndpointResponse>(this, message, value);
         return message;
@@ -8307,9 +7925,6 @@ class GetEndpointResponse$Type extends MessageType<GetEndpointResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Endpoint state */ 1:
                     message.state = Endpoint.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -8326,9 +7941,6 @@ class GetEndpointResponse$Type extends MessageType<GetEndpointResponse> {
         /* operation.catalog.v1.Endpoint state = 1; */
         if (message.state)
             Endpoint.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -8570,13 +8182,11 @@ export const GetFactoryRequest = new GetFactoryRequest$Type();
 class GetFactoryResponse$Type extends MessageType<GetFactoryResponse> {
     constructor() {
         super("operation.catalog.v1.GetFactoryResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Factory },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Factory }
         ]);
     }
     create(value?: PartialMessage<GetFactoryResponse>): GetFactoryResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetFactoryResponse>(this, message, value);
         return message;
@@ -8588,9 +8198,6 @@ class GetFactoryResponse$Type extends MessageType<GetFactoryResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Factory state */ 1:
                     message.state = Factory.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -8607,9 +8214,6 @@ class GetFactoryResponse$Type extends MessageType<GetFactoryResponse> {
         /* operation.catalog.v1.Factory state = 1; */
         if (message.state)
             Factory.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -8814,13 +8418,11 @@ export const GetFail2banRequest = new GetFail2banRequest$Type();
 class GetFail2banResponse$Type extends MessageType<GetFail2banResponse> {
     constructor() {
         super("operation.catalog.v1.GetFail2banResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Fail2ban },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Fail2ban }
         ]);
     }
     create(value?: PartialMessage<GetFail2banResponse>): GetFail2banResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetFail2banResponse>(this, message, value);
         return message;
@@ -8832,9 +8434,6 @@ class GetFail2banResponse$Type extends MessageType<GetFail2banResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Fail2ban state */ 1:
                     message.state = Fail2ban.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -8851,9 +8450,6 @@ class GetFail2banResponse$Type extends MessageType<GetFail2banResponse> {
         /* operation.catalog.v1.Fail2ban state = 1; */
         if (message.state)
             Fail2ban.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -9007,13 +8603,11 @@ export const GetFreedesktopRequest = new GetFreedesktopRequest$Type();
 class GetFreedesktopResponse$Type extends MessageType<GetFreedesktopResponse> {
     constructor() {
         super("operation.catalog.v1.GetFreedesktopResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Freedesktop },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Freedesktop }
         ]);
     }
     create(value?: PartialMessage<GetFreedesktopResponse>): GetFreedesktopResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetFreedesktopResponse>(this, message, value);
         return message;
@@ -9025,9 +8619,6 @@ class GetFreedesktopResponse$Type extends MessageType<GetFreedesktopResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Freedesktop state */ 1:
                     message.state = Freedesktop.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -9044,9 +8635,6 @@ class GetFreedesktopResponse$Type extends MessageType<GetFreedesktopResponse> {
         /* operation.catalog.v1.Freedesktop state = 1; */
         if (message.state)
             Freedesktop.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -9284,13 +8872,11 @@ export const GetFullSystemRequest = new GetFullSystemRequest$Type();
 class GetFullSystemResponse$Type extends MessageType<GetFullSystemResponse> {
     constructor() {
         super("operation.catalog.v1.GetFullSystemResponse", [
-            { no: 1, name: "state", kind: "message", T: () => FullSystem },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => FullSystem }
         ]);
     }
     create(value?: PartialMessage<GetFullSystemResponse>): GetFullSystemResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetFullSystemResponse>(this, message, value);
         return message;
@@ -9302,9 +8888,6 @@ class GetFullSystemResponse$Type extends MessageType<GetFullSystemResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.FullSystem state */ 1:
                     message.state = FullSystem.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -9321,9 +8904,6 @@ class GetFullSystemResponse$Type extends MessageType<GetFullSystemResponse> {
         /* operation.catalog.v1.FullSystem state = 1; */
         if (message.state)
             FullSystem.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -9500,13 +9080,11 @@ export const GetGcloudAdcRequest = new GetGcloudAdcRequest$Type();
 class GetGcloudAdcResponse$Type extends MessageType<GetGcloudAdcResponse> {
     constructor() {
         super("operation.catalog.v1.GetGcloudAdcResponse", [
-            { no: 1, name: "state", kind: "message", T: () => GcloudAdc },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => GcloudAdc }
         ]);
     }
     create(value?: PartialMessage<GetGcloudAdcResponse>): GetGcloudAdcResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetGcloudAdcResponse>(this, message, value);
         return message;
@@ -9518,9 +9096,6 @@ class GetGcloudAdcResponse$Type extends MessageType<GetGcloudAdcResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.GcloudAdc state */ 1:
                     message.state = GcloudAdc.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -9537,9 +9112,6 @@ class GetGcloudAdcResponse$Type extends MessageType<GetGcloudAdcResponse> {
         /* operation.catalog.v1.GcloudAdc state = 1; */
         if (message.state)
             GcloudAdc.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -9744,13 +9316,11 @@ export const GetGemmaBrainRequest = new GetGemmaBrainRequest$Type();
 class GetGemmaBrainResponse$Type extends MessageType<GetGemmaBrainResponse> {
     constructor() {
         super("operation.catalog.v1.GetGemmaBrainResponse", [
-            { no: 1, name: "state", kind: "message", T: () => GemmaBrain },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => GemmaBrain }
         ]);
     }
     create(value?: PartialMessage<GetGemmaBrainResponse>): GetGemmaBrainResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetGemmaBrainResponse>(this, message, value);
         return message;
@@ -9762,9 +9332,6 @@ class GetGemmaBrainResponse$Type extends MessageType<GetGemmaBrainResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.GemmaBrain state */ 1:
                     message.state = GemmaBrain.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -9781,9 +9348,6 @@ class GetGemmaBrainResponse$Type extends MessageType<GetGemmaBrainResponse> {
         /* operation.catalog.v1.GemmaBrain state = 1; */
         if (message.state)
             GemmaBrain.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -9967,13 +9531,11 @@ export const GetGhostbridgeRequest = new GetGhostbridgeRequest$Type();
 class GetGhostbridgeResponse$Type extends MessageType<GetGhostbridgeResponse> {
     constructor() {
         super("operation.catalog.v1.GetGhostbridgeResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Ghostbridge },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Ghostbridge }
         ]);
     }
     create(value?: PartialMessage<GetGhostbridgeResponse>): GetGhostbridgeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetGhostbridgeResponse>(this, message, value);
         return message;
@@ -9985,9 +9547,6 @@ class GetGhostbridgeResponse$Type extends MessageType<GetGhostbridgeResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Ghostbridge state */ 1:
                     message.state = Ghostbridge.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -10004,9 +9563,6 @@ class GetGhostbridgeResponse$Type extends MessageType<GetGhostbridgeResponse> {
         /* operation.catalog.v1.Ghostbridge state = 1; */
         if (message.state)
             Ghostbridge.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -10183,13 +9739,11 @@ export const GetHardwareRequest = new GetHardwareRequest$Type();
 class GetHardwareResponse$Type extends MessageType<GetHardwareResponse> {
     constructor() {
         super("operation.catalog.v1.GetHardwareResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Hardware },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Hardware }
         ]);
     }
     create(value?: PartialMessage<GetHardwareResponse>): GetHardwareResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetHardwareResponse>(this, message, value);
         return message;
@@ -10201,9 +9755,6 @@ class GetHardwareResponse$Type extends MessageType<GetHardwareResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Hardware state */ 1:
                     message.state = Hardware.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -10220,9 +9771,6 @@ class GetHardwareResponse$Type extends MessageType<GetHardwareResponse> {
         /* operation.catalog.v1.Hardware state = 1; */
         if (message.state)
             Hardware.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -10385,13 +9933,11 @@ export const GetIncusRequest = new GetIncusRequest$Type();
 class GetIncusResponse$Type extends MessageType<GetIncusResponse> {
     constructor() {
         super("operation.catalog.v1.GetIncusResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Incus },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Incus }
         ]);
     }
     create(value?: PartialMessage<GetIncusResponse>): GetIncusResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetIncusResponse>(this, message, value);
         return message;
@@ -10403,9 +9949,6 @@ class GetIncusResponse$Type extends MessageType<GetIncusResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Incus state */ 1:
                     message.state = Incus.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -10422,9 +9965,6 @@ class GetIncusResponse$Type extends MessageType<GetIncusResponse> {
         /* operation.catalog.v1.Incus state = 1; */
         if (message.state)
             Incus.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -10685,13 +10225,11 @@ export const GetJsonRenderRequest = new GetJsonRenderRequest$Type();
 class GetJsonRenderResponse$Type extends MessageType<GetJsonRenderResponse> {
     constructor() {
         super("operation.catalog.v1.GetJsonRenderResponse", [
-            { no: 1, name: "state", kind: "message", T: () => JsonRender },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => JsonRender }
         ]);
     }
     create(value?: PartialMessage<GetJsonRenderResponse>): GetJsonRenderResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetJsonRenderResponse>(this, message, value);
         return message;
@@ -10703,9 +10241,6 @@ class GetJsonRenderResponse$Type extends MessageType<GetJsonRenderResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.JsonRender state */ 1:
                     message.state = JsonRender.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -10722,9 +10257,6 @@ class GetJsonRenderResponse$Type extends MessageType<GetJsonRenderResponse> {
         /* operation.catalog.v1.JsonRender state = 1; */
         if (message.state)
             JsonRender.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -10887,13 +10419,11 @@ export const GetKeypairRequest = new GetKeypairRequest$Type();
 class GetKeypairResponse$Type extends MessageType<GetKeypairResponse> {
     constructor() {
         super("operation.catalog.v1.GetKeypairResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Keypair },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Keypair }
         ]);
     }
     create(value?: PartialMessage<GetKeypairResponse>): GetKeypairResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetKeypairResponse>(this, message, value);
         return message;
@@ -10905,9 +10435,6 @@ class GetKeypairResponse$Type extends MessageType<GetKeypairResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Keypair state */ 1:
                     message.state = Keypair.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -10924,9 +10451,6 @@ class GetKeypairResponse$Type extends MessageType<GetKeypairResponse> {
         /* operation.catalog.v1.Keypair state = 1; */
         if (message.state)
             Keypair.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -11096,13 +10620,11 @@ export const GetKeyringRequest = new GetKeyringRequest$Type();
 class GetKeyringResponse$Type extends MessageType<GetKeyringResponse> {
     constructor() {
         super("operation.catalog.v1.GetKeyringResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Keyring },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Keyring }
         ]);
     }
     create(value?: PartialMessage<GetKeyringResponse>): GetKeyringResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetKeyringResponse>(this, message, value);
         return message;
@@ -11114,9 +10636,6 @@ class GetKeyringResponse$Type extends MessageType<GetKeyringResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Keyring state */ 1:
                     message.state = Keyring.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -11133,9 +10652,6 @@ class GetKeyringResponse$Type extends MessageType<GetKeyringResponse> {
         /* operation.catalog.v1.Keyring state = 1; */
         if (message.state)
             Keyring.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -11354,13 +10870,11 @@ export const GetLargeLanguageModelRequest = new GetLargeLanguageModelRequest$Typ
 class GetLargeLanguageModelResponse$Type extends MessageType<GetLargeLanguageModelResponse> {
     constructor() {
         super("operation.catalog.v1.GetLargeLanguageModelResponse", [
-            { no: 1, name: "state", kind: "message", T: () => LargeLanguageModel },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => LargeLanguageModel }
         ]);
     }
     create(value?: PartialMessage<GetLargeLanguageModelResponse>): GetLargeLanguageModelResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetLargeLanguageModelResponse>(this, message, value);
         return message;
@@ -11372,9 +10886,6 @@ class GetLargeLanguageModelResponse$Type extends MessageType<GetLargeLanguageMod
             switch (fieldNo) {
                 case /* operation.catalog.v1.LargeLanguageModel state */ 1:
                     message.state = LargeLanguageModel.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -11391,9 +10902,6 @@ class GetLargeLanguageModelResponse$Type extends MessageType<GetLargeLanguageMod
         /* operation.catalog.v1.LargeLanguageModel state = 1; */
         if (message.state)
             LargeLanguageModel.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -11555,13 +11063,11 @@ export const GetLogin1Request = new GetLogin1Request$Type();
 class GetLogin1Response$Type extends MessageType<GetLogin1Response> {
     constructor() {
         super("operation.catalog.v1.GetLogin1Response", [
-            { no: 1, name: "state", kind: "message", T: () => Login1 },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Login1 }
         ]);
     }
     create(value?: PartialMessage<GetLogin1Response>): GetLogin1Response {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetLogin1Response>(this, message, value);
         return message;
@@ -11573,9 +11079,6 @@ class GetLogin1Response$Type extends MessageType<GetLogin1Response> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Login1 state */ 1:
                     message.state = Login1.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -11592,9 +11095,6 @@ class GetLogin1Response$Type extends MessageType<GetLogin1Response> {
         /* operation.catalog.v1.Login1 state = 1; */
         if (message.state)
             Login1.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -11818,13 +11318,11 @@ export const GetMailServerRequest = new GetMailServerRequest$Type();
 class GetMailServerResponse$Type extends MessageType<GetMailServerResponse> {
     constructor() {
         super("operation.catalog.v1.GetMailServerResponse", [
-            { no: 1, name: "state", kind: "message", T: () => MailServer },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => MailServer }
         ]);
     }
     create(value?: PartialMessage<GetMailServerResponse>): GetMailServerResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetMailServerResponse>(this, message, value);
         return message;
@@ -11836,9 +11334,6 @@ class GetMailServerResponse$Type extends MessageType<GetMailServerResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.MailServer state */ 1:
                     message.state = MailServer.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -11855,9 +11350,6 @@ class GetMailServerResponse$Type extends MessageType<GetMailServerResponse> {
         /* operation.catalog.v1.MailServer state = 1; */
         if (message.state)
             MailServer.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -12033,13 +11525,11 @@ export const GetMcpRequest = new GetMcpRequest$Type();
 class GetMcpResponse$Type extends MessageType<GetMcpResponse> {
     constructor() {
         super("operation.catalog.v1.GetMcpResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Mcp },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Mcp }
         ]);
     }
     create(value?: PartialMessage<GetMcpResponse>): GetMcpResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetMcpResponse>(this, message, value);
         return message;
@@ -12051,9 +11541,6 @@ class GetMcpResponse$Type extends MessageType<GetMcpResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Mcp state */ 1:
                     message.state = Mcp.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -12070,9 +11557,6 @@ class GetMcpResponse$Type extends MessageType<GetMcpResponse> {
         /* operation.catalog.v1.Mcp state = 1; */
         if (message.state)
             Mcp.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -12264,13 +11748,11 @@ export const GetMemoryRequest = new GetMemoryRequest$Type();
 class GetMemoryResponse$Type extends MessageType<GetMemoryResponse> {
     constructor() {
         super("operation.catalog.v1.GetMemoryResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Memory },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Memory }
         ]);
     }
     create(value?: PartialMessage<GetMemoryResponse>): GetMemoryResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetMemoryResponse>(this, message, value);
         return message;
@@ -12282,9 +11764,6 @@ class GetMemoryResponse$Type extends MessageType<GetMemoryResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Memory state */ 1:
                     message.state = Memory.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -12301,9 +11780,6 @@ class GetMemoryResponse$Type extends MessageType<GetMemoryResponse> {
         /* operation.catalog.v1.Memory state = 1; */
         if (message.state)
             Memory.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -12466,13 +11942,11 @@ export const GetNetRequest = new GetNetRequest$Type();
 class GetNetResponse$Type extends MessageType<GetNetResponse> {
     constructor() {
         super("operation.catalog.v1.GetNetResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Net },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Net }
         ]);
     }
     create(value?: PartialMessage<GetNetResponse>): GetNetResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetNetResponse>(this, message, value);
         return message;
@@ -12484,9 +11958,6 @@ class GetNetResponse$Type extends MessageType<GetNetResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Net state */ 1:
                     message.state = Net.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -12503,9 +11974,6 @@ class GetNetResponse$Type extends MessageType<GetNetResponse> {
         /* operation.catalog.v1.Net state = 1; */
         if (message.state)
             Net.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -12736,13 +12204,11 @@ export const GetNetmakerRequest = new GetNetmakerRequest$Type();
 class GetNetmakerResponse$Type extends MessageType<GetNetmakerResponse> {
     constructor() {
         super("operation.catalog.v1.GetNetmakerResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Netmaker },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Netmaker }
         ]);
     }
     create(value?: PartialMessage<GetNetmakerResponse>): GetNetmakerResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetNetmakerResponse>(this, message, value);
         return message;
@@ -12754,9 +12220,6 @@ class GetNetmakerResponse$Type extends MessageType<GetNetmakerResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Netmaker state */ 1:
                     message.state = Netmaker.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -12773,9 +12236,6 @@ class GetNetmakerResponse$Type extends MessageType<GetNetmakerResponse> {
         /* operation.catalog.v1.Netmaker state = 1; */
         if (message.state)
             Netmaker.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -12966,13 +12426,11 @@ export const GetNotebooklmRequest = new GetNotebooklmRequest$Type();
 class GetNotebooklmResponse$Type extends MessageType<GetNotebooklmResponse> {
     constructor() {
         super("operation.catalog.v1.GetNotebooklmResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Notebooklm },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Notebooklm }
         ]);
     }
     create(value?: PartialMessage<GetNotebooklmResponse>): GetNotebooklmResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetNotebooklmResponse>(this, message, value);
         return message;
@@ -12984,9 +12442,6 @@ class GetNotebooklmResponse$Type extends MessageType<GetNotebooklmResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Notebooklm state */ 1:
                     message.state = Notebooklm.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -13003,9 +12458,6 @@ class GetNotebooklmResponse$Type extends MessageType<GetNotebooklmResponse> {
         /* operation.catalog.v1.Notebooklm state = 1; */
         if (message.state)
             Notebooklm.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -13168,13 +12620,11 @@ export const GetOciRequest = new GetOciRequest$Type();
 class GetOciResponse$Type extends MessageType<GetOciResponse> {
     constructor() {
         super("operation.catalog.v1.GetOciResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Oci },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Oci }
         ]);
     }
     create(value?: PartialMessage<GetOciResponse>): GetOciResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetOciResponse>(this, message, value);
         return message;
@@ -13186,9 +12636,6 @@ class GetOciResponse$Type extends MessageType<GetOciResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Oci state */ 1:
                     message.state = Oci.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -13205,9 +12652,6 @@ class GetOciResponse$Type extends MessageType<GetOciResponse> {
         /* operation.catalog.v1.Oci state = 1; */
         if (message.state)
             Oci.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -13398,13 +12842,11 @@ export const GetOpenflowRequest = new GetOpenflowRequest$Type();
 class GetOpenflowResponse$Type extends MessageType<GetOpenflowResponse> {
     constructor() {
         super("operation.catalog.v1.GetOpenflowResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Openflow },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Openflow }
         ]);
     }
     create(value?: PartialMessage<GetOpenflowResponse>): GetOpenflowResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetOpenflowResponse>(this, message, value);
         return message;
@@ -13416,9 +12858,6 @@ class GetOpenflowResponse$Type extends MessageType<GetOpenflowResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Openflow state */ 1:
                     message.state = Openflow.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -13435,9 +12874,6 @@ class GetOpenflowResponse$Type extends MessageType<GetOpenflowResponse> {
         /* operation.catalog.v1.Openflow state = 1; */
         if (message.state)
             Openflow.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -13629,13 +13065,11 @@ export const GetOpenflowObfuscationRequest = new GetOpenflowObfuscationRequest$T
 class GetOpenflowObfuscationResponse$Type extends MessageType<GetOpenflowObfuscationResponse> {
     constructor() {
         super("operation.catalog.v1.GetOpenflowObfuscationResponse", [
-            { no: 1, name: "state", kind: "message", T: () => OpenflowObfuscation },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => OpenflowObfuscation }
         ]);
     }
     create(value?: PartialMessage<GetOpenflowObfuscationResponse>): GetOpenflowObfuscationResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetOpenflowObfuscationResponse>(this, message, value);
         return message;
@@ -13647,9 +13081,6 @@ class GetOpenflowObfuscationResponse$Type extends MessageType<GetOpenflowObfusca
             switch (fieldNo) {
                 case /* operation.catalog.v1.OpenflowObfuscation state */ 1:
                     message.state = OpenflowObfuscation.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -13666,9 +13097,6 @@ class GetOpenflowObfuscationResponse$Type extends MessageType<GetOpenflowObfusca
         /* operation.catalog.v1.OpenflowObfuscation state = 1; */
         if (message.state)
             OpenflowObfuscation.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -14035,13 +13463,11 @@ export const GetOscalSubidRegistryRequest = new GetOscalSubidRegistryRequest$Typ
 class GetOscalSubidRegistryResponse$Type extends MessageType<GetOscalSubidRegistryResponse> {
     constructor() {
         super("operation.catalog.v1.GetOscalSubidRegistryResponse", [
-            { no: 1, name: "state", kind: "message", T: () => OscalSubidRegistry },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => OscalSubidRegistry }
         ]);
     }
     create(value?: PartialMessage<GetOscalSubidRegistryResponse>): GetOscalSubidRegistryResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetOscalSubidRegistryResponse>(this, message, value);
         return message;
@@ -14053,9 +13479,6 @@ class GetOscalSubidRegistryResponse$Type extends MessageType<GetOscalSubidRegist
             switch (fieldNo) {
                 case /* operation.catalog.v1.OscalSubidRegistry state */ 1:
                     message.state = OscalSubidRegistry.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -14072,9 +13495,6 @@ class GetOscalSubidRegistryResponse$Type extends MessageType<GetOscalSubidRegist
         /* operation.catalog.v1.OscalSubidRegistry state = 1; */
         if (message.state)
             OscalSubidRegistry.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -14237,13 +13657,11 @@ export const GetOvsdbBridgeRequest = new GetOvsdbBridgeRequest$Type();
 class GetOvsdbBridgeResponse$Type extends MessageType<GetOvsdbBridgeResponse> {
     constructor() {
         super("operation.catalog.v1.GetOvsdbBridgeResponse", [
-            { no: 1, name: "state", kind: "message", T: () => OvsdbBridge },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => OvsdbBridge }
         ]);
     }
     create(value?: PartialMessage<GetOvsdbBridgeResponse>): GetOvsdbBridgeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetOvsdbBridgeResponse>(this, message, value);
         return message;
@@ -14255,9 +13673,6 @@ class GetOvsdbBridgeResponse$Type extends MessageType<GetOvsdbBridgeResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.OvsdbBridge state */ 1:
                     message.state = OvsdbBridge.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -14274,9 +13689,6 @@ class GetOvsdbBridgeResponse$Type extends MessageType<GetOvsdbBridgeResponse> {
         /* operation.catalog.v1.OvsdbBridge state = 1; */
         if (message.state)
             OvsdbBridge.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -14445,13 +13857,11 @@ export const GetPackagekitRequest = new GetPackagekitRequest$Type();
 class GetPackagekitResponse$Type extends MessageType<GetPackagekitResponse> {
     constructor() {
         super("operation.catalog.v1.GetPackagekitResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Packagekit },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Packagekit }
         ]);
     }
     create(value?: PartialMessage<GetPackagekitResponse>): GetPackagekitResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetPackagekitResponse>(this, message, value);
         return message;
@@ -14463,9 +13873,6 @@ class GetPackagekitResponse$Type extends MessageType<GetPackagekitResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Packagekit state */ 1:
                     message.state = Packagekit.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -14482,9 +13889,6 @@ class GetPackagekitResponse$Type extends MessageType<GetPackagekitResponse> {
         /* operation.catalog.v1.Packagekit state = 1; */
         if (message.state)
             Packagekit.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -14653,13 +14057,11 @@ export const GetPcideclRequest = new GetPcideclRequest$Type();
 class GetPcideclResponse$Type extends MessageType<GetPcideclResponse> {
     constructor() {
         super("operation.catalog.v1.GetPcideclResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Pcidecl },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Pcidecl }
         ]);
     }
     create(value?: PartialMessage<GetPcideclResponse>): GetPcideclResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetPcideclResponse>(this, message, value);
         return message;
@@ -14671,9 +14073,6 @@ class GetPcideclResponse$Type extends MessageType<GetPcideclResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Pcidecl state */ 1:
                     message.state = Pcidecl.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -14690,9 +14089,6 @@ class GetPcideclResponse$Type extends MessageType<GetPcideclResponse> {
         /* operation.catalog.v1.Pcidecl state = 1; */
         if (message.state)
             Pcidecl.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -14871,13 +14267,11 @@ export const GetPersonaRequest = new GetPersonaRequest$Type();
 class GetPersonaResponse$Type extends MessageType<GetPersonaResponse> {
     constructor() {
         super("operation.catalog.v1.GetPersonaResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Persona },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Persona }
         ]);
     }
     create(value?: PartialMessage<GetPersonaResponse>): GetPersonaResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetPersonaResponse>(this, message, value);
         return message;
@@ -14889,9 +14283,6 @@ class GetPersonaResponse$Type extends MessageType<GetPersonaResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Persona state */ 1:
                     message.state = Persona.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -14908,9 +14299,6 @@ class GetPersonaResponse$Type extends MessageType<GetPersonaResponse> {
         /* operation.catalog.v1.Persona state = 1; */
         if (message.state)
             Persona.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -15135,13 +14523,11 @@ export const GetProcfsRequest = new GetProcfsRequest$Type();
 class GetProcfsResponse$Type extends MessageType<GetProcfsResponse> {
     constructor() {
         super("operation.catalog.v1.GetProcfsResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Procfs },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Procfs }
         ]);
     }
     create(value?: PartialMessage<GetProcfsResponse>): GetProcfsResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetProcfsResponse>(this, message, value);
         return message;
@@ -15153,9 +14539,6 @@ class GetProcfsResponse$Type extends MessageType<GetProcfsResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Procfs state */ 1:
                     message.state = Procfs.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -15172,9 +14555,6 @@ class GetProcfsResponse$Type extends MessageType<GetProcfsResponse> {
         /* operation.catalog.v1.Procfs state = 1; */
         if (message.state)
             Procfs.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -15343,13 +14723,11 @@ export const GetProxyServerRequest = new GetProxyServerRequest$Type();
 class GetProxyServerResponse$Type extends MessageType<GetProxyServerResponse> {
     constructor() {
         super("operation.catalog.v1.GetProxyServerResponse", [
-            { no: 1, name: "state", kind: "message", T: () => ProxyServer },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => ProxyServer }
         ]);
     }
     create(value?: PartialMessage<GetProxyServerResponse>): GetProxyServerResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetProxyServerResponse>(this, message, value);
         return message;
@@ -15361,9 +14739,6 @@ class GetProxyServerResponse$Type extends MessageType<GetProxyServerResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.ProxyServer state */ 1:
                     message.state = ProxyServer.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -15380,9 +14755,6 @@ class GetProxyServerResponse$Type extends MessageType<GetProxyServerResponse> {
         /* operation.catalog.v1.ProxyServer state = 1; */
         if (message.state)
             ProxyServer.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -15613,13 +14985,11 @@ export const GetQdrantRequest = new GetQdrantRequest$Type();
 class GetQdrantResponse$Type extends MessageType<GetQdrantResponse> {
     constructor() {
         super("operation.catalog.v1.GetQdrantResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Qdrant },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Qdrant }
         ]);
     }
     create(value?: PartialMessage<GetQdrantResponse>): GetQdrantResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetQdrantResponse>(this, message, value);
         return message;
@@ -15631,9 +15001,6 @@ class GetQdrantResponse$Type extends MessageType<GetQdrantResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Qdrant state */ 1:
                     message.state = Qdrant.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -15650,9 +15017,6 @@ class GetQdrantResponse$Type extends MessageType<GetQdrantResponse> {
         /* operation.catalog.v1.Qdrant state = 1; */
         if (message.state)
             Qdrant.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -15822,13 +15186,11 @@ export const GetRovsCommandsRequest = new GetRovsCommandsRequest$Type();
 class GetRovsCommandsResponse$Type extends MessageType<GetRovsCommandsResponse> {
     constructor() {
         super("operation.catalog.v1.GetRovsCommandsResponse", [
-            { no: 1, name: "state", kind: "message", T: () => RovsCommands },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => RovsCommands }
         ]);
     }
     create(value?: PartialMessage<GetRovsCommandsResponse>): GetRovsCommandsResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetRovsCommandsResponse>(this, message, value);
         return message;
@@ -15840,9 +15202,6 @@ class GetRovsCommandsResponse$Type extends MessageType<GetRovsCommandsResponse> 
             switch (fieldNo) {
                 case /* operation.catalog.v1.RovsCommands state */ 1:
                     message.state = RovsCommands.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -15859,9 +15218,6 @@ class GetRovsCommandsResponse$Type extends MessageType<GetRovsCommandsResponse> 
         /* operation.catalog.v1.RovsCommands state = 1; */
         if (message.state)
             RovsCommands.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -16024,13 +15380,11 @@ export const GetRtnetlinkRequest = new GetRtnetlinkRequest$Type();
 class GetRtnetlinkResponse$Type extends MessageType<GetRtnetlinkResponse> {
     constructor() {
         super("operation.catalog.v1.GetRtnetlinkResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Rtnetlink },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Rtnetlink }
         ]);
     }
     create(value?: PartialMessage<GetRtnetlinkResponse>): GetRtnetlinkResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetRtnetlinkResponse>(this, message, value);
         return message;
@@ -16042,9 +15396,6 @@ class GetRtnetlinkResponse$Type extends MessageType<GetRtnetlinkResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Rtnetlink state */ 1:
                     message.state = Rtnetlink.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -16061,9 +15412,6 @@ class GetRtnetlinkResponse$Type extends MessageType<GetRtnetlinkResponse> {
         /* operation.catalog.v1.Rtnetlink state = 1; */
         if (message.state)
             Rtnetlink.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -16258,13 +15606,11 @@ export const GetS6SystemctlRequest = new GetS6SystemctlRequest$Type();
 class GetS6SystemctlResponse$Type extends MessageType<GetS6SystemctlResponse> {
     constructor() {
         super("operation.catalog.v1.GetS6SystemctlResponse", [
-            { no: 1, name: "state", kind: "message", T: () => S6Systemctl },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => S6Systemctl }
         ]);
     }
     create(value?: PartialMessage<GetS6SystemctlResponse>): GetS6SystemctlResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetS6SystemctlResponse>(this, message, value);
         return message;
@@ -16276,9 +15622,6 @@ class GetS6SystemctlResponse$Type extends MessageType<GetS6SystemctlResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.S6Systemctl state */ 1:
                     message.state = S6Systemctl.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -16295,9 +15638,6 @@ class GetS6SystemctlResponse$Type extends MessageType<GetS6SystemctlResponse> {
         /* operation.catalog.v1.S6Systemctl state = 1; */
         if (message.state)
             S6Systemctl.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -16501,13 +15841,11 @@ export const GetSchemaRendererRequest = new GetSchemaRendererRequest$Type();
 class GetSchemaRendererResponse$Type extends MessageType<GetSchemaRendererResponse> {
     constructor() {
         super("operation.catalog.v1.GetSchemaRendererResponse", [
-            { no: 1, name: "state", kind: "message", T: () => SchemaRenderer },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => SchemaRenderer }
         ]);
     }
     create(value?: PartialMessage<GetSchemaRendererResponse>): GetSchemaRendererResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetSchemaRendererResponse>(this, message, value);
         return message;
@@ -16519,9 +15857,6 @@ class GetSchemaRendererResponse$Type extends MessageType<GetSchemaRendererRespon
             switch (fieldNo) {
                 case /* operation.catalog.v1.SchemaRenderer state */ 1:
                     message.state = SchemaRenderer.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -16538,9 +15873,6 @@ class GetSchemaRendererResponse$Type extends MessageType<GetSchemaRendererRespon
         /* operation.catalog.v1.SchemaRenderer state = 1; */
         if (message.state)
             SchemaRenderer.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -16702,13 +16034,11 @@ export const GetServiceRequest = new GetServiceRequest$Type();
 class GetServiceResponse$Type extends MessageType<GetServiceResponse> {
     constructor() {
         super("operation.catalog.v1.GetServiceResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Service },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Service }
         ]);
     }
     create(value?: PartialMessage<GetServiceResponse>): GetServiceResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetServiceResponse>(this, message, value);
         return message;
@@ -16720,9 +16050,6 @@ class GetServiceResponse$Type extends MessageType<GetServiceResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Service state */ 1:
                     message.state = Service.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -16739,9 +16066,6 @@ class GetServiceResponse$Type extends MessageType<GetServiceResponse> {
         /* operation.catalog.v1.Service state = 1; */
         if (message.state)
             Service.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -16903,13 +16227,11 @@ export const GetSessDeclRequest = new GetSessDeclRequest$Type();
 class GetSessDeclResponse$Type extends MessageType<GetSessDeclResponse> {
     constructor() {
         super("operation.catalog.v1.GetSessDeclResponse", [
-            { no: 1, name: "state", kind: "message", T: () => SessDecl },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => SessDecl }
         ]);
     }
     create(value?: PartialMessage<GetSessDeclResponse>): GetSessDeclResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetSessDeclResponse>(this, message, value);
         return message;
@@ -16921,9 +16243,6 @@ class GetSessDeclResponse$Type extends MessageType<GetSessDeclResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.SessDecl state */ 1:
                     message.state = SessDecl.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -16940,9 +16259,6 @@ class GetSessDeclResponse$Type extends MessageType<GetSessDeclResponse> {
         /* operation.catalog.v1.SessDecl state = 1; */
         if (message.state)
             SessDecl.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -17126,13 +16442,11 @@ export const GetSharedUnixSocketRequest = new GetSharedUnixSocketRequest$Type();
 class GetSharedUnixSocketResponse$Type extends MessageType<GetSharedUnixSocketResponse> {
     constructor() {
         super("operation.catalog.v1.GetSharedUnixSocketResponse", [
-            { no: 1, name: "state", kind: "message", T: () => SharedUnixSocket },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => SharedUnixSocket }
         ]);
     }
     create(value?: PartialMessage<GetSharedUnixSocketResponse>): GetSharedUnixSocketResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetSharedUnixSocketResponse>(this, message, value);
         return message;
@@ -17144,9 +16458,6 @@ class GetSharedUnixSocketResponse$Type extends MessageType<GetSharedUnixSocketRe
             switch (fieldNo) {
                 case /* operation.catalog.v1.SharedUnixSocket state */ 1:
                     message.state = SharedUnixSocket.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -17163,9 +16474,6 @@ class GetSharedUnixSocketResponse$Type extends MessageType<GetSharedUnixSocketRe
         /* operation.catalog.v1.SharedUnixSocket state = 1; */
         if (message.state)
             SharedUnixSocket.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -17328,13 +16636,11 @@ export const GetSoftwareRequest = new GetSoftwareRequest$Type();
 class GetSoftwareResponse$Type extends MessageType<GetSoftwareResponse> {
     constructor() {
         super("operation.catalog.v1.GetSoftwareResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Software },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Software }
         ]);
     }
     create(value?: PartialMessage<GetSoftwareResponse>): GetSoftwareResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetSoftwareResponse>(this, message, value);
         return message;
@@ -17346,9 +16652,6 @@ class GetSoftwareResponse$Type extends MessageType<GetSoftwareResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Software state */ 1:
                     message.state = Software.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -17365,9 +16668,6 @@ class GetSoftwareResponse$Type extends MessageType<GetSoftwareResponse> {
         /* operation.catalog.v1.Software state = 1; */
         if (message.state)
             Software.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -17544,13 +16844,11 @@ export const GetUnixSocketRequest = new GetUnixSocketRequest$Type();
 class GetUnixSocketResponse$Type extends MessageType<GetUnixSocketResponse> {
     constructor() {
         super("operation.catalog.v1.GetUnixSocketResponse", [
-            { no: 1, name: "state", kind: "message", T: () => UnixSocket },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => UnixSocket }
         ]);
     }
     create(value?: PartialMessage<GetUnixSocketResponse>): GetUnixSocketResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetUnixSocketResponse>(this, message, value);
         return message;
@@ -17562,9 +16860,6 @@ class GetUnixSocketResponse$Type extends MessageType<GetUnixSocketResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.UnixSocket state */ 1:
                     message.state = UnixSocket.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -17581,9 +16876,6 @@ class GetUnixSocketResponse$Type extends MessageType<GetUnixSocketResponse> {
         /* operation.catalog.v1.UnixSocket state = 1; */
         if (message.state)
             UnixSocket.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -17746,13 +17038,11 @@ export const GetUsersRequest = new GetUsersRequest$Type();
 class GetUsersResponse$Type extends MessageType<GetUsersResponse> {
     constructor() {
         super("operation.catalog.v1.GetUsersResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Users },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Users }
         ]);
     }
     create(value?: PartialMessage<GetUsersResponse>): GetUsersResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetUsersResponse>(this, message, value);
         return message;
@@ -17764,9 +17054,6 @@ class GetUsersResponse$Type extends MessageType<GetUsersResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Users state */ 1:
                     message.state = Users.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -17783,9 +17070,6 @@ class GetUsersResponse$Type extends MessageType<GetUsersResponse> {
         /* operation.catalog.v1.Users state = 1; */
         if (message.state)
             Users.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -17975,13 +17259,11 @@ export const GetWebUiRequest = new GetWebUiRequest$Type();
 class GetWebUiResponse$Type extends MessageType<GetWebUiResponse> {
     constructor() {
         super("operation.catalog.v1.GetWebUiResponse", [
-            { no: 1, name: "state", kind: "message", T: () => WebUi },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => WebUi }
         ]);
     }
     create(value?: PartialMessage<GetWebUiResponse>): GetWebUiResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetWebUiResponse>(this, message, value);
         return message;
@@ -17993,9 +17275,6 @@ class GetWebUiResponse$Type extends MessageType<GetWebUiResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.WebUi state */ 1:
                     message.state = WebUi.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -18012,9 +17291,6 @@ class GetWebUiResponse$Type extends MessageType<GetWebUiResponse> {
         /* operation.catalog.v1.WebUi state = 1; */
         if (message.state)
             WebUi.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -18220,13 +17496,11 @@ export const GetWgOpdbusRequest = new GetWgOpdbusRequest$Type();
 class GetWgOpdbusResponse$Type extends MessageType<GetWgOpdbusResponse> {
     constructor() {
         super("operation.catalog.v1.GetWgOpdbusResponse", [
-            { no: 1, name: "state", kind: "message", T: () => WgOpdbus },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => WgOpdbus }
         ]);
     }
     create(value?: PartialMessage<GetWgOpdbusResponse>): GetWgOpdbusResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetWgOpdbusResponse>(this, message, value);
         return message;
@@ -18238,9 +17512,6 @@ class GetWgOpdbusResponse$Type extends MessageType<GetWgOpdbusResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.WgOpdbus state */ 1:
                     message.state = WgOpdbus.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -18257,9 +17528,6 @@ class GetWgOpdbusResponse$Type extends MessageType<GetWgOpdbusResponse> {
         /* operation.catalog.v1.WgOpdbus state = 1; */
         if (message.state)
             WgOpdbus.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -18471,13 +17739,11 @@ export const GetWgcfRequest = new GetWgcfRequest$Type();
 class GetWgcfResponse$Type extends MessageType<GetWgcfResponse> {
     constructor() {
         super("operation.catalog.v1.GetWgcfResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Wgcf },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Wgcf }
         ]);
     }
     create(value?: PartialMessage<GetWgcfResponse>): GetWgcfResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetWgcfResponse>(this, message, value);
         return message;
@@ -18489,9 +17755,6 @@ class GetWgcfResponse$Type extends MessageType<GetWgcfResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Wgcf state */ 1:
                     message.state = Wgcf.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -18508,9 +17771,6 @@ class GetWgcfResponse$Type extends MessageType<GetWgcfResponse> {
         /* operation.catalog.v1.Wgcf state = 1; */
         if (message.state)
             Wgcf.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -18673,13 +17933,11 @@ export const GetWireguardRequest = new GetWireguardRequest$Type();
 class GetWireguardResponse$Type extends MessageType<GetWireguardResponse> {
     constructor() {
         super("operation.catalog.v1.GetWireguardResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Wireguard },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Wireguard }
         ]);
     }
     create(value?: PartialMessage<GetWireguardResponse>): GetWireguardResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetWireguardResponse>(this, message, value);
         return message;
@@ -18691,9 +17949,6 @@ class GetWireguardResponse$Type extends MessageType<GetWireguardResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Wireguard state */ 1:
                     message.state = Wireguard.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -18710,9 +17965,6 @@ class GetWireguardResponse$Type extends MessageType<GetWireguardResponse> {
         /* operation.catalog.v1.Wireguard state = 1; */
         if (message.state)
             Wireguard.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -18888,13 +18140,11 @@ export const GetWorkflowsRequest = new GetWorkflowsRequest$Type();
 class GetWorkflowsResponse$Type extends MessageType<GetWorkflowsResponse> {
     constructor() {
         super("operation.catalog.v1.GetWorkflowsResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Workflows },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Workflows }
         ]);
     }
     create(value?: PartialMessage<GetWorkflowsResponse>): GetWorkflowsResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetWorkflowsResponse>(this, message, value);
         return message;
@@ -18906,9 +18156,6 @@ class GetWorkflowsResponse$Type extends MessageType<GetWorkflowsResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Workflows state */ 1:
                     message.state = Workflows.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -18925,9 +18172,6 @@ class GetWorkflowsResponse$Type extends MessageType<GetWorkflowsResponse> {
         /* operation.catalog.v1.Workflows state = 1; */
         if (message.state)
             Workflows.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -19146,13 +18390,11 @@ export const GetXrayRequest = new GetXrayRequest$Type();
 class GetXrayResponse$Type extends MessageType<GetXrayResponse> {
     constructor() {
         super("operation.catalog.v1.GetXrayResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Xray },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Xray }
         ]);
     }
     create(value?: PartialMessage<GetXrayResponse>): GetXrayResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetXrayResponse>(this, message, value);
         return message;
@@ -19164,9 +18406,6 @@ class GetXrayResponse$Type extends MessageType<GetXrayResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Xray state */ 1:
                     message.state = Xray.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -19183,9 +18422,6 @@ class GetXrayResponse$Type extends MessageType<GetXrayResponse> {
         /* operation.catalog.v1.Xray state = 1; */
         if (message.state)
             Xray.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -19449,13 +18685,11 @@ export const GetZeroclawRequest = new GetZeroclawRequest$Type();
 class GetZeroclawResponse$Type extends MessageType<GetZeroclawResponse> {
     constructor() {
         super("operation.catalog.v1.GetZeroclawResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Zeroclaw },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Zeroclaw }
         ]);
     }
     create(value?: PartialMessage<GetZeroclawResponse>): GetZeroclawResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GetZeroclawResponse>(this, message, value);
         return message;
@@ -19467,9 +18701,6 @@ class GetZeroclawResponse$Type extends MessageType<GetZeroclawResponse> {
             switch (fieldNo) {
                 case /* operation.catalog.v1.Zeroclaw state */ 1:
                     message.state = Zeroclaw.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -19486,9 +18717,6 @@ class GetZeroclawResponse$Type extends MessageType<GetZeroclawResponse> {
         /* operation.catalog.v1.Zeroclaw state = 1; */
         if (message.state)
             Zeroclaw.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -19612,13 +18840,11 @@ export const GenericGetRequest = new GenericGetRequest$Type();
 class GenericGetResponse$Type extends MessageType<GenericGetResponse> {
     constructor() {
         super("operation.catalog.v1.GenericGetResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Struct },
-            { no: 2, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "state", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<GenericGetResponse>): GenericGetResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.error = "";
         if (value !== undefined)
             reflectionMergePartial<GenericGetResponse>(this, message, value);
         return message;
@@ -19630,9 +18856,6 @@ class GenericGetResponse$Type extends MessageType<GenericGetResponse> {
             switch (fieldNo) {
                 case /* google.protobuf.Struct state */ 1:
                     message.state = Struct.internalBinaryRead(reader, reader.uint32(), options, message.state);
-                    break;
-                case /* string error */ 2:
-                    message.error = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -19649,9 +18872,6 @@ class GenericGetResponse$Type extends MessageType<GenericGetResponse> {
         /* google.protobuf.Struct state = 1; */
         if (message.state)
             Struct.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string error = 2; */
-        if (message.error !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

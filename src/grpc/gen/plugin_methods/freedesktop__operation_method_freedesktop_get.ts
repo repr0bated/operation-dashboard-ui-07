@@ -30,10 +30,6 @@ export interface GetInput {
  * @generated from protobuf message operation.method.freedesktop.get.GetOutput
  */
 export interface GetOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetInput$Type extends MessageType<GetInput> {
@@ -93,13 +89,10 @@ export const GetInput = new GetInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetOutput$Type extends MessageType<GetOutput> {
     constructor() {
-        super("operation.method.freedesktop.get.GetOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.freedesktop.get.GetOutput", []);
     }
     create(value?: PartialMessage<GetOutput>): GetOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetOutput>(this, message, value);
         return message;
@@ -109,9 +102,6 @@ class GetOutput$Type extends MessageType<GetOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -124,9 +114,6 @@ class GetOutput$Type extends MessageType<GetOutput> {
         return message;
     }
     internalBinaryWrite(message: GetOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,10 +11,12 @@
  */
 import type { Spec } from "@json-render/core";
 import { overviewSpec } from "./overview.pagespec";
+import { networkSpec } from "./network.pagespec";
 
 /** Route path → page spec. Routes absent here render their React page. */
 export const PAGE_SPECS: Record<string, Spec> = {
   "/": overviewSpec,
+  "/network": networkSpec,
 };
 
 /** Lookup used by `PageSpecOutlet`. */
@@ -22,4 +24,4 @@ export function pageSpecFor(route: string): Spec | undefined {
   return PAGE_SPECS[route];
 }
 
-export { overviewSpec };
+export { overviewSpec, networkSpec };

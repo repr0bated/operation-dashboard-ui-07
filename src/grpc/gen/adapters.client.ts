@@ -56,8 +56,6 @@ import type { ListFoldersResponse } from "./adapters";
 import type { ListFoldersRequest } from "./adapters";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
-// ── Mail ─────────────────────────────────────────────────────────────────────
-
 /**
  * @generated from protobuf service op.adapters.v1.MailService
  */
@@ -99,8 +97,6 @@ export interface IMailServiceClient {
      */
     sendMessage(input: SendMessageRequest, options?: RpcOptions): UnaryCall<SendMessageRequest, SendMessageResponse>;
 }
-// ── Mail ─────────────────────────────────────────────────────────────────────
-
 /**
  * @generated from protobuf service op.adapters.v1.MailService
  */

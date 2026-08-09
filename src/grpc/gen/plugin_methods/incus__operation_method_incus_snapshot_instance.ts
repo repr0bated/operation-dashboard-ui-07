@@ -30,10 +30,6 @@ export interface SnapshotInstanceInput {
  * @generated from protobuf message operation.method.incus.snapshot_instance.SnapshotInstanceOutput
  */
 export interface SnapshotInstanceOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SnapshotInstanceInput$Type extends MessageType<SnapshotInstanceInput> {
@@ -93,13 +89,10 @@ export const SnapshotInstanceInput = new SnapshotInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SnapshotInstanceOutput$Type extends MessageType<SnapshotInstanceOutput> {
     constructor() {
-        super("operation.method.incus.snapshot_instance.SnapshotInstanceOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.incus.snapshot_instance.SnapshotInstanceOutput", []);
     }
     create(value?: PartialMessage<SnapshotInstanceOutput>): SnapshotInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SnapshotInstanceOutput>(this, message, value);
         return message;
@@ -109,9 +102,6 @@ class SnapshotInstanceOutput$Type extends MessageType<SnapshotInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -124,9 +114,6 @@ class SnapshotInstanceOutput$Type extends MessageType<SnapshotInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: SnapshotInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

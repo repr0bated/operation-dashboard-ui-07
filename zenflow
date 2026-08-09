@@ -1,0 +1,176 @@
+load claudes skills, use notbooklm mcp to do deep research on each plugin , tis is a spec for a plugin auto creator, the success will be that it will bwe able t create the missing plugins  automatically when a plufgin is mission .
+
+Auto-Generate Plugin Proto Methods - Specification
+
+  Objective: Generate complete, production-ready gRPC proto method definitions for 11 missing plugins,
+  following established gRPC best practices.
+
+  Follow spec workflow:
+
+  Phase 1: Research Plugin Capabilities
+
+  For each of the 11 plugins (antigravity, antigravity_chat, keyring, identity_sled, sess_decl, mcp, xray,
+  gcloud_adc, full_system, + 2 more):
+
+
+
+
+
+Extract schema from /home/admin/git/operation-dashboard-ui-07/schema.output
+
+
+
+Use LLM agent (search-specialist) to research API/methods the plugin should expose
+
+
+
+Identify core operations (Get, List, Create, Update, Delete, Watch, etc.)
+
+
+
+Document recommended fields and data types
+
+Phase 2: Map to Proto Messages
+
+
+
+Convert recommended fields → proto message types
+
+
+
+Group related fields into logical message types
+
+
+
+Use google.protobuf.Struct for untyped/dynamic data
+
+
+
+Use typed enums for status/state fields (e.g., StatusEnum with UNSPECIFIED = 0)
+
+Phase 3: Define gRPC Services (Apply Best Practices)
+
+For each plugin, create service definition:
+service PluginNameService {
+  rpc Get(GetPluginNameRequest) returns (GetPluginNameResponse);
+  rpc List(ListPluginNameRequest) returns (ListPluginNameResponse);
+  rpc Watch(WatchPluginNameRequest) returns (stream PluginNameUpdate);
+}
+
+Best Practice Rules:
+
+
+
+
+
+✅ NO bool success fields (use gRPC status codes)
+
+
+
+✅ NO JSON string payloads (use google.protobuf.Struct)
+
+
+
+✅ ALL enums start with ENUM_NAME_UNSPECIFIED = 0
+
+
+
+✅ Use descriptive enum values (e.g., STATUS_ACTIVE, STATE_RUNNING)
+
+
+
+✅ Request messages end in Request, responses in Response
+
+
+
+✅ Streaming responses use stream ResponseType
+
+Phase 4: Generate Proto Files
+
+
+
+
+
+Create individual .proto files in /proto/plugin_methods/plugin_name__*.proto
+
+
+
+Follow naming convention: {plugin_name}_operation_method{method_name}.proto
+
+
+
+Include proper package declarations and imports
+
+
+
+Each file is self-contained and can be independently compiled
+
+Phase 5: Integration & Codegen
+
+
+
+Add services to plugin_methods_unified.proto
+
+
+
+Run npm run proto:gen to generate TypeScript code
+
+
+
+Verify generated code follows best practices
+
+
+
+Test gRPC socket connectivity for new services
+
+Output
+
+
+
+
+
+11 new .proto files (or 11 service definitions in unified file)
+
+
+
+11 TypeScript service client classes (auto-generated)
+
+
+
+Each service queryable via gRPC diagnostic page
+
+
+
+All 64 plugins now have complete gRPC method definitions
+
+Success Criteria:
+
+
+
+✅ All 11 plugins show gRPC methods in opblob seal-shm output
+
+
+
+✅ No success fields in any response message
+
+
+
+✅ All enums follow naming convention with UNSPECIFIED = 0
+
+
+
+✅ All complex data uses google.protobuf.Struct or typed messages
+
+
+
+✅ TypeScript regeneration completes without errors
+
+
+
+✅ gRPC diagnostic page shows all services as green/connected
+
+Strictly follow the following workflow: full-sdd-workflow.md
+
+Strictly follow the following workflow: spec-and-build.md
+
+Strictly follow the following workflow: full-sdd-workflow.md

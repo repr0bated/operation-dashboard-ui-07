@@ -39,13 +39,20 @@ export default function OverviewPage() {
   const { connected, health, events, eventCounts, latestState, latestStats, lastError } = useEventStore();
   const [expandedPeers, setExpandedPeers] = useState<Set<string>>(new Set());
 
+  // RuntimeMirror.StreamMetrics keys latestStats by `${category}.${name}`
+  // (see use-event-stream.ts's runMetrics()), each value a
+  // {value, unit, labels, timestamp} object — not a flat number under the
+  // bare category name.
+  const metricValue = (key: string): number | undefined =>
+    (latestStats?.[key] as { value?: number } | undefined)?.value;
+
   // Derive resource values from health or stats
-  const cpu = health?.cpuPercent ?? (latestStats?.cpu as number | undefined) ?? 0;
+  const cpu = health?.cpuPercent ?? metricValue("cpu.used_percent") ?? 0;
   const memory = health?.memoryMb
     ? Math.min((health.memoryMb / 2048) * 100, 100) // estimate % from MB
-    : (latestStats?.memory as number | undefined) ?? 0;
-  const disk = (latestStats?.disk as number | undefined) ?? 0;
-  const networkMbps = (latestStats?.network as number | undefined) ?? 0;
+    : metricValue("memory.used_percent") ?? 0;
+  const disk = metricValue("disk.used_percent") ?? 0;
+  const networkMbps = metricValue("network.throughput_mbps") ?? 0;
 
   return (
     <>

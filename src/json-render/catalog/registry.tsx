@@ -12,6 +12,7 @@ import { navigateTo } from "@/json-render/runtime/navigation-bridge";
 import * as shell from "./components/shell";
 import * as dash from "./components/dashboard";
 import * as prim from "./components/primitives";
+import * as network from "./components/network";
 
 export const { registry, handlers, executeAction } = defineRegistry(appCatalog, {
   components: {
@@ -62,6 +63,15 @@ export const { registry, handlers, executeAction } = defineRegistry(appCatalog, 
     badge: prim.BadgeEl,
     row: prim.RowEl,
     code: prim.CodeEl,
+
+    // network control surface
+    reflectionTreeExplorer: network.ReflectionTreeExplorerEl,
+    schemaFormBuilder: network.SchemaFormBuilderEl,
+    grpcMethodCaller: network.GrpcMethodCallerEl,
+    grpcStreamViewer: network.GrpcStreamViewerEl,
+    socketStatusPill: network.SocketStatusPillEl,
+    tcpHealthBadge: network.TcpHealthBadgeEl,
+    networkTopologyGraph: network.NetworkTopologyGraphEl,
   },
 
   actions: {

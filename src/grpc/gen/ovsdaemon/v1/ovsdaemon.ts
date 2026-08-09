@@ -39,11 +39,7 @@ export interface BridgeResponse {
      */
     name: string;
     /**
-     * @generated from protobuf field: bool success = 2
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 3
+     * @generated from protobuf field: string message = 2
      */
     message: string;
 }
@@ -95,11 +91,7 @@ export interface PortResponse {
      */
     bridge: string;
     /**
-     * @generated from protobuf field: bool success = 3
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string message = 4
+     * @generated from protobuf field: string message = 3
      */
     message: string;
 }
@@ -229,14 +221,12 @@ class BridgeResponse$Type extends MessageType<BridgeResponse> {
     constructor() {
         super("ovsdaemon.v1.BridgeResponse", [
             { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<BridgeResponse>): BridgeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.name = "";
-        message.success = false;
         message.message = "";
         if (value !== undefined)
             reflectionMergePartial<BridgeResponse>(this, message, value);
@@ -250,10 +240,7 @@ class BridgeResponse$Type extends MessageType<BridgeResponse> {
                 case /* string name */ 1:
                     message.name = reader.string();
                     break;
-                case /* bool success */ 2:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 3:
+                case /* string message */ 2:
                     message.message = reader.string();
                     break;
                 default:
@@ -271,12 +258,9 @@ class BridgeResponse$Type extends MessageType<BridgeResponse> {
         /* string name = 1; */
         if (message.name !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* bool success = 2; */
-        if (message.success !== false)
-            writer.tag(2, WireType.Varint).bool(message.success);
-        /* string message = 3; */
+        /* string message = 2; */
         if (message.message !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.message);
+            writer.tag(2, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -441,15 +425,13 @@ class PortResponse$Type extends MessageType<PortResponse> {
         super("ovsdaemon.v1.PortResponse", [
             { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 3, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<PortResponse>): PortResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.name = "";
         message.bridge = "";
-        message.success = false;
         message.message = "";
         if (value !== undefined)
             reflectionMergePartial<PortResponse>(this, message, value);
@@ -466,10 +448,7 @@ class PortResponse$Type extends MessageType<PortResponse> {
                 case /* string bridge */ 2:
                     message.bridge = reader.string();
                     break;
-                case /* bool success */ 3:
-                    message.success = reader.bool();
-                    break;
-                case /* string message */ 4:
+                case /* string message */ 3:
                     message.message = reader.string();
                     break;
                 default:
@@ -490,12 +469,9 @@ class PortResponse$Type extends MessageType<PortResponse> {
         /* string bridge = 2; */
         if (message.bridge !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.bridge);
-        /* bool success = 3; */
-        if (message.success !== false)
-            writer.tag(3, WireType.Varint).bool(message.success);
-        /* string message = 4; */
+        /* string message = 3; */
         if (message.message !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.message);
+            writer.tag(3, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

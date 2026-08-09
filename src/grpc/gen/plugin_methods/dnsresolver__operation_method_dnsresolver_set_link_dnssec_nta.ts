@@ -30,10 +30,6 @@ export interface SetLinkDnssecNtaInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_dnssec_nta.SetLinkDnssecNtaOutput
  */
 export interface SetLinkDnssecNtaOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnssecNtaInput$Type extends MessageType<SetLinkDnssecNtaInput> {
@@ -93,13 +89,10 @@ export const SetLinkDnssecNtaInput = new SetLinkDnssecNtaInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnssecNtaOutput$Type extends MessageType<SetLinkDnssecNtaOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_dnssec_nta.SetLinkDnssecNtaOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.dnsresolver.set_link_dnssec_nta.SetLinkDnssecNtaOutput", []);
     }
     create(value?: PartialMessage<SetLinkDnssecNtaOutput>): SetLinkDnssecNtaOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkDnssecNtaOutput>(this, message, value);
         return message;
@@ -109,9 +102,6 @@ class SetLinkDnssecNtaOutput$Type extends MessageType<SetLinkDnssecNtaOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -124,9 +114,6 @@ class SetLinkDnssecNtaOutput$Type extends MessageType<SetLinkDnssecNtaOutput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDnssecNtaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

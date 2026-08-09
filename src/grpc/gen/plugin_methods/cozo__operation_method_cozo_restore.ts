@@ -26,10 +26,6 @@ export interface RestoreInput {
  * @generated from protobuf message operation.method.cozo.restore.RestoreOutput
  */
 export interface RestoreOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RestoreInput$Type extends MessageType<RestoreInput> {
@@ -81,13 +77,10 @@ export const RestoreInput = new RestoreInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RestoreOutput$Type extends MessageType<RestoreOutput> {
     constructor() {
-        super("operation.method.cozo.restore.RestoreOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.cozo.restore.RestoreOutput", []);
     }
     create(value?: PartialMessage<RestoreOutput>): RestoreOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RestoreOutput>(this, message, value);
         return message;
@@ -97,9 +90,6 @@ class RestoreOutput$Type extends MessageType<RestoreOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -112,9 +102,6 @@ class RestoreOutput$Type extends MessageType<RestoreOutput> {
         return message;
     }
     internalBinaryWrite(message: RestoreOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

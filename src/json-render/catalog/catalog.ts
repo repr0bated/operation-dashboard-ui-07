@@ -382,6 +382,69 @@ export const appCatalog = defineCatalog(schema, {
       slots: [],
       description: "Preformatted code block.",
     },
+
+    // ──────────────────── network control surface ────────────────────
+    reflectionTreeExplorer: {
+      props: z.object({
+        className: z.string().nullable(),
+      }),
+      slots: [],
+      description:
+        "Live gRPC reflection service/method tree (tonic-web). Selecting a method updates the network-control selection store.",
+    },
+    schemaFormBuilder: {
+      props: z.object({
+        title: z.string().nullable(),
+        className: z.string().nullable(),
+      }),
+      slots: [],
+      description:
+        "JSON request editor bound to the selected method payload (network-control store).",
+    },
+    grpcMethodCaller: {
+      props: z.object({
+        className: z.string().nullable(),
+      }),
+      slots: [],
+      description:
+        "Unary gRPC method caller over tonic-web: form, Execute, JSON response, RTT. Requires a compile-time codec.",
+    },
+    grpcStreamViewer: {
+      props: z.object({
+        className: z.string().nullable(),
+      }),
+      slots: [],
+      description:
+        "Server-streaming gRPC viewer over tonic-web (pause/clear/auto-scroll). Uses known stream factories.",
+    },
+    socketStatusPill: {
+      props: z.object({
+        path: z.string(),
+        label: z.string(),
+      }),
+      slots: [],
+      description:
+        "Unix socket status pill. Browser cannot probe UDS; shows unavailable until a host-side probe exists.",
+    },
+    tcpHealthBadge: {
+      props: z.object({
+        host: z.string(),
+        port: z.number(),
+        label: z.string(),
+      }),
+      slots: [],
+      description:
+        "TCP health badge. Port 8090 probes tonic-web reachability; other ports show unavailable from the browser.",
+    },
+    networkTopologyGraph: {
+      props: z.object({
+        className: z.string().nullable(),
+        height: z.string().nullable(),
+      }),
+      slots: [],
+      description:
+        "Force/xyflow topology graph fed by event-store privacy network nodes and edges.",
+    },
   },
 
   actions: {

@@ -12,6 +12,7 @@ import type { Capability } from "./capabilities";
 export type NavSection =
   | "Chat"
   | "UI Model"
+  | "Zerolang"
   | "Control"
   | "Agent"
   | "Infrastructure"
@@ -50,7 +51,14 @@ export const NAV_MANIFEST: NavItem[] = [
 
   // UI Model
   { id: "gallery", label: "Gallery", route: "/gallery", icon: "Sparkles", section: "UI Model", order: 10 },
+  { id: "antigravity-llm", label: "Antigravity LLM", route: "/antigravity-llm", icon: "Brain", section: "UI Model", order: 15 },
   { id: "catalog", label: "Catalog", route: "/catalog", icon: "FileText", section: "UI Model", order: 20 },
+
+  // Zerolang
+  { id: "zero-catalog", label: "Zero Catalog", route: "/zero-catalog", icon: "Zap", section: "Zerolang", order: 10, wip: true, wipReason: "Graph-native generative UI catalog from Kiro specs — wired to CatalogService." },
+  { id: "zero-specs", label: "Zero Specs", route: "/zero-specs", icon: "FileJson", section: "Zerolang", order: 20, wip: true, wipReason: "Explore .kiro/specs as semantic graphs — query, patch, validate DSL nodes." },
+  { id: "zero-agent", label: "Zero Agent", route: "/zero-agent", icon: "Bot", section: "Zerolang", order: 30, wip: true, wipReason: "Agent repair loop — query graph, submit patches, type-check, render." },
+  { id: "zero-query", label: "Zero Query", route: "/zero-query", icon: "Code2", section: "Zerolang", order: 40, wip: true, wipReason: "Graph query IDE — explore catalog nodes, symbols, constraints, metadata." },
 
   // Control
   { id: "overview", label: "Overview", route: "/", icon: "BarChart3", section: "Control", order: 10 },
@@ -73,6 +81,7 @@ export const NAV_MANIFEST: NavItem[] = [
   // Infrastructure
   { id: "containers", label: "Containers", route: "/containers", icon: "Box", section: "Infrastructure", order: 10 },
   { id: "privacy-network", label: "Privacy Network", route: "/privacy-network", icon: "Globe", section: "Infrastructure", order: 20 },
+  { id: "network-control", label: "Network Control", route: "/network", icon: "Network", section: "Infrastructure", order: 25 },
   { id: "ovs", label: "Open vSwitch", route: "/ovs", icon: "Network", section: "Infrastructure", order: 30 },
   { id: "openflow", label: "OpenFlow", route: "/openflow", icon: "Workflow", section: "Infrastructure", order: 40 },
   { id: "btrfs", label: "BTRFS Storage", route: "/btrfs", icon: "Monitor", section: "Infrastructure", order: 50 },

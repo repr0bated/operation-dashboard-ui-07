@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { PageHeader, Card, Pill } from "@/components/shell/Primitives";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { SchemaRenderer } from "@/components/json/SchemaRenderer";
@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useEventStore } from "@/stores/event-store";
-import { ChevronRight, Wrench, AlertTriangle } from "lucide-react";
+import { ChevronRight, Wrench, AlertTriangle, RefreshCw, Download, AlertCircle } from "lucide-react";
+import { api } from "@/lib/api";
 import type { LogLevel, JsonSchema } from "@/types/api";
 
 const LEVELS: LogLevel[] = ["trace", "debug", "info", "warn", "error", "fatal"];
@@ -26,18 +27,53 @@ interface LogEntry {
 }
 
 export default function LogsPage() {
-  const { latestState, logs } = useEventStore();
+  const { logs: eventLogs, setLogs } = useEventStore();
   const [filterText, setFilterText] = useState("");
   const [levelFilters, setLevelFilters] = useState<Record<LogLevel, boolean>>(
     Object.fromEntries(LEVELS.map((l) => [l, true])) as Record<LogLevel, boolean>
   );
   const [autoFollow, setAutoFollow] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch logs from procfs blob via REST API
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const fetchedLogs = await api.logs.list({ limit: 1000 });
+        if (!cancelled) {
+          setLogs(fetchedLogs);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError((err as Error).message);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [setLogs]);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      const fetchedLogs = await api.logs.list({ limit: 1000 });
+      setLogs(fetchedLogs);
+      setError(null);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [setLogs]);
 
   const logEntries = useMemo(() => {
-    const raw = latestState["logs"] ?? latestState["logs.entries"] ?? latestState["logs:entries"];
-    if (Array.isArray(raw)) return raw as LogEntry[];
-    // Fall back to event store logs
-    return logs.map((l, i) => ({
+    return eventLogs.map((l, i) => ({
       id: `log-${i}`,
       time: (l as any).timestamp ?? new Date().toISOString(),
       level: ((l as any).level ?? "info") as LogLevel,
@@ -46,7 +82,7 @@ export default function LogsPage() {
       raw: JSON.stringify(l),
       metadata: (l as any).metadata,
     })) as LogEntry[];
-  }, [latestState, logs]);
+  }, [eventLogs]);
 
   const toggleLevel = (level: LogLevel) => {
     setLevelFilters((prev) => ({ ...prev, [level]: !prev[level] }));
@@ -58,6 +94,20 @@ export default function LogsPage() {
     if (!needle) return true;
     return [entry.message, entry.subsystem, entry.raw].join(" ").toLowerCase().includes(needle);
   });
+
+  const handleExport = useCallback(() => {
+    const csv = filtered
+      .map((e) => `"${e.time}","${e.level}","${e.subsystem}","${e.message.replace(/"/g, '""')}"`)
+      .join("\n");
+    const header = '"timestamp","level","subsystem","message"\n';
+    const blob = new Blob([header + csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `logs-${new Date().toISOString()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [filtered]);
 
   const levelColor = (level: LogLevel) => {
     switch (level) {
@@ -73,10 +123,32 @@ export default function LogsPage() {
     <>
       <PageHeader title="Logs" subtitle="Live tail of gateway file logs." actions={
         <div className="flex gap-2">
-          <button className="px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors">Refresh</button>
-          <button className="px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors">Export</button>
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+          >
+            <RefreshCw className={`h-3 w-3 ${refreshing ? "animate-spin" : ""}`} />
+            Refresh
+          </button>
+          <button
+            onClick={handleExport}
+            className="px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors flex items-center gap-1.5"
+          >
+            <Download className="h-3 w-3" />
+            Export
+          </button>
         </div>
       } />
+      {error && (
+        <div className="mb-4 p-3 rounded-lg border border-danger/30 bg-danger/10 flex gap-2 items-start text-xs text-danger">
+          <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
+          <div className="flex-1">
+            <p className="font-medium">Failed to load logs</p>
+            <p className="text-danger/80">{error}</p>
+          </div>
+        </div>
+      )}
       <Card>
         <div className="flex items-center gap-4 flex-wrap">
           <label className="space-y-1.5 min-w-[220px]">
@@ -102,11 +174,20 @@ export default function LogsPage() {
           ))}
         </div>
         <div className="mt-4 rounded-lg border border-border overflow-hidden max-h-[500px] overflow-y-auto bg-background" style={{ scrollbarWidth: "thin" }}>
-          {filtered.length === 0 ? (
-            <div className="p-4 text-sm text-muted-foreground">{logEntries.length === 0 ? "No log entries. Waiting for live data…" : "No log entries match filters."}</div>
-          ) : filtered.map((entry) => (
-            <LogRow key={entry.id} entry={entry} levelColor={levelColor} />
-          ))}
+          {loading ? (
+            <div className="p-4 text-sm text-muted-foreground flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-muted-foreground/40 animate-pulse" />
+              Loading logs…
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="p-4 text-sm text-muted-foreground">
+              {logEntries.length === 0 ? "No log entries available." : "No log entries match filters."}
+            </div>
+          ) : (
+            filtered.map((entry) => (
+              <LogRow key={entry.id} entry={entry} levelColor={levelColor} />
+            ))
+          )}
         </div>
       </Card>
     </>

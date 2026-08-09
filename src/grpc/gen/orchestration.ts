@@ -21,6 +21,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Struct } from "./google/protobuf/struct";
 /**
  * @generated from protobuf message op_chat.orchestration.StartSessionRequest
  */
@@ -53,23 +54,19 @@ export interface StartSessionRequest {
  */
 export interface StartSessionResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string session_id = 2
+     * @generated from protobuf field: string session_id = 1
      */
     sessionId: string;
     /**
-     * @generated from protobuf field: repeated op_chat.orchestration.AgentInfo started_agents = 3
+     * @generated from protobuf field: repeated op_chat.orchestration.AgentInfo started_agents = 2
      */
     startedAgents: AgentInfo[];
     /**
-     * @generated from protobuf field: repeated op_chat.orchestration.AgentError failed_agents = 4
+     * @generated from protobuf field: repeated op_chat.orchestration.AgentError failed_agents = 3
      */
     failedAgents: AgentError[];
     /**
-     * @generated from protobuf field: int64 started_at_ms = 5
+     * @generated from protobuf field: int64 started_at_ms = 4
      */
     startedAtMs: string;
 }
@@ -95,15 +92,11 @@ export interface EndSessionRequest {
  */
 export interface EndSessionResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: repeated string stopped_agents = 2
+     * @generated from protobuf field: repeated string stopped_agents = 1
      */
     stoppedAgents: string[];
     /**
-     * @generated from protobuf field: int64 session_duration_ms = 3
+     * @generated from protobuf field: int64 session_duration_ms = 2
      */
     sessionDurationMs: string;
 }
@@ -213,15 +206,11 @@ export interface ShutdownRequest {
  */
 export interface ShutdownResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: int32 agents_stopped = 2
+     * @generated from protobuf field: int32 agents_stopped = 1
      */
     agentsStopped: number;
     /**
-     * @generated from protobuf field: repeated string errors = 3
+     * @generated from protobuf field: repeated string errors = 2
      */
     errors: string[];
 }
@@ -292,9 +281,9 @@ export interface ExecuteRequest {
      */
     operation: string;
     /**
-     * @generated from protobuf field: string arguments_json = 4
+     * @generated from protobuf field: google.protobuf.Struct arguments = 4
      */
-    argumentsJson: string;
+    arguments?: Struct;
     /**
      * @generated from protobuf field: int64 timeout_ms = 5
      */
@@ -352,23 +341,19 @@ export interface ExecuteResponse {
      */
     operation: string;
     /**
-     * @generated from protobuf field: bool success = 4
+     * @generated from protobuf field: google.protobuf.Struct result = 4
      */
-    success: boolean;
+    result?: Struct;
     /**
-     * @generated from protobuf field: string result_json = 5
-     */
-    resultJson: string;
-    /**
-     * @generated from protobuf field: op_chat.orchestration.ExecuteError error = 6
+     * @generated from protobuf field: op_chat.orchestration.ExecuteError error = 5
      */
     error?: ExecuteError;
     /**
-     * @generated from protobuf field: int64 execution_time_ms = 7
+     * @generated from protobuf field: int64 execution_time_ms = 6
      */
     executionTimeMs: string;
     /**
-     * @generated from protobuf field: map<string, string> metadata = 8
+     * @generated from protobuf field: map<string, string> metadata = 7
      */
     metadata: {
         [key: string]: string;
@@ -479,15 +464,11 @@ export interface CancelRequest {
  */
 export interface CancelResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string correlation_id = 2
+     * @generated from protobuf field: string correlation_id = 1
      */
     correlationId: string;
     /**
-     * @generated from protobuf field: bool was_running = 3
+     * @generated from protobuf field: bool was_running = 2
      */
     wasRunning: boolean;
 }
@@ -525,19 +506,15 @@ export interface RememberRequest {
  */
 export interface RememberResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string key = 2
+     * @generated from protobuf field: string key = 1
      */
     key: string;
     /**
-     * @generated from protobuf field: bool was_overwrite = 3
+     * @generated from protobuf field: bool was_overwrite = 2
      */
     wasOverwrite: boolean;
     /**
-     * @generated from protobuf field: int64 expires_at_ms = 4
+     * @generated from protobuf field: int64 expires_at_ms = 3
      */
     expiresAtMs: string; // 0 if no expiry
 }
@@ -613,11 +590,7 @@ export interface ForgetRequest {
  */
 export interface ForgetResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: bool existed = 2
+     * @generated from protobuf field: bool existed = 1
      */
     existed: boolean;
 }
@@ -804,15 +777,11 @@ export interface StartChainRequest {
  */
 export interface StartChainResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string chain_id = 2
+     * @generated from protobuf field: string chain_id = 1
      */
     chainId: string;
     /**
-     * @generated from protobuf field: int32 max_steps = 3
+     * @generated from protobuf field: int32 max_steps = 2
      */
     maxSteps: number;
 }
@@ -846,19 +815,15 @@ export interface AddThoughtRequest {
  */
 export interface AddThoughtResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string chain_id = 2
+     * @generated from protobuf field: string chain_id = 1
      */
     chainId: string;
     /**
-     * @generated from protobuf field: int32 step = 3
+     * @generated from protobuf field: int32 step = 2
      */
     step: number;
     /**
-     * @generated from protobuf field: int32 remaining_steps = 4
+     * @generated from protobuf field: int32 remaining_steps = 3
      */
     remainingSteps: number;
 }
@@ -921,27 +886,23 @@ export interface ConcludeRequest {
  */
 export interface ConcludeResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string chain_id = 2
+     * @generated from protobuf field: string chain_id = 1
      */
     chainId: string;
     /**
-     * @generated from protobuf field: string conclusion = 3
+     * @generated from protobuf field: string conclusion = 2
      */
     conclusion: string;
     /**
-     * @generated from protobuf field: float overall_confidence = 4
+     * @generated from protobuf field: float overall_confidence = 3
      */
     overallConfidence: number;
     /**
-     * @generated from protobuf field: int32 steps_used = 5
+     * @generated from protobuf field: int32 steps_used = 4
      */
     stepsUsed: number;
     /**
-     * @generated from protobuf field: repeated string key_insights = 6
+     * @generated from protobuf field: repeated string key_insights = 5
      */
     keyInsights: string[];
 }
@@ -1021,19 +982,15 @@ export interface ForkChainRequest {
  */
 export interface ForkChainResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string new_chain_id = 2
+     * @generated from protobuf field: string new_chain_id = 1
      */
     newChainId: string;
     /**
-     * @generated from protobuf field: string parent_chain_id = 3
+     * @generated from protobuf field: string parent_chain_id = 2
      */
     parentChainId: string;
     /**
-     * @generated from protobuf field: int32 forked_at_step = 4
+     * @generated from protobuf field: int32 forked_at_step = 3
      */
     forkedAtStep: number;
 }
@@ -1071,19 +1028,15 @@ export interface SaveContextRequest {
  */
 export interface SaveContextResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 1
      */
     name: string;
     /**
-     * @generated from protobuf field: int64 size_bytes = 3
+     * @generated from protobuf field: int64 size_bytes = 2
      */
     sizeBytes: string;
     /**
-     * @generated from protobuf field: string version = 4
+     * @generated from protobuf field: string version = 3
      */
     version: string;
 }
@@ -1230,11 +1183,7 @@ export interface DeleteContextRequest {
  */
 export interface DeleteContextResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: int32 versions_deleted = 2
+     * @generated from protobuf field: int32 versions_deleted = 1
      */
     versionsDeleted: number;
 }
@@ -1251,9 +1200,9 @@ export interface ExportContextRequest {
      */
     names: string[]; // Empty = all
     /**
-     * @generated from protobuf field: string format = 3
+     * @generated from protobuf field: op_chat.orchestration.ExportFormat format = 3
      */
-    format: string; // json, yaml, tar
+    format: ExportFormat;
     /**
      * @generated from protobuf field: bool include_history = 4
      */
@@ -1293,9 +1242,9 @@ export interface ImportChunk {
      */
     isFinal: boolean;
     /**
-     * @generated from protobuf field: string format = 3
+     * @generated from protobuf field: op_chat.orchestration.ExportFormat format = 3
      */
-    format: string;
+    format: ExportFormat;
     /**
      * @generated from protobuf field: bool overwrite_existing = 4
      */
@@ -1306,19 +1255,15 @@ export interface ImportChunk {
  */
 export interface ImportContextResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: int32 imported_count = 2
+     * @generated from protobuf field: int32 imported_count = 1
      */
     importedCount: number;
     /**
-     * @generated from protobuf field: int32 skipped_count = 3
+     * @generated from protobuf field: int32 skipped_count = 2
      */
     skippedCount: number;
     /**
-     * @generated from protobuf field: repeated string errors = 4
+     * @generated from protobuf field: repeated string errors = 3
      */
     errors: string[];
 }
@@ -1348,15 +1293,11 @@ export interface MergeContextsRequest {
  */
 export interface MergeContextsResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string target_name = 2
+     * @generated from protobuf field: string target_name = 1
      */
     targetName: string;
     /**
-     * @generated from protobuf field: int64 merged_size_bytes = 3
+     * @generated from protobuf field: int64 merged_size_bytes = 2
      */
     mergedSizeBytes: string;
 }
@@ -1412,27 +1353,23 @@ export interface CargoRequest {
  */
 export interface CargoResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string stdout = 2
+     * @generated from protobuf field: string stdout = 1
      */
     stdout: string;
     /**
-     * @generated from protobuf field: string stderr = 3
+     * @generated from protobuf field: string stderr = 2
      */
     stderr: string;
     /**
-     * @generated from protobuf field: int32 exit_code = 4
+     * @generated from protobuf field: int32 exit_code = 3
      */
     exitCode: number;
     /**
-     * @generated from protobuf field: int64 duration_ms = 5
+     * @generated from protobuf field: int64 duration_ms = 4
      */
     durationMs: string;
     /**
-     * @generated from protobuf field: op_chat.orchestration.CargoMetadata metadata = 6
+     * @generated from protobuf field: op_chat.orchestration.CargoMetadata metadata = 5
      */
     metadata?: CargoMetadata;
 }
@@ -1538,13 +1475,9 @@ export interface AnalyzeRequest {
  */
 export interface AnalyzeResponse {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: google.protobuf.Struct result = 1
      */
-    success: boolean;
-    /**
-     * @generated from protobuf field: string result_json = 2
-     */
-    resultJson: string;
+    result?: Struct;
 }
 /**
  * @generated from protobuf message op_chat.orchestration.ArchitectAnalyzeRequest
@@ -1572,15 +1505,11 @@ export interface ArchitectAnalyzeRequest {
  */
 export interface ArchitectAnalyzeResponse {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: google.protobuf.Struct analysis = 1
      */
-    success: boolean;
+    analysis?: Struct;
     /**
-     * @generated from protobuf field: string analysis_json = 2
-     */
-    analysisJson: string;
-    /**
-     * @generated from protobuf field: repeated op_chat.orchestration.ArchitectureFinding findings = 3
+     * @generated from protobuf field: repeated op_chat.orchestration.ArchitectureFinding findings = 2
      */
     findings: ArchitectureFinding[];
 }
@@ -1589,13 +1518,13 @@ export interface ArchitectAnalyzeResponse {
  */
 export interface ArchitectureFinding {
     /**
-     * @generated from protobuf field: string category = 1
+     * @generated from protobuf field: op_chat.orchestration.FindingCategory category = 1
      */
-    category: string; // structure, dependency, pattern, concern
+    category: FindingCategory;
     /**
-     * @generated from protobuf field: string severity = 2
+     * @generated from protobuf field: op_chat.orchestration.Severity severity = 2
      */
-    severity: string; // info, warning, critical
+    severity: Severity;
     /**
      * @generated from protobuf field: string message = 3
      */
@@ -1639,23 +1568,19 @@ export interface ArchitectDesignRequest {
  */
 export interface ArchitectDesignResponse {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: google.protobuf.Struct design = 1
      */
-    success: boolean;
+    design?: Struct;
     /**
-     * @generated from protobuf field: string design_json = 2
-     */
-    designJson: string;
-    /**
-     * @generated from protobuf field: repeated string components = 3
+     * @generated from protobuf field: repeated string components = 2
      */
     components: string[];
     /**
-     * @generated from protobuf field: repeated string interfaces = 4
+     * @generated from protobuf field: repeated string interfaces = 3
      */
     interfaces: string[];
     /**
-     * @generated from protobuf field: repeated string trade_offs = 5
+     * @generated from protobuf field: repeated string trade_offs = 4
      */
     tradeOffs: string[];
 }
@@ -1681,23 +1606,19 @@ export interface ArchitectReviewRequest {
  */
 export interface ArchitectReviewResponse {
     /**
-     * @generated from protobuf field: bool success = 1
+     * @generated from protobuf field: google.protobuf.Struct review = 1
      */
-    success: boolean;
+    review?: Struct;
     /**
-     * @generated from protobuf field: string review_json = 2
-     */
-    reviewJson: string;
-    /**
-     * @generated from protobuf field: int32 score = 3
+     * @generated from protobuf field: int32 score = 2
      */
     score: number; // 0-100
     /**
-     * @generated from protobuf field: repeated op_chat.orchestration.ReviewIssue issues = 4
+     * @generated from protobuf field: repeated op_chat.orchestration.ReviewIssue issues = 3
      */
     issues: ReviewIssue[];
     /**
-     * @generated from protobuf field: repeated string strengths = 5
+     * @generated from protobuf field: repeated string strengths = 4
      */
     strengths: string[];
 }
@@ -1706,13 +1627,13 @@ export interface ArchitectReviewResponse {
  */
 export interface ReviewIssue {
     /**
-     * @generated from protobuf field: string category = 1
+     * @generated from protobuf field: op_chat.orchestration.FindingCategory category = 1
      */
-    category: string;
+    category: FindingCategory;
     /**
-     * @generated from protobuf field: string severity = 2
+     * @generated from protobuf field: op_chat.orchestration.Severity severity = 2
      */
-    severity: string;
+    severity: Severity;
     /**
      * @generated from protobuf field: string description = 3
      */
@@ -1748,11 +1669,7 @@ export interface ArchitectSuggestRequest {
  */
 export interface ArchitectSuggestResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: repeated op_chat.orchestration.Suggestion suggestions = 2
+     * @generated from protobuf field: repeated op_chat.orchestration.Suggestion suggestions = 1
      */
     suggestions: Suggestion[];
 }
@@ -1875,9 +1792,9 @@ export interface WorkstackEvent {
      */
     message: string;
     /**
-     * @generated from protobuf field: string details_json = 6
+     * @generated from protobuf field: google.protobuf.Struct details = 6
      */
-    detailsJson: string;
+    details?: Struct;
     /**
      * @generated from protobuf field: int64 timestamp_ms = 7
      */
@@ -1975,9 +1892,9 @@ export interface PhaseStatus {
      */
     status: WorkstackExecutionStatus;
     /**
-     * @generated from protobuf field: string result_json = 4
+     * @generated from protobuf field: google.protobuf.Struct result = 4
      */
-    resultJson: string;
+    result?: Struct;
     /**
      * @generated from protobuf field: string error = 5
      */
@@ -2013,11 +1930,7 @@ export interface WorkstackCancelRequest {
  */
 export interface WorkstackCancelResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: bool will_rollback = 2
+     * @generated from protobuf field: bool will_rollback = 1
      */
     willRollback: boolean;
 }
@@ -2043,15 +1956,11 @@ export interface WorkstackRollbackRequest {
  */
 export interface WorkstackRollbackResponse {
     /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
-    /**
-     * @generated from protobuf field: repeated string rolled_back_phases = 2
+     * @generated from protobuf field: repeated string rolled_back_phases = 1
      */
     rolledBackPhases: string[];
     /**
-     * @generated from protobuf field: repeated string errors = 3
+     * @generated from protobuf field: repeated string errors = 2
      */
     errors: string[];
 }
@@ -2285,6 +2194,27 @@ export enum ContextType {
     KNOWLEDGE = 4
 }
 /**
+ * @generated from protobuf enum op_chat.orchestration.ExportFormat
+ */
+export enum ExportFormat {
+    /**
+     * @generated from protobuf enum value: EXPORT_FORMAT_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: EXPORT_FORMAT_JSON = 1;
+     */
+    JSON = 1,
+    /**
+     * @generated from protobuf enum value: EXPORT_FORMAT_YAML = 2;
+     */
+    YAML = 2,
+    /**
+     * @generated from protobuf enum value: EXPORT_FORMAT_TAR = 3;
+     */
+    TAR = 3
+}
+/**
  * @generated from protobuf enum op_chat.orchestration.MergeStrategy
  */
 export enum MergeStrategy {
@@ -2340,6 +2270,52 @@ export enum AnalysisType {
      * @generated from protobuf enum value: ANALYSIS_TYPE_UNUSED = 3;
      */
     UNUSED = 3
+}
+/**
+ * @generated from protobuf enum op_chat.orchestration.FindingCategory
+ */
+export enum FindingCategory {
+    /**
+     * @generated from protobuf enum value: FINDING_CATEGORY_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: FINDING_CATEGORY_STRUCTURE = 1;
+     */
+    STRUCTURE = 1,
+    /**
+     * @generated from protobuf enum value: FINDING_CATEGORY_DEPENDENCY = 2;
+     */
+    DEPENDENCY = 2,
+    /**
+     * @generated from protobuf enum value: FINDING_CATEGORY_PATTERN = 3;
+     */
+    PATTERN = 3,
+    /**
+     * @generated from protobuf enum value: FINDING_CATEGORY_CONCERN = 4;
+     */
+    CONCERN = 4
+}
+/**
+ * @generated from protobuf enum op_chat.orchestration.Severity
+ */
+export enum Severity {
+    /**
+     * @generated from protobuf enum value: SEVERITY_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: SEVERITY_INFO = 1;
+     */
+    INFO = 1,
+    /**
+     * @generated from protobuf enum value: SEVERITY_WARNING = 2;
+     */
+    WARNING = 2,
+    /**
+     * @generated from protobuf enum value: SEVERITY_CRITICAL = 3;
+     */
+    CRITICAL = 3
 }
 /**
  * @generated from protobuf enum op_chat.orchestration.DesignStyle
@@ -2552,16 +2528,14 @@ export const StartSessionRequest = new StartSessionRequest$Type();
 class StartSessionResponse$Type extends MessageType<StartSessionResponse> {
     constructor() {
         super("op_chat.orchestration.StartSessionResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "started_agents", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => AgentInfo },
-            { no: 4, name: "failed_agents", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => AgentError },
-            { no: 5, name: "started_at_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "started_agents", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => AgentInfo },
+            { no: 3, name: "failed_agents", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => AgentError },
+            { no: 4, name: "started_at_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<StartSessionResponse>): StartSessionResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.sessionId = "";
         message.startedAgents = [];
         message.failedAgents = [];
@@ -2575,19 +2549,16 @@ class StartSessionResponse$Type extends MessageType<StartSessionResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string session_id */ 2:
+                case /* string session_id */ 1:
                     message.sessionId = reader.string();
                     break;
-                case /* repeated op_chat.orchestration.AgentInfo started_agents */ 3:
+                case /* repeated op_chat.orchestration.AgentInfo started_agents */ 2:
                     message.startedAgents.push(AgentInfo.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* repeated op_chat.orchestration.AgentError failed_agents */ 4:
+                case /* repeated op_chat.orchestration.AgentError failed_agents */ 3:
                     message.failedAgents.push(AgentError.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* int64 started_at_ms */ 5:
+                case /* int64 started_at_ms */ 4:
                     message.startedAtMs = reader.int64().toString();
                     break;
                 default:
@@ -2602,21 +2573,18 @@ class StartSessionResponse$Type extends MessageType<StartSessionResponse> {
         return message;
     }
     internalBinaryWrite(message: StartSessionResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string session_id = 2; */
+        /* string session_id = 1; */
         if (message.sessionId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.sessionId);
-        /* repeated op_chat.orchestration.AgentInfo started_agents = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.sessionId);
+        /* repeated op_chat.orchestration.AgentInfo started_agents = 2; */
         for (let i = 0; i < message.startedAgents.length; i++)
-            AgentInfo.internalBinaryWrite(message.startedAgents[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
-        /* repeated op_chat.orchestration.AgentError failed_agents = 4; */
+            AgentInfo.internalBinaryWrite(message.startedAgents[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* repeated op_chat.orchestration.AgentError failed_agents = 3; */
         for (let i = 0; i < message.failedAgents.length; i++)
-            AgentError.internalBinaryWrite(message.failedAgents[i], writer.tag(4, WireType.LengthDelimited).fork(), options).join();
-        /* int64 started_at_ms = 5; */
+            AgentError.internalBinaryWrite(message.failedAgents[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* int64 started_at_ms = 4; */
         if (message.startedAtMs !== "0")
-            writer.tag(5, WireType.Varint).int64(message.startedAtMs);
+            writer.tag(4, WireType.Varint).int64(message.startedAtMs);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2694,14 +2662,12 @@ export const EndSessionRequest = new EndSessionRequest$Type();
 class EndSessionResponse$Type extends MessageType<EndSessionResponse> {
     constructor() {
         super("op_chat.orchestration.EndSessionResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "stopped_agents", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "session_duration_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "stopped_agents", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "session_duration_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<EndSessionResponse>): EndSessionResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.stoppedAgents = [];
         message.sessionDurationMs = "0";
         if (value !== undefined)
@@ -2713,13 +2679,10 @@ class EndSessionResponse$Type extends MessageType<EndSessionResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* repeated string stopped_agents */ 2:
+                case /* repeated string stopped_agents */ 1:
                     message.stoppedAgents.push(reader.string());
                     break;
-                case /* int64 session_duration_ms */ 3:
+                case /* int64 session_duration_ms */ 2:
                     message.sessionDurationMs = reader.int64().toString();
                     break;
                 default:
@@ -2734,15 +2697,12 @@ class EndSessionResponse$Type extends MessageType<EndSessionResponse> {
         return message;
     }
     internalBinaryWrite(message: EndSessionResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* repeated string stopped_agents = 2; */
+        /* repeated string stopped_agents = 1; */
         for (let i = 0; i < message.stoppedAgents.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.stoppedAgents[i]);
-        /* int64 session_duration_ms = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.stoppedAgents[i]);
+        /* int64 session_duration_ms = 2; */
         if (message.sessionDurationMs !== "0")
-            writer.tag(3, WireType.Varint).int64(message.sessionDurationMs);
+            writer.tag(2, WireType.Varint).int64(message.sessionDurationMs);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3128,14 +3088,12 @@ export const ShutdownRequest = new ShutdownRequest$Type();
 class ShutdownResponse$Type extends MessageType<ShutdownResponse> {
     constructor() {
         super("op_chat.orchestration.ShutdownResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "agents_stopped", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 3, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "agents_stopped", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ShutdownResponse>): ShutdownResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.agentsStopped = 0;
         message.errors = [];
         if (value !== undefined)
@@ -3147,13 +3105,10 @@ class ShutdownResponse$Type extends MessageType<ShutdownResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* int32 agents_stopped */ 2:
+                case /* int32 agents_stopped */ 1:
                     message.agentsStopped = reader.int32();
                     break;
-                case /* repeated string errors */ 3:
+                case /* repeated string errors */ 2:
                     message.errors.push(reader.string());
                     break;
                 default:
@@ -3168,15 +3123,12 @@ class ShutdownResponse$Type extends MessageType<ShutdownResponse> {
         return message;
     }
     internalBinaryWrite(message: ShutdownResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* int32 agents_stopped = 2; */
+        /* int32 agents_stopped = 1; */
         if (message.agentsStopped !== 0)
-            writer.tag(2, WireType.Varint).int32(message.agentsStopped);
-        /* repeated string errors = 3; */
+            writer.tag(1, WireType.Varint).int32(message.agentsStopped);
+        /* repeated string errors = 2; */
         for (let i = 0; i < message.errors.length; i++)
-            writer.tag(3, WireType.LengthDelimited).string(message.errors[i]);
+            writer.tag(2, WireType.LengthDelimited).string(message.errors[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3352,7 +3304,7 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
             { no: 1, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "agent_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "operation", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "arguments_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "arguments", kind: "message", T: () => Struct },
             { no: 5, name: "timeout_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
             { no: 6, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 7, name: "options", kind: "message", T: () => ExecutionOptions }
@@ -3363,7 +3315,6 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
         message.sessionId = "";
         message.agentId = "";
         message.operation = "";
-        message.argumentsJson = "";
         message.timeoutMs = "0";
         message.correlationId = "";
         if (value !== undefined)
@@ -3384,8 +3335,8 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
                 case /* string operation */ 3:
                     message.operation = reader.string();
                     break;
-                case /* string arguments_json */ 4:
-                    message.argumentsJson = reader.string();
+                case /* google.protobuf.Struct arguments */ 4:
+                    message.arguments = Struct.internalBinaryRead(reader, reader.uint32(), options, message.arguments);
                     break;
                 case /* int64 timeout_ms */ 5:
                     message.timeoutMs = reader.int64().toString();
@@ -3417,9 +3368,9 @@ class ExecuteRequest$Type extends MessageType<ExecuteRequest> {
         /* string operation = 3; */
         if (message.operation !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.operation);
-        /* string arguments_json = 4; */
-        if (message.argumentsJson !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.argumentsJson);
+        /* google.protobuf.Struct arguments = 4; */
+        if (message.arguments)
+            Struct.internalBinaryWrite(message.arguments, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
         /* int64 timeout_ms = 5; */
         if (message.timeoutMs !== "0")
             writer.tag(5, WireType.Varint).int64(message.timeoutMs);
@@ -3541,11 +3492,10 @@ class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
             { no: 1, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "agent_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "operation", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 5, name: "result_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "error", kind: "message", T: () => ExecuteError },
-            { no: 7, name: "execution_time_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 8, name: "metadata", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
+            { no: 4, name: "result", kind: "message", T: () => Struct },
+            { no: 5, name: "error", kind: "message", T: () => ExecuteError },
+            { no: 6, name: "execution_time_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 7, name: "metadata", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
         ]);
     }
     create(value?: PartialMessage<ExecuteResponse>): ExecuteResponse {
@@ -3553,8 +3503,6 @@ class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
         message.correlationId = "";
         message.agentId = "";
         message.operation = "";
-        message.success = false;
-        message.resultJson = "";
         message.executionTimeMs = "0";
         message.metadata = {};
         if (value !== undefined)
@@ -3575,20 +3523,17 @@ class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
                 case /* string operation */ 3:
                     message.operation = reader.string();
                     break;
-                case /* bool success */ 4:
-                    message.success = reader.bool();
+                case /* google.protobuf.Struct result */ 4:
+                    message.result = Struct.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
-                case /* string result_json */ 5:
-                    message.resultJson = reader.string();
-                    break;
-                case /* op_chat.orchestration.ExecuteError error */ 6:
+                case /* op_chat.orchestration.ExecuteError error */ 5:
                     message.error = ExecuteError.internalBinaryRead(reader, reader.uint32(), options, message.error);
                     break;
-                case /* int64 execution_time_ms */ 7:
+                case /* int64 execution_time_ms */ 6:
                     message.executionTimeMs = reader.int64().toString();
                     break;
-                case /* map<string, string> metadata */ 8:
-                    this.binaryReadMap8(message.metadata, reader, options);
+                case /* map<string, string> metadata */ 7:
+                    this.binaryReadMap7(message.metadata, reader, options);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -3601,7 +3546,7 @@ class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
         }
         return message;
     }
-    private binaryReadMap8(map: ExecuteResponse["metadata"], reader: IBinaryReader, options: BinaryReadOptions): void {
+    private binaryReadMap7(map: ExecuteResponse["metadata"], reader: IBinaryReader, options: BinaryReadOptions): void {
         let len = reader.uint32(), end = reader.pos + len, key: keyof ExecuteResponse["metadata"] | undefined, val: ExecuteResponse["metadata"][any] | undefined;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -3627,21 +3572,18 @@ class ExecuteResponse$Type extends MessageType<ExecuteResponse> {
         /* string operation = 3; */
         if (message.operation !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.operation);
-        /* bool success = 4; */
-        if (message.success !== false)
-            writer.tag(4, WireType.Varint).bool(message.success);
-        /* string result_json = 5; */
-        if (message.resultJson !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.resultJson);
-        /* op_chat.orchestration.ExecuteError error = 6; */
+        /* google.protobuf.Struct result = 4; */
+        if (message.result)
+            Struct.internalBinaryWrite(message.result, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
+        /* op_chat.orchestration.ExecuteError error = 5; */
         if (message.error)
-            ExecuteError.internalBinaryWrite(message.error, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
-        /* int64 execution_time_ms = 7; */
+            ExecuteError.internalBinaryWrite(message.error, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* int64 execution_time_ms = 6; */
         if (message.executionTimeMs !== "0")
-            writer.tag(7, WireType.Varint).int64(message.executionTimeMs);
-        /* map<string, string> metadata = 8; */
+            writer.tag(6, WireType.Varint).int64(message.executionTimeMs);
+        /* map<string, string> metadata = 7; */
         for (let k of globalThis.Object.keys(message.metadata))
-            writer.tag(8, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.metadata[k]).join();
+            writer.tag(7, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.metadata[k]).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3971,14 +3913,12 @@ export const CancelRequest = new CancelRequest$Type();
 class CancelResponse$Type extends MessageType<CancelResponse> {
     constructor() {
         super("op_chat.orchestration.CancelResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "was_running", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "correlation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "was_running", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<CancelResponse>): CancelResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.correlationId = "";
         message.wasRunning = false;
         if (value !== undefined)
@@ -3990,13 +3930,10 @@ class CancelResponse$Type extends MessageType<CancelResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string correlation_id */ 2:
+                case /* string correlation_id */ 1:
                     message.correlationId = reader.string();
                     break;
-                case /* bool was_running */ 3:
+                case /* bool was_running */ 2:
                     message.wasRunning = reader.bool();
                     break;
                 default:
@@ -4011,15 +3948,12 @@ class CancelResponse$Type extends MessageType<CancelResponse> {
         return message;
     }
     internalBinaryWrite(message: CancelResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string correlation_id = 2; */
+        /* string correlation_id = 1; */
         if (message.correlationId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.correlationId);
-        /* bool was_running = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.correlationId);
+        /* bool was_running = 2; */
         if (message.wasRunning !== false)
-            writer.tag(3, WireType.Varint).bool(message.wasRunning);
+            writer.tag(2, WireType.Varint).bool(message.wasRunning);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4121,15 +4055,13 @@ export const RememberRequest = new RememberRequest$Type();
 class RememberResponse$Type extends MessageType<RememberResponse> {
     constructor() {
         super("op_chat.orchestration.RememberResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "was_overwrite", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "expires_at_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "was_overwrite", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 3, name: "expires_at_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<RememberResponse>): RememberResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.key = "";
         message.wasOverwrite = false;
         message.expiresAtMs = "0";
@@ -4142,16 +4074,13 @@ class RememberResponse$Type extends MessageType<RememberResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string key */ 2:
+                case /* string key */ 1:
                     message.key = reader.string();
                     break;
-                case /* bool was_overwrite */ 3:
+                case /* bool was_overwrite */ 2:
                     message.wasOverwrite = reader.bool();
                     break;
-                case /* int64 expires_at_ms */ 4:
+                case /* int64 expires_at_ms */ 3:
                     message.expiresAtMs = reader.int64().toString();
                     break;
                 default:
@@ -4166,18 +4095,15 @@ class RememberResponse$Type extends MessageType<RememberResponse> {
         return message;
     }
     internalBinaryWrite(message: RememberResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string key = 2; */
+        /* string key = 1; */
         if (message.key !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.key);
-        /* bool was_overwrite = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.key);
+        /* bool was_overwrite = 2; */
         if (message.wasOverwrite !== false)
-            writer.tag(3, WireType.Varint).bool(message.wasOverwrite);
-        /* int64 expires_at_ms = 4; */
+            writer.tag(2, WireType.Varint).bool(message.wasOverwrite);
+        /* int64 expires_at_ms = 3; */
         if (message.expiresAtMs !== "0")
-            writer.tag(4, WireType.Varint).int64(message.expiresAtMs);
+            writer.tag(3, WireType.Varint).int64(message.expiresAtMs);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4413,13 +4339,11 @@ export const ForgetRequest = new ForgetRequest$Type();
 class ForgetResponse$Type extends MessageType<ForgetResponse> {
     constructor() {
         super("op_chat.orchestration.ForgetResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "existed", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "existed", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ForgetResponse>): ForgetResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.existed = false;
         if (value !== undefined)
             reflectionMergePartial<ForgetResponse>(this, message, value);
@@ -4430,10 +4354,7 @@ class ForgetResponse$Type extends MessageType<ForgetResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* bool existed */ 2:
+                case /* bool existed */ 1:
                     message.existed = reader.bool();
                     break;
                 default:
@@ -4448,12 +4369,9 @@ class ForgetResponse$Type extends MessageType<ForgetResponse> {
         return message;
     }
     internalBinaryWrite(message: ForgetResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* bool existed = 2; */
+        /* bool existed = 1; */
         if (message.existed !== false)
-            writer.tag(2, WireType.Varint).bool(message.existed);
+            writer.tag(1, WireType.Varint).bool(message.existed);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5114,14 +5032,12 @@ export const StartChainRequest = new StartChainRequest$Type();
 class StartChainResponse$Type extends MessageType<StartChainResponse> {
     constructor() {
         super("op_chat.orchestration.StartChainResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "max_steps", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 1, name: "chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "max_steps", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<StartChainResponse>): StartChainResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.chainId = "";
         message.maxSteps = 0;
         if (value !== undefined)
@@ -5133,13 +5049,10 @@ class StartChainResponse$Type extends MessageType<StartChainResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string chain_id */ 2:
+                case /* string chain_id */ 1:
                     message.chainId = reader.string();
                     break;
-                case /* int32 max_steps */ 3:
+                case /* int32 max_steps */ 2:
                     message.maxSteps = reader.int32();
                     break;
                 default:
@@ -5154,15 +5067,12 @@ class StartChainResponse$Type extends MessageType<StartChainResponse> {
         return message;
     }
     internalBinaryWrite(message: StartChainResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string chain_id = 2; */
+        /* string chain_id = 1; */
         if (message.chainId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.chainId);
-        /* int32 max_steps = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.chainId);
+        /* int32 max_steps = 2; */
         if (message.maxSteps !== 0)
-            writer.tag(3, WireType.Varint).int32(message.maxSteps);
+            writer.tag(2, WireType.Varint).int32(message.maxSteps);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5256,15 +5166,13 @@ export const AddThoughtRequest = new AddThoughtRequest$Type();
 class AddThoughtResponse$Type extends MessageType<AddThoughtResponse> {
     constructor() {
         super("op_chat.orchestration.AddThoughtResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "step", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 4, name: "remaining_steps", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 1, name: "chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "step", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 3, name: "remaining_steps", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<AddThoughtResponse>): AddThoughtResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.chainId = "";
         message.step = 0;
         message.remainingSteps = 0;
@@ -5277,16 +5185,13 @@ class AddThoughtResponse$Type extends MessageType<AddThoughtResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string chain_id */ 2:
+                case /* string chain_id */ 1:
                     message.chainId = reader.string();
                     break;
-                case /* int32 step */ 3:
+                case /* int32 step */ 2:
                     message.step = reader.int32();
                     break;
-                case /* int32 remaining_steps */ 4:
+                case /* int32 remaining_steps */ 3:
                     message.remainingSteps = reader.int32();
                     break;
                 default:
@@ -5301,18 +5206,15 @@ class AddThoughtResponse$Type extends MessageType<AddThoughtResponse> {
         return message;
     }
     internalBinaryWrite(message: AddThoughtResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string chain_id = 2; */
+        /* string chain_id = 1; */
         if (message.chainId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.chainId);
-        /* int32 step = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.chainId);
+        /* int32 step = 2; */
         if (message.step !== 0)
-            writer.tag(3, WireType.Varint).int32(message.step);
-        /* int32 remaining_steps = 4; */
+            writer.tag(2, WireType.Varint).int32(message.step);
+        /* int32 remaining_steps = 3; */
         if (message.remainingSteps !== 0)
-            writer.tag(4, WireType.Varint).int32(message.remainingSteps);
+            writer.tag(3, WireType.Varint).int32(message.remainingSteps);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5493,17 +5395,15 @@ export const ConcludeRequest = new ConcludeRequest$Type();
 class ConcludeResponse$Type extends MessageType<ConcludeResponse> {
     constructor() {
         super("op_chat.orchestration.ConcludeResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "conclusion", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "overall_confidence", kind: "scalar", T: 2 /*ScalarType.FLOAT*/ },
-            { no: 5, name: "steps_used", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 6, name: "key_insights", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "conclusion", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "overall_confidence", kind: "scalar", T: 2 /*ScalarType.FLOAT*/ },
+            { no: 4, name: "steps_used", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "key_insights", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ConcludeResponse>): ConcludeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.chainId = "";
         message.conclusion = "";
         message.overallConfidence = 0;
@@ -5518,22 +5418,19 @@ class ConcludeResponse$Type extends MessageType<ConcludeResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string chain_id */ 2:
+                case /* string chain_id */ 1:
                     message.chainId = reader.string();
                     break;
-                case /* string conclusion */ 3:
+                case /* string conclusion */ 2:
                     message.conclusion = reader.string();
                     break;
-                case /* float overall_confidence */ 4:
+                case /* float overall_confidence */ 3:
                     message.overallConfidence = reader.float();
                     break;
-                case /* int32 steps_used */ 5:
+                case /* int32 steps_used */ 4:
                     message.stepsUsed = reader.int32();
                     break;
-                case /* repeated string key_insights */ 6:
+                case /* repeated string key_insights */ 5:
                     message.keyInsights.push(reader.string());
                     break;
                 default:
@@ -5548,24 +5445,21 @@ class ConcludeResponse$Type extends MessageType<ConcludeResponse> {
         return message;
     }
     internalBinaryWrite(message: ConcludeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string chain_id = 2; */
+        /* string chain_id = 1; */
         if (message.chainId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.chainId);
-        /* string conclusion = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.chainId);
+        /* string conclusion = 2; */
         if (message.conclusion !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.conclusion);
-        /* float overall_confidence = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.conclusion);
+        /* float overall_confidence = 3; */
         if (message.overallConfidence !== 0)
-            writer.tag(4, WireType.Bit32).float(message.overallConfidence);
-        /* int32 steps_used = 5; */
+            writer.tag(3, WireType.Bit32).float(message.overallConfidence);
+        /* int32 steps_used = 4; */
         if (message.stepsUsed !== 0)
-            writer.tag(5, WireType.Varint).int32(message.stepsUsed);
-        /* repeated string key_insights = 6; */
+            writer.tag(4, WireType.Varint).int32(message.stepsUsed);
+        /* repeated string key_insights = 5; */
         for (let i = 0; i < message.keyInsights.length; i++)
-            writer.tag(6, WireType.LengthDelimited).string(message.keyInsights[i]);
+            writer.tag(5, WireType.LengthDelimited).string(message.keyInsights[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5809,15 +5703,13 @@ export const ForkChainRequest = new ForkChainRequest$Type();
 class ForkChainResponse$Type extends MessageType<ForkChainResponse> {
     constructor() {
         super("op_chat.orchestration.ForkChainResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "new_chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "parent_chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "forked_at_step", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 1, name: "new_chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "parent_chain_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "forked_at_step", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<ForkChainResponse>): ForkChainResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.newChainId = "";
         message.parentChainId = "";
         message.forkedAtStep = 0;
@@ -5830,16 +5722,13 @@ class ForkChainResponse$Type extends MessageType<ForkChainResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string new_chain_id */ 2:
+                case /* string new_chain_id */ 1:
                     message.newChainId = reader.string();
                     break;
-                case /* string parent_chain_id */ 3:
+                case /* string parent_chain_id */ 2:
                     message.parentChainId = reader.string();
                     break;
-                case /* int32 forked_at_step */ 4:
+                case /* int32 forked_at_step */ 3:
                     message.forkedAtStep = reader.int32();
                     break;
                 default:
@@ -5854,18 +5743,15 @@ class ForkChainResponse$Type extends MessageType<ForkChainResponse> {
         return message;
     }
     internalBinaryWrite(message: ForkChainResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string new_chain_id = 2; */
+        /* string new_chain_id = 1; */
         if (message.newChainId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.newChainId);
-        /* string parent_chain_id = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.newChainId);
+        /* string parent_chain_id = 2; */
         if (message.parentChainId !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.parentChainId);
-        /* int32 forked_at_step = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.parentChainId);
+        /* int32 forked_at_step = 3; */
         if (message.forkedAtStep !== 0)
-            writer.tag(4, WireType.Varint).int32(message.forkedAtStep);
+            writer.tag(3, WireType.Varint).int32(message.forkedAtStep);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -5967,15 +5853,13 @@ export const SaveContextRequest = new SaveContextRequest$Type();
 class SaveContextResponse$Type extends MessageType<SaveContextResponse> {
     constructor() {
         super("op_chat.orchestration.SaveContextResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "size_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "size_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 3, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SaveContextResponse>): SaveContextResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.name = "";
         message.sizeBytes = "0";
         message.version = "";
@@ -5988,16 +5872,13 @@ class SaveContextResponse$Type extends MessageType<SaveContextResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string name */ 2:
+                case /* string name */ 1:
                     message.name = reader.string();
                     break;
-                case /* int64 size_bytes */ 3:
+                case /* int64 size_bytes */ 2:
                     message.sizeBytes = reader.int64().toString();
                     break;
-                case /* string version */ 4:
+                case /* string version */ 3:
                     message.version = reader.string();
                     break;
                 default:
@@ -6012,18 +5893,15 @@ class SaveContextResponse$Type extends MessageType<SaveContextResponse> {
         return message;
     }
     internalBinaryWrite(message: SaveContextResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string name = 2; */
+        /* string name = 1; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
-        /* int64 size_bytes = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.name);
+        /* int64 size_bytes = 2; */
         if (message.sizeBytes !== "0")
-            writer.tag(3, WireType.Varint).int64(message.sizeBytes);
-        /* string version = 4; */
+            writer.tag(2, WireType.Varint).int64(message.sizeBytes);
+        /* string version = 3; */
         if (message.version !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.version);
+            writer.tag(3, WireType.LengthDelimited).string(message.version);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6488,13 +6366,11 @@ export const DeleteContextRequest = new DeleteContextRequest$Type();
 class DeleteContextResponse$Type extends MessageType<DeleteContextResponse> {
     constructor() {
         super("op_chat.orchestration.DeleteContextResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "versions_deleted", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 1, name: "versions_deleted", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteContextResponse>): DeleteContextResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.versionsDeleted = 0;
         if (value !== undefined)
             reflectionMergePartial<DeleteContextResponse>(this, message, value);
@@ -6505,10 +6381,7 @@ class DeleteContextResponse$Type extends MessageType<DeleteContextResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* int32 versions_deleted */ 2:
+                case /* int32 versions_deleted */ 1:
                     message.versionsDeleted = reader.int32();
                     break;
                 default:
@@ -6523,12 +6396,9 @@ class DeleteContextResponse$Type extends MessageType<DeleteContextResponse> {
         return message;
     }
     internalBinaryWrite(message: DeleteContextResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* int32 versions_deleted = 2; */
+        /* int32 versions_deleted = 1; */
         if (message.versionsDeleted !== 0)
-            writer.tag(2, WireType.Varint).int32(message.versionsDeleted);
+            writer.tag(1, WireType.Varint).int32(message.versionsDeleted);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6545,7 +6415,7 @@ class ExportContextRequest$Type extends MessageType<ExportContextRequest> {
         super("op_chat.orchestration.ExportContextRequest", [
             { no: 1, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "names", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "format", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "format", kind: "enum", T: () => ["op_chat.orchestration.ExportFormat", ExportFormat, "EXPORT_FORMAT_"] },
             { no: 4, name: "include_history", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
@@ -6553,7 +6423,7 @@ class ExportContextRequest$Type extends MessageType<ExportContextRequest> {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.sessionId = "";
         message.names = [];
-        message.format = "";
+        message.format = 0;
         message.includeHistory = false;
         if (value !== undefined)
             reflectionMergePartial<ExportContextRequest>(this, message, value);
@@ -6570,8 +6440,8 @@ class ExportContextRequest$Type extends MessageType<ExportContextRequest> {
                 case /* repeated string names */ 2:
                     message.names.push(reader.string());
                     break;
-                case /* string format */ 3:
-                    message.format = reader.string();
+                case /* op_chat.orchestration.ExportFormat format */ 3:
+                    message.format = reader.int32();
                     break;
                 case /* bool include_history */ 4:
                     message.includeHistory = reader.bool();
@@ -6594,9 +6464,9 @@ class ExportContextRequest$Type extends MessageType<ExportContextRequest> {
         /* repeated string names = 2; */
         for (let i = 0; i < message.names.length; i++)
             writer.tag(2, WireType.LengthDelimited).string(message.names[i]);
-        /* string format = 3; */
-        if (message.format !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.format);
+        /* op_chat.orchestration.ExportFormat format = 3; */
+        if (message.format !== 0)
+            writer.tag(3, WireType.Varint).int32(message.format);
         /* bool include_history = 4; */
         if (message.includeHistory !== false)
             writer.tag(4, WireType.Varint).bool(message.includeHistory);
@@ -6687,7 +6557,7 @@ class ImportChunk$Type extends MessageType<ImportChunk> {
         super("op_chat.orchestration.ImportChunk", [
             { no: 1, name: "data", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 2, name: "is_final", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "format", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "format", kind: "enum", T: () => ["op_chat.orchestration.ExportFormat", ExportFormat, "EXPORT_FORMAT_"] },
             { no: 4, name: "overwrite_existing", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
@@ -6695,7 +6565,7 @@ class ImportChunk$Type extends MessageType<ImportChunk> {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.data = new Uint8Array(0);
         message.isFinal = false;
-        message.format = "";
+        message.format = 0;
         message.overwriteExisting = false;
         if (value !== undefined)
             reflectionMergePartial<ImportChunk>(this, message, value);
@@ -6712,8 +6582,8 @@ class ImportChunk$Type extends MessageType<ImportChunk> {
                 case /* bool is_final */ 2:
                     message.isFinal = reader.bool();
                     break;
-                case /* string format */ 3:
-                    message.format = reader.string();
+                case /* op_chat.orchestration.ExportFormat format */ 3:
+                    message.format = reader.int32();
                     break;
                 case /* bool overwrite_existing */ 4:
                     message.overwriteExisting = reader.bool();
@@ -6736,9 +6606,9 @@ class ImportChunk$Type extends MessageType<ImportChunk> {
         /* bool is_final = 2; */
         if (message.isFinal !== false)
             writer.tag(2, WireType.Varint).bool(message.isFinal);
-        /* string format = 3; */
-        if (message.format !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.format);
+        /* op_chat.orchestration.ExportFormat format = 3; */
+        if (message.format !== 0)
+            writer.tag(3, WireType.Varint).int32(message.format);
         /* bool overwrite_existing = 4; */
         if (message.overwriteExisting !== false)
             writer.tag(4, WireType.Varint).bool(message.overwriteExisting);
@@ -6756,15 +6626,13 @@ export const ImportChunk = new ImportChunk$Type();
 class ImportContextResponse$Type extends MessageType<ImportContextResponse> {
     constructor() {
         super("op_chat.orchestration.ImportContextResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "imported_count", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 3, name: "skipped_count", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 4, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "imported_count", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "skipped_count", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 3, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ImportContextResponse>): ImportContextResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.importedCount = 0;
         message.skippedCount = 0;
         message.errors = [];
@@ -6777,16 +6645,13 @@ class ImportContextResponse$Type extends MessageType<ImportContextResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* int32 imported_count */ 2:
+                case /* int32 imported_count */ 1:
                     message.importedCount = reader.int32();
                     break;
-                case /* int32 skipped_count */ 3:
+                case /* int32 skipped_count */ 2:
                     message.skippedCount = reader.int32();
                     break;
-                case /* repeated string errors */ 4:
+                case /* repeated string errors */ 3:
                     message.errors.push(reader.string());
                     break;
                 default:
@@ -6801,18 +6666,15 @@ class ImportContextResponse$Type extends MessageType<ImportContextResponse> {
         return message;
     }
     internalBinaryWrite(message: ImportContextResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* int32 imported_count = 2; */
+        /* int32 imported_count = 1; */
         if (message.importedCount !== 0)
-            writer.tag(2, WireType.Varint).int32(message.importedCount);
-        /* int32 skipped_count = 3; */
+            writer.tag(1, WireType.Varint).int32(message.importedCount);
+        /* int32 skipped_count = 2; */
         if (message.skippedCount !== 0)
-            writer.tag(3, WireType.Varint).int32(message.skippedCount);
-        /* repeated string errors = 4; */
+            writer.tag(2, WireType.Varint).int32(message.skippedCount);
+        /* repeated string errors = 3; */
         for (let i = 0; i < message.errors.length; i++)
-            writer.tag(4, WireType.LengthDelimited).string(message.errors[i]);
+            writer.tag(3, WireType.LengthDelimited).string(message.errors[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6898,14 +6760,12 @@ export const MergeContextsRequest = new MergeContextsRequest$Type();
 class MergeContextsResponse$Type extends MessageType<MergeContextsResponse> {
     constructor() {
         super("op_chat.orchestration.MergeContextsResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "target_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "merged_size_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 1, name: "target_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "merged_size_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<MergeContextsResponse>): MergeContextsResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.targetName = "";
         message.mergedSizeBytes = "0";
         if (value !== undefined)
@@ -6917,13 +6777,10 @@ class MergeContextsResponse$Type extends MessageType<MergeContextsResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string target_name */ 2:
+                case /* string target_name */ 1:
                     message.targetName = reader.string();
                     break;
-                case /* int64 merged_size_bytes */ 3:
+                case /* int64 merged_size_bytes */ 2:
                     message.mergedSizeBytes = reader.int64().toString();
                     break;
                 default:
@@ -6938,15 +6795,12 @@ class MergeContextsResponse$Type extends MessageType<MergeContextsResponse> {
         return message;
     }
     internalBinaryWrite(message: MergeContextsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string target_name = 2; */
+        /* string target_name = 1; */
         if (message.targetName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.targetName);
-        /* int64 merged_size_bytes = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.targetName);
+        /* int64 merged_size_bytes = 2; */
         if (message.mergedSizeBytes !== "0")
-            writer.tag(3, WireType.Varint).int64(message.mergedSizeBytes);
+            writer.tag(2, WireType.Varint).int64(message.mergedSizeBytes);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7096,17 +6950,15 @@ export const CargoRequest = new CargoRequest$Type();
 class CargoResponse$Type extends MessageType<CargoResponse> {
     constructor() {
         super("op_chat.orchestration.CargoResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "stdout", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "stderr", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "exit_code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 5, name: "duration_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 6, name: "metadata", kind: "message", T: () => CargoMetadata }
+            { no: 1, name: "stdout", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "stderr", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "exit_code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 4, name: "duration_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 5, name: "metadata", kind: "message", T: () => CargoMetadata }
         ]);
     }
     create(value?: PartialMessage<CargoResponse>): CargoResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.stdout = "";
         message.stderr = "";
         message.exitCode = 0;
@@ -7120,22 +6972,19 @@ class CargoResponse$Type extends MessageType<CargoResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string stdout */ 2:
+                case /* string stdout */ 1:
                     message.stdout = reader.string();
                     break;
-                case /* string stderr */ 3:
+                case /* string stderr */ 2:
                     message.stderr = reader.string();
                     break;
-                case /* int32 exit_code */ 4:
+                case /* int32 exit_code */ 3:
                     message.exitCode = reader.int32();
                     break;
-                case /* int64 duration_ms */ 5:
+                case /* int64 duration_ms */ 4:
                     message.durationMs = reader.int64().toString();
                     break;
-                case /* op_chat.orchestration.CargoMetadata metadata */ 6:
+                case /* op_chat.orchestration.CargoMetadata metadata */ 5:
                     message.metadata = CargoMetadata.internalBinaryRead(reader, reader.uint32(), options, message.metadata);
                     break;
                 default:
@@ -7150,24 +6999,21 @@ class CargoResponse$Type extends MessageType<CargoResponse> {
         return message;
     }
     internalBinaryWrite(message: CargoResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string stdout = 2; */
+        /* string stdout = 1; */
         if (message.stdout !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.stdout);
-        /* string stderr = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.stdout);
+        /* string stderr = 2; */
         if (message.stderr !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.stderr);
-        /* int32 exit_code = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.stderr);
+        /* int32 exit_code = 3; */
         if (message.exitCode !== 0)
-            writer.tag(4, WireType.Varint).int32(message.exitCode);
-        /* int64 duration_ms = 5; */
+            writer.tag(3, WireType.Varint).int32(message.exitCode);
+        /* int64 duration_ms = 4; */
         if (message.durationMs !== "0")
-            writer.tag(5, WireType.Varint).int64(message.durationMs);
-        /* op_chat.orchestration.CargoMetadata metadata = 6; */
+            writer.tag(4, WireType.Varint).int64(message.durationMs);
+        /* op_chat.orchestration.CargoMetadata metadata = 5; */
         if (message.metadata)
-            CargoMetadata.internalBinaryWrite(message.metadata, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+            CargoMetadata.internalBinaryWrite(message.metadata, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7520,14 +7366,11 @@ export const AnalyzeRequest = new AnalyzeRequest$Type();
 class AnalyzeResponse$Type extends MessageType<AnalyzeResponse> {
     constructor() {
         super("op_chat.orchestration.AnalyzeResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "result_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "result", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<AnalyzeResponse>): AnalyzeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.resultJson = "";
         if (value !== undefined)
             reflectionMergePartial<AnalyzeResponse>(this, message, value);
         return message;
@@ -7537,11 +7380,8 @@ class AnalyzeResponse$Type extends MessageType<AnalyzeResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* string result_json */ 2:
-                    message.resultJson = reader.string();
+                case /* google.protobuf.Struct result */ 1:
+                    message.result = Struct.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -7555,12 +7395,9 @@ class AnalyzeResponse$Type extends MessageType<AnalyzeResponse> {
         return message;
     }
     internalBinaryWrite(message: AnalyzeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string result_json = 2; */
-        if (message.resultJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.resultJson);
+        /* google.protobuf.Struct result = 1; */
+        if (message.result)
+            Struct.internalBinaryWrite(message.result, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7646,15 +7483,12 @@ export const ArchitectAnalyzeRequest = new ArchitectAnalyzeRequest$Type();
 class ArchitectAnalyzeResponse$Type extends MessageType<ArchitectAnalyzeResponse> {
     constructor() {
         super("op_chat.orchestration.ArchitectAnalyzeResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "analysis_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "findings", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => ArchitectureFinding }
+            { no: 1, name: "analysis", kind: "message", T: () => Struct },
+            { no: 2, name: "findings", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => ArchitectureFinding }
         ]);
     }
     create(value?: PartialMessage<ArchitectAnalyzeResponse>): ArchitectAnalyzeResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.analysisJson = "";
         message.findings = [];
         if (value !== undefined)
             reflectionMergePartial<ArchitectAnalyzeResponse>(this, message, value);
@@ -7665,13 +7499,10 @@ class ArchitectAnalyzeResponse$Type extends MessageType<ArchitectAnalyzeResponse
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* google.protobuf.Struct analysis */ 1:
+                    message.analysis = Struct.internalBinaryRead(reader, reader.uint32(), options, message.analysis);
                     break;
-                case /* string analysis_json */ 2:
-                    message.analysisJson = reader.string();
-                    break;
-                case /* repeated op_chat.orchestration.ArchitectureFinding findings */ 3:
+                case /* repeated op_chat.orchestration.ArchitectureFinding findings */ 2:
                     message.findings.push(ArchitectureFinding.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -7686,15 +7517,12 @@ class ArchitectAnalyzeResponse$Type extends MessageType<ArchitectAnalyzeResponse
         return message;
     }
     internalBinaryWrite(message: ArchitectAnalyzeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string analysis_json = 2; */
-        if (message.analysisJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.analysisJson);
-        /* repeated op_chat.orchestration.ArchitectureFinding findings = 3; */
+        /* google.protobuf.Struct analysis = 1; */
+        if (message.analysis)
+            Struct.internalBinaryWrite(message.analysis, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* repeated op_chat.orchestration.ArchitectureFinding findings = 2; */
         for (let i = 0; i < message.findings.length; i++)
-            ArchitectureFinding.internalBinaryWrite(message.findings[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            ArchitectureFinding.internalBinaryWrite(message.findings[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -7709,8 +7537,8 @@ export const ArchitectAnalyzeResponse = new ArchitectAnalyzeResponse$Type();
 class ArchitectureFinding$Type extends MessageType<ArchitectureFinding> {
     constructor() {
         super("op_chat.orchestration.ArchitectureFinding", [
-            { no: 1, name: "category", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "severity", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "category", kind: "enum", T: () => ["op_chat.orchestration.FindingCategory", FindingCategory, "FINDING_CATEGORY_"] },
+            { no: 2, name: "severity", kind: "enum", T: () => ["op_chat.orchestration.Severity", Severity, "SEVERITY_"] },
             { no: 3, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "location", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "suggestion", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
@@ -7718,8 +7546,8 @@ class ArchitectureFinding$Type extends MessageType<ArchitectureFinding> {
     }
     create(value?: PartialMessage<ArchitectureFinding>): ArchitectureFinding {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.category = "";
-        message.severity = "";
+        message.category = 0;
+        message.severity = 0;
         message.message = "";
         message.location = "";
         message.suggestion = "";
@@ -7732,11 +7560,11 @@ class ArchitectureFinding$Type extends MessageType<ArchitectureFinding> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string category */ 1:
-                    message.category = reader.string();
+                case /* op_chat.orchestration.FindingCategory category */ 1:
+                    message.category = reader.int32();
                     break;
-                case /* string severity */ 2:
-                    message.severity = reader.string();
+                case /* op_chat.orchestration.Severity severity */ 2:
+                    message.severity = reader.int32();
                     break;
                 case /* string message */ 3:
                     message.message = reader.string();
@@ -7759,12 +7587,12 @@ class ArchitectureFinding$Type extends MessageType<ArchitectureFinding> {
         return message;
     }
     internalBinaryWrite(message: ArchitectureFinding, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string category = 1; */
-        if (message.category !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.category);
-        /* string severity = 2; */
-        if (message.severity !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.severity);
+        /* op_chat.orchestration.FindingCategory category = 1; */
+        if (message.category !== 0)
+            writer.tag(1, WireType.Varint).int32(message.category);
+        /* op_chat.orchestration.Severity severity = 2; */
+        if (message.severity !== 0)
+            writer.tag(2, WireType.Varint).int32(message.severity);
         /* string message = 3; */
         if (message.message !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.message);
@@ -7867,17 +7695,14 @@ export const ArchitectDesignRequest = new ArchitectDesignRequest$Type();
 class ArchitectDesignResponse$Type extends MessageType<ArchitectDesignResponse> {
     constructor() {
         super("op_chat.orchestration.ArchitectDesignResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "design_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "components", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "interfaces", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "trade_offs", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "design", kind: "message", T: () => Struct },
+            { no: 2, name: "components", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "interfaces", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "trade_offs", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ArchitectDesignResponse>): ArchitectDesignResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.designJson = "";
         message.components = [];
         message.interfaces = [];
         message.tradeOffs = [];
@@ -7890,19 +7715,16 @@ class ArchitectDesignResponse$Type extends MessageType<ArchitectDesignResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* google.protobuf.Struct design */ 1:
+                    message.design = Struct.internalBinaryRead(reader, reader.uint32(), options, message.design);
                     break;
-                case /* string design_json */ 2:
-                    message.designJson = reader.string();
-                    break;
-                case /* repeated string components */ 3:
+                case /* repeated string components */ 2:
                     message.components.push(reader.string());
                     break;
-                case /* repeated string interfaces */ 4:
+                case /* repeated string interfaces */ 3:
                     message.interfaces.push(reader.string());
                     break;
-                case /* repeated string trade_offs */ 5:
+                case /* repeated string trade_offs */ 4:
                     message.tradeOffs.push(reader.string());
                     break;
                 default:
@@ -7917,21 +7739,18 @@ class ArchitectDesignResponse$Type extends MessageType<ArchitectDesignResponse> 
         return message;
     }
     internalBinaryWrite(message: ArchitectDesignResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string design_json = 2; */
-        if (message.designJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.designJson);
-        /* repeated string components = 3; */
+        /* google.protobuf.Struct design = 1; */
+        if (message.design)
+            Struct.internalBinaryWrite(message.design, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* repeated string components = 2; */
         for (let i = 0; i < message.components.length; i++)
-            writer.tag(3, WireType.LengthDelimited).string(message.components[i]);
-        /* repeated string interfaces = 4; */
+            writer.tag(2, WireType.LengthDelimited).string(message.components[i]);
+        /* repeated string interfaces = 3; */
         for (let i = 0; i < message.interfaces.length; i++)
-            writer.tag(4, WireType.LengthDelimited).string(message.interfaces[i]);
-        /* repeated string trade_offs = 5; */
+            writer.tag(3, WireType.LengthDelimited).string(message.interfaces[i]);
+        /* repeated string trade_offs = 4; */
         for (let i = 0; i < message.tradeOffs.length; i++)
-            writer.tag(5, WireType.LengthDelimited).string(message.tradeOffs[i]);
+            writer.tag(4, WireType.LengthDelimited).string(message.tradeOffs[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -8009,17 +7828,14 @@ export const ArchitectReviewRequest = new ArchitectReviewRequest$Type();
 class ArchitectReviewResponse$Type extends MessageType<ArchitectReviewResponse> {
     constructor() {
         super("op_chat.orchestration.ArchitectReviewResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "review_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "score", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 4, name: "issues", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => ReviewIssue },
-            { no: 5, name: "strengths", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "review", kind: "message", T: () => Struct },
+            { no: 2, name: "score", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 3, name: "issues", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => ReviewIssue },
+            { no: 4, name: "strengths", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ArchitectReviewResponse>): ArchitectReviewResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
-        message.reviewJson = "";
         message.score = 0;
         message.issues = [];
         message.strengths = [];
@@ -8032,19 +7848,16 @@ class ArchitectReviewResponse$Type extends MessageType<ArchitectReviewResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
+                case /* google.protobuf.Struct review */ 1:
+                    message.review = Struct.internalBinaryRead(reader, reader.uint32(), options, message.review);
                     break;
-                case /* string review_json */ 2:
-                    message.reviewJson = reader.string();
-                    break;
-                case /* int32 score */ 3:
+                case /* int32 score */ 2:
                     message.score = reader.int32();
                     break;
-                case /* repeated op_chat.orchestration.ReviewIssue issues */ 4:
+                case /* repeated op_chat.orchestration.ReviewIssue issues */ 3:
                     message.issues.push(ReviewIssue.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* repeated string strengths */ 5:
+                case /* repeated string strengths */ 4:
                     message.strengths.push(reader.string());
                     break;
                 default:
@@ -8059,21 +7872,18 @@ class ArchitectReviewResponse$Type extends MessageType<ArchitectReviewResponse> 
         return message;
     }
     internalBinaryWrite(message: ArchitectReviewResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* string review_json = 2; */
-        if (message.reviewJson !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.reviewJson);
-        /* int32 score = 3; */
+        /* google.protobuf.Struct review = 1; */
+        if (message.review)
+            Struct.internalBinaryWrite(message.review, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* int32 score = 2; */
         if (message.score !== 0)
-            writer.tag(3, WireType.Varint).int32(message.score);
-        /* repeated op_chat.orchestration.ReviewIssue issues = 4; */
+            writer.tag(2, WireType.Varint).int32(message.score);
+        /* repeated op_chat.orchestration.ReviewIssue issues = 3; */
         for (let i = 0; i < message.issues.length; i++)
-            ReviewIssue.internalBinaryWrite(message.issues[i], writer.tag(4, WireType.LengthDelimited).fork(), options).join();
-        /* repeated string strengths = 5; */
+            ReviewIssue.internalBinaryWrite(message.issues[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* repeated string strengths = 4; */
         for (let i = 0; i < message.strengths.length; i++)
-            writer.tag(5, WireType.LengthDelimited).string(message.strengths[i]);
+            writer.tag(4, WireType.LengthDelimited).string(message.strengths[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -8088,16 +7898,16 @@ export const ArchitectReviewResponse = new ArchitectReviewResponse$Type();
 class ReviewIssue$Type extends MessageType<ReviewIssue> {
     constructor() {
         super("op_chat.orchestration.ReviewIssue", [
-            { no: 1, name: "category", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "severity", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "category", kind: "enum", T: () => ["op_chat.orchestration.FindingCategory", FindingCategory, "FINDING_CATEGORY_"] },
+            { no: 2, name: "severity", kind: "enum", T: () => ["op_chat.orchestration.Severity", Severity, "SEVERITY_"] },
             { no: 3, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "recommendation", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ReviewIssue>): ReviewIssue {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.category = "";
-        message.severity = "";
+        message.category = 0;
+        message.severity = 0;
         message.description = "";
         message.recommendation = "";
         if (value !== undefined)
@@ -8109,11 +7919,11 @@ class ReviewIssue$Type extends MessageType<ReviewIssue> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string category */ 1:
-                    message.category = reader.string();
+                case /* op_chat.orchestration.FindingCategory category */ 1:
+                    message.category = reader.int32();
                     break;
-                case /* string severity */ 2:
-                    message.severity = reader.string();
+                case /* op_chat.orchestration.Severity severity */ 2:
+                    message.severity = reader.int32();
                     break;
                 case /* string description */ 3:
                     message.description = reader.string();
@@ -8133,12 +7943,12 @@ class ReviewIssue$Type extends MessageType<ReviewIssue> {
         return message;
     }
     internalBinaryWrite(message: ReviewIssue, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string category = 1; */
-        if (message.category !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.category);
-        /* string severity = 2; */
-        if (message.severity !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.severity);
+        /* op_chat.orchestration.FindingCategory category = 1; */
+        if (message.category !== 0)
+            writer.tag(1, WireType.Varint).int32(message.category);
+        /* op_chat.orchestration.Severity severity = 2; */
+        if (message.severity !== 0)
+            writer.tag(2, WireType.Varint).int32(message.severity);
         /* string description = 3; */
         if (message.description !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.description);
@@ -8230,13 +8040,11 @@ export const ArchitectSuggestRequest = new ArchitectSuggestRequest$Type();
 class ArchitectSuggestResponse$Type extends MessageType<ArchitectSuggestResponse> {
     constructor() {
         super("op_chat.orchestration.ArchitectSuggestResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "suggestions", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Suggestion }
+            { no: 1, name: "suggestions", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Suggestion }
         ]);
     }
     create(value?: PartialMessage<ArchitectSuggestResponse>): ArchitectSuggestResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.suggestions = [];
         if (value !== undefined)
             reflectionMergePartial<ArchitectSuggestResponse>(this, message, value);
@@ -8247,10 +8055,7 @@ class ArchitectSuggestResponse$Type extends MessageType<ArchitectSuggestResponse
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* repeated op_chat.orchestration.Suggestion suggestions */ 2:
+                case /* repeated op_chat.orchestration.Suggestion suggestions */ 1:
                     message.suggestions.push(Suggestion.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -8265,12 +8070,9 @@ class ArchitectSuggestResponse$Type extends MessageType<ArchitectSuggestResponse
         return message;
     }
     internalBinaryWrite(message: ArchitectSuggestResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* repeated op_chat.orchestration.Suggestion suggestions = 2; */
+        /* repeated op_chat.orchestration.Suggestion suggestions = 1; */
         for (let i = 0; i < message.suggestions.length; i++)
-            Suggestion.internalBinaryWrite(message.suggestions[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Suggestion.internalBinaryWrite(message.suggestions[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -8606,7 +8408,7 @@ class WorkstackEvent$Type extends MessageType<WorkstackEvent> {
             { no: 3, name: "event_type", kind: "enum", T: () => ["op_chat.orchestration.WorkstackEventType", WorkstackEventType] },
             { no: 4, name: "phase_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "details_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "details", kind: "message", T: () => Struct },
             { no: 7, name: "timestamp_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
             { no: 8, name: "progress", kind: "message", T: () => WorkstackProgress }
         ]);
@@ -8618,7 +8420,6 @@ class WorkstackEvent$Type extends MessageType<WorkstackEvent> {
         message.eventType = 0;
         message.phaseId = "";
         message.message = "";
-        message.detailsJson = "";
         message.timestampMs = "0";
         if (value !== undefined)
             reflectionMergePartial<WorkstackEvent>(this, message, value);
@@ -8644,8 +8445,8 @@ class WorkstackEvent$Type extends MessageType<WorkstackEvent> {
                 case /* string message */ 5:
                     message.message = reader.string();
                     break;
-                case /* string details_json */ 6:
-                    message.detailsJson = reader.string();
+                case /* google.protobuf.Struct details */ 6:
+                    message.details = Struct.internalBinaryRead(reader, reader.uint32(), options, message.details);
                     break;
                 case /* int64 timestamp_ms */ 7:
                     message.timestampMs = reader.int64().toString();
@@ -8680,9 +8481,9 @@ class WorkstackEvent$Type extends MessageType<WorkstackEvent> {
         /* string message = 5; */
         if (message.message !== "")
             writer.tag(5, WireType.LengthDelimited).string(message.message);
-        /* string details_json = 6; */
-        if (message.detailsJson !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.detailsJson);
+        /* google.protobuf.Struct details = 6; */
+        if (message.details)
+            Struct.internalBinaryWrite(message.details, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
         /* int64 timestamp_ms = 7; */
         if (message.timestampMs !== "0")
             writer.tag(7, WireType.Varint).int64(message.timestampMs);
@@ -8934,7 +8735,7 @@ class PhaseStatus$Type extends MessageType<PhaseStatus> {
             { no: 1, name: "phase_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "phase_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "status", kind: "enum", T: () => ["op_chat.orchestration.WorkstackExecutionStatus", WorkstackExecutionStatus] },
-            { no: 4, name: "result_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "result", kind: "message", T: () => Struct },
             { no: 5, name: "error", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 6, name: "started_at_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
             { no: 7, name: "completed_at_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
@@ -8945,7 +8746,6 @@ class PhaseStatus$Type extends MessageType<PhaseStatus> {
         message.phaseId = "";
         message.phaseName = "";
         message.status = 0;
-        message.resultJson = "";
         message.error = "";
         message.startedAtMs = "0";
         message.completedAtMs = "0";
@@ -8967,8 +8767,8 @@ class PhaseStatus$Type extends MessageType<PhaseStatus> {
                 case /* op_chat.orchestration.WorkstackExecutionStatus status */ 3:
                     message.status = reader.int32();
                     break;
-                case /* string result_json */ 4:
-                    message.resultJson = reader.string();
+                case /* google.protobuf.Struct result */ 4:
+                    message.result = Struct.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
                 case /* string error */ 5:
                     message.error = reader.string();
@@ -9000,9 +8800,9 @@ class PhaseStatus$Type extends MessageType<PhaseStatus> {
         /* op_chat.orchestration.WorkstackExecutionStatus status = 3; */
         if (message.status !== 0)
             writer.tag(3, WireType.Varint).int32(message.status);
-        /* string result_json = 4; */
-        if (message.resultJson !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.resultJson);
+        /* google.protobuf.Struct result = 4; */
+        if (message.result)
+            Struct.internalBinaryWrite(message.result, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
         /* string error = 5; */
         if (message.error !== "")
             writer.tag(5, WireType.LengthDelimited).string(message.error);
@@ -9089,13 +8889,11 @@ export const WorkstackCancelRequest = new WorkstackCancelRequest$Type();
 class WorkstackCancelResponse$Type extends MessageType<WorkstackCancelResponse> {
     constructor() {
         super("op_chat.orchestration.WorkstackCancelResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "will_rollback", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "will_rollback", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<WorkstackCancelResponse>): WorkstackCancelResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.willRollback = false;
         if (value !== undefined)
             reflectionMergePartial<WorkstackCancelResponse>(this, message, value);
@@ -9106,10 +8904,7 @@ class WorkstackCancelResponse$Type extends MessageType<WorkstackCancelResponse> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* bool will_rollback */ 2:
+                case /* bool will_rollback */ 1:
                     message.willRollback = reader.bool();
                     break;
                 default:
@@ -9124,12 +8919,9 @@ class WorkstackCancelResponse$Type extends MessageType<WorkstackCancelResponse> 
         return message;
     }
     internalBinaryWrite(message: WorkstackCancelResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* bool will_rollback = 2; */
+        /* bool will_rollback = 1; */
         if (message.willRollback !== false)
-            writer.tag(2, WireType.Varint).bool(message.willRollback);
+            writer.tag(1, WireType.Varint).bool(message.willRollback);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -9207,14 +8999,12 @@ export const WorkstackRollbackRequest = new WorkstackRollbackRequest$Type();
 class WorkstackRollbackResponse$Type extends MessageType<WorkstackRollbackResponse> {
     constructor() {
         super("op_chat.orchestration.WorkstackRollbackResponse", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "rolled_back_phases", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "rolled_back_phases", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<WorkstackRollbackResponse>): WorkstackRollbackResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         message.rolledBackPhases = [];
         message.errors = [];
         if (value !== undefined)
@@ -9226,13 +9016,10 @@ class WorkstackRollbackResponse$Type extends MessageType<WorkstackRollbackRespon
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
-                case /* repeated string rolled_back_phases */ 2:
+                case /* repeated string rolled_back_phases */ 1:
                     message.rolledBackPhases.push(reader.string());
                     break;
-                case /* repeated string errors */ 3:
+                case /* repeated string errors */ 2:
                     message.errors.push(reader.string());
                     break;
                 default:
@@ -9247,15 +9034,12 @@ class WorkstackRollbackResponse$Type extends MessageType<WorkstackRollbackRespon
         return message;
     }
     internalBinaryWrite(message: WorkstackRollbackResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
-        /* repeated string rolled_back_phases = 2; */
+        /* repeated string rolled_back_phases = 1; */
         for (let i = 0; i < message.rolledBackPhases.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.rolledBackPhases[i]);
-        /* repeated string errors = 3; */
+            writer.tag(1, WireType.LengthDelimited).string(message.rolledBackPhases[i]);
+        /* repeated string errors = 2; */
         for (let i = 0; i < message.errors.length; i++)
-            writer.tag(3, WireType.LengthDelimited).string(message.errors[i]);
+            writer.tag(2, WireType.LengthDelimited).string(message.errors[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

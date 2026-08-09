@@ -39,10 +39,6 @@ export interface UpdateEntryOutput {
      * @generated from protobuf field: google.protobuf.Value previous_value = 1
      */
     previousValue?: Value;
-    /**
-     * @generated from protobuf field: bool success = 2
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateEntryInput$Type extends MessageType<UpdateEntryInput> {
@@ -110,13 +106,11 @@ export const UpdateEntryInput = new UpdateEntryInput$Type();
 class UpdateEntryOutput$Type extends MessageType<UpdateEntryOutput> {
     constructor() {
         super("operation.method.memory.update_entry.UpdateEntryOutput", [
-            { no: 1, name: "previous_value", kind: "message", T: () => Value },
-            { no: 2, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "previous_value", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<UpdateEntryOutput>): UpdateEntryOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UpdateEntryOutput>(this, message, value);
         return message;
@@ -128,9 +122,6 @@ class UpdateEntryOutput$Type extends MessageType<UpdateEntryOutput> {
             switch (fieldNo) {
                 case /* google.protobuf.Value previous_value */ 1:
                     message.previousValue = Value.internalBinaryRead(reader, reader.uint32(), options, message.previousValue);
-                    break;
-                case /* bool success */ 2:
-                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -147,9 +138,6 @@ class UpdateEntryOutput$Type extends MessageType<UpdateEntryOutput> {
         /* google.protobuf.Value previous_value = 1; */
         if (message.previousValue)
             Value.internalBinaryWrite(message.previousValue, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* bool success = 2; */
-        if (message.success !== false)
-            writer.tag(2, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

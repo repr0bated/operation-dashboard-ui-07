@@ -15,6 +15,10 @@ import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 import { Pagination } from "./common";
+import { Value } from "../google/protobuf/struct";
+import { EventType } from "./common";
+import { ErrorDetails } from "./common";
+import { RunStatus } from "./common";
 import { Struct } from "../google/protobuf/struct";
 import { Timestamp } from "../google/protobuf/timestamp";
 /**
@@ -75,9 +79,9 @@ export interface Run {
      */
     sessionId: string;
     /**
-     * @generated from protobuf field: string status = 4
+     * @generated from protobuf field: assistant.v1.RunStatus status = 4
      */
-    status: string; // pending|running|completed|failed|cancelled
+    status: RunStatus;
     /**
      * @generated from protobuf field: google.protobuf.Timestamp started_at = 5
      */
@@ -87,9 +91,9 @@ export interface Run {
      */
     finishedAt?: Timestamp;
     /**
-     * @generated from protobuf field: optional string error = 7
+     * @generated from protobuf field: optional assistant.v1.ErrorDetails error = 7
      */
-    error?: string;
+    error?: ErrorDetails;
 }
 /**
  * @generated from protobuf message assistant.v1.RunEvent
@@ -100,13 +104,13 @@ export interface RunEvent {
      */
     runId: string;
     /**
-     * @generated from protobuf field: string event_type = 2
+     * @generated from protobuf field: assistant.v1.EventType event_type = 2
      */
-    eventType: string; // tool_call|tool_result|message|status|error
+    eventType: EventType;
     /**
-     * @generated from protobuf field: string payload_json = 3
+     * @generated from protobuf field: google.protobuf.Value payload = 3
      */
-    payloadJson: string;
+    payload?: Value;
     /**
      * @generated from protobuf field: google.protobuf.Timestamp timestamp = 4
      */
@@ -372,10 +376,10 @@ class Run$Type extends MessageType<Run> {
             { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "agent_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "status", kind: "enum", T: () => ["assistant.v1.RunStatus", RunStatus, "RUN_STATUS_"] },
             { no: 5, name: "started_at", kind: "message", T: () => Timestamp },
             { no: 6, name: "finished_at", kind: "message", T: () => Timestamp },
-            { no: 7, name: "error", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 7, name: "error", kind: "message", T: () => ErrorDetails }
         ]);
     }
     create(value?: PartialMessage<Run>): Run {
@@ -383,7 +387,7 @@ class Run$Type extends MessageType<Run> {
         message.id = "";
         message.agentId = "";
         message.sessionId = "";
-        message.status = "";
+        message.status = 0;
         if (value !== undefined)
             reflectionMergePartial<Run>(this, message, value);
         return message;
@@ -402,8 +406,8 @@ class Run$Type extends MessageType<Run> {
                 case /* string session_id */ 3:
                     message.sessionId = reader.string();
                     break;
-                case /* string status */ 4:
-                    message.status = reader.string();
+                case /* assistant.v1.RunStatus status */ 4:
+                    message.status = reader.int32();
                     break;
                 case /* google.protobuf.Timestamp started_at */ 5:
                     message.startedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.startedAt);
@@ -411,8 +415,8 @@ class Run$Type extends MessageType<Run> {
                 case /* optional google.protobuf.Timestamp finished_at */ 6:
                     message.finishedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.finishedAt);
                     break;
-                case /* optional string error */ 7:
-                    message.error = reader.string();
+                case /* optional assistant.v1.ErrorDetails error */ 7:
+                    message.error = ErrorDetails.internalBinaryRead(reader, reader.uint32(), options, message.error);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -435,18 +439,18 @@ class Run$Type extends MessageType<Run> {
         /* string session_id = 3; */
         if (message.sessionId !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.sessionId);
-        /* string status = 4; */
-        if (message.status !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.status);
+        /* assistant.v1.RunStatus status = 4; */
+        if (message.status !== 0)
+            writer.tag(4, WireType.Varint).int32(message.status);
         /* google.protobuf.Timestamp started_at = 5; */
         if (message.startedAt)
             Timestamp.internalBinaryWrite(message.startedAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         /* optional google.protobuf.Timestamp finished_at = 6; */
         if (message.finishedAt)
             Timestamp.internalBinaryWrite(message.finishedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
-        /* optional string error = 7; */
-        if (message.error !== undefined)
-            writer.tag(7, WireType.LengthDelimited).string(message.error);
+        /* optional assistant.v1.ErrorDetails error = 7; */
+        if (message.error)
+            ErrorDetails.internalBinaryWrite(message.error, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -462,16 +466,15 @@ class RunEvent$Type extends MessageType<RunEvent> {
     constructor() {
         super("assistant.v1.RunEvent", [
             { no: 1, name: "run_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "event_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "payload_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "event_type", kind: "enum", T: () => ["assistant.v1.EventType", EventType, "EVENT_TYPE_"] },
+            { no: 3, name: "payload", kind: "message", T: () => Value },
             { no: 4, name: "timestamp", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<RunEvent>): RunEvent {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.runId = "";
-        message.eventType = "";
-        message.payloadJson = "";
+        message.eventType = 0;
         if (value !== undefined)
             reflectionMergePartial<RunEvent>(this, message, value);
         return message;
@@ -484,11 +487,11 @@ class RunEvent$Type extends MessageType<RunEvent> {
                 case /* string run_id */ 1:
                     message.runId = reader.string();
                     break;
-                case /* string event_type */ 2:
-                    message.eventType = reader.string();
+                case /* assistant.v1.EventType event_type */ 2:
+                    message.eventType = reader.int32();
                     break;
-                case /* string payload_json */ 3:
-                    message.payloadJson = reader.string();
+                case /* google.protobuf.Value payload */ 3:
+                    message.payload = Value.internalBinaryRead(reader, reader.uint32(), options, message.payload);
                     break;
                 case /* google.protobuf.Timestamp timestamp */ 4:
                     message.timestamp = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.timestamp);
@@ -508,12 +511,12 @@ class RunEvent$Type extends MessageType<RunEvent> {
         /* string run_id = 1; */
         if (message.runId !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.runId);
-        /* string event_type = 2; */
-        if (message.eventType !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.eventType);
-        /* string payload_json = 3; */
-        if (message.payloadJson !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.payloadJson);
+        /* assistant.v1.EventType event_type = 2; */
+        if (message.eventType !== 0)
+            writer.tag(2, WireType.Varint).int32(message.eventType);
+        /* google.protobuf.Value payload = 3; */
+        if (message.payload)
+            Value.internalBinaryWrite(message.payload, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         /* google.protobuf.Timestamp timestamp = 4; */
         if (message.timestamp)
             Timestamp.internalBinaryWrite(message.timestamp, writer.tag(4, WireType.LengthDelimited).fork(), options).join();

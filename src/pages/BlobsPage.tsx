@@ -2,14 +2,11 @@
  * Blobs — browse sealed plugin blob schemas.
  *
  * The plugin list comes from `GET /api/ui-model/plugins`, i.e. the sealed blob
- * catalog itself: a plugin is listed iff its `.blob` is sealed. The generated
- * `PLUGIN_METHOD_BY_PLUGIN` index is only used to annotate a row with its
- * method count, never to decide what exists — it is build-time protobuf
- * codegen and omits plugins that ship no method clients (antigravity was
- * invisible here for exactly that reason).
+ * catalog itself: a plugin is listed iff its `.blob` is sealed. Method clients
+ * are intentionally not imported here: the generated registry pulls hundreds
+ * of gRPC modules into the initial page graph and is unrelated to blob loading.
  */
 import { useEffect, useMemo, useState } from "react";
-import { PLUGIN_METHOD_BY_PLUGIN } from "@/grpc/plugin-methods";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { useBlobCatalog } from "@/hooks/use-blob-catalog";
 import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
@@ -22,11 +19,7 @@ export default function BlobsPage() {
 
   const plugins = useMemo(
     () =>
-      catalog.map((name) => ({
-        name,
-        /** undefined = sealed blob with no generated gRPC method clients. */
-        count: PLUGIN_METHOD_BY_PLUGIN.get(name)?.length,
-      })),
+      catalog.map((name) => ({ name })),
     [catalog],
   );
 
@@ -45,8 +38,6 @@ export default function BlobsPage() {
     p.name.toLowerCase().includes(query.toLowerCase()),
   );
 
-  const withoutClients = plugins.filter((p) => p.count === undefined).length;
-
   return (
     <div className="p-6 space-y-4">
       <header className="flex items-center justify-between">
@@ -58,9 +49,7 @@ export default function BlobsPage() {
           <p className="text-xs text-muted-foreground mt-1 font-mono">
             {loading
               ? "reading sealed blob catalog…"
-              : `${plugins.length} sealed plugins${
-                  withoutClients > 0 ? ` · ${withoutClients} without gRPC clients` : ""
-                } · /api/ui-model/plugins`}
+              : `${plugins.length} sealed plugins · /api/ui-model/plugins`}
           </p>
         </div>
       </header>
@@ -114,16 +103,7 @@ export default function BlobsPage() {
                 )}
               >
                 <span className="truncate">{p.name}</span>
-                <span
-                  className="text-[10px] tabular-nums text-muted-foreground/70"
-                  title={
-                    p.count === undefined
-                      ? "sealed blob with no generated gRPC method clients"
-                      : `${p.count} gRPC methods`
-                  }
-                >
-                  {p.count ?? "—"}
-                </span>
+                <span className="text-[10px] text-muted-foreground/70">sealed</span>
               </button>
             ))}
           </div>

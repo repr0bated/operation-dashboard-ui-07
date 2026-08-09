@@ -5,7 +5,6 @@ import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
 import { EmptyState, ErrorBanner } from "@/components/shell/Feedback";
 import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
-import { pluginMethods } from "@/grpc/plugin-methods";
 import { valueToJs } from "@/grpc/google/protobuf/struct";
 
 import { resolveApiBase } from "@/lib/api";
@@ -120,6 +119,7 @@ export default function GalleryPage() {
 
   const loadInferenceSpec = useCallback(async () => {
     try {
+      const { pluginMethods } = await import("@/grpc/plugin-methods");
       const out = await pluginMethods.callSubid<
         Record<string, never>,
         { spec?: unknown }
@@ -138,6 +138,7 @@ export default function GalleryPage() {
 
   const loadAntigravity = useCallback(async () => {
     try {
+      const { pluginMethods } = await import("@/grpc/plugin-methods");
       // The Antigravity UI is served by the zeroclaw router plugin
       // (operation.plugin.v1.ZeroclawPluginMethods/ListUiSurfaces).
       const out = await pluginMethods.callSubid<

@@ -46,9 +46,9 @@ export interface BtrfsSnapshot {
      */
     readonly: boolean;
     /**
-     * @generated from protobuf field: string send_state = 4
+     * @generated from protobuf field: operation.btrfs.v1.SendState send_state = 4
      */
-    sendState: string;
+    sendState: SendState;
     /**
      * @generated from protobuf field: int64 timestamp = 5
      */
@@ -61,13 +61,9 @@ export interface BtrfsSnapshot {
  */
 export interface DrRecoveryStatus {
     /**
-     * @generated from protobuf field: string status = 1
+     * @generated from protobuf field: operation.btrfs.v1.RecoveryStatus status = 1
      */
-    status: string;
-    /**
-     * @generated from protobuf field: string message = 2
-     */
-    message: string;
+    status: RecoveryStatus;
 }
 /**
  * Request types
@@ -125,6 +121,58 @@ export interface ListSnapshotsResponse {
      * @generated from protobuf field: repeated operation.btrfs.v1.BtrfsSnapshot snapshots = 1
      */
     snapshots: BtrfsSnapshot[];
+}
+// ============ Enums ============
+
+/**
+ * @generated from protobuf enum operation.btrfs.v1.SendState
+ */
+export enum SendState {
+    /**
+     * @generated from protobuf enum value: SEND_STATE_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: SEND_STATE_IDLE = 1;
+     */
+    IDLE = 1,
+    /**
+     * @generated from protobuf enum value: SEND_STATE_SENDING = 2;
+     */
+    SENDING = 2,
+    /**
+     * @generated from protobuf enum value: SEND_STATE_COMPLETED = 3;
+     */
+    COMPLETED = 3,
+    /**
+     * @generated from protobuf enum value: SEND_STATE_FAILED = 4;
+     */
+    FAILED = 4
+}
+/**
+ * @generated from protobuf enum operation.btrfs.v1.RecoveryStatus
+ */
+export enum RecoveryStatus {
+    /**
+     * @generated from protobuf enum value: RECOVERY_STATUS_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: RECOVERY_STATUS_IDLE = 1;
+     */
+    IDLE = 1,
+    /**
+     * @generated from protobuf enum value: RECOVERY_STATUS_IN_PROGRESS = 2;
+     */
+    IN_PROGRESS = 2,
+    /**
+     * @generated from protobuf enum value: RECOVERY_STATUS_COMPLETED = 3;
+     */
+    COMPLETED = 3,
+    /**
+     * @generated from protobuf enum value: RECOVERY_STATUS_FAILED = 4;
+     */
+    FAILED = 4
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class BtrfsSubvolume$Type extends MessageType<BtrfsSubvolume> {
@@ -188,7 +236,7 @@ class BtrfsSnapshot$Type extends MessageType<BtrfsSnapshot> {
             { no: 1, name: "source", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "readonly", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "send_state", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "send_state", kind: "enum", T: () => ["operation.btrfs.v1.SendState", SendState, "SEND_STATE_"] },
             { no: 5, name: "timestamp", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
@@ -197,7 +245,7 @@ class BtrfsSnapshot$Type extends MessageType<BtrfsSnapshot> {
         message.source = "";
         message.destination = "";
         message.readonly = false;
-        message.sendState = "";
+        message.sendState = 0;
         message.timestamp = "0";
         if (value !== undefined)
             reflectionMergePartial<BtrfsSnapshot>(this, message, value);
@@ -217,8 +265,8 @@ class BtrfsSnapshot$Type extends MessageType<BtrfsSnapshot> {
                 case /* bool readonly */ 3:
                     message.readonly = reader.bool();
                     break;
-                case /* string send_state */ 4:
-                    message.sendState = reader.string();
+                case /* operation.btrfs.v1.SendState send_state */ 4:
+                    message.sendState = reader.int32();
                     break;
                 case /* int64 timestamp */ 5:
                     message.timestamp = reader.int64().toString();
@@ -244,9 +292,9 @@ class BtrfsSnapshot$Type extends MessageType<BtrfsSnapshot> {
         /* bool readonly = 3; */
         if (message.readonly !== false)
             writer.tag(3, WireType.Varint).bool(message.readonly);
-        /* string send_state = 4; */
-        if (message.sendState !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.sendState);
+        /* operation.btrfs.v1.SendState send_state = 4; */
+        if (message.sendState !== 0)
+            writer.tag(4, WireType.Varint).int32(message.sendState);
         /* int64 timestamp = 5; */
         if (message.timestamp !== "0")
             writer.tag(5, WireType.Varint).int64(message.timestamp);
@@ -264,14 +312,12 @@ export const BtrfsSnapshot = new BtrfsSnapshot$Type();
 class DrRecoveryStatus$Type extends MessageType<DrRecoveryStatus> {
     constructor() {
         super("operation.btrfs.v1.DrRecoveryStatus", [
-            { no: 1, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "status", kind: "enum", T: () => ["operation.btrfs.v1.RecoveryStatus", RecoveryStatus, "RECOVERY_STATUS_"] }
         ]);
     }
     create(value?: PartialMessage<DrRecoveryStatus>): DrRecoveryStatus {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.status = "";
-        message.message = "";
+        message.status = 0;
         if (value !== undefined)
             reflectionMergePartial<DrRecoveryStatus>(this, message, value);
         return message;
@@ -281,11 +327,8 @@ class DrRecoveryStatus$Type extends MessageType<DrRecoveryStatus> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string status */ 1:
-                    message.status = reader.string();
-                    break;
-                case /* string message */ 2:
-                    message.message = reader.string();
+                case /* operation.btrfs.v1.RecoveryStatus status */ 1:
+                    message.status = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -299,12 +342,9 @@ class DrRecoveryStatus$Type extends MessageType<DrRecoveryStatus> {
         return message;
     }
     internalBinaryWrite(message: DrRecoveryStatus, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string status = 1; */
-        if (message.status !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.status);
-        /* string message = 2; */
-        if (message.message !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.message);
+        /* operation.btrfs.v1.RecoveryStatus status = 1; */
+        if (message.status !== 0)
+            writer.tag(1, WireType.Varint).int32(message.status);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

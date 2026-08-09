@@ -31,10 +31,6 @@ export interface DeletePointsInput {
  * @generated from protobuf message operation.method.qdrant.delete_points.DeletePointsOutput
  */
 export interface DeletePointsOutput {
-    /**
-     * @generated from protobuf field: bool success = 1
-     */
-    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeletePointsInput$Type extends MessageType<DeletePointsInput> {
@@ -94,13 +90,10 @@ export const DeletePointsInput = new DeletePointsInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeletePointsOutput$Type extends MessageType<DeletePointsOutput> {
     constructor() {
-        super("operation.method.qdrant.delete_points.DeletePointsOutput", [
-            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
+        super("operation.method.qdrant.delete_points.DeletePointsOutput", []);
     }
     create(value?: PartialMessage<DeletePointsOutput>): DeletePointsOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeletePointsOutput>(this, message, value);
         return message;
@@ -110,9 +103,6 @@ class DeletePointsOutput$Type extends MessageType<DeletePointsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool success */ 1:
-                    message.success = reader.bool();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -125,9 +115,6 @@ class DeletePointsOutput$Type extends MessageType<DeletePointsOutput> {
         return message;
     }
     internalBinaryWrite(message: DeletePointsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool success = 1; */
-        if (message.success !== false)
-            writer.tag(1, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -28,10 +28,6 @@ export interface ValidateSchemaOutput {
      * @generated from protobuf field: repeated string errors = 1
      */
     errors: string[];
-    /**
-     * @generated from protobuf field: bool valid = 2
-     */
-    valid: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ValidateSchemaInput$Type extends MessageType<ValidateSchemaInput> {
@@ -75,14 +71,12 @@ export const ValidateSchemaInput = new ValidateSchemaInput$Type();
 class ValidateSchemaOutput$Type extends MessageType<ValidateSchemaOutput> {
     constructor() {
         super("operation.method.schema_renderer.validate_schema.ValidateSchemaOutput", [
-            { no: 1, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "valid", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ValidateSchemaOutput>): ValidateSchemaOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.errors = [];
-        message.valid = false;
         if (value !== undefined)
             reflectionMergePartial<ValidateSchemaOutput>(this, message, value);
         return message;
@@ -94,9 +88,6 @@ class ValidateSchemaOutput$Type extends MessageType<ValidateSchemaOutput> {
             switch (fieldNo) {
                 case /* repeated string errors */ 1:
                     message.errors.push(reader.string());
-                    break;
-                case /* bool valid */ 2:
-                    message.valid = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -113,9 +104,6 @@ class ValidateSchemaOutput$Type extends MessageType<ValidateSchemaOutput> {
         /* repeated string errors = 1; */
         for (let i = 0; i < message.errors.length; i++)
             writer.tag(1, WireType.LengthDelimited).string(message.errors[i]);
-        /* bool valid = 2; */
-        if (message.valid !== false)
-            writer.tag(2, WireType.Varint).bool(message.valid);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
