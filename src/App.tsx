@@ -37,6 +37,9 @@ import AssistantPage from "./pages/AssistantPage";
 import GrpcExplorerPage from "./pages/GrpcExplorerPage";
 import InvokePage from "./pages/InvokePage";
 import GalleryPage from "./pages/GalleryPage";
+import GalleryGenPage from "./pages/GalleryGenPage";
+import AntiqravityLLMPage from "./pages/AntiqravityLLMPage";
+import CatalogUIGeneratorPage from "./pages/CatalogUIGeneratorPage";
 import CatalogPage from "./pages/CatalogPage";
 import BlobsPage from "./pages/BlobsPage";
 import PluginsPage from "./pages/PluginsPage";
@@ -50,6 +53,10 @@ import CronPage from "./pages/CronPage";
 import IntegrationsPage from "./pages/IntegrationsPage";
 import EStopPage from "./pages/EStopPage";
 import HardwarePage from "./pages/HardwarePage";
+import ZeroCatalogPage from "./pages/ZeroCatalogPage";
+import ZeroSpecsPage from "./pages/ZeroSpecsPage";
+import ZeroAgentPage from "./pages/ZeroAgentPage";
+import ZeroQueryPage from "./pages/ZeroQueryPage";
 import {
   resolveIdentity,
   type IdentityStatus,
@@ -67,55 +74,63 @@ const queryClient = new QueryClient({
 // Dashboard routes live inside the spec-driven shell; the event stream only
 // runs here so public pages don't open the admin SSE channel.
 //
-// The index route renders through PageSpecOutlet, which resolves the current
-// pathname against PAGE_SPECS (json-render/pages). Routes with no registered
-// spec fall through to the React pages listed below.
+// PageSpecOutlet is a layout route: if PAGE_SPECS has the pathname it renders
+// the json-render spec; otherwise <Outlet /> falls through to the React page.
 function ShellRoutes() {
   useEventStream();
   return (
     <ShellRenderer>
       <Routes>
-        <Route path="/" element={<PageSpecOutlet />} />
-
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/gallery" element={<GalleryPage />} />
-        <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/tools" element={<ToolsPage />} />
-        <Route path="/agents" element={<AgentsPage />} />
-        <Route path="/models" element={<RoutableModelsPage />} />
-        <Route path="/llm" element={<LlmPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/security" element={<SecurityPage />} />
-        <Route path="/config" element={<ConfigPage />} />
-        <Route path="/inspector" element={<InspectorPage />} />
-        <Route path="/state" element={<StatePage />} />
-        <Route path="/logs" element={<LogsPage />} />
-        <Route path="/workflows" element={<WorkflowsPage />} />
-        <Route path="/orchestration" element={<OrchestrationPage />} />
-        <Route path="/skills" element={<SkillsPage />} />
-        <Route path="/containers" element={<ContainersPage />} />
-        <Route path="/privacy-network" element={<PrivacyNetworkPage />} />
-        <Route path="/ovs" element={<OpenSwitchPage />} />
-        <Route path="/openflow" element={<OpenFlowPage />} />
-        <Route path="/knowledge" element={<KnowledgePage />} />
-        <Route path="/grpc" element={<GrpcDiagnosticsPage />} />
-        <Route path="/explorer" element={<GrpcExplorerPage />} />
-        <Route path="/invoke" element={<InvokePage />} />
-        <Route path="/accountability" element={<AccountabilityPage />} />
-        <Route path="/btrfs" element={<BtrfsPage />} />
-        <Route path="/data-stores" element={<DataStoresPage />} />
-        <Route path="/embedding" element={<EmbeddingPipelinePage />} />
-        <Route path="/assistant" element={<AssistantPage />} />
-        <Route path="/blobs" element={<BlobsPage />} />
-        <Route path="/plugins" element={<PluginsPage />} />
-        <Route path="/plugin/:pluginId" element={<PluginPage />} />
-        <Route path="/gateway" element={<GatewayPage />} />
-        <Route path="/channels" element={<ChannelsPage />} />
-        <Route path="/cron" element={<CronPage />} />
-        <Route path="/integrations" element={<IntegrationsPage />} />
-        <Route path="/estop" element={<EStopPage />} />
-        <Route path="/hardware" element={<HardwarePage />} />
-        <Route path="*" element={<NotFound />} />
+        <Route element={<PageSpecOutlet />}>
+          {/* Index keeps `/` matched so PAGE_SPECS["/"] (Overview) can render. */}
+          <Route index element={<></>} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/gallery-gen" element={<GalleryGenPage />} />
+          <Route path="/antigravity-llm" element={<AntiqravityLLMPage />} />
+          <Route path="/catalog-generator" element={<CatalogUIGeneratorPage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/zero-catalog" element={<ZeroCatalogPage />} />
+          <Route path="/zero-specs" element={<ZeroSpecsPage />} />
+          <Route path="/zero-agent" element={<ZeroAgentPage />} />
+          <Route path="/zero-query" element={<ZeroQueryPage />} />
+          <Route path="/tools" element={<ToolsPage />} />
+          <Route path="/agents" element={<AgentsPage />} />
+          <Route path="/models" element={<RoutableModelsPage />} />
+          <Route path="/llm" element={<LlmPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/security" element={<SecurityPage />} />
+          <Route path="/config" element={<ConfigPage />} />
+          <Route path="/inspector" element={<InspectorPage />} />
+          <Route path="/state" element={<StatePage />} />
+          <Route path="/logs" element={<LogsPage />} />
+          <Route path="/workflows" element={<WorkflowsPage />} />
+          <Route path="/orchestration" element={<OrchestrationPage />} />
+          <Route path="/skills" element={<SkillsPage />} />
+          <Route path="/containers" element={<ContainersPage />} />
+          <Route path="/privacy-network" element={<PrivacyNetworkPage />} />
+          <Route path="/ovs" element={<OpenSwitchPage />} />
+          <Route path="/openflow" element={<OpenFlowPage />} />
+          <Route path="/knowledge" element={<KnowledgePage />} />
+          <Route path="/grpc" element={<GrpcDiagnosticsPage />} />
+          <Route path="/explorer" element={<GrpcExplorerPage />} />
+          <Route path="/invoke" element={<InvokePage />} />
+          <Route path="/accountability" element={<AccountabilityPage />} />
+          <Route path="/btrfs" element={<BtrfsPage />} />
+          <Route path="/data-stores" element={<DataStoresPage />} />
+          <Route path="/embedding" element={<EmbeddingPipelinePage />} />
+          <Route path="/assistant" element={<AssistantPage />} />
+          <Route path="/blobs" element={<BlobsPage />} />
+          <Route path="/plugins" element={<PluginsPage />} />
+          <Route path="/plugin/:pluginId" element={<PluginPage />} />
+          <Route path="/gateway" element={<GatewayPage />} />
+          <Route path="/channels" element={<ChannelsPage />} />
+          <Route path="/cron" element={<CronPage />} />
+          <Route path="/integrations" element={<IntegrationsPage />} />
+          <Route path="/estop" element={<EStopPage />} />
+          <Route path="/hardware" element={<HardwarePage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </ShellRenderer>
   );
