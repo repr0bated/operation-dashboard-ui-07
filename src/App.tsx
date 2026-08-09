@@ -57,6 +57,7 @@ import ZeroCatalogPage from "./pages/ZeroCatalogPage";
 import ZeroSpecsPage from "./pages/ZeroSpecsPage";
 import ZeroAgentPage from "./pages/ZeroAgentPage";
 import ZeroQueryPage from "./pages/ZeroQueryPage";
+import GenerativeUICatalogPage from "./pages/GenerativeUICatalogPage";
 import {
   resolveIdentity,
   type IdentityStatus,
@@ -90,6 +91,7 @@ function ShellRoutes() {
           <Route path="/antigravity-llm" element={<AntiqravityLLMPage />} />
           <Route path="/catalog-generator" element={<CatalogUIGeneratorPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/catalog-generative" element={<GenerativeUICatalogPage />} />
           <Route path="/zero-catalog" element={<ZeroCatalogPage />} />
           <Route path="/zero-specs" element={<ZeroSpecsPage />} />
           <Route path="/zero-agent" element={<ZeroAgentPage />} />
