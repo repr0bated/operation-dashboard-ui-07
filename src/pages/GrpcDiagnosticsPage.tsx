@@ -4,6 +4,7 @@ import {
   stateSync, eventChainService, ovsdbMirror, runtimeMirror,
   pluginService, componentRegistry,
 } from "@/grpc/client";
+import { pluginMethods } from "@/grpc/plugin-methods";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,8 +48,8 @@ const INITIAL_UNARY_PROBES: ProbeResult[] = [
   { name: "List Plugins", service: "PluginService", method: "ListPlugins", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "Get Events", service: "EventChainService", method: "GetEvents", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "Verify Chain", service: "EventChainService", method: "VerifyChain", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
-  { name: "List DBs (OVS)", service: "OvsdbMirror", method: "ListDbs", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
-  { name: "Bridge State", service: "OvsdbMirror", method: "GetBridgeState", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
+  { name: "List DBs (OVS)", service: "ovsdb_bridge", method: "list_dbs", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
+  { name: "Bridge State", service: "rovs_commands", method: "list_bridges", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "System Info", service: "RuntimeMirror", method: "GetSystemInfo", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "List Services", service: "RuntimeMirror", method: "ListServices", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
   { name: "List Interfaces", service: "RuntimeMirror", method: "ListInterfaces", status: "idle", latencyMs: null, error: null, response: null, timestamp: null },
@@ -130,12 +131,28 @@ export default function GrpcDiagnosticsPage() {
         case "EventChainService.VerifyChain":
           response = await eventChainService.verifyChain({ fromEventId: "0", toEventId: "0" });
           break;
-        case "OvsdbMirror.ListDbs":
-          response = await ovsdbMirror.listDbs();
+        case "ovsdb_bridge.list_dbs":
+          // Native OVSDB JSON-RPC plugin (replaces deprecated D-Bus OvsdbMirror).
+          response = await pluginMethods.callSubid("obs.network.ovsdb.dbs.list@v1", {});
           break;
-        case "OvsdbMirror.GetBridgeState":
-          response = await ovsdbMirror.getBridgeState();
+        case "rovs_commands.list_bridges": {
+          // Decomposed replacement for OvsdbMirror.GetBridgeState.
+          const bridges = await pluginMethods.callSubid<Record<string, unknown>, Record<string, unknown>>(
+            "obs.network.ovsdb.bridge.list@v1", {},
+          );
+          const names = (Array.isArray((bridges as any).bridges) ? (bridges as any).bridges : []) as string[];
+          const ports = await Promise.all(
+            names.map(async (bridgeName) => {
+              try {
+                return { bridge: bridgeName, ...(await pluginMethods.callSubid("obs.network.ovsdb.port.list@v1", { bridgeName })) };
+              } catch (e) {
+                return { bridge: bridgeName, error: (e as Error).message };
+              }
+            }),
+          );
+          response = { bridges, ports };
           break;
+        }
         case "RuntimeMirror.GetSystemInfo":
           response = await runtimeMirror.getSystemInfo();
           break;
