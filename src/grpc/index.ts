@@ -3,14 +3,11 @@ export {
   stateSync,
   pluginService,
   eventChainService,
-  ovsdbMirror,
-  runtimeMirror,
   componentRegistry,
   // Domain services
   mailService,
   privacyService,
   registrationService,
-  serviceManager,
   mcpService,
   accountabilityService,
   chatService,
@@ -21,13 +18,16 @@ export {
   dataStoreService,
   embeddingService,
   antigravityService,
-  // Assistant services (direct gRPC)
+  // Legacy assistant.v1 stubs (throw — use chatbotCognitive)
   soulService,
   namespaceMemoryService,
   // Transport
   getTransport,
   resetTransport,
 } from "./client";
+
+export { chatbotCognitive } from "./chatbot-cognitive";
+export type { ChatbotSoul, ChatbotNamespace } from "./chatbot-cognitive";
 
 // ── Plugin methods facade (auto-generated registry over plugin_methods/*) ───
 export {
@@ -37,6 +37,8 @@ export {
   PLUGIN_METHOD_BY_PLUGIN,
   type PluginMethodEntry,
 } from "./plugin-methods";
+
+export { hostRuntime } from "./host-runtime";
 
 // ── Generated protobuf types ────────────────────────────────────────────────
 export * from "./gen/operation";

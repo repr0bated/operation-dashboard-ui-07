@@ -8,17 +8,15 @@
 import {
   stateSync,
   pluginService,
-  ovsdbMirror,
-  runtimeMirror,
   eventChainService,
   componentRegistry,
   mailService,
   privacyService,
   registrationService,
-  serviceManager,
-  mcpService,
 } from "@/grpc/client";
-import { structToObject } from "@/grpc/google/protobuf/struct";
+import { pluginMethods } from "@/grpc/plugin-methods";
+import { hostRuntime } from "@/grpc/host-runtime";
+import { jsObjectToValue, structToObject, valueToJs } from "@/grpc/google/protobuf/struct";
 
 import type {
   HealthSnapshot, StatusSummary, DbusService, Tool, Agent, Session,
@@ -115,23 +113,49 @@ export const api = {
     createSnapshot: eventChainService.createSnapshot,
   },
 
-  /** OVSDB via gRPC OvsdbMirror */
+  /** OVSDB via ovsdb_bridge / rovs_commands plugins */
   ovs: {
-    listDbs: ovsdbMirror.listDbs,
-    getSchema: ovsdbMirror.getSchema,
-    transact: ovsdbMirror.transact,
-    getBridgeState: ovsdbMirror.getBridgeState,
-    echo: ovsdbMirror.echo,
-    dumpDb: ovsdbMirror.dumpDb,
+    listDbs: () => pluginMethods.callSubid("obs.network.ovsdb.dbs.list@v1", {}),
+    getSchema: (database: string) =>
+      pluginMethods.callSubid("obs.network.ovsdb.schema.get@v1", { database }),
+    transact: (operations: unknown[]) =>
+      pluginMethods.callSubid("mut.network.ovsdb.transact@v1", { operations }),
+    echo: (message: string) =>
+      pluginMethods.callSubid("obs.network.ovsdb.echo@v1", { message }),
+    getBridgeState: async (bridgeName = "") => {
+      const bridges = await pluginMethods.callSubid<{ bridges?: string[] }>(
+        "obs.network.ovsdb.bridge.list@v1",
+        {},
+      );
+      const names = Array.isArray(bridges.bridges) ? bridges.bridges : [];
+      const filtered = bridgeName ? names.filter((n) => n === bridgeName) : names;
+      const ports = await Promise.all(
+        filtered.map(async (name) => {
+          try {
+            return {
+              bridge: name,
+              ...(await pluginMethods.callSubid("obs.network.ovsdb.port.list@v1", { bridgeName: name })),
+            };
+          } catch (e) {
+            return { bridge: name, error: (e as Error).message };
+          }
+        }),
+      );
+      return { bridges, ports };
+    },
+    dumpDb: () => {
+      throw new Error("dumpDb removed — use ovs.transact or ovsdb_bridge plugin methods");
+    },
   },
 
-  /** Runtime via gRPC RuntimeMirror */
+  /** Host runtime reads via host_runtime plugin */
   runtime: {
-    getSystemInfo: runtimeMirror.getSystemInfo,
-    listServices: runtimeMirror.listServices,
-    getService: runtimeMirror.getService,
-    listInterfaces: runtimeMirror.listInterfaces,
-    getNumaTopology: runtimeMirror.getNumaTopology,
+    getSystemInfo: hostRuntime.getSystemInfo,
+    listServices: hostRuntime.listServices,
+    getService: hostRuntime.getService,
+    listInterfaces: hostRuntime.listInterfaces,
+    getNumaTopology: hostRuntime.getNumaTopology,
+    sampleMetrics: hostRuntime.sampleMetrics,
   },
 
   /** Component registry via gRPC */
@@ -177,26 +201,55 @@ export const api = {
     adminAction: registrationService.adminUserAction,
   },
 
-  /** s6 service manager (opdbus.services.v1) */
-  serviceManager: {
-    start: serviceManager.start,
-    stop: serviceManager.stop,
-    restart: serviceManager.restart,
-    reload: serviceManager.reload,
-    create: serviceManager.create,
-    delete: serviceManager.delete,
-    get: serviceManager.get,
-    list: serviceManager.list,
-    enable: serviceManager.enable,
-    disable: serviceManager.disable,
-  },
-
-  /** MCP service (op.mcp.v1) */
+  /** MCP via cognitive_mcp plugin (not legacy op.mcp.v1). */
   mcp: {
-    health: mcpService.health,
-    initialize: mcpService.initialize,
-    listTools: mcpService.listTools,
-    callTool: mcpService.callTool,
+    health: async () => {
+      const resp = await pluginService.callMethod({
+        pluginId: "cognitive_mcp",
+        objectPath: "/org/opdbus/v1/plugins/cognitive_mcp",
+        interfaceName: "org.opdbus.v1.PluginV1",
+        methodName: "get_health",
+        arguments: [jsObjectToValue({})],
+        actorId: "operation-dashboard-ui",
+        capabilityId: "cognitive_mcp.read",
+      });
+      const envelope = structToObject(resp.result as Record<string, unknown>);
+      return valueToJs(envelope.result) ?? envelope;
+    },
+    initialize: async () => ({ ok: true as const }),
+    listTools: async () => {
+      const resp = await pluginService.callMethod({
+        pluginId: "cognitive_mcp",
+        objectPath: "/org/opdbus/v1/plugins/cognitive_mcp",
+        interfaceName: "org.opdbus.v1.PluginV1",
+        methodName: "list_tools",
+        arguments: [jsObjectToValue({})],
+        actorId: "operation-dashboard-ui",
+        capabilityId: "cognitive_mcp.read",
+      });
+      const envelope = structToObject(resp.result as Record<string, unknown>);
+      return valueToJs(envelope.result) ?? envelope;
+    },
+    callTool: async (name: string, args: Record<string, unknown> = {}) => {
+      const resp = await pluginService.callMethod({
+        pluginId: "cognitive_mcp",
+        objectPath: "/org/opdbus/v1/plugins/cognitive_mcp",
+        interfaceName: "org.opdbus.v1.PluginV1",
+        methodName: "invoke_tool",
+        arguments: [jsObjectToValue({ tool_name: name, arguments: args })],
+        actorId: "operation-dashboard-ui",
+        capabilityId: "cognitive_mcp.invoke",
+      });
+      const envelope = structToObject(resp.result as Record<string, unknown>);
+      if (envelope.success === false) {
+        throw new Error(
+          typeof envelope.error === "object" && envelope.error && "message" in envelope.error
+            ? String((envelope.error as { message?: unknown }).message)
+            : "cognitive_mcp invoke_tool failed",
+        );
+      }
+      return valueToJs(envelope.result) ?? envelope;
+    },
   },
 
   // ── REST fallbacks (not yet ported to gRPC) ─────────────────────────────
