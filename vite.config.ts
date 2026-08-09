@@ -53,11 +53,6 @@ export default defineConfig(({ mode }) => ({
         changeOrigin: true,
         secure: false,
       },
-      "/opdbus.services.v1": {
-        target: GRPC_TARGET,
-        changeOrigin: true,
-        secure: false,
-      },
       "/grpc.reflection": {
         target: GRPC_TARGET,
         changeOrigin: true,

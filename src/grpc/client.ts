@@ -5,15 +5,19 @@
  * client wrappers for all services in the operation-dbus architecture:
  *
  * Bridge services (op-grpc-bridge):
- *   - StateSync, PluginService, EventChainService
- *   - OvsdbMirror, RuntimeMirror, ComponentRegistry
+ *   - StateSync, PluginService, EventChainService, ComponentRegistry
+ *
+ * Host/network reads and mutations use plugins via `pluginMethods` /
+ * `hostRuntime` — not OvsdbMirror, RuntimeMirror, or DbusPassthrough.
  *
  * Domain services:
  *   - MailService (operation.mail.v1)
  *   - RegistrationService (operation.registration.v1)
  *   - PrivacyNetworkService (operation.privacy.v1)
- *   - ServiceManager (opdbus.services.v1)
  *   - McpService (op.mcp.v1)
+ *
+ * Runit lifecycle: use `service` + `host_runtime` plugins via
+ * `operation.plugin.v1.*PluginMethods` — not opdbus.services.v1 (removed).
  *
  * Uses binary gRPC-Web framing over tonic-web + Nginx.
  * @see docs/architecture-flow.md
@@ -22,28 +26,22 @@
 import { GrpcWebFetchTransport } from "@protobuf-ts/grpcweb-transport";
 import type { IMessageType } from "@protobuf-ts/runtime";
 import type { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { type AccountIdentity } from "@/lib/accounts";
 import { identityHeaders } from "@/lib/identity";
+import { isDeprecatedReflectionService } from "@/lib/deprecated-reflection-services";
 import {
   StateSync as StateSyncSvc,
   PluginService as PluginServiceSvc,
   EventChainService as EventChainServiceSvc,
-  OvsdbMirror as OvsdbMirrorSvc,
-  RuntimeMirror as RuntimeMirrorSvc,
-  DbusPassthrough as DbusPassthroughSvc,
 } from "./gen/operation";
 import { ComponentRegistry as ComponentRegistrySvc } from "./gen/registry";
 import { MailService as MailServiceSvc } from "./gen/mail";
 import { PrivacyNetworkService as PrivacyNetworkServiceSvc } from "./gen/privacy_network";
 import { RegistrationService as RegistrationServiceSvc } from "./gen/registration";
 import { McpService as McpServiceSvc } from "./gen/mcp";
-import { ServiceManager as ServiceManagerSvc } from "./gen/services";
 import { ChatService as ChatServiceSvc } from "./gen/chat";
 import { SoulService as SoulServiceSvc } from "./gen/assistant/soul";
-import {
-  NamespaceMemoryService as NamespaceMemoryServiceSvc,
-  ListMemoryNamespacesRequest,
-  ListMemoryNamespacesResponse,
-} from "./gen/assistant/namespace";
+import { NamespaceMemoryService as NamespaceMemoryServiceSvc } from "./gen/assistant/namespace";
 import { AntigravityService as AntigravityServiceSvc } from "./gen/plugin_methods_unified";
 
 /**
@@ -148,9 +146,16 @@ export function resetTransport(baseUrl?: string): void {
 // x-ghostbridge-trace-id matching /dev/shm/plugin_schema.dat. Xray injects
 // these on the public path. Locally: pair session, GET /api/identity/sled,
 // VITE_GHOSTBRIDGE_*, or window.__OPDBUS_CONFIG__. See src/lib/identity.ts.
+//
+// Optional `account` stamps x-opdbus-account-session-id / -role so permission
+// and boundary checks can bind to a lifelong account (container sessid).
 
-function identityMeta(): Record<string, string> {
-  return { "x-grpc-web": "1", ...identityHeaders() };
+export type GrpcCallOptions = {
+  account?: AccountIdentity;
+};
+
+function identityMeta(opts?: GrpcCallOptions): Record<string, string> {
+  return { "x-grpc-web": "1", ...identityHeaders({ account: opts?.account }) };
 }
 
 // ── Binary codec registry (service/method → protobuf-ts MessageType) ────────
@@ -163,15 +168,11 @@ const CODEC_REGISTRY: Map<string, CodecPair> = (() => {
     StateSyncSvc,
     PluginServiceSvc,
     EventChainServiceSvc,
-    OvsdbMirrorSvc,
-    RuntimeMirrorSvc,
-    DbusPassthroughSvc,
     ComponentRegistrySvc,
     MailServiceSvc,
     PrivacyNetworkServiceSvc,
     RegistrationServiceSvc,
     McpServiceSvc,
-    ServiceManagerSvc as unknown as ServiceType,
     ChatServiceSvc,
     SoulServiceSvc,
     NamespaceMemoryServiceSvc,
@@ -215,10 +216,9 @@ export interface StaticService {
 }
 export function getStaticServiceCatalog(): StaticService[] {
   const services: ServiceType[] = [
-    StateSyncSvc, PluginServiceSvc, EventChainServiceSvc, OvsdbMirrorSvc,
-    RuntimeMirrorSvc, DbusPassthroughSvc, ComponentRegistrySvc, MailServiceSvc,
+    StateSyncSvc, PluginServiceSvc, EventChainServiceSvc, ComponentRegistrySvc, MailServiceSvc,
     PrivacyNetworkServiceSvc, RegistrationServiceSvc, McpServiceSvc,
-    ServiceManagerSvc as unknown as ServiceType, ChatServiceSvc, SoulServiceSvc,
+    ChatServiceSvc, SoulServiceSvc,
     NamespaceMemoryServiceSvc, AntigravityServiceSvc,
   ];
   return services
@@ -232,6 +232,7 @@ export function getStaticServiceCatalog(): StaticService[] {
         serverStreaming: !!(m as { serverStreaming?: boolean }).serverStreaming,
       })),
     }))
+    .filter((svc) => !isDeprecatedReflectionService(svc.name))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -306,6 +307,7 @@ async function grpcUnary<TReq, TResp>(
   service: string,
   method: string,
   request: TReq,
+  opts?: GrpcCallOptions,
 ): Promise<TResp> {
   const url = `${getBaseUrl()}/${service}/${method}`;
   const frame = frameMessage(encodeRequest(service, method, request));
@@ -315,7 +317,7 @@ async function grpcUnary<TReq, TResp>(
     headers: {
       "Content-Type": GRPC_CONTENT_TYPE,
       Accept: GRPC_CONTENT_TYPE,
-      ...identityMeta(),
+      ...identityMeta(opts),
     },
     body: frame as BodyInit,
 
@@ -380,6 +382,7 @@ function grpcServerStream<TReq, TResp>(
   service: string,
   method: string,
   request: TReq,
+  opts?: GrpcCallOptions,
 ): { stream: ReadableStream<TResp>; abort: () => void } {
   const controller = new AbortController();
   const url = `${getBaseUrl()}/${service}/${method}`;
@@ -390,7 +393,7 @@ function grpcServerStream<TReq, TResp>(
     headers: {
       "Content-Type": GRPC_CONTENT_TYPE,
       Accept: GRPC_CONTENT_TYPE,
-      ...identityMeta(),
+      ...identityMeta(opts),
     },
     body: frame as BodyInit,
     signal: controller.signal,
@@ -510,24 +513,6 @@ import type {
   GetSnapshotResponse,
   CreateSnapshotRequest,
   CreateSnapshotResponse,
-  OvsdbListDbsResponse,
-  OvsdbGetSchemaResponse,
-  OvsdbTransactRequest,
-  OvsdbTransactResponse,
-  OvsdbMonitorRequest,
-  OvsdbUpdate,
-  OvsdbEchoRequest,
-  OvsdbEchoResponse,
-  OvsdbDumpDbRequest,
-  OvsdbDumpDbResponse,
-  OvsdbGetBridgeStateResponse,
-  RuntimeGetSystemInfoResponse,
-  RuntimeServiceInfo,
-  RuntimeListServicesResponse,
-  RuntimeStreamMetricsRequest,
-  RuntimeMetricUpdate,
-  RuntimeListInterfacesResponse,
-  RuntimeGetNumaTopologyResponse,
 } from "./gen/operation";
 
 import type {
@@ -601,15 +586,6 @@ import type {
   AdminUserActionRequest,
   AdminUserActionResponse,
 } from "./gen/registration";
-
-import type {
-  ServiceDef,
-  ServiceStatus,
-  ServiceEvent,
-  GetServiceResponse,
-  ListServicesResponse as SvcMgrListResponse,
-  WatchServicesRequest,
-} from "./view-types";
 
 import type {
   InitializeRequest,
@@ -739,11 +715,12 @@ export const pluginService = {
     );
   },
 
-  callMethod(req: CallMethodRequest) {
+  callMethod(req: CallMethodRequest, opts?: GrpcCallOptions) {
     return grpcUnary<CallMethodRequest, CallMethodResponse>(
       "operation.v1.PluginService",
       "CallMethod",
       req,
+      opts,
     );
   },
 
@@ -839,121 +816,6 @@ export const eventChainService = {
       "operation.v1.EventChainService",
       "CreateSnapshot",
       req,
-    );
-  },
-};
-
-// ── OvsdbMirror Service ─────────────────────────────────────────────────────
-
-export const ovsdbMirror = {
-  listDbs() {
-    return grpcUnary<Record<string, never>, OvsdbListDbsResponse>(
-      "operation.v1.OvsdbMirror",
-      "ListDbs",
-      {},
-    );
-  },
-
-  getSchema(db: string) {
-    return grpcUnary<{ database: string }, OvsdbGetSchemaResponse>(
-      "operation.v1.OvsdbMirror",
-      "GetSchema",
-      { database: db },
-    );
-  },
-
-  transact(req: OvsdbTransactRequest) {
-    return grpcUnary<OvsdbTransactRequest, OvsdbTransactResponse>(
-      "operation.v1.OvsdbMirror",
-      "Transact",
-      req,
-    );
-  },
-
-  monitor(req: OvsdbMonitorRequest) {
-    return grpcServerStream<OvsdbMonitorRequest, OvsdbUpdate>(
-      "operation.v1.OvsdbMirror",
-      "Monitor",
-      req,
-    );
-  },
-
-  echo(req: OvsdbEchoRequest) {
-    return grpcUnary<OvsdbEchoRequest, OvsdbEchoResponse>(
-      "operation.v1.OvsdbMirror",
-      "Echo",
-      req,
-    );
-  },
-
-  dumpDb(db: string) {
-    return grpcUnary<OvsdbDumpDbRequest, OvsdbDumpDbResponse>(
-      "operation.v1.OvsdbMirror",
-      "DumpDb",
-      { database: db },
-    );
-  },
-
-  getBridgeState(bridgeName = "") {
-    return grpcUnary<{ bridgeName: string }, OvsdbGetBridgeStateResponse>(
-      "operation.v1.OvsdbMirror",
-      "GetBridgeState",
-      { bridgeName },
-    );
-  },
-};
-
-// ── RuntimeMirror Service ───────────────────────────────────────────────────
-
-export const runtimeMirror = {
-  getSystemInfo() {
-    return grpcUnary<Record<string, never>, RuntimeGetSystemInfoResponse>(
-      "operation.v1.RuntimeMirror",
-      "GetSystemInfo",
-      {},
-    );
-  },
-
-  listServices(stateFilter = "") {
-    return grpcUnary<{ stateFilter: string }, RuntimeListServicesResponse>(
-      "operation.v1.RuntimeMirror",
-      "ListServices",
-      { stateFilter },
-    );
-  },
-
-  getService(serviceName: string) {
-    return grpcUnary<{ serviceName: string }, RuntimeServiceInfo>(
-      "operation.v1.RuntimeMirror",
-      "GetService",
-      { serviceName },
-    );
-  },
-
-  streamMetrics(req: Partial<RuntimeStreamMetricsRequest> = {}) {
-    return grpcServerStream<RuntimeStreamMetricsRequest, RuntimeMetricUpdate>(
-      "operation.v1.RuntimeMirror",
-      "StreamMetrics",
-      {
-        intervalSeconds: req.intervalSeconds ?? 5,
-        categories: req.categories ?? [],
-      },
-    );
-  },
-
-  listInterfaces() {
-    return grpcUnary<Record<string, never>, RuntimeListInterfacesResponse>(
-      "operation.v1.RuntimeMirror",
-      "ListInterfaces",
-      {},
-    );
-  },
-
-  getNumaTopology() {
-    return grpcUnary<Record<string, never>, RuntimeGetNumaTopologyResponse>(
-      "operation.v1.RuntimeMirror",
-      "GetNumaTopology",
-      {},
     );
   },
 };
@@ -1230,100 +1092,6 @@ export const registrationService = {
   },
 };
 
-// ── ServiceManager (opdbus.services.v1) ─────────────────────────────────────
-
-export const serviceManager = {
-  start(name: string) {
-    return grpcUnary<{ name: string }, { status: ServiceStatus }>(
-      "opdbus.services.v1.ServiceManager",
-      "Start",
-      { name },
-    );
-  },
-
-  stop(name: string) {
-    return grpcUnary<{ name: string }, { status: ServiceStatus }>(
-      "opdbus.services.v1.ServiceManager",
-      "Stop",
-      { name },
-    );
-  },
-
-  restart(name: string) {
-    return grpcUnary<{ name: string }, { status: ServiceStatus }>(
-      "opdbus.services.v1.ServiceManager",
-      "Restart",
-      { name },
-    );
-  },
-
-  reload(name: string) {
-    return grpcUnary<{ name: string }, { status: ServiceStatus }>(
-      "opdbus.services.v1.ServiceManager",
-      "Reload",
-      { name },
-    );
-  },
-
-  create(service: ServiceDef) {
-    return grpcUnary<{ service: ServiceDef }, { service: ServiceDef }>(
-      "opdbus.services.v1.ServiceManager",
-      "Create",
-      { service },
-    );
-  },
-
-  delete(name: string) {
-    return grpcUnary<{ name: string }, Record<string, never>>(
-      "opdbus.services.v1.ServiceManager",
-      "Delete",
-      { name },
-    );
-  },
-
-  get(name: string) {
-    return grpcUnary<{ name: string }, GetServiceResponse>(
-      "opdbus.services.v1.ServiceManager",
-      "Get",
-      { name },
-    );
-  },
-
-  list(filter = "") {
-    return grpcUnary<{ filter: string }, SvcMgrListResponse>(
-      "opdbus.services.v1.ServiceManager",
-      "List",
-      { filter },
-    );
-  },
-
-  enable(name: string) {
-    return grpcUnary<{ name: string }, Record<string, never>>(
-      "opdbus.services.v1.ServiceManager",
-      "Enable",
-      { name },
-    );
-  },
-
-  disable(name: string) {
-    return grpcUnary<{ name: string }, Record<string, never>>(
-      "opdbus.services.v1.ServiceManager",
-      "Disable",
-      { name },
-    );
-  },
-
-  watchStatus(req: Partial<WatchServicesRequest> = {}) {
-    return grpcServerStream<WatchServicesRequest, ServiceEvent>(
-      "opdbus.services.v1.ServiceManager",
-      "WatchStatus",
-      {
-        names: req.names ?? [],
-      },
-    );
-  },
-};
-
 // ── McpService (op.mcp.v1) ──────────────────────────────────────────────────
 
 export const mcpService = {
@@ -1433,80 +1201,35 @@ export const chatService = {
   },
 };
 
-// ── SoulService (assistant.v1.SoulService) ─────────────────────────────────
+// ── SoulService / NamespaceMemoryService (REMOVED — legacy assistant.v1) ───
+// Use `@/grpc/chatbot-cognitive` (cognitive_mcp PluginService.CallMethod) instead.
+// These stubs throw so any leftover call site fails loudly.
 
+function legacyAssistantRemoved(service: string): never {
+  throw new Error(
+    `${service} was removed. Use chatbotCognitive from @/grpc/chatbot-cognitive ` +
+      `(cognitive_mcp via PluginService.CallMethod, chatbot account identity).`,
+  );
+}
+
+/** @deprecated Use chatbotCognitive from @/grpc/chatbot-cognitive */
 export const soulService = {
-  listSoulMemories(req: Partial<ListSoulMemoriesRequest> = {}) {
-    return grpcUnary<ListSoulMemoriesRequest, ListSoulMemoriesResponse>(
-      "assistant.v1.SoulService",
-      "ListSoulMemories",
-      {
-        pagination: req.pagination,
-      },
-    );
-  },
-
-  getSoulMemory(req: GetSoulMemoryRequest) {
-    return grpcUnary<GetSoulMemoryRequest, SoulMemory>(
-      "assistant.v1.SoulService",
-      "GetSoulMemory",
-      req,
-    );
-  },
-
-  updateSoulMemory(req: UpdateSoulMemoryRequest) {
-    return grpcUnary<UpdateSoulMemoryRequest, SoulMemory>(
-      "assistant.v1.SoulService",
-      "UpdateSoulMemory",
-      req,
-    );
-  },
-
-  deleteSoulMemory(req: { agentId: string }) {
-    return grpcUnary<{ agentId: string }, Empty>(
-      "assistant.v1.SoulService",
-      "DeleteSoulMemory",
-      req,
-    );
-  },
+  listSoulMemories: () => legacyAssistantRemoved("assistant.v1.SoulService"),
+  getSoulMemory: () => legacyAssistantRemoved("assistant.v1.SoulService"),
+  updateSoulMemory: () => legacyAssistantRemoved("assistant.v1.SoulService"),
+  deleteSoulMemory: () => legacyAssistantRemoved("assistant.v1.SoulService"),
 };
 
-// ── NamespaceMemoryService (assistant.v1.NamespaceMemoryService) ─────────────
-
+/** @deprecated Use chatbotCognitive from @/grpc/chatbot-cognitive */
 export const namespaceMemoryService = {
-  listMemoryNamespaces(req: Partial<ListMemoryNamespacesRequest> = {}) {
-    return grpcUnary<ListMemoryNamespacesRequest, ListMemoryNamespacesResponse>(
-      "assistant.v1.NamespaceMemoryService",
-      "ListMemoryNamespaces",
-      {
-        pagination: req.pagination,
-      },
-    );
-  },
-
-  getMemoryNamespace(req: { agentId: string }) {
-    return grpcUnary<{ agentId: string }, MemoryNamespace>(
-      "assistant.v1.NamespaceMemoryService",
-      "GetMemoryNamespace",
-      req,
-    );
-  },
-
-  setMemoryNamespace(req: SetMemoryNamespaceRequest) {
-    return grpcUnary<SetMemoryNamespaceRequest, MemoryNamespace>(
-      "assistant.v1.NamespaceMemoryService",
-      "SetMemoryNamespace",
-      req,
-    );
-  },
-
-  clearMemoryNamespace(req: { agentId: string }) {
-    return grpcUnary<{ agentId: string }, Empty>(
-      "assistant.v1.NamespaceMemoryService",
-      "ClearMemoryNamespace",
-      req,
-    );
-  },
+  listMemoryNamespaces: () =>
+    legacyAssistantRemoved("assistant.v1.NamespaceMemoryService"),
+  getMemoryNamespace: () =>
+    legacyAssistantRemoved("assistant.v1.NamespaceMemoryService"),
+  setMemoryNamespace: () =>
+    legacyAssistantRemoved("assistant.v1.NamespaceMemoryService"),
+  clearMemoryNamespace: () =>
+    legacyAssistantRemoved("assistant.v1.NamespaceMemoryService"),
 };
 
 // ── ChatbotAccountabilityService (operation.accountability.v1) ──────────────
@@ -1780,289 +1503,5 @@ export const antigravityService = {
         objectPath: req.objectPath ?? "",
       },
     );
-  },
-};
-
-// ═══════════════════════════════════════════════════════════════════════════
-// D-BUS PASSTHROUGH SERVICE (operation.v1.DbusPassthrough)
-// ═══════════════════════════════════════════════════════════════════════════
-
-export const dbusPassthrough = {
-  call(req: {
-    bus: string;
-    destination: string;
-    path: string;
-    interface: string;
-    method: string;
-    jsonBody: string;
-  }) {
-    return grpcUnary<
-      {
-        bus: string;
-        destination: string;
-        path: string;
-        interface: string;
-        method: string;
-        json_body: string;
-      },
-      { success: boolean; json_result: string; error: string }
-    >("operation.v1.DbusPassthrough", "Call", {
-      bus: req.bus,
-      destination: req.destination,
-      path: req.path,
-      interface: req.interface,
-      method: req.method,
-      json_body: req.jsonBody,
-    });
-  },
-
-  get(req: {
-    bus: string;
-    destination: string;
-    path: string;
-    interface: string;
-    property: string;
-  }) {
-    return grpcUnary<
-      {
-        bus: string;
-        destination: string;
-        path: string;
-        interface: string;
-        property: string;
-      },
-      { success: boolean; json_value: string; error: string }
-    >("operation.v1.DbusPassthrough", "Get", req);
-  },
-
-  set(req: {
-    bus: string;
-    destination: string;
-    path: string;
-    interface: string;
-    property: string;
-    json_value: string;
-  }) {
-    return grpcUnary<
-      {
-        bus: string;
-        destination: string;
-        path: string;
-        interface: string;
-        property: string;
-        json_value: string;
-      },
-      { success: boolean; error: string }
-    >("operation.v1.DbusPassthrough", "Set", req);
-  },
-
-  watch(req: {
-    bus: string;
-    destination: string;
-    path: string;
-    interface: string;
-    signal_names?: string[];
-  }) {
-    return grpcServerStream<
-      {
-        bus: string;
-        destination: string;
-        path: string;
-        interface: string;
-        signal_names: string[];
-      },
-      {
-        signal_name: string;
-        path: string;
-        interface: string;
-        json_body: string;
-        timestamp?: { seconds: number; nanos: number };
-      }
-    >("operation.v1.DbusPassthrough", "Watch", {
-      bus: req.bus,
-      destination: req.destination,
-      path: req.path,
-      interface: req.interface,
-      signal_names: req.signal_names ?? [],
-    });
-  },
-};
-
-// ═══════════════════════════════════════════════════════════════════════════
-// ASSISTANT SERVICES (via D-Bus passthrough → ai.assistant.v1)
-// ═══════════════════════════════════════════════════════════════════════════
-
-import type {
-  SoulMemory,
-  GetSoulMemoryRequest,
-  UpdateSoulMemoryRequest,
-  ListSoulMemoriesRequest,
-  ListSoulMemoriesResponse,
-} from "./gen/assistant/soul";
-
-import type {
-  MemoryEntry,
-  ReadMemoryRequest,
-  ReadMemoryResponse,
-  WriteMemoryRequest,
-  WriteMemoryResponse,
-  SearchMemoryRequest,
-  SearchMemoryResponse,
-  MemoryStats,
-} from "./gen/assistant/memory";
-
-import type {
-  MemoryNamespace,
-  SetMemoryNamespaceRequest,
-} from "./gen/assistant/namespace";
-
-import type {
-  Agent,
-  ListAgentsResponse,
-  Run,
-  StartRunRequest,
-} from "./gen/assistant/agent";
-
-import type {
-  ListSessionsResponse,
-  CreateSessionRequest,
-  Message as SessionMessage,
-  SendMessageRequest,
-  GetSessionHistoryRequest,
-  SessionHistory,
-} from "./gen/assistant/session";
-
-import type {
-  ListCronJobsResponse,
-  CreateCronJobRequest,
-  CronJob,
-} from "./gen/assistant/cron";
-
-const ASSISTANT_BUS = "session";
-const ASSISTANT_DEST = "ai.assistant.v1";
-const ASSISTANT_PATH = "/ai/assistant";
-const ASSISTANT_IFACE = "ai.assistant.v1";
-
-async function assistantCall(method: string, body: unknown): Promise<unknown> {
-  const resp = await dbusPassthrough.call({
-    bus: ASSISTANT_BUS,
-    destination: ASSISTANT_DEST,
-    path: ASSISTANT_PATH,
-    interface: ASSISTANT_IFACE,
-    method,
-    jsonBody: JSON.stringify(body),
-  });
-  if (!resp.success) {
-    throw new Error(`Assistant D-Bus call '${method}' failed: ${resp.error}`);
-  }
-  return JSON.parse(resp.json_result);
-}
-
-export const assistantService = {
-  // ── Soul ────────────────────────────────────────────────────────────────
-  getSoulMemory(req: GetSoulMemoryRequest): Promise<SoulMemory> {
-    return assistantCall("GetSoulMemory", req) as Promise<SoulMemory>;
-  },
-  updateSoulMemory(req: UpdateSoulMemoryRequest): Promise<SoulMemory> {
-    return assistantCall("UpdateSoulMemory", req) as Promise<SoulMemory>;
-  },
-  deleteSoulMemory(agentId: string): Promise<void> {
-    return assistantCall("DeleteSoulMemory", { agent_id: agentId }).then(
-      () => {},
-    );
-  },
-  listSoulMemories(
-    req?: Partial<ListSoulMemoriesRequest>,
-  ): Promise<ListSoulMemoriesResponse> {
-    return assistantCall(
-      "ListSoulMemories",
-      req ?? {},
-    ) as Promise<ListSoulMemoriesResponse>;
-  },
-
-  // ── Namespace ────────────────────────────────────────────────────────────
-  getMemoryNamespace(agentId: string): Promise<MemoryNamespace> {
-    return assistantCall("GetMemoryNamespace", {
-      agent_id: agentId,
-    }) as Promise<MemoryNamespace>;
-  },
-  setMemoryNamespace(req: SetMemoryNamespaceRequest): Promise<MemoryNamespace> {
-    return assistantCall("SetMemoryNamespace", req) as Promise<MemoryNamespace>;
-  },
-  clearMemoryNamespace(agentId: string): Promise<void> {
-    return assistantCall("ClearMemoryNamespace", { agent_id: agentId }).then(
-      () => {},
-    );
-  },
-  listMemoryNamespaces(): Promise<ListMemoryNamespacesResponse> {
-    return assistantCall(
-      "ListMemoryNamespaces",
-      {},
-    ) as Promise<ListMemoryNamespacesResponse>;
-  },
-
-  // ── Memory ───────────────────────────────────────────────────────────────
-  readMemory(req: ReadMemoryRequest): Promise<ReadMemoryResponse> {
-    return assistantCall("ReadMemory", req) as Promise<ReadMemoryResponse>;
-  },
-  writeMemory(req: WriteMemoryRequest): Promise<WriteMemoryResponse> {
-    return assistantCall("WriteMemory", req) as Promise<WriteMemoryResponse>;
-  },
-  deleteMemory(
-    namespace: string,
-    keys: string[],
-  ): Promise<{ deleted: number }> {
-    return assistantCall("DeleteMemory", { namespace, keys }) as Promise<{
-      deleted: number;
-    }>;
-  },
-  searchMemory(req: SearchMemoryRequest): Promise<SearchMemoryResponse> {
-    return assistantCall("SearchMemory", req) as Promise<SearchMemoryResponse>;
-  },
-  getMemoryStats(namespace: string): Promise<MemoryStats> {
-    return assistantCall("GetMemoryStats", {
-      namespace,
-    }) as Promise<MemoryStats>;
-  },
-
-  // ── Agents ──────────────────────────────────────────────────────────────
-  listAgents(): Promise<ListAgentsResponse> {
-    return assistantCall("ListAgents", {}) as Promise<ListAgentsResponse>;
-  },
-  getAgent(id: string): Promise<Agent> {
-    return assistantCall("GetAgent", { id }) as Promise<Agent>;
-  },
-  startRun(req: StartRunRequest): Promise<Run> {
-    return assistantCall("StartRun", req) as Promise<Run>;
-  },
-
-  // ── Sessions ─────────────────────────────────────────────────────────────
-  listSessions(agentId?: string): Promise<ListSessionsResponse> {
-    return assistantCall("ListSessions", {
-      agent_id: agentId ?? "",
-    }) as Promise<ListSessionsResponse>;
-  },
-  createSession(req: CreateSessionRequest): Promise<{ id: string }> {
-    return assistantCall("CreateSession", req) as Promise<{ id: string }>;
-  },
-  getSessionHistory(req: GetSessionHistoryRequest): Promise<SessionHistory> {
-    return assistantCall("GetSessionHistory", req) as Promise<SessionHistory>;
-  },
-  sendMessage(req: SendMessageRequest): Promise<SessionMessage> {
-    return assistantCall("SendMessage", req) as Promise<SessionMessage>;
-  },
-
-  // ── Cron ─────────────────────────────────────────────────────────────────
-  listCronJobs(): Promise<ListCronJobsResponse> {
-    return assistantCall("ListCronJobs", {}) as Promise<ListCronJobsResponse>;
-  },
-  createCronJob(req: CreateCronJobRequest): Promise<CronJob> {
-    return assistantCall("CreateCronJob", req) as Promise<CronJob>;
-  },
-  deleteCronJob(id: string): Promise<void> {
-    return assistantCall("DeleteCronJob", { id }).then(() => {});
-  },
-  triggerCronJob(id: string): Promise<void> {
-    return assistantCall("TriggerCronJob", { id }).then(() => {});
   },
 };

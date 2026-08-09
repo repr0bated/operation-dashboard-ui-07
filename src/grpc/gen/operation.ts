@@ -126,6 +126,12 @@ export interface StateChange {
      * @generated from protobuf field: string actor_id = 12
      */
     actorId: string;
+    /**
+     * Stream framing: initial static-tree state, a live update, or keepalive.
+     *
+     * @generated from protobuf field: operation.v1.StateFrameKind frame_kind = 13
+     */
+    frameKind: StateFrameKind;
 }
 /**
  * @generated from protobuf message operation.v1.MutateRequest
@@ -1530,6 +1536,49 @@ export interface RuntimeGetNumaTopologyResponse {
     nodes: NumaNode[];
 }
 /**
+ * @generated from protobuf message operation.v1.RuntimeCheckUnixSocketsRequest
+ */
+export interface RuntimeCheckUnixSocketsRequest {
+    /**
+     * @generated from protobuf field: repeated string paths = 1
+     */
+    paths: string[];
+}
+/**
+ * @generated from protobuf message operation.v1.RuntimeUnixSocketStatus
+ */
+export interface RuntimeUnixSocketStatus {
+    /**
+     * @generated from protobuf field: string path = 1
+     */
+    path: string;
+    /**
+     * @generated from protobuf field: bool exists = 2
+     */
+    exists: boolean;
+    /**
+     * @generated from protobuf field: bool connectable = 3
+     */
+    connectable: boolean;
+    /**
+     * @generated from protobuf field: string detail = 4
+     */
+    detail: string;
+}
+/**
+ * @generated from protobuf message operation.v1.RuntimeCheckUnixSocketsResponse
+ */
+export interface RuntimeCheckUnixSocketsResponse {
+    /**
+     * @generated from protobuf field: repeated operation.v1.RuntimeUnixSocketStatus sockets = 1
+     */
+    sockets: RuntimeUnixSocketStatus[];
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp queried_at = 2
+     */
+    queriedAt?: Timestamp;
+}
+/**
  * @generated from protobuf message operation.v1.NumaNode
  */
 export interface NumaNode {
@@ -1783,6 +1832,27 @@ export interface ZeroclawProjection {
     providers: ProviderProto[];
 }
 /**
+ * @generated from protobuf enum operation.v1.StateFrameKind
+ */
+export enum StateFrameKind {
+    /**
+     * @generated from protobuf enum value: STATE_FRAME_KIND_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: STATE_FRAME_KIND_INITIAL_STATE = 1;
+     */
+    INITIAL_STATE = 1,
+    /**
+     * @generated from protobuf enum value: STATE_FRAME_KIND_UPDATE = 2;
+     */
+    UPDATE = 2,
+    /**
+     * @generated from protobuf enum value: STATE_FRAME_KIND_HEARTBEAT = 3;
+     */
+    HEARTBEAT = 3
+}
+/**
  * @generated from protobuf enum operation.v1.ChangeType
  */
 export enum ChangeType {
@@ -1976,7 +2046,8 @@ class StateChange$Type extends MessageType<StateChange> {
             { no: 9, name: "tags_touched", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
             { no: 10, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 11, name: "timestamp", kind: "message", T: () => Timestamp },
-            { no: 12, name: "actor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 12, name: "actor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 13, name: "frame_kind", kind: "enum", T: () => ["operation.v1.StateFrameKind", StateFrameKind, "STATE_FRAME_KIND_"] }
         ]);
     }
     create(value?: PartialMessage<StateChange>): StateChange {
@@ -1990,6 +2061,7 @@ class StateChange$Type extends MessageType<StateChange> {
         message.tagsTouched = [];
         message.eventHash = "";
         message.actorId = "";
+        message.frameKind = 0;
         if (value !== undefined)
             reflectionMergePartial<StateChange>(this, message, value);
         return message;
@@ -2034,6 +2106,9 @@ class StateChange$Type extends MessageType<StateChange> {
                     break;
                 case /* string actor_id */ 12:
                     message.actorId = reader.string();
+                    break;
+                case /* operation.v1.StateFrameKind frame_kind */ 13:
+                    message.frameKind = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2083,6 +2158,9 @@ class StateChange$Type extends MessageType<StateChange> {
         /* string actor_id = 12; */
         if (message.actorId !== "")
             writer.tag(12, WireType.LengthDelimited).string(message.actorId);
+        /* operation.v1.StateFrameKind frame_kind = 13; */
+        if (message.frameKind !== 0)
+            writer.tag(13, WireType.Varint).int32(message.frameKind);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -6707,6 +6785,178 @@ class RuntimeGetNumaTopologyResponse$Type extends MessageType<RuntimeGetNumaTopo
  */
 export const RuntimeGetNumaTopologyResponse = new RuntimeGetNumaTopologyResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
+class RuntimeCheckUnixSocketsRequest$Type extends MessageType<RuntimeCheckUnixSocketsRequest> {
+    constructor() {
+        super("operation.v1.RuntimeCheckUnixSocketsRequest", [
+            { no: 1, name: "paths", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<RuntimeCheckUnixSocketsRequest>): RuntimeCheckUnixSocketsRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.paths = [];
+        if (value !== undefined)
+            reflectionMergePartial<RuntimeCheckUnixSocketsRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: RuntimeCheckUnixSocketsRequest): RuntimeCheckUnixSocketsRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated string paths */ 1:
+                    message.paths.push(reader.string());
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: RuntimeCheckUnixSocketsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated string paths = 1; */
+        for (let i = 0; i < message.paths.length; i++)
+            writer.tag(1, WireType.LengthDelimited).string(message.paths[i]);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message operation.v1.RuntimeCheckUnixSocketsRequest
+ */
+export const RuntimeCheckUnixSocketsRequest = new RuntimeCheckUnixSocketsRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class RuntimeUnixSocketStatus$Type extends MessageType<RuntimeUnixSocketStatus> {
+    constructor() {
+        super("operation.v1.RuntimeUnixSocketStatus", [
+            { no: 1, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "exists", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 3, name: "connectable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 4, name: "detail", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<RuntimeUnixSocketStatus>): RuntimeUnixSocketStatus {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.path = "";
+        message.exists = false;
+        message.connectable = false;
+        message.detail = "";
+        if (value !== undefined)
+            reflectionMergePartial<RuntimeUnixSocketStatus>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: RuntimeUnixSocketStatus): RuntimeUnixSocketStatus {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string path */ 1:
+                    message.path = reader.string();
+                    break;
+                case /* bool exists */ 2:
+                    message.exists = reader.bool();
+                    break;
+                case /* bool connectable */ 3:
+                    message.connectable = reader.bool();
+                    break;
+                case /* string detail */ 4:
+                    message.detail = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: RuntimeUnixSocketStatus, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string path = 1; */
+        if (message.path !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.path);
+        /* bool exists = 2; */
+        if (message.exists !== false)
+            writer.tag(2, WireType.Varint).bool(message.exists);
+        /* bool connectable = 3; */
+        if (message.connectable !== false)
+            writer.tag(3, WireType.Varint).bool(message.connectable);
+        /* string detail = 4; */
+        if (message.detail !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.detail);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message operation.v1.RuntimeUnixSocketStatus
+ */
+export const RuntimeUnixSocketStatus = new RuntimeUnixSocketStatus$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class RuntimeCheckUnixSocketsResponse$Type extends MessageType<RuntimeCheckUnixSocketsResponse> {
+    constructor() {
+        super("operation.v1.RuntimeCheckUnixSocketsResponse", [
+            { no: 1, name: "sockets", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => RuntimeUnixSocketStatus },
+            { no: 2, name: "queried_at", kind: "message", T: () => Timestamp }
+        ]);
+    }
+    create(value?: PartialMessage<RuntimeCheckUnixSocketsResponse>): RuntimeCheckUnixSocketsResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.sockets = [];
+        if (value !== undefined)
+            reflectionMergePartial<RuntimeCheckUnixSocketsResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: RuntimeCheckUnixSocketsResponse): RuntimeCheckUnixSocketsResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated operation.v1.RuntimeUnixSocketStatus sockets */ 1:
+                    message.sockets.push(RuntimeUnixSocketStatus.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                case /* google.protobuf.Timestamp queried_at */ 2:
+                    message.queriedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.queriedAt);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: RuntimeCheckUnixSocketsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated operation.v1.RuntimeUnixSocketStatus sockets = 1; */
+        for (let i = 0; i < message.sockets.length; i++)
+            RuntimeUnixSocketStatus.internalBinaryWrite(message.sockets[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Timestamp queried_at = 2; */
+        if (message.queriedAt)
+            Timestamp.internalBinaryWrite(message.queriedAt, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message operation.v1.RuntimeCheckUnixSocketsResponse
+ */
+export const RuntimeCheckUnixSocketsResponse = new RuntimeCheckUnixSocketsResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
 class NumaNode$Type extends MessageType<NumaNode> {
     constructor() {
         super("operation.v1.NumaNode", [
@@ -7610,7 +7860,8 @@ export const RuntimeMirror = new ServiceType("operation.v1.RuntimeMirror", [
     { name: "GetService", options: {}, I: RuntimeGetServiceRequest, O: RuntimeServiceInfo },
     { name: "StreamMetrics", serverStreaming: true, options: {}, I: RuntimeStreamMetricsRequest, O: RuntimeMetricUpdate },
     { name: "ListInterfaces", options: {}, I: Empty, O: RuntimeListInterfacesResponse },
-    { name: "GetNumaTopology", options: {}, I: Empty, O: RuntimeGetNumaTopologyResponse }
+    { name: "GetNumaTopology", options: {}, I: Empty, O: RuntimeGetNumaTopologyResponse },
+    { name: "CheckUnixSockets", options: {}, I: RuntimeCheckUnixSocketsRequest, O: RuntimeCheckUnixSocketsResponse }
 ]);
 /**
  * @generated ServiceType for protobuf service operation.v1.DbusPassthrough

@@ -13,6 +13,8 @@ import type { DbusGetPropertyRequest } from "./operation";
 import type { dbusCallResponse } from "./operation";
 import type { DbusCallRequest } from "./operation";
 import { RuntimeMirror } from "./operation";
+import type { RuntimeCheckUnixSocketsResponse } from "./operation";
+import type { RuntimeCheckUnixSocketsRequest } from "./operation";
 import type { RuntimeGetNumaTopologyResponse } from "./operation";
 import type { RuntimeListInterfacesResponse } from "./operation";
 import type { RuntimeMetricUpdate } from "./operation";
@@ -597,6 +599,13 @@ export interface IRuntimeMirrorClient {
      * @generated from protobuf rpc: GetNumaTopology
      */
     getNumaTopology(input: Empty, options?: RpcOptions): UnaryCall<Empty, RuntimeGetNumaTopologyResponse>;
+    /**
+     * Probe Unix domain socket paths from the bridge host (tonic-web clients cannot
+     * open UDS directly — this is the supported health path for socket pills).
+     *
+     * @generated from protobuf rpc: CheckUnixSockets
+     */
+    checkUnixSockets(input: RuntimeCheckUnixSocketsRequest, options?: RpcOptions): UnaryCall<RuntimeCheckUnixSocketsRequest, RuntimeCheckUnixSocketsResponse>;
 }
 // =============================================================================
 // Runtime Service - Live operational state
@@ -667,6 +676,16 @@ export class RuntimeMirrorClient implements IRuntimeMirrorClient, ServiceInfo {
     getNumaTopology(input: Empty, options?: RpcOptions): UnaryCall<Empty, RuntimeGetNumaTopologyResponse> {
         const method = this.methods[5], opt = this._transport.mergeOptions(options);
         return stackIntercept<Empty, RuntimeGetNumaTopologyResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * Probe Unix domain socket paths from the bridge host (tonic-web clients cannot
+     * open UDS directly — this is the supported health path for socket pills).
+     *
+     * @generated from protobuf rpc: CheckUnixSockets
+     */
+    checkUnixSockets(input: RuntimeCheckUnixSocketsRequest, options?: RpcOptions): UnaryCall<RuntimeCheckUnixSocketsRequest, RuntimeCheckUnixSocketsResponse> {
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        return stackIntercept<RuntimeCheckUnixSocketsRequest, RuntimeCheckUnixSocketsResponse>("unary", this._transport, method, opt, input);
     }
 }
 // =============================================================================

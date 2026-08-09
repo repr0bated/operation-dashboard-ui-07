@@ -57,7 +57,9 @@ export const KvEl: El<"kv"> = ({ props }) => {
         {value === null || value === undefined
           ? "null"
           : typeof value === "string"
-            ? `"${value}"`
+            ? value === ""
+              ? "(empty)"
+              : `"${value}"`
             : String(value)}
       </span>
     </div>

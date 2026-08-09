@@ -46,10 +46,7 @@ import {
   stateSync,
   pluginService,
   eventChainService,
-  ovsdbMirror,
-  runtimeMirror,
   componentRegistry,
-  serviceManager,
   accountabilityService,
   mcpService,
 } from "@/grpc/client";
@@ -61,6 +58,9 @@ import {
 import { useStateStore, useStateValue } from "@json-render/react";
 import { useEventStore } from "@/stores/event-store";
 import { cn } from "@/lib/utils";
+import {
+  isDeprecatedReflectionService,
+} from "@/lib/deprecated-reflection-services";
 import type { JsonSchema } from "@/types/api";
 import type { El } from "./types";
 
@@ -122,33 +122,11 @@ const KNOWN_STREAMS: KnownStream[] = [
       eventChainService.subscribeEvents({ fromEventId: "0", pluginId: "", tags: [] }),
   },
   {
-    id: "runtime.metrics",
-    serviceMatch: "RuntimeMirror",
-    methodMatch: "StreamMetrics",
-    description: "Continuous runtime metrics snapshots.",
-    factory: () => runtimeMirror.streamMetrics({}),
-  },
-  {
-    id: "services.watch",
-    serviceMatch: "ServiceManager",
-    methodMatch: "WatchStatus",
-    description: "s6-rc service state transitions.",
-    factory: () => serviceManager.watchStatus({}),
-  },
-  {
     id: "registry.watch",
     serviceMatch: "ComponentRegistry",
     methodMatch: "Watch",
     description: "Plugin component registry updates.",
     factory: () => componentRegistry.watch({}),
-  },
-  {
-    id: "ovsdb.monitor",
-    serviceMatch: "OvsdbMirror",
-    methodMatch: "Monitor",
-    description: "Open vSwitch OVSDB row updates.",
-    factory: () =>
-      ovsdbMirror.monitor({ database: "Open_vSwitch", monitorRequestsJson: "{}" }),
   },
   {
     id: "accountability.episodes",
@@ -216,8 +194,9 @@ export const ReflectionTreeExplorerEl: El<"reflectionTreeExplorer"> = ({ props }
   };
 
   const services: ReflectedService[] = useMemo(() => {
-    if (registry.services.length > 0) return registry.services;
-    return getStaticServiceCatalog();
+    const raw =
+      registry.services.length > 0 ? registry.services : getStaticServiceCatalog();
+    return raw.filter((s) => !isDeprecatedReflectionService(s.name));
   }, [registry.services]);
   const usingFallback = registry.services.length === 0 && !registry.loading;
 

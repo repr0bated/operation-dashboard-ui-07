@@ -3,12 +3,21 @@
  *
  * Resolution order (first hit wins for gRPC headers):
  *   1. Runtime: window.__OPDBUS_CONFIG__.{ghostbridgeFootprint,ghostbridgeTraceId}
- *   2. Build-time env: VITE_GHOSTBRIDGE_*
- *   3. localStorage pair session (from POST /pair)
- *   4. Live sled: GET /api/identity/sled when is_valid
+ *   2. localStorage pair session (from POST /pair)
+ *   3. Live sled: GET /api/identity/sled when is_valid
+ *   4. Build-time env: VITE_GHOSTBRIDGE_* (development fallback only)
  *
  * When nothing yields a footprint+trace, the UI shows PairingPage.
+ *
+ * Ghostbridge footprint/trace authenticate the *caller device/host sled*.
+ * Lifelong account principals (chatbot / jeremy sessids) are separate — see
+ * `src/lib/accounts.ts` and {@link IdentityHeaderOptions.account}.
  */
+
+import {
+  accountHeaders,
+  type AccountIdentity,
+} from "@/lib/accounts";
 
 const STORAGE_KEY = "opdbus.pair.session";
 
@@ -129,12 +138,6 @@ export async function resolveIdentity(): Promise<IdentityStatus> {
     return { state: "ready", identity: fromCfg };
   }
 
-  const fromEnvironment = fromEnv();
-  if (fromEnvironment) {
-    saveSession(fromEnvironment);
-    return { state: "ready", identity: fromEnvironment };
-  }
-
   const stored = readStoredSession();
   if (stored?.source === "pair" && stored.token && stored.hashed_footprint && stored.trace_id) {
     saveSession(stored);
@@ -145,6 +148,14 @@ export async function resolveIdentity(): Promise<IdentityStatus> {
   if (sled) {
     saveSession(sled);
     return { state: "ready", identity: sled };
+  }
+
+  // Build-time identities go stale whenever the audited sled advances. Keep
+  // them only as an offline development fallback after a live refresh fails.
+  const fromEnvironment = fromEnv();
+  if (fromEnvironment) {
+    saveSession(fromEnvironment);
+    return { state: "ready", identity: fromEnvironment };
   }
 
   // Stale stored session without live sled still usable for headers if present
@@ -159,8 +170,17 @@ export async function resolveIdentity(): Promise<IdentityStatus> {
   };
 }
 
+export type IdentityHeaderOptions = {
+  /**
+   * Lifelong account principal this call is acting as (container sessid).
+   * Used for permission / boundary binding. Distinct from Ghostbridge
+   * footprint (caller device) and from transient activity sessions.
+   */
+  account?: AccountIdentity;
+};
+
 /** Headers for gRPC-Web / REST calls. Empty object if unpaired. */
-export function identityHeaders(): Record<string, string> {
+export function identityHeaders(opts?: IdentityHeaderOptions): Record<string, string> {
   const cfg = typeof window !== "undefined" ? window.__OPDBUS_CONFIG__ : undefined;
   let footprint = cfg?.ghostbridgeFootprint?.trim() || "";
   let traceId = cfg?.ghostbridgeTraceId?.trim() || "";
@@ -188,6 +208,9 @@ export function identityHeaders(): Record<string, string> {
   if (footprint) headers["x-ghostbridge-footprint"] = footprint;
   if (traceId) headers["x-ghostbridge-trace-id"] = traceId;
   if (token) headers["Authorization"] = `Bearer ${token}`;
+  if (opts?.account) {
+    Object.assign(headers, accountHeaders(opts.account));
+  }
   return headers;
 }
 

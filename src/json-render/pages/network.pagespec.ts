@@ -22,7 +22,7 @@ export const networkSpec: Spec = {
       props: {
         title: "Network Control",
         subtitle:
-          "gRPC reflection + invoke over tonic-web · topology from event-store · stubs marked where probes are not live",
+          "Typed plugin RPCs via tonic-web · topology from event-store · legacy mirror/passthrough services hidden",
       },
     },
 
@@ -34,7 +34,7 @@ export const networkSpec: Spec = {
     stubNoticeText: {
       type: "text",
       props: {
-        text: "STUB markers: Unix socket pills and TCP ports without a browser health URL are placeholders (dashed border + yellow stub badge). Live probes: tonic-web :8090, Prometheus :9090, Grafana :3000. Schema form is an open-object stub until FDS field schemas are wired.",
+        text: "Hidden from this explorer: DbusPassthrough, OvsdbMirror, RuntimeMirror — use operation.plugin.v1.<Plugin>PluginMethods/<Rpc> (pluginMethods.callSubid) instead. STUB markers: Unix socket pills until host_runtime.check_unix_sockets is wired; TCP ports without a browser health URL; schema form until FDS field schemas are wired.",
       },
     },
 

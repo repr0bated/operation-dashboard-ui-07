@@ -1,8 +1,9 @@
 // ChatService — gRPC façade for the control-plane chatbot.
 //
-// The chatbot is a delegator, not an executor. It plans, suggests, coordinates,
-// and orchestrates — but always delegates execution to agents. Forced tool
-// calling is mandatory: even user-facing responses are emitted as tool calls.
+// The chatbot is a delegator, not an executor. Roles: orchestrator, planner,
+// suggestion giver, problem solver. It never executes backplane mutations
+// itself — it only calls agents. Forced tool calling is mandatory: even
+// user-facing responses are emitted as tool calls.
 //
 // zeroclaw owns LLM provider/model routing (OD-28). SendRequest carries
 // the provider/model selection from zeroclaw's state; the server does not
@@ -20,21 +21,6 @@ import "google/protobuf/struct.proto";
 // ============================================================================
 // ENUMS
 // ============================================================================
-
-enum UIMessageRole {
-  UI_MESSAGE_ROLE_UNSPECIFIED = 0;
-  UI_MESSAGE_ROLE_ASSISTANT = 1;
-  UI_MESSAGE_ROLE_TOOL = 2;
-  UI_MESSAGE_ROLE_SYSTEM = 3;
-}
-
-enum UIMessageKind {
-  UI_MESSAGE_KIND_UNSPECIFIED = 0;
-  UI_MESSAGE_KIND_TEXT = 1;
-  UI_MESSAGE_KIND_TOOL_CALL = 2;
-  UI_MESSAGE_KIND_TOOL_RESULT = 3;
-  UI_MESSAGE_KIND_REASONING = 4;
-}
 
 // ============================================================================
 // CHAT SERVICE
@@ -96,8 +82,8 @@ message ChatFrame {
 
 message UIMessagePart {
   string message_id = 1;
-  UIMessageRole role = 2;
-  UIMessageKind kind = 3;
+  string role = 2;              // "assistant" | "tool" | "system"
+  string kind = 3;              // "text" | "tool-call" | "tool-result" | "reasoning"
   bytes payload = 4;
 }
 

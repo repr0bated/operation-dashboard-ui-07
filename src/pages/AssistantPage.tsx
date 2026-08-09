@@ -2,11 +2,11 @@ import { useState, useEffect, useMemo } from "react";
 import {
   PageHeader,
   Card,
-  Pill,
   StatCard,
-  StatusDot,
 } from "@/components/shell/Primitives";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -14,43 +14,56 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { soulService, namespaceMemoryService } from "@/grpc/client";
+import {
+  chatbotCognitive,
+  type ChatbotSoul,
+  type ChatbotNamespace,
+} from "@/grpc/chatbot-cognitive";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
-import type { SoulMemory } from "@/grpc/gen/assistant/soul";
-import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
-import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
+import {
+  ASSISTANT_ACCOUNT,
+  getAccountInternetEnabled,
+  setAccountInternetEnabled,
+} from "@/lib/accounts";
 import {
   Loader2,
   Brain,
   Database,
   Tag,
-  Clock,
   Edit,
   Trash2,
-  Plus,
+  Fingerprint,
 } from "lucide-react";
 
 export default function AssistantPage() {
-  const [souls, setSouls] = useState<SoulMemory[]>([]);
-  const [namespaces, setNamespaces] = useState<MemoryNamespace[]>([]);
+  const [souls, setSouls] = useState<ChatbotSoul[]>([]);
+  const [namespaces, setNamespaces] = useState<ChatbotNamespace[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedSoul, setSelectedSoul] = useState<SoulMemory | null>(null);
-  const [editSoul, setEditSoul] = useState<SoulMemory | null>(null);
+  const [selectedSoul, setSelectedSoul] = useState<ChatbotSoul | null>(null);
+  const [editSoul, setEditSoul] = useState<ChatbotSoul | null>(null);
   const [editIdentity, setEditIdentity] = useState("");
   const [editPersonality, setEditPersonality] = useState("");
+  const [internetEnabled, setInternetEnabled] = useState(() =>
+    getAccountInternetEnabled(ASSISTANT_ACCOUNT),
+  );
+
+  function onInternetToggle(next: boolean) {
+    setAccountInternetEnabled(ASSISTANT_ACCOUNT, next);
+    setInternetEnabled(next);
+  }
 
   async function refresh() {
     setLoading(true);
     setError(null);
     try {
-      const [soulResp, nsResp] = await Promise.all([
-        soulService.listSoulMemories(),
-        namespaceMemoryService.listMemoryNamespaces(),
+      const [soulList, nsList] = await Promise.all([
+        chatbotCognitive.listSouls(),
+        chatbotCognitive.listNamespaces(),
       ]);
-      setSouls(soulResp.memories);
-      setNamespaces(nsResp.namespaces);
+      setSouls(soulList);
+      setNamespaces(nsList);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -70,7 +83,7 @@ export default function AssistantPage() {
   async function handleUpdateSoul() {
     if (!editSoul) return;
     try {
-      await soulService.updateSoulMemory({
+      await chatbotCognitive.updateSoul({
         agentId: editSoul.agentId,
         identity: editIdentity || undefined,
         personality: editPersonality || undefined,
@@ -84,7 +97,7 @@ export default function AssistantPage() {
 
   async function handleDeleteSoul(agentId: string) {
     try {
-      await soulService.deleteSoulMemory({ agentId });
+      await chatbotCognitive.deleteSoul(agentId);
       refresh();
     } catch (e) {
       setError((e as Error).message);
@@ -103,9 +116,81 @@ export default function AssistantPage() {
     <div className="space-y-6">
       <PageHeader
         title="Assistant Gateway"
-        subtitle="Soul memory, namespace bindings, and cognitive store"
+        subtitle="Soul memory and namespaces via cognitive_mcp, bound to the chatbot account"
         actions={<ProviderSelect />}
       />
+
+      <Card className="border-border/60 bg-muted/20 p-3">
+        <div className="flex flex-wrap items-start gap-3">
+          <Fingerprint className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+          <div className="min-w-0 space-y-1 text-sm">
+            <div className="font-medium text-foreground">
+              Acting as {ASSISTANT_ACCOUNT.label}
+              <Badge variant="outline" className="ml-2 font-mono text-[10px]">
+                {ASSISTANT_ACCOUNT.role}
+              </Badge>
+              <Badge variant="outline" className="ml-2 text-[10px]">
+                no execution
+              </Badge>
+              <Badge
+                variant="outline"
+                className={
+                  internetEnabled
+                    ? "ml-2 text-[10px] border-warn/40 text-warn"
+                    : "ml-2 text-[10px]"
+                }
+              >
+                {internetEnabled ? "internet on" : "no internet"}
+              </Badge>
+            </div>
+            <p className="text-muted-foreground text-xs leading-relaxed">
+              {ASSISTANT_ACCOUNT.guardrail.summary} Lifelong account sessid
+              (container = identity). Soul / namespace memory use{" "}
+              <span className="font-mono">cognitive_mcp</span> — not legacy{" "}
+              <span className="font-mono">assistant.v1</span>.
+            </p>
+            <div className="flex flex-wrap gap-1.5 pt-0.5">
+              {ASSISTANT_ACCOUNT.guardrail.roles.map((r) => (
+                <Badge key={r} variant="secondary" className="font-mono text-[10px]">
+                  {r}
+                </Badge>
+              ))}
+            </div>
+            <div className="flex items-center justify-between gap-4 rounded-md border border-border/50 bg-background/40 px-3 py-2">
+              <div className="min-w-0">
+                <Label htmlFor="chatbot-internet" className="text-xs font-medium">
+                  Public internet
+                </Label>
+                <p className="text-[11px] text-muted-foreground leading-snug">
+                  Production stays off (mesh / ghostbridge only). Turn on only for lab
+                  debugging — network enforcement of the off state lands with the
+                  capability gate.
+                </p>
+              </div>
+              <Switch
+                id="chatbot-internet"
+                checked={internetEnabled}
+                onCheckedChange={onInternetToggle}
+                aria-label="Chatbot public internet"
+              />
+            </div>
+            <dl className="grid gap-x-6 gap-y-1 font-mono text-[11px] text-muted-foreground sm:grid-cols-2">
+              <div>
+                <dt className="inline text-muted-foreground/70">sessid </dt>
+                <dd className="inline break-all text-foreground/90">{ASSISTANT_ACCOUNT.sessionId}</dd>
+              </div>
+              <div>
+                <dt className="inline text-muted-foreground/70">mesh </dt>
+                <dd className="inline text-foreground/90">{ASSISTANT_ACCOUNT.meshIp}</dd>
+              </div>
+              <div className="sm:col-span-2">
+                <dt className="inline text-muted-foreground/70">pubkey </dt>
+                <dd className="inline break-all text-foreground/90">{ASSISTANT_ACCOUNT.pubkey}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </Card>
 
       {error && (
         <Card className="border-red-500/50 bg-red-500/10 p-3 text-red-400 text-sm">
@@ -113,7 +198,6 @@ export default function AssistantPage() {
         </Card>
       )}
 
-      {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         <StatCard
           label="Soul Memories"
@@ -132,7 +216,6 @@ export default function AssistantPage() {
         />
       </div>
 
-      {/* Antigravity Chat schema — rendered from the sealed blob via json-render */}
       <Card className="p-4">
         <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
           <Brain className="h-5 w-5" /> Antigravity Chat Schema
@@ -140,7 +223,6 @@ export default function AssistantPage() {
         <PluginSchemaPanel plugin="antigravity_chat" title="antigravity-chat blob schema" />
       </Card>
 
-      {/* Soul Memory Table */}
       <Card className="p-4">
         <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
           <Brain className="h-5 w-5" /> Soul Memories
@@ -166,7 +248,7 @@ export default function AssistantPage() {
               <tbody>
                 {souls.map((s) => (
                   <tr
-                    key={s.agentId}
+                    key={s.namespace}
                     className="border-b hover:bg-muted/30 cursor-pointer"
                     onClick={() => setSelectedSoul(s)}
                   >
@@ -184,9 +266,7 @@ export default function AssistantPage() {
                       {Object.keys(s.traits ?? {}).length} keys
                     </td>
                     <td className="py-2 pr-4 text-xs text-muted-foreground">
-                      {s.updatedAt
-                        ? new Date(Number(s.updatedAt.seconds) * 1000).toLocaleString()
-                        : "—"}
+                      {s.updatedAt ? new Date(s.updatedAt).toLocaleString() : "—"}
                     </td>
                     <td className="py-2">
                       <button
@@ -218,7 +298,6 @@ export default function AssistantPage() {
         )}
       </Card>
 
-      {/* Namespace Bindings Table */}
       <Card className="p-4">
         <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
           <Database className="h-5 w-5" /> Namespace Bindings
@@ -235,26 +314,15 @@ export default function AssistantPage() {
                   <th className="pb-2 pr-4">Agent</th>
                   <th className="pb-2 pr-4">Namespace</th>
                   <th className="pb-2 pr-4">Entries</th>
-                  <th className="pb-2 pr-4">Created</th>
                 </tr>
               </thead>
               <tbody>
                 {namespaces.map((n) => (
-                  <tr
-                    key={`${n.agentId}-${n.namespace}`}
-                    className="border-b hover:bg-muted/30"
-                  >
+                  <tr key={n.name} className="border-b hover:bg-muted/30">
                     <td className="py-2 pr-4 font-mono text-xs">{n.agentId}</td>
-                    <td className="py-2 pr-4 font-mono text-xs">
-                      {n.namespace}
-                    </td>
+                    <td className="py-2 pr-4 font-mono text-xs">{n.name}</td>
                     <td className="py-2 pr-4">
                       <Badge variant="secondary">{n.entryCount}</Badge>
-                    </td>
-                    <td className="py-2 pr-4 text-xs text-muted-foreground">
-                      {n.createdAt
-                        ? new Date(Number(n.createdAt.seconds) * 1000).toLocaleString()
-                        : "—"}
                     </td>
                   </tr>
                 ))}
@@ -264,13 +332,12 @@ export default function AssistantPage() {
         )}
       </Card>
 
-      {/* Soul Detail Dialog */}
       <Dialog open={!!selectedSoul} onOpenChange={() => setSelectedSoul(null)}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Soul Memory: {selectedSoul?.agentId}</DialogTitle>
             <DialogDescription>
-              Full soul memory details and traits
+              Account-scoped soul via cognitive_mcp ({selectedSoul?.namespace})
             </DialogDescription>
           </DialogHeader>
           {selectedSoul && (
@@ -298,7 +365,6 @@ export default function AssistantPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Edit Soul Dialog */}
       <Dialog open={!!editSoul} onOpenChange={() => setEditSoul(null)}>
         <DialogContent>
           <DialogHeader>

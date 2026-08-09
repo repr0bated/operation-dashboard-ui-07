@@ -148,13 +148,13 @@ export interface UIMessagePart {
      */
     messageId: string;
     /**
-     * @generated from protobuf field: op_chat.chat.UIMessageRole role = 2
+     * @generated from protobuf field: string role = 2
      */
-    role: UIMessageRole;
+    role: string; // "assistant" | "tool" | "system"
     /**
-     * @generated from protobuf field: op_chat.chat.UIMessageKind kind = 3
+     * @generated from protobuf field: string kind = 3
      */
-    kind: UIMessageKind;
+    kind: string; // "text" | "tool-call" | "tool-result" | "reasoning"
     /**
      * @generated from protobuf field: bytes payload = 4
      */
@@ -245,56 +245,6 @@ export interface CancelResponse {
      * @generated from protobuf field: string conversation_id = 1
      */
     conversationId: string;
-}
-// ============================================================================
-// ENUMS
-// ============================================================================
-
-/**
- * @generated from protobuf enum op_chat.chat.UIMessageRole
- */
-export enum UIMessageRole {
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_ROLE_UNSPECIFIED = 0;
-     */
-    UI_MESSAGE_ROLE_UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_ROLE_ASSISTANT = 1;
-     */
-    UI_MESSAGE_ROLE_ASSISTANT = 1,
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_ROLE_TOOL = 2;
-     */
-    UI_MESSAGE_ROLE_TOOL = 2,
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_ROLE_SYSTEM = 3;
-     */
-    UI_MESSAGE_ROLE_SYSTEM = 3
-}
-/**
- * @generated from protobuf enum op_chat.chat.UIMessageKind
- */
-export enum UIMessageKind {
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_KIND_UNSPECIFIED = 0;
-     */
-    UI_MESSAGE_KIND_UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_KIND_TEXT = 1;
-     */
-    UI_MESSAGE_KIND_TEXT = 1,
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_KIND_TOOL_CALL = 2;
-     */
-    UI_MESSAGE_KIND_TOOL_CALL = 2,
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_KIND_TOOL_RESULT = 3;
-     */
-    UI_MESSAGE_KIND_TOOL_RESULT = 3,
-    /**
-     * @generated from protobuf enum value: UI_MESSAGE_KIND_REASONING = 4;
-     */
-    UI_MESSAGE_KIND_REASONING = 4
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SendRequest$Type extends MessageType<SendRequest> {
@@ -601,16 +551,16 @@ class UIMessagePart$Type extends MessageType<UIMessagePart> {
     constructor() {
         super("op_chat.chat.UIMessagePart", [
             { no: 1, name: "message_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "role", kind: "enum", T: () => ["op_chat.chat.UIMessageRole", UIMessageRole] },
-            { no: 3, name: "kind", kind: "enum", T: () => ["op_chat.chat.UIMessageKind", UIMessageKind] },
+            { no: 2, name: "role", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "kind", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "payload", kind: "scalar", T: 12 /*ScalarType.BYTES*/ }
         ]);
     }
     create(value?: PartialMessage<UIMessagePart>): UIMessagePart {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.messageId = "";
-        message.role = 0;
-        message.kind = 0;
+        message.role = "";
+        message.kind = "";
         message.payload = new Uint8Array(0);
         if (value !== undefined)
             reflectionMergePartial<UIMessagePart>(this, message, value);
@@ -624,11 +574,11 @@ class UIMessagePart$Type extends MessageType<UIMessagePart> {
                 case /* string message_id */ 1:
                     message.messageId = reader.string();
                     break;
-                case /* op_chat.chat.UIMessageRole role */ 2:
-                    message.role = reader.int32();
+                case /* string role */ 2:
+                    message.role = reader.string();
                     break;
-                case /* op_chat.chat.UIMessageKind kind */ 3:
-                    message.kind = reader.int32();
+                case /* string kind */ 3:
+                    message.kind = reader.string();
                     break;
                 case /* bytes payload */ 4:
                     message.payload = reader.bytes();
@@ -648,12 +598,12 @@ class UIMessagePart$Type extends MessageType<UIMessagePart> {
         /* string message_id = 1; */
         if (message.messageId !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.messageId);
-        /* op_chat.chat.UIMessageRole role = 2; */
-        if (message.role !== 0)
-            writer.tag(2, WireType.Varint).int32(message.role);
-        /* op_chat.chat.UIMessageKind kind = 3; */
-        if (message.kind !== 0)
-            writer.tag(3, WireType.Varint).int32(message.kind);
+        /* string role = 2; */
+        if (message.role !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.role);
+        /* string kind = 3; */
+        if (message.kind !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.kind);
         /* bytes payload = 4; */
         if (message.payload.length)
             writer.tag(4, WireType.LengthDelimited).bytes(message.payload);

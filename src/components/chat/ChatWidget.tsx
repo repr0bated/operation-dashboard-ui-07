@@ -19,8 +19,11 @@ function normalizeContent(value: unknown): string {
   }
 }
 
-function mapBackendRole(role: string): LocalMessage["role"] {
-  if (role === "user" || role === "assistant" || role === "system" || role === "tool") return role;
+function mapBackendRole(role: string | number): LocalMessage["role"] {
+  if (role === "assistant") return "assistant";
+  if (role === "tool") return "tool";
+  if (role === "system") return "system";
+  if (role === "user") return "user";
   return "system";
 }
 
@@ -103,6 +106,7 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
 
     try {
       const reader = stream.getReader();
+      let partsReceived = 0;
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -110,6 +114,7 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
         const frame = value as ChatFrame;
         const body = frame.body;
         if (body.oneofKind === "part") {
+          partsReceived += 1;
           const part = (body as { oneofKind: "part"; part: UIMessagePart }).part;
           const payload = new TextDecoder().decode(part.payload);
           // Text parts arrive as a serialized content block; show the message,
@@ -145,6 +150,9 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
             },
           ]);
         }
+      }
+      if (partsReceived === 0) {
+        setMessages((prev) => [...prev, { id: makeId("empty"), role: "system", content: "The gateway closed without an assistant response.", timestamp: Date.now() }]);
       }
     } catch (err) {
       const msg = (err as Error).message;
