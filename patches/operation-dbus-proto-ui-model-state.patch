@@ -191,7 +191,18 @@ index 0a0c6d2..c66473f 100755
 +        fs::write(dir.join("notes.txt"), b"ignore").unwrap();
 +
 +        let tree = read_all_from_path(dir.to_str().unwrap());
-+        let _ = fs::remove_dir_all(&dir);
++        let tree = read_all_from_path(dir.to_str().unwrap());
++        let cleanup = || { let _ = fs::remove_dir_all(&dir); };
++        let result = std::panic::catch_unwind(|| {
++            assert!(tree.contains_key("zeroclaw"));
++            assert!(tree.contains_key("system.memory"));
++            assert!(!tree.contains_key(".manifest"));
++            assert_eq!(tree.len(), 2);
++        });
++        cleanup();
++        if let Err(e) = result {
++            std::panic::resume_unwind(e);
++        }
 +
 +        assert!(tree.contains_key("zeroclaw"));
 +        assert!(tree.contains_key("system.memory"));
