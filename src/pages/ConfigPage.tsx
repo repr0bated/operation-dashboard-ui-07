@@ -132,13 +132,9 @@ export default function ConfigPage() {
     return {
       ...withModels,
       properties: {
-        selected_provider: routingProps.selected_provider,
-        selected_model: routingProps.selected_model,
-      properties: {
         ...(withModels.properties ?? {}),
         selected_provider: routingProps.selected_provider,
         selected_model: routingProps.selected_model,
-      },
       },
     };
   }, [activeSection, modelIds, routing.snapshot]);
