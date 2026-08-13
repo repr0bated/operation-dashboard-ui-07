@@ -1,0 +1,235 @@
+From cd885a65a6b2fa6d0b21d23c0c5b4c60064c226d Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Thu, 13 Aug 2026 13:39:23 +0000
+Subject: [PATCH] Replace projection daemon dump with GET /api/ui-model/state.
+
+Serve live present-state from /dev/shm/opdbus/state/ as
+{ plugins, state }. /dashboard/projections is an alias of the new
+route. Empty state is valid when nothing has been mutated.
+
+Co-authored-by: jeremy hobson <jeremy@3tched.com>
+---
+ PLUGIN-RENDER-CONTRACT.md                |  1 +
+ crates/op-web/src/handlers/dashboard.rs  |  8 ----
+ crates/op-web/src/handlers/ui_model.rs   | 54 ++++++++++++++++++++++++
+ crates/op-web/src/routes/mod.rs          |  7 ++-
+ crates/op-web/src/state_tree.rs          | 33 ++++++++++++++-
+ deploy/smoke/projection-removal-check.sh | 14 +++---
+ 6 files changed, 100 insertions(+), 17 deletions(-)
+
+diff --git a/PLUGIN-RENDER-CONTRACT.md b/PLUGIN-RENDER-CONTRACT.md
+index 77a1ecb..8261c68 100644
+--- a/PLUGIN-RENDER-CONTRACT.md
++++ b/PLUGIN-RENDER-CONTRACT.md
+@@ -15,6 +15,7 @@ descriptors.**
+ | `op_blob::catalog::read_plugin_schema_shm(id)` (on-host, e.g. op-gemma `ui_gallery.rs`) | FULL schema |
+ | `GET /api/ui-model/plugin-schema/:plugin` (op-web, remote agents) | FULL schema + `schema_hash` |
+ | `GET /api/ui-model/plugins` | every sealed plugin id (state-only plugins included) |
++| `GET /api/ui-model/state` | live present-state from `/dev/shm/opdbus/state/` (`{ plugins, state }`); replaces the projection daemon |
+ | `PluginService.GetSchema` (gRPC) | FULL `schema_json` verbatim |
+ | gRPC reflection descriptors | **methods only**, type-skeleton: no state fields at all, enums/unions/maps → `string`, constraints/descriptions/defaults/subids dropped |
+ 
+diff --git a/crates/op-web/src/handlers/dashboard.rs b/crates/op-web/src/handlers/dashboard.rs
+index 35e56ac..5f40fc2 100755
+--- a/crates/op-web/src/handlers/dashboard.rs
++++ b/crates/op-web/src/handlers/dashboard.rs
+@@ -107,14 +107,6 @@ pub async fn dashboard_metrics_handler(
+     })
+ }
+ 
+-/// GET /api/dashboard/projections — Return all plugin state from SHM state tree.
+-pub async fn dashboard_projections_handler(
+-    Extension(_state): Extension<Arc<AppState>>,
+-) -> Json<std::collections::HashMap<String, simd_json::OwnedValue>> {
+-    let projections = state_tree::read_all();
+-    Json(projections)
+-}
+-
+ fn get_vpn_peer_count() -> usize {
+     let peers_dir = "/sys/class/net/wg0/wireguard/peers";
+     std::fs::read_dir(peers_dir)
+diff --git a/crates/op-web/src/handlers/ui_model.rs b/crates/op-web/src/handlers/ui_model.rs
+index bdd21aa..b4fe82e 100755
+--- a/crates/op-web/src/handlers/ui_model.rs
++++ b/crates/op-web/src/handlers/ui_model.rs
+@@ -15,6 +15,7 @@
+ //! - Spec files are tmpfs (`/dev/shm`); promotion rewrites them atomically.
+ 
+ use crate::state::AppState;
++use crate::state_tree;
+ use axum::{
+     extract::{Extension, Path},
+     http::StatusCode,
+@@ -22,6 +23,7 @@ use axum::{
+ };
+ use serde::{Deserialize, Serialize};
+ use serde_json::{json, Value};
++use std::collections::HashMap;
+ use std::sync::Arc;
+ 
+ // Deliberately renamed off the old "gemma"-prefixed paths (were independently
+@@ -239,6 +241,32 @@ pub async fn ui_model_list_plugins_handler(Extension(_state): Extension<Arc<AppS
+     }
+ }
+ 
++/// GET /api/ui-model/state — live present-state from `/dev/shm/opdbus/state/`.
++///
++/// Replaces the projection daemon and `/api/dashboard/projections`. Empty
++/// `{ plugins: [], state: {} }` is correct when nothing has been mutated.
++pub async fn ui_model_state_handler(Extension(_state): Extension<Arc<AppState>>) -> Response {
++    ok(catalog_state_body(simd_tree_to_serde(state_tree::read_all())))
++}
++
++/// Catalog JSON for the SHM state tree: sorted plugin ids plus the objects.
++pub(crate) fn catalog_state_body(tree: HashMap<String, Value>) -> Value {
++    let mut plugins: Vec<String> = tree.keys().cloned().collect();
++    plugins.sort();
++    json!({ "plugins": plugins, "state": tree })
++}
++
++fn simd_tree_to_serde(
++    tree: HashMap<String, simd_json::OwnedValue>,
++) -> HashMap<String, Value> {
++    tree.into_iter()
++        .filter_map(|(key, value)| {
++            let text = simd_json::to_string(&value).ok()?;
++            serde_json::from_str(&text).ok().map(|parsed| (key, parsed))
++        })
++        .collect()
++}
++
+ /// GET /api/ui-model/plugin-schema/:plugin
+ /// The base schema is the render source: read straight from the sealed blob
+ /// catalog. Resolve by exact id, then by manifest prefix/contains match.
+@@ -285,3 +313,29 @@ fn schema_hash_for(plugin: &str) -> Option<String> {
+         .and_then(|h| h.as_str())
+         .map(|s| s.to_string())
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn catalog_state_body_lists_shm_state_plugins_not_projections() {
++        let mut tree = HashMap::new();
++        tree.insert("zeroclaw".into(), json!({ "selected_model": "qwen" }));
++        tree.insert("system.memory".into(), json!({ "rss": 1 }));
++        let body = catalog_state_body(tree);
++        assert_eq!(
++            body["plugins"],
++            json!(["system.memory", "zeroclaw"])
++        );
++        assert_eq!(body["state"]["zeroclaw"]["selected_model"], "qwen");
++        assert!(body.get("projections").is_none());
++    }
++
++    #[test]
++    fn catalog_state_body_empty_tree_is_valid() {
++        let body = catalog_state_body(HashMap::new());
++        assert_eq!(body["plugins"], json!([]));
++        assert_eq!(body["state"], json!({}));
++    }
++}
+diff --git a/crates/op-web/src/routes/mod.rs b/crates/op-web/src/routes/mod.rs
+index c211ec9..af488ef 100755
+--- a/crates/op-web/src/routes/mod.rs
++++ b/crates/op-web/src/routes/mod.rs
+@@ -52,9 +52,14 @@ pub fn create_router(state: Arc<AppState>) -> Router {
+             "/dashboard/metrics",
+             get(handlers::dashboard::dashboard_metrics_handler),
+         )
++        // Live SHM present-state. Replaces the projection daemon dump.
++        .route(
++            "/ui-model/state",
++            get(handlers::ui_model::ui_model_state_handler),
++        )
+         .route(
+             "/dashboard/projections",
+-            get(handlers::dashboard::dashboard_projections_handler),
++            get(handlers::ui_model::ui_model_state_handler),
+         )
+         // Users
+         .route("/users", get(handlers::users::list_users_handler))
+diff --git a/crates/op-web/src/state_tree.rs b/crates/op-web/src/state_tree.rs
+index 0a0c6d2..c66473f 100755
+--- a/crates/op-web/src/state_tree.rs
++++ b/crates/op-web/src/state_tree.rs
+@@ -32,7 +32,7 @@ pub fn read_plugin(plugin: &str) -> Option<Value> {
+ 
+ /// Walk the entire state tree and aggregate all plugin state files.
+ ///
+-/// Used by the dashboard whole-tree dump endpoint.
++/// Used by `GET /api/ui-model/state` (replaces the projection daemon dump).
+ /// Returns a map keyed by plugin_id (`.json` suffix stripped) with the
+ /// plugin's state as value. Dotfiles (e.g. `.manifest.json`) are skipped.
+ pub fn read_all() -> HashMap<String, Value> {
+@@ -96,3 +96,34 @@ fn read_json_file_path(path: &Path) -> Option<Value> {
+     let mut bytes = std::fs::read(path).ok()?;
+     simd_json::to_owned_value(&mut bytes).ok()
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::fs;
++
++    #[test]
++    fn read_all_from_path_lists_state_json_and_skips_dotfiles() {
++        let dir = std::env::temp_dir().join(format!(
++            "op-web-state-tree-{}-{}",
++            std::process::id(),
++            std::time::SystemTime::now()
++                .duration_since(std::time::UNIX_EPOCH)
++                .unwrap()
++                .as_nanos()
++        ));
++        fs::create_dir_all(&dir).unwrap();
++        fs::write(dir.join("zeroclaw.json"), br#"{"selected_model":"qwen"}"#).unwrap();
++        fs::write(dir.join("system.memory.json"), br#"{"rss":1}"#).unwrap();
++        fs::write(dir.join(".manifest.json"), br#"{"generation":3}"#).unwrap();
++        fs::write(dir.join("notes.txt"), b"ignore").unwrap();
++
++        let tree = read_all_from_path(dir.to_str().unwrap());
++        let _ = fs::remove_dir_all(&dir);
++
++        assert!(tree.contains_key("zeroclaw"));
++        assert!(tree.contains_key("system.memory"));
++        assert!(!tree.contains_key(".manifest"));
++        assert_eq!(tree.len(), 2);
++    }
++}
+diff --git a/deploy/smoke/projection-removal-check.sh b/deploy/smoke/projection-removal-check.sh
+index fdfb5e3..f29dd58 100755
+--- a/deploy/smoke/projection-removal-check.sh
++++ b/deploy/smoke/projection-removal-check.sh
+@@ -27,19 +27,19 @@ FAIL=0
+ pass() { echo "  PASS: $1"; }
+ fail() { echo "  FAIL: $1"; FAIL=1; }
+ 
+-echo "=== Projection Removal End-to-End Smoke Test ==="
++echo "=== SHM state route (projection daemon removed) ==="
+ echo ""
+ 
+-# 1. Dashboard returns valid JSON (empty is correct per REQ-3.4)
+-echo "[1] Dashboard endpoint..."
+-if RESP=$(curl -sf "${API_BASE}/api/dashboard/projections" 2>/dev/null); then
++# 1. Live SHM state route returns valid JSON (empty is correct per REQ-3.4)
++echo "[1] UI-model state endpoint..."
++if RESP=$(curl -sf "${API_BASE}/api/ui-model/state" 2>/dev/null); then
+     if echo "$RESP" | python3 -m json.tool >/dev/null 2>&1; then
+-        pass "dashboard returns valid JSON"
++        pass "GET /api/ui-model/state returns valid JSON"
+     else
+-        fail "dashboard returned non-JSON: ${RESP:0:100}"
++        fail "ui-model/state returned non-JSON: ${RESP:0:100}"
+     fi
+ else
+-    fail "dashboard endpoint unreachable at ${API_BASE}/api/dashboard/projections"
++    fail "state endpoint unreachable at ${API_BASE}/api/ui-model/state"
+ fi
+ 
+ # 2. No projection daemon running
+-- 
+2.43.0
+
