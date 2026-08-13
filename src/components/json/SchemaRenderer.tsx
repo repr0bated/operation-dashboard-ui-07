@@ -57,7 +57,11 @@ export function SchemaRenderer({ schema, data, onChange, className, readOnly = f
 function SchemaNode({ schema, data, onChange, className, readOnly, depth = 0, label }: SchemaRendererProps & { depth: number }) {
   // If data is a plain object but schema says scalar, re-route to object fallback so we never render an object as a child.
   const dataIsPlainObject = data !== null && typeof data === "object" && !Array.isArray(data);
-  let type = schema.type ?? (schema.enum ? "string" : schema.properties ? "object" : "unknown");
+  // schemars optional fields arrive as `type: ["string","null"]` (Draft 2020-12).
+  const rawType = Array.isArray(schema.type)
+    ? schema.type.find((t) => t !== "null") ?? schema.type[0]
+    : schema.type;
+  let type = rawType ?? (schema.enum ? "string" : schema.properties ? "object" : "unknown");
   if (dataIsPlainObject && (type === "string" || type === "number" || type === "integer" || type === "boolean")) {
     type = "object";
   }

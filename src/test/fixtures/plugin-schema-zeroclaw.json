@@ -1,0 +1,206 @@
+{
+  "name": "zeroclaw",
+  "display_name": "Zeroclaw",
+  "version": "1.0.0",
+  "category": "routing",
+  "description": "Zeroclaw schema/RPC-native model router for Antigravity UI, CLI providers, and structured JSON output",
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "tags": ["llm", "routing"],
+  "dependencies": [],
+  "guarantees": {
+    "atomic_operations": false,
+    "supports_checkpoints": false,
+    "supports_rollback": false,
+    "supports_verification": false
+  },
+  "fields": {
+    "actor_id": {
+      "field_type": "string",
+      "description": "Actor identifier for mutation accountability",
+      "required": false,
+      "read_only": false,
+      "default": null
+    },
+    "capability_id": {
+      "field_type": "string",
+      "description": "Capability identifier authorizing the mutation",
+      "required": false,
+      "read_only": false,
+      "default": null
+    },
+    "model_routes": {
+      "field_type": {
+        "array": {
+          "object": {
+            "id": { "field_type": "string", "description": "Model identifier as routed by the gateway.", "required": true, "read_only": false },
+            "name": { "field_type": "string", "description": "Human-readable model name.", "required": false, "read_only": false },
+            "provider": { "field_type": "string", "description": "Provider that serves this model.", "required": false, "read_only": false },
+            "parameters": { "field_type": "string", "description": "Parameter size / variant label.", "required": false, "read_only": false },
+            "available": { "field_type": "boolean", "description": "Whether the route is currently available.", "required": false, "read_only": false }
+          }
+        }
+      },
+      "description": "Routable model projection owned by zeroclaw.",
+      "required": false,
+      "read_only": true,
+      "default": []
+    },
+    "providers": {
+      "field_type": {
+        "array": {
+          "object": {
+            "id": { "field_type": "string", "required": true, "read_only": false },
+            "kind": { "field_type": "string", "required": false, "read_only": false },
+            "description": { "field_type": "string", "required": false, "read_only": false }
+          }
+        }
+      },
+      "description": "Registered LLM providers.",
+      "required": false,
+      "read_only": true,
+      "default": []
+    },
+    "router": {
+      "field_type": {
+        "object": {
+          "provider": { "field_type": "string", "description": "Active provider.", "required": false, "read_only": false },
+          "model": { "field_type": "string", "description": "Active model.", "required": false, "read_only": false }
+        }
+      },
+      "description": "Live router snapshot (provider + model).",
+      "required": false,
+      "read_only": true,
+      "default": null
+    },
+    "selected_model": {
+      "field_type": "string",
+      "description": "Active LLM model. Zeroclaw is the routing authority; SendRequest carries this value.",
+      "required": false,
+      "read_only": false,
+      "default": null
+    },
+    "selected_provider": {
+      "field_type": "string",
+      "description": "Active LLM provider. Zeroclaw is the routing authority; SendRequest carries this value.",
+      "required": false,
+      "read_only": false,
+      "default": null
+    },
+    "status": {
+      "field_type": "string",
+      "description": "Operational status of the router.",
+      "required": false,
+      "read_only": true,
+      "default": ""
+    }
+  },
+  "methods": {
+    "get_config_schema": {
+      "name": "get_config_schema",
+      "side_effect": "read",
+      "idempotent": true,
+      "subid": "obs.service.zeroclaw.config-schema.get@v1",
+      "required_capability": "cap.software.zeroclaw.config-schema.read@v1",
+      "args": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "GetConfigSchemaInput",
+        "type": "object",
+        "properties": {}
+      },
+      "returns": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "GetConfigSchemaOutput",
+        "type": "object",
+        "properties": {
+          "config_schema": {
+            "description": "schemars JSON Schema for Zeroclaw state, including selected_provider, selected_model, and model_routes.",
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": ["config_schema"]
+      }
+    },
+    "get_model_routes": {
+      "name": "get_model_routes",
+      "side_effect": "read",
+      "idempotent": true,
+      "subid": "obs.service.zeroclaw.model-routes.list@v1",
+      "required_capability": "cap.software.zeroclaw.routes.read@v1",
+      "args": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "GetModelRoutesInput",
+        "type": "object",
+        "properties": {}
+      },
+      "returns": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "GetModelRoutesOutput",
+        "type": "object",
+        "properties": {
+          "model_routes": {
+            "type": "array",
+            "items": { "type": "object", "additionalProperties": true }
+          }
+        },
+        "required": ["model_routes"]
+      }
+    },
+    "set_model": {
+      "name": "set_model",
+      "side_effect": "mutation",
+      "idempotent": true,
+      "subid": "mut.service.zeroclaw.model.set@v1",
+      "required_capability": "cap.software.zeroclaw.model.set@v1",
+      "args": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "SetModelInput",
+        "type": "object",
+        "properties": {
+          "model_id": { "type": "string", "description": "Model to select as selected_model." }
+        },
+        "required": ["model_id"]
+      },
+      "returns": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "SetModelOutput",
+        "type": "object",
+        "properties": {
+          "selected_model": { "type": "string", "description": "Active model after the switch." }
+        },
+        "required": ["selected_model"]
+      }
+    },
+    "set_provider": {
+      "name": "set_provider",
+      "side_effect": "mutation",
+      "idempotent": true,
+      "subid": "mut.service.zeroclaw.provider.set@v1",
+      "required_capability": "cap.software.zeroclaw.provider.set@v1",
+      "args": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "SetProviderInput",
+        "type": "object",
+        "properties": {
+          "provider_id": { "type": "string", "description": "Provider to select as selected_provider." }
+        },
+        "required": ["provider_id"]
+      },
+      "returns": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "SetProviderOutput",
+        "type": "object",
+        "properties": {
+          "selected_provider": { "type": "string", "description": "Active provider after the switch." }
+        },
+        "required": ["selected_provider"]
+      }
+    }
+  },
+  "subids": {
+    "__schema__": "sch.service.plugin.zeroclaw.schema@v1",
+    "selected_model": "mut.service.zeroclaw.model.set@v1",
+    "selected_provider": "mut.service.zeroclaw.provider.set@v1",
+    "model_routes": "obs.service.zeroclaw.model-routes.list@v1"
+  }
+}

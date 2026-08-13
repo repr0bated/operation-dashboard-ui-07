@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useLlmRouting } from "@/hooks/use-llm-routing";
+import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
 import { Loader2, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,8 @@ export default function RoutableModelsPage() {
     modelsError,
     refresh,
   } = useLlmRouting(providerFilter);
+  const zeroclaw = useZeroclawRouting();
+  const liveModels = models.length > 0 ? models : zeroclaw.state.model_routes;
 
   return (
     <>
@@ -63,20 +66,20 @@ export default function RoutableModelsPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <StatCard
           label="Active Provider"
-          value={status?.provider ?? currentProvider ?? "—"}
-          variant={status?.provider ? "ok" : "danger"}
+          value={status?.provider ?? currentProvider ?? zeroclaw.state.selected_provider ?? "—"}
+          variant={status?.provider || zeroclaw.state.selected_provider ? "ok" : "danger"}
         />
-        <StatCard label="Active Model" value={status?.model || "—"} />
+        <StatCard label="Active Model" value={status?.model || zeroclaw.state.selected_model || "—"} />
         <StatCard
           label="Providers"
-          value={providers.length || "—"}
+          value={providers.length || zeroclaw.state.providers.length || "—"}
           sub="registered"
         />
         <StatCard
           label="Routable Models"
-          value={modelsError ? "—" : models.length}
-          sub={modelSource ? `via ${modelSource}` : undefined}
-          variant={modelsError ? "warn" : "default"}
+          value={liveModels.length || (modelsError && liveModels.length === 0 ? "—" : liveModels.length)}
+          sub={models.length > 0 ? (modelSource ? `via ${modelSource}` : undefined) : liveModels.length ? "via zeroclaw" : undefined}
+          variant={modelsError && liveModels.length === 0 ? "warn" : "default"}
         />
       </div>
 
@@ -152,7 +155,7 @@ export default function RoutableModelsPage() {
               : "Model list served by the LLM gateway."
           }
         >
-          {modelsError && (
+          {modelsError && liveModels.length === 0 && (
             <ErrorBanner
               title="Model list unavailable"
               message={modelsError}
@@ -160,14 +163,14 @@ export default function RoutableModelsPage() {
             />
           )}
 
-          {loading && models.length === 0 && !modelsError && (
+          {loading && liveModels.length === 0 && !modelsError && (
             <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
               Loading models…
             </div>
           )}
 
-          {!loading && models.length === 0 && !modelsError && (
+          {!loading && liveModels.length === 0 && !modelsError && (
             <EmptyState
               title="No routable models"
               hint="The gateway returned an empty model list for this source."
@@ -175,7 +178,7 @@ export default function RoutableModelsPage() {
             />
           )}
 
-          {models.length > 0 && (
+          {liveModels.length > 0 && (
             <Table className="mt-2">
               <TableHeader>
                 <TableRow>
@@ -187,7 +190,7 @@ export default function RoutableModelsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {models.map((m) => (
+                {liveModels.map((m) => (
                   <TableRow key={m.id}>
                     <TableCell className="font-mono text-xs">{m.id}</TableCell>
                     <TableCell className="text-xs">{m.name ?? "—"}</TableCell>

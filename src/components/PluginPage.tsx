@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Renderer } from "@json-render/react";
 import type { Spec } from "@json-render/core";
 import { registry as jsonRenderRegistry } from "@/json-render/catalog/registry";
 import { usePluginSchema } from "@/hooks/use-plugin-schema";
+import { ZeroclawRoutingPanel } from "@/components/zeroclaw/ZeroclawRoutingPanel";
 
 /**
  * Dynamic plugin page - renders ANY plugin's UI from its sealed PluginSchema.
@@ -22,6 +23,14 @@ export function PluginPage({ pluginId }: { pluginId?: string }) {
     }
     setSpec(schemaToSpec(schema, id));
   }, [schema, id]);
+
+  if (id === "zeroclaw") {
+    return (
+      <div className="p-6">
+        <ZeroclawRoutingPanel />
+      </div>
+    );
+  }
 
   if (loading) return <div className="p-6 text-muted-foreground">Loading {id} schema…</div>;
   if (error) return <div className="p-6 text-danger">Error: {error}</div>;

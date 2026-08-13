@@ -4,6 +4,8 @@ import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubbl
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
 import { unwrapContentBlocks } from "@/lib/chat-content";
+import { chatSendRouting } from "@/lib/zeroclaw-routing";
+import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 
@@ -37,6 +39,7 @@ export interface ChatWidgetProps {
 
 export function ChatWidget({ agentId = "default", initialSessionId, className, height = 400 }: ChatWidgetProps) {
   const { connected } = useEventStore();
+  const routing = useZeroclawRouting();
   const [messages, setMessages] = useState<LocalMessage[]>([]);
   const [draft, setDraft] = useState("");
   const [sessionKey, setSessionKey] = useState<string | null>(initialSessionId || null);
@@ -93,11 +96,12 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
     setError(null);
     streamRef.current?.abort();
 
+    const { provider, model } = chatSendRouting(routing.state);
     const { stream, abort } = chatService.send({
       conversationId: sessionKey,
       content: text,
-      provider: "",
-      model: "",
+      provider,
+      model,
     });
     streamRef.current = { abort };
 

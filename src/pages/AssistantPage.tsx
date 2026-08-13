@@ -17,6 +17,7 @@ import {
 import { soulService, namespaceMemoryService } from "@/grpc/client";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
+import { ModelSelect } from "@/components/shell/ModelSelect";
 import type { SoulMemory } from "@/grpc/gen/assistant/soul";
 import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
 import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
@@ -104,7 +105,12 @@ export default function AssistantPage() {
       <PageHeader
         title="Assistant Gateway"
         subtitle="Soul memory, namespace bindings, and cognitive store"
-        actions={<ProviderSelect />}
+        actions={
+          <div className="flex items-center gap-2">
+            <ProviderSelect />
+            <ModelSelect />
+          </div>
+        }
       />
 
       {error && (

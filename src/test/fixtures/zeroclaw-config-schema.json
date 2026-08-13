@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zeroclaw",
+  "$ref": "#/$defs/Zeroclaw",
+  "$defs": {
+    "Zeroclaw": {
+      "type": "object",
+      "description": "Zeroclaw schema/RPC-native model router. selected_provider and selected_model are the single routing authority (OD-28).",
+      "properties": {
+        "actor_id": {
+          "type": ["string", "null"],
+          "description": "Actor identifier for mutation accountability"
+        },
+        "capability_id": {
+          "type": ["string", "null"],
+          "description": "Capability identifier authorizing the mutation"
+        },
+        "config_schema": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Embedded schemars dump of this plugin's configurable surface."
+        },
+        "model_routes": {
+          "type": "array",
+          "description": "Routable model projection owned by zeroclaw.",
+          "items": { "$ref": "#/$defs/ModelRoute" }
+        },
+        "providers": {
+          "type": "array",
+          "description": "Registered LLM providers.",
+          "items": { "$ref": "#/$defs/Provider" }
+        },
+        "router": {
+          "type": "object",
+          "description": "Live router snapshot (provider + model).",
+          "properties": {
+            "provider": { "type": "string" },
+            "model": { "type": "string" }
+          }
+        },
+        "selected_model": {
+          "type": ["string", "null"],
+          "description": "Active LLM model. Zeroclaw is the routing authority; SendRequest carries this value."
+        },
+        "selected_provider": {
+          "type": ["string", "null"],
+          "description": "Active LLM provider. Zeroclaw is the routing authority; SendRequest carries this value."
+        },
+        "status": {
+          "type": ["string", "null"],
+          "description": "Operational status of the router."
+        }
+      },
+      "required": []
+    },
+    "ModelRoute": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Model identifier as routed by the gateway." },
+        "name": { "type": ["string", "null"] },
+        "provider": { "type": ["string", "null"] },
+        "parameters": { "type": ["string", "null"] },
+        "available": { "type": "boolean" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id"]
+    },
+    "Provider": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] }
+      },
+      "required": ["id"]
+    }
+  }
+}

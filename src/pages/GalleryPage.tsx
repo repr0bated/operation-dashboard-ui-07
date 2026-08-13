@@ -5,6 +5,7 @@ import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
 import { EmptyState, ErrorBanner } from "@/components/shell/Feedback";
 import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
+import { ModelSelect } from "@/components/shell/ModelSelect";
 import { valueToJs } from "@/grpc/google/protobuf/struct";
 
 import { resolveApiBase } from "@/lib/api";
@@ -226,6 +227,7 @@ export default function GalleryPage() {
         actions={
           <div className="flex items-center gap-2">
             <ProviderSelect />
+            <ModelSelect />
             <button
               onClick={() => void refreshAll()}
               disabled={refreshing}
