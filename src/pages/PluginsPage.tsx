@@ -1,50 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
-import { resolveApiBase } from "@/lib/api";
+import { useBlobCatalog } from "@/hooks/use-blob-catalog";
 import { Input } from "@/components/ui/input";
 import { Package, Search } from "lucide-react";
 
 /**
- * Every plugin actually present in the sealed blob catalog. A plugin exists
- * iff its blob is sealed, so this list is the runtime truth - not the
- * build-time generated method index.
+ * Every plugin in the live catalog: sealed blobs plus `/dev/shm/opdbus/state/`.
+ * Not the build-time generated method index, and not the deprecated projection layer.
  */
 export default function PluginsPage() {
-  const [plugins, setPlugins] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { plugins, loading, error } = useBlobCatalog();
   const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function load() {
-      try {
-        const r = await fetch(`${resolveApiBase()}/plugins`);
-        if (!r.ok) throw new Error(`plugins HTTP ${r.status}`);
-        const ct = r.headers.get("content-type") ?? "";
-        if (!ct.includes("application/json")) {
-          throw new Error(`plugins returned ${ct || "unknown type"}, not JSON — check the API base`);
-        }
-        const body = await r.json();
-        const ids: string[] = body.plugins ?? body.data?.plugins ?? [];
-        if (!cancelled) {
-          setPlugins([...ids].sort());
-          setError(null);
-        }
-      } catch (e) {
-        if (!cancelled) setError((e as Error).message);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    void load();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -55,7 +22,7 @@ export default function PluginsPage() {
     <div className="p-6 space-y-4">
       <PageHeader
         title="Plugins"
-        subtitle="Sealed blob catalog — each page is rendered from that plugin's live schema"
+        subtitle="Blobs ∪ /dev/shm/opdbus/state/ — each page is rendered from that plugin's live schema"
       />
 
       {error && <Callout variant="danger">{error}</Callout>}

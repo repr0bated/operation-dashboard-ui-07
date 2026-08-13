@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
-import { resolveApiBase } from "@/lib/api";
+import { loadCatalogPluginIds } from "@/lib/blob-catalog";
 
 /**
- * Every plugin actually present in the sealed blob catalog.
- *
- * `GET /api/ui-model/plugins` is the single source of truth: op-web reads the
- * SHM blob catalog, so a plugin appears here iff its `.blob` is sealed.
- *
- * Do NOT substitute the generated `PLUGIN_METHOD_BY_PLUGIN` index for this —
- * that map is produced by protobuf codegen at build time and silently omits
- * plugins with no generated method clients (antigravity among them), which is
- * how sealed blobs went missing from the Blobs page.
+ * Every plugin in the live catalog: sealed blobs plus present-state files
+ * under `/dev/shm/opdbus/state/`. Not the deprecated projection layer, and
+ * not the generated `PLUGIN_METHOD_BY_PLUGIN` index (that omits plugins with
+ * no method clients, which is how antigravity disappeared from Blobs).
  */
 export interface BlobCatalog {
-  /** Sorted plugin ids from the sealed catalog. */
+  /** Sorted plugin ids from blobs ∪ `/dev/shm/opdbus/state/`. */
   plugins: string[];
   loading: boolean;
   error: string | null;
@@ -31,24 +26,8 @@ export function useBlobCatalog(): BlobCatalog {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`${resolveApiBase()}/ui-model/plugins`);
-        if (!res.ok) throw new Error(`catalog HTTP ${res.status}`);
-
-        const ct = res.headers.get("content-type") ?? "";
-        if (!ct.includes("application/json")) {
-          // An HTML body means the request fell through to the SPA fallback
-          // rather than reaching the API.
-          throw new Error(
-            `catalog returned ${ct || "unknown type"}, not JSON — check the API base`,
-          );
-        }
-
-        const body: { plugins?: unknown } = await res.json();
-        if (!Array.isArray(body.plugins)) {
-          throw new Error("catalog response has no `plugins` array");
-        }
-        const ids = body.plugins.filter((p): p is string => typeof p === "string");
-        if (!cancelled) setPlugins([...ids].sort((a, b) => a.localeCompare(b)));
+        const ids = await loadCatalogPluginIds();
+        if (!cancelled) setPlugins(ids);
       } catch (err) {
         if (!cancelled) setError((err as Error).message);
       } finally {

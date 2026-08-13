@@ -1,10 +1,9 @@
 /**
- * Blobs — browse sealed plugin blob schemas.
+ * Blobs — browse plugin schemas from the live catalog.
  *
- * The plugin list comes from `GET /api/ui-model/plugins`, i.e. the sealed blob
- * catalog itself: a plugin is listed iff its `.blob` is sealed. Method clients
- * are intentionally not imported here: the generated registry pulls hundreds
- * of gRPC modules into the initial page graph and is unrelated to blob loading.
+ * Catalog ids are sealed blobs (`/dev/shm/opdbus/plugin-blobs/`) unioned with
+ * present-state files (`/dev/shm/opdbus/state/`). The deprecated projection
+ * dir is not consulted. Method clients are intentionally not imported here.
  */
 import { useEffect, useMemo, useState } from "react";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
@@ -51,8 +50,8 @@ export default function BlobsPage() {
           </h1>
           <p className="text-xs text-muted-foreground mt-1 font-mono">
             {loading
-              ? "reading sealed blob catalog…"
-              : `${plugins.length} sealed plugins · /api/ui-model/plugins`}
+              ? "reading catalog…"
+              : `${plugins.length} plugins · blobs + /dev/shm/opdbus/state/`}
           </p>
         </div>
       </header>
