@@ -93,7 +93,13 @@ index bdd21aa..b4fe82e 100755
 +    tree.into_iter()
 +        .filter_map(|(key, value)| {
 +            let text = simd_json::to_string(&value).ok()?;
-+            serde_json::from_str(&text).ok().map(|parsed| (key, parsed))
++            match serde_json::from_str(&text) {
++                Ok(parsed) => Some((key, parsed)),
++                Err(e) => {
++                    tracing::warn!("Failed to convert simd_json to serde_json for plugin '{}': {}", key, e);
++                    None
++                }
++            }
 +        })
 +        .collect()
 +}
