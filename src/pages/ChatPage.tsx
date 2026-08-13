@@ -6,6 +6,10 @@ import { SystemPromptEditor } from "@/components/chat/SystemPromptEditor";
 import { LiveLogPanel } from "@/components/chat/LiveLogPanel";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
+import { ModelSelect } from "@/components/shell/ModelSelect";
+import { ZeroclawRoutingPanel } from "@/components/zeroclaw/ZeroclawRoutingPanel";
+import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
+import { chatSendRouting } from "@/lib/zeroclaw-routing";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
 import { unwrapContentBlocks } from "@/lib/chat-content";
@@ -38,6 +42,7 @@ function makeId(prefix: string): string {
 
 export default function ChatPage() {
   const { connected } = useEventStore();
+  const routing = useZeroclawRouting();
   const [activeTab, setActiveTab] = useState<ChatTab>("chat");
   const [messages, setMessages] = useState<LocalMessage[]>([]);
   const [draft, setDraft] = useState("");
@@ -89,11 +94,12 @@ export default function ChatPage() {
     setError(null);
     streamRef.current?.abort();
 
+    const { provider, model } = chatSendRouting(routing.state);
     const { stream, abort } = chatService.send({
       conversationId: sessionKey,
       content: text,
-      provider: "",
-      model: "",
+      provider,
+      model,
     });
     streamRef.current = { abort };
 
@@ -197,6 +203,7 @@ export default function ChatPage() {
             </div>
             <div className="flex items-center gap-2">
               <ProviderSelect />
+              <ModelSelect />
               <input
                 value={sessionKey}
                 onChange={(e) => setSessionKey(e.target.value)}
@@ -241,7 +248,8 @@ export default function ChatPage() {
       ) : activeTab === "live-log" ? (
         <LiveLogPanel />
       ) : activeTab === "schema" ? (
-        <div className="flex-1 overflow-auto p-4">
+        <div className="flex-1 overflow-auto p-4 space-y-6">
+          <ZeroclawRoutingPanel snapshot={routing.snapshot} />
           <PluginSchemaPanel plugin="antigravity_chat" title="antigravity-chat schema" />
         </div>
       ) : (

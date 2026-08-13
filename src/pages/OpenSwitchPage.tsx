@@ -6,6 +6,7 @@ import { SchemaRenderer } from "@/components/json/SchemaRenderer";
 import { StatusDot } from "@/components/shell/Primitives";
 import { useEventStore } from "@/stores/event-store";
 import { Network, Plus, Cable } from "lucide-react";
+import { AssignmentPanel } from "@/components/zeroclaw/AssignmentPanel";
 
 interface OvsBridge {
   id: string;
@@ -49,7 +50,16 @@ export default function OpenSwitchPage() {
 
   return (
     <>
-      <PageHeader title="Open vSwitch" subtitle="OVS bridges, ports, and virtual networking." />
+      <PageHeader
+        title="Open vSwitch"
+        subtitle="OVS routing and obfuscation assignments, plus live bridges and ports."
+      />
+
+      <AssignmentPanel
+        title="Zeroclaw OVS assignments"
+        hint="Routing authority for this switch path. The second role rewrites traffic."
+        roles={["ovs_routing", "obfuscation"]}
+      />
 
       <div className="flex gap-2 mb-4">
         <button onClick={() => { setCreateDialog("bridge"); setFormData({}); }} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors">

@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
-import { Loader2, Activity, AlertTriangle, CheckCircle, Zap, Clock, BarChart3, RefreshCw } from "lucide-react";
+import { Loader2, Activity, Zap, Clock, BarChart3, RefreshCw, Orbit } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { embeddingService, blockchainService } from "@/grpc/client";
 import type { EmbedRequestInfo, EmbeddingWorkerStatus, ChannelDiagnostics, QdrantCollectionRole } from "@/grpc/view-types";
 import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
+import { VectorizationModelSelect } from "@/components/zeroclaw/VectorizationModelSelect";
+import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
 
 function formatBytes(b: number): string {
   if (b < 1048576) return `${(b / 1024).toFixed(0)} KB`;
@@ -22,6 +24,8 @@ const statusColors: Record<string, string> = {
 const REFRESH_MS = 15000;
 
 export default function EmbeddingPipelinePage() {
+  const routing = useZeroclawRouting();
+  const vectorization = routing.state.assignments.vectorization;
   const [worker, setWorker] = useState<EmbeddingWorkerStatus | null>(null);
   const [channel, setChannel] = useState<ChannelDiagnostics | null>(null);
   const [queue, setQueue] = useState<EmbedRequestInfo[]>([]);
@@ -58,9 +62,8 @@ export default function EmbeddingPipelinePage() {
     return () => clearInterval(t);
   }, [load]);
 
-  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
-
-  const isEmpty = !worker && !channel && queue.length === 0 && roles.length === 0;
+  const isEmpty = !loading && !error && !worker && !channel && queue.length === 0 && roles.length === 0;
+  const stage = vectorization ?? "vectorization";
 
   return (
     <div className="space-y-6">
@@ -68,7 +71,7 @@ export default function EmbeddingPipelinePage() {
         <div>
           <h1 className="text-[26px] font-bold tracking-tight text-foreground">Embedding Pipeline</h1>
           <p className="text-sm text-muted-foreground mt-0.5">
-            Footprint → mpsc channel → Embedding Worker → Axon/Voyage → Qdrant
+            Footprint → mpsc channel → Embedding Worker → {stage} → Qdrant
           </p>
         </div>
         <button
@@ -80,12 +83,42 @@ export default function EmbeddingPipelinePage() {
         </button>
       </div>
 
+      <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h2 className="text-sm font-semibold flex items-center gap-2">
+              <Orbit className="h-4 w-4 text-primary" /> Zeroclaw vectorization
+            </h2>
+            <p className="text-xs text-muted-foreground mt-1">
+              Routing authority for this pipeline. The embedding worker's reported model may lag.
+            </p>
+          </div>
+          {vectorization && (
+            <span className="text-xs font-mono font-medium text-foreground shrink-0">{vectorization}</span>
+          )}
+        </div>
+        <VectorizationModelSelect />
+        {worker && (
+          <p className="text-[10px] text-muted-foreground">
+            Runtime worker: <span className="font-mono">{worker.provider}</span>
+            {" / "}
+            <span className="font-mono">{worker.model}</span>
+          </p>
+        )}
+      </div>
+
       {error && <ErrorBanner title="Embedding service unavailable" message={error} />}
-      {!error && isEmpty && (
+      {isEmpty && (
         <EmptyState
           title="No pipeline activity"
           hint="The embedding worker is reachable but hasn't reported any state, queue, or Qdrant roles yet."
         />
+      )}
+
+      {loading && !worker && !channel && (
+        <div className="flex items-center justify-center h-32">
+          <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        </div>
       )}
 
 

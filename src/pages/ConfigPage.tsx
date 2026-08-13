@@ -3,6 +3,7 @@ import { PageHeader, Pill } from "@/components/shell/Primitives";
 import { SchemaRenderer } from "@/components/json/SchemaRenderer";
 import { useEventStore } from "@/stores/event-store";
 import { useLlmRouting } from "@/hooks/use-llm-routing";
+import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
 import type { JsonSchema } from "@/types/api";
 import { cn } from "@/lib/utils";
 import { Settings, Shield, Zap, Bot, Globe, Terminal, Network } from "lucide-react";
@@ -113,6 +114,7 @@ export default function ConfigPage() {
 
   // Live gateway state, so the LLM section offers real models.
   const { status, models, modelsError } = useLlmRouting();
+  const routing = useZeroclawRouting();
 
   const modelIds = useMemo(() => {
     const ids = models.map((m) => m.id).filter(Boolean);
@@ -123,14 +125,38 @@ export default function ConfigPage() {
 
   const activeSchema = useMemo(() => {
     const base = SECTION_SCHEMAS[activeSection];
-    return activeSection === "llm" ? llmSchemaWithLiveModels(base, modelIds) : base;
-  }, [activeSection, modelIds]);
+    if (activeSection !== "llm") return base;
+    const withModels = llmSchemaWithLiveModels(base, modelIds);
+    const routingProps = routing.snapshot?.populatedSchema.properties;
+    if (!routingProps?.selected_provider && !routingProps?.selected_model) return withModels;
+    return {
+      ...withModels,
+      properties: {
+        selected_provider: routingProps.selected_provider,
+        selected_model: routingProps.selected_model,
+      properties: {
+        ...(withModels.properties ?? {}),
+        selected_provider: routingProps.selected_provider,
+        selected_model: routingProps.selected_model,
+      },
+      },
+    };
+  }, [activeSection, modelIds, routing.snapshot]);
 
   const sectionData = useMemo(() => {
     const live = latestState[`config.${activeSection}`] ?? latestState[`config:${activeSection}`];
     const liveData = live && typeof live === "object" ? (live as Record<string, unknown>) : {};
-    return { ...liveData, ...(localValues[activeSection] ?? {}) };
-  }, [activeSection, latestState, localValues]);
+    const local = localValues[activeSection] ?? {};
+    if (activeSection === "llm") {
+      return {
+        selected_provider: routing.state.selected_provider,
+        selected_model: routing.state.selected_model,
+        ...liveData,
+        ...local,
+      };
+    }
+    return { ...liveData, ...local };
+  }, [activeSection, latestState, localValues, routing.state]);
 
   const rawValue = useMemo(() => JSON.stringify(sectionData, null, 2), [sectionData]);
 

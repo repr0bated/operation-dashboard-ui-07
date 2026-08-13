@@ -20,6 +20,7 @@ import {
   HardDrive, Search, Server, Thermometer,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AssignmentPanel } from "@/components/zeroclaw/AssignmentPanel";
 
 /* ── Grinder status badge ── */
 const GRINDER_STATUS: Record<string, { variant: "ok" | "warn" | "default"; label: string }> = {
@@ -101,7 +102,7 @@ export default function KnowledgePage() {
             Knowledge &amp; ML
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Qdrant knowledge base, local ML grinder, and model management
+            Qdrant and Cozo retrieval models, plus live knowledge-store telemetry
           </p>
         </div>
 
@@ -125,6 +126,12 @@ export default function KnowledgePage() {
           </Card>
         )}
       </div>
+
+      <AssignmentPanel
+        title="Zeroclaw retrieval"
+        hint="Routing authority for Knowledge. Independent of chat selected_model."
+        roles={["qdrant_retrieval", "cozo_retrieval"]}
+      />
 
       {!hasData && (
         <Card className="p-8 text-center text-muted-foreground">

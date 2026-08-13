@@ -1,53 +1,66 @@
-import { useState, useMemo } from "react";
-import { PageHeader, Card, Pill, StatCard } from "@/components/shell/Primitives";
-import { useEventStore } from "@/stores/event-store";
-
-interface LlmModel {
-  id: string;
-  name: string;
-  provider: string;
-  contextWindow: number;
-  active: boolean;
-}
+import { PageHeader, Card, StatCard } from "@/components/shell/Primitives";
+import { ErrorBanner } from "@/components/shell/Feedback";
+import { AssignmentPanel } from "@/components/zeroclaw/AssignmentPanel";
+import { ProviderSelect } from "@/components/shell/ProviderSelect";
+import { ModelSelect } from "@/components/shell/ModelSelect";
+import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
+import { ASSIGNMENT_META, ASSIGNMENT_ROLES } from "@/lib/zeroclaw-routing";
+import { Loader2 } from "lucide-react";
 
 export default function LlmPage() {
-  const { latestState } = useEventStore();
-
-  const models = useMemo(() => {
-    const raw = latestState["llm.models"] ?? latestState["llm:models"] ?? latestState["models"];
-    if (Array.isArray(raw)) return raw as LlmModel[];
-    return [] as LlmModel[];
-  }, [latestState]);
-
-  const activeModel = models.find((m) => m.active);
+  const { state, loading, error } = useZeroclawRouting();
+  const assigned = ASSIGNMENT_ROLES.filter((role) => state.assignments[role]).length;
 
   return (
     <>
-      <PageHeader title="LLM" subtitle="Provider status, available models, and routing." />
+      <PageHeader
+        title="LLM"
+        subtitle="Zeroclaw per-role model assignments. Chat SendRequest still uses selected_provider / selected_model."
+      />
+      {error && <ErrorBanner title="Zeroclaw routing unavailable" message={error} />}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatCard label="Active Model" value={activeModel?.id ?? "—"} variant={activeModel ? "ok" : undefined} />
-        <StatCard label="Provider" value={activeModel?.provider ?? "—"} />
-        <StatCard label="Context Window" value={activeModel ? `${(activeModel.contextWindow / 1000)}k` : "—"} />
+        {ASSIGNMENT_ROLES.map((role) => {
+          const value = state.assignments[role];
+          return (
+            <StatCard
+              key={role}
+              label={ASSIGNMENT_META[role].label}
+              value={value ?? "—"}
+              variant={value ? "ok" : undefined}
+              sub={role}
+            />
+          );
+        })}
+        <StatCard
+          label="Assigned roles"
+          value={loading ? "…" : `${assigned}/${ASSIGNMENT_ROLES.length}`}
+          sub="via GetModelAssignments"
+        />
       </div>
-      <Card title="Models" subtitle="Available models from configured providers.">
-        <div className="space-y-2 mt-3">
-          {models.length === 0 && (
-            <div className="text-sm text-muted-foreground text-center py-8">No models detected. Waiting for live data…</div>
-          )}
-          {models.map((m) => (
-            <div key={m.id} className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${m.active ? "border-primary/30 bg-primary/5" : "border-border"}`}>
-              <div>
-                <div className="text-sm font-medium text-foreground">{m.name}</div>
-                <div className="text-xs text-muted-foreground font-mono">{m.provider} · {(m.contextWindow / 1000)}k context</div>
-              </div>
-              <div className="flex items-center gap-2">
-                {m.active ? <Pill variant="ok">active</Pill> : (
-                  <button className="px-3 py-1.5 rounded-md border border-border text-xs font-medium hover:bg-muted/30 transition-colors">Switch</button>
-                )}
-              </div>
-            </div>
-          ))}
+      {loading && (
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          Loading zeroclaw assignments…
         </div>
+      )}
+      <AssignmentPanel
+        title="Model assignments"
+        hint="Each role is set independently. Embedding Pipeline, Knowledge, and Open vSwitch own the same values on their pages."
+        roles={[...ASSIGNMENT_ROLES]}
+      />
+      <Card
+        title="Chat routing"
+        subtitle="selected_provider / selected_model for Chat SendRequest only — not a per-role assignment."
+        actions={
+          <div className="flex items-center gap-2">
+            <ProviderSelect />
+            <ModelSelect />
+          </div>
+        }
+      >
+        <p className="text-xs font-mono text-muted-foreground">
+          {state.selected_provider ?? "—"} / {state.selected_model ?? "—"}
+        </p>
       </Card>
     </>
   );
