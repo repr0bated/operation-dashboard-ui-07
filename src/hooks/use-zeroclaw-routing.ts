@@ -24,7 +24,8 @@ async function fetchPluginSchema(): Promise<unknown | undefined> {
     const response = await fetch(`${resolveApiBase()}/ui-model/plugin-schema/zeroclaw`);
     if (!response.ok) return undefined;
     const body = await response.json();
-    return body.schema ?? body;
+    const body = await response.json();
+    return body?.schema ?? body;
   } catch {
     return undefined;
   }
