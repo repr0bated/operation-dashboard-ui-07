@@ -18,6 +18,8 @@ import { soulService, namespaceMemoryService } from "@/grpc/client";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { ModelSelect } from "@/components/shell/ModelSelect";
+import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
+import { providerPluginSchema } from "@/lib/zeroclaw-routing";
 import type { SoulMemory } from "@/grpc/gen/assistant/soul";
 import type { MemoryNamespace } from "@/grpc/gen/assistant/namespace";
 import type { MemoryEntry, MemoryStats } from "@/grpc/gen/assistant/memory";
@@ -33,6 +35,8 @@ import {
 } from "lucide-react";
 
 export default function AssistantPage() {
+  const routing = useZeroclawRouting();
+  const schemaPlugin = providerPluginSchema(routing.state.selected_provider);
   const [souls, setSouls] = useState<SoulMemory[]>([]);
   const [namespaces, setNamespaces] = useState<MemoryNamespace[]>([]);
   const [loading, setLoading] = useState(true);
@@ -138,13 +142,14 @@ export default function AssistantPage() {
         />
       </div>
 
-      {/* Antigravity Chat schema — rendered from the sealed blob via json-render */}
-      <Card className="p-4">
-        <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-          <Brain className="h-5 w-5" /> Antigravity Chat Schema
-        </h3>
-        <PluginSchemaPanel plugin="antigravity_chat" title="antigravity-chat blob schema" />
-      </Card>
+      {schemaPlugin && (
+        <Card className="p-4">
+          <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+            <Brain className="h-5 w-5" /> {schemaPlugin} schema
+          </h3>
+          <PluginSchemaPanel plugin={schemaPlugin} title={`${schemaPlugin} blob schema`} />
+        </Card>
+      )}
 
       {/* Soul Memory Table */}
       <Card className="p-4">

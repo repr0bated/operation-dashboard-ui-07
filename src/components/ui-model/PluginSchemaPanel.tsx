@@ -1,15 +1,16 @@
 /**
  * Renders a plugin's live sealed-blob schema via json-render. The schema is the
  * render source — fetched from `/api/ui-model/plugin-schema/:plugin`, which reads
- * the sealed blob catalog. Used by both chat surfaces to surface the
- * `antigravity_chat` plugin schema.
+ * the sealed blob catalog. Chat/Assistant pass the selected provider plugin —
+ * never a hardcoded antigravity_chat / Gemini blob.
  */
 import { useEffect, useState } from "react";
 import { JsonRenderer } from "@/components/json/JsonRenderer";
 import { resolveApiBase } from "@/lib/api";
+import { providerPluginSchema } from "@/lib/zeroclaw-routing";
 
 interface Props {
-  plugin?: string;
+  plugin: string;
   title?: string;
   className?: string;
 }
@@ -21,10 +22,11 @@ interface SchemaResponse {
 }
 
 export function PluginSchemaPanel({
-  plugin = "antigravity_chat",
+  plugin,
   title,
   className,
 }: Props) {
+  const pluginId = providerPluginSchema(plugin) ?? plugin;
   const [schema, setSchema] = useState<unknown>(null);
   const [hash, setHash] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +37,7 @@ export function PluginSchemaPanel({
     setLoading(true);
     (async () => {
       try {
-        const r = await fetch(`${resolveApiBase()}/ui-model/plugin-schema/${plugin}`);
+        const r = await fetch(`${resolveApiBase()}/ui-model/plugin-schema/${pluginId}`);
         if (!r.ok) throw new Error(`schema HTTP ${r.status}`);
         const j: SchemaResponse = await r.json();
         if (!alive) return;
@@ -51,13 +53,13 @@ export function PluginSchemaPanel({
     return () => {
       alive = false;
     };
-  }, [plugin]);
+  }, [pluginId]);
 
   return (
     <div className={className}>
       <div className="flex items-center justify-between mb-2">
         <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-          {title ?? `${plugin} schema`}
+          {title ?? `${pluginId} schema`}
         </span>
         {hash && (
           <span className="text-[10px] font-mono text-muted-foreground">

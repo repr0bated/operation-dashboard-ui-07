@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
-import { ZEROCLAW_SUBIDS } from "@/lib/zeroclaw-routing";
+import { ZEROCLAW_SUBIDS, selectableModels } from "@/lib/zeroclaw-routing";
 import { Box, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +25,7 @@ export function ModelSelect({ className }: Props) {
   const [applying, setApplying] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const models = state.model_routes;
+  const models = selectableModels(state);
   const value = state.selected_model ?? "";
 
   const apply = async (modelId: string) => {

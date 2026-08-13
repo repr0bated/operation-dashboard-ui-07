@@ -12,6 +12,7 @@ import { useBlobCatalog } from "@/hooks/use-blob-catalog";
 import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { providerPluginSchema } from "@/lib/zeroclaw-routing";
 import { Package, Search, Loader2 } from "lucide-react";
 
 export default function BlobsPage() {
@@ -30,7 +31,9 @@ export default function BlobsPage() {
   useEffect(() => {
     if (selected || plugins.length === 0) return;
     setSelected(
-      plugins.find((p) => p.name === "antigravity_chat")?.name ?? plugins[0].name,
+      plugins.find((p) => p.name === "antigravity")?.name
+        ?? providerPluginSchema(plugins[0].name)
+        ?? plugins[0].name,
     );
   }, [plugins, selected]);
 
@@ -94,7 +97,7 @@ export default function BlobsPage() {
             {filtered.map((p) => (
               <button
                 key={p.name}
-                onClick={() => setSelected(p.name)}
+                onClick={() => setSelected(providerPluginSchema(p.name) ?? p.name)}
                 className={cn(
                   "w-full flex items-center justify-between gap-2 px-3 py-2 text-left text-xs font-mono border-l-2 transition-colors",
                   selected === p.name

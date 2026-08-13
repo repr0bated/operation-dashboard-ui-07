@@ -73,7 +73,8 @@ describe("Sealed Blobs reads the blob catalog, not the codegen index", () => {
     routeFetch((url) => {
       if (url.includes("/ui-model/plugins")) return jsonResponse(CATALOG);
       if (url.includes("/ui-model/plugin-schema/")) {
-        return jsonResponse({ plugin: "antigravity_chat", schema: { name: "x" } });
+        const name = String(url).split("/").pop() ?? "unknown";
+        return jsonResponse({ plugin: name, schema: { name: "x" } });
       }
       return jsonResponse({}, 404);
     });
@@ -104,6 +105,11 @@ describe("Sealed Blobs reads the blob catalog, not the codegen index", () => {
     // Count reflects the catalog, not the 54-plugin codegen index.
     expect(screen.getByText(new RegExp(`${CATALOG.plugins.length} sealed plugins`)))
       .toBeInTheDocument();
+
+    // Default schema fetch is antigravity, never antigravity_chat.
+    const schemaUrls = fetchMock.mock.calls.map(([u]) => String(u));
+    expect(schemaUrls.some((u) => /\/ui-model\/plugin-schema\/antigravity(?:\?|$)/.test(u))).toBe(true);
+    expect(schemaUrls.some((u) => u.includes("/ui-model/plugin-schema/antigravity_chat"))).toBe(false);
   });
 
   it("surfaces a catalog failure instead of rendering an empty list silently", async () => {
