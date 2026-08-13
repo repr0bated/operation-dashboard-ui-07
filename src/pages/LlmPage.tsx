@@ -50,7 +50,7 @@ export default function LlmPage() {
       />
       <Card
         title="Chat routing"
-        subtitle="selected_provider / selected_model for Chat SendRequest only — not a per-role assignment."
+        subtitle="Independent axes: selected_provider and selected_model. A Gemini model does not imply Antigravity."
         actions={
           <div className="flex items-center gap-2">
             <ProviderSelect />
@@ -58,9 +58,16 @@ export default function LlmPage() {
           </div>
         }
       >
-        <p className="text-xs font-mono text-muted-foreground">
-          {state.selected_provider ?? "—"} / {state.selected_model ?? "—"}
-        </p>
+        <div className="grid grid-cols-2 gap-3 text-xs">
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Provider</div>
+            <div className="font-mono text-foreground mt-0.5">{state.selected_provider ?? "—"}</div>
+          </div>
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Model</div>
+            <div className="font-mono text-foreground mt-0.5">{state.selected_model ?? "—"}</div>
+          </div>
+        </div>
       </Card>
     </>
   );

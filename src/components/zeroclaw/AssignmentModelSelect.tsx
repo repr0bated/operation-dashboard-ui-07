@@ -17,6 +17,7 @@ import {
   ASSIGNMENT_SETTERS,
   EMBEDDING_SUBIDS,
   parseEmbeddingModels,
+  selectableModels,
   vectorizationModelOptions,
   type AssignmentRole,
 } from "@/lib/zeroclaw-routing";
@@ -37,7 +38,7 @@ export function AssignmentModelSelect({ role, className }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const current = state.assignments[role];
-  const routeIds = state.model_routes.map((m) => m.id).filter(Boolean);
+  const routeIds = selectableModels(state).map((m) => m.id).filter(Boolean);
   const models = vectorizationModelOptions(
     current,
     meta.catalog === "embedding" ? listed : routeIds,

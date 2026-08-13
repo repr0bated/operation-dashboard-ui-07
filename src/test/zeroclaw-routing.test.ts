@@ -13,12 +13,15 @@ import {
   pluginSchemaHasRouting,
   pluginSchemaToJsonSchema,
   populateRoutingSchema,
+  providerPluginSchema,
   resolveSchemarsRoot,
   routingFromState,
   routingJsonSchema,
   schemaPropagatesRouting,
+  selectableModels,
   vectorizationModelOptions,
   EMBEDDING_SUBIDS,
+  EMPTY_ASSIGNMENTS,
   ZEROCLAW_SUBIDS,
 } from "@/lib/zeroclaw-routing";
 import type { JsonSchema } from "@/types/api";
@@ -163,6 +166,39 @@ describe("routingFromState + populateRoutingSchema", () => {
         obfuscation: null,
       },
     })).toEqual({ provider: "", model: "" });
+  });
+
+  it("does not bind a gemini model to the antigravity provider", () => {
+    const mixed = {
+      selected_provider: "salad",
+      selected_model: "gemini-2.5-flash",
+      model_routes: [
+        { id: "gemini-2.5-flash", name: "Gemini Flash", provider: "antigravity", available: true },
+        { id: "qwen3.6-35b-a3b", name: "Qwen 3.6", provider: "salad", available: true },
+      ],
+      providers: ["antigravity", "salad"],
+      assignments: { ...EMPTY_ASSIGNMENTS },
+    };
+    expect(chatSendRouting(mixed)).toEqual({
+      provider: "salad",
+      model: "gemini-2.5-flash",
+    });
+    expect(selectableModels(mixed).map((m) => m.id)).toEqual([
+      "gemini-2.5-flash",
+      "qwen3.6-35b-a3b",
+    ]);
+    expect(chatSendRouting({
+      ...mixed,
+      selected_provider: "antigravity",
+      selected_model: "qwen3.6-35b-a3b",
+    })).toEqual({
+      provider: "antigravity",
+      model: "qwen3.6-35b-a3b",
+    });
+    expect(providerPluginSchema("salad")).toBe("salad");
+    expect(providerPluginSchema("antigravity")).toBe("antigravity");
+    expect(providerPluginSchema(null)).toBeNull();
+    expect(providerPluginSchema("antigravity_chat")).toBe("antigravity");
   });
 });
 

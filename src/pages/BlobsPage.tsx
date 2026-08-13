@@ -1,10 +1,9 @@
 /**
- * Blobs — browse sealed plugin blob schemas.
+ * Blobs — browse plugin schemas from the live catalog.
  *
- * The plugin list comes from `GET /api/ui-model/plugins`, i.e. the sealed blob
- * catalog itself: a plugin is listed iff its `.blob` is sealed. Method clients
- * are intentionally not imported here: the generated registry pulls hundreds
- * of gRPC modules into the initial page graph and is unrelated to blob loading.
+ * Catalog ids are sealed blobs (`/dev/shm/opdbus/plugin-blobs/`) unioned with
+ * present-state files (`/dev/shm/opdbus/state/`). The deprecated projection
+ * dir is not consulted. Method clients are intentionally not imported here.
  */
 import { useEffect, useMemo, useState } from "react";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
@@ -12,6 +11,7 @@ import { useBlobCatalog } from "@/hooks/use-blob-catalog";
 import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { providerPluginSchema } from "@/lib/zeroclaw-routing";
 import { Package, Search, Loader2 } from "lucide-react";
 
 export default function BlobsPage() {
@@ -30,7 +30,9 @@ export default function BlobsPage() {
   useEffect(() => {
     if (selected || plugins.length === 0) return;
     setSelected(
-      plugins.find((p) => p.name === "antigravity_chat")?.name ?? plugins[0].name,
+      plugins.find((p) => p.name === "antigravity")?.name
+        ?? providerPluginSchema(plugins[0].name)
+        ?? plugins[0].name,
     );
   }, [plugins, selected]);
 
@@ -48,8 +50,8 @@ export default function BlobsPage() {
           </h1>
           <p className="text-xs text-muted-foreground mt-1 font-mono">
             {loading
-              ? "reading sealed blob catalog…"
-              : `${plugins.length} sealed plugins · /api/ui-model/plugins`}
+              ? "reading catalog…"
+              : `${plugins.length} plugins · blobs + /dev/shm/opdbus/state/`}
           </p>
         </div>
       </header>
@@ -94,7 +96,7 @@ export default function BlobsPage() {
             {filtered.map((p) => (
               <button
                 key={p.name}
-                onClick={() => setSelected(p.name)}
+                onClick={() => setSelected(providerPluginSchema(p.name) ?? p.name)}
                 className={cn(
                   "w-full flex items-center justify-between gap-2 px-3 py-2 text-left text-xs font-mono border-l-2 transition-colors",
                   selected === p.name

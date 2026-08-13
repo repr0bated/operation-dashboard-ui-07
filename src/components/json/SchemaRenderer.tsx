@@ -59,9 +59,7 @@ function SchemaNode({ schema, data, onChange, className, readOnly, depth = 0, la
   const dataIsPlainObject = data !== null && typeof data === "object" && !Array.isArray(data);
   // schemars optional fields arrive as `type: ["string","null"]` (Draft 2020-12).
   const rawType = Array.isArray(schema.type)
-  const rawType = Array.isArray(schema.type)
     ? schema.type.find((t) => t !== "null") ?? "string"
-    : schema.type;
     : schema.type;
   let type = rawType ?? (schema.enum ? "string" : schema.properties ? "object" : "unknown");
   if (dataIsPlainObject && (type === "string" || type === "number" || type === "integer" || type === "boolean")) {

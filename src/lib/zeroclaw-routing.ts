@@ -478,6 +478,26 @@ export function chatSendRouting(state: ZeroclawRoutingState): { provider: string
   };
 }
 
+/**
+ * Models offered by the chat ModelSelect. Never filtered by selected_provider:
+ * a Gemini model is not an Antigravity-only route.
+ */
+export function selectableModels(state: ZeroclawRoutingState): RoutableModel[] {
+  return state.model_routes;
+}
+
+/**
+ * Extra blob schema for Chat/Assistant follows the selected provider plugin.
+ * `antigravity_chat` is not a UI surface — always use `antigravity`.
+ */
+export function providerPluginSchema(provider: string | null): string | null {
+  if (typeof provider !== "string") return null;
+  const id = provider.trim();
+  if (!id) return null;
+  if (id === "antigravity_chat") return "antigravity";
+  return id;
+}
+
 function unwrapNamed(raw: unknown, ...keys: string[]): unknown {
   const js = valueToJs(raw);
   if (!isRecord(js)) return js;
