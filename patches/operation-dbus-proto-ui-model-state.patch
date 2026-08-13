@@ -196,7 +196,7 @@ index 0a0c6d2..c66473f 100755
 +        fs::write(dir.join(".manifest.json"), br#"{"generation":3}"#).unwrap();
 +        fs::write(dir.join("notes.txt"), b"ignore").unwrap();
 +
-+        let tree = read_all_from_path(dir.to_str().unwrap());
++        let tree = read_all_from_path(&dir.to_string_lossy());
 +        let tree = read_all_from_path(dir.to_str().unwrap());
 +        let cleanup = || { let _ = fs::remove_dir_all(&dir); };
 +        let result = std::panic::catch_unwind(|| {
