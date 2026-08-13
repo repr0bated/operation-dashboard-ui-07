@@ -64,7 +64,7 @@ export function AssignmentModelSelect({ role, className }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [meta.catalog]);
+  }, [meta.catalog, state.assignments[role]]);
 
   const apply = async (modelId: string) => {
     setApplying(true);
