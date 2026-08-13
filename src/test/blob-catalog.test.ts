@@ -27,6 +27,15 @@ describe("plugin catalog sources", () => {
         "system.memory": { rss: 1 },
       }),
     ).toEqual(["system.memory", "zeroclaw"]);
+    expect(
+      pluginIdsFromJson({
+        plugins: ["zeroclaw", "system.memory"],
+        state: {
+          zeroclaw: { selected_model: "qwen3.6-35b-a3b" },
+          "system.memory": { rss: 1 },
+        },
+      }),
+    ).toEqual(["system.memory", "zeroclaw"]);
   });
 
   it("unions blob ids with /dev/shm/opdbus/state ids", () => {
@@ -42,8 +51,11 @@ describe("plugin catalog sources", () => {
       }
       if (url.includes("/ui-model/state")) {
         return jsonOk({
-          zeroclaw: { selected_model: "qwen3.6-35b-a3b" },
-          "system.memory": { rss: 1 },
+          plugins: ["system.memory", "zeroclaw"],
+          state: {
+            zeroclaw: { selected_model: "qwen3.6-35b-a3b" },
+            "system.memory": { rss: 1 },
+          },
         });
       }
       return jsonOk({}, 404);

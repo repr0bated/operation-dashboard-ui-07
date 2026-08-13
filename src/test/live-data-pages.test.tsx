@@ -132,8 +132,11 @@ describe("Sealed Blobs reads the blob catalog, not the codegen index", () => {
       if (url.includes("/ui-model/plugins")) return jsonResponse(CATALOG);
       if (url.includes("/ui-model/state")) {
         return jsonResponse({
-          zeroclaw: { selected_model: "qwen3.6-35b-a3b" },
-          "system.memory": { rss: 1 },
+          plugins: ["system.memory", "zeroclaw"],
+          state: {
+            zeroclaw: { selected_model: "qwen3.6-35b-a3b" },
+            "system.memory": { rss: 1 },
+          },
         });
       }
       if (url.includes("/ui-model/plugin-schema/")) {

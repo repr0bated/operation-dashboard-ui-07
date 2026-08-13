@@ -1,11 +1,12 @@
 /**
  * Plugin catalog ids for Blobs / Plugins pages.
  *
- * Two live SHM sources, never the deprecated projection layer:
+ * Two live SHM sources. The projection daemon is gone; op-web serves state
+ * from `/dev/shm/opdbus/state/` on GET /ui-model/state (and still aliases the
+ * old /dashboard/projections path to that handler).
+ *
  *   - sealed blobs: GET /ui-model/plugins  → /dev/shm/opdbus/plugin-blobs/
  *   - present state: GET /ui-model/state   → /dev/shm/opdbus/state/
- *
- * `/dev/shm/opdbus/projections/` is gone. Do not fetch /dashboard/projections.
  */
 import { resolveApiBase } from "@/lib/api";
 
