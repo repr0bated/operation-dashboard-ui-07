@@ -210,6 +210,14 @@ describe("zeroclaw model assignments (vectorization)", () => {
     expect(ZEROCLAW_SUBIDS.modelAssignments).toBe("obs.service.zeroclaw.model-assignments.get@v1");
     expect(ZEROCLAW_SUBIDS.setVectorizationModel)
       .toBe("mut.service.zeroclaw.model-assignments.vectorization.set@v1");
+    expect(ZEROCLAW_SUBIDS.setQdrantRetrievalModel)
+      .toBe("mut.service.zeroclaw.model-assignments.qdrant-retrieval.set@v1");
+    expect(ZEROCLAW_SUBIDS.setCozoRetrievalModel)
+      .toBe("mut.service.zeroclaw.model-assignments.cozo-retrieval.set@v1");
+    expect(ZEROCLAW_SUBIDS.setOvsRoutingModel)
+      .toBe("mut.service.zeroclaw.model-assignments.ovs-routing.set@v1");
+    expect(ZEROCLAW_SUBIDS.setObfuscationModel)
+      .toBe("mut.service.zeroclaw.model-assignments.obfuscation.set@v1");
   });
 });
 

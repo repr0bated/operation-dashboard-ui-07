@@ -33,6 +33,10 @@ export const ZEROCLAW_SUBIDS = {
   setProvider: "mut.service.zeroclaw.provider.set@v1",
   setModel: "mut.service.zeroclaw.model.set@v1",
   setVectorizationModel: "mut.service.zeroclaw.model-assignments.vectorization.set@v1",
+  setQdrantRetrievalModel: "mut.service.zeroclaw.model-assignments.qdrant-retrieval.set@v1",
+  setCozoRetrievalModel: "mut.service.zeroclaw.model-assignments.cozo-retrieval.set@v1",
+  setOvsRoutingModel: "mut.service.zeroclaw.model-assignments.ovs-routing.set@v1",
+  setObfuscationModel: "mut.service.zeroclaw.model-assignments.obfuscation.set@v1",
 } as const;
 
 /** Embedding models are not chat LLM routes. */
@@ -58,6 +62,27 @@ export const EMPTY_ASSIGNMENTS: ModelAssignments = {
   cozo_retrieval: null,
   ovs_routing: null,
   obfuscation: null,
+};
+
+export type AssignmentCatalog = "embedding" | "routes";
+
+export const ASSIGNMENT_META: Record<
+  AssignmentRole,
+  { label: string; catalog: AssignmentCatalog }
+> = {
+  vectorization: { label: "Vectorization", catalog: "embedding" },
+  qdrant_retrieval: { label: "Qdrant retrieval", catalog: "routes" },
+  cozo_retrieval: { label: "Cozo retrieval", catalog: "routes" },
+  ovs_routing: { label: "OVS routing", catalog: "routes" },
+  obfuscation: { label: "Obfuscation", catalog: "routes" },
+};
+
+export const ASSIGNMENT_SETTERS: Record<AssignmentRole, string> = {
+  vectorization: ZEROCLAW_SUBIDS.setVectorizationModel,
+  qdrant_retrieval: ZEROCLAW_SUBIDS.setQdrantRetrievalModel,
+  cozo_retrieval: ZEROCLAW_SUBIDS.setCozoRetrievalModel,
+  ovs_routing: ZEROCLAW_SUBIDS.setOvsRoutingModel,
+  obfuscation: ZEROCLAW_SUBIDS.setObfuscationModel,
 };
 
 export type CallSubid = (subid: string, input?: object) => Promise<unknown>;
