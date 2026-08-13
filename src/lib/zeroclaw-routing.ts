@@ -6,7 +6,11 @@
  *   1. Recognises `selected_provider` / `selected_model` / `model_routes`
  *   2. Resolves schemars `$ref` / `$defs` / `type: ["string","null"]`
  *   3. Overlays live GetState / GetRouter / GetModelRoutes / ListProviders
+ *      / GetModelAssignments
  *   4. Produces a SchemaRenderer-ready schema + Chat SendRequest payload
+ *
+ * Embedding Pipeline is the UI for the `vectorization` model assignment
+ * (`GetModelAssignments` / `SetVectorizationModel`), not chat `selected_model`.
  */
 import { valueToJs } from "@/grpc/google/protobuf/struct";
 import type { JsonSchema } from "@/types/api";
@@ -25,9 +29,36 @@ export const ZEROCLAW_SUBIDS = {
   modelRoutes: "obs.service.zeroclaw.model-routes.list@v1",
   providers: "obs.service.zeroclaw.providers.list@v1",
   router: "obs.service.zeroclaw.router.get@v1",
+  modelAssignments: "obs.service.zeroclaw.model-assignments.get@v1",
   setProvider: "mut.service.zeroclaw.provider.set@v1",
   setModel: "mut.service.zeroclaw.model.set@v1",
+  setVectorizationModel: "mut.service.zeroclaw.model-assignments.vectorization.set@v1",
 } as const;
+
+/** Embedding models are not chat LLM routes. */
+export const EMBEDDING_SUBIDS = {
+  listModels: "obs.service.embedding.model.list@v1",
+} as const;
+
+export const ASSIGNMENT_ROLES = [
+  "vectorization",
+  "qdrant_retrieval",
+  "cozo_retrieval",
+  "ovs_routing",
+  "obfuscation",
+] as const;
+
+export type AssignmentRole = (typeof ASSIGNMENT_ROLES)[number];
+
+export type ModelAssignments = Record<AssignmentRole, string | null>;
+
+export const EMPTY_ASSIGNMENTS: ModelAssignments = {
+  vectorization: null,
+  qdrant_retrieval: null,
+  cozo_retrieval: null,
+  ovs_routing: null,
+  obfuscation: null,
+};
 
 export type CallSubid = (subid: string, input?: object) => Promise<unknown>;
 
@@ -46,6 +77,7 @@ export interface ZeroclawRoutingState {
   selected_model: string | null;
   model_routes: RoutableModel[];
   providers: string[];
+  assignments: ModelAssignments;
 }
 
 export interface ZeroclawRoutingSnapshot {
@@ -59,6 +91,7 @@ export const EMPTY_ROUTING_STATE: ZeroclawRoutingState = {
   selected_model: null,
   model_routes: [],
   providers: [],
+  assignments: { ...EMPTY_ASSIGNMENTS },
 };
 
 type PluginField = {
@@ -318,9 +351,74 @@ function unwrapList(value: unknown): unknown[] {
   return [];
 }
 
+function assignmentModel(value: unknown): string | null {
+  if (typeof value === "string" && value.trim()) return value.trim();
+  const obj = asRecord(value);
+  if (!obj) return null;
+  return pickString(obj, "model", "model_id", "modelId", "id", "name");
+}
+
+/** Parse GetModelAssignments / GetState.model_assignments into role → model id. */
+export function assignmentsFromValue(raw: unknown): ModelAssignments {
+  const obj = asRecord(raw) ?? {};
+  const inner =
+    asRecord(obj.model_assignments) ??
+    asRecord(obj.modelAssignments) ??
+    obj;
+  return {
+    vectorization: assignmentModel(inner.vectorization),
+    qdrant_retrieval:
+      assignmentModel(inner.qdrant_retrieval) ?? assignmentModel(inner.qdrantRetrieval),
+    cozo_retrieval:
+      assignmentModel(inner.cozo_retrieval) ?? assignmentModel(inner.cozoRetrieval),
+    ovs_routing:
+      assignmentModel(inner.ovs_routing) ?? assignmentModel(inner.ovsRouting),
+    obfuscation: assignmentModel(inner.obfuscation),
+  };
+}
+
+function overlayAssignments(base: ModelAssignments, overlay: unknown): ModelAssignments {
+  if (overlay == null) return base;
+  const next = assignmentsFromValue(overlay);
+  return {
+    vectorization: next.vectorization ?? base.vectorization,
+    qdrant_retrieval: next.qdrant_retrieval ?? base.qdrant_retrieval,
+    cozo_retrieval: next.cozo_retrieval ?? base.cozo_retrieval,
+    ovs_routing: next.ovs_routing ?? base.ovs_routing,
+    obfuscation: next.obfuscation ?? base.obfuscation,
+  };
+}
+
+function uniqueStrings(values: unknown[]): string[] {
+  const out: string[] = [];
+  for (const value of values) {
+    if (typeof value === "string" && value.trim() && !out.includes(value)) out.push(value);
+  }
+  return out;
+}
+
+export function parseEmbeddingModels(raw: unknown): string[] {
+  const js = valueToJs(raw);
+  if (Array.isArray(js)) return uniqueStrings(js);
+  const obj = asRecord(js);
+  if (!obj) return [];
+  for (const key of ["models", "embedding_models", "embeddingModels"]) {
+    const inner = obj[key];
+    if (Array.isArray(inner)) return uniqueStrings(inner);
+  }
+  return [];
+}
+
+/** Current assignment is always listed, even if the embedding catalog omitted it. */
+export function vectorizationModelOptions(current: string | null, listed: string[]): string[] {
+  const ids = uniqueStrings(listed);
+  if (current && !ids.includes(current)) ids.unshift(current);
+  return ids;
+}
+
 export function routingFromState(
   state: unknown,
-  extras?: { providers?: unknown; modelRoutes?: unknown; router?: unknown },
+  extras?: { providers?: unknown; modelRoutes?: unknown; router?: unknown; assignments?: unknown },
 ): ZeroclawRoutingState {
   const raw = asRecord(state) ?? {};
   const inner = asRecord(raw.state) ?? raw;
@@ -342,7 +440,10 @@ export function routingFromState(
     .map(asProviderId)
     .filter((id): id is string => id != null);
 
-  return { selected_provider, selected_model, model_routes, providers };
+  const fromState = assignmentsFromValue(inner.model_assignments ?? inner.modelAssignments);
+  const assignments = overlayAssignments(fromState, extras?.assignments);
+
+  return { selected_provider, selected_model, model_routes, providers, assignments };
 }
 
 export function chatSendRouting(state: ZeroclawRoutingState): { provider: string; model: string } {
@@ -376,11 +477,12 @@ export async function loadZeroclawRouting(
     throw new Error("zeroclaw config schema unavailable");
   }
 
-  const [stateRes, routesRes, providersRes, routerRes] = await Promise.all([
+  const [stateRes, routesRes, providersRes, routerRes, assignmentsRes] = await Promise.all([
     call(ZEROCLAW_SUBIDS.state, {}),
     call(ZEROCLAW_SUBIDS.modelRoutes, {}),
     call(ZEROCLAW_SUBIDS.providers, {}),
     call(ZEROCLAW_SUBIDS.router, {}).catch(() => ({})),
+    call(ZEROCLAW_SUBIDS.modelAssignments, {}).catch(() => null),
   ]);
 
   const schema = routingJsonSchema(schemaSource);
@@ -388,6 +490,7 @@ export async function loadZeroclawRouting(
     providers: unwrapNamed(providersRes, "providers"),
     modelRoutes: unwrapNamed(routesRes, "modelRoutes", "model_routes"),
     router: unwrapNamed(routerRes, "router"),
+    assignments: unwrapNamed(assignmentsRes, "modelAssignments", "model_assignments"),
   });
   return {
     schema,

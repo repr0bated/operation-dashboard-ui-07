@@ -7,6 +7,7 @@ import {
   populateRoutingSchema,
   routingFromState,
   routingJsonSchema,
+  EMPTY_ASSIGNMENTS,
 } from "@/lib/zeroclaw-routing";
 import type { JsonSchema } from "@/types/api";
 
@@ -18,6 +19,7 @@ const LIVE = {
     { id: "qwen3.6-35b-a3b", name: "Qwen 3.6", provider: "salad", available: true },
   ],
   providers: ["antigravity", "salad"],
+  assignments: { ...EMPTY_ASSIGNMENTS },
 };
 
 describe("SchemaRenderer populates zeroclaw routing from schemars + live state", () => {

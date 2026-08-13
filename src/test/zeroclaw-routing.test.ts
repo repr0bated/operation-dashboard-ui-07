@@ -5,9 +5,11 @@ import pluginSchema from "./fixtures/plugin-schema-zeroclaw.json";
 import schemarsSchema from "./fixtures/zeroclaw-config-schema.json";
 import {
   ROUTING_FIELDS,
+  assignmentsFromValue,
   chatSendRouting,
   jsonSchemaHasRouting,
   loadZeroclawRouting,
+  parseEmbeddingModels,
   pluginSchemaHasRouting,
   pluginSchemaToJsonSchema,
   populateRoutingSchema,
@@ -15,6 +17,8 @@ import {
   routingFromState,
   routingJsonSchema,
   schemaPropagatesRouting,
+  vectorizationModelOptions,
+  EMBEDDING_SUBIDS,
   ZEROCLAW_SUBIDS,
 } from "@/lib/zeroclaw-routing";
 import type { JsonSchema } from "@/types/api";
@@ -85,6 +89,13 @@ describe("routingFromState + populateRoutingSchema", () => {
       { id: "qwen3.6-35b-a3b", name: "Qwen 3.6", provider: "salad", available: true },
     ],
     providers: ["antigravity", "salad"],
+    assignments: {
+      vectorization: null,
+      qdrant_retrieval: null,
+      cozo_retrieval: null,
+      ovs_routing: null,
+      obfuscation: null,
+    },
   };
 
   it("reads snake_case, camelCase, and nested router snapshots", () => {
@@ -139,8 +150,66 @@ describe("routingFromState + populateRoutingSchema", () => {
       provider: "antigravity",
       model: "gemini-2.5-flash",
     });
-    expect(chatSendRouting({ selected_provider: null, selected_model: null, model_routes: [], providers: [] }))
-      .toEqual({ provider: "", model: "" });
+    expect(chatSendRouting({
+      selected_provider: null,
+      selected_model: null,
+      model_routes: [],
+      providers: [],
+      assignments: {
+        vectorization: null,
+        qdrant_retrieval: null,
+        cozo_retrieval: null,
+        ovs_routing: null,
+        obfuscation: null,
+      },
+    })).toEqual({ provider: "", model: "" });
+  });
+});
+
+describe("zeroclaw model assignments (vectorization)", () => {
+  it("parses snake_case, camelCase, and nested model objects", () => {
+    expect(
+      assignmentsFromValue({
+        vectorization: "voyage-3-large",
+        qdrant_retrieval: "qwen-retriever",
+        cozoRetrieval: "cozo-embed",
+        ovs_routing: { modelId: "ovs-route" },
+        obfuscation: { model: "obf-1" },
+      }),
+    ).toEqual({
+      vectorization: "voyage-3-large",
+      qdrant_retrieval: "qwen-retriever",
+      cozo_retrieval: "cozo-embed",
+      ovs_routing: "ovs-route",
+      obfuscation: "obf-1",
+    });
+
+    expect(
+      assignmentsFromValue({
+        modelAssignments: { vectorization: "voyage-3-large" },
+      }).vectorization,
+    ).toBe("voyage-3-large");
+  });
+
+  it("routingFromState reads model_assignments from GetState", () => {
+    expect(
+      routingFromState({
+        selected_provider: "antigravity",
+        selected_model: "gemini-2.5-flash",
+        model_assignments: { vectorization: "voyage-3-large" },
+      }).assignments.vectorization,
+    ).toBe("voyage-3-large");
+  });
+
+  it("embedding model list is distinct from chat model_routes", () => {
+    expect(parseEmbeddingModels({ models: ["voyage-3-large", "text-embedding-3-small"] }))
+      .toEqual(["voyage-3-large", "text-embedding-3-small"]);
+    expect(vectorizationModelOptions("voyage-3-large", ["text-embedding-3-small"]))
+      .toEqual(["voyage-3-large", "text-embedding-3-small"]);
+    expect(EMBEDDING_SUBIDS.listModels).toBe("obs.service.embedding.model.list@v1");
+    expect(ZEROCLAW_SUBIDS.modelAssignments).toBe("obs.service.zeroclaw.model-assignments.get@v1");
+    expect(ZEROCLAW_SUBIDS.setVectorizationModel)
+      .toBe("mut.service.zeroclaw.model-assignments.vectorization.set@v1");
   });
 });
 
@@ -196,6 +265,35 @@ describe("loadZeroclawRouting", () => {
       provider: "antigravity",
       model: "gemini-2.5-flash",
     });
+  });
+
+  it("overlays GetModelAssignments.vectorization onto routing state", async () => {
+    const snap = await loadZeroclawRouting(async (subid) => {
+      switch (subid) {
+        case ZEROCLAW_SUBIDS.configSchema:
+          return { configSchema: schemarsSchema };
+        case ZEROCLAW_SUBIDS.state:
+          return {
+            state: {
+              selected_provider: "antigravity",
+              selected_model: "gemini-2.5-flash",
+              model_assignments: { vectorization: "stale-from-state" },
+            },
+          };
+        case ZEROCLAW_SUBIDS.modelRoutes:
+          return { modelRoutes: [] };
+        case ZEROCLAW_SUBIDS.providers:
+          return { providers: [] };
+        case ZEROCLAW_SUBIDS.router:
+          return {};
+        case ZEROCLAW_SUBIDS.modelAssignments:
+          return { modelAssignments: { vectorization: "voyage-3-large" } };
+        default:
+          throw new Error(`unexpected subid ${subid}`);
+      }
+    });
+
+    expect(snap.state.assignments.vectorization).toBe("voyage-3-large");
   });
 
   it("falls back to PluginSchema when GetConfigSchema is missing", async () => {
