@@ -176,7 +176,6 @@ const CODEC_REGISTRY: Map<string, CodecPair> = (() => {
     RegistrationServiceSvc,
     McpServiceSvc,
     ChatServiceSvc,
-    NamespaceMemoryServiceSvc,
     AntigravityServiceSvc,
     NetmakerServiceSvc,
   ];
