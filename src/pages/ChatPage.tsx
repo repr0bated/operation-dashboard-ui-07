@@ -32,9 +32,15 @@ function normalizeContent(value: unknown): string {
   }
 }
 
-function mapBackendRole(role: string): LocalMessage["role"] {
-  if (role === "user" || role === "assistant" || role === "system" || role === "tool") return role;
-  return "system";
+function mapBackendRole(role: UIMessageRole): LocalMessage["role"] {
+  switch (role) {
+    case UIMessageRole.UI_MESSAGE_ROLE_ASSISTANT:
+      return "assistant";
+    case UIMessageRole.UI_MESSAGE_ROLE_TOOL:
+      return "tool";
+    default:
+      return "system";
+  }
 }
 
 function makeId(prefix: string): string {
@@ -124,7 +130,7 @@ export default function ChatPage() {
           }
           const assistantMsg: LocalMessage = {
             id: makeId("part"),
-            role: mapBackendRole(UIMessageRole[part.role] ?? "system"),
+            role: mapBackendRole(part.role),
             content: normalizeContent(content),
             timestamp: Date.now(),
           };
