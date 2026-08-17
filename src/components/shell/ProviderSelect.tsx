@@ -1,9 +1,9 @@
 /**
- * Model/provider picker — backed by zeroclaw's real provider catalog
+ * Model/provider picker — backed by tched_router's real provider catalog
  * (schema-driven; new providers registered there show up here automatically,
  * no hardcoded list). Populated via `ListProviders` + `GetRouter`
- * (obs.service.zeroclaw.providers.list@v1 / obs.service.zeroclaw.router.get@v1),
- * applied via `SetProvider` (mut.service.zeroclaw.provider.set@v1).
+ * (obs.service.3tched-router.providers.list@v1 / obs.service.3tched-router.router.get@v1),
+ * applied via `SetProvider` (mut.service.3tched-router.provider.set@v1).
  */
 import { useEffect, useState } from "react";
 import {
@@ -17,7 +17,7 @@ import { valueToJs } from "@/grpc/google/protobuf/struct";
 import { Cpu, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface ZeroclawProvider {
+interface TchedRouterProvider {
   id?: string;
   kind?: string;
   description?: string;
@@ -30,7 +30,7 @@ interface Props {
 }
 
 export function ProviderSelect({ className }: Props) {
-  const [providers, setProviders] = useState<ZeroclawProvider[]>([]);
+  const [providers, setProviders] = useState<TchedRouterProvider[]>([]);
   const [value, setValue] = useState<string>(FALLBACK_PROVIDER);
   const [loading, setLoading] = useState(true);
   const [applying, setApplying] = useState(false);
@@ -43,11 +43,11 @@ export function ProviderSelect({ className }: Props) {
         const { pluginMethods } = await import("@/grpc/plugin-methods");
         const [providersResp, routerResp] = await Promise.all([
           pluginMethods.callSubid<object, { providers?: unknown[] }>(
-            "obs.service.zeroclaw.providers.list@v1",
+            "obs.service.3tched-router.providers.list@v1",
             {},
           ),
           pluginMethods.callSubid<object, { router?: unknown }>(
-            "obs.service.zeroclaw.router.get@v1",
+            "obs.service.3tched-router.router.get@v1",
             {},
           ),
         ]);
@@ -61,9 +61,9 @@ export function ProviderSelect({ className }: Props) {
               kind: typeof o.kind === "string" ? o.kind : undefined,
               description:
                 typeof o.description === "string" ? o.description : undefined,
-            } as ZeroclawProvider;
+            } as TchedRouterProvider;
           })
-          .filter((p): p is ZeroclawProvider & { id: string } => !!p.id);
+          .filter((p): p is TchedRouterProvider & { id: string } => !!p.id);
         setProviders(list);
         const activeProvider = (valueToJs(routerResp.router) as { provider?: string } | undefined)
           ?.provider;
@@ -93,7 +93,7 @@ export function ProviderSelect({ className }: Props) {
     setError(null);
     try {
       const { pluginMethods } = await import("@/grpc/plugin-methods");
-      await pluginMethods.callSubid("mut.service.zeroclaw.provider.set@v1", {
+      await pluginMethods.callSubid("mut.service.3tched-router.provider.set@v1", {
         providerId,
       });
     } catch (e) {

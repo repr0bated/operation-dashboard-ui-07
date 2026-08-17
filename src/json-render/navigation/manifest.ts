@@ -57,18 +57,18 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "overview", label: "Overview", route: "/", icon: "BarChart3", section: "Control", order: 10 },
   { id: "orchestration", label: "Orchestration", route: "/orchestration", icon: "Orbit", section: "Control", order: 20 },
   { id: "services", label: "Services", route: "/services", icon: "Link2", section: "Control", order: 30 },
-  { id: "llm", label: "LLM", route: "/llm", icon: "Radio", section: "Control", order: 40 },
+  { id: "llm", label: "LLM", route: "/llm", icon: "Radio", section: "Control", order: 40, wip: true, wipReason: "Mutating actions are local-only; reads event store but writes do not hit the backend." },
 
   // Agent
   { id: "agents", label: "Agents", route: "/agents", icon: "Folder", section: "Agent", order: 10 },
   { id: "assistant", label: "Assistant", route: "/assistant", icon: "Bot", section: "Agent", order: 20 },
   { id: "models", label: "Routable Models", route: "/models", icon: "Radio", section: "Agent", order: 30 },
-  { id: "tools", label: "Tools", route: "/tools", icon: "Zap", section: "Agent", order: 40 },
-  { id: "workflows", label: "Workflows", route: "/workflows", icon: "GitBranch", section: "Agent", order: 50 },
+  { id: "tools", label: "Tools", route: "/tools", icon: "Zap", section: "Agent", order: 40, wip: true, wipReason: "Mutating actions are local-only." },
+  { id: "workflows", label: "Workflows", route: "/workflows", icon: "GitBranch", section: "Agent", order: 50, wip: true, wipReason: "Mutating actions are local-only." },
   { id: "security", label: "Security", route: "/security", icon: "Shield", section: "Agent", order: 60 },
   { id: "accountability", label: "Accountability", route: "/accountability", icon: "ScrollText", section: "Agent", order: 70 },
-  { id: "skills", label: "Skills", route: "/skills", icon: "ScrollText", section: "Agent", order: 80 },
-  { id: "knowledge", label: "Knowledge", route: "/knowledge", icon: "Brain", section: "Agent", order: 90 },
+  { id: "skills", label: "Skills", route: "/skills", icon: "ScrollText", section: "Agent", order: 80, wip: true, wipReason: "Mutating actions are local-only." },
+  { id: "knowledge", label: "Knowledge", route: "/knowledge", icon: "Brain", section: "Agent", order: 90, wip: true, wipReason: "Mutating actions are local-only." },
   { id: "embedding", label: "Embedding Pipeline", route: "/embedding", icon: "Orbit", section: "Agent", order: 100 },
 
   // Infrastructure
@@ -81,17 +81,17 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "netmaker", label: "Netmaker", route: "/netmaker", icon: "Radio", section: "Infrastructure", order: 55 },
   { id: "data-stores", label: "Data Stores", route: "/data-stores", icon: "Monitor", section: "Infrastructure", order: 60 },
 
-  // ZeroClaw
+  // 3tched Router
   // These five render static layout only — no @/grpc or @/lib/api import at
   // all — so they are marked WIP. Verified by import audit, not by guesswork.
-  { id: "gateway", label: "Gateway", route: "/gateway", icon: "Webhook", section: "ZeroClaw", order: 10, wip: true, wipReason: "Layout only — not wired to the ZeroClaw gateway API yet." },
-  { id: "channels", label: "Channels", route: "/channels", icon: "Wifi", section: "ZeroClaw", order: 20, wip: true, wipReason: "Channel list is a static placeholder — no channel API call yet." },
-  { id: "cron", label: "Cron", route: "/cron", icon: "Clock", section: "ZeroClaw", order: 30, wip: true, wipReason: "The cron plugin is sealed and exposes 9 methods, but this page does not call them yet." },
-  { id: "integrations", label: "Integrations", route: "/integrations", icon: "Puzzle", section: "ZeroClaw", order: 40, wip: true, wipReason: "Integration tiles are static — no live integration state." },
-  { id: "hardware", label: "Hardware", route: "/hardware", icon: "Usb", section: "ZeroClaw", order: 50, wip: true, wipReason: "The hardware plugin exposes scan/list/get methods; this page does not call them yet." },
+  { id: "gateway", label: "Gateway", route: "/gateway", icon: "Webhook", section: "3tched Router", order: 10, wip: true, wipReason: "Layout only — not wired to the 3tched Router gateway API yet." },
+  { id: "channels", label: "Channels", route: "/channels", icon: "Wifi", section: "3tched Router", order: 20, wip: true, wipReason: "Channel list is a static placeholder — no channel API call yet." },
+  { id: "cron", label: "Cron", route: "/cron", icon: "Clock", section: "3tched Router", order: 30, wip: true, wipReason: "The cron plugin is sealed and exposes 9 methods, but this page does not call them yet." },
+  { id: "integrations", label: "Integrations", route: "/integrations", icon: "Puzzle", section: "3tched Router", order: 40, wip: true, wipReason: "Integration tiles are static — no live integration state." },
+  { id: "hardware", label: "Hardware", route: "/hardware", icon: "Usb", section: "3tched Router", order: 50, wip: true, wipReason: "The hardware plugin exposes scan/list/get methods; this page does not call them yet." },
 
   // Settings
-  { id: "config", label: "Config", route: "/config", icon: "Settings", section: "Settings", order: 10 },
+  { id: "config", label: "Config", route: "/config", icon: "Settings", section: "Settings", order: 10, wip: true, wipReason: "Mutating actions are local-only." },
   { id: "inspector", label: "Inspector", route: "/inspector", icon: "Bug", section: "Settings", order: 20 },
   { id: "state", label: "State", route: "/state", icon: "Monitor", section: "Settings", order: 30 },
   { id: "logs", label: "Logs", route: "/logs", icon: "ScrollText", section: "Settings", order: 40 },
@@ -121,7 +121,7 @@ export const SECTION_ORDER = [
   "Control",
   "Agent",
   "Infrastructure",
-  "ZeroClaw",
+  "3tched Router",
   "Settings",
   "Coming Soon",
   "Blobs",
