@@ -1818,10 +1818,10 @@ service XrayService {
 
 
 // =============================================
-// zeroclaw - Zeroclaw schema/RPC-native model router for Antigravity UI, CLI providers, and structured JSON output
+// tched_router - 3tched Router schema/RPC-native model router for Antigravity UI, CLI providers, and structured JSON output
 // =============================================
 
-message Zeroclaw {
+message TchedRouter {
   optional string actor_id = 1;
   optional string capability_id = 2;
   optional google.protobuf.Struct config_schema = 3;
@@ -1839,19 +1839,19 @@ message Zeroclaw {
   repeated google.protobuf.Struct ui_surfaces = 15;
 }
 
-message GetZeroclawRequest {
+message GetTchedRouterRequest {
   string object_path = 1;
 }
-message GetZeroclawResponse {
-  Zeroclaw state = 1;
+message GetTchedRouterResponse {
+  TchedRouter state = 1;
 }
-message ZeroclawUpdate {
+message TchedRouterUpdate {
   string object_path = 1;
-  Zeroclaw state = 2;
+  TchedRouter state = 2;
 }
 
-service ZeroclawService {
-  rpc Get(GetZeroclawRequest) returns (GetZeroclawResponse);
+service TchedRouterService {
+  rpc Get(GetTchedRouterRequest) returns (GetTchedRouterResponse);
 }
 
 

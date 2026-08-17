@@ -6,7 +6,7 @@ import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
 import { unwrapContentBlocks } from "@/lib/chat-content";
-import { resolveZeroclawChatSelection } from "@/lib/plugin-ui-surfaces";
+import { resolveTchedRouterChatSelection } from "@/lib/plugin-ui-surfaces";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 import { X, Maximize2 } from "lucide-react";
@@ -92,9 +92,9 @@ export default function ChatPage() {
     setError(null);
     streamRef.current?.abort();
 
-    // Inference via zeroclaw selected_provider/model (OD-28) — not hardwired Gemini.
+    // Inference via tched_router selected_provider/model (OD-28) — not hardwired Gemini.
     // System prompt comes from Assistant config (shared storage via chatService.send).
-    const route = await resolveZeroclawChatSelection();
+    const route = await resolveTchedRouterChatSelection();
     const { stream, abort } = chatService.send({
       conversationId: sessionKey,
       content: text,

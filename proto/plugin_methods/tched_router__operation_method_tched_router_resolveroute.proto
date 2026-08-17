@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.resolveroute;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveRouteInput {
+  string hint = 1;
+}
+
+message ResolveRouteOutput {
+  google.protobuf.Value route = 1;
+}
+
+service ResolveRouteService {
+  // subid: obs.service.3tched-router.route.resolve@v1, capability: cap.software.3tched-router.route.resolve@v1
+  rpc ResolveRoute(ResolveRouteInput) returns (ResolveRouteOutput);
+}

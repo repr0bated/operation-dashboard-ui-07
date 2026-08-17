@@ -11,8 +11,8 @@
 // itself — it only calls agents. Forced tool calling is mandatory: even
 // user-facing responses are emitted as tool calls.
 //
-// zeroclaw owns LLM provider/model routing (OD-28). SendRequest carries
-// the provider/model selection from zeroclaw's state; the server does not
+// tched_router owns LLM provider/model routing (OD-28). SendRequest carries
+// the provider/model selection from tched_router's state; the server does not
 // make routing decisions.
 //
 // Wire vocabulary mirrors AI SDK UIMessage part kinds so renderers stay
@@ -51,11 +51,11 @@ export interface SendRequest {
     /**
      * @generated from protobuf field: string provider = 4
      */
-    provider: string; // zeroclaw-selected provider (OD-28)
+    provider: string; // tched_router-selected provider (OD-28)
     /**
      * @generated from protobuf field: string model = 5
      */
-    model: string; // zeroclaw-selected model (OD-28)
+    model: string; // tched_router-selected model (OD-28)
     /**
      * @generated from protobuf field: optional uint64 resume_cursor = 6
      */

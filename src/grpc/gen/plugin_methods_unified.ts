@@ -3992,13 +3992,13 @@ export interface XrayUpdate {
     state?: Xray;
 }
 // =============================================
-// zeroclaw - Zeroclaw schema/RPC-native model router for Antigravity UI, CLI providers, and structured JSON output
+// tched_router - 3tched Router schema/RPC-native model router for Antigravity UI, CLI providers, and structured JSON output
 // =============================================
 
 /**
- * @generated from protobuf message operation.catalog.v1.Zeroclaw
+ * @generated from protobuf message operation.catalog.v1.TchedRouter
  */
-export interface Zeroclaw {
+export interface TchedRouter {
     /**
      * @generated from protobuf field: optional string actor_id = 1
      */
@@ -4061,35 +4061,35 @@ export interface Zeroclaw {
     uiSurfaces: Struct[];
 }
 /**
- * @generated from protobuf message operation.catalog.v1.GetZeroclawRequest
+ * @generated from protobuf message operation.catalog.v1.GetTchedRouterRequest
  */
-export interface GetZeroclawRequest {
+export interface GetTchedRouterRequest {
     /**
      * @generated from protobuf field: string object_path = 1
      */
     objectPath: string;
 }
 /**
- * @generated from protobuf message operation.catalog.v1.GetZeroclawResponse
+ * @generated from protobuf message operation.catalog.v1.GetTchedRouterResponse
  */
-export interface GetZeroclawResponse {
+export interface GetTchedRouterResponse {
     /**
-     * @generated from protobuf field: operation.catalog.v1.Zeroclaw state = 1
+     * @generated from protobuf field: operation.catalog.v1.TchedRouter state = 1
      */
-    state?: Zeroclaw;
+    state?: TchedRouter;
 }
 /**
- * @generated from protobuf message operation.catalog.v1.ZeroclawUpdate
+ * @generated from protobuf message operation.catalog.v1.TchedRouterUpdate
  */
-export interface ZeroclawUpdate {
+export interface TchedRouterUpdate {
     /**
      * @generated from protobuf field: string object_path = 1
      */
     objectPath: string;
     /**
-     * @generated from protobuf field: operation.catalog.v1.Zeroclaw state = 2
+     * @generated from protobuf field: operation.catalog.v1.TchedRouter state = 2
      */
-    state?: Zeroclaw;
+    state?: TchedRouter;
 }
 /**
  * @generated from protobuf message operation.catalog.v1.GenericGetRequest
@@ -18487,9 +18487,9 @@ class XrayUpdate$Type extends MessageType<XrayUpdate> {
  */
 export const XrayUpdate = new XrayUpdate$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class Zeroclaw$Type extends MessageType<Zeroclaw> {
+class TchedRouter$Type extends MessageType<TchedRouter> {
     constructor() {
-        super("operation.catalog.v1.Zeroclaw", [
+        super("operation.catalog.v1.TchedRouter", [
             { no: 1, name: "actor_id", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "capability_id", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "config_schema", kind: "message", T: () => Struct },
@@ -18507,17 +18507,17 @@ class Zeroclaw$Type extends MessageType<Zeroclaw> {
             { no: 15, name: "ui_surfaces", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Struct }
         ]);
     }
-    create(value?: PartialMessage<Zeroclaw>): Zeroclaw {
+    create(value?: PartialMessage<TchedRouter>): TchedRouter {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.modelRoutes = [];
         message.providers = [];
         message.tools = [];
         message.uiSurfaces = [];
         if (value !== undefined)
-            reflectionMergePartial<Zeroclaw>(this, message, value);
+            reflectionMergePartial<TchedRouter>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Zeroclaw): Zeroclaw {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: TchedRouter): TchedRouter {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -18578,7 +18578,7 @@ class Zeroclaw$Type extends MessageType<Zeroclaw> {
         }
         return message;
     }
-    internalBinaryWrite(message: Zeroclaw, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: TchedRouter, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* optional string actor_id = 1; */
         if (message.actorId !== undefined)
             writer.tag(1, WireType.LengthDelimited).string(message.actorId);
@@ -18631,24 +18631,24 @@ class Zeroclaw$Type extends MessageType<Zeroclaw> {
     }
 }
 /**
- * @generated MessageType for protobuf message operation.catalog.v1.Zeroclaw
+ * @generated MessageType for protobuf message operation.catalog.v1.TchedRouter
  */
-export const Zeroclaw = new Zeroclaw$Type();
+export const TchedRouter = new TchedRouter$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetZeroclawRequest$Type extends MessageType<GetZeroclawRequest> {
+class GetTchedRouterRequest$Type extends MessageType<GetTchedRouterRequest> {
     constructor() {
-        super("operation.catalog.v1.GetZeroclawRequest", [
+        super("operation.catalog.v1.GetTchedRouterRequest", [
             { no: 1, name: "object_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<GetZeroclawRequest>): GetZeroclawRequest {
+    create(value?: PartialMessage<GetTchedRouterRequest>): GetTchedRouterRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.objectPath = "";
         if (value !== undefined)
-            reflectionMergePartial<GetZeroclawRequest>(this, message, value);
+            reflectionMergePartial<GetTchedRouterRequest>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetZeroclawRequest): GetZeroclawRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetTchedRouterRequest): GetTchedRouterRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -18667,7 +18667,7 @@ class GetZeroclawRequest$Type extends MessageType<GetZeroclawRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetZeroclawRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: GetTchedRouterRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* string object_path = 1; */
         if (message.objectPath !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.objectPath);
@@ -18678,29 +18678,29 @@ class GetZeroclawRequest$Type extends MessageType<GetZeroclawRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message operation.catalog.v1.GetZeroclawRequest
+ * @generated MessageType for protobuf message operation.catalog.v1.GetTchedRouterRequest
  */
-export const GetZeroclawRequest = new GetZeroclawRequest$Type();
+export const GetTchedRouterRequest = new GetTchedRouterRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetZeroclawResponse$Type extends MessageType<GetZeroclawResponse> {
+class GetTchedRouterResponse$Type extends MessageType<GetTchedRouterResponse> {
     constructor() {
-        super("operation.catalog.v1.GetZeroclawResponse", [
-            { no: 1, name: "state", kind: "message", T: () => Zeroclaw }
+        super("operation.catalog.v1.GetTchedRouterResponse", [
+            { no: 1, name: "state", kind: "message", T: () => TchedRouter }
         ]);
     }
-    create(value?: PartialMessage<GetZeroclawResponse>): GetZeroclawResponse {
+    create(value?: PartialMessage<GetTchedRouterResponse>): GetTchedRouterResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         if (value !== undefined)
-            reflectionMergePartial<GetZeroclawResponse>(this, message, value);
+            reflectionMergePartial<GetTchedRouterResponse>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetZeroclawResponse): GetZeroclawResponse {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetTchedRouterResponse): GetTchedRouterResponse {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* operation.catalog.v1.Zeroclaw state */ 1:
-                    message.state = Zeroclaw.internalBinaryRead(reader, reader.uint32(), options, message.state);
+                case /* operation.catalog.v1.TchedRouter state */ 1:
+                    message.state = TchedRouter.internalBinaryRead(reader, reader.uint32(), options, message.state);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -18713,10 +18713,10 @@ class GetZeroclawResponse$Type extends MessageType<GetZeroclawResponse> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetZeroclawResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* operation.catalog.v1.Zeroclaw state = 1; */
+    internalBinaryWrite(message: GetTchedRouterResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* operation.catalog.v1.TchedRouter state = 1; */
         if (message.state)
-            Zeroclaw.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            TchedRouter.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -18724,25 +18724,25 @@ class GetZeroclawResponse$Type extends MessageType<GetZeroclawResponse> {
     }
 }
 /**
- * @generated MessageType for protobuf message operation.catalog.v1.GetZeroclawResponse
+ * @generated MessageType for protobuf message operation.catalog.v1.GetTchedRouterResponse
  */
-export const GetZeroclawResponse = new GetZeroclawResponse$Type();
+export const GetTchedRouterResponse = new GetTchedRouterResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class ZeroclawUpdate$Type extends MessageType<ZeroclawUpdate> {
+class TchedRouterUpdate$Type extends MessageType<TchedRouterUpdate> {
     constructor() {
-        super("operation.catalog.v1.ZeroclawUpdate", [
+        super("operation.catalog.v1.TchedRouterUpdate", [
             { no: 1, name: "object_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "state", kind: "message", T: () => Zeroclaw }
+            { no: 2, name: "state", kind: "message", T: () => TchedRouter }
         ]);
     }
-    create(value?: PartialMessage<ZeroclawUpdate>): ZeroclawUpdate {
+    create(value?: PartialMessage<TchedRouterUpdate>): TchedRouterUpdate {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.objectPath = "";
         if (value !== undefined)
-            reflectionMergePartial<ZeroclawUpdate>(this, message, value);
+            reflectionMergePartial<TchedRouterUpdate>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ZeroclawUpdate): ZeroclawUpdate {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: TchedRouterUpdate): TchedRouterUpdate {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -18750,8 +18750,8 @@ class ZeroclawUpdate$Type extends MessageType<ZeroclawUpdate> {
                 case /* string object_path */ 1:
                     message.objectPath = reader.string();
                     break;
-                case /* operation.catalog.v1.Zeroclaw state */ 2:
-                    message.state = Zeroclaw.internalBinaryRead(reader, reader.uint32(), options, message.state);
+                case /* operation.catalog.v1.TchedRouter state */ 2:
+                    message.state = TchedRouter.internalBinaryRead(reader, reader.uint32(), options, message.state);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -18764,13 +18764,13 @@ class ZeroclawUpdate$Type extends MessageType<ZeroclawUpdate> {
         }
         return message;
     }
-    internalBinaryWrite(message: ZeroclawUpdate, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: TchedRouterUpdate, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* string object_path = 1; */
         if (message.objectPath !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.objectPath);
-        /* operation.catalog.v1.Zeroclaw state = 2; */
+        /* operation.catalog.v1.TchedRouter state = 2; */
         if (message.state)
-            Zeroclaw.internalBinaryWrite(message.state, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            TchedRouter.internalBinaryWrite(message.state, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -18778,9 +18778,9 @@ class ZeroclawUpdate$Type extends MessageType<ZeroclawUpdate> {
     }
 }
 /**
- * @generated MessageType for protobuf message operation.catalog.v1.ZeroclawUpdate
+ * @generated MessageType for protobuf message operation.catalog.v1.TchedRouterUpdate
  */
-export const ZeroclawUpdate = new ZeroclawUpdate$Type();
+export const TchedRouterUpdate = new TchedRouterUpdate$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GenericGetRequest$Type extends MessageType<GenericGetRequest> {
     constructor() {
@@ -19261,10 +19261,10 @@ export const XrayService = new ServiceType("operation.catalog.v1.XrayService", [
     { name: "Get", options: {}, I: GetXrayRequest, O: GetXrayResponse }
 ]);
 /**
- * @generated ServiceType for protobuf service operation.catalog.v1.ZeroclawService
+ * @generated ServiceType for protobuf service operation.catalog.v1.TchedRouterService
  */
-export const ZeroclawService = new ServiceType("operation.catalog.v1.ZeroclawService", [
-    { name: "Get", options: {}, I: GetZeroclawRequest, O: GetZeroclawResponse }
+export const TchedRouterService = new ServiceType("operation.catalog.v1.TchedRouterService", [
+    { name: "Get", options: {}, I: GetTchedRouterRequest, O: GetTchedRouterResponse }
 ]);
 /**
  * @generated ServiceType for protobuf service operation.catalog.v1.OperationService

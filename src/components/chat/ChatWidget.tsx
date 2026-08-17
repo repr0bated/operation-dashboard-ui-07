@@ -4,7 +4,7 @@ import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubbl
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
 import { unwrapContentBlocks } from "@/lib/chat-content";
-import { resolveZeroclawChatSelection } from "@/lib/plugin-ui-surfaces";
+import { resolveTchedRouterChatSelection } from "@/lib/plugin-ui-surfaces";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 
@@ -97,8 +97,8 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
     setError(null);
     streamRef.current?.abort();
 
-    // Inference via zeroclaw selected_provider/model (OD-28) — not hardwired Gemini.
-    const route = await resolveZeroclawChatSelection();
+    // Inference via tched_router selected_provider/model (OD-28) — not hardwired Gemini.
+    const route = await resolveTchedRouterChatSelection();
     const { stream, abort } = chatService.send({
       conversationId: sessionKey,
       content: text,
