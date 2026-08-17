@@ -216,7 +216,6 @@ export const api = {
       const envelope = structToObject(resp.result as Record<string, unknown>);
       return valueToJs(envelope.result) ?? envelope;
     },
-    initialize: async () => ({ ok: true as const }),
     listTools: async () => {
       const resp = await pluginService.callMethod({
         pluginId: "cognitive_mcp",
