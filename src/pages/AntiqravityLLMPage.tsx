@@ -88,7 +88,7 @@ export default function AntiqravityLLMPage() {
       ) : surfaces.length === 0 ? (
         <EmptyState
           title="No UI surfaces"
-          message="The antigravity-llm-projection service returned no UI surfaces."
+          hint="The antigravity-llm-projection service returned no UI surfaces."
         />
       ) : (
         <div className="grid gap-4">

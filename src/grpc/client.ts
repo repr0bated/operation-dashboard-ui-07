@@ -33,7 +33,7 @@ import {
 } from "./gen/operation";
 import { ComponentRegistry as ComponentRegistrySvc } from "./gen/registry";
 import { MailService as MailServiceSvc } from "./gen/mail";
-import { PrivacyNetworkService as PrivacyNetworkServiceSvc } from "./gen/privacy_network";
+import { PrivacyNetworkService as PrivacyNetworkServiceSvc, ComponentName } from "./gen/privacy_network";
 import { RegistrationService as RegistrationServiceSvc } from "./gen/registration";
 import { McpService as McpServiceSvc } from "./gen/mcp";
 import { ServiceManager as ServiceManagerSvc } from "./gen/services";
@@ -1087,7 +1087,7 @@ export const privacyService = {
       "operation.privacy.v1.PrivacyNetworkService",
       "GetNetworkStatus",
       {
-        component: req.component ?? "all",
+        component: req.component ?? ComponentName.ALL,
       },
     );
   },

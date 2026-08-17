@@ -43,6 +43,8 @@ export * from "./gen/operation";
 export * from "./gen/registry";
 export * from "./gen/mail";
 export * from "./gen/privacy_network";
+// Disambiguate: both registry and privacy_network define ComponentStatus.
+export { ComponentStatus } from "./gen/registry";
 export * from "./gen/registration";
 export * from "./gen/blockchain";
 export * from "./gen/btrfs";
