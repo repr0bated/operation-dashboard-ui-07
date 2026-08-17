@@ -4,8 +4,8 @@
  * Instead of AI generating raw React code or raw JSON specs,
  * we use a two-layer approach:
  *
- * 1. **Graph Layer** (Zerolang-like)
- *    - Define components as a typed schema (like zerolang.graph)
+ * 1. **Graph Layer**
+ *    - Define components as a typed schema
  *    - AI queries and patches the graph, not the text
  *    - Guarantees type safety before rendering
  *

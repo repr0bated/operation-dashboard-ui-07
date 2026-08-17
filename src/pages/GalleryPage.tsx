@@ -4,11 +4,13 @@ import { Eye, RefreshCw, X } from "lucide-react";
 import { PageHeader, Card, Callout } from "@/components/shell/Primitives";
 import { EmptyState, ErrorBanner } from "@/components/shell/Feedback";
 import { SpecRenderer } from "@/components/ui-model/SpecRenderer";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
-import { valueToJs } from "@/grpc/google/protobuf/struct";
 import {
   fetchAntigravityGalleryBundle,
+  fetchChatbotModelGalleryBundle,
   fetchPluginSchema,
+  isAntigravityChatSurface,
   isRenderableGalleryPlugin,
   pluginIdFromBlobRenderCatalogId,
   sealedPluginSpec,
@@ -27,6 +29,8 @@ interface SpecEntry {
   created_at?: number;
   /** Only catalog-backed entries can be promoted / deleted. */
   managed: boolean;
+  /** Mount live ChatWidget instead of SpecRenderer schema dump. */
+  kind?: "chat" | "spec";
 }
 
 interface SourceState {
@@ -37,9 +41,16 @@ interface SourceState {
 
 const SOURCE_LABEL: Record<SourceId, string> = {
   catalog: "Gallery catalog (REST)",
-  inference: "UI model (active inference provider)",
+  inference: "Chatbot model (zeroclaw)",
   antigravity: "Antigravity UI (sealed projection)",
 };
+
+function isChatSurface(entry: Pick<SpecEntry, "id" | "kind" | "source">): boolean {
+  // Only antigravity ui_surfaces mount ChatWidget — never zeroclaw /chat.
+  if (entry.source === "inference") return false;
+  if (entry.kind === "chat") return true;
+  return isAntigravityChatSurface({ id: entry.id });
+}
 
 const POLL_MS = 15000;
 
@@ -141,30 +152,49 @@ export default function GalleryPage() {
       setEntries((prev) => ({ ...prev, catalog: list }));
       setSource("catalog", { status: "ok", count: list.length });
     } catch (e) {
-      setEntries((prev) => ({ ...prev, catalog: [] }));
+      // Keep last-good entries on poll/transient failure so the gallery does not blank.
       setSource("catalog", classifyError(e));
     }
   }, []);
 
   const loadInferenceSpec = useCallback(async () => {
     try {
-      const { pluginMethods } = await import("@/grpc/plugin-methods");
-      const out = await pluginMethods.callSubid<
-        Record<string, never>,
-        { spec?: unknown }
-      >("obs.service.gemma.ui-spec.get@v1", {});
-      const spec = valueToJs(out.spec as never) as unknown as Spec | null;
-      const list: SpecEntry[] = spec
-        ? [{ id: "ui-model/get_ui_spec", source: "inference", spec, managed: false }]
-        : [];
+      const bundle = await fetchChatbotModelGalleryBundle();
+      const route =
+        bundle.provider && bundle.model
+          ? `${bundle.provider}/${bundle.model}`
+          : bundle.provider ?? bundle.model;
+      const list: SpecEntry[] = bundle.surfaces.map((surface) => {
+        return {
+          id: surface.id,
+          source: "inference" as const,
+          spec: surface.spec,
+          managed: false,
+          kind: "spec" as const,
+          prompt: [
+            surface.name,
+            surface.schema,
+            "SpecRenderer",
+            route,
+            bundle.schema_hash?.slice(0, 12),
+          ]
+            .filter(Boolean)
+            .join(" · "),
+        };
+      });
       setEntries((prev) => ({ ...prev, inference: list }));
       setSource("inference", {
         status: "ok",
         count: list.length,
-        message: list.length === 0 ? "GetUiSpec returned no active surface" : undefined,
+        message:
+          list.length === 0
+            ? "zeroclaw returned no chatbot model surfaces"
+            : route
+              ? `active ${route}`
+              : undefined,
       });
     } catch (e) {
-      setEntries((prev) => ({ ...prev, inference: [] }));
+      // Keep last-good entries on poll/transient failure so the gallery does not blank.
       setSource("inference", classifyError(e));
     }
   }, []);
@@ -172,19 +202,25 @@ export default function GalleryPage() {
   const loadAntigravity = useCallback(async () => {
     try {
       const bundle = await fetchAntigravityGalleryBundle();
-      const list: SpecEntry[] = bundle.surfaces.map((surface) => ({
-        id: surface.id,
-        source: "antigravity" as const,
-        spec: surface.spec,
-        managed: false,
-        prompt: bundle.schema_hash
-          ? `${surface.name} · ${surface.schema} · JsonRenderer · ${bundle.schema_hash.slice(0, 12)}`
-          : `${surface.name} · ${surface.schema} · JsonRenderer`,
-      }));
+      const list: SpecEntry[] = bundle.surfaces.map((surface) => {
+        const chat = isAntigravityChatSurface(surface);
+        return {
+          id: surface.id,
+          source: "antigravity" as const,
+          spec: surface.spec,
+          managed: false,
+          kind: chat ? ("chat" as const) : ("spec" as const),
+          prompt: chat
+            ? `${surface.name} · antigravity.chat · ChatWidget · ${bundle.schema_hash?.slice(0, 12) ?? "live"}`
+            : bundle.schema_hash
+              ? `${surface.name} · ${surface.schema} · SpecRenderer · ${bundle.schema_hash.slice(0, 12)}`
+              : `${surface.name} · ${surface.schema} · SpecRenderer`,
+        };
+      });
       setEntries((prev) => ({ ...prev, antigravity: list }));
       setSource("antigravity", { status: "ok", count: list.length });
     } catch (e) {
-      setEntries((prev) => ({ ...prev, antigravity: [] }));
+      // Keep last-good entries on poll/transient failure so the gallery does not blank.
       setSource("antigravity", classifyError(e));
     }
   }, []);
@@ -248,7 +284,7 @@ export default function GalleryPage() {
     <div className="space-y-4">
       <PageHeader
         title="UI Model Gallery"
-        subtitle="Live json-render specs from the gallery catalog, the active inference model and the Antigravity plugin surface."
+        subtitle="Live json-render specs from the gallery catalog, the chatbot model router (zeroclaw) and the Antigravity plugin surface."
         actions={
           <div className="flex items-center gap-2">
             <ProviderSelect />
@@ -272,9 +308,11 @@ export default function GalleryPage() {
 
       <Callout variant="default">
         Gallery is the spec workbench: use <span className="font-medium">View rendering</span> to mount a surface.
-        Antigravity surfaces come from the sealed <span className="font-mono">antigravity</span> projection
-        (<span className="font-mono">ui_surfaces</span>, <span className="font-mono">JsonRenderer</span>).
-        The backend <span className="font-mono">antigravity_chat</span> plugin has no UI surfaces of its own.
+        Chat mounts from the sealed <span className="font-mono">antigravity</span>{" "}
+        <span className="font-mono">ui_surfaces</span> path{" "}
+        <span className="font-mono">/antigravity/chat</span> (<span className="font-mono">ChatWidget</span>) —
+        not <span className="font-mono">zeroclaw</span> and not <span className="font-mono">antigravity_chat</span>.
+        Zeroclaw surfaces are model routing only; other Antigravity surfaces stay SpecRenderer cards.
       </Callout>
 
       {actionError && <ErrorBanner title="Action failed" message={actionError} />}
@@ -291,7 +329,7 @@ export default function GalleryPage() {
       {!stillLoading && all.length === 0 && anyLive && (
         <EmptyState
           title="No specs available"
-          hint="No source returned a surface. Antigravity routes come from its sealed projection; the inference source requires its model plugin's read capability."
+          hint="No source returned a surface. Chatbot model surfaces come from sealed zeroclaw; Antigravity from its sealed projection."
         />
       )}
 
@@ -338,7 +376,11 @@ export default function GalleryPage() {
             }
           >
             <div className="rounded-md border border-border bg-background/40 p-2 max-h-[360px] overflow-auto">
-              <SpecRenderer spec={entry.spec} />
+              {isChatSurface(entry) ? (
+                <ChatWidget agentId="chatbot" height={320} className="min-h-[280px]" />
+              ) : (
+                <SpecRenderer spec={entry.spec} />
+              )}
             </div>
             {entry.prompt && (
               <p className="mt-2 text-[11px] text-muted-foreground line-clamp-3">{entry.prompt}</p>
@@ -360,7 +402,11 @@ export default function GalleryPage() {
               </button>
             </div>
             <div className="flex-1 overflow-auto p-4">
-              <SpecRenderer spec={preview.spec} />
+              {isChatSurface(preview) ? (
+                <ChatWidget agentId="chatbot" height="100%" className="h-full min-h-[480px]" />
+              ) : (
+                <SpecRenderer spec={preview.spec} />
+              )}
             </div>
           </div>
         </div>

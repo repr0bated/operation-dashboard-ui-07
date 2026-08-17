@@ -31,6 +31,7 @@ const KnowledgePage = lazy(() => import("./pages/KnowledgePage"));
 const GrpcDiagnosticsPage = lazy(() => import("./pages/GrpcDiagnosticsPage"));
 const AccountabilityPage = lazy(() => import("./pages/AccountabilityPage"));
 const BtrfsPage = lazy(() => import("./pages/BtrfsPage"));
+const NetmakerPage = lazy(() => import("./pages/NetmakerPage"));
 const DataStoresPage = lazy(() => import("./pages/DataStoresPage"));
 const EmbeddingPipelinePage = lazy(() => import("./pages/EmbeddingPipelinePage"));
 const AssistantPage = lazy(() => import("./pages/AssistantPage"));
@@ -109,6 +110,7 @@ function ShellRoutes() {
           <Route path="/invoke" element={<InvokePage />} />
           <Route path="/accountability" element={<AccountabilityPage />} />
           <Route path="/btrfs" element={<BtrfsPage />} />
+          <Route path="/netmaker" element={<NetmakerPage />} />
           <Route path="/data-stores" element={<DataStoresPage />} />
           <Route path="/embedding" element={<EmbeddingPipelinePage />} />
           <Route path="/assistant" element={<AssistantPage />} />

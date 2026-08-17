@@ -9,6 +9,15 @@ import cronSchema from "./fixtures/plugin-schema-cron.json";
  * maps keyed by name, NOT arrays.
  */
 describe("schemaToSpec", () => {
+  it("emits props on every element so json-render resolveElementProps cannot throw", () => {
+    const spec = schemaToSpec(cronSchema, "cron");
+    for (const [key, el] of Object.entries(
+      spec.elements as Record<string, { props?: unknown }>,
+    )) {
+      expect(el.props, `${key} missing props`).toEqual(expect.any(Object));
+    }
+  });
+
   it("renders fields and methods from the map-shaped sealed schema", () => {
     const spec = schemaToSpec(cronSchema, "cron");
     const elements = spec.elements as Record<string, { type: string; props?: Record<string, unknown> }>;

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { resolveApiBase } from "@/lib/api";
+import { useEventStore } from "@/stores/event-store";
 
 /**
  * Every plugin actually present in the sealed blob catalog.
@@ -17,12 +18,40 @@ export interface BlobCatalog {
   plugins: string[];
   loading: boolean;
   error: string | null;
+  /** True when the list came from the stream rather than the HTTP backstop. */
+  live: boolean;
+  /** Identity of the published catalog; changes when any contract is resealed. */
+  catalogHash: string;
+}
+
+/** A partial stream must never hide entries from the sealed catalog manifest. */
+export function mergeBlobCatalogPluginIds(
+  manifestIds: string[],
+  streamedIds: string[],
+): string[] {
+  return [...new Set([...manifestIds, ...streamedIds])].sort((a, b) =>
+    a.localeCompare(b),
+  );
 }
 
 export function useBlobCatalog(): BlobCatalog {
   const [plugins, setPlugins] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Contracts hydrated from the StateSync stream may arrive incrementally or
+  // reconnect partway through hydration. They enrich the manifest list but do
+  // not replace it: only the HTTP manifest read proves enumeration is complete.
+  const streamedPlugins = useEventStore((s) => s.schemas);
+  const catalogHash = useEventStore((s) => s.catalogHash);
+  const streamedIds = useMemo(
+    () => Object.keys(streamedPlugins).sort((a, b) => a.localeCompare(b)),
+    [streamedPlugins],
+  );
+  const catalogPlugins = useMemo(
+    () => mergeBlobCatalogPluginIds(plugins, streamedIds),
+    [plugins, streamedIds],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -59,7 +88,13 @@ export function useBlobCatalog(): BlobCatalog {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [catalogHash]);
 
-  return { plugins, loading, error };
+  return {
+    plugins: catalogPlugins,
+    loading,
+    error,
+    live: streamedIds.length > 0,
+    catalogHash,
+  };
 }

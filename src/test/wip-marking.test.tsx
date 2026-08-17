@@ -34,6 +34,9 @@ function mountShell(initial: string) {
 describe("WIP marking is driven by the manifest", () => {
   const wipItems = NAV_MANIFEST.filter((i) => i.wip);
 
+  // A deliberate inventory, not a derived one: marking a page WIP hides an
+  // unfinished surface behind a badge, so the set should not grow without a
+  // human editing this line. Updating it is the acknowledgement.
   it("marks the pages found to have no backend wiring", () => {
     expect(wipItems.map((i) => i.id).sort()).toEqual(
       ["channels", "cron", "estop", "gateway", "hardware", "integrations"].sort(),

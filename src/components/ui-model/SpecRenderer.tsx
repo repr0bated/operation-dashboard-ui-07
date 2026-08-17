@@ -26,6 +26,40 @@ export function specUsesOnlyCatalog(spec: Spec | null | undefined): boolean {
   return Object.values(elements).every((el) => !!el && CATALOG.has(el.type ?? ""));
 }
 
+type FlatElement = {
+  type?: string;
+  props?: Record<string, unknown> | null;
+  children?: string[];
+  bindings?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+/**
+ * @json-render/core resolveElementProps does `Object.entries(props)` with no
+ * null guard. Specs that omit `props` (schemaToSpec containers/rows historically
+ * did) crash ElementRenderer; the shell's contentRegion ElementErrorBoundary
+ * then swallows the page — including every Gallery Antigravity card.
+ */
+function ensureElementProps(spec: Spec): Spec {
+  const raw = (spec as { elements?: Record<string, FlatElement> }).elements;
+  if (!raw) return spec;
+  let changed = false;
+  const elements: Record<string, FlatElement> = {};
+  for (const [key, el] of Object.entries(raw)) {
+    if (!el || typeof el !== "object") {
+      elements[key] = el;
+      continue;
+    }
+    if (el.props && typeof el.props === "object") {
+      elements[key] = el;
+      continue;
+    }
+    changed = true;
+    elements[key] = { ...el, props: {} };
+  }
+  return changed ? ({ ...spec, elements } as Spec) : spec;
+}
+
 /**
  * Older gallery producers emit the original json-render tree format
  * (`{type, props, children}`) instead of the current `{root, elements}`
@@ -34,7 +68,7 @@ export function specUsesOnlyCatalog(spec: Spec | null | undefined): boolean {
  */
 function normalizeLegacySpec(input: Spec | null): Spec | null {
   if (!input || typeof input !== "object") return null;
-  if ("root" in input && "elements" in input) return input;
+  if ("root" in input && "elements" in input) return ensureElementProps(input);
   const elements: Record<string, { type: string; props: Record<string, unknown>; children?: string[] }> = {};
   let seq = 0;
   const visit = (node: unknown, label = "surface"): string => {

@@ -133,8 +133,12 @@ export function schemaToSpec(schema: PluginSchemaShape, pluginId: string): Spec 
   const elements: Record<string, unknown> = {};
   const rootChildren: string[] = [];
 
+  // json-render's resolveElementProps does Object.entries(props) — missing
+  // props throws and ElementErrorBoundary blanks the whole contentRegion.
   const add = (key: string, element: Record<string, unknown>) => {
-    elements[key] = { bindings: {}, ...element };
+    const props =
+      element.props && typeof element.props === "object" ? element.props : {};
+    elements[key] = { bindings: {}, ...element, props };
     return key;
   };
 
@@ -299,7 +303,12 @@ export function schemaToSpec(schema: PluginSchemaShape, pluginId: string): Spec 
     );
   }
 
-  elements["root"] = { type: "container", bindings: {}, children: rootChildren };
+  elements["root"] = {
+    type: "container",
+    bindings: {},
+    props: {},
+    children: rootChildren,
+  };
 
   return { root: "root", elements } as Spec;
 }

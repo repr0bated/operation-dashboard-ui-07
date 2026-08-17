@@ -5,7 +5,7 @@ import { useEventStore } from "@/stores/event-store";
 import type { StateChange, ChainEvent } from "@/grpc/gen/operation";
 import type { RegistryEvent } from "@/grpc/gen/registry";
 import { structToObject } from "@/grpc/google/protobuf/struct";
-import { isStateHeartbeat, stateEntries } from "@/lib/state-sync-frames";
+import { isStateHeartbeat, schemaFrame, stateEntries } from "@/lib/state-sync-frames";
 import { StateFrameKind } from "@/grpc/gen/operation";
 
 /**
@@ -113,7 +113,13 @@ export function useEventStream() {
     function runState() {
       abortOne("state");
       try {
-        const { stream, abort } = stateSync.subscribe({ includeInitialState: true });
+        // Both hydration layers: contracts give the renderer the shape, present
+        // state gives it the values. Either alone renders empty forms or
+        // untyped blobs, so they are requested together.
+        const { stream, abort } = stateSync.subscribe({
+          includeInitialState: true,
+          includeSchema: true,
+        });
         abortsRef.current.set("state", abort);
         const reader = stream.getReader();
         (async () => {
@@ -124,7 +130,30 @@ export function useEventStream() {
               const change = value as StateChange;
               const store = useEventStore.getState();
               noteHealthy("state");
+
+              // Every frame carries the catalog identity, keepalives included,
+              // so an idle stream still reveals that contracts moved.
+              store.noteCatalogHash(change.catalogHash);
               if (isStateHeartbeat(change)) continue;
+
+              // Contracts arrive on this same stream and must be routed away
+              // from state — they look like whole-plugin updates otherwise.
+              const contract = schemaFrame(change);
+              if (contract) {
+                store.updateSchema(contract.pluginId, contract.schemaHash, contract.schema);
+                continue;
+              }
+
+              // A value citing a contract we do not hold means a contract frame
+              // was dropped; the stream never resends, so this is the only trace.
+              if (
+                change.pluginId &&
+                change.schemaHash &&
+                store.schemaHashes[change.pluginId] &&
+                store.schemaHashes[change.pluginId] !== change.schemaHash
+              ) {
+                store.markSchemaStale(change.pluginId);
+              }
 
               for (const entry of stateEntries(change)) {
                 store.updateState(entry.key, entry.value);

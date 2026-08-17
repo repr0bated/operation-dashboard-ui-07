@@ -139,15 +139,23 @@ export async function resolveIdentity(): Promise<IdentityStatus> {
   }
 
   const stored = readStoredSession();
+  const sled = await fromSled();
+  if (sled) {
+    if (
+      stored?.hashed_footprint &&
+      stored.hashed_footprint === sled.hashed_footprint &&
+      stored.trace_id === sled.trace_id
+    ) {
+      saveSession({ ...stored, source: stored.source });
+      return { state: "ready", identity: stored };
+    }
+    saveSession(sled);
+    return { state: "ready", identity: sled };
+  }
+
   if (stored?.source === "pair" && stored.token && stored.hashed_footprint && stored.trace_id) {
     saveSession(stored);
     return { state: "ready", identity: stored };
-  }
-
-  const sled = await fromSled();
-  if (sled) {
-    saveSession(sled);
-    return { state: "ready", identity: sled };
   }
 
   // Build-time identities go stale whenever the audited sled advances. Keep

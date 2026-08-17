@@ -49,6 +49,15 @@ export interface SubscribeRequest {
      * @generated from protobuf field: bool include_initial_state = 4
      */
     includeInitialState: boolean;
+    /**
+     * Include the running plugin contracts at hydration. Each arrives as a frame
+     * with change_type CHANGE_TYPE_SCHEMA_MIGRATION, schema_hash set, and
+     * new_value = the sealed PluginSchema JSON. Independent of
+     * include_initial_state: a consumer may want contracts without present state.
+     *
+     * @generated from protobuf field: bool include_schema = 5
+     */
+    includeSchema: boolean;
 }
 /**
  * @generated from protobuf message operation.v1.StateChange
@@ -132,6 +141,24 @@ export interface StateChange {
      * @generated from protobuf field: operation.v1.StateFrameKind frame_kind = 13
      */
     frameKind: StateFrameKind;
+    /**
+     * Hash of the contract this frame's plugin is currently published under.
+     * Empty only when the frame names no plugin (keepalives). A subscriber
+     * compares it against the contract it is holding: a mismatch means it
+     * missed a schema frame and must re-hydrate.
+     *
+     * @generated from protobuf field: string schema_hash = 14
+     */
+    schemaHash: string;
+    /**
+     * Identity of the whole published catalog — blake3 over the sorted
+     * (plugin_id, schema_hash) pairs. Present on EVERY frame, keepalives
+     * included, so an otherwise idle subscriber still has something to compare
+     * against and can detect drift it never received an event for.
+     *
+     * @generated from protobuf field: string catalog_hash = 15
+     */
+    catalogHash: string;
 }
 /**
  * @generated from protobuf message operation.v1.MutateRequest
@@ -487,17 +514,25 @@ export interface CallMethodRequest {
  */
 export interface CallMethodResponse {
     /**
-     * @generated from protobuf field: google.protobuf.Value result = 1
+     * @generated from protobuf field: bool success = 1
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: google.protobuf.Value result = 2
      */
     result?: Value;
     /**
-     * @generated from protobuf field: uint64 event_id = 2
+     * @generated from protobuf field: uint64 event_id = 3
      */
     eventId: string;
     /**
-     * @generated from protobuf field: string event_hash = 3
+     * @generated from protobuf field: string event_hash = 4
      */
     eventHash: string;
+    /**
+     * @generated from protobuf field: operation.v1.MutationError error = 5
+     */
+    error?: MutationError;
 }
 /**
  * @generated from protobuf message operation.v1.GetPropertyRequest
@@ -1967,7 +2002,8 @@ class SubscribeRequest$Type extends MessageType<SubscribeRequest> {
             { no: 1, name: "plugin_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "path_patterns", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "tags", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "include_initial_state", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 4, name: "include_initial_state", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 5, name: "include_schema", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<SubscribeRequest>): SubscribeRequest {
@@ -1976,6 +2012,7 @@ class SubscribeRequest$Type extends MessageType<SubscribeRequest> {
         message.pathPatterns = [];
         message.tags = [];
         message.includeInitialState = false;
+        message.includeSchema = false;
         if (value !== undefined)
             reflectionMergePartial<SubscribeRequest>(this, message, value);
         return message;
@@ -1996,6 +2033,9 @@ class SubscribeRequest$Type extends MessageType<SubscribeRequest> {
                     break;
                 case /* bool include_initial_state */ 4:
                     message.includeInitialState = reader.bool();
+                    break;
+                case /* bool include_schema */ 5:
+                    message.includeSchema = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2021,6 +2061,9 @@ class SubscribeRequest$Type extends MessageType<SubscribeRequest> {
         /* bool include_initial_state = 4; */
         if (message.includeInitialState !== false)
             writer.tag(4, WireType.Varint).bool(message.includeInitialState);
+        /* bool include_schema = 5; */
+        if (message.includeSchema !== false)
+            writer.tag(5, WireType.Varint).bool(message.includeSchema);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2047,7 +2090,9 @@ class StateChange$Type extends MessageType<StateChange> {
             { no: 10, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 11, name: "timestamp", kind: "message", T: () => Timestamp },
             { no: 12, name: "actor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 13, name: "frame_kind", kind: "enum", T: () => ["operation.v1.StateFrameKind", StateFrameKind, "STATE_FRAME_KIND_"] }
+            { no: 13, name: "frame_kind", kind: "enum", T: () => ["operation.v1.StateFrameKind", StateFrameKind, "STATE_FRAME_KIND_"] },
+            { no: 14, name: "schema_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 15, name: "catalog_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<StateChange>): StateChange {
@@ -2062,6 +2107,8 @@ class StateChange$Type extends MessageType<StateChange> {
         message.eventHash = "";
         message.actorId = "";
         message.frameKind = 0;
+        message.schemaHash = "";
+        message.catalogHash = "";
         if (value !== undefined)
             reflectionMergePartial<StateChange>(this, message, value);
         return message;
@@ -2109,6 +2156,12 @@ class StateChange$Type extends MessageType<StateChange> {
                     break;
                 case /* operation.v1.StateFrameKind frame_kind */ 13:
                     message.frameKind = reader.int32();
+                    break;
+                case /* string schema_hash */ 14:
+                    message.schemaHash = reader.string();
+                    break;
+                case /* string catalog_hash */ 15:
+                    message.catalogHash = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -2161,6 +2214,12 @@ class StateChange$Type extends MessageType<StateChange> {
         /* operation.v1.StateFrameKind frame_kind = 13; */
         if (message.frameKind !== 0)
             writer.tag(13, WireType.Varint).int32(message.frameKind);
+        /* string schema_hash = 14; */
+        if (message.schemaHash !== "")
+            writer.tag(14, WireType.LengthDelimited).string(message.schemaHash);
+        /* string catalog_hash = 15; */
+        if (message.catalogHash !== "")
+            writer.tag(15, WireType.LengthDelimited).string(message.catalogHash);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -3274,13 +3333,16 @@ export const CallMethodRequest = new CallMethodRequest$Type();
 class CallMethodResponse$Type extends MessageType<CallMethodResponse> {
     constructor() {
         super("operation.v1.CallMethodResponse", [
-            { no: 1, name: "result", kind: "message", T: () => Value },
-            { no: 2, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
-            { no: 3, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "result", kind: "message", T: () => Value },
+            { no: 3, name: "event_id", kind: "scalar", T: 4 /*ScalarType.UINT64*/ },
+            { no: 4, name: "event_hash", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "error", kind: "message", T: () => MutationError }
         ]);
     }
     create(value?: PartialMessage<CallMethodResponse>): CallMethodResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.eventId = "0";
         message.eventHash = "";
         if (value !== undefined)
@@ -3292,14 +3354,20 @@ class CallMethodResponse$Type extends MessageType<CallMethodResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value result */ 1:
+                case /* bool success */ 1:
+                    message.success = reader.bool();
+                    break;
+                case /* google.protobuf.Value result */ 2:
                     message.result = Value.internalBinaryRead(reader, reader.uint32(), options, message.result);
                     break;
-                case /* uint64 event_id */ 2:
+                case /* uint64 event_id */ 3:
                     message.eventId = reader.uint64().toString();
                     break;
-                case /* string event_hash */ 3:
+                case /* string event_hash */ 4:
                     message.eventHash = reader.string();
+                    break;
+                case /* operation.v1.MutationError error */ 5:
+                    message.error = MutationError.internalBinaryRead(reader, reader.uint32(), options, message.error);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -3313,15 +3381,21 @@ class CallMethodResponse$Type extends MessageType<CallMethodResponse> {
         return message;
     }
     internalBinaryWrite(message: CallMethodResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value result = 1; */
+        /* bool success = 1; */
+        if (message.success !== false)
+            writer.tag(1, WireType.Varint).bool(message.success);
+        /* google.protobuf.Value result = 2; */
         if (message.result)
-            Value.internalBinaryWrite(message.result, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* uint64 event_id = 2; */
+            Value.internalBinaryWrite(message.result, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* uint64 event_id = 3; */
         if (message.eventId !== "0")
-            writer.tag(2, WireType.Varint).uint64(message.eventId);
-        /* string event_hash = 3; */
+            writer.tag(3, WireType.Varint).uint64(message.eventId);
+        /* string event_hash = 4; */
         if (message.eventHash !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.eventHash);
+            writer.tag(4, WireType.LengthDelimited).string(message.eventHash);
+        /* operation.v1.MutationError error = 5; */
+        if (message.error)
+            MutationError.internalBinaryWrite(message.error, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

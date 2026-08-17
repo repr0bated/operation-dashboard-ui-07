@@ -28,6 +28,10 @@ async function callHostRuntime<T extends Record<string, unknown>>(
     capabilityId: CAPABILITY,
   });
 
+  if (resp.success === false) {
+    throw new Error(resp.error?.message || "host_runtime call failed");
+  }
+
   const envelope = structToObject(resp.result as Record<string, unknown>);
   if (envelope.success === false) {
     const err = envelope.error;

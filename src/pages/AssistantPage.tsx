@@ -20,6 +20,7 @@ import {
   type ChatbotNamespace,
 } from "@/grpc/chatbot-cognitive";
 import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
+import { SystemPromptEditor } from "@/components/chat/SystemPromptEditor";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import {
   ASSISTANT_ACCOUNT,
@@ -116,7 +117,7 @@ export default function AssistantPage() {
     <div className="space-y-6">
       <PageHeader
         title="Assistant Gateway"
-        subtitle="Soul memory and namespaces via cognitive_mcp, bound to the chatbot account"
+        subtitle="Config for the chatbot account — system prompt, providers, souls, and namespaces"
         actions={<ProviderSelect />}
       />
 
@@ -197,6 +198,10 @@ export default function AssistantPage() {
           {error}
         </Card>
       )}
+
+      <Card className="p-4">
+        <SystemPromptEditor />
+      </Card>
 
       <div className="grid grid-cols-3 gap-4">
         <StatCard

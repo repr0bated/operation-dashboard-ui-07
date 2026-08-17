@@ -86,7 +86,7 @@ export const DEFAULT_CHROME: ShellChrome = {
       icon: "FileText",
     },
   ],
-  fullHeightRoutes: ["/chat", "/workflows", "/accountability", "/network"],
+  fullHeightRoutes: ["/chat", "/logs", "/workflows", "/accountability", "/network"],
 };
 
 // ── builder ───────────────────────────────────────────────────────────────

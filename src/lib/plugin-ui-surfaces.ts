@@ -138,6 +138,7 @@ function entriesOf<T>(v: Record<string, T> | T[] | undefined): Array<[string, T]
 
 const ANTIGRAVITY_SURFACE_FIELDS: Record<string, string[] | null> = {
   antigravity: null,
+  "antigravity.chat": [], // ChatWidget mount — no schema field dump
   "antigravity.safety": ["safety_settings"],
   "antigravity.usage": ["usage"],
   "antigravity.auth": ["auth"],
@@ -145,10 +146,30 @@ const ANTIGRAVITY_SURFACE_FIELDS: Record<string, string[] | null> = {
 
 const ANTIGRAVITY_SURFACE_METHODS: Record<string, string[]> = {
   antigravity: ["get_auth_status", "get_usage_report", "configure_safety"],
+  "antigravity.chat": [],
   "antigravity.safety": ["configure_safety"],
   "antigravity.usage": ["get_usage_report"],
   "antigravity.auth": ["get_auth_status"],
 };
+
+const ANTIGRAVITY_CHAT_SURFACE: PluginUiSurface = {
+  name: "Antigravity Chat",
+  path: "/antigravity/chat",
+  schema: "antigravity.chat",
+};
+
+/** True when this antigravity ui_surface should mount ChatWidget (not SpecRenderer). */
+export function isAntigravityChatSurface(surface: {
+  path?: string;
+  schema?: string;
+  id?: string;
+}): boolean {
+  return (
+    surface.schema === "antigravity.chat" ||
+    surface.path === "/antigravity/chat" ||
+    surface.id === "antigravity/antigravity/chat"
+  );
+}
 
 /** Render one Antigravity ui_surface from the sealed blob, not route metadata. */
 export function antigravityUiSurfaceSpec(
@@ -161,6 +182,32 @@ export function antigravityUiSurfaceSpec(
 
   if (fieldKeys === null) {
     return schemaToSpec(full, surface.schema);
+  }
+
+  // ChatWidget mount — empty field slice, no schema dump.
+  if (Array.isArray(fieldKeys) && fieldKeys.length === 0) {
+    return schemaToSpec(
+      {
+        name: surface.schema,
+        display_name: surface.name,
+        description: `Antigravity UI surface ${surface.path} · ChatWidget`,
+        fields: {},
+        methods: {},
+      },
+      surface.schema,
+    );
+  }
+
+  // Unknown schema key — fall back to full schema with surface display name.
+  if (fieldKeys === undefined) {
+    return schemaToSpec(
+      {
+        ...full,
+        name: surface.schema,
+        display_name: surface.name,
+      },
+      surface.schema,
+    );
   }
 
   const allFields = entriesOf<SchemaField>(full.fields);
@@ -177,7 +224,7 @@ export function antigravityUiSurfaceSpec(
     {
       name: surface.schema,
       display_name: surface.name,
-      description: `Antigravity UI surface ${surface.path} · JsonRenderer`,
+      description: `Antigravity UI surface ${surface.path} · SpecRenderer`,
       fields,
       methods,
     },
@@ -188,9 +235,15 @@ export function antigravityUiSurfaceSpec(
 /** Antigravity gallery entries from the plugin's own ui_surfaces projection. */
 export async function fetchAntigravityGalleryBundle(): Promise<AntigravityGalleryBundle> {
   const envelope = await fetchPluginSchema("antigravity");
-  const routes = parsePluginUiSurfaces(envelope);
+  let routes = parsePluginUiSurfaces(envelope);
   if (routes.length === 0) {
     throw new Error("antigravity schema declares no ui_surfaces");
+  }
+
+  // Chat is an antigravity ui_surface (not zeroclaw, not antigravity_chat).
+  // Inject until the sealed blob is resealed with antigravity.chat.
+  if (!routes.some((r) => isAntigravityChatSurface(r))) {
+    routes = [...routes, ANTIGRAVITY_CHAT_SURFACE];
   }
 
   return {
@@ -201,6 +254,194 @@ export async function fetchAntigravityGalleryBundle(): Promise<AntigravityGaller
       path: surface.path,
       schema: surface.schema,
       spec: antigravityUiSurfaceSpec(envelope, surface),
+    })),
+  };
+}
+
+export interface ChatbotModelGallerySurface {
+  id: string;
+  name: string;
+  path: string;
+  schema: string;
+  spec: Spec;
+}
+
+export interface ChatbotModelGalleryBundle {
+  schema_hash?: string;
+  provider?: string;
+  model?: string;
+  surfaces: ChatbotModelGallerySurface[];
+}
+
+/** zeroclaw owns chatbot model routing; surface field slices for Gallery. */
+const ZEROCLAW_SURFACE_FIELDS: Record<string, string[] | null> = {
+  zeroclaw: null,
+  "zeroclaw.providers": [
+    "selected_provider",
+    "selected_model",
+    "providers",
+    "model_routes",
+    "model_assignments",
+    "router",
+    "status",
+    "transport",
+  ],
+};
+
+const ZEROCLAW_SURFACE_METHODS: Record<string, string[]> = {
+  zeroclaw: [
+    "GetModelRoutes",
+    "GetProviderCatalog",
+    "ListModels",
+    "ListProviders",
+    "SetModel",
+    "SetProvider",
+    "ResolveRoute",
+    "GetRouter",
+    "GetState",
+  ],
+  "zeroclaw.providers": [
+    "GetModelRoutes",
+    "GetProviderCatalog",
+    "ListModels",
+    "ListProviders",
+    "SetModel",
+    "SetProvider",
+    "ResolveRoute",
+    "GetRouter",
+    "GetModelAssignments",
+  ],
+};
+
+function readSchemaDefaultString(
+  envelope: PluginSchemaEnvelope,
+  field: string,
+): string | undefined {
+  const fields = (envelope.schema as PluginSchemaShape | undefined)?.fields;
+  if (!fields || Array.isArray(fields)) return undefined;
+  const value = fields[field]?.default;
+  return typeof value === "string" && value.length > 0 ? value : undefined;
+}
+
+export interface ZeroclawChatSelection {
+  provider: string;
+  model: string;
+}
+
+/**
+ * Active chatbot inference route from zeroclaw (OD-28).
+ * Prefer live `/llm/status`; fall back to sealed schema defaults.
+ * Empty strings mean "use zeroclaw selected_*" on the bridge.
+ */
+export async function resolveZeroclawChatSelection(): Promise<ZeroclawChatSelection> {
+  let provider = "";
+  let model = "";
+  try {
+    const statusResp = await fetch(`${resolveApiBase()}/llm/status`);
+    if (statusResp.ok) {
+      const status = (await statusResp.json()) as { provider?: string; model?: string };
+      if (
+        typeof status.provider === "string" &&
+        status.provider.length > 0 &&
+        status.provider !== "zeroclaw-unavailable"
+      ) {
+        provider = status.provider;
+      }
+      if (typeof status.model === "string" && status.model.length > 0) {
+        model = status.model;
+      }
+    }
+  } catch {
+    // Fall through to schema defaults.
+  }
+  if (provider && model) {
+    return { provider, model };
+  }
+  try {
+    const envelope = await fetchPluginSchema("zeroclaw");
+    provider = provider || readSchemaDefaultString(envelope, "selected_provider") || "";
+    model = model || readSchemaDefaultString(envelope, "selected_model") || "";
+  } catch {
+    // Bridge accepts empty provider/model → uses live selected_*.
+  }
+  return { provider, model };
+}
+
+/** One zeroclaw ui_surface from the sealed blob (main chatbot model router). */
+export function zeroclawUiSurfaceSpec(
+  envelope: PluginSchemaEnvelope,
+  surface: PluginUiSurface,
+): Spec {
+  const full = envelope.schema as PluginSchemaShape;
+  const fieldKeys = ZEROCLAW_SURFACE_FIELDS[surface.schema];
+  const methodKeys = ZEROCLAW_SURFACE_METHODS[surface.schema] ?? [];
+
+  // Full schema when fieldKeys is null (zeroclaw main).
+  if (fieldKeys === null) {
+    return schemaToSpec(full, surface.schema);
+  }
+
+  // Unknown schema — fall back to full schema with surface display_name.
+  if (fieldKeys === undefined) {
+    return schemaToSpec(
+      {
+        ...full,
+        name: surface.schema,
+        display_name: surface.name,
+      },
+      surface.schema,
+    );
+  }
+
+  const allFields = entriesOf<SchemaField>(full.fields);
+  const fields = Object.fromEntries(
+    allFields.filter(([name]) => fieldKeys.includes(name)),
+  );
+
+  const allMethods = entriesOf<SchemaMethod>(full.methods);
+  const methods = Object.fromEntries(
+    allMethods.filter(([name]) => methodKeys.includes(name)),
+  );
+
+  return schemaToSpec(
+    {
+      name: surface.schema,
+      display_name: surface.name,
+      description: `Chatbot model surface ${surface.path} · SpecRenderer`,
+      fields,
+      methods,
+    },
+    surface.schema,
+  );
+}
+
+/**
+ * Gallery inference source: sealed zeroclaw projection (active chatbot model
+ * router), not gemma_brain.GetUiSpec.
+ */
+export async function fetchChatbotModelGalleryBundle(): Promise<ChatbotModelGalleryBundle> {
+  const envelope = await fetchPluginSchema("zeroclaw");
+  // Drop stale /chat ownership — chat belongs to antigravity ui_surfaces.
+  const routes = parsePluginUiSurfaces(envelope).filter((r) => r.path !== "/chat");
+  if (routes.length === 0) {
+    throw new Error("zeroclaw schema declares no ui_surfaces");
+  }
+
+  const selection = await resolveZeroclawChatSelection();
+  const provider =
+    selection.provider || readSchemaDefaultString(envelope, "selected_provider");
+  const model = selection.model || readSchemaDefaultString(envelope, "selected_model");
+
+  return {
+    schema_hash: envelope.schema_hash,
+    provider,
+    model,
+    surfaces: routes.map((surface) => ({
+      id: `zeroclaw${surface.path}`,
+      name: surface.name,
+      path: surface.path,
+      schema: surface.schema,
+      spec: zeroclawUiSurfaceSpec(envelope, surface),
     })),
   };
 }

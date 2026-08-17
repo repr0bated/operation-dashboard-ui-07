@@ -27,8 +27,9 @@ import { GrpcWebFetchTransport } from "@protobuf-ts/grpcweb-transport";
 import type { IMessageType } from "@protobuf-ts/runtime";
 import type { ServiceType } from "@protobuf-ts/runtime-rpc";
 import { type AccountIdentity } from "@/lib/accounts";
-import { identityHeaders } from "@/lib/identity";
+import { identityHeaders, resolveIdentity, clearSession } from "@/lib/identity";
 import { isDeprecatedReflectionService } from "@/lib/deprecated-reflection-services";
+import { getEffectiveSystemPrompt } from "@/lib/system-prompt";
 import {
   StateSync as StateSyncSvc,
   PluginService as PluginServiceSvc,
@@ -43,6 +44,7 @@ import { ChatService as ChatServiceSvc } from "./gen/chat";
 import { SoulService as SoulServiceSvc } from "./gen/assistant/soul";
 import { NamespaceMemoryService as NamespaceMemoryServiceSvc } from "./gen/assistant/namespace";
 import { AntigravityService as AntigravityServiceSvc } from "./gen/plugin_methods_unified";
+import { NetmakerService as NetmakerServiceSvc } from "./gen/adapters";
 
 /**
  * Map any backend failure to a generic, user-safe message.
@@ -177,6 +179,7 @@ const CODEC_REGISTRY: Map<string, CodecPair> = (() => {
     SoulServiceSvc,
     NamespaceMemoryServiceSvc,
     AntigravityServiceSvc,
+    NetmakerServiceSvc,
   ];
   for (const svc of services) {
     for (const m of svc.methods) {
@@ -219,7 +222,7 @@ export function getStaticServiceCatalog(): StaticService[] {
     StateSyncSvc, PluginServiceSvc, EventChainServiceSvc, ComponentRegistrySvc, MailServiceSvc,
     PrivacyNetworkServiceSvc, RegistrationServiceSvc, McpServiceSvc,
     ChatServiceSvc, SoulServiceSvc,
-    NamespaceMemoryServiceSvc, AntigravityServiceSvc,
+    NamespaceMemoryServiceSvc, AntigravityServiceSvc, NetmakerServiceSvc,
   ];
   return services
     .map((svc) => ({
@@ -303,11 +306,17 @@ function frameMessage(payloadBytes: Uint8Array): Uint8Array {
   return frame;
 }
 
+function isTemporalHashMismatch(grpcStatus?: string | null, grpcMessage?: string | null): boolean {
+  if (grpcStatus !== "7") return false;
+  return (grpcMessage ?? "").includes("Temporal Hash Mismatch");
+}
+
 async function grpcUnary<TReq, TResp>(
   service: string,
   method: string,
   request: TReq,
   opts?: GrpcCallOptions,
+  retried = false,
 ): Promise<TResp> {
   const url = `${getBaseUrl()}/${service}/${method}`;
   const frame = frameMessage(encodeRequest(service, method, request));
@@ -333,11 +342,17 @@ async function grpcUnary<TReq, TResp>(
   const { dataFrames, trailers } = parseGrpcWebResponse(buf);
 
   const grpcStatus = trailers.get("grpc-status") ?? res.headers.get("grpc-status");
-  const grpcMessage = trailers.get("grpc-message") ?? res.headers.get("grpc-message");
+  const grpcMessageRaw = trailers.get("grpc-message") ?? res.headers.get("grpc-message");
+  const grpcMessage = grpcMessageRaw ? decodeURIComponent(grpcMessageRaw) : undefined;
   if (grpcStatus && grpcStatus !== "0") {
+    if (!retried && isTemporalHashMismatch(grpcStatus, grpcMessage)) {
+      clearSession();
+      await resolveIdentity();
+      return grpcUnary(service, method, request, opts, true);
+    }
     throw safeGrpcError(service, method, {
       grpcStatus: grpcStatus ?? undefined,
-      grpcMessage: grpcMessage ? decodeURIComponent(grpcMessage) : undefined,
+      grpcMessage,
     });
   }
 
@@ -1161,8 +1176,13 @@ export const chatService = {
     personaId?: string;
     provider?: string;
     model?: string;
+    /** Override Assistant-configured system prompt; omit to use shared storage. */
+    systemPrompt?: string;
   }) {
+    // System prompt is configured on Assistant; Main Chat / ChatWidget consume it here.
+    const systemPrompt = req.systemPrompt ?? getEffectiveSystemPrompt();
     const uiMessages = JSON.stringify([
+      { role: "system", content: systemPrompt },
       { role: "user", content: req.content },
     ]);
     const sendReq: SendRequest = {
@@ -1502,6 +1522,123 @@ export const antigravityService = {
       {
         objectPath: req.objectPath ?? "",
       },
+    );
+  },
+};
+
+// ── NetmakerService (op.adapters.v1) ────────────────────────────────────────
+
+import type {
+  HealthRequest as NetmakerHealthRequest,
+  HealthResponse as NetmakerHealthResponse,
+  ListNetworksRequest,
+  ListNetworksResponse,
+  GetNetworkRequest,
+  GetNetworkResponse,
+  ListNodesRequest,
+  ListNodesResponse,
+  GetNodeRequest,
+  GetNodeResponse,
+  ListHostsRequest,
+  ListHostsResponse,
+  JoinNetworkRequest,
+  JoinNetworkResponse,
+  LeaveNetworkRequest,
+  LeaveNetworkResponse,
+  RestartServiceRequest,
+  RestartServiceResponse,
+  ExecuteCommandRequest,
+  ExecuteCommandResponse,
+  StreamEventsRequest,
+  NetmakerEvent,
+} from "./gen/adapters";
+
+export const netmakerService = {
+  getServerHealth() {
+    return grpcUnary<NetmakerHealthRequest, NetmakerHealthResponse>(
+      "op.adapters.v1.NetmakerService",
+      "GetServerHealth",
+      {},
+    );
+  },
+
+  listNetworks() {
+    return grpcUnary<ListNetworksRequest, ListNetworksResponse>(
+      "op.adapters.v1.NetmakerService",
+      "ListNetworks",
+      {},
+    );
+  },
+
+  getNetwork(req: GetNetworkRequest) {
+    return grpcUnary<GetNetworkRequest, GetNetworkResponse>(
+      "op.adapters.v1.NetmakerService",
+      "GetNetwork",
+      req,
+    );
+  },
+
+  listNodes(req: ListNodesRequest) {
+    return grpcUnary<ListNodesRequest, ListNodesResponse>(
+      "op.adapters.v1.NetmakerService",
+      "ListNodes",
+      req,
+    );
+  },
+
+  getNode(req: GetNodeRequest) {
+    return grpcUnary<GetNodeRequest, GetNodeResponse>(
+      "op.adapters.v1.NetmakerService",
+      "GetNode",
+      req,
+    );
+  },
+
+  listHosts() {
+    return grpcUnary<ListHostsRequest, ListHostsResponse>(
+      "op.adapters.v1.NetmakerService",
+      "ListHosts",
+      {},
+    );
+  },
+
+  joinNetwork(req: JoinNetworkRequest) {
+    return grpcUnary<JoinNetworkRequest, JoinNetworkResponse>(
+      "op.adapters.v1.NetmakerService",
+      "JoinNetwork",
+      req,
+    );
+  },
+
+  leaveNetwork(req: LeaveNetworkRequest) {
+    return grpcUnary<LeaveNetworkRequest, LeaveNetworkResponse>(
+      "op.adapters.v1.NetmakerService",
+      "LeaveNetwork",
+      req,
+    );
+  },
+
+  restartService(req: RestartServiceRequest) {
+    return grpcUnary<RestartServiceRequest, RestartServiceResponse>(
+      "op.adapters.v1.NetmakerService",
+      "RestartService",
+      req,
+    );
+  },
+
+  executeCommand(req: ExecuteCommandRequest) {
+    return grpcUnary<ExecuteCommandRequest, ExecuteCommandResponse>(
+      "op.adapters.v1.NetmakerService",
+      "ExecuteCommand",
+      req,
+    );
+  },
+
+  streamEvents() {
+    return grpcServerStream<StreamEventsRequest, NetmakerEvent>(
+      "op.adapters.v1.NetmakerService",
+      "StreamEvents",
+      {},
     );
   },
 };

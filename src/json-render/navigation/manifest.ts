@@ -9,17 +9,16 @@
 
 import type { Capability } from "./capabilities";
 
-export type NavSection =
-  | "Chat"
-  | "UI Model"
-  | "Zerolang"
-  | "Control"
-  | "Agent"
-  | "Infrastructure"
-  | "ZeroClaw"
-  | "Settings"
-  | "Coming Soon"
-  | "Blobs";
+/**
+ * Derived from `SECTION_ORDER`, which is the only place sections are declared.
+ *
+ * This used to be a second list — a union type alongside the order array — and
+ * the two drifted: a section named by the type but missing from the order had
+ * all of its entries dropped from the sidebar by `buildNavGroups`, silently.
+ * Deriving the type means a section the order does not list cannot be named by a
+ * manifest entry at all.
+ */
+export type NavSection = (typeof SECTION_ORDER)[number];
 
 export interface NavItem {
   id: string;
@@ -54,12 +53,6 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "antigravity-llm", label: "Antigravity LLM", route: "/antigravity-llm", icon: "Brain", section: "UI Model", order: 15 },
   { id: "catalog", label: "Catalog", route: "/catalog", icon: "FileText", section: "UI Model", order: 20 },
 
-  // Zerolang
-  { id: "zero-catalog", label: "Zero Catalog", route: "/zero-catalog", icon: "Zap", section: "Zerolang", order: 10, wip: true, wipReason: "Graph-native generative UI catalog from Kiro specs — wired to CatalogService." },
-  { id: "zero-specs", label: "Zero Specs", route: "/zero-specs", icon: "FileJson", section: "Zerolang", order: 20, wip: true, wipReason: "Explore .kiro/specs as semantic graphs — query, patch, validate DSL nodes." },
-  { id: "zero-agent", label: "Zero Agent", route: "/zero-agent", icon: "Bot", section: "Zerolang", order: 30, wip: true, wipReason: "Agent repair loop — query graph, submit patches, type-check, render." },
-  { id: "zero-query", label: "Zero Query", route: "/zero-query", icon: "Code2", section: "Zerolang", order: 40, wip: true, wipReason: "Graph query IDE — explore catalog nodes, symbols, constraints, metadata." },
-
   // Control
   { id: "overview", label: "Overview", route: "/", icon: "BarChart3", section: "Control", order: 10 },
   { id: "orchestration", label: "Orchestration", route: "/orchestration", icon: "Orbit", section: "Control", order: 20 },
@@ -85,6 +78,7 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "ovs", label: "Open vSwitch", route: "/ovs", icon: "Network", section: "Infrastructure", order: 30 },
   { id: "openflow", label: "OpenFlow", route: "/openflow", icon: "Workflow", section: "Infrastructure", order: 40 },
   { id: "btrfs", label: "BTRFS Storage", route: "/btrfs", icon: "Monitor", section: "Infrastructure", order: 50 },
+  { id: "netmaker", label: "Netmaker", route: "/netmaker", icon: "Radio", section: "Infrastructure", order: 55 },
   { id: "data-stores", label: "Data Stores", route: "/data-stores", icon: "Monitor", section: "Infrastructure", order: 60 },
 
   // ZeroClaw
@@ -117,7 +111,11 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "plugins", label: "Plugins", route: "/plugins", icon: "Package", section: "Blobs", order: 20 },
 ];
 
-export const SECTION_ORDER: NavSection[] = [
+/**
+ * Every section, in sidebar order. Adding a section here is what makes it
+ * nameable by a manifest entry (see [`NavSection`]); nothing else needs editing.
+ */
+export const SECTION_ORDER = [
   "Chat",
   "UI Model",
   "Control",
@@ -127,7 +125,7 @@ export const SECTION_ORDER: NavSection[] = [
   "Settings",
   "Coming Soon",
   "Blobs",
-];
+] as const;
 
 export interface NavGroup {
   section: NavSection;

@@ -2,18 +2,14 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Callout } from "@/components/shell/Primitives";
 import { JsonRenderer } from "@/components/json/JsonRenderer";
 import { MessageBubble, type LocalMessage } from "@/components/chat/MessageBubble";
-import { SystemPromptEditor } from "@/components/chat/SystemPromptEditor";
-import { LiveLogPanel } from "@/components/chat/LiveLogPanel";
-import { PluginSchemaPanel } from "@/components/ui-model/PluginSchemaPanel";
 import { ProviderSelect } from "@/components/shell/ProviderSelect";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
 import { unwrapContentBlocks } from "@/lib/chat-content";
+import { resolveZeroclawChatSelection } from "@/lib/plugin-ui-surfaces";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
-import { X, Maximize2, MessageSquare, FileText, ScrollText } from "lucide-react";
-
-type ChatTab = "chat" | "system-prompt" | "live-log" | "schema";
+import { X, Maximize2 } from "lucide-react";
 
 /** Coerce arbitrary backend content into a renderable string. */
 function normalizeContent(value: unknown): string {
@@ -39,9 +35,13 @@ function makeId(prefix: string): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 }
 
+/**
+ * Main Chat — conversation only.
+ * System prompt / schema: Assistant (config) / Gallery.
+ * Live log: Logs page (`/logs` → LiveLogPanel).
+ */
 export default function ChatPage() {
   const { connected } = useEventStore();
-  const [activeTab, setActiveTab] = useState<ChatTab>("chat");
   const [messages, setMessages] = useState<LocalMessage[]>([]);
   const [draft, setDraft] = useState("");
   const [sessionKey, setSessionKey] = useState("default");
@@ -92,11 +92,14 @@ export default function ChatPage() {
     setError(null);
     streamRef.current?.abort();
 
+    // Inference via zeroclaw selected_provider/model (OD-28) — not hardwired Gemini.
+    // System prompt comes from Assistant config (shared storage via chatService.send).
+    const route = await resolveZeroclawChatSelection();
     const { stream, abort } = chatService.send({
       conversationId: sessionKey,
       content: text,
-      provider: "",
-      model: "",
+      provider: route.provider,
+      model: route.model,
     });
     streamRef.current = { abort };
 
@@ -187,24 +190,14 @@ export default function ChatPage() {
     setSidebarOpen(true);
   };
 
-  const tabs: { id: ChatTab; label: string; icon: React.ReactNode }[] = [
-    { id: "chat", label: "Chat", icon: <MessageSquare className="h-3.5 w-3.5" /> },
-    { id: "live-log", label: "Live Log", icon: <ScrollText className="h-3.5 w-3.5" /> },
-    { id: "system-prompt", label: "System Prompt", icon: <FileText className="h-3.5 w-3.5" /> },
-    { id: "schema", label: "Schema", icon: <FileText className="h-3.5 w-3.5" /> },
-  ];
-
   return (
     <div className="flex flex-col h-full">
-      {/* Header with tabs */}
       {!focusMode && (
         <div className="border-b border-border shrink-0">
           <div className="flex items-end justify-between gap-4 px-4 py-3">
-            <div className="flex items-center gap-4">
-              <div>
-                <h1 className="text-[26px] font-bold tracking-tight leading-tight text-foreground">Chat</h1>
-                <p className="text-sm text-muted-foreground mt-0.5">Direct gateway chat session for quick interventions.</p>
-              </div>
+            <div>
+              <h1 className="text-[26px] font-bold tracking-tight leading-tight text-foreground">Chat</h1>
+              <p className="text-sm text-muted-foreground mt-0.5">Direct gateway chat session for quick interventions.</p>
             </div>
             <div className="flex items-center gap-2">
               <ProviderSelect />
@@ -219,24 +212,6 @@ export default function ChatPage() {
               </button>
             </div>
           </div>
-          {/* Tab bar */}
-          <div className="flex gap-0 px-4">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium border-b-2 transition-colors -mb-px",
-                  activeTab === tab.id
-                    ? "border-primary text-foreground"
-                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/30"
-                )}
-              >
-                {tab.icon}
-                {tab.label}
-              </button>
-            ))}
-          </div>
         </div>
       )}
 
@@ -246,96 +221,82 @@ export default function ChatPage() {
         </button>
       )}
 
-      {/* Tab content */}
-      {activeTab === "system-prompt" ? (
-        <SystemPromptEditor />
-      ) : activeTab === "live-log" ? (
-        <LiveLogPanel />
-      ) : activeTab === "schema" ? (
-        <div className="flex-1 overflow-auto p-4">
-          <PluginSchemaPanel plugin="antigravity_chat" title="antigravity-chat schema" />
-        </div>
-      ) : (
-        <div className={cn("flex flex-1 min-h-0", sidebarOpen && "gap-0")}>
-          {/* Thread */}
-          <div className={cn("flex flex-col flex-1 min-w-0", sidebarOpen && "flex-[0_0_60%]")}>
-            <div ref={threadRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4" role="log">
-              {messages.map((msg) => (
-                <MessageBubble
-                  key={msg.id}
-                  message={msg}
-                  onInspect={openInSidebar}
-                  onAction={(action, payload) => {
-                    const actionMsg: LocalMessage = {
-                      id: makeId("action"),
-                      role: "user",
-                      content: `[Action: ${action}] ${JSON.stringify(payload)}`,
-                      timestamp: Date.now(),
-                    };
-                    setMessages((prev) => [...prev, actionMsg]);
-                  }}
-                />
-              ))}
-              {sending && (
-                <div className="flex gap-3">
-                  <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary shrink-0">AI</div>
-                  <div className="rounded-lg bg-card border border-border px-4 py-3 animate-[pulse-dot_1.5s_ease-in-out_infinite]">
-                    <span className="text-sm text-muted-foreground">Thinking…</span>
-                  </div>
+      <div className={cn("flex flex-1 min-h-0", sidebarOpen && "gap-0")}>
+        <div className={cn("flex flex-col flex-1 min-w-0", sidebarOpen && "flex-[0_0_60%]")}>
+          <div ref={threadRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4" role="log">
+            {messages.map((msg) => (
+              <MessageBubble
+                key={msg.id}
+                message={msg}
+                onInspect={openInSidebar}
+                onAction={(action, payload) => {
+                  const actionMsg: LocalMessage = {
+                    id: makeId("action"),
+                    role: "user",
+                    content: `[Action: ${action}] ${JSON.stringify(payload)}`,
+                    timestamp: Date.now(),
+                  };
+                  setMessages((prev) => [...prev, actionMsg]);
+                }}
+              />
+            ))}
+            {sending && (
+              <div className="flex gap-3">
+                <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary shrink-0">AI</div>
+                <div className="rounded-lg bg-card border border-border px-4 py-3 animate-[pulse-dot_1.5s_ease-in-out_infinite]">
+                  <span className="text-sm text-muted-foreground">Thinking…</span>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
+          </div>
 
-            {/* Composer */}
-            <div className="border-t border-border px-4 py-3 shrink-0 bg-background">
-              {error && <Callout variant="danger" className="mb-3">{error}</Callout>}
-              {!connected && !error && (
-                <Callout variant="default" className="mb-3">
-                  Event stream is idle — chat still works through the REST gateway.
-                </Callout>
-              )}
-              <div className="flex gap-2">
-                <div className="flex-1 relative">
-                  <textarea
-                    value={draft}
-                    onChange={(e) => setDraft(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    disabled={sending}
-                    placeholder="Message (↩ to send, Shift+↩ for line breaks)"
-                    className="w-full px-3 py-2.5 rounded-lg border border-input bg-card text-sm resize-none min-h-[44px] max-h-40 focus:border-ring focus:ring-1 focus:ring-ring outline-none transition-colors font-sans"
-                    rows={1}
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5 shrink-0">
-                  <button onClick={handleNewSession} className="px-3 py-2 rounded-md border border-border bg-[hsl(var(--bg-elevated))] text-xs font-medium hover:bg-muted/30 transition-colors">
-                    New session
-                  </button>
-                  <button onClick={() => void handleSend()} disabled={sending || !draft.trim()} className="px-3 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center gap-1.5">
-                    {sending ? "Sending" : "Send"}<kbd className="text-[10px] bg-primary-foreground/20 px-1 rounded">↵</kbd>
-                  </button>
-                </div>
+          <div className="border-t border-border px-4 py-3 shrink-0 bg-background">
+            {error && <Callout variant="danger" className="mb-3">{error}</Callout>}
+            {!connected && !error && (
+              <Callout variant="default" className="mb-3">
+                Event stream is idle — chat still works through the REST gateway.
+              </Callout>
+            )}
+            <div className="flex gap-2">
+              <div className="flex-1 relative">
+                <textarea
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  disabled={sending}
+                  placeholder="Message (↩ to send, Shift+↩ for line breaks)"
+                  className="w-full px-3 py-2.5 rounded-lg border border-input bg-card text-sm resize-none min-h-[44px] max-h-40 focus:border-ring focus:ring-1 focus:ring-ring outline-none transition-colors font-sans"
+                  rows={1}
+                />
+              </div>
+              <div className="flex flex-col gap-1.5 shrink-0">
+                <button onClick={handleNewSession} className="px-3 py-2 rounded-md border border-border bg-[hsl(var(--bg-elevated))] text-xs font-medium hover:bg-muted/30 transition-colors">
+                  New session
+                </button>
+                <button onClick={() => void handleSend()} disabled={sending || !draft.trim()} className="px-3 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center gap-1.5">
+                  {sending ? "Sending" : "Send"}<kbd className="text-[10px] bg-primary-foreground/20 px-1 rounded">↵</kbd>
+                </button>
               </div>
             </div>
           </div>
-
-          {/* Sidebar — tool output inspector */}
-          {sidebarOpen && (
-            <div className="flex-[0_0_40%] border-l border-border bg-card flex flex-col min-w-0">
-              <div className="flex items-center justify-between px-4 py-2 border-b border-border">
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Inspector</span>
-                <button onClick={() => setSidebarOpen(false)} className="p-1 rounded hover:bg-muted/30 text-muted-foreground"><X className="h-3.5 w-3.5" /></button>
-              </div>
-              <div className="flex-1 overflow-auto p-3">
-                {sidebarContent !== null ? (
-                  <JsonRenderer data={sidebarContent} />
-                ) : (
-                  <div className="text-sm text-muted-foreground">Click a tool result to inspect.</div>
-                )}
-              </div>
-            </div>
-          )}
         </div>
-      )}
+
+        {sidebarOpen && (
+          <div className="flex-[0_0_40%] border-l border-border bg-card flex flex-col min-w-0">
+            <div className="flex items-center justify-between px-4 py-2 border-b border-border">
+              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Inspector</span>
+              <button onClick={() => setSidebarOpen(false)} className="p-1 rounded hover:bg-muted/30 text-muted-foreground"><X className="h-3.5 w-3.5" /></button>
+            </div>
+            <div className="flex-1 overflow-auto p-3">
+              {sidebarContent !== null ? (
+                <JsonRenderer data={sidebarContent} />
+              ) : (
+                <div className="text-sm text-muted-foreground">Click a tool result to inspect.</div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

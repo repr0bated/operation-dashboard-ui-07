@@ -464,13 +464,15 @@ Task 15 (Integration tests)
 
 ## Summary Checklist
 
+Implemented in `/srv/git/odbus` (this repo carries the spec only).
+
 | # | Task | Status |
 |---|---|---|
-| 1 | Action Bus core (mod.rs) | ☐ |
-| 2 | Connection Pool (conn.rs) | ☐ |
-| 3 | gRPC Call Handler | ☐ |
-| 4 | gRPC Stream Handler | ☐ |
-| 5 | Reflection Registry + blob pools | ☐ |
+| 1 | Action Bus core (mod.rs) | ☑ |
+| 2 | Connection Pool (conn.rs) | ☑ |
+| 3 | gRPC Call Handler | ☑ |
+| 4 | gRPC Stream Handler | ☑ |
+| 5 | Reflection Registry + blob pools | ☑ |
 | 6 | Network Telemetry Poller | ☐ |
 | 7 | Socket/TCP Status Components | ☐ |
 | 8 | Schema Form Builder Component | ☐ |

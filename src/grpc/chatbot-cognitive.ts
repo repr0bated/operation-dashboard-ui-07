@@ -57,6 +57,10 @@ async function callCognitive<T>(
     ASSISTANT_CALL,
   );
 
+  if (resp.success === false) {
+    throw new Error(resp.error?.message || `cognitive_mcp.${methodName} failed`);
+  }
+
   const envelope = structToObject(resp.result as Record<string, unknown>);
   if (envelope.success === false) {
     const err = envelope.error;
