@@ -14,6 +14,7 @@ import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
 import { unwrapContentBlocks } from "@/lib/chat-content";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
+import { UIMessageKind, UIMessageRole } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 import { X, Maximize2, MessageSquare, FileText, ScrollText } from "lucide-react";
 
@@ -118,12 +119,12 @@ export default function ChatPage() {
           // Text parts arrive as a serialized content block; show the message,
           // not its envelope. Other kinds stay raw behind a [kind] prefix.
           let content = unwrapContentBlocks(payload);
-          if (part.kind !== "text") {
-            content = `[${part.kind}] ${payload}`;
+          if (part.kind !== UIMessageKind.UI_MESSAGE_KIND_TEXT) {
+            content = `[${UIMessageKind[part.kind] ?? part.kind}] ${payload}`;
           }
           const assistantMsg: LocalMessage = {
             id: makeId("part"),
-            role: mapBackendRole(part.role),
+            role: mapBackendRole(UIMessageRole[part.role] ?? "system"),
             content: normalizeContent(content),
             timestamp: Date.now(),
           };

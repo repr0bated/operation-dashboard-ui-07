@@ -172,7 +172,7 @@ export default function CatalogUIGeneratorPage() {
       setValidated(true);
       setError(null);
     } catch (err) {
-      const msg = err instanceof z.ZodError ? err.errors[0].message : String(err);
+      const msg = err instanceof z.ZodError ? err.issues[0].message : String(err);
       setError(msg);
       setValidated(false);
     }

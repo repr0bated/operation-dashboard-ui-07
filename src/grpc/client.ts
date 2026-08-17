@@ -1087,7 +1087,7 @@ export const privacyService = {
       "operation.privacy.v1.PrivacyNetworkService",
       "GetNetworkStatus",
       {
-        component: req.component ?? "all",
+        component: req.component ?? ComponentName.ALL,
       },
     );
   },

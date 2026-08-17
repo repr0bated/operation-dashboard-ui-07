@@ -7,6 +7,7 @@ import { unwrapContentBlocks } from "@/lib/chat-content";
 import { chatSendRouting } from "@/lib/zeroclaw-routing";
 import { useZeroclawRouting } from "@/hooks/use-zeroclaw-routing";
 import type { ChatFrame, UIMessagePart, StreamError, ApprovalRequired } from "@/grpc/gen/chat";
+import { UIMessageKind, UIMessageRole } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 
 /** Coerce arbitrary backend content into a renderable string. */
@@ -119,12 +120,12 @@ export function ChatWidget({ agentId = "default", initialSessionId, className, h
           // Text parts arrive as a serialized content block; show the message,
           // not its envelope. Other kinds stay raw behind a [kind] prefix.
           let content = unwrapContentBlocks(payload);
-          if (part.kind !== "text") {
-            content = `[${part.kind}] ${payload}`;
+          if (part.kind !== UIMessageKind.UI_MESSAGE_KIND_TEXT) {
+            content = `[${UIMessageKind[part.kind] ?? part.kind}] ${payload}`;
           }
           const assistantMsg: LocalMessage = {
             id: makeId("part"),
-            role: mapBackendRole(part.role),
+            role: mapBackendRole(UIMessageRole[part.role] ?? "system"),
             content: normalizeContent(content),
             timestamp: Date.now(),
           };
