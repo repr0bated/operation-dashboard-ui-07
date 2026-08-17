@@ -1,5 +1,5 @@
 /**
- * Model/provider picker — backed by tched_router's real provider catalog
+ * Model/provider picker — backed by 3tched-router's real provider catalog
  * (schema-driven; new providers registered there show up here automatically,
  * no hardcoded list). Populated via `ListProviders` + `GetRouter`
  * (obs.service.3tched-router.providers.list@v1 / obs.service.3tched-router.router.get@v1),
