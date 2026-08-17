@@ -1795,8 +1795,8 @@ export interface DbusSignalEvent {
     timestamp?: Timestamp;
 }
 // =============================================================================
-// Zeroclaw projection (read-only gRPC view of the plugin's route/provider tree)
-// subid: exp.service.zeroclaw-bridge.grpc-stream@v1
+// 3tched Router projection (read-only gRPC view of the plugin's route/provider tree)
+// subid: exp.service.3tched-router-bridge.grpc-stream@v1
 // =============================================================================
 
 /**
@@ -1850,9 +1850,9 @@ export interface ProviderProto {
     kind: string;
 }
 /**
- * @generated from protobuf message operation.v1.ZeroclawProjection
+ * @generated from protobuf message operation.v1.TchedRouterProjection
  */
-export interface ZeroclawProjection {
+export interface TchedRouterProjection {
     /**
      * @generated from protobuf field: string schema_json = 1
      */
@@ -7818,24 +7818,24 @@ class ProviderProto$Type extends MessageType<ProviderProto> {
  */
 export const ProviderProto = new ProviderProto$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class ZeroclawProjection$Type extends MessageType<ZeroclawProjection> {
+class TchedRouterProjection$Type extends MessageType<TchedRouterProjection> {
     constructor() {
-        super("operation.v1.ZeroclawProjection", [
+        super("operation.v1.TchedRouterProjection", [
             { no: 1, name: "schema_json", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "model_routes", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => ModelRouteProto },
             { no: 3, name: "providers", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => ProviderProto }
         ]);
     }
-    create(value?: PartialMessage<ZeroclawProjection>): ZeroclawProjection {
+    create(value?: PartialMessage<TchedRouterProjection>): TchedRouterProjection {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.schemaJson = "";
         message.modelRoutes = [];
         message.providers = [];
         if (value !== undefined)
-            reflectionMergePartial<ZeroclawProjection>(this, message, value);
+            reflectionMergePartial<TchedRouterProjection>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ZeroclawProjection): ZeroclawProjection {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: TchedRouterProjection): TchedRouterProjection {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -7860,7 +7860,7 @@ class ZeroclawProjection$Type extends MessageType<ZeroclawProjection> {
         }
         return message;
     }
-    internalBinaryWrite(message: ZeroclawProjection, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: TchedRouterProjection, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* string schema_json = 1; */
         if (message.schemaJson !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.schemaJson);
@@ -7877,9 +7877,9 @@ class ZeroclawProjection$Type extends MessageType<ZeroclawProjection> {
     }
 }
 /**
- * @generated MessageType for protobuf message operation.v1.ZeroclawProjection
+ * @generated MessageType for protobuf message operation.v1.TchedRouterProjection
  */
-export const ZeroclawProjection = new ZeroclawProjection$Type();
+export const TchedRouterProjection = new TchedRouterProjection$Type();
 /**
  * @generated ServiceType for protobuf service operation.v1.StateSync
  */

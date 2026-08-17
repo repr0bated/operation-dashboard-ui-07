@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.listuisurfaces;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListUiSurfacesInput {
+  // Empty schema object.
+}
+
+message ListUiSurfacesOutput {
+  repeated google.protobuf.Value ui_surfaces = 1;
+}
+
+service ListUiSurfacesService {
+  // subid: obs.service.3tched-router.ui-surfaces.list@v1, capability: cap.software.3tched-router.ui-surfaces.read@v1
+  rpc ListUiSurfaces(ListUiSurfacesInput) returns (ListUiSurfacesOutput);
+}

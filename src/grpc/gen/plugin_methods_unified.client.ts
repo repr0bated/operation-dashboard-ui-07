@@ -6,9 +6,9 @@
 import { OperationService } from "./plugin_methods_unified";
 import type { GenericGetResponse } from "./plugin_methods_unified";
 import type { GenericGetRequest } from "./plugin_methods_unified";
-import { ZeroclawService } from "./plugin_methods_unified";
-import type { GetZeroclawResponse } from "./plugin_methods_unified";
-import type { GetZeroclawRequest } from "./plugin_methods_unified";
+import { TchedRouterService } from "./plugin_methods_unified";
+import type { GetTchedRouterResponse } from "./plugin_methods_unified";
+import type { GetTchedRouterRequest } from "./plugin_methods_unified";
 import { XrayService } from "./plugin_methods_unified";
 import type { GetXrayResponse } from "./plugin_methods_unified";
 import type { GetXrayRequest } from "./plugin_methods_unified";
@@ -1842,29 +1842,29 @@ export class XrayServiceClient implements IXrayServiceClient, ServiceInfo {
     }
 }
 /**
- * @generated from protobuf service operation.catalog.v1.ZeroclawService
+ * @generated from protobuf service operation.catalog.v1.TchedRouterService
  */
-export interface IZeroclawServiceClient {
+export interface ITchedRouterServiceClient {
     /**
      * @generated from protobuf rpc: Get
      */
-    get(input: GetZeroclawRequest, options?: RpcOptions): UnaryCall<GetZeroclawRequest, GetZeroclawResponse>;
+    get(input: GetTchedRouterRequest, options?: RpcOptions): UnaryCall<GetTchedRouterRequest, GetTchedRouterResponse>;
 }
 /**
- * @generated from protobuf service operation.catalog.v1.ZeroclawService
+ * @generated from protobuf service operation.catalog.v1.TchedRouterService
  */
-export class ZeroclawServiceClient implements IZeroclawServiceClient, ServiceInfo {
-    typeName = ZeroclawService.typeName;
-    methods = ZeroclawService.methods;
-    options = ZeroclawService.options;
+export class TchedRouterServiceClient implements ITchedRouterServiceClient, ServiceInfo {
+    typeName = TchedRouterService.typeName;
+    methods = TchedRouterService.methods;
+    options = TchedRouterService.options;
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
      * @generated from protobuf rpc: Get
      */
-    get(input: GetZeroclawRequest, options?: RpcOptions): UnaryCall<GetZeroclawRequest, GetZeroclawResponse> {
+    get(input: GetTchedRouterRequest, options?: RpcOptions): UnaryCall<GetTchedRouterRequest, GetTchedRouterResponse> {
         const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<GetZeroclawRequest, GetZeroclawResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<GetTchedRouterRequest, GetTchedRouterResponse>("unary", this._transport, method, opt, input);
     }
 }
 /**

@@ -39,7 +39,20 @@ describe("WIP marking is driven by the manifest", () => {
   // human editing this line. Updating it is the acknowledgement.
   it("marks the pages found to have no backend wiring", () => {
     expect(wipItems.map((i) => i.id).sort()).toEqual(
-      ["channels", "cron", "estop", "gateway", "hardware", "integrations"].sort(),
+      [
+        "channels",
+        "config",
+        "cron",
+        "estop",
+        "gateway",
+        "hardware",
+        "integrations",
+        "knowledge",
+        "llm",
+        "skills",
+        "tools",
+        "workflows",
+      ].sort(),
     );
   });
 

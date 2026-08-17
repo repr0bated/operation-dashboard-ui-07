@@ -25,7 +25,7 @@ const CATALOG = {
     "json_render",
     "large_language_model",
     "procfs",
-    "zeroclaw",
+    "tched_router",
   ],
 };
 
@@ -38,8 +38,8 @@ const STATUS = {
 };
 /** The real 503 body from /api/llm/models when the projection is down. */
 const MODELS_503 = {
-  error: "Zeroclaw model route projection is unavailable",
-  provider: "zeroclaw",
+  error: "tched_router model route projection is unavailable",
+  provider: "tched_router",
   models: [],
 };
 
@@ -169,13 +169,13 @@ describe("Routable Models shows live gateway state, never mock models", () => {
       expect(screen.getByText("Model list unavailable")).toBeInTheDocument();
     });
     expect(
-      screen.getByText(/Zeroclaw model route projection is unavailable/),
+      screen.getByText(/tched_router model route projection is unavailable/),
     ).toBeInTheDocument();
   });
 
   it("renders real models when the projection is healthy", async () => {
     const models = {
-      provider: "zeroclaw",
+      provider: "tched_router",
       models: [
         { id: "qwen3.6-35b-a3b", name: "Qwen 3.6", parameters: "35B", available: true, tags: ["salad"] },
         { id: "gemini-2.5-flash", name: "Gemini Flash", available: true, tags: [] },

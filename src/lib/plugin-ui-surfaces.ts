@@ -240,7 +240,7 @@ export async function fetchAntigravityGalleryBundle(): Promise<AntigravityGaller
     throw new Error("antigravity schema declares no ui_surfaces");
   }
 
-  // Chat is an antigravity ui_surface (not zeroclaw, not antigravity_chat).
+  // Chat is an antigravity ui_surface (not tched_router, not antigravity_chat).
   // Inject until the sealed blob is resealed with antigravity.chat.
   if (!routes.some((r) => isAntigravityChatSurface(r))) {
     routes = [...routes, ANTIGRAVITY_CHAT_SURFACE];
@@ -273,10 +273,10 @@ export interface ChatbotModelGalleryBundle {
   surfaces: ChatbotModelGallerySurface[];
 }
 
-/** zeroclaw owns chatbot model routing; surface field slices for Gallery. */
-const ZEROCLAW_SURFACE_FIELDS: Record<string, string[] | null> = {
-  zeroclaw: null,
-  "zeroclaw.providers": [
+/** tched_router owns chatbot model routing; surface field slices for Gallery. */
+const TCHED_ROUTER_SURFACE_FIELDS: Record<string, string[] | null> = {
+  tched_router: null,
+  "tched_router.providers": [
     "selected_provider",
     "selected_model",
     "providers",
@@ -288,8 +288,8 @@ const ZEROCLAW_SURFACE_FIELDS: Record<string, string[] | null> = {
   ],
 };
 
-const ZEROCLAW_SURFACE_METHODS: Record<string, string[]> = {
-  zeroclaw: [
+const TCHED_ROUTER_SURFACE_METHODS: Record<string, string[]> = {
+  tched_router: [
     "GetModelRoutes",
     "GetProviderCatalog",
     "ListModels",
@@ -300,7 +300,7 @@ const ZEROCLAW_SURFACE_METHODS: Record<string, string[]> = {
     "GetRouter",
     "GetState",
   ],
-  "zeroclaw.providers": [
+  "tched_router.providers": [
     "GetModelRoutes",
     "GetProviderCatalog",
     "ListModels",
@@ -323,17 +323,17 @@ function readSchemaDefaultString(
   return typeof value === "string" && value.length > 0 ? value : undefined;
 }
 
-export interface ZeroclawChatSelection {
+export interface TchedRouterChatSelection {
   provider: string;
   model: string;
 }
 
 /**
- * Active chatbot inference route from zeroclaw (OD-28).
+ * Active chatbot inference route from tched_router (OD-28).
  * Prefer live `/llm/status`; fall back to sealed schema defaults.
- * Empty strings mean "use zeroclaw selected_*" on the bridge.
+ * Empty strings mean "use tched_router selected_*" on the bridge.
  */
-export async function resolveZeroclawChatSelection(): Promise<ZeroclawChatSelection> {
+export async function resolveTchedRouterChatSelection(): Promise<TchedRouterChatSelection> {
   let provider = "";
   let model = "";
   try {
@@ -343,6 +343,7 @@ export async function resolveZeroclawChatSelection(): Promise<ZeroclawChatSelect
       if (
         typeof status.provider === "string" &&
         status.provider.length > 0 &&
+        status.provider !== "tched_router-unavailable" &&
         status.provider !== "zeroclaw-unavailable"
       ) {
         provider = status.provider;
@@ -358,7 +359,7 @@ export async function resolveZeroclawChatSelection(): Promise<ZeroclawChatSelect
     return { provider, model };
   }
   try {
-    const envelope = await fetchPluginSchema("zeroclaw");
+    const envelope = await fetchPluginSchema("tched_router");
     provider = provider || readSchemaDefaultString(envelope, "selected_provider") || "";
     model = model || readSchemaDefaultString(envelope, "selected_model") || "";
   } catch {
@@ -367,16 +368,16 @@ export async function resolveZeroclawChatSelection(): Promise<ZeroclawChatSelect
   return { provider, model };
 }
 
-/** One zeroclaw ui_surface from the sealed blob (main chatbot model router). */
-export function zeroclawUiSurfaceSpec(
+/** One tched_router ui_surface from the sealed blob (main chatbot model router). */
+export function tchedRouterUiSurfaceSpec(
   envelope: PluginSchemaEnvelope,
   surface: PluginUiSurface,
 ): Spec {
   const full = envelope.schema as PluginSchemaShape;
-  const fieldKeys = ZEROCLAW_SURFACE_FIELDS[surface.schema];
-  const methodKeys = ZEROCLAW_SURFACE_METHODS[surface.schema] ?? [];
+  const fieldKeys = TCHED_ROUTER_SURFACE_FIELDS[surface.schema];
+  const methodKeys = TCHED_ROUTER_SURFACE_METHODS[surface.schema] ?? [];
 
-  // Full schema when fieldKeys is null (zeroclaw main).
+  // Full schema when fieldKeys is null (tched_router main).
   if (fieldKeys === null) {
     return schemaToSpec(full, surface.schema);
   }
@@ -416,18 +417,18 @@ export function zeroclawUiSurfaceSpec(
 }
 
 /**
- * Gallery inference source: sealed zeroclaw projection (active chatbot model
+ * Gallery inference source: sealed tched_router projection (active chatbot model
  * router), not gemma_brain.GetUiSpec.
  */
 export async function fetchChatbotModelGalleryBundle(): Promise<ChatbotModelGalleryBundle> {
-  const envelope = await fetchPluginSchema("zeroclaw");
+  const envelope = await fetchPluginSchema("tched_router");
   // Drop stale /chat ownership — chat belongs to antigravity ui_surfaces.
   const routes = parsePluginUiSurfaces(envelope).filter((r) => r.path !== "/chat");
   if (routes.length === 0) {
-    throw new Error("zeroclaw schema declares no ui_surfaces");
+    throw new Error("tched_router schema declares no ui_surfaces");
   }
 
-  const selection = await resolveZeroclawChatSelection();
+  const selection = await resolveTchedRouterChatSelection();
   const provider =
     selection.provider || readSchemaDefaultString(envelope, "selected_provider");
   const model = selection.model || readSchemaDefaultString(envelope, "selected_model");
@@ -437,11 +438,11 @@ export async function fetchChatbotModelGalleryBundle(): Promise<ChatbotModelGall
     provider,
     model,
     surfaces: routes.map((surface) => ({
-      id: `zeroclaw${surface.path}`,
+      id: `tched_router${surface.path}`,
       name: surface.name,
       path: surface.path,
       schema: surface.schema,
-      spec: zeroclawUiSurfaceSpec(envelope, surface),
+      spec: tchedRouterUiSurfaceSpec(envelope, surface),
     })),
   };
 }

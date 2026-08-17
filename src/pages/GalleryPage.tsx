@@ -41,12 +41,12 @@ interface SourceState {
 
 const SOURCE_LABEL: Record<SourceId, string> = {
   catalog: "Gallery catalog (REST)",
-  inference: "Chatbot model (zeroclaw)",
+  inference: "Chatbot model (tched_router)",
   antigravity: "Antigravity UI (sealed projection)",
 };
 
 function isChatSurface(entry: Pick<SpecEntry, "id" | "kind" | "source">): boolean {
-  // Only antigravity ui_surfaces mount ChatWidget — never zeroclaw /chat.
+  // Only antigravity ui_surfaces mount ChatWidget — never tched_router /chat.
   if (entry.source === "inference") return false;
   if (entry.kind === "chat") return true;
   return isAntigravityChatSurface({ id: entry.id });
@@ -188,7 +188,7 @@ export default function GalleryPage() {
         count: list.length,
         message:
           list.length === 0
-            ? "zeroclaw returned no chatbot model surfaces"
+            ? "tched_router returned no chatbot model surfaces"
             : route
               ? `active ${route}`
               : undefined,
@@ -284,7 +284,7 @@ export default function GalleryPage() {
     <div className="space-y-4">
       <PageHeader
         title="UI Model Gallery"
-        subtitle="Live json-render specs from the gallery catalog, the chatbot model router (zeroclaw) and the Antigravity plugin surface."
+        subtitle="Live json-render specs from the gallery catalog, the chatbot model router (tched_router) and the Antigravity plugin surface."
         actions={
           <div className="flex items-center gap-2">
             <ProviderSelect />
@@ -311,8 +311,8 @@ export default function GalleryPage() {
         Chat mounts from the sealed <span className="font-mono">antigravity</span>{" "}
         <span className="font-mono">ui_surfaces</span> path{" "}
         <span className="font-mono">/antigravity/chat</span> (<span className="font-mono">ChatWidget</span>) —
-        not <span className="font-mono">zeroclaw</span> and not <span className="font-mono">antigravity_chat</span>.
-        Zeroclaw surfaces are model routing only; other Antigravity surfaces stay SpecRenderer cards.
+        not <span className="font-mono">tched_router</span> and not <span className="font-mono">antigravity_chat</span>.
+        tched_router surfaces are model routing only; other Antigravity surfaces stay SpecRenderer cards.
       </Callout>
 
       {actionError && <ErrorBanner title="Action failed" message={actionError} />}
@@ -329,7 +329,7 @@ export default function GalleryPage() {
       {!stillLoading && all.length === 0 && anyLive && (
         <EmptyState
           title="No specs available"
-          hint="No source returned a surface. Chatbot model surfaces come from sealed zeroclaw; Antigravity from its sealed projection."
+          hint="No source returned a surface. Chatbot model surfaces come from sealed tched_router; Antigravity from its sealed projection."
         />
       )}
 

@@ -8,7 +8,7 @@ import { resolveApiBase } from "@/lib/api";
  * Sources:
  *   GET /api/llm/status              → active provider + model
  *   GET /api/llm/providers           → registered providers + current
- *   GET /api/llm/models[?provider=]  → routable models (zeroclaw projection by
+ *   GET /api/llm/models[?provider=]  → routable models (tched_router projection by
  *                                      default; 503 when unavailable)
  */
 
@@ -100,7 +100,7 @@ export function useLlmRouting(providerFilter?: string): LlmRouting {
         return;
       }
 
-      // Models are best-effort: the zeroclaw projection is often unavailable.
+      // Models are best-effort: the tched_router projection is often unavailable.
       try {
         const qs = providerFilter ? `?provider=${encodeURIComponent(providerFilter)}` : "";
         const res = await getJson(`/llm/models${qs}`);
