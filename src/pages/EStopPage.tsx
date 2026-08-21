@@ -23,7 +23,7 @@ export default function EStopPage() {
 
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Emergency stop will immediately halt all ZeroClaw operations. Use with caution.
+            Emergency stop will immediately halt all 3tched Router operations. Use with caution.
           </p>
           <Button variant="destructive">
             <Shield className="h-4 w-4 mr-2" />

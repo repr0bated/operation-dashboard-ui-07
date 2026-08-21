@@ -1,10 +1,10 @@
 /**
  * Routable Models — live LLM gateway routing.
  *
- * Every value here comes from the control plane:
- *   /api/llm/status     active provider + model
- *   /api/llm/providers  registered providers, and which one is current
- *   /api/llm/models     routable models (zeroclaw projection)
+ * Every value here comes from tched_router plugin methods over the gRPC bridge:
+ *   obs.service.tched-router.router.get@v1      active provider + model
+ *   obs.service.tched-router.providers.list@v1  registered providers
+ *   obs.service.tched-router.models.list@v1     routable models per provider
  *
  * This page previously rendered a hardcoded MOCK_AGENTS array (gpt-4o,
  * gpt-4o-mini) that had no relationship to the running gateway. There is no
@@ -22,7 +22,7 @@ import { Loader2, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function RoutableModelsPage() {
-  // undefined = let the backend pick its default source (the zeroclaw projection)
+  // undefined = let the backend pick its default source (the tched_router projection)
   const [providerFilter, setProviderFilter] = useState<string | undefined>(undefined);
   const {
     status,
@@ -98,7 +98,7 @@ export default function RoutableModelsPage() {
             >
               <div className="text-sm font-medium text-foreground">Default projection</div>
               <div className="text-[11px] text-muted-foreground font-mono">
-                zeroclaw model routes
+                tched_router model routes
               </div>
             </button>
 
@@ -149,7 +149,7 @@ export default function RoutableModelsPage() {
           subtitle={
             modelSource
               ? `Source: ${modelSource}`
-              : "Model list served by the LLM gateway."
+              : "Model list served by tched_router."
           }
         >
           {modelsError && (

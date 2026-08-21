@@ -6,8 +6,8 @@
  *   • shell        — the permanent chrome (topbar, sidebar, content region).
  *                    This is what used to be the hand-written `AppShell.tsx`.
  *   • dashboard    — layout primitives + live Overview widgets.
- *   • data         — generic JSON/value primitives (kv/card/heading/...) used
- *                    by the gRPC explorer and the plugin-schema renderer.
+ *   • data         — generic JSON/value primitives (kv/card/heading/...) plus
+ *                    ui_projection role types (surface, displayValue, …).
  *
  * Because this is a real `defineCatalog`, we get for free:
  *   catalog.prompt()      → LLM system prompt describing the whole surface
@@ -17,6 +17,25 @@
 import { defineCatalog } from "@json-render/core";
 import { schema } from "@json-render/react/schema";
 import { z } from "zod";
+import { STREAM_PLUGIN_IDS, toCatalogName } from "./stream-plugins";
+
+/** Shared props for every ui_projection role type. */
+const projectionProps = z.object({
+  pluginId: z.string(),
+  kind: z.enum(["field", "method", "schema"]),
+  field: z.string(),
+  label: z.string().nullable(),
+  subid: z.string(),
+  role: z.string(),
+});
+
+function projectionComponent(role: string) {
+  return {
+    props: projectionProps,
+    events: ["press"] as const,
+    description: `ui_projection role '${role}'. Binds /plugins/<pluginId>/<field> from StateSync.`,
+  };
+}
 
 /** Tone shared by banners, pills and cards. */
 const tone = z.enum(["default", "ok", "warn", "danger"]);
@@ -139,6 +158,7 @@ export const appCatalog = defineCatalog(schema, {
         wip: z.boolean().nullable(),
         /** Bound to state: the currently active route. */
         activeRoute: z.string().nullable(),
+        aliases: z.array(z.string()).nullable(),
       }),
       slots: [],
       description:
@@ -234,6 +254,7 @@ export const appCatalog = defineCatalog(schema, {
         value: z.union([z.string(), z.number()]),
         sub: z.string().nullable(),
         variant: tone.nullable(),
+        tone: tone.nullable(),
       }),
       slots: [],
       description: "Single headline metric.",
@@ -243,6 +264,7 @@ export const appCatalog = defineCatalog(schema, {
       props: z.object({
         text: z.string(),
         variant: tone.nullable(),
+        tone: tone.nullable(),
       }),
       slots: [],
       description: "Small rounded status label.",
@@ -255,7 +277,10 @@ export const appCatalog = defineCatalog(schema, {
     },
 
     callout: {
-      props: z.object({ variant: tone.nullable() }),
+      props: z.object({
+        variant: tone.nullable(),
+        tone: tone.nullable(),
+      }),
       slots: ["default"],
       description: "Emphasised inline message block.",
     },
@@ -330,14 +355,18 @@ export const appCatalog = defineCatalog(schema, {
 
     // ────────────────────────── data primitives ──────────────────────
     container: {
-      props: z.object({}),
+      props: z.object({
+        className: z.string().nullable(),
+      }),
       slots: ["default"],
       description: "Vertical stack of children.",
     },
     card: {
       props: z.object({
         title: z.string().nullable(),
+        subtitle: z.string().nullable(),
         tone: tone.nullable(),
+        className: z.string().nullable(),
       }),
       slots: ["default"],
       description: "Bordered group used by generated JSON/schema trees.",
@@ -360,20 +389,26 @@ export const appCatalog = defineCatalog(schema, {
       description: "Section heading.",
     },
     text: {
-      props: z.object({ text: z.string() }),
+      props: z.object({
+        text: z.string(),
+        className: z.string().nullable(),
+      }),
       slots: [],
       description: "Monospace body text.",
     },
     badge: {
       props: z.object({
-        text: z.string(),
+        text: z.string().nullable(),
+        label: z.string().nullable(),
         tone: z.enum(["default", "ok", "warn", "danger", "info"]).nullable(),
       }),
       slots: [],
       description: "Outlined tag.",
     },
     row: {
-      props: z.object({}),
+      props: z.object({
+        className: z.string().nullable(),
+      }),
       slots: ["default"],
       description: "Horizontal wrapping row.",
     },
@@ -383,68 +418,135 @@ export const appCatalog = defineCatalog(schema, {
       description: "Preformatted code block.",
     },
 
-    // ──────────────────── network control surface ────────────────────
-    reflectionTreeExplorer: {
+    splitPane: {
+      props: z.object({
+        direction: z.enum(["vertical", "horizontal"]).nullable(),
+        className: z.string().nullable(),
+      }),
+      slots: ["start", "end"],
+      description: "Equal split of two panes, stacked or side-by-side.",
+    },
+    separator: {
       props: z.object({
         className: z.string().nullable(),
       }),
-      slots: [],
-      description:
-        "Live gRPC reflection service/method tree (tonic-web). Selecting a method updates the network-control selection store.",
+      description: "Hairline divider.",
     },
-    schemaFormBuilder: {
+    stat: {
       props: z.object({
-        title: z.string().nullable(),
-        className: z.string().nullable(),
+        label: z.string(),
+        value: z.string(),
+        unit: z.string().nullable(),
+        trend: z.enum(["up", "down", "flat"]).nullable(),
       }),
-      slots: [],
-      description:
-        "JSON request editor bound to the selected method payload (network-control store).",
+      description: "Single metric with label, value, optional unit and trend arrow.",
     },
-    grpcMethodCaller: {
+    pluginState: {
       props: z.object({
-        className: z.string().nullable(),
+        pluginId: z.string(),
       }),
-      slots: [],
-      description:
-        "Unary gRPC method caller over tonic-web: form, Execute, JSON response, RTT. Requires a compile-time codec.",
+      slots: ["default"],
+      description: "Subscribes to a plugin's live state and renders children with that data.",
     },
-    grpcStreamViewer: {
-      props: z.object({
-        className: z.string().nullable(),
-      }),
-      slots: [],
-      description:
-        "Server-streaming gRPC viewer over tonic-web (pause/clear/auto-scroll). Uses known stream factories.",
-    },
-    socketStatusPill: {
+    stateValue: {
       props: z.object({
         path: z.string(),
-        label: z.string(),
+        label: z.string().nullable(),
+        format: z.enum(["raw", "json", "bytes", "duration"]).nullable(),
       }),
-      slots: [],
-      description:
-        "Unix socket status pill. Browser cannot probe UDS; shows unavailable until a host-side probe exists.",
+      description: "Displays a single value from the live state store by dot-path.",
     },
-    tcpHealthBadge: {
+    streamObject: {
       props: z.object({
-        host: z.string(),
-        port: z.number(),
-        label: z.string(),
+        pluginId: z.string(),
+        member: z.string().nullable(),
+        className: z.string().nullable(),
       }),
-      slots: [],
+      events: ["press", "select"],
       description:
-        "TCP health badge. Port 8090 probes tonic-web reachability; other ports show unavailable from the browser.",
+        "Generic live StateSync object. pluginId selects /plugins/<id>. Optional member shows one field.",
     },
-    networkTopologyGraph: {
+    streamGrid: {
       props: z.object({
         className: z.string().nullable(),
-        height: z.string().nullable(),
       }),
-      slots: [],
-      description:
-        "Force/xyflow topology graph fed by event-store privacy network nodes and edges.",
+      events: ["select"],
+      description: "Grid of every plugin currently present on the StateSync event stream.",
     },
+    catalogIndex: {
+      props: z.object({
+        className: z.string().nullable(),
+      }),
+      description: "Index of every catalog-registered stream object.",
+    },
+    antigravityChatContainer: {
+      props: z.object({
+        streamId: z.string(),
+        title: z.string().nullable(),
+        mode: z.enum(["live", "accountability"]).nullable(),
+        placeholder: z.string().nullable(),
+      }),
+      slots: ["default"],
+      description: "Host frame for the antigravity.chat ui_surface.",
+    },
+    chatMessage: {
+      props: z.object({
+        role: z.enum(["user", "agent", "system"]),
+        content: z.string(),
+      }),
+      description: "Individual text node in the antigravity chat thread.",
+    },
+    tchedRouterPicker: {
+      props: z.object({
+        className: z.string().nullable(),
+      }),
+      description: "Provider and model selectors bound to tched_router.",
+    },
+    catalogGallery: {
+      props: z.object({
+        className: z.string().nullable(),
+      }),
+      description: "Self-documenting gallery of catalog components with mock props.",
+    },
+    generateStudio: {
+      props: z.object({
+        className: z.string().nullable(),
+      }),
+      description:
+        "Structured-output generate loop: catalog JSON Schema in, validated Spec out, rendered live.",
+    },
+
+    surface: projectionComponent("surface"),
+    displayValue: projectionComponent("display-value"),
+    stateFlag: projectionComponent("state-flag"),
+    collectionView: projectionComponent("collection-view"),
+    recordView: projectionComponent("record-view"),
+    valueList: projectionComponent("value-list"),
+    binaryControl: projectionComponent("binary-control"),
+    textControl: projectionComponent("text-control"),
+    numericControl: projectionComponent("numeric-control"),
+    multiChoice: projectionComponent("multi-choice"),
+    editableCollection: projectionComponent("editable-collection"),
+    recordEditor: projectionComponent("record-editor"),
+    structuredControl: projectionComponent("structured-control"),
+    validationCarrier: projectionComponent("validation-carrier"),
+    hydrationSource: projectionComponent("hydration-source"),
+    triggerBinding: projectionComponent("trigger-binding"),
+    repeatBinding: projectionComponent("repeat-binding"),
+
+    ...Object.fromEntries(
+      STREAM_PLUGIN_IDS.map((id) => [
+        toCatalogName(id),
+        {
+          props: z.object({
+            member: z.string().nullable(),
+            className: z.string().nullable(),
+          }),
+          events: ["press", "select"],
+          description: `Live StateSync object for sealed plugin '${id}'.`,
+        },
+      ]),
+    ),
   },
 
   actions: {
@@ -456,6 +558,17 @@ export const appCatalog = defineCatalog(schema, {
       params: z.object({ statePath: z.string() }),
       description:
         "Invert the boolean at a JSON Pointer state path (sidebar and section collapse).",
+    },
+    callMethod: {
+      params: z.object({
+        subid: z.string(),
+        input: z.record(z.string(), z.unknown()),
+      }),
+      description: "Invoke a plugin method by its OSCAL subid.",
+    },
+    selectPlugin: {
+      params: z.object({ pluginId: z.string() }),
+      description: "Record the selected StateSync plugin id in /shell/selectedPlugin.",
     },
   },
 });

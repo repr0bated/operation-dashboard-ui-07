@@ -13,7 +13,7 @@ export default function ToolsPage() {
   const [execArgs, setExecArgs] = useState("{}");
 
   const tools = useMemo(() => {
-    const raw = latestState["zeroclaw.tools"] ?? latestState["tools"] ?? latestState["tools.list"] ?? latestState["tools:catalog"];
+    const raw = latestState["tched_router.tools"] ?? latestState["tools"] ?? latestState["tools.list"] ?? latestState["tools:catalog"];
     if (Array.isArray(raw)) {
       return raw.map((item) => {
         const tool = item as Record<string, unknown>;
@@ -24,7 +24,7 @@ export default function ToolsPage() {
           description: String(tool.description ?? ""),
           inputSchema: (tool.inputSchema ?? tool.parameters ?? {}) as Tool["inputSchema"],
           outputSchema: (tool.outputSchema ?? tool.response_schema) as Tool["outputSchema"],
-          category: String(tool.category ?? "zeroclaw"),
+          category: String(tool.category ?? "tched_router"),
           enabled: tool.enabled !== false,
           source: (tool.source ?? "custom") as Tool["source"],
         } satisfies Tool;

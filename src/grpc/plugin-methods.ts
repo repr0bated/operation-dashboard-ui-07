@@ -102,7 +102,7 @@ export const pluginMethods = {
     return PLUGIN_METHOD_ENTRIES;
   },
 
-  /** All entries for a plugin (e.g. "gemma_brain", "zeroclaw"). */
+  /** All entries for a plugin (e.g. "gemma_brain", "tched_router"). */
   forPlugin(plugin: string): readonly PluginMethodEntry[] {
     return PLUGIN_METHOD_BY_PLUGIN.get(plugin) ?? [];
   },

@@ -1,11 +1,14 @@
 /**
  * Model/provider picker — backed by 3tched-router's real provider catalog
  * (schema-driven; new providers registered there show up here automatically,
- * no hardcoded list). Populated via `ListProviders` + `GetRouter`
- * (obs.service.3tched-router.providers.list@v1 / obs.service.3tched-router.router.get@v1),
- * applied via `SetProvider` (mut.service.3tched-router.provider.set@v1).
+ * no hardcoded list). Providers populated via `ListProviders` + `GetRouter`
+ * (obs.service.tched-router.providers.list@v1 / obs.service.tched-router.router.get@v1);
+ * the model list is fetched from whichever provider is selected via
+ * `ListModels` (obs.service.tched-router.models.list@v1) and re-fetched on
+ * every provider change. Applied via `SetProvider` / `SetModel`
+ * (mut.service.tched-router.provider.set@v1 / mut.service.tched-router.model.set@v1).
  */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -14,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { valueToJs } from "@/grpc/google/protobuf/struct";
-import { Cpu, Loader2 } from "lucide-react";
+import { Boxes, Cpu, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TchedRouterProvider {
@@ -25,6 +28,16 @@ interface TchedRouterProvider {
 
 const FALLBACK_PROVIDER = "salad";
 
+/** A ListModels route entry may be a bare id or an object keyed a few ways. */
+function routeModelId(route: unknown): string | undefined {
+  const v = valueToJs(route);
+  if (typeof v === "string") return v.length > 0 ? v : undefined;
+  if (!v || typeof v !== "object") return undefined;
+  const o = v as Record<string, unknown>;
+  const id = o.model ?? o.model_id ?? o.modelId ?? o.id ?? o.name;
+  return typeof id === "string" && id.length > 0 ? id : undefined;
+}
+
 interface Props {
   className?: string;
 }
@@ -32,9 +45,45 @@ interface Props {
 export function ProviderSelect({ className }: Props) {
   const [providers, setProviders] = useState<TchedRouterProvider[]>([]);
   const [value, setValue] = useState<string>(FALLBACK_PROVIDER);
+  const [models, setModels] = useState<string[]>([]);
+  const [model, setModel] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [modelsLoading, setModelsLoading] = useState(false);
   const [applying, setApplying] = useState(false);
+  const [applyingModel, setApplyingModel] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Drops stale ListModels responses when the provider changes mid-flight.
+  const modelsSeq = useRef(0);
+
+  const loadModels = useCallback(async (providerId: string, preferred?: string) => {
+    const seq = ++modelsSeq.current;
+    setModelsLoading(true);
+    try {
+      const { pluginMethods } = await import("@/grpc/plugin-methods");
+      const resp = await pluginMethods.callSubid<object, { modelRoutes?: unknown[] }>(
+        "obs.service.tched-router.models.list@v1",
+        { provider: providerId },
+      );
+      if (seq !== modelsSeq.current) return;
+      const ids = [
+        ...new Set(
+          (resp.modelRoutes ?? [])
+            .map(routeModelId)
+            .filter((id): id is string => !!id),
+        ),
+      ];
+      setModels(ids);
+      // Keep the active model only while the selected provider still routes it.
+      setModel((current) => {
+        const wanted = preferred || current;
+        return wanted && ids.includes(wanted) ? wanted : "";
+      });
+    } catch (e) {
+      if (seq === modelsSeq.current) setError((e as Error).message);
+    } finally {
+      if (seq === modelsSeq.current) setModelsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -43,11 +92,11 @@ export function ProviderSelect({ className }: Props) {
         const { pluginMethods } = await import("@/grpc/plugin-methods");
         const [providersResp, routerResp] = await Promise.all([
           pluginMethods.callSubid<object, { providers?: unknown[] }>(
-            "obs.service.3tched-router.providers.list@v1",
+            "obs.service.tched-router.providers.list@v1",
             {},
           ),
           pluginMethods.callSubid<object, { router?: unknown }>(
-            "obs.service.3tched-router.router.get@v1",
+            "obs.service.tched-router.router.get@v1",
             {},
           ),
         ]);
@@ -65,8 +114,10 @@ export function ProviderSelect({ className }: Props) {
           })
           .filter((p): p is TchedRouterProvider & { id: string } => !!p.id);
         setProviders(list);
-        const activeProvider = (valueToJs(routerResp.router) as { provider?: string } | undefined)
-          ?.provider;
+        const router = valueToJs(routerResp.router) as
+          | { provider?: string; selected_provider?: string; model?: string; selected_model?: string }
+          | undefined;
+        const activeProvider = router?.provider ?? router?.selected_provider;
         const initial =
           activeProvider && list.some((p) => p.id === activeProvider)
             ? activeProvider
@@ -75,6 +126,13 @@ export function ProviderSelect({ className }: Props) {
               : (list[0]?.id ?? FALLBACK_PROVIDER);
         setValue(initial);
         setError(null);
+        const activeModel =
+          typeof router?.model === "string" && router.model.length > 0
+            ? router.model
+            : typeof router?.selected_model === "string"
+              ? router.selected_model
+              : undefined;
+        void loadModels(initial, activeModel);
       } catch (e) {
         if (alive) setError((e as Error).message);
       } finally {
@@ -84,7 +142,7 @@ export function ProviderSelect({ className }: Props) {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [loadModels]);
 
   const apply = async (providerId: string) => {
     const prev = value;
@@ -93,14 +151,34 @@ export function ProviderSelect({ className }: Props) {
     setError(null);
     try {
       const { pluginMethods } = await import("@/grpc/plugin-methods");
-      await pluginMethods.callSubid("mut.service.3tched-router.provider.set@v1", {
+      await pluginMethods.callSubid("mut.service.tched-router.provider.set@v1", {
         providerId,
       });
+      // Provider changed — repopulate the model list from the new provider.
+      void loadModels(providerId);
     } catch (e) {
       setValue(prev);
       setError((e as Error).message);
     } finally {
       setApplying(false);
+    }
+  };
+
+  const applyModel = async (modelId: string) => {
+    const prev = model;
+    setModel(modelId);
+    setApplyingModel(true);
+    setError(null);
+    try {
+      const { pluginMethods } = await import("@/grpc/plugin-methods");
+      await pluginMethods.callSubid("mut.service.tched-router.model.set@v1", {
+        modelId,
+      });
+    } catch (e) {
+      setModel(prev);
+      setError((e as Error).message);
+    } finally {
+      setApplyingModel(false);
     }
   };
 
@@ -120,6 +198,35 @@ export function ProviderSelect({ className }: Props) {
             <SelectItem key={p.id} value={p.id as string} className="text-xs font-mono">
               {p.id}
               {p.kind ? ` · ${p.kind}` : ""}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Select
+        value={model}
+        onValueChange={(v) => void applyModel(v)}
+        disabled={loading || modelsLoading || models.length === 0}
+      >
+        <SelectTrigger className="h-8 w-[220px] text-xs font-mono">
+          {modelsLoading || applyingModel ? (
+            <Loader2 className="h-3.5 w-3.5 mr-1.5 text-muted-foreground shrink-0 animate-spin" />
+          ) : (
+            <Boxes className="h-3.5 w-3.5 mr-1.5 text-muted-foreground shrink-0" />
+          )}
+          <SelectValue
+            placeholder={
+              loading || modelsLoading
+                ? "Models…"
+                : models.length === 0
+                  ? "No models"
+                  : "Model…"
+            }
+          />
+        </SelectTrigger>
+        <SelectContent>
+          {models.map((m) => (
+            <SelectItem key={m} value={m} className="text-xs font-mono">
+              {m}
             </SelectItem>
           ))}
         </SelectContent>

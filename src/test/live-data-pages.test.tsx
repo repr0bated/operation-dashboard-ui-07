@@ -3,6 +3,7 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import BlobsPage from "@/pages/BlobsPage";
 import RoutableModelsPage from "@/pages/RoutableModelsPage";
+import { pluginMethods } from "@/grpc/plugin-methods";
 
 /**
  * Regression tests for two reported defects:
@@ -11,8 +12,22 @@ import RoutableModelsPage from "@/pages/RoutableModelsPage";
  *     clients (antigravity, antigravity_chat) because it enumerated the
  *     build-time codegen index instead of the sealed blob catalog.
  *  2. Routable Models rendered a hardcoded MOCK_AGENTS array containing
- *     "gpt-4o", which had no relationship to the running gateway.
+ *     "gpt-4o", which had no relationship to the running gateway. It now reads
+ *     the tched_router plugin methods (ListProviders / GetRouter / ListModels).
  */
+
+vi.mock("@/grpc/plugin-methods", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/grpc/plugin-methods")>();
+  return {
+    ...actual,
+    pluginMethods: {
+      ...actual.pluginMethods,
+      callSubid: vi.fn(async () => ({})),
+    },
+  };
+});
+
+const callSubid = pluginMethods.callSubid as unknown as ReturnType<typeof vi.fn>;
 
 /** The live catalog shape, trimmed. Includes plugins absent from codegen. */
 const CATALOG = {
@@ -25,23 +40,28 @@ const CATALOG = {
     "json_render",
     "large_language_model",
     "procfs",
-    "zeroclaw",
+    "tched_router",
   ],
 };
 
-const PROVIDERS = { providers: ["antigravity", "salad"], current: "antigravity" };
-const STATUS = {
-  provider: "antigravity",
-  model: "gemini-2.5-flash",
-  model_non_sandboxed: false,
-  available: true,
+const PROVIDERS = { providers: [{ id: "antigravity" }, { id: "salad" }] };
+const ROUTER = {
+  router: { provider: "antigravity", model: "gemini-2.5-flash", available: true },
 };
-/** The real 503 body from /api/llm/models when the projection is down. */
-const MODELS_503 = {
-  error: "Zeroclaw model route projection is unavailable",
-  provider: "zeroclaw",
-  models: [],
-};
+/** The projection-down failure raised by tched_router ListModels. */
+const MODELS_OUTAGE = "3tched Router model route projection is unavailable";
+
+const LIST_PROVIDERS = "obs.service.tched-router.providers.list@v1";
+const GET_ROUTER = "obs.service.tched-router.router.get@v1";
+const LIST_MODELS = "obs.service.tched-router.models.list@v1";
+
+function routeSubids(handlers: Record<string, () => unknown>) {
+  callSubid.mockImplementation(async (subid: string) => {
+    const handler = handlers[subid];
+    if (!handler) throw new Error(`unexpected subid ${subid}`);
+    return handler();
+  });
+}
 
 function jsonResponse(body: unknown, status = 200) {
   return {
@@ -57,6 +77,8 @@ let fetchMock: ReturnType<typeof vi.fn>;
 beforeEach(() => {
   fetchMock = vi.fn();
   vi.stubGlobal("fetch", fetchMock);
+  callSubid.mockReset();
+  callSubid.mockImplementation(async () => ({}));
 });
 
 afterEach(() => {
@@ -124,11 +146,12 @@ describe("Sealed Blobs reads the blob catalog, not the codegen index", () => {
 
 describe("Routable Models shows live gateway state, never mock models", () => {
   it("renders the live provider and model, with no hardcoded gpt-4o", async () => {
-    routeFetch((url) => {
-      if (url.includes("/llm/status")) return jsonResponse(STATUS);
-      if (url.includes("/llm/providers")) return jsonResponse(PROVIDERS);
-      if (url.includes("/llm/models")) return jsonResponse(MODELS_503, 503);
-      return jsonResponse({}, 404);
+    routeSubids({
+      [LIST_PROVIDERS]: () => PROVIDERS,
+      [GET_ROUTER]: () => ROUTER,
+      [LIST_MODELS]: () => {
+        throw new Error(MODELS_OUTAGE);
+      },
     });
 
     render(
@@ -152,11 +175,12 @@ describe("Routable Models shows live gateway state, never mock models", () => {
   });
 
   it("reports the model projection outage rather than inventing models", async () => {
-    routeFetch((url) => {
-      if (url.includes("/llm/status")) return jsonResponse(STATUS);
-      if (url.includes("/llm/providers")) return jsonResponse(PROVIDERS);
-      if (url.includes("/llm/models")) return jsonResponse(MODELS_503, 503);
-      return jsonResponse({}, 404);
+    routeSubids({
+      [LIST_PROVIDERS]: () => PROVIDERS,
+      [GET_ROUTER]: () => ROUTER,
+      [LIST_MODELS]: () => {
+        throw new Error(MODELS_OUTAGE);
+      },
     });
 
     render(
@@ -169,23 +193,26 @@ describe("Routable Models shows live gateway state, never mock models", () => {
       expect(screen.getByText("Model list unavailable")).toBeInTheDocument();
     });
     expect(
-      screen.getByText(/Zeroclaw model route projection is unavailable/),
+      screen.getByText(/3tched Router model route projection is unavailable/),
     ).toBeInTheDocument();
   });
 
   it("renders real models when the projection is healthy", async () => {
-    const models = {
-      provider: "zeroclaw",
-      models: [
-        { id: "qwen3.6-35b-a3b", name: "Qwen 3.6", parameters: "35B", available: true, tags: ["salad"] },
-        { id: "gemini-2.5-flash", name: "Gemini Flash", available: true, tags: [] },
-      ],
-    };
-    routeFetch((url) => {
-      if (url.includes("/llm/status")) return jsonResponse(STATUS);
-      if (url.includes("/llm/providers")) return jsonResponse(PROVIDERS);
-      if (url.includes("/llm/models")) return jsonResponse(models);
-      return jsonResponse({}, 404);
+    routeSubids({
+      [LIST_PROVIDERS]: () => PROVIDERS,
+      [GET_ROUTER]: () => ROUTER,
+      [LIST_MODELS]: () => ({
+        modelRoutes: [
+          {
+            model: "qwen3.6-35b-a3b",
+            name: "Qwen 3.6",
+            parameters: "35B",
+            available: true,
+            tags: ["salad"],
+          },
+          { model: "gemini-2.5-flash", name: "Gemini Flash", available: true, tags: [] },
+        ],
+      }),
     });
 
     render(
@@ -202,10 +229,13 @@ describe("Routable Models shows live gateway state, never mock models", () => {
     expect(table.getByText("Qwen 3.6")).toBeInTheDocument();
     expect(table.getByText("35B")).toBeInTheDocument();
     expect(screen.queryByText("Model list unavailable")).not.toBeInTheDocument();
+
+    // The model list is requested from the active provider, not a static blob.
+    expect(callSubid).toHaveBeenCalledWith(LIST_MODELS, { provider: "antigravity" });
   });
 
   it("surfaces a gateway failure as a fatal banner", async () => {
-    routeFetch(() => jsonResponse({}, 500));
+    routeSubids({});
 
     render(
       <MemoryRouter>

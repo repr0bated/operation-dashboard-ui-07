@@ -10,8 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { El } from "./types";
 
-export const ContainerEl: El<"container"> = ({ children }) => (
-  <div className="space-y-1">{children}</div>
+export const ContainerEl: El<"container"> = ({ props, children }) => (
+  <div className={props.className ?? "space-y-1"}>{children}</div>
 );
 
 export const CardEl: El<"card"> = ({ props, children }) => {
@@ -24,11 +24,19 @@ export const CardEl: El<"card"> = ({ props, children }) => {
         tone === "warn" && "border-warn/30",
         tone === "danger" && "border-danger/30",
         tone === "default" && "border-border",
+        props.className,
       )}
     >
-      {props.title && (
-        <div className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-          {props.title}
+      {(props.title || props.subtitle) && (
+        <div>
+          {props.title ? (
+            <div className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+              {props.title}
+            </div>
+          ) : null}
+          {props.subtitle ? (
+            <div className="text-[13px] text-muted-foreground mt-1">{props.subtitle}</div>
+          ) : null}
         </div>
       )}
       <div className="space-y-1">{children}</div>
@@ -78,7 +86,7 @@ export const HeadingEl: El<"heading"> = ({ props }) => {
 };
 
 export const TextEl: El<"text"> = ({ props }) => (
-  <div className="text-xs text-foreground font-mono break-all">{props.text}</div>
+  <div className={props.className ?? "text-xs text-foreground font-mono break-all"}>{props.text}</div>
 );
 
 export const BadgeEl: El<"badge"> = ({ props }) => {
@@ -94,14 +102,30 @@ export const BadgeEl: El<"badge"> = ({ props }) => {
         tone === "info" && "border-info/40 text-info",
       )}
     >
-      {props.text}
+      {props.text ?? props.label}
     </Badge>
   );
 };
 
-export const RowEl: El<"row"> = ({ children }) => (
-  <div className="flex flex-wrap items-center gap-1.5">{children}</div>
+export const RowEl: El<"row"> = ({ props, children }) => (
+  <div className={cn("flex flex-wrap items-center gap-1.5", props.className)}>{children}</div>
 );
+
+const TREND_ICON: Record<string, string> = { up: "\u2191", down: "\u2193", flat: "\u2192" };
+
+export const StatEl: El<"stat"> = ({ props }) => {
+  const { label, value, unit, trend } = props;
+  return (
+    <div className="flex flex-col gap-0.5">
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className="text-lg font-semibold text-foreground">
+        {value}
+        {unit && <span className="text-sm text-muted-foreground ml-1">{unit}</span>}
+        {trend && <span className="text-sm ml-1">{TREND_ICON[trend] ?? ""}</span>}
+      </span>
+    </div>
+  );
+};
 
 export const CodeEl: El<"code"> = ({ props }) => (
   <pre className="font-mono text-[11px] bg-muted/30 rounded p-2 overflow-auto max-h-48 whitespace-pre-wrap text-muted-foreground">

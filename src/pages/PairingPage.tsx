@@ -1,5 +1,5 @@
 // Device pairing gate — shown when no Ghostbridge identity is available.
-// Mirrors zeroclaw-gui AuthState: enter code from POST /admin/paircode/new,
+// Mirrors 3tched-gui AuthState: enter code from POST /admin/paircode/new,
 // exchange via POST /pair, then attach footprint/trace to all gRPC calls.
 import { useState } from "react";
 import { Button } from "@/components/ui/button";

@@ -20,7 +20,7 @@ import { jsObjectToValue, structToObject, valueToJs } from "@/grpc/google/protob
 
 import type {
   HealthSnapshot, StatusSummary, DbusService, Tool, Agent, Session,
-  ChatMessage, LogEntry, ConfigSnapshot, LlmProvider, LlmModel,
+  ChatMessage, LogEntry, ConfigSnapshot,
 } from "@/types/api";
 
 /**
@@ -281,14 +281,6 @@ export const api = {
     get: (id: string) => request<Agent>(`/agents/${id}`),
     start: (id: string) => request<void>(`/agents/${id}/start`, { method: "POST" }),
     stop: (id: string) => request<void>(`/agents/${id}/stop`, { method: "POST" }),
-  },
-
-  llm: {
-    status: () => request<LlmProvider[]>("/llm/status"),
-    models: () => request<LlmModel[]>("/llm/models"),
-    setModel: (modelId: string) => request<void>("/llm/model", {
-      method: "POST", body: JSON.stringify({ modelId }),
-    }),
   },
 
   sessions: {

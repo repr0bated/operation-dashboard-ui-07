@@ -1,4 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "permission": "allow"
+  "permission": "allow",
+  "providers": {
+    "gnoppix": {
+      "package": "@opencode-ai/ai/providers/openai-compatible",
+      "settings": {
+        "baseURL": "https://us.gnoppix.com/",
+        "apiKey": "${GNOPPIX_API_KEY}"
+      }
+    }
+  }
 }

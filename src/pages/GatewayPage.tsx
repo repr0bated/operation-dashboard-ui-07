@@ -18,7 +18,7 @@ export default function GatewayPage() {
           <div>
             <h3 className="text-lg font-semibold">Gateway Status</h3>
             <p className="text-sm text-muted-foreground">
-              ZeroClaw gateway server for webhooks and websockets
+              3tched Router gateway server for webhooks and websockets
             </p>
           </div>
           <Badge variant="outline">Stopped</Badge>

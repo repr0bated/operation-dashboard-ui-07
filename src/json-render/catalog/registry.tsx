@@ -8,13 +8,48 @@
 import { defineRegistry } from "@json-render/react";
 import { getByPath, setByPath } from "@json-render/core";
 import { appCatalog } from "./catalog";
+import { STREAM_PLUGIN_IDS, toCatalogName } from "./stream-plugins";
 import { navigateTo } from "@/json-render/runtime/navigation-bridge";
+import { uiStore } from "@/json-render/store/ui-store";
+import { setAppRegistry } from "./registry-holder";
 import * as shell from "./components/shell";
 import * as dash from "./components/dashboard";
 import * as prim from "./components/primitives";
-import * as network from "./components/network";
+import { SplitPane, Separator } from "./components/split-pane";
+import { PluginState, StateValue } from "./components/live";
+import { StreamObjectEl, StreamGridEl, makeStreamPluginEl } from "./components/stream-object";
+import { CatalogIndexEl } from "./components/catalog-index";
+import { AntigravityChatContainerEl, ChatMessageEl } from "./components/antigravity-chat";
+import { TchedRouterPickerEl } from "./components/tched-router-picker";
+import { CatalogGalleryEl } from "./components/catalog-gallery";
+import { GenerateStudioEl } from "./components/generate-studio";
+import * as projection from "./components/projection";
 
-export const { registry, handlers, executeAction } = defineRegistry(appCatalog, {
+const projectionComponents = {
+  surface: projection.SurfaceEl,
+  displayValue: projection.DisplayValueEl,
+  stateFlag: projection.StateFlagEl,
+  collectionView: projection.CollectionViewEl,
+  recordView: projection.RecordViewEl,
+  valueList: projection.ValueListEl,
+  binaryControl: projection.BinaryControlEl,
+  textControl: projection.TextControlEl,
+  numericControl: projection.NumericControlEl,
+  multiChoice: projection.MultiChoiceEl,
+  editableCollection: projection.EditableCollectionEl,
+  recordEditor: projection.RecordEditorEl,
+  structuredControl: projection.StructuredControlEl,
+  validationCarrier: projection.ValidationCarrierEl,
+  hydrationSource: projection.HydrationSourceEl,
+  triggerBinding: projection.TriggerBindingEl,
+  repeatBinding: projection.RepeatBindingEl,
+} as const;
+
+const namedStreamComponents = Object.fromEntries(
+  STREAM_PLUGIN_IDS.map((id) => [toCatalogName(id), makeStreamPluginEl(id)]),
+);
+
+const defined = defineRegistry(appCatalog, {
   components: {
     // shell chrome
     appShell: shell.AppShellEl,
@@ -63,15 +98,21 @@ export const { registry, handlers, executeAction } = defineRegistry(appCatalog, 
     badge: prim.BadgeEl,
     row: prim.RowEl,
     code: prim.CodeEl,
-
-    // network control surface
-    reflectionTreeExplorer: network.ReflectionTreeExplorerEl,
-    schemaFormBuilder: network.SchemaFormBuilderEl,
-    grpcMethodCaller: network.GrpcMethodCallerEl,
-    grpcStreamViewer: network.GrpcStreamViewerEl,
-    socketStatusPill: network.SocketStatusPillEl,
-    tcpHealthBadge: network.TcpHealthBadgeEl,
-    networkTopologyGraph: network.NetworkTopologyGraphEl,
+    stat: prim.StatEl,
+    splitPane: SplitPane,
+    separator: Separator,
+    pluginState: PluginState,
+    stateValue: StateValue,
+    streamObject: StreamObjectEl,
+    streamGrid: StreamGridEl,
+    catalogIndex: CatalogIndexEl,
+    antigravityChatContainer: AntigravityChatContainerEl,
+    chatMessage: ChatMessageEl,
+    tchedRouterPicker: TchedRouterPickerEl,
+    catalogGallery: CatalogGalleryEl,
+    generateStudio: GenerateStudioEl,
+    ...projectionComponents,
+    ...namedStreamComponents,
   },
 
   actions: {
@@ -90,8 +131,24 @@ export const { registry, handlers, executeAction } = defineRegistry(appCatalog, 
         return next;
       });
     },
+
+    callMethod: async (params) => {
+      console.log("callMethod:", params?.subid, params?.input);
+    },
+
+    selectPlugin: async (params) => {
+      const fromParams = typeof params?.pluginId === "string" ? params.pluginId : "";
+      const pluginId =
+        fromParams || (uiStore.get("/shell/selectedPlugin") as string | null | undefined) || "";
+      if (!pluginId) return;
+      uiStore.set("/shell/selectedPlugin", pluginId);
+      navigateTo(`/plugins/${pluginId}`);
+    },
   },
 });
+
+setAppRegistry(defined.registry);
+export const { registry, handlers, executeAction } = defined;
 
 /**
  * Back-compat alias. Older call sites render specs with

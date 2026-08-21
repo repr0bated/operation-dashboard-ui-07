@@ -36,7 +36,8 @@ import {
   type NavGroup,
   type NavItem,
 } from "@/json-render/navigation/manifest";
-import { SHELL_STATE, shellInitialState } from "@/json-render/shell/shellSpec";
+import { SHELL_STATE } from "@/json-render/shell/shellSpec";
+import { uiStore } from "@/json-render/store/ui-store";
 import { SlotProvider } from "./slots";
 import { RouterBridge } from "./navigation-bridge";
 
@@ -111,13 +112,6 @@ export function JsonRenderProvider({
   manifest = NAV_MANIFEST,
   slots = {},
 }: JsonRenderProviderProps) {
-  const { pathname } = useLocation();
-  // Captured once on mount: this seeds the store. RouteStateSync owns every
-  // subsequent route change, so re-deriving it on navigation would reset the
-  // user's sidebar/section collapse state.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const initialState = useMemo(() => shellInitialState(pathname), []);
-
   const value = useMemo<JsonRenderContextValue>(
     () => ({
       registry,
@@ -130,7 +124,7 @@ export function JsonRenderProvider({
 
   return (
     <JsonRenderContext.Provider value={value}>
-      <StateProvider initialState={initialState}>
+      <StateProvider store={uiStore}>
         <RouterBridge />
         <RouteStateSync manifest={manifest} />
         <VisibilityProvider>

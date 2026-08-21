@@ -1,27 +1,49 @@
 /**
  * Page-spec registry.
  *
- * ── The workflow ─────────────────────────────────────────────────────────
- * To add a screen to the console:
- *   1. add one entry to `NAV_MANIFEST` (navigation/manifest.ts)
- *   2. add `route → spec` here
- * The sidebar entry and the page both appear. No JSX, no <Route>, no shell
- * edit. Omit step 2 and the route falls through to its legacy React page.
- * ─────────────────────────────────────────────────────────────────────────
+ * Add a screen: NAV_MANIFEST entry + a route here. No JSX, no <Route>.
  */
 import type { Spec } from "@json-render/core";
 import { overviewSpec } from "./overview.pagespec";
+import { catalogSpec } from "./catalog.pagespec";
+import { gallerySpec } from "./gallery.pagespec";
+import { pluginsSpec } from "./plugins.pagespec";
 import { networkSpec } from "./network.pagespec";
+import { chatSpec } from "./chat.pagespec";
+import { antigravitySpec } from "./antigravity.pagespec";
+import { accountabilitySpec } from "./accountability.pagespec";
+import { generateSpec } from "./generate.pagespec";
 
-/** Route path → page spec. Routes absent here render their React page. */
+/** Route path → page spec. */
 export const PAGE_SPECS: Record<string, Spec> = {
   "/": overviewSpec,
+  "/catalog": catalogSpec,
+  "/gallery": gallerySpec,
+  "/generate": generateSpec,
+  "/plugins": pluginsSpec,
   "/network": networkSpec,
+  // Antigravity chat alone. `/chat` is a NAV_MANIFEST alias of
+  // `/antigravity/chat`, so it has to resolve to the same spec.
+  "/antigravity/chat": antigravitySpec,
+  "/antigravity": antigravitySpec,
+  "/chat": antigravitySpec,
+  "/accountability": accountabilitySpec,
+  // Both panes stacked — the previous behaviour of all four routes above.
+  "/antigravity/stacked": chatSpec,
 };
 
-/** Lookup used by `PageSpecOutlet`. */
 export function pageSpecFor(route: string): Spec | undefined {
   return PAGE_SPECS[route];
 }
 
-export { overviewSpec, networkSpec };
+export {
+  overviewSpec,
+  catalogSpec,
+  gallerySpec,
+  pluginsSpec,
+  networkSpec,
+  chatSpec,
+  antigravitySpec,
+  accountabilitySpec,
+  generateSpec,
+};

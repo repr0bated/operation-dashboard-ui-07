@@ -20,7 +20,7 @@ export default function ChannelsPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Channels</h1>
         <p className="text-muted-foreground">
-          Configure communication channels for ZeroClaw
+          Configure communication channels for 3tched Router
         </p>
       </div>
 

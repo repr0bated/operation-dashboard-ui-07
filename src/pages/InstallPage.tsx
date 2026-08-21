@@ -71,11 +71,11 @@ export default function InstallPage() {
       <header className="space-y-1">
         <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground font-medium">
           <Shield className="h-3 w-3" />
-          ZeroClaw
+          3tched Router
         </div>
         <h1 className="text-2xl font-bold tracking-tight">Full Install</h1>
         <p className="text-sm text-muted-foreground">
-          End-to-end provisioning of the ZeroClaw control plane on Artix Linux: op-web server, s6
+          End-to-end provisioning of the 3tched Router control plane on Artix Linux: op-web server, s6
           supervised services, gRPC mirror, privacy mesh, and the embedding pipeline.
         </p>
 
@@ -141,7 +141,7 @@ export default function InstallPage() {
                 <li>Artix Linux (x86_64 or aarch64) — s6 init flavour recommended</li>
                 <li>Linux kernel ≥ 6.1 with WireGuard module</li>
                 <li>BTRFS root or dedicated subvolume for snapshots</li>
-                <li>systemd-free init — ZeroClaw runs under <code className="font-mono">s6</code> + <code className="font-mono">s6-rc</code></li>
+                <li>systemd-free init — 3tched Router runs under <code className="font-mono">s6</code> + <code className="font-mono">s6-rc</code></li>
               </ul>
             </Section>
             <Section title="Base packages">
@@ -169,13 +169,13 @@ export PATH="$HOME/.bun/bin:$PATH"`}</CodeBlock>
         {tab === "fetch" && (
           <>
             <Section title="Clone the monorepo">
-              <CodeBlock>{`sudo install -d -o $USER /opt/zeroclaw
-cd /opt/zeroclaw
-git clone https://git.zeroclaw.dev/zeroclaw/zeroclaw.git .
+              <CodeBlock>{`sudo install -d -o $USER /opt/opdbus
+cd /opt/opdbus
+git clone https://git.3tched.com/3tched/operation-dbus-proto.git .
 git submodule update --init --recursive`}</CodeBlock>
             </Section>
             <Section title="Layout">
-              <CodeBlock>{`/opt/zeroclaw
+              <CodeBlock>{`/opt/opdbus
 ├── crates/
 │   ├── op-web/         # Axum + rust-embed + gRPC-Web
 │   ├── op-core/        # D-Bus mirror + state store
@@ -196,28 +196,28 @@ git checkout v0.9.0`}</CodeBlock>
         {tab === "build" && (
           <>
             <Section title="Build the SPA">
-              <CodeBlock label="web/">{`cd /opt/zeroclaw/web
+              <CodeBlock label="web/">{`cd /opt/opdbus/web
 bun install
 bun run build
 # emits ./dist consumed by op-web via rust-embed`}</CodeBlock>
             </Section>
             <Section title="Build the Rust workspace (release)">
-              <CodeBlock>{`cd /opt/zeroclaw
+              <CodeBlock>{`cd /opt/opdbus
 cargo build --release --workspace
 # binaries land in ./target/release/{op-web,op-core,op-agent,op-embed}`}</CodeBlock>
             </Section>
             <Section title="Install binaries">
-              <CodeBlock>{`sudo install -d /usr/local/libexec/zeroclaw
-sudo install -m 0755 target/release/op-web    /usr/local/libexec/zeroclaw/
-sudo install -m 0755 target/release/op-core   /usr/local/libexec/zeroclaw/
-sudo install -m 0755 target/release/op-agent  /usr/local/libexec/zeroclaw/
-sudo install -m 0755 target/release/op-embed  /usr/local/libexec/zeroclaw/`}</CodeBlock>
+              <CodeBlock>{`sudo install -d /usr/local/libexec/3tched
+sudo install -m 0755 target/release/op-web    /usr/local/libexec/3tched/
+sudo install -m 0755 target/release/op-core   /usr/local/libexec/3tched/
+sudo install -m 0755 target/release/op-agent  /usr/local/libexec/3tched/
+sudo install -m 0755 target/release/op-embed  /usr/local/libexec/3tched/`}</CodeBlock>
             </Section>
             <Section title="Default config">
-              <CodeBlock label="/etc/zeroclaw/op.toml">{`[web]
+              <CodeBlock label="/etc/op-dbus/op.toml">{`[web]
 listen = "0.0.0.0:8443"
-tls_cert = "/etc/zeroclaw/tls/fullchain.pem"
-tls_key  = "/etc/zeroclaw/tls/privkey.pem"
+tls_cert = "/etc/op-dbus/tls/fullchain.pem"
+tls_key  = "/etc/op-dbus/tls/privkey.pem"
 
 [grpc]
 state_addr     = "127.0.0.1:8090"
@@ -227,7 +227,7 @@ assistant_addr = "127.0.0.1:50052"
 url = "http://10.149.181.190:6334"
 
 [agent]
-personas = "/etc/zeroclaw/personas.yaml"`}</CodeBlock>
+personas = "/etc/op-dbus/personas.yaml"`}</CodeBlock>
             </Section>
           </>
         )}
@@ -237,29 +237,29 @@ personas = "/etc/zeroclaw/personas.yaml"`}</CodeBlock>
             <Section title="Install s6 + s6-rc">
               <CodeBlock>{`# Artix Linux ships s6 in its official repos
 sudo pacman -S --needed s6 s6-rc s6-linux-init
-sudo install -d /etc/s6/sv /etc/s6/rc /var/log/zeroclaw`}</CodeBlock>
+sudo install -d /etc/s6/sv /etc/s6/rc /var/log/op-dbus`}</CodeBlock>
             </Section>
             <Section title="Service definitions (s6-rc source)">
               <CodeBlock label="/etc/s6/sv/op-core/type">{`longrun`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-core/run">{`#!/bin/execlineb -P
 fdmove -c 2 1
-exec /usr/local/libexec/zeroclaw/op-core --config /etc/zeroclaw/op.toml`}</CodeBlock>
+exec /usr/local/libexec/3tched/op-core --config /etc/op-dbus/op.toml`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-core/dependencies.d/dbus">{`# empty file — declares dbus dependency`}</CodeBlock>
 
               <CodeBlock label="/etc/s6/sv/op-agent/type">{`longrun`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-agent/run">{`#!/bin/execlineb -P
 fdmove -c 2 1
-exec /usr/local/libexec/zeroclaw/op-agent --config /etc/zeroclaw/op.toml`}</CodeBlock>
+exec /usr/local/libexec/3tched/op-agent --config /etc/op-dbus/op.toml`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-agent/dependencies.d/op-core">{`# empty file — declares op-core dependency`}</CodeBlock>
 
               <CodeBlock label="/etc/s6/sv/op-web/type">{`longrun`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-web/run">{`#!/bin/execlineb -P
 fdmove -c 2 1
-exec /usr/local/libexec/zeroclaw/op-web --config /etc/zeroclaw/op.toml`}</CodeBlock>
+exec /usr/local/libexec/3tched/op-web --config /etc/op-dbus/op.toml`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-web/dependencies.d/op-agent">{`# empty file`}</CodeBlock>
 
-              <CodeBlock label="/etc/s6/sv/zeroclaw/type">{`bundle`}</CodeBlock>
-              <CodeBlock label="/etc/s6/sv/zeroclaw/contents">{`op-core
+              <CodeBlock label="/etc/s6/sv/opdbus/type">{`bundle`}</CodeBlock>
+              <CodeBlock label="/etc/s6/sv/opdbus/contents">{`op-core
 op-agent
 op-web`}</CodeBlock>
             </Section>
@@ -268,8 +268,8 @@ op-web`}</CodeBlock>
 sudo s6-rc-compile /etc/s6/compiled-$(date +%s) /etc/s6/sv
 sudo ln -sfn /etc/s6/compiled-* /etc/s6/compiled
 
-# Activate the zeroclaw bundle
-sudo s6-rc -u change zeroclaw
+# Activate the opdbus bundle
+sudo s6-rc -u change opdbus
 
 # Inspect
 sudo s6-rc -a list           # all active services
@@ -290,19 +290,19 @@ PrivateKey = <generated>
 
 [Peer]
 PublicKey  = <hub-pubkey>
-Endpoint   = hub.zeroclaw.dev:51820
+Endpoint   = hub.3tched.com:51820
 AllowedIPs = 10.149.181.0/24
 PersistentKeepalive = 25`}</CodeBlock>
               <CodeBlock>{`sudo wg-quick up zc0
 sudo s6-rc -u change wg-zc0   # bundle wrapping wg-quick up zc0`}</CodeBlock>
             </Section>
             <Section title="XRay obfuscation (optional)">
-              <p>Used as fallback transport when carrier networks block WireGuard. Config lives at <code className="font-mono text-xs">/etc/zeroclaw/xray.json</code> — see the Privacy Network panel for the live routing graph after services start.</p>
+              <p>Used as fallback transport when carrier networks block WireGuard. Config lives at <code className="font-mono text-xs">/etc/op-dbus/xray.json</code> — see the Privacy Network panel for the live routing graph after services start.</p>
             </Section>
             <Section title="nginx reverse proxy">
-              <CodeBlock label="/etc/nginx/sites-available/zeroclaw">{`server {
+              <CodeBlock label="/etc/nginx/sites-available/opdbus">{`server {
   listen 443 ssl http2;
-  server_name ops.zeroclaw.local;
+  server_name ops.3tched.local;
 
   location /grpc.state.v1.       { grpc_pass grpc://127.0.0.1:50051; }
   location /grpc.assistant.v1.   { grpc_pass grpc://127.0.0.1:50052; }
@@ -323,15 +323,15 @@ sudo s6-rc -u change wg-zc0   # bundle wrapping wg-quick up zc0`}</CodeBlock>
               <p>Bind it on the WireGuard interface only (<code className="font-mono text-xs">10.149.181.190</code>) — never expose <code className="font-mono text-xs">:6334</code> publicly.</p>
             </Section>
             <Section title="BTRFS subvolumes">
-              <CodeBlock>{`sudo btrfs subvolume create /var/lib/zeroclaw/state
-sudo btrfs subvolume create /var/lib/zeroclaw/audit
-sudo btrfs subvolume create /var/lib/zeroclaw/snapshots`}</CodeBlock>
+              <CodeBlock>{`sudo btrfs subvolume create /var/lib/opdbus/state
+sudo btrfs subvolume create /var/lib/opdbus/audit
+sudo btrfs subvolume create /var/lib/opdbus/snapshots`}</CodeBlock>
             </Section>
             <Section title="Embedding worker">
               <CodeBlock label="/etc/s6/sv/op-embed/type">{`longrun`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-embed/run">{`#!/bin/execlineb -P
 fdmove -c 2 1
-exec /usr/local/libexec/zeroclaw/op-embed --config /etc/zeroclaw/op.toml`}</CodeBlock>
+exec /usr/local/libexec/3tched/op-embed --config /etc/op-dbus/op.toml`}</CodeBlock>
               <CodeBlock label="/etc/s6/sv/op-embed/dependencies.d/op-core">{`# empty file`}</CodeBlock>
               <CodeBlock>{`sudo s6-rc-compile /etc/s6/compiled-$(date +%s) /etc/s6/sv
 sudo ln -sfn /etc/s6/compiled-* /etc/s6/compiled
@@ -352,7 +352,7 @@ sudo s6-rc -a list
 grpcurl -plaintext $(grep -oP '(?<=grpcBaseUrl":")[^"]*' window.__OPDBUS_CONFIG__ 2>/dev/null || echo "localhost:8090"):8090 list
 
 # 3. Web UI
-curl -kI https://ops.zeroclaw.local/
+curl -kI https://ops.3tched.local/
 
 # 4. Qdrant
 curl -s http://10.149.181.190:6333/collections | jq .
@@ -362,14 +362,14 @@ sudo wg show zc0 latest-handshakes`}</CodeBlock>
             </Section>
             <Section title="Open the console">
               <p>
-                Browse to <code className="font-mono text-xs">https://ops.zeroclaw.local/</code> and the
+                Browse to <code className="font-mono text-xs">https://ops.3tched.local/</code> and the
                 topbar should report <span className="text-foreground font-medium">Health OK</span>.
                 Visit <code className="font-mono text-xs">/grpc</code> for stream diagnostics and{" "}
                 <code className="font-mono text-xs">/state</code> for the live D-Bus mirror.
               </p>
             </Section>
             <Section title="Roll back">
-              <CodeBlock>{`sudo btrfs subvolume snapshot -r /var/lib/zeroclaw/state /var/lib/zeroclaw/snapshots/$(date +%s)
+              <CodeBlock>{`sudo btrfs subvolume snapshot -r /var/lib/opdbus/state /var/lib/opdbus/snapshots/$(date +%s)
 sudo s6-rc -d change op-web op-agent op-core op-embed`}</CodeBlock>
             </Section>
           </>

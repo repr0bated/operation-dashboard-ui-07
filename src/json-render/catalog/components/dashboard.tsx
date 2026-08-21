@@ -35,13 +35,13 @@ import type { El } from "./types";
 
 export const GridEl: El<"grid"> = ({ props, children }) => {
   const cols = props.cols ?? 2;
-  const gap = props.gap ?? 4;
+  const gap = props.gap ?? 16;
   return (
     <div
       className={cn("grid", props.className)}
       style={{
         gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-        gap: `${gap * 0.25}rem`,
+        gap: `${gap}px`,
       }}
     >
       {children}
@@ -64,12 +64,12 @@ export const StatCardEl: El<"statCard"> = ({ props }) => (
     label={props.label}
     value={props.value}
     sub={props.sub ?? undefined}
-    variant={props.variant ?? undefined}
+    variant={props.variant ?? props.tone ?? undefined}
   />
 );
 
 export const PillEl: El<"pill"> = ({ props }) => (
-  <Pill variant={props.variant ?? undefined}>{props.text}</Pill>
+  <Pill variant={props.variant ?? props.tone ?? undefined}>{props.text}</Pill>
 );
 
 export const StatusDotEl: El<"statusDot"> = ({ props }) => (
@@ -77,7 +77,7 @@ export const StatusDotEl: El<"statusDot"> = ({ props }) => (
 );
 
 export const CalloutEl: El<"callout"> = ({ props, children }) => (
-  <Callout variant={props.variant ?? undefined}>{children}</Callout>
+  <Callout variant={props.variant ?? props.tone ?? undefined}>{children}</Callout>
 );
 
 export const NotesPanelEl: El<"notesPanel"> = ({ props }) => (

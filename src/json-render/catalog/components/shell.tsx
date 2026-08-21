@@ -7,11 +7,11 @@
  * `shellSpec.ts` as JSON rather than in JSX.
  */
 import { Construction } from "lucide-react";
+import { useStateValue } from "@json-render/react";
 import { cn } from "@/lib/utils";
 import { StatusDot, Pill, PageHeader } from "@/components/shell/Primitives";
 import { ErrorBanner, EmptyState } from "@/components/shell/Feedback";
 import { useTheme } from "@/hooks/use-theme";
-import { useEventStore } from "@/stores/event-store";
 import { resolveIcon } from "@/json-render/navigation/icons";
 import { useSlot, CONTENT_SLOT } from "@/json-render/runtime/slots";
 import type { El } from "./types";
@@ -85,7 +85,7 @@ export const BrandEl: El<"brand"> = ({ props }) => {
 };
 
 export const HealthPillEl: El<"healthPill"> = ({ props }) => {
-  const { connected } = useEventStore();
+  const connected = Boolean(useStateValue("/connected"));
   return (
     <Pill variant={connected ? "ok" : "danger"}>
       <StatusDot status={connected ? "ok" : "error"} />
@@ -163,7 +163,10 @@ export const NavItemListEl: El<"navItemList"> = ({ children }) => (
 
 export const NavItemEl: El<"navItem"> = ({ props, emit }) => {
   const Icon = resolveIcon(props.icon ?? undefined);
-  const active = props.activeRoute === props.route;
+  const aliases = props.aliases ?? [];
+  const active =
+    props.activeRoute === props.route ||
+    (typeof props.activeRoute === "string" && aliases.includes(props.activeRoute));
   const isPlaceholder = props.placeholder === true;
   const isWip = props.wip === true;
   return (

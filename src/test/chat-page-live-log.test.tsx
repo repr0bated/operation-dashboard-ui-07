@@ -51,7 +51,7 @@ vi.mock("@/components/ui-model/PluginSchemaPanel", () => ({
 }));
 
 vi.mock("@/lib/plugin-ui-surfaces", () => ({
-  resolveZeroclawChatSelection: async () => ({ provider: "opencode", model: "test" }),
+  resolveChatSelection: async () => ({ provider: "opencode", model: "test" }),
 }));
 
 import ChatPage from "@/pages/ChatPage";

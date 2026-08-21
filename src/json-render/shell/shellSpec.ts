@@ -86,7 +86,7 @@ export const DEFAULT_CHROME: ShellChrome = {
       icon: "FileText",
     },
   ],
-  fullHeightRoutes: ["/chat", "/logs", "/workflows", "/accountability", "/network"],
+  fullHeightRoutes: ["/chat", "/antigravity/chat", "/antigravity", "/accountability"],
 };
 
 // ── builder ───────────────────────────────────────────────────────────────
@@ -177,6 +177,7 @@ export function buildShellSpec(
           placeholderHint: item.placeholder ? "Coming soon" : null,
           wip: item.wip ?? false,
           activeRoute: { $state: SHELL_STATE.route },
+          aliases: item.aliases ?? null,
         },
         children: [],
         // Placeholder entries have no destination, so no binding at all.

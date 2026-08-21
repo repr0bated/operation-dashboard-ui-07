@@ -9,7 +9,7 @@ export default function CronPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Scheduled Tasks</h1>
         <p className="text-muted-foreground">
-          Manage cron jobs and scheduled tasks for ZeroClaw
+          Manage cron jobs and scheduled tasks for 3tched Router
         </p>
       </div>
 

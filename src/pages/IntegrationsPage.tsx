@@ -20,7 +20,7 @@ export default function IntegrationsPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Integrations</h1>
         <p className="text-muted-foreground">
-          Browse and install 50+ integrations for ZeroClaw
+          Browse and install 50+ integrations for 3tched Router
         </p>
       </div>
 

@@ -27,6 +27,13 @@ export { PageSpecOutlet } from "./runtime/PageSpecOutlet";
 export { SpecPage } from "./runtime/SpecPage";
 export { SlotProvider, useSlot, CONTENT_SLOT } from "./runtime/slots";
 export { RouterBridge, navigateTo } from "./runtime/navigation-bridge";
+export { ProjectedPluginPage } from "./runtime/ProjectedPluginPage";
+export {
+  projectionToSpec,
+  catalogTypeForRole,
+  ROLE_TO_CATALOG,
+  LIVE_PROJECTION_ROLES,
+} from "./projection";
 
 // Shell
 export { ShellRenderer } from "./shell/ShellRenderer";
@@ -61,6 +68,7 @@ export {
   type CapabilitySet,
 } from "./navigation/capabilities";
 export { resolveIcon, iconRegistry } from "./navigation/icons";
+export { useDynamicNav, useHasPluginNav } from "./navigation/use-dynamic-nav";
 
 // Spec builders for runtime JSON
 export { dataToSpec, streamToSpec } from "./spec-builders";

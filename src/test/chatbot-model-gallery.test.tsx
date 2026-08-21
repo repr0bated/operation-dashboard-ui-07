@@ -4,18 +4,32 @@ import { MemoryRouter } from "react-router-dom";
 import {
   fetchChatbotModelGalleryBundle,
   parsePluginUiSurfaces,
-  resolveZeroclawChatSelection,
-  zeroclawUiSurfaceSpec,
+  resolveChatSelection,
+  routerUiSurfaceSpec,
 } from "@/lib/plugin-ui-surfaces";
 import { SpecRenderer, specUsesOnlyCatalog } from "@/components/ui-model/SpecRenderer";
 import { ShellRenderer } from "@/json-render/shell/ShellRenderer";
+import { pluginMethods } from "@/grpc/plugin-methods";
 
-const zeroclawEnvelope = {
-  plugin: "zeroclaw",
+vi.mock("@/grpc/plugin-methods", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/grpc/plugin-methods")>();
+  return {
+    ...actual,
+    pluginMethods: {
+      ...actual.pluginMethods,
+      callSubid: vi.fn(async () => ({})),
+    },
+  };
+});
+
+const callSubid = pluginMethods.callSubid as unknown as ReturnType<typeof vi.fn>;
+
+const routerEnvelope = {
+  plugin: "tched_router",
   schema_hash: "abc123def456",
   schema: {
-    name: "zeroclaw",
-    display_name: "ZeroClaw",
+    name: "tched_router",
+    display_name: "3tched Router",
     version: "1.0.0",
     description: "Chatbot model router",
     fields: {
@@ -27,8 +41,8 @@ const zeroclawEnvelope = {
       ui_surfaces: {
         default: [
           // Stale sealed blob may still advertise /chat — UI must drop it.
-          { name: "Antigravity Chat", path: "/chat", schema: "zeroclaw" },
-          { name: "Routable Models", path: "/models", schema: "zeroclaw.providers" },
+          { name: "Antigravity Chat", path: "/chat", schema: "tched_router" },
+          { name: "Routable Models", path: "/models", schema: "tched_router.providers" },
           { name: "gRPC Diagnostics", path: "/grpc", schema: "plugin-service" },
         ],
       },
@@ -48,22 +62,22 @@ beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation((...args) => {
     errors.push(args.map(String).join(" "));
   });
+  // Live routing comes from tched_router GetRouter over the gRPC bridge.
+  callSubid.mockReset();
+  callSubid.mockImplementation(async (subid: string) => {
+    if (subid === "obs.service.tched-router.router.get@v1") {
+      return {
+        router: { provider: "opencode", model: "deepseek-v4-flash-free", available: true },
+      };
+    }
+    return {};
+  });
   vi.stubGlobal(
     "fetch",
     vi.fn(async (input: RequestInfo | URL) => {
       const url = String(input);
-      if (url.includes("/ui-model/plugin-schema/zeroclaw")) {
-        return { ok: true, json: async () => zeroclawEnvelope } as Response;
-      }
-      if (url.includes("/llm/status")) {
-        return {
-          ok: true,
-          json: async () => ({
-            provider: "opencode",
-            model: "deepseek-v4-flash-free",
-            available: true,
-          }),
-        } as Response;
+      if (url.includes("/ui-model/plugin-schema/tched_router")) {
+        return { ok: true, json: async () => routerEnvelope } as Response;
       }
       return { ok: false, status: 404 } as Response;
     }),
@@ -75,13 +89,13 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe("chatbot model gallery (zeroclaw)", () => {
-  it("loads zeroclaw model surfaces and filters stale /chat ownership", async () => {
+describe("chatbot model gallery (tched_router)", () => {
+  it("loads tched_router model surfaces and filters stale /chat ownership", async () => {
     const bundle = await fetchChatbotModelGalleryBundle();
     expect(bundle.provider).toBe("opencode");
     expect(bundle.model).toBe("deepseek-v4-flash-free");
-    expect(bundle.surfaces.map((s) => s.id)).toEqual(["zeroclaw/models", "zeroclaw/grpc"]);
-    expect(bundle.surfaces.some((s) => s.path === "/chat" || s.id === "zeroclaw/chat")).toBe(
+    expect(bundle.surfaces.map((s) => s.id)).toEqual(["tched_router/models", "tched_router/grpc"]);
+    expect(bundle.surfaces.some((s) => s.path === "/chat" || s.id === "tched_router/chat")).toBe(
       false,
     );
     for (const surface of bundle.surfaces) {
@@ -89,17 +103,17 @@ describe("chatbot model gallery (zeroclaw)", () => {
     }
   });
 
-  it("resolveZeroclawChatSelection reads /llm/status (not Gemini)", async () => {
-    const route = await resolveZeroclawChatSelection();
+  it("resolveChatSelection reads tched_router GetRouter (not Gemini)", async () => {
+    const route = await resolveChatSelection();
     expect(route.provider).toBe("opencode");
     expect(route.model).toBe("deepseek-v4-flash-free");
   });
 
   it("providers surface keeps routing fields and drops unrelated actor_id", () => {
-    const surface = parsePluginUiSurfaces(zeroclawEnvelope).find(
-      (r) => r.schema === "zeroclaw.providers",
+    const surface = parsePluginUiSurfaces(routerEnvelope).find(
+      (r) => r.schema === "tched_router.providers",
     )!;
-    const spec = zeroclawUiSurfaceSpec(zeroclawEnvelope as never, surface);
+    const spec = routerUiSurfaceSpec(routerEnvelope as never, surface);
     const labels = Object.values(
       spec.elements as Record<string, { props?: Record<string, unknown> }>,
     )
@@ -111,10 +125,10 @@ describe("chatbot model gallery (zeroclaw)", () => {
   });
 
   it("unknown schema falls back to full schema with surface display_name", () => {
-    const surface = parsePluginUiSurfaces(zeroclawEnvelope).find(
+    const surface = parsePluginUiSurfaces(routerEnvelope).find(
       (r) => r.schema === "plugin-service",
     )!;
-    const spec = zeroclawUiSurfaceSpec(zeroclawEnvelope as never, surface);
+    const spec = routerUiSurfaceSpec(routerEnvelope as never, surface);
     const root = Object.values(spec.elements as Record<string, { props?: Record<string, unknown> }>).find(
       (el) => el.props?.title === "gRPC Diagnostics" || el.props?.label === "gRPC Diagnostics",
     );
@@ -124,9 +138,9 @@ describe("chatbot model gallery (zeroclaw)", () => {
     expect(root || dump.includes("selected_provider")).toBeTruthy();
   });
 
-  it("main zeroclaw schema (null fieldKeys) mounts Fields inside the shell", () => {
-    const surface = { name: "ZeroClaw", path: "/zeroclaw", schema: "zeroclaw" };
-    const spec = zeroclawUiSurfaceSpec(zeroclawEnvelope as never, surface);
+  it("main tched_router schema (null fieldKeys) mounts Fields inside the shell", () => {
+    const surface = { name: "3tched Router", path: "/tched_router", schema: "tched_router" };
+    const spec = routerUiSurfaceSpec(routerEnvelope as never, surface);
 
     render(
       <MemoryRouter initialEntries={["/gallery"]}>

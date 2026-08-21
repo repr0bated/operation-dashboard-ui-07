@@ -1,9 +1,3 @@
-/**
- * Overview page — first JSON-rendered page in the shell.
- *
- * Uses the dashboard catalog exclusively. All live state is pulled from
- * `useEventStore` inside each widget, so this spec is fully declarative.
- */
 import type { Spec } from "@json-render/core";
 
 export const overviewSpec: Spec = {
@@ -11,66 +5,72 @@ export const overviewSpec: Spec = {
   elements: {
     root: {
       type: "container",
-      props: {},
-      children: [
-        "header",
-        "lastError",
-        "stats",
-        "row2",
-        "row3",
-        "peers",
-        "row4",
-        "row5",
-      ],
+      props: { className: "flex flex-col gap-6" },
+      children: ["overview-header", "overview-health", "overview-banner", "stats-row", "stream-live"],
     },
-    header: { type: "overviewHeader", props: {} },
-    lastError: { type: "overviewLastError", props: {} },
-    stats: { type: "overviewStats", props: {} },
-
-    row2: {
-      type: "grid",
-      props: { cols: 3, gap: 4, className: "grid-cols-1 lg:grid-cols-3" },
-      children: ["resources", "gateway"],
-    },
-    resources: { type: "resourcePanel", props: {} },
-    gateway: { type: "gatewayAccess", props: {} },
-
-    row3: {
-      type: "grid",
-      props: { cols: 2, gap: 4, className: "grid-cols-1 lg:grid-cols-2" },
-      children: ["components", "eventDist"],
-    },
-    components: { type: "componentsPanel", props: {} },
-    eventDist: { type: "eventDistributionPanel", props: {} },
-
-    peers: { type: "connectedPeersPanel", props: {} },
-
-    row4: {
-      type: "grid",
-      props: { cols: 2, gap: 4, className: "grid-cols-1 lg:grid-cols-2" },
-      children: ["eventTape", "stateProjection"],
-    },
-    eventTape: { type: "eventTapePanel", props: {} },
-    stateProjection: { type: "stateProjectionPanel", props: {} },
-
-    row5: {
-      type: "grid",
-      props: { cols: 2, gap: 4, className: "grid-cols-1 lg:grid-cols-2" },
-      children: ["rawStats", "notes"],
-    },
-    rawStats: { type: "rawStatsPanel", props: {} },
-    notes: {
-      type: "notesPanel",
+    "overview-header": {
+      type: "pageHeader",
       props: {
-        title: "Notes",
-        subtitle: "Quick reminders for control plane setups.",
-        notes: [
-          { title: "WireGuard tunnel", desc: "All API access goes through the WireGuard mesh. No external exposure needed." },
-          { title: "Session hygiene", desc: "Use /new or session patch to reset context between agent runs." },
-          { title: "Schema-first tools", desc: "Every tool exposes input_schema. Execution forms are generated from schema." },
-          { title: "Event stream", desc: "SSE stream at /api/events provides real-time health, logs, and state updates." },
-        ],
+        title: "Overview",
+        subtitle: "System status and live StateSync objects",
       },
+    },
+    "overview-health": {
+      type: "row",
+      props: { className: null },
+      children: ["overview-health-pill"],
+    },
+    "overview-health-pill": {
+      type: "healthPill",
+      props: { label: "StateSync", okText: "Connected", offlineText: "Disconnected" },
+    },
+    "overview-banner": {
+      type: "statusBanner",
+      props: {
+        title: "Event stream",
+        message: {
+          $cond: { $state: "/connected" },
+          $then: null,
+          $else: "Disconnected from StateSync",
+        },
+        tone: "warn",
+      },
+    },
+    "stats-row": {
+      type: "grid",
+      props: { cols: 4, gap: 16, className: null },
+      children: ["stat-plugins", "stat-events", "stat-uptime", "stat-blobs"],
+    },
+    "stat-plugins": {
+      type: "statCard",
+      props: { label: "Plugins", value: "66", sub: "sealed", tone: "default" },
+    },
+    "stat-events": {
+      type: "stateValue",
+      props: { path: "blockchain.event_count", label: "Events", format: "raw" },
+    },
+    "stat-uptime": {
+      type: "stateValue",
+      props: { path: "procfs.uptime", label: "Uptime", format: "duration" },
+    },
+    "stat-blobs": {
+      type: "stateValue",
+      props: { path: "full_system.blob_count", label: "Blobs", format: "raw" },
+    },
+    "stream-live": {
+      type: "card",
+      props: {
+        title: "Live stream objects",
+        subtitle: "Every sealed plugin on the event stream",
+        tone: null,
+        className: null,
+      },
+      children: ["stream-grid-overview"],
+    },
+    "stream-grid-overview": {
+      type: "streamGrid",
+      props: { className: null },
+      on: { select: { action: "selectPlugin", params: { pluginId: { $state: "/shell/selectedPlugin" } } } },
     },
   },
 };
