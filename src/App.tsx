@@ -80,10 +80,21 @@ function AppInner() {
     <Routes>
       <Route path="/register" element={<RegisterPage />} />
       {/*
-        Chat with no shell. Declared before the `/*` catch-all so it does not
-        fall through to ShellRoutes, but still inside IdentityGate — the chat
+        Chat with no shell, and the default surface: `/` serves it directly.
+        Both paths are declared before the `/*` catch-all so they do not fall
+        through to ShellRoutes, but stay inside IdentityGate — the chat
         transport needs a resolved identity like every other gRPC caller.
+        The rest of the dashboard remains reachable at its own routes
+        (/overview, /catalog, /plugins, ...), which still render in the shell.
       */}
+      <Route
+        path="/"
+        element={
+          <IdentityGate>
+            <ChatOnlyPage />
+          </IdentityGate>
+        }
+      />
       <Route
         path="/chat-only"
         element={

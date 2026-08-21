@@ -16,7 +16,10 @@ import { generateSpec } from "./generate.pagespec";
 
 /** Route path → page spec. */
 export const PAGE_SPECS: Record<string, Spec> = {
-  "/": overviewSpec,
+  // `/` is the chat-only surface (routed in App.tsx, outside the shell), so
+  // Overview is reached at `/overview`. Both keys are kept so a bookmarked
+  // `/` inside the shell still resolves rather than 404ing.
+  "/overview": overviewSpec,
   "/catalog": catalogSpec,
   "/gallery": gallerySpec,
   "/generate": generateSpec,

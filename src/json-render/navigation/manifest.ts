@@ -60,7 +60,9 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "catalog", label: "Catalog", route: "/catalog", icon: "FileText", section: "UI Model", order: 10 },
   { id: "gallery", label: "Gallery", route: "/gallery", icon: "Sparkles", section: "UI Model", order: 20 },
   { id: "generate", label: "Generate", route: "/generate", icon: "Sparkles", section: "UI Model", order: 30 },
-  { id: "overview", label: "Overview", route: "/", icon: "BarChart3", section: "Control", order: 10 },
+  // `/` now serves the chat-only surface, so Overview moved to its own route
+  // rather than becoming unreachable.
+  { id: "overview", label: "Overview", route: "/overview", icon: "BarChart3", section: "Control", order: 10 },
   { id: "plugins", label: "Stream", route: "/plugins", icon: "Package", section: "Infrastructure", order: 10 },
   { id: "network", label: "Network", route: "/network", icon: "Network", section: "Infrastructure", order: 20 },
 ];
