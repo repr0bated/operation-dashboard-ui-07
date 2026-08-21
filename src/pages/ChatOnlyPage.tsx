@@ -19,7 +19,7 @@ import { useEventStream } from "@/json-render/stream/use-event-stream";
 function ChatOnlySurface() {
   const { registry } = useJsonRender();
   return (
-    <main className="h-screen w-screen overflow-hidden bg-background p-3">
+    <main className="h-screen w-screen overflow-y-auto bg-background p-3 md:overflow-hidden">
       <Renderer key="chat-only" spec={antigravitySpec} registry={registry} />
     </main>
   );

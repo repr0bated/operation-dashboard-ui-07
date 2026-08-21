@@ -23,6 +23,9 @@ import { AntigravityChatContainerEl, ChatMessageEl } from "./components/antigrav
 import { TchedRouterPickerEl } from "./components/tched-router-picker";
 import { CatalogGalleryEl } from "./components/catalog-gallery";
 import { GenerateStudioEl } from "./components/generate-studio";
+import {
+  CognitiveAgentsPageEl,
+} from "./components/configurable-object";
 import * as projection from "./components/projection";
 
 const projectionComponents = {
@@ -111,6 +114,7 @@ const defined = defineRegistry(appCatalog, {
     tchedRouterPicker: TchedRouterPickerEl,
     catalogGallery: CatalogGalleryEl,
     generateStudio: GenerateStudioEl,
+    cognitiveAgentsPage: CognitiveAgentsPageEl,
     ...projectionComponents,
     ...namedStreamComponents,
   },

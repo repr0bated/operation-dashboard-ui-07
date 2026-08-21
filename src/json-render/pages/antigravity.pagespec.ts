@@ -13,7 +13,7 @@ export const antigravitySpec: Spec = {
   elements: {
     root: {
       type: "container",
-      props: { className: "flex flex-col gap-3 h-full min-h-0" },
+      props: { className: "flex min-h-full flex-col gap-3 md:h-full md:min-h-0" },
       children: ["chat-header", "tched-picker", "antigravity-chat"],
     },
     "chat-header": {

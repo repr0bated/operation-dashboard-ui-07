@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package operation.method.tched_router.setselection;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetSelectionInput {
+  string model_id = 491087124;
+  string provider_id = 241420065;
+}
+
+message SetSelectionOutput {
+  string selected_model = 234128777;
+  string selected_provider = 282560442;
+}
+
+service SetSelectionService {
+  // subid: mut.service.tched-router.selection.set@v1, capability: cap.software.tched-router.selection.set@v1
+  rpc SetSelection(SetSelectionInput) returns (SetSelectionOutput);
+}
+

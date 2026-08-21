@@ -13,7 +13,7 @@ export const generateSpec: Spec = {
       props: {
         title: "Generate",
         subtitle:
-          "LLM emits one GenerateUi JSON object (discriminated type union). Validated, flattened, rendered.",
+          "LLM emits json-render SpecStream patches. The current page updates progressively as each patch arrives.",
       },
     },
     studio: {

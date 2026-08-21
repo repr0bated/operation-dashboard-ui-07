@@ -20,7 +20,7 @@ import { jsObjectToValue, structToObject, valueToJs } from "@/grpc/google/protob
 
 import type {
   HealthSnapshot, StatusSummary, DbusService, Tool, Agent, Session,
-  ChatMessage, LogEntry, ConfigSnapshot,
+  ChatMessage, LogEntry, ConfigSnapshot, CognitiveAgent,
 } from "@/types/api";
 
 /**
@@ -281,6 +281,23 @@ export const api = {
     get: (id: string) => request<Agent>(`/agents/${id}`),
     start: (id: string) => request<void>(`/agents/${id}/start`, { method: "POST" }),
     stop: (id: string) => request<void>(`/agents/${id}/stop`, { method: "POST" }),
+  },
+
+  /** Cognitive MCP agents have persisted enabled and prewarmed selections. */
+  cognitiveAgents: {
+    list: () => request<CognitiveAgent[]>("/mcp/cognitive/agents"),
+    set: (selection: { enabled_agent_ids: string[]; active_agent_ids: string[] }) =>
+      request<{
+        success: boolean;
+        enabled_agents?: number;
+        active_agents?: string[];
+        running_agents?: string[];
+        tools_count?: number;
+        error?: string;
+      }>("/mcp/cognitive/agents", {
+        method: "POST",
+        body: JSON.stringify(selection),
+      }),
   },
 
   sessions: {

@@ -68,6 +68,17 @@ export interface Agent {
   identity?: { name?: string; emoji?: string; avatar?: string };
 }
 
+/** Persisted cognitive-MCP agent selection exposed by op-web. */
+export interface CognitiveAgent {
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  active: boolean;
+  running: boolean;
+  capabilities: string[];
+}
+
 // ── LLM ─────────────────────────────────────────────────
 export interface LlmProvider {
   id: string;

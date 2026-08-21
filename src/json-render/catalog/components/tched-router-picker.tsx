@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useStateValue } from "@json-render/react";
 import { uiStore } from "@/json-render/store/ui-store";
 import { useLlmRouting } from "@/hooks/use-llm-routing";
+import { valueToJs } from "@/grpc/google/protobuf/struct";
 import type { El } from "./types";
 
 interface ProviderRow {
@@ -18,14 +20,40 @@ interface ModelRoute {
 
 // callSubid attaches the schema-declared x-opdbus-capability automatically,
 // so these stay in lockstep with the sealed tched_router capability names.
-async function setProvider(providerId: string): Promise<void> {
+async function setSelection(providerId: string, modelId: string): Promise<void> {
   const { pluginMethods } = await import("@/grpc/plugin-methods");
-  await pluginMethods.callSubid("mut.service.tched-router.provider.set@v1", { providerId });
+  await pluginMethods.callSubid("mut.service.tched-router.selection.set@v1", {
+    providerId,
+    modelId,
+  });
 }
 
-async function setModel(modelId: string): Promise<void> {
+async function listModelIds(providerId: string): Promise<string[]> {
   const { pluginMethods } = await import("@/grpc/plugin-methods");
-  await pluginMethods.callSubid("mut.service.tched-router.model.set@v1", { modelId });
+  const response = await pluginMethods.callSubid<object, { modelRoutes?: unknown[] }>(
+    "obs.service.tched-router.models.list@v1",
+    { provider: providerId },
+  );
+  return [
+    ...new Set(
+      (response.modelRoutes ?? [])
+        .map((entry) => {
+          const value = valueToJs(entry);
+          if (typeof value === "string") return { id: value, available: true };
+          if (!value || typeof value !== "object") return undefined;
+          const row = value as Record<string, unknown>;
+          const id = row.model ?? row.model_id ?? row.modelId ?? row.id ?? row.name;
+          return typeof id === "string"
+            ? { id, available: row.available !== false }
+            : undefined;
+        })
+        .filter(
+          (model): model is { id: string; available: boolean } =>
+            !!model && model.id.length > 0 && model.available,
+        )
+        .map((model) => model.id),
+    ),
+  ];
 }
 
 function patchRouter(patch: Record<string, unknown>): void {
@@ -34,6 +62,8 @@ function patchRouter(patch: Record<string, unknown>): void {
 }
 
 export const TchedRouterPickerEl: El<"tchedRouterPicker"> = ({ props }) => {
+  const [selectionError, setSelectionError] = useState<string | null>(null);
+  const [selectionLoading, setSelectionLoading] = useState(false);
   const router = (useStateValue("/plugins/tched_router") as Record<string, unknown> | undefined) ?? {};
   const streamProviders = (Array.isArray(router.providers) ? router.providers : []) as ProviderRow[];
   const streamRoutes = (Array.isArray(router.model_routes) ? router.model_routes : []) as ModelRoute[];
@@ -79,7 +109,11 @@ export const TchedRouterPickerEl: El<"tchedRouterPicker"> = ({ props }) => {
   }
 
   const models = routes
-    .filter((r) => !selectedProvider || r.provider === selectedProvider)
+    .filter(
+      (r) =>
+        (!selectedProvider || r.provider === selectedProvider) &&
+        r.available !== false,
+    )
     .map((r) => r.model)
     .filter((id): id is string => typeof id === "string" && id.length > 0);
   const uniqueModels = [...new Set(models)];
@@ -88,21 +122,37 @@ export const TchedRouterPickerEl: El<"tchedRouterPicker"> = ({ props }) => {
   }
 
   const onProvider = async (providerId: string) => {
-    patchRouter({ selected_provider: providerId });
-    await setProvider(providerId);
-    const nextModels = routes
-      .filter((r) => r.provider === providerId)
-      .map((r) => r.model)
-      .filter((id): id is string => typeof id === "string" && id.length > 0);
-    if (nextModels[0] && !nextModels.includes(selectedModel)) {
-      patchRouter({ selected_model: nextModels[0] });
-      await setModel(nextModels[0]);
+    setSelectionLoading(true);
+    setSelectionError(null);
+    try {
+      // The current hook is intentionally scoped to the active provider. Fetch
+      // the target catalog before committing the provider/model pair.
+      const nextModels = await listModelIds(providerId);
+      const modelId = nextModels.includes(selectedModel) ? selectedModel : nextModels[0];
+      if (!modelId) throw new Error(`No selectable models for ${providerId}`);
+      await setSelection(providerId, modelId);
+      patchRouter({ selected_provider: providerId, selected_model: modelId });
+      live.refresh();
+    } catch (error) {
+      setSelectionError((error as Error).message);
+    } finally {
+      setSelectionLoading(false);
     }
   };
 
   const onModel = async (modelId: string) => {
-    patchRouter({ selected_model: modelId });
-    await setModel(modelId);
+    if (!selectedProvider) return;
+    setSelectionLoading(true);
+    setSelectionError(null);
+    try {
+      await setSelection(selectedProvider, modelId);
+      patchRouter({ selected_provider: selectedProvider, selected_model: modelId });
+      live.refresh();
+    } catch (error) {
+      setSelectionError((error as Error).message);
+    } finally {
+      setSelectionLoading(false);
+    }
   };
 
   if (providerIds.length === 0 && uniqueModels.length === 0) {
@@ -125,6 +175,7 @@ export const TchedRouterPickerEl: El<"tchedRouterPicker"> = ({ props }) => {
       <select
         value={selectedProvider}
         onChange={(e) => void onProvider(e.target.value)}
+        disabled={selectionLoading}
         className="bg-zinc-900 border border-zinc-800 text-white rounded px-2 py-1 text-xs font-mono"
       >
         {providerIds.map((id) => (
@@ -134,6 +185,7 @@ export const TchedRouterPickerEl: El<"tchedRouterPicker"> = ({ props }) => {
       <select
         value={selectedModel}
         onChange={(e) => void onModel(e.target.value)}
+        disabled={selectionLoading}
         className="bg-zinc-900 border border-zinc-800 text-white rounded px-2 py-1 text-xs font-mono min-w-[16rem]"
       >
         {uniqueModels.map((id) => (
@@ -142,6 +194,9 @@ export const TchedRouterPickerEl: El<"tchedRouterPicker"> = ({ props }) => {
       </select>
       {live.modelsError && (
         <span className="text-[10px] text-red-400 font-mono">{live.modelsError}</span>
+      )}
+      {selectionError && (
+        <span className="text-[10px] text-red-400 font-mono">{selectionError}</span>
       )}
     </div>
   );

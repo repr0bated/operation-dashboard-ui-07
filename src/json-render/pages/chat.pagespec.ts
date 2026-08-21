@@ -35,6 +35,7 @@ export const chatSpec: Spec = {
         title: "Antigravity Chat",
         mode: "live",
         placeholder: "Send antigravity chat…",
+        workspace: false,
       },
       children: ["chat-thread"],
     },

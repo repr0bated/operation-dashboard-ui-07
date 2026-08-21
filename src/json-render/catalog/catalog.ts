@@ -485,6 +485,7 @@ export const appCatalog = defineCatalog(schema, {
         title: z.string().nullable(),
         mode: z.enum(["live", "accountability"]).nullable(),
         placeholder: z.string().nullable(),
+        workspace: z.boolean().nullable(),
       }),
       slots: ["default"],
       description: "Host frame for the antigravity.chat ui_surface.",
@@ -514,6 +515,15 @@ export const appCatalog = defineCatalog(schema, {
       }),
       description:
         "Structured-output generate loop: catalog JSON Schema in, validated Spec out, rendered live.",
+    },
+
+    cognitiveAgentsPage: {
+      props: z.object({
+        title: z.string(),
+        subtitle: z.string().nullable(),
+      }),
+      description:
+        "Agent-config parent page with Overview and Configuration tabs. Overview renders all agent child objects derived from agent_config.",
     },
 
     surface: projectionComponent("surface"),

@@ -75,7 +75,7 @@ function RouteStateSync({ manifest }: { manifest: NavItem[] }) {
 }
 
 /** Builds ActionProvider handlers bound to the live state store. */
-function ActionsBridge({ children }: { children: ReactNode }) {
+export function ActionsBridge({ children }: { children: ReactNode }) {
   const { getSnapshot, update } = useStateStore();
 
   // Handlers are created once; they read the latest state through refs.

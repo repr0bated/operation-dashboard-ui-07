@@ -6,8 +6,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEventStream } from "@/json-render/stream/use-event-stream";
-import { ShellRenderer, PageSpecOutlet } from "@/json-render";
 import RegisterPage from "./pages/RegisterPage";
 import PairingPage from "./pages/PairingPage";
 import ChatOnlyPage from "./pages/ChatOnlyPage";
@@ -23,20 +21,6 @@ const queryClient = new QueryClient({
     queries: { retry: 1, staleTime: 5000, refetchOnWindowFocus: false },
   },
 });
-
-function ShellRoutes() {
-  useEventStream();
-  return (
-    <ShellRenderer>
-      <Routes>
-        <Route element={<PageSpecOutlet />}>
-          <Route index element={<></>} />
-          <Route path="*" element={<></>} />
-        </Route>
-      </Routes>
-    </ShellRenderer>
-  );
-}
 
 function IdentityGate({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<IdentityStatus>({ state: "loading" });
@@ -79,35 +63,14 @@ function AppInner() {
   return (
     <Routes>
       <Route path="/register" element={<RegisterPage />} />
-      {/*
-        Chat with no shell, and the default surface: `/` serves it directly.
-        Both paths are declared before the `/*` catch-all so they do not fall
-        through to ShellRoutes, but stay inside IdentityGate — the chat
-        transport needs a resolved identity like every other gRPC caller.
-        The rest of the dashboard remains reachable at its own routes
-        (/overview, /catalog, /plugins, ...), which still render in the shell.
-      */}
-      <Route
-        path="/"
-        element={
-          <IdentityGate>
-            <ChatOnlyPage />
-          </IdentityGate>
-        }
-      />
-      <Route
-        path="/chat-only"
-        element={
-          <IdentityGate>
-            <ChatOnlyPage />
-          </IdentityGate>
-        }
-      />
+      {/* Every authenticated route is one persistent chat + Canvas surface.
+          Legacy route names select their Canvas destination; they no longer
+          mount the old static JSX pages or the retired sidebar shell. */}
       <Route
         path="/*"
         element={
           <IdentityGate>
-            <ShellRoutes />
+            <ChatOnlyPage />
           </IdentityGate>
         }
       />

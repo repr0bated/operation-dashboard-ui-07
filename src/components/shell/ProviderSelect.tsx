@@ -5,8 +5,8 @@
  * (obs.service.tched-router.providers.list@v1 / obs.service.tched-router.router.get@v1);
  * the model list is fetched from whichever provider is selected via
  * `ListModels` (obs.service.tched-router.models.list@v1) and re-fetched on
- * every provider change. Applied via `SetProvider` / `SetModel`
- * (mut.service.tched-router.provider.set@v1 / mut.service.tched-router.model.set@v1).
+ * every provider change. Provider and model are applied together through
+ * `SetSelection` (mut.service.tched-router.selection.set@v1).
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -55,7 +55,7 @@ export function ProviderSelect({ className }: Props) {
   // Drops stale ListModels responses when the provider changes mid-flight.
   const modelsSeq = useRef(0);
 
-  const loadModels = useCallback(async (providerId: string, preferred?: string) => {
+  const loadModels = useCallback(async (providerId: string, preferred?: string): Promise<string[]> => {
     const seq = ++modelsSeq.current;
     setModelsLoading(true);
     try {
@@ -64,7 +64,7 @@ export function ProviderSelect({ className }: Props) {
         "obs.service.tched-router.models.list@v1",
         { provider: providerId },
       );
-      if (seq !== modelsSeq.current) return;
+      if (seq !== modelsSeq.current) return [];
       const ids = [
         ...new Set(
           (resp.modelRoutes ?? [])
@@ -78,8 +78,10 @@ export function ProviderSelect({ className }: Props) {
         const wanted = preferred || current;
         return wanted && ids.includes(wanted) ? wanted : "";
       });
+      return ids;
     } catch (e) {
       if (seq === modelsSeq.current) setError((e as Error).message);
+      return [];
     } finally {
       if (seq === modelsSeq.current) setModelsLoading(false);
     }
@@ -145,19 +147,25 @@ export function ProviderSelect({ className }: Props) {
   }, [loadModels]);
 
   const apply = async (providerId: string) => {
-    const prev = value;
+    const prevProvider = value;
+    const prevModel = model;
     setValue(providerId);
     setApplying(true);
     setError(null);
     try {
       const { pluginMethods } = await import("@/grpc/plugin-methods");
-      await pluginMethods.callSubid("mut.service.tched-router.provider.set@v1", {
+      const ids = await loadModels(providerId);
+      const modelId = ids.includes(prevModel) ? prevModel : ids[0];
+      if (!modelId) throw new Error(`No selectable models for ${providerId}`);
+      await pluginMethods.callSubid("mut.service.tched-router.selection.set@v1", {
         providerId,
+        modelId,
       });
-      // Provider changed — repopulate the model list from the new provider.
-      void loadModels(providerId);
+      setModel(modelId);
     } catch (e) {
-      setValue(prev);
+      setValue(prevProvider);
+      setModel(prevModel);
+      void loadModels(prevProvider, prevModel);
       setError((e as Error).message);
     } finally {
       setApplying(false);
@@ -171,7 +179,8 @@ export function ProviderSelect({ className }: Props) {
     setError(null);
     try {
       const { pluginMethods } = await import("@/grpc/plugin-methods");
-      await pluginMethods.callSubid("mut.service.tched-router.model.set@v1", {
+      await pluginMethods.callSubid("mut.service.tched-router.selection.set@v1", {
+        providerId: value,
         modelId,
       });
     } catch (e) {

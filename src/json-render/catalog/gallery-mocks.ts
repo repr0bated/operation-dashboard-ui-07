@@ -11,6 +11,7 @@ export const GALLERY_SKIP = new Set<string>([
   "pluginState",
   "antigravityChatContainer",
   "tchedRouterPicker",
+  "cognitiveAgentsPage",
   ...STREAM_CATALOG_NAMES,
 ]);
 

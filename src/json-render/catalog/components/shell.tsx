@@ -97,9 +97,10 @@ export const HealthPillEl: El<"healthPill"> = ({ props }) => {
 
 export const ThemeToggleEl: El<"themeToggle"> = ({ props }) => {
   const { theme, setTheme } = useTheme();
+  const modes = Array.isArray(props.modes) ? props.modes : [];
   return (
     <div className="relative flex rounded-full border border-border bg-secondary p-0.5">
-      {props.modes.map((mode) => {
+      {modes.map((mode) => {
         const Icon = resolveIcon(themeIcons[mode]);
         const active = theme === mode;
         return (
@@ -216,7 +217,7 @@ export const NavResourcesEl: El<"navResources"> = ({ props }) => (
     <div className="px-2.5 py-1.5 text-[11px] font-medium text-muted-foreground">
       {props.label}
     </div>
-    {props.links.map((link) => {
+    {(Array.isArray(props.links) ? props.links : []).map((link) => {
       const Icon = resolveIcon(link.icon ?? "FileText");
       return (
         <a
@@ -236,9 +237,11 @@ export const NavResourcesEl: El<"navResources"> = ({ props }) => (
 
 export const ContentRegionEl: El<"contentRegion"> = ({ props, children }) => {
   const slotContent = useSlot(props.slot ?? CONTENT_SLOT);
+  const fullHeightRoutes = Array.isArray(props.fullHeightRoutes) ? props.fullHeightRoutes : [];
+  const wipRoutes = Array.isArray(props.wipRoutes) ? props.wipRoutes : [];
   const isFullHeight =
-    props.route != null && props.fullHeightRoutes.includes(props.route);
-  const wip = props.wipRoutes.find((w) => w.route === props.route);
+    props.route != null && fullHeightRoutes.includes(props.route);
+  const wip = wipRoutes.find((entry) => entry.route === props.route);
   return (
     <main
       className={cn(

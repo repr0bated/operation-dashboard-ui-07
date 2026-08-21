@@ -13,6 +13,7 @@ import { chatSpec } from "./chat.pagespec";
 import { antigravitySpec } from "./antigravity.pagespec";
 import { accountabilitySpec } from "./accountability.pagespec";
 import { generateSpec } from "./generate.pagespec";
+import { agentsSpec } from "./agents.pagespec";
 
 /** Route path → page spec. */
 export const PAGE_SPECS: Record<string, Spec> = {
@@ -25,12 +26,13 @@ export const PAGE_SPECS: Record<string, Spec> = {
   "/generate": generateSpec,
   "/plugins": pluginsSpec,
   "/network": networkSpec,
+  "/agents": agentsSpec,
   // Antigravity chat alone. `/chat` is a NAV_MANIFEST alias of
   // `/antigravity/chat`, so it has to resolve to the same spec.
   "/antigravity/chat": antigravitySpec,
   "/antigravity": antigravitySpec,
   "/chat": antigravitySpec,
-  "/accountability": accountabilitySpec,
+  "/accountability": chatSpec,
   // Both panes stacked — the previous behaviour of all four routes above.
   "/antigravity/stacked": chatSpec,
 };
@@ -49,4 +51,5 @@ export {
   antigravitySpec,
   accountabilitySpec,
   generateSpec,
+  agentsSpec,
 };

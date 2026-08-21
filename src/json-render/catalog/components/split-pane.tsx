@@ -1,7 +1,18 @@
 import type { El } from "./types";
 
-export const SplitPane: El<"splitPane"> = ({ props, slots }) => {
+export const SplitPane: El<"splitPane"> = ({ props, slots, children }) => {
   const vertical = (props.direction ?? "vertical") === "vertical";
+  if (children) {
+    return (
+      <div
+        role="alert"
+        className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 font-mono text-xs text-destructive"
+      >
+        <strong>splitPane contract error.</strong> Named <code>start</code> and <code>end</code> slots are
+        required; ordinary children were not rendered. Use a grid or container in generated specs.
+      </div>
+    );
+  }
   return (
     <div
       className={`${vertical ? "flex flex-col" : "flex flex-row"} flex-1 min-h-0 ${props.className ?? ""}`}

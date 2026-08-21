@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import {
+  applySpecStreamPatch,
+  createMixedStreamParser,
+  type Spec,
+} from "@json-render/core";
 import { grpcServerStream, grpcUnary, resolveIdentity } from "./grpc-transport";
 import { decodeChatFrame, decodeRepeatedStrings, encodeSendRequest } from "./chat-codec";
 import { uiStore } from "@/json-render/store/ui-store";
 import { valueToJs } from "@/grpc/google/protobuf/struct";
+import { catalogChatSystemPrompt } from "./catalog-chat-prompt";
 
 export type ChatRole = "user" | "agent" | "system";
 export type ChatMode = "live" | "accountability";
@@ -27,6 +33,15 @@ function readMessages(streamId: string): StreamChatMessage[] {
 
 function writeMessages(streamId: string, messages: StreamChatMessage[]): void {
   uiStore.set(messagesPath(streamId), messages);
+}
+
+function isRenderableSpec(value: Partial<Spec>): value is Spec {
+  return (
+    typeof value.root === "string" &&
+    value.elements !== null &&
+    typeof value.elements === "object" &&
+    Object.prototype.hasOwnProperty.call(value.elements, value.root)
+  );
 }
 
 function mapRole(role: string): ChatRole {
@@ -88,6 +103,7 @@ export function useAntigravityChat(streamId: string, mode: ChatMode = "live") {
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [messages, setMessages] = useState<StreamChatMessage[]>(() => readMessages(streamId));
+  const [canvasSpec, setCanvasSpec] = useState<Spec | null>(null);
   const abortRef = useRef<(() => void) | null>(null);
   const conversationId = useRef(makeId(streamId));
   const seededRef = useRef(false);
@@ -147,7 +163,17 @@ export function useAntigravityChat(streamId: string, mode: ChatMode = "live") {
       await resolveIdentity();
 
       const route = await resolveRoute();
-      const payloadMessages: Array<{ role: string; content: string }> = [];
+      const payloadMessages: Array<{ role: string; content: string }> = [
+        { role: "system", content: catalogChatSystemPrompt() },
+      ];
+      if (mode === "live" && canvasSpec) {
+        payloadMessages.push({
+          role: "system",
+          content:
+            "The Canvas currently contains this json-render spec. When the user asks to change it, emit patches against this exact current state:\n" +
+            JSON.stringify(canvasSpec),
+        });
+      }
       if (mode === "accountability") {
         let episodeBlock = "";
         try {
@@ -163,6 +189,16 @@ export function useAntigravityChat(streamId: string, mode: ChatMode = "live") {
             episodeBlock,
         });
       }
+      payloadMessages.push(
+        ...messages
+          .filter((message) =>
+            (message.role === "user" || message.role === "agent") && message.content.trim().length > 0,
+          )
+          .map((message) => ({
+            role: message.role === "agent" ? "assistant" : "user",
+            content: message.content,
+          })),
+      );
       payloadMessages.push({ role: "user", content: text });
 
       const uiMessages = new TextEncoder().encode(JSON.stringify(payloadMessages));
@@ -180,6 +216,36 @@ export function useAntigravityChat(streamId: string, mode: ChatMode = "live") {
       );
       abortRef.current = abort;
 
+      let canvasResult: Partial<Spec> = canvasSpec ? structuredClone(canvasSpec) : {};
+      let patchCount = 0;
+      const visibleLines: string[] = [];
+      const updateAgentText = (content: string) => {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === agentId ? { ...msg, role: "agent", content } : msg,
+          ),
+        );
+      };
+      const mixedParser = createMixedStreamParser({
+        onPatch: (patch) => {
+          try {
+            applySpecStreamPatch(canvasResult, patch);
+            patchCount += 1;
+            canvasResult = { ...canvasResult };
+            if (isRenderableSpec(canvasResult)) {
+              setCanvasSpec(canvasResult);
+              uiStore.set("/canvas/spec", canvasResult);
+            }
+          } catch (error) {
+            console.warn("[canvas] rejected SpecStream patch", patch, error);
+          }
+        },
+        onText: (line) => {
+          visibleLines.push(line);
+          updateAgentText(visibleLines.join("\n"));
+        },
+      });
+
       try {
         const reader = stream.getReader();
         while (true) {
@@ -187,19 +253,29 @@ export function useAntigravityChat(streamId: string, mode: ChatMode = "live") {
           if (done) break;
           const frame = decodeChatFrame(value);
           if (frame.kind === "part" && frame.text) {
-            setMessages((prev) =>
-              prev.map((msg) =>
-                msg.id === agentId
-                  ? { ...msg, role: mapRole(frame.role), content: `${msg.content}${frame.text}` }
-                  : msg,
-              ),
-            );
+            if (mode === "live") {
+              mixedParser.push(frame.text);
+            } else {
+              setMessages((prev) =>
+                prev.map((msg) =>
+                  msg.id === agentId
+                    ? { ...msg, role: mapRole(frame.role), content: `${msg.content}${frame.text}` }
+                    : msg,
+                ),
+              );
+            }
           } else if (frame.kind === "error") {
             setMessages((prev) =>
               prev.map((msg) =>
                 msg.id === agentId ? { ...msg, role: "system", content: frame.message } : msg,
               ),
             );
+          }
+        }
+        if (mode === "live") {
+          mixedParser.flush();
+          if (patchCount > 0 && visibleLines.length === 0) {
+            updateAgentText("Rendered in Canvas.");
           }
         }
       } catch (err) {
@@ -216,10 +292,10 @@ export function useAntigravityChat(streamId: string, mode: ChatMode = "live") {
         abortRef.current = null;
       }
     },
-    [input, sending, mode, streamId],
+    [input, sending, mode, messages, canvasSpec],
   );
 
   useEffect(() => () => abortRef.current?.(), []);
 
-  return { messages, input, handleInputChange, handleSubmit, sending };
+  return { messages, input, handleInputChange, handleSubmit, sending, canvasSpec };
 }
