@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message InstallPackagesInput {
-  repeated string package_ids = 1;
-  int64 transaction_flags = 2;
+  repeated string package_ids = 323424029;
+  int64 transaction_flags = 20962926;
 }
 
-message InstallPackagesOutput {}
+message InstallPackagesOutput {
+  bool success = 442482449;
+}
 
 service InstallPackagesService {
   // subid: mut.software.packagekit.package.install@v1, capability: packagekit.admin

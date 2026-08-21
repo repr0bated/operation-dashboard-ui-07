@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message SleepInput {
-  int64 sleep_operation = 1;
+  int64 sleep_operation = 264718967;
 }
 
-message SleepOutput {}
+message SleepOutput {
+  bool success = 442482449;
+}
 
 service SleepService {
   // subid: mut.software.login1.system.sleep@v1, capability: login1.admin

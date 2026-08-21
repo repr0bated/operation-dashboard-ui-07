@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetEndpointInput {
-  string endpoint = 1;
+  string endpoint = 414707842;
 }
 
-message SetEndpointOutput {}
+message SetEndpointOutput {
+  bool success = 442482449;
+}
 
 service SetEndpointService {
   // subid: mut.software.wgcf.endpoint.set@v1, capability: cap.software.wgcf.endpoint.set@v1

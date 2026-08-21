@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.human_principal.resolve_key;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ResolveKeyInput {
+  string human_pubkey = 353843991;
+}
+
+message ResolveKeyOutput {
+  google.protobuf.Value principal = 262257199;
+}
+
+service ResolveKeyService {
+  // subid: obs.service.human-principal.key.resolve@v1, capability: human_principal.read
+  rpc resolve_key(ResolveKeyInput) returns (ResolveKeyOutput);
+}

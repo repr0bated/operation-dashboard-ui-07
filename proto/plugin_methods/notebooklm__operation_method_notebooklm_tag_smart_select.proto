@@ -14,7 +14,9 @@ message TagSmartSelectInput {
   // Empty schema object.
 }
 
-message TagSmartSelectOutput {}
+message TagSmartSelectOutput {
+  bool success = 442482449;
+}
 
 service TagSmartSelectService {
   // subid: obs.service.plugin.notebooklm.tag.select@v1, capability: notebooklm.read

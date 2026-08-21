@@ -19,15 +19,15 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface CreatePayloadIndexInput {
     /**
-     * @generated from protobuf field: string collection_name = 1
+     * @generated from protobuf field: string collection_name = 468055319
      */
     collectionName: string;
     /**
-     * @generated from protobuf field: string field_name = 2
+     * @generated from protobuf field: string field_name = 71718093
      */
     fieldName: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value field_schema = 3
+     * @generated from protobuf field: google.protobuf.Value field_schema = 125550566
      */
     fieldSchema?: Value;
 }
@@ -35,14 +35,18 @@ export interface CreatePayloadIndexInput {
  * @generated from protobuf message operation.method.qdrant.create_payload_index.CreatePayloadIndexOutput
  */
 export interface CreatePayloadIndexOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreatePayloadIndexInput$Type extends MessageType<CreatePayloadIndexInput> {
     constructor() {
         super("operation.method.qdrant.create_payload_index.CreatePayloadIndexInput", [
-            { no: 1, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "field_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "field_schema", kind: "message", T: () => Value }
+            { no: 468055319, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 71718093, name: "field_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 125550566, name: "field_schema", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<CreatePayloadIndexInput>): CreatePayloadIndexInput {
@@ -58,13 +62,13 @@ class CreatePayloadIndexInput$Type extends MessageType<CreatePayloadIndexInput> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string collection_name */ 1:
+                case /* string collection_name */ 468055319:
                     message.collectionName = reader.string();
                     break;
-                case /* string field_name */ 2:
+                case /* string field_name */ 71718093:
                     message.fieldName = reader.string();
                     break;
-                case /* google.protobuf.Value field_schema */ 3:
+                case /* google.protobuf.Value field_schema */ 125550566:
                     message.fieldSchema = Value.internalBinaryRead(reader, reader.uint32(), options, message.fieldSchema);
                     break;
                 default:
@@ -79,15 +83,15 @@ class CreatePayloadIndexInput$Type extends MessageType<CreatePayloadIndexInput> 
         return message;
     }
     internalBinaryWrite(message: CreatePayloadIndexInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string collection_name = 1; */
-        if (message.collectionName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.collectionName);
-        /* string field_name = 2; */
+        /* string field_name = 71718093; */
         if (message.fieldName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.fieldName);
-        /* google.protobuf.Value field_schema = 3; */
+            writer.tag(71718093, WireType.LengthDelimited).string(message.fieldName);
+        /* google.protobuf.Value field_schema = 125550566; */
         if (message.fieldSchema)
-            Value.internalBinaryWrite(message.fieldSchema, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.fieldSchema, writer.tag(125550566, WireType.LengthDelimited).fork(), options).join();
+        /* string collection_name = 468055319; */
+        if (message.collectionName !== "")
+            writer.tag(468055319, WireType.LengthDelimited).string(message.collectionName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const CreatePayloadIndexInput = new CreatePayloadIndexInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreatePayloadIndexOutput$Type extends MessageType<CreatePayloadIndexOutput> {
     constructor() {
-        super("operation.method.qdrant.create_payload_index.CreatePayloadIndexOutput", []);
+        super("operation.method.qdrant.create_payload_index.CreatePayloadIndexOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreatePayloadIndexOutput>): CreatePayloadIndexOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreatePayloadIndexOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class CreatePayloadIndexOutput$Type extends MessageType<CreatePayloadIndexOutput
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class CreatePayloadIndexOutput$Type extends MessageType<CreatePayloadIndexOutput
         return message;
     }
     internalBinaryWrite(message: CreatePayloadIndexOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

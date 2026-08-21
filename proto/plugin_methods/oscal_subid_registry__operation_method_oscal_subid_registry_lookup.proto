@@ -15,7 +15,7 @@ message LookupInput {
 }
 
 message LookupOutput {
-  google.protobuf.Value entry = 1;
+  google.protobuf.Value entry = 180606873;
 }
 
 service LookupService {

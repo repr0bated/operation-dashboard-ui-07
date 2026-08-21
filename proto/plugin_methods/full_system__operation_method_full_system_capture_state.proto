@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package operation.method.full_system.capture_state;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CaptureStateInput {
+  // Empty schema object.
+}
+
+message CaptureStateOutput {
+  string captured_at = 47443429;
+  google.protobuf.Value containers = 385381457;
+  string hostname = 510383469;
+  google.protobuf.Value network = 303597255;
+  repeated google.protobuf.Value packages = 136677145;
+  google.protobuf.Struct plugins = 388483371;
+  repeated google.protobuf.Value services = 426417723;
+  google.protobuf.Value storage = 30055014;
+  google.protobuf.Value system = 152963742;
+  repeated google.protobuf.Value users = 511493397;
+  int64 version = 108113561;
+}
+
+service CaptureStateService {
+  // subid: obs.system.plugin.full-system.state.capture@v1, capability: full_system.read
+  rpc capture_state(CaptureStateInput) returns (CaptureStateOutput);
+}

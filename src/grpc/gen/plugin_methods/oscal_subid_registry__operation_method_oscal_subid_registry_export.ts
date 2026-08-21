@@ -26,7 +26,7 @@ export interface ExportInput {
  */
 export interface ExportOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value registry = 1
+     * @generated from protobuf field: google.protobuf.Value registry = 411326863
      */
     registry?: Value;
 }
@@ -72,7 +72,7 @@ export const ExportInput = new ExportInput$Type();
 class ExportOutput$Type extends MessageType<ExportOutput> {
     constructor() {
         super("operation.method.oscal_subid_registry.export.ExportOutput", [
-            { no: 1, name: "registry", kind: "message", T: () => Value }
+            { no: 411326863, name: "registry", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ExportOutput>): ExportOutput {
@@ -86,7 +86,7 @@ class ExportOutput$Type extends MessageType<ExportOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value registry */ 1:
+                case /* google.protobuf.Value registry */ 411326863:
                     message.registry = Value.internalBinaryRead(reader, reader.uint32(), options, message.registry);
                     break;
                 default:
@@ -101,9 +101,9 @@ class ExportOutput$Type extends MessageType<ExportOutput> {
         return message;
     }
     internalBinaryWrite(message: ExportOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value registry = 1; */
+        /* google.protobuf.Value registry = 411326863; */
         if (message.registry)
-            Value.internalBinaryWrite(message.registry, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.registry, writer.tag(411326863, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

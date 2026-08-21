@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateSubvolumeInput {
-  string path = 1;
+  string path = 75975994;
 }
 
-message CreateSubvolumeOutput {}
+message CreateSubvolumeOutput {
+  bool success = 442482449;
+}
 
 service CreateSubvolumeService {
   // subid: mut.storage.btrfs.subvolume.create@v1, capability: cap.storage.btrfs.subvolume.create@v1

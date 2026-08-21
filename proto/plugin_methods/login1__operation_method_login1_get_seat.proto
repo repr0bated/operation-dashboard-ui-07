@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetSeatInput {
-  string seat_id = 1;
+  string seat_id = 14173556;
 }
 
-message GetSeatOutput {}
+message GetSeatOutput {
+  bool success = 442482449;
+}
 
 service GetSeatService {
   // subid: obs.software.login1.seat.get@v1, capability: login1.read

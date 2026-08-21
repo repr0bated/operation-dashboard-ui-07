@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.adc.get_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatusInput {
+  // Empty schema object.
+}
+
+message GetStatusOutput {
+  bool configured = 139966978;
+}
+
+service GetStatusService {
+  // subid: obs.software.plugin.adc.status.get@v1, capability: adc.read
+  rpc get_status(GetStatusInput) returns (GetStatusOutput);
+}

@@ -25,9 +25,13 @@ export interface RestartServiceInput {
  */
 export interface RestartServiceOutput {
     /**
-     * @generated from protobuf field: string message = 1
+     * @generated from protobuf field: string message = 82970853
      */
     message: string;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RestartServiceInput$Type extends MessageType<RestartServiceInput> {
@@ -71,12 +75,14 @@ export const RestartServiceInput = new RestartServiceInput$Type();
 class RestartServiceOutput$Type extends MessageType<RestartServiceOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.restart_service.RestartServiceOutput", [
-            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 82970853, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<RestartServiceOutput>): RestartServiceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.message = "";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RestartServiceOutput>(this, message, value);
         return message;
@@ -86,8 +92,11 @@ class RestartServiceOutput$Type extends MessageType<RestartServiceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string message */ 1:
+                case /* string message */ 82970853:
                     message.message = reader.string();
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -101,9 +110,12 @@ class RestartServiceOutput$Type extends MessageType<RestartServiceOutput> {
         return message;
     }
     internalBinaryWrite(message: RestartServiceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string message = 1; */
+        /* string message = 82970853; */
         if (message.message !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.message);
+            writer.tag(82970853, WireType.LengthDelimited).string(message.message);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

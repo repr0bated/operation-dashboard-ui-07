@@ -11,13 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message ObfuscateFlowInput {
-  string bridge = 1;
-  string match_spec = 2;
-  int64 obfuscation_level = 3;
-  int64 priority = 4;
+  string bridge = 179832343;
+  string match_spec = 276585666;
+  int64 obfuscation_level = 211497255;
+  int64 priority = 350544653;
 }
 
-message ObfuscateFlowOutput {}
+message ObfuscateFlowOutput {
+  bool success = 442482449;
+}
 
 service ObfuscateFlowService {
   // subid: mut.network.openflow.obfuscation.obfuscate@v1, capability: openflow_obfuscation.write

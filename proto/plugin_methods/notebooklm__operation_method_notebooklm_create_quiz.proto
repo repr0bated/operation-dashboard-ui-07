@@ -14,7 +14,9 @@ message CreateQuizInput {
   // Empty schema object.
 }
 
-message CreateQuizOutput {}
+message CreateQuizOutput {
+  bool success = 442482449;
+}
 
 service CreateQuizService {
   // subid: mut.service.plugin.notebooklm.studio.quiz.create@v1, capability: notebooklm.invoke

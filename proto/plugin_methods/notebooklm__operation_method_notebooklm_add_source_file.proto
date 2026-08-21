@@ -14,7 +14,9 @@ message AddSourceFileInput {
   // Empty schema object.
 }
 
-message AddSourceFileOutput {}
+message AddSourceFileOutput {
+  bool success = 442482449;
+}
 
 service AddSourceFileService {
   // subid: mut.service.plugin.notebooklm.source.add-file@v1, capability: notebooklm.invoke

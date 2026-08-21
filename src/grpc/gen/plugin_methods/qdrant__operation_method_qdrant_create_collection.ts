@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface CreateCollectionInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value vectors_config = 2
+     * @generated from protobuf field: google.protobuf.Value vectors_config = 440381432
      */
     vectorsConfig?: Value;
 }
@@ -31,13 +31,17 @@ export interface CreateCollectionInput {
  * @generated from protobuf message operation.method.qdrant.create_collection.CreateCollectionOutput
  */
 export interface CreateCollectionOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateCollectionInput$Type extends MessageType<CreateCollectionInput> {
     constructor() {
         super("operation.method.qdrant.create_collection.CreateCollectionInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "vectors_config", kind: "message", T: () => Value }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 440381432, name: "vectors_config", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<CreateCollectionInput>): CreateCollectionInput {
@@ -52,10 +56,10 @@ class CreateCollectionInput$Type extends MessageType<CreateCollectionInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* google.protobuf.Value vectors_config */ 2:
+                case /* google.protobuf.Value vectors_config */ 440381432:
                     message.vectorsConfig = Value.internalBinaryRead(reader, reader.uint32(), options, message.vectorsConfig);
                     break;
                 default:
@@ -70,12 +74,12 @@ class CreateCollectionInput$Type extends MessageType<CreateCollectionInput> {
         return message;
     }
     internalBinaryWrite(message: CreateCollectionInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* google.protobuf.Value vectors_config = 2; */
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* google.protobuf.Value vectors_config = 440381432; */
         if (message.vectorsConfig)
-            Value.internalBinaryWrite(message.vectorsConfig, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.vectorsConfig, writer.tag(440381432, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const CreateCollectionInput = new CreateCollectionInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateCollectionOutput$Type extends MessageType<CreateCollectionOutput> {
     constructor() {
-        super("operation.method.qdrant.create_collection.CreateCollectionOutput", []);
+        super("operation.method.qdrant.create_collection.CreateCollectionOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateCollectionOutput>): CreateCollectionOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateCollectionOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class CreateCollectionOutput$Type extends MessageType<CreateCollectionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class CreateCollectionOutput$Type extends MessageType<CreateCollectionOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateCollectionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

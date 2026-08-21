@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message KillSessionInput {
-  string session_id = 1;
-  int64 signal_number = 2;
-  string who = 3;
+  string session_id = 125141221;
+  int64 signal_number = 230647920;
+  string who = 183773840;
 }
 
-message KillSessionOutput {}
+message KillSessionOutput {
+  bool success = 442482449;
+}
 
 service KillSessionService {
   // subid: mut.software.login1.session.kill@v1, capability: login1.write

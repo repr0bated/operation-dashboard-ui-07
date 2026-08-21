@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.xray.get_stats;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetStatsInput {
+  string name = 221887978;
+}
+
+message GetStatsOutput {
+  string name = 221887978;
+  int64 value = 39769036;
+}
+
+service GetStatsService {
+  // subid: obs.software.plugin.xray.stats.get@v1, capability: xray.read
+  rpc get_stats(GetStatsInput) returns (GetStatsOutput);
+}

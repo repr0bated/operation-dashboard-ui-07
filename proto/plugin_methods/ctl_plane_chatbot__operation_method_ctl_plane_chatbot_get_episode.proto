@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetEpisodeInput {
-  string episode_id = 1;
+  // Empty schema object.
 }
 
 message GetEpisodeOutput {
-  google.protobuf.Value episode = 1;
+  google.protobuf.Value episode = 285719513;
 }
 
 service GetEpisodeService {

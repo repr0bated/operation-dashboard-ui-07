@@ -11,13 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message RemovePackagesInput {
-  bool allow_deps = 1;
-  bool autoremove = 2;
-  repeated string package_ids = 3;
-  int64 transaction_flags = 4;
+  bool allow_deps = 458790589;
+  bool autoremove = 312482772;
+  repeated string package_ids = 323424029;
+  int64 transaction_flags = 20962926;
 }
 
-message RemovePackagesOutput {}
+message RemovePackagesOutput {
+  bool success = 442482449;
+}
 
 service RemovePackagesService {
   // subid: mut.software.packagekit.package.remove@v1, capability: packagekit.admin

@@ -11,15 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message BuildPromptSurfaceInput {
-  repeated string custom_rules = 1;
-  string mode = 2;
+  repeated string custom_rules = 177887917;
+  string mode = 208592921;
 }
 
 message BuildPromptSurfaceOutput {
-  repeated string actions = 1;
-  repeated string components = 2;
-  string mode = 3;
-  repeated string rules = 4;
+  repeated string actions = 364201577;
+  repeated string components = 469045609;
+  string mode = 208592921;
+  repeated string rules = 483376100;
 }
 
 service BuildPromptSurfaceService {

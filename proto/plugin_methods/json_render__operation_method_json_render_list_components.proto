@@ -15,7 +15,7 @@ message ListComponentsInput {
 }
 
 message ListComponentsOutput {
-  repeated google.protobuf.Value components = 1;
+  repeated google.protobuf.Value components = 469045609;
 }
 
 service ListComponentsService {

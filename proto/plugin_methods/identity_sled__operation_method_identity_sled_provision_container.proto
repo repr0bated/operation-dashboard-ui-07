@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.identity_sled.provision_container;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ProvisionContainerInput {
+  string blob_ref = 296362051;
+  google.protobuf.Value btrfs_device = 169726097;
+  google.protobuf.Value instance = 193386898;
+  string psk = 343456624;
+  string wireguard_pubkey = 477362351;
+}
+
+message ProvisionContainerOutput {
+  google.protobuf.Value identity = 155530400;
+}
+
+service ProvisionContainerService {
+  // subid: mut.service.identity-sled.container.provision@v1, capability: identity_sled.write
+  rpc provision_container(ProvisionContainerInput) returns (ProvisionContainerOutput);
+}

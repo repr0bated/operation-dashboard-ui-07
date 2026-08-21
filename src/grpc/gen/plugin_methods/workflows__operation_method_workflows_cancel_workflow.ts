@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CancelWorkflowInput {
     /**
-     * @generated from protobuf field: bool force = 1
+     * @generated from protobuf field: bool force = 430540935
      */
     force: boolean;
     /**
-     * @generated from protobuf field: string workflow_id = 2
+     * @generated from protobuf field: string workflow_id = 280387507
      */
     workflowId: string;
 }
@@ -30,13 +30,17 @@ export interface CancelWorkflowInput {
  * @generated from protobuf message operation.method.workflows.cancel_workflow.CancelWorkflowOutput
  */
 export interface CancelWorkflowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CancelWorkflowInput$Type extends MessageType<CancelWorkflowInput> {
     constructor() {
         super("operation.method.workflows.cancel_workflow.CancelWorkflowInput", [
-            { no: 1, name: "force", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "workflow_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 430540935, name: "force", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 280387507, name: "workflow_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CancelWorkflowInput>): CancelWorkflowInput {
@@ -52,10 +56,10 @@ class CancelWorkflowInput$Type extends MessageType<CancelWorkflowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool force */ 1:
+                case /* bool force */ 430540935:
                     message.force = reader.bool();
                     break;
-                case /* string workflow_id */ 2:
+                case /* string workflow_id */ 280387507:
                     message.workflowId = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class CancelWorkflowInput$Type extends MessageType<CancelWorkflowInput> {
         return message;
     }
     internalBinaryWrite(message: CancelWorkflowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool force = 1; */
-        if (message.force !== false)
-            writer.tag(1, WireType.Varint).bool(message.force);
-        /* string workflow_id = 2; */
+        /* string workflow_id = 280387507; */
         if (message.workflowId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.workflowId);
+            writer.tag(280387507, WireType.LengthDelimited).string(message.workflowId);
+        /* bool force = 430540935; */
+        if (message.force !== false)
+            writer.tag(430540935, WireType.Varint).bool(message.force);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const CancelWorkflowInput = new CancelWorkflowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CancelWorkflowOutput$Type extends MessageType<CancelWorkflowOutput> {
     constructor() {
-        super("operation.method.workflows.cancel_workflow.CancelWorkflowOutput", []);
+        super("operation.method.workflows.cancel_workflow.CancelWorkflowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CancelWorkflowOutput>): CancelWorkflowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CancelWorkflowOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class CancelWorkflowOutput$Type extends MessageType<CancelWorkflowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class CancelWorkflowOutput$Type extends MessageType<CancelWorkflowOutput> {
         return message;
     }
     internalBinaryWrite(message: CancelWorkflowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

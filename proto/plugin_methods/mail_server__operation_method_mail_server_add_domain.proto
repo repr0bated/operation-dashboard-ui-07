@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddDomainInput {
-  string domain = 1;
+  string domain = 127113208;
 }
 
-message AddDomainOutput {}
+message AddDomainOutput {
+  bool success = 442482449;
+}
 
 service AddDomainService {
   // subid: mut.service.mail.domain.add@v1, capability: mail.write

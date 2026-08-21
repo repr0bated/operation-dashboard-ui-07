@@ -26,7 +26,7 @@ export interface ResolveInput {
  */
 export interface ResolveOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value resolved = 1
+     * @generated from protobuf field: google.protobuf.Value resolved = 263528200
      */
     resolved?: Value;
 }
@@ -72,7 +72,7 @@ export const ResolveInput = new ResolveInput$Type();
 class ResolveOutput$Type extends MessageType<ResolveOutput> {
     constructor() {
         super("operation.method.oscal_subid_registry.resolve.ResolveOutput", [
-            { no: 1, name: "resolved", kind: "message", T: () => Value }
+            { no: 263528200, name: "resolved", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ResolveOutput>): ResolveOutput {
@@ -86,7 +86,7 @@ class ResolveOutput$Type extends MessageType<ResolveOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value resolved */ 1:
+                case /* google.protobuf.Value resolved */ 263528200:
                     message.resolved = Value.internalBinaryRead(reader, reader.uint32(), options, message.resolved);
                     break;
                 default:
@@ -101,9 +101,9 @@ class ResolveOutput$Type extends MessageType<ResolveOutput> {
         return message;
     }
     internalBinaryWrite(message: ResolveOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value resolved = 1; */
+        /* google.protobuf.Value resolved = 263528200; */
         if (message.resolved)
-            Value.internalBinaryWrite(message.resolved, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.resolved, writer.tag(263528200, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

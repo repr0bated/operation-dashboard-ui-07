@@ -18,19 +18,19 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetDeviceInput {
     /**
-     * @generated from protobuf field: int64 fwmark = 1
+     * @generated from protobuf field: int64 fwmark = 240695238
      */
     fwmark: string;
     /**
-     * @generated from protobuf field: string interface = 2
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
     /**
-     * @generated from protobuf field: int64 listen_port = 3
+     * @generated from protobuf field: int64 listen_port = 419443749
      */
     listenPort: string;
     /**
-     * @generated from protobuf field: string private_key = 4
+     * @generated from protobuf field: string private_key = 446268993
      */
     privateKey: string;
 }
@@ -38,15 +38,19 @@ export interface SetDeviceInput {
  * @generated from protobuf message operation.method.wireguard.set_device.SetDeviceOutput
  */
 export interface SetDeviceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetDeviceInput$Type extends MessageType<SetDeviceInput> {
     constructor() {
         super("operation.method.wireguard.set_device.SetDeviceInput", [
-            { no: 1, name: "fwmark", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "listen_port", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "private_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 240695238, name: "fwmark", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 419443749, name: "listen_port", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 446268993, name: "private_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetDeviceInput>): SetDeviceInput {
@@ -64,16 +68,16 @@ class SetDeviceInput$Type extends MessageType<SetDeviceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 fwmark */ 1:
+                case /* int64 fwmark */ 240695238:
                     message.fwmark = reader.int64().toString();
                     break;
-                case /* string interface */ 2:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
-                case /* int64 listen_port */ 3:
+                case /* int64 listen_port */ 419443749:
                     message.listenPort = reader.int64().toString();
                     break;
-                case /* string private_key */ 4:
+                case /* string private_key */ 446268993:
                     message.privateKey = reader.string();
                     break;
                 default:
@@ -88,18 +92,18 @@ class SetDeviceInput$Type extends MessageType<SetDeviceInput> {
         return message;
     }
     internalBinaryWrite(message: SetDeviceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 fwmark = 1; */
-        if (message.fwmark !== "0")
-            writer.tag(1, WireType.Varint).int64(message.fwmark);
-        /* string interface = 2; */
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.interface);
-        /* int64 listen_port = 3; */
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
+        /* int64 fwmark = 240695238; */
+        if (message.fwmark !== "0")
+            writer.tag(240695238, WireType.Varint).int64(message.fwmark);
+        /* int64 listen_port = 419443749; */
         if (message.listenPort !== "0")
-            writer.tag(3, WireType.Varint).int64(message.listenPort);
-        /* string private_key = 4; */
+            writer.tag(419443749, WireType.Varint).int64(message.listenPort);
+        /* string private_key = 446268993; */
         if (message.privateKey !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.privateKey);
+            writer.tag(446268993, WireType.LengthDelimited).string(message.privateKey);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -113,10 +117,13 @@ export const SetDeviceInput = new SetDeviceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetDeviceOutput$Type extends MessageType<SetDeviceOutput> {
     constructor() {
-        super("operation.method.wireguard.set_device.SetDeviceOutput", []);
+        super("operation.method.wireguard.set_device.SetDeviceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetDeviceOutput>): SetDeviceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetDeviceOutput>(this, message, value);
         return message;
@@ -126,6 +133,9 @@ class SetDeviceOutput$Type extends MessageType<SetDeviceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -138,6 +148,9 @@ class SetDeviceOutput$Type extends MessageType<SetDeviceOutput> {
         return message;
     }
     internalBinaryWrite(message: SetDeviceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

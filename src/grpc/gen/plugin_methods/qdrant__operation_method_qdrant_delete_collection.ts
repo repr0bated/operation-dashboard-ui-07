@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DeleteCollectionInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -26,12 +26,16 @@ export interface DeleteCollectionInput {
  * @generated from protobuf message operation.method.qdrant.delete_collection.DeleteCollectionOutput
  */
 export interface DeleteCollectionOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteCollectionInput$Type extends MessageType<DeleteCollectionInput> {
     constructor() {
         super("operation.method.qdrant.delete_collection.DeleteCollectionInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteCollectionInput>): DeleteCollectionInput {
@@ -46,7 +50,7 @@ class DeleteCollectionInput$Type extends MessageType<DeleteCollectionInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class DeleteCollectionInput$Type extends MessageType<DeleteCollectionInput> {
         return message;
     }
     internalBinaryWrite(message: DeleteCollectionInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const DeleteCollectionInput = new DeleteCollectionInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteCollectionOutput$Type extends MessageType<DeleteCollectionOutput> {
     constructor() {
-        super("operation.method.qdrant.delete_collection.DeleteCollectionOutput", []);
+        super("operation.method.qdrant.delete_collection.DeleteCollectionOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeleteCollectionOutput>): DeleteCollectionOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteCollectionOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class DeleteCollectionOutput$Type extends MessageType<DeleteCollectionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class DeleteCollectionOutput$Type extends MessageType<DeleteCollectionOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteCollectionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

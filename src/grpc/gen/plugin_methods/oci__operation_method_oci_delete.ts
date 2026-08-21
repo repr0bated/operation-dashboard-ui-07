@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DeleteInput {
     /**
-     * @generated from protobuf field: string id = 1
+     * @generated from protobuf field: string id = 389573345
      */
     id: string;
 }
@@ -26,12 +26,16 @@ export interface DeleteInput {
  * @generated from protobuf message operation.method.oci.delete.DeleteOutput
  */
 export interface DeleteOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteInput$Type extends MessageType<DeleteInput> {
     constructor() {
         super("operation.method.oci.delete.DeleteInput", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 389573345, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteInput>): DeleteInput {
@@ -46,7 +50,7 @@ class DeleteInput$Type extends MessageType<DeleteInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
+                case /* string id */ 389573345:
                     message.id = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class DeleteInput$Type extends MessageType<DeleteInput> {
         return message;
     }
     internalBinaryWrite(message: DeleteInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
+        /* string id = 389573345; */
         if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+            writer.tag(389573345, WireType.LengthDelimited).string(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const DeleteInput = new DeleteInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteOutput$Type extends MessageType<DeleteOutput> {
     constructor() {
-        super("operation.method.oci.delete.DeleteOutput", []);
+        super("operation.method.oci.delete.DeleteOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeleteOutput>): DeleteOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class DeleteOutput$Type extends MessageType<DeleteOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class DeleteOutput$Type extends MessageType<DeleteOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

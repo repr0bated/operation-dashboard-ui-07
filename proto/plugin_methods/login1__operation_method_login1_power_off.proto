@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message PowerOffInput {
-  bool interactive = 1;
+  bool interactive = 520087662;
 }
 
-message PowerOffOutput {}
+message PowerOffOutput {
+  bool success = 442482449;
+}
 
 service PowerOffService {
   // subid: mut.software.login1.system.poweroff@v1, capability: login1.admin

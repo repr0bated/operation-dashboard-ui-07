@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SnapshotInstanceInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: string snapshot_name = 2
+     * @generated from protobuf field: string snapshot_name = 418348540
      */
     snapshotName: string;
 }
@@ -30,13 +30,17 @@ export interface SnapshotInstanceInput {
  * @generated from protobuf message operation.method.incus.snapshot_instance.SnapshotInstanceOutput
  */
 export interface SnapshotInstanceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SnapshotInstanceInput$Type extends MessageType<SnapshotInstanceInput> {
     constructor() {
         super("operation.method.incus.snapshot_instance.SnapshotInstanceInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "snapshot_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 418348540, name: "snapshot_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SnapshotInstanceInput>): SnapshotInstanceInput {
@@ -52,10 +56,10 @@ class SnapshotInstanceInput$Type extends MessageType<SnapshotInstanceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* string snapshot_name */ 2:
+                case /* string snapshot_name */ 418348540:
                     message.snapshotName = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class SnapshotInstanceInput$Type extends MessageType<SnapshotInstanceInput> {
         return message;
     }
     internalBinaryWrite(message: SnapshotInstanceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* string snapshot_name = 2; */
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string snapshot_name = 418348540; */
         if (message.snapshotName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.snapshotName);
+            writer.tag(418348540, WireType.LengthDelimited).string(message.snapshotName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SnapshotInstanceInput = new SnapshotInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SnapshotInstanceOutput$Type extends MessageType<SnapshotInstanceOutput> {
     constructor() {
-        super("operation.method.incus.snapshot_instance.SnapshotInstanceOutput", []);
+        super("operation.method.incus.snapshot_instance.SnapshotInstanceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SnapshotInstanceOutput>): SnapshotInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SnapshotInstanceOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SnapshotInstanceOutput$Type extends MessageType<SnapshotInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SnapshotInstanceOutput$Type extends MessageType<SnapshotInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: SnapshotInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

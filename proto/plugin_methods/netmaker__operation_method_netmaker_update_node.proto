@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message UpdateNodeInput {
-  string network = 1;
-  string node_id = 2;
-  google.protobuf.Value payload = 3;
+  string network = 303597255;
+  string node_id = 169140144;
+  google.protobuf.Value payload = 319780774;
 }
 
-message UpdateNodeOutput {}
+message UpdateNodeOutput {
+  bool success = 442482449;
+}
 
 service UpdateNodeService {
   // subid: mut.network.netmaker.node.update@v1, capability: cap.network.netmaker.node.update@v1

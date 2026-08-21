@@ -11,23 +11,25 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateSessionInput {
-  string class = 1;
-  string desktop = 2;
-  string display = 3;
-  int64 pid = 4;
-  repeated google.protobuf.Struct properties = 5;
-  bool remote = 6;
-  string remote_host = 7;
-  string remote_user = 8;
-  string seat_id = 9;
-  string service = 10;
-  string tty = 11;
-  string type_ = 12;
-  int64 uid = 13;
-  int64 vtnr = 14;
+  string class = 188615684;
+  string desktop = 494962617;
+  string display = 90830615;
+  int64 pid = 155254053;
+  repeated google.protobuf.Struct properties = 299789532;
+  bool remote = 126712153;
+  string remote_host = 4961786;
+  string remote_user = 531389166;
+  string seat_id = 14173556;
+  string service = 383770214;
+  string tty = 271265257;
+  string type_ = 333479772;
+  int64 uid = 482862799;
+  int64 vtnr = 278650428;
 }
 
-message CreateSessionOutput {}
+message CreateSessionOutput {
+  bool success = 442482449;
+}
 
 service CreateSessionService {
   // subid: mut.software.login1.session.create@v1, capability: login1.write

@@ -14,7 +14,9 @@ message ResetServerFeaturesInput {
   // Empty schema object.
 }
 
-message ResetServerFeaturesOutput {}
+message ResetServerFeaturesOutput {
+  bool success = 442482449;
+}
 
 service ResetServerFeaturesService {
   // subid: mut.software.dnsresolver.server-features.reset@v1, capability: dnsresolver.write

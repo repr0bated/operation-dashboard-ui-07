@@ -26,7 +26,7 @@ export interface ListEndpointsInput {
  */
 export interface ListEndpointsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value endpoints = 1
+     * @generated from protobuf field: repeated google.protobuf.Value endpoints = 412018590
      */
     endpoints: Value[];
 }
@@ -72,7 +72,7 @@ export const ListEndpointsInput = new ListEndpointsInput$Type();
 class ListEndpointsOutput$Type extends MessageType<ListEndpointsOutput> {
     constructor() {
         super("operation.method.ghostbridge.listendpoints.ListEndpointsOutput", [
-            { no: 1, name: "endpoints", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 412018590, name: "endpoints", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListEndpointsOutput>): ListEndpointsOutput {
@@ -87,7 +87,7 @@ class ListEndpointsOutput$Type extends MessageType<ListEndpointsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value endpoints */ 1:
+                case /* repeated google.protobuf.Value endpoints */ 412018590:
                     message.endpoints.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListEndpointsOutput$Type extends MessageType<ListEndpointsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListEndpointsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value endpoints = 1; */
+        /* repeated google.protobuf.Value endpoints = 412018590; */
         for (let i = 0; i < message.endpoints.length; i++)
-            Value.internalBinaryWrite(message.endpoints[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.endpoints[i], writer.tag(412018590, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

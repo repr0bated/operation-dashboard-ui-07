@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AddRuleInput {
     /**
-     * @generated from protobuf field: string rule = 1
+     * @generated from protobuf field: string rule = 472793306
      */
     rule: string;
 }
@@ -26,12 +26,16 @@ export interface AddRuleInput {
  * @generated from protobuf message operation.method.rtnetlink.add_rule.AddRuleOutput
  */
 export interface AddRuleOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddRuleInput$Type extends MessageType<AddRuleInput> {
     constructor() {
         super("operation.method.rtnetlink.add_rule.AddRuleInput", [
-            { no: 1, name: "rule", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 472793306, name: "rule", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AddRuleInput>): AddRuleInput {
@@ -46,7 +50,7 @@ class AddRuleInput$Type extends MessageType<AddRuleInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string rule */ 1:
+                case /* string rule */ 472793306:
                     message.rule = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class AddRuleInput$Type extends MessageType<AddRuleInput> {
         return message;
     }
     internalBinaryWrite(message: AddRuleInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string rule = 1; */
+        /* string rule = 472793306; */
         if (message.rule !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.rule);
+            writer.tag(472793306, WireType.LengthDelimited).string(message.rule);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const AddRuleInput = new AddRuleInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddRuleOutput$Type extends MessageType<AddRuleOutput> {
     constructor() {
-        super("operation.method.rtnetlink.add_rule.AddRuleOutput", []);
+        super("operation.method.rtnetlink.add_rule.AddRuleOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddRuleOutput>): AddRuleOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddRuleOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class AddRuleOutput$Type extends MessageType<AddRuleOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class AddRuleOutput$Type extends MessageType<AddRuleOutput> {
         return message;
     }
     internalBinaryWrite(message: AddRuleOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

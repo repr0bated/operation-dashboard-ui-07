@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getmodelprovidersconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetModelProvidersConfigInput {
+  // Empty schema object.
+}
+
+message GetModelProvidersConfigOutput {
+  google.protobuf.Struct config = 67069640;
+}
+
+service GetModelProvidersConfigService {
+  // subid: obs.service.3tched-router.model-providers-config.get@v1, capability: cap.software.3tched-router.model-providers-config.read@v1
+  rpc GetModelProvidersConfig(GetModelProvidersConfigInput) returns (GetModelProvidersConfigOutput);
+}

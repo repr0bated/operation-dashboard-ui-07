@@ -14,7 +14,9 @@ message ImportResearchInput {
   // Empty schema object.
 }
 
-message ImportResearchOutput {}
+message ImportResearchOutput {
+  bool success = 442482449;
+}
 
 service ImportResearchService {
   // subid: mut.service.plugin.notebooklm.research.import@v1, capability: notebooklm.invoke

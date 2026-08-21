@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ListPortsInput {
-  string bridge_name = 1;
+  string bridge_name = 276920933;
 }
 
-message ListPortsOutput {}
+message ListPortsOutput {
+  bool success = 442482449;
+}
 
 service ListPortsService {
   // subid: obs.network.ovsdb.port.list@v1, capability: cap.network.ovsdb.port.list@v1

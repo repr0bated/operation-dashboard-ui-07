@@ -1,22 +1,118 @@
 /**
  * Route-aware page outlet.
  *
- * If the current pathname has a registered page spec, render it. Otherwise
- * fall through to React Router's `<Outlet />`, so every not-yet-converted
- * React page keeps working unchanged.
+ * Uses the usePluginPageSpec hook to resolve specs:
+ *   1. Static PAGE_SPECS win.
+ *   2. `/plugins/:id` (not `/plugins` itself) renders the sealed-schema ui_projection.
+ *   3. Dynamic plugin routes are resolved from ui_surfaces.
+ *   4. Everything else falls through to <Outlet />.
+ *
+ * Shows a loading state while fetching dynamic specs. Shell chrome remains
+ * visible; only the content region shows loading.
  */
 import { useMemo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Renderer } from "@json-render/react";
 import { useJsonRender } from "./JsonRenderProvider";
-import { pageSpecFor, PAGE_SPECS } from "@/json-render/pages";
+import { PAGE_SPECS } from "@/json-render/pages";
+import { ProjectedPluginPage } from "./ProjectedPluginPage";
+import { usePluginPageSpec } from "@/json-render/spec-gen";
 
 export { PAGE_SPECS };
+
+function pluginIdFromPath(pathname: string): string | null {
+  const match = pathname.match(/^\/plugins\/([^/]+)\/?$/);
+  if (!match) return null;
+  try {
+    return decodeURIComponent(match[1]);
+  } catch {
+    return match[1];
+  }
+}
+
+/**
+ * Loading spec for the content region.
+ */
+function loadingSpec(route: string) {
+  return {
+    root: "root",
+    elements: {
+      root: {
+        type: "emptyState",
+        props: {
+          title: "Loading...",
+          hint: `Resolving page for ${route}`,
+        },
+      },
+    },
+  };
+}
+
+/**
+ * Error spec for the content region.
+ */
+function errorSpec(error: string) {
+  return {
+    root: "root",
+    elements: {
+      root: {
+        type: "statusBanner",
+        props: {
+          title: "Error",
+          message: error,
+          tone: "danger",
+        },
+      },
+    },
+  };
+}
 
 export function PageSpecOutlet() {
   const { pathname } = useLocation();
   const { registry } = useJsonRender();
-  const spec = useMemo(() => pageSpecFor(pathname), [pathname]);
-  if (spec) return <Renderer spec={spec} registry={registry} />;
+
+  // Use the dynamic hook for spec resolution
+  const { spec, loading, error, isStatic } = usePluginPageSpec(pathname);
+
+  // Special case: /plugins/:id routes use ProjectedPluginPage
+  const pluginId = useMemo(() => {
+    // Only check for plugin ID if this isn't a static route
+    if (isStatic) return null;
+    return pluginIdFromPath(pathname);
+  }, [pathname, isStatic]);
+
+  // Every branch below renders <Renderer> in the same position. Without a key
+  // that changes with the spec, React reuses one instance across route and
+  // loading/resolved transitions — and since catalog components' hooks live in
+  // the shared ElementRenderer instance, a changed element type at the same
+  // element key changes the hook count and throws React #311. Keying by
+  // branch + route makes each transition a remount.
+
+  // Static spec from PAGE_SPECS
+  if (isStatic && spec) {
+    return <Renderer key={`static:${pathname}`} spec={spec} registry={registry} />;
+  }
+
+  // /plugins/:id routes use ProjectedPluginPage directly
+  if (pluginId) {
+    return <ProjectedPluginPage key={`plugin:${pluginId}`} pluginId={pluginId} />;
+  }
+
+  // Show loading state while fetching dynamic spec
+  if (loading) {
+    return <Renderer key={`loading:${pathname}`} spec={loadingSpec(pathname)} registry={registry} />;
+  }
+
+  // Show error state if fetch failed
+  if (error) {
+    return <Renderer key={`error:${pathname}`} spec={errorSpec(error)} registry={registry} />;
+  }
+
+  // Dynamic spec from plugin ui_surfaces
+  if (spec) {
+    return <Renderer key={`dynamic:${pathname}`} spec={spec} registry={registry} />;
+  }
+
+  // Fallback to React Router outlet
   return <Outlet />;
 }

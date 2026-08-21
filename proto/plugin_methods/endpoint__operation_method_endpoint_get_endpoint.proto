@@ -15,7 +15,7 @@ message GetEndpointInput {
 }
 
 message GetEndpointOutput {
-  google.protobuf.Value endpoint = 1;
+  google.protobuf.Value endpoint = 414707842;
 }
 
 service GetEndpointService {

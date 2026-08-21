@@ -25,11 +25,15 @@ export interface MemoryRetrieveInput {
  */
 export interface MemoryRetrieveOutput {
     /**
-     * @generated from protobuf field: string namespace = 1
+     * @generated from protobuf field: string namespace = 181303974
      */
     namespace: string;
     /**
-     * @generated from protobuf field: string value = 2
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string value = 39769036
      */
     value: string;
 }
@@ -75,13 +79,15 @@ export const MemoryRetrieveInput = new MemoryRetrieveInput$Type();
 class MemoryRetrieveOutput$Type extends MessageType<MemoryRetrieveOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.memory_retrieve.MemoryRetrieveOutput", [
-            { no: 1, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 181303974, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 39769036, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<MemoryRetrieveOutput>): MemoryRetrieveOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.namespace = "";
+        message.success = false;
         message.value = "";
         if (value !== undefined)
             reflectionMergePartial<MemoryRetrieveOutput>(this, message, value);
@@ -92,10 +98,13 @@ class MemoryRetrieveOutput$Type extends MessageType<MemoryRetrieveOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string namespace */ 1:
+                case /* string namespace */ 181303974:
                     message.namespace = reader.string();
                     break;
-                case /* string value */ 2:
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
+                case /* string value */ 39769036:
                     message.value = reader.string();
                     break;
                 default:
@@ -110,12 +119,15 @@ class MemoryRetrieveOutput$Type extends MessageType<MemoryRetrieveOutput> {
         return message;
     }
     internalBinaryWrite(message: MemoryRetrieveOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string namespace = 1; */
-        if (message.namespace !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.namespace);
-        /* string value = 2; */
+        /* string value = 39769036; */
         if (message.value !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.value);
+            writer.tag(39769036, WireType.LengthDelimited).string(message.value);
+        /* string namespace = 181303974; */
+        if (message.namespace !== "")
+            writer.tag(181303974, WireType.LengthDelimited).string(message.namespace);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

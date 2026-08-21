@@ -26,7 +26,7 @@ export interface ListComponentsInput {
  */
 export interface ListComponentsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value components = 1
+     * @generated from protobuf field: repeated google.protobuf.Value components = 469045609
      */
     components: Value[];
 }
@@ -72,7 +72,7 @@ export const ListComponentsInput = new ListComponentsInput$Type();
 class ListComponentsOutput$Type extends MessageType<ListComponentsOutput> {
     constructor() {
         super("operation.method.json_render.list_components.ListComponentsOutput", [
-            { no: 1, name: "components", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 469045609, name: "components", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListComponentsOutput>): ListComponentsOutput {
@@ -87,7 +87,7 @@ class ListComponentsOutput$Type extends MessageType<ListComponentsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value components */ 1:
+                case /* repeated google.protobuf.Value components */ 469045609:
                     message.components.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListComponentsOutput$Type extends MessageType<ListComponentsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListComponentsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value components = 1; */
+        /* repeated google.protobuf.Value components = 469045609; */
         for (let i = 0; i < message.components.length; i++)
-            Value.internalBinaryWrite(message.components[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.components[i], writer.tag(469045609, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

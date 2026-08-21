@@ -18,19 +18,19 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface BindInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: string path = 2
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
     /**
-     * @generated from protobuf field: repeated int64 ports = 3
+     * @generated from protobuf field: repeated int64 ports = 487171413
      */
     ports: string[];
     /**
-     * @generated from protobuf field: string protocol = 4
+     * @generated from protobuf field: string protocol = 455607740
      */
     protocol: string;
 }
@@ -38,15 +38,19 @@ export interface BindInput {
  * @generated from protobuf message operation.method.unix_socket.bind.BindOutput
  */
 export interface BindOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class BindInput$Type extends MessageType<BindInput> {
     constructor() {
         super("operation.method.unix_socket.bind.BindInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "ports", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "protocol", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 487171413, name: "ports", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 3 /*ScalarType.INT64*/ },
+            { no: 455607740, name: "protocol", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<BindInput>): BindInput {
@@ -64,20 +68,20 @@ class BindInput$Type extends MessageType<BindInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* string path */ 2:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
-                case /* repeated int64 ports */ 3:
+                case /* repeated int64 ports */ 487171413:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
                             message.ports.push(reader.int64().toString());
                     else
                         message.ports.push(reader.int64().toString());
                     break;
-                case /* string protocol */ 4:
+                case /* string protocol */ 455607740:
                     message.protocol = reader.string();
                     break;
                 default:
@@ -92,22 +96,22 @@ class BindInput$Type extends MessageType<BindInput> {
         return message;
     }
     internalBinaryWrite(message: BindInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
-        if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* string path = 2; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.path);
-        /* repeated int64 ports = 3; */
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
+        /* string name = 221887978; */
+        if (message.name !== "")
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string protocol = 455607740; */
+        if (message.protocol !== "")
+            writer.tag(455607740, WireType.LengthDelimited).string(message.protocol);
+        /* repeated int64 ports = 487171413; */
         if (message.ports.length) {
-            writer.tag(3, WireType.LengthDelimited).fork();
+            writer.tag(487171413, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.ports.length; i++)
                 writer.int64(message.ports[i]);
             writer.join();
         }
-        /* string protocol = 4; */
-        if (message.protocol !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.protocol);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -121,10 +125,13 @@ export const BindInput = new BindInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class BindOutput$Type extends MessageType<BindOutput> {
     constructor() {
-        super("operation.method.unix_socket.bind.BindOutput", []);
+        super("operation.method.unix_socket.bind.BindOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<BindOutput>): BindOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<BindOutput>(this, message, value);
         return message;
@@ -134,6 +141,9 @@ class BindOutput$Type extends MessageType<BindOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -146,6 +156,9 @@ class BindOutput$Type extends MessageType<BindOutput> {
         return message;
     }
     internalBinaryWrite(message: BindOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package operation.method.openflow.get_datapath_health;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetDatapathHealthInput {
+  string bridge = 179832343;
+}
+
+message GetDatapathHealthOutput {
+  string bridge = 179832343;
+  string connection_mode = 344989854;
+  repeated string controllers = 222675197;
+  bool disable_in_band = 243897405;
+  string fail_mode = 153045315;
+  string fallback_cookie = 443922107;
+  bool fallback_normal = 296192755;
+  int64 fallback_priority = 426222614;
+}
+
+service GetDatapathHealthService {
+  // subid: mut.network.openflow.datapath.get_health@v1, capability: openflow.read
+  rpc get_datapath_health(GetDatapathHealthInput) returns (GetDatapathHealthOutput);
+}

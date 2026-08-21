@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.antigravity_chat.get_bridge_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetBridgeStatusInput {
+  // Empty schema object.
+}
+
+message GetBridgeStatusOutput {
+  google.protobuf.Value bridge = 179832343;
+}
+
+service GetBridgeStatusService {
+  // subid: obs.software.antigravity-chat.bridge.status.get@v1, capability: antigravity_chat.read
+  rpc get_bridge_status(GetBridgeStatusInput) returns (GetBridgeStatusOutput);
+}

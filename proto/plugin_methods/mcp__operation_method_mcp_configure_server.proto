@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package operation.method.mcp.configure_server;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ConfigureServerInput {
+  google.protobuf.Value config = 67069640;
+  string server_name = 299484341;
+}
+
+message ConfigureServerOutput {
+  google.protobuf.Value compact_mode = 500279652;
+  google.protobuf.Struct servers = 270861430;
+  google.protobuf.Value tool_groups = 292252616;
+}
+
+service ConfigureServerService {
+  // subid: mut.software.plugin.mcp.server.configure@v1, capability: mcp.write
+  rpc configure_server(ConfigureServerInput) returns (ConfigureServerOutput);
+}

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message DelLinkInput {
-  string name = 1;
+  string name = 221887978;
 }
 
-message DelLinkOutput {}
+message DelLinkOutput {
+  bool success = 442482449;
+}
 
 service DelLinkService {
   // subid: mut.network.rtnetlink.link.del@v1, capability: cap.network.rtnetlink.link.del@v1

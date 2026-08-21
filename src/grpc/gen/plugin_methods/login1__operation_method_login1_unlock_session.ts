@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface UnlockSessionInput {
     /**
-     * @generated from protobuf field: string session_id = 1
+     * @generated from protobuf field: string session_id = 125141221
      */
     sessionId: string;
 }
@@ -26,12 +26,16 @@ export interface UnlockSessionInput {
  * @generated from protobuf message operation.method.login1.unlock_session.UnlockSessionOutput
  */
 export interface UnlockSessionOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UnlockSessionInput$Type extends MessageType<UnlockSessionInput> {
     constructor() {
         super("operation.method.login1.unlock_session.UnlockSessionInput", [
-            { no: 1, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 125141221, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<UnlockSessionInput>): UnlockSessionInput {
@@ -46,7 +50,7 @@ class UnlockSessionInput$Type extends MessageType<UnlockSessionInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string session_id */ 1:
+                case /* string session_id */ 125141221:
                     message.sessionId = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class UnlockSessionInput$Type extends MessageType<UnlockSessionInput> {
         return message;
     }
     internalBinaryWrite(message: UnlockSessionInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string session_id = 1; */
+        /* string session_id = 125141221; */
         if (message.sessionId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.sessionId);
+            writer.tag(125141221, WireType.LengthDelimited).string(message.sessionId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const UnlockSessionInput = new UnlockSessionInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class UnlockSessionOutput$Type extends MessageType<UnlockSessionOutput> {
     constructor() {
-        super("operation.method.login1.unlock_session.UnlockSessionOutput", []);
+        super("operation.method.login1.unlock_session.UnlockSessionOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<UnlockSessionOutput>): UnlockSessionOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UnlockSessionOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class UnlockSessionOutput$Type extends MessageType<UnlockSessionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class UnlockSessionOutput$Type extends MessageType<UnlockSessionOutput> {
         return message;
     }
     internalBinaryWrite(message: UnlockSessionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

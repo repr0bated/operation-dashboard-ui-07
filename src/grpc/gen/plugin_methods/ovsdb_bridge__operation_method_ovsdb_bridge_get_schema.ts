@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetSchemaInput {
     /**
-     * @generated from protobuf field: string db_name = 1
+     * @generated from protobuf field: string db_name = 201204629
      */
     dbName: string;
 }
@@ -26,12 +26,16 @@ export interface GetSchemaInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.get_schema.GetSchemaOutput
  */
 export interface GetSchemaOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetSchemaInput$Type extends MessageType<GetSchemaInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.get_schema.GetSchemaInput", [
-            { no: 1, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 201204629, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetSchemaInput>): GetSchemaInput {
@@ -46,7 +50,7 @@ class GetSchemaInput$Type extends MessageType<GetSchemaInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string db_name */ 1:
+                case /* string db_name */ 201204629:
                     message.dbName = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetSchemaInput$Type extends MessageType<GetSchemaInput> {
         return message;
     }
     internalBinaryWrite(message: GetSchemaInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string db_name = 1; */
+        /* string db_name = 201204629; */
         if (message.dbName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.dbName);
+            writer.tag(201204629, WireType.LengthDelimited).string(message.dbName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetSchemaInput = new GetSchemaInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetSchemaOutput$Type extends MessageType<GetSchemaOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.get_schema.GetSchemaOutput", []);
+        super("operation.method.ovsdb_bridge.get_schema.GetSchemaOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetSchemaOutput>): GetSchemaOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetSchemaOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetSchemaOutput$Type extends MessageType<GetSchemaOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetSchemaOutput$Type extends MessageType<GetSchemaOutput> {
         return message;
     }
     internalBinaryWrite(message: GetSchemaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

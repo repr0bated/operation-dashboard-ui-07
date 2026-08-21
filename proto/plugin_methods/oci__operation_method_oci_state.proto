@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message StateInput {
-  string id = 1;
+  string id = 389573345;
 }
 
-message StateOutput {}
+message StateOutput {
+  bool success = 442482449;
+}
 
 service StateService {
   // subid: obs.container.oci.state.get@v1, capability: cap.container.oci.state.get@v1

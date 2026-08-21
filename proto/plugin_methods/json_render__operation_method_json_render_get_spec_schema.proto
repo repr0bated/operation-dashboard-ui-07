@@ -15,7 +15,7 @@ message GetSpecSchemaInput {
 }
 
 message GetSpecSchemaOutput {
-  google.protobuf.Value spec_contract = 1;
+  google.protobuf.Value spec_contract = 496849348;
 }
 
 service GetSpecSchemaService {

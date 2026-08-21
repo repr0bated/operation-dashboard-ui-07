@@ -15,7 +15,7 @@ message ListRegistrationsInput {
 }
 
 message ListRegistrationsOutput {
-  repeated google.protobuf.Value registrations = 1;
+  repeated google.protobuf.Value registrations = 210525270;
 }
 
 service ListRegistrationsService {

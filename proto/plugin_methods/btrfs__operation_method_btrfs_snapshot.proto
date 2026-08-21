@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message SnapshotInput {
-  string destination = 1;
-  bool readonly = 2;
-  string source = 3;
+  string destination = 316564676;
+  bool readonly = 235663357;
+  string source = 466561496;
 }
 
-message SnapshotOutput {}
+message SnapshotOutput {
+  bool success = 442482449;
+}
 
 service SnapshotService {
   // subid: mut.storage.btrfs.snapshot.create@v1, capability: cap.storage.btrfs.snapshot.create@v1

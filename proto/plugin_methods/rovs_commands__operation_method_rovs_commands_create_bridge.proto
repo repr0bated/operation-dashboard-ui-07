@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateBridgeInput {
-  string bridge_name = 1;
-  string datapath_type = 2;
+  string bridge_name = 276920933;
+  string datapath_type = 326195065;
 }
 
-message CreateBridgeOutput {}
+message CreateBridgeOutput {
+  bool success = 442482449;
+}
 
 service CreateBridgeService {
   // subid: mut.network.ovsdb.bridge.create@v1, capability: cap.network.ovsdb.bridge.create@v1

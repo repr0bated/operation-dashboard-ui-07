@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ApplyInterfaceInput {
-  google.protobuf.Value interface = 1;
+  google.protobuf.Value interface = 82465076;
 }
 
-message ApplyInterfaceOutput {}
+message ApplyInterfaceOutput {
+  bool success = 442482449;
+}
 
 service ApplyInterfaceService {
   // subid: mut.network.interface.apply@v1, capability: cap.network.interface.apply@v1

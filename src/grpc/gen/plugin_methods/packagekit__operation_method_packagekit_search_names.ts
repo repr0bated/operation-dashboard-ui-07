@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SearchNamesInput {
     /**
-     * @generated from protobuf field: int64 filter = 1
+     * @generated from protobuf field: int64 filter = 132212861
      */
     filter: string;
     /**
-     * @generated from protobuf field: repeated string values = 2
+     * @generated from protobuf field: repeated string values = 340216892
      */
     values: string[];
 }
@@ -30,13 +30,17 @@ export interface SearchNamesInput {
  * @generated from protobuf message operation.method.packagekit.search_names.SearchNamesOutput
  */
 export interface SearchNamesOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SearchNamesInput$Type extends MessageType<SearchNamesInput> {
     constructor() {
         super("operation.method.packagekit.search_names.SearchNamesInput", [
-            { no: 1, name: "filter", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "values", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 132212861, name: "filter", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 340216892, name: "values", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SearchNamesInput>): SearchNamesInput {
@@ -52,10 +56,10 @@ class SearchNamesInput$Type extends MessageType<SearchNamesInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 filter */ 1:
+                case /* int64 filter */ 132212861:
                     message.filter = reader.int64().toString();
                     break;
-                case /* repeated string values */ 2:
+                case /* repeated string values */ 340216892:
                     message.values.push(reader.string());
                     break;
                 default:
@@ -70,12 +74,12 @@ class SearchNamesInput$Type extends MessageType<SearchNamesInput> {
         return message;
     }
     internalBinaryWrite(message: SearchNamesInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 filter = 1; */
+        /* int64 filter = 132212861; */
         if (message.filter !== "0")
-            writer.tag(1, WireType.Varint).int64(message.filter);
-        /* repeated string values = 2; */
+            writer.tag(132212861, WireType.Varint).int64(message.filter);
+        /* repeated string values = 340216892; */
         for (let i = 0; i < message.values.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.values[i]);
+            writer.tag(340216892, WireType.LengthDelimited).string(message.values[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SearchNamesInput = new SearchNamesInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SearchNamesOutput$Type extends MessageType<SearchNamesOutput> {
     constructor() {
-        super("operation.method.packagekit.search_names.SearchNamesOutput", []);
+        super("operation.method.packagekit.search_names.SearchNamesOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SearchNamesOutput>): SearchNamesOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SearchNamesOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SearchNamesOutput$Type extends MessageType<SearchNamesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SearchNamesOutput$Type extends MessageType<SearchNamesOutput> {
         return message;
     }
     internalBinaryWrite(message: SearchNamesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

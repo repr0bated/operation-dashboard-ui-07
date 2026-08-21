@@ -18,19 +18,19 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CreateBridgeInput {
     /**
-     * @generated from protobuf field: string datapath_type = 1
+     * @generated from protobuf field: string datapath_type = 326195065
      */
     datapathType: string;
     /**
-     * @generated from protobuf field: string fail_mode = 2
+     * @generated from protobuf field: string fail_mode = 153045315
      */
     failMode: string;
     /**
-     * @generated from protobuf field: string name = 3
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: bool stp_enable = 4
+     * @generated from protobuf field: bool stp_enable = 164359508
      */
     stpEnable: boolean;
 }
@@ -38,15 +38,19 @@ export interface CreateBridgeInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.create_bridge.CreateBridgeOutput
  */
 export interface CreateBridgeOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateBridgeInput$Type extends MessageType<CreateBridgeInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.create_bridge.CreateBridgeInput", [
-            { no: 1, name: "datapath_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "fail_mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "stp_enable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 326195065, name: "datapath_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 153045315, name: "fail_mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 164359508, name: "stp_enable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<CreateBridgeInput>): CreateBridgeInput {
@@ -64,16 +68,16 @@ class CreateBridgeInput$Type extends MessageType<CreateBridgeInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string datapath_type */ 1:
+                case /* string datapath_type */ 326195065:
                     message.datapathType = reader.string();
                     break;
-                case /* string fail_mode */ 2:
+                case /* string fail_mode */ 153045315:
                     message.failMode = reader.string();
                     break;
-                case /* string name */ 3:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* bool stp_enable */ 4:
+                case /* bool stp_enable */ 164359508:
                     message.stpEnable = reader.bool();
                     break;
                 default:
@@ -88,18 +92,18 @@ class CreateBridgeInput$Type extends MessageType<CreateBridgeInput> {
         return message;
     }
     internalBinaryWrite(message: CreateBridgeInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string datapath_type = 1; */
-        if (message.datapathType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.datapathType);
-        /* string fail_mode = 2; */
+        /* string fail_mode = 153045315; */
         if (message.failMode !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.failMode);
-        /* string name = 3; */
-        if (message.name !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.name);
-        /* bool stp_enable = 4; */
+            writer.tag(153045315, WireType.LengthDelimited).string(message.failMode);
+        /* bool stp_enable = 164359508; */
         if (message.stpEnable !== false)
-            writer.tag(4, WireType.Varint).bool(message.stpEnable);
+            writer.tag(164359508, WireType.Varint).bool(message.stpEnable);
+        /* string name = 221887978; */
+        if (message.name !== "")
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string datapath_type = 326195065; */
+        if (message.datapathType !== "")
+            writer.tag(326195065, WireType.LengthDelimited).string(message.datapathType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -113,10 +117,13 @@ export const CreateBridgeInput = new CreateBridgeInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateBridgeOutput$Type extends MessageType<CreateBridgeOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.create_bridge.CreateBridgeOutput", []);
+        super("operation.method.ovsdb_bridge.create_bridge.CreateBridgeOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateBridgeOutput>): CreateBridgeOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateBridgeOutput>(this, message, value);
         return message;
@@ -126,6 +133,9 @@ class CreateBridgeOutput$Type extends MessageType<CreateBridgeOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -138,6 +148,9 @@ class CreateBridgeOutput$Type extends MessageType<CreateBridgeOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateBridgeOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

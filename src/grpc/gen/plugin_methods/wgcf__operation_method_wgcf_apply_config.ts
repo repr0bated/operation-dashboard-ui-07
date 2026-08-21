@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ApplyConfigInput {
     /**
-     * @generated from protobuf field: string config = 1
+     * @generated from protobuf field: string config = 67069640
      */
     config: string;
     /**
-     * @generated from protobuf field: bool immediate = 2
+     * @generated from protobuf field: bool immediate = 305276545
      */
     immediate: boolean;
 }
@@ -30,13 +30,17 @@ export interface ApplyConfigInput {
  * @generated from protobuf message operation.method.wgcf.apply_config.ApplyConfigOutput
  */
 export interface ApplyConfigOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ApplyConfigInput$Type extends MessageType<ApplyConfigInput> {
     constructor() {
         super("operation.method.wgcf.apply_config.ApplyConfigInput", [
-            { no: 1, name: "config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "immediate", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 67069640, name: "config", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 305276545, name: "immediate", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ApplyConfigInput>): ApplyConfigInput {
@@ -52,10 +56,10 @@ class ApplyConfigInput$Type extends MessageType<ApplyConfigInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string config */ 1:
+                case /* string config */ 67069640:
                     message.config = reader.string();
                     break;
-                case /* bool immediate */ 2:
+                case /* bool immediate */ 305276545:
                     message.immediate = reader.bool();
                     break;
                 default:
@@ -70,12 +74,12 @@ class ApplyConfigInput$Type extends MessageType<ApplyConfigInput> {
         return message;
     }
     internalBinaryWrite(message: ApplyConfigInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string config = 1; */
+        /* string config = 67069640; */
         if (message.config !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.config);
-        /* bool immediate = 2; */
+            writer.tag(67069640, WireType.LengthDelimited).string(message.config);
+        /* bool immediate = 305276545; */
         if (message.immediate !== false)
-            writer.tag(2, WireType.Varint).bool(message.immediate);
+            writer.tag(305276545, WireType.Varint).bool(message.immediate);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const ApplyConfigInput = new ApplyConfigInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ApplyConfigOutput$Type extends MessageType<ApplyConfigOutput> {
     constructor() {
-        super("operation.method.wgcf.apply_config.ApplyConfigOutput", []);
+        super("operation.method.wgcf.apply_config.ApplyConfigOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ApplyConfigOutput>): ApplyConfigOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ApplyConfigOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class ApplyConfigOutput$Type extends MessageType<ApplyConfigOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class ApplyConfigOutput$Type extends MessageType<ApplyConfigOutput> {
         return message;
     }
     internalBinaryWrite(message: ApplyConfigOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

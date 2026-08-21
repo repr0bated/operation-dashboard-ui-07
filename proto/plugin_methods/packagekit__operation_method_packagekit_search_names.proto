@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SearchNamesInput {
-  int64 filter = 1;
-  repeated string values = 2;
+  int64 filter = 132212861;
+  repeated string values = 340216892;
 }
 
-message SearchNamesOutput {}
+message SearchNamesOutput {
+  bool success = 442482449;
+}
 
 service SearchNamesService {
   // subid: obs.software.packagekit.names.search@v1, capability: packagekit.read

@@ -14,7 +14,9 @@ message ListPipelinesInput {
   // Empty schema object.
 }
 
-message ListPipelinesOutput {}
+message ListPipelinesOutput {
+  bool success = 442482449;
+}
 
 service ListPipelinesService {
   // subid: obs.service.plugin.notebooklm.pipeline.list@v1, capability: notebooklm.read

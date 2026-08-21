@@ -11,13 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message RunQueryInput {
-  google.protobuf.Struct params = 1;
-  string query = 2;
+  google.protobuf.Struct params = 23029844;
+  string query = 416183786;
 }
 
 message RunQueryOutput {
-  repeated string headers = 1;
-  repeated google.protobuf.Value rows = 2;
+  bool success = 442482449;
 }
 
 service RunQueryService {

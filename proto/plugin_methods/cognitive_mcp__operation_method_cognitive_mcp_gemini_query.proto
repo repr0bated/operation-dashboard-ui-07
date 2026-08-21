@@ -15,8 +15,8 @@ message GeminiQueryInput {
 }
 
 message GeminiQueryOutput {
-  repeated string citations = 1;
-  string response = 2;
+  repeated string citations = 185025707;
+  string response = 425574880;
 }
 
 service GeminiQueryService {

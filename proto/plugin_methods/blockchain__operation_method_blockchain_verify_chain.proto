@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package operation.method.blockchain.verify_chain;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message VerifyChainInput {
+  int64 from_event_id = 185305220;
+  int64 to_event_id = 114977767;
+}
+
+message VerifyChainOutput {
+  repeated string errors = 437762701;
+  int64 events_verified = 282544507;
+  bool valid = 58518131;
+}
+
+service VerifyChainService {
+  // subid: obs.service.blockchain.chain.verify@v1, capability: blockchain.read
+  rpc verify_chain(VerifyChainInput) returns (VerifyChainOutput);
+}

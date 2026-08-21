@@ -14,7 +14,9 @@ message GetLibraryStatsInput {
   // Empty schema object.
 }
 
-message GetLibraryStatsOutput {}
+message GetLibraryStatsOutput {
+  bool success = 442482449;
+}
 
 service GetLibraryStatsService {
   // subid: obs.service.plugin.notebooklm.library.stats@v1, capability: notebooklm.read

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package operation.method.compact_mcp.get_current_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetCurrentConfigInput {
+  // Empty schema object.
+}
+
+message GetCurrentConfigOutput {
+  string http = 157567147;
+  string log_level = 275484426;
+  string mode = 208592921;
+  bool stdio = 64688399;
+  string wg_interface = 245570443;
+  string ws = 239573409;
+}
+
+service GetCurrentConfigService {
+  // subid: obs.software.plugin.compact-mcp.config.get@v1, capability: compact_mcp.read
+  rpc get_current_config(GetCurrentConfigInput) returns (GetCurrentConfigOutput);
+}

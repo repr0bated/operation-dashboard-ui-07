@@ -4,9 +4,9 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
-import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
 import type { IBinaryReader } from "@protobuf-ts/runtime";
 import { UnknownFieldHandler } from "@protobuf-ts/runtime";
@@ -14,33 +14,28 @@ import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 /**
+ * Empty schema object.
+ *
  * @generated from protobuf message operation.method.ctl_plane_chatbot.vectorize.VectorizeInput
  */
 export interface VectorizeInput {
-    /**
-     * @generated from protobuf field: string episode_id = 1
-     */
-    episodeId: string;
 }
 /**
  * @generated from protobuf message operation.method.ctl_plane_chatbot.vectorize.VectorizeOutput
  */
 export interface VectorizeOutput {
     /**
-     * @generated from protobuf field: string vector_id = 1
+     * @generated from protobuf field: string vector_id = 294791473
      */
     vectorId: string;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class VectorizeInput$Type extends MessageType<VectorizeInput> {
     constructor() {
-        super("operation.method.ctl_plane_chatbot.vectorize.VectorizeInput", [
-            { no: 1, name: "episode_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
+        super("operation.method.ctl_plane_chatbot.vectorize.VectorizeInput", []);
     }
     create(value?: PartialMessage<VectorizeInput>): VectorizeInput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.episodeId = "";
         if (value !== undefined)
             reflectionMergePartial<VectorizeInput>(this, message, value);
         return message;
@@ -50,9 +45,6 @@ class VectorizeInput$Type extends MessageType<VectorizeInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string episode_id */ 1:
-                    message.episodeId = reader.string();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -65,9 +57,6 @@ class VectorizeInput$Type extends MessageType<VectorizeInput> {
         return message;
     }
     internalBinaryWrite(message: VectorizeInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string episode_id = 1; */
-        if (message.episodeId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.episodeId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -82,7 +71,7 @@ export const VectorizeInput = new VectorizeInput$Type();
 class VectorizeOutput$Type extends MessageType<VectorizeOutput> {
     constructor() {
         super("operation.method.ctl_plane_chatbot.vectorize.VectorizeOutput", [
-            { no: 1, name: "vector_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 294791473, name: "vector_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<VectorizeOutput>): VectorizeOutput {
@@ -97,7 +86,7 @@ class VectorizeOutput$Type extends MessageType<VectorizeOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string vector_id */ 1:
+                case /* string vector_id */ 294791473:
                     message.vectorId = reader.string();
                     break;
                 default:
@@ -112,9 +101,9 @@ class VectorizeOutput$Type extends MessageType<VectorizeOutput> {
         return message;
     }
     internalBinaryWrite(message: VectorizeOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string vector_id = 1; */
+        /* string vector_id = 294791473; */
         if (message.vectorId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.vectorId);
+            writer.tag(294791473, WireType.LengthDelimited).string(message.vectorId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

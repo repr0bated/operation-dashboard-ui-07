@@ -11,13 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetEntryInput {
-  string key = 1;
-  string namespace = 2;
+  string key = 135645295;
+  string namespace = 181303974;
 }
 
 message GetEntryOutput {
-  bool found = 1;
-  google.protobuf.Value value = 2;
+  bool found = 83852194;
+  google.protobuf.Value value = 39769036;
 }
 
 service GetEntryService {

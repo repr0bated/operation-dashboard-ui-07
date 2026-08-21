@@ -11,13 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateBridgeInput {
-  string datapath_type = 1;
-  string fail_mode = 2;
-  string name = 3;
-  bool stp_enable = 4;
+  string datapath_type = 326195065;
+  string fail_mode = 153045315;
+  string name = 221887978;
+  bool stp_enable = 164359508;
 }
 
-message CreateBridgeOutput {}
+message CreateBridgeOutput {
+  bool success = 442482449;
+}
 
 service CreateBridgeService {
   // subid: mut.network.ovsdb.bridge.create@v1, capability: ovsdb.write

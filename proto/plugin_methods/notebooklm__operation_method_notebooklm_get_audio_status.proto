@@ -14,7 +14,9 @@ message GetAudioStatusInput {
   // Empty schema object.
 }
 
-message GetAudioStatusOutput {}
+message GetAudioStatusOutput {
+  bool success = 442482449;
+}
 
 service GetAudioStatusService {
   // subid: obs.service.plugin.notebooklm.studio.audio.status@v1, capability: notebooklm.read

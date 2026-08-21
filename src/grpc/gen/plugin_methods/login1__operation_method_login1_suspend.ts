@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SuspendInput {
     /**
-     * @generated from protobuf field: bool interactive = 1
+     * @generated from protobuf field: bool interactive = 520087662
      */
     interactive: boolean;
 }
@@ -26,12 +26,16 @@ export interface SuspendInput {
  * @generated from protobuf message operation.method.login1.suspend.SuspendOutput
  */
 export interface SuspendOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SuspendInput$Type extends MessageType<SuspendInput> {
     constructor() {
         super("operation.method.login1.suspend.SuspendInput", [
-            { no: 1, name: "interactive", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 520087662, name: "interactive", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<SuspendInput>): SuspendInput {
@@ -46,7 +50,7 @@ class SuspendInput$Type extends MessageType<SuspendInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool interactive */ 1:
+                case /* bool interactive */ 520087662:
                     message.interactive = reader.bool();
                     break;
                 default:
@@ -61,9 +65,9 @@ class SuspendInput$Type extends MessageType<SuspendInput> {
         return message;
     }
     internalBinaryWrite(message: SuspendInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool interactive = 1; */
+        /* bool interactive = 520087662; */
         if (message.interactive !== false)
-            writer.tag(1, WireType.Varint).bool(message.interactive);
+            writer.tag(520087662, WireType.Varint).bool(message.interactive);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const SuspendInput = new SuspendInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SuspendOutput$Type extends MessageType<SuspendOutput> {
     constructor() {
-        super("operation.method.login1.suspend.SuspendOutput", []);
+        super("operation.method.login1.suspend.SuspendOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SuspendOutput>): SuspendOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SuspendOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class SuspendOutput$Type extends MessageType<SuspendOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class SuspendOutput$Type extends MessageType<SuspendOutput> {
         return message;
     }
     internalBinaryWrite(message: SuspendOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

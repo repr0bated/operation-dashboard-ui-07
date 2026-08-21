@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CreateUnixSocketInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: repeated int64 ports = 2
+     * @generated from protobuf field: repeated int64 ports = 487171413
      */
     ports: string[];
 }
@@ -30,13 +30,17 @@ export interface CreateUnixSocketInput {
  * @generated from protobuf message operation.method.shared_unix_socket.create_unix_socket.CreateUnixSocketOutput
  */
 export interface CreateUnixSocketOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateUnixSocketInput$Type extends MessageType<CreateUnixSocketInput> {
     constructor() {
         super("operation.method.shared_unix_socket.create_unix_socket.CreateUnixSocketInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "ports", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 3 /*ScalarType.INT64*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 487171413, name: "ports", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<CreateUnixSocketInput>): CreateUnixSocketInput {
@@ -52,10 +56,10 @@ class CreateUnixSocketInput$Type extends MessageType<CreateUnixSocketInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* repeated int64 ports */ 2:
+                case /* repeated int64 ports */ 487171413:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
                             message.ports.push(reader.int64().toString());
@@ -74,12 +78,12 @@ class CreateUnixSocketInput$Type extends MessageType<CreateUnixSocketInput> {
         return message;
     }
     internalBinaryWrite(message: CreateUnixSocketInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* repeated int64 ports = 2; */
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* repeated int64 ports = 487171413; */
         if (message.ports.length) {
-            writer.tag(2, WireType.LengthDelimited).fork();
+            writer.tag(487171413, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.ports.length; i++)
                 writer.int64(message.ports[i]);
             writer.join();
@@ -97,10 +101,13 @@ export const CreateUnixSocketInput = new CreateUnixSocketInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateUnixSocketOutput$Type extends MessageType<CreateUnixSocketOutput> {
     constructor() {
-        super("operation.method.shared_unix_socket.create_unix_socket.CreateUnixSocketOutput", []);
+        super("operation.method.shared_unix_socket.create_unix_socket.CreateUnixSocketOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateUnixSocketOutput>): CreateUnixSocketOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateUnixSocketOutput>(this, message, value);
         return message;
@@ -110,6 +117,9 @@ class CreateUnixSocketOutput$Type extends MessageType<CreateUnixSocketOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -122,6 +132,9 @@ class CreateUnixSocketOutput$Type extends MessageType<CreateUnixSocketOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateUnixSocketOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,13 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message ValidateSpecInput {
-  google.protobuf.Value spec = 1;
-  bool strict = 2;
+  google.protobuf.Value spec = 200722366;
+  bool strict = 80229749;
 }
 
 message ValidateSpecOutput {
-  repeated string issues = 1;
-  bool valid = 2;
+  repeated string issues = 443546700;
+  bool valid = 58518131;
 }
 
 service ValidateSpecService {

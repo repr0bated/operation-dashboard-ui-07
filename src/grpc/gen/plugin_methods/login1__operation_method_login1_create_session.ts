@@ -19,59 +19,59 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface CreateSessionInput {
     /**
-     * @generated from protobuf field: string class = 1
+     * @generated from protobuf field: string class = 188615684
      */
     class: string;
     /**
-     * @generated from protobuf field: string desktop = 2
+     * @generated from protobuf field: string desktop = 494962617
      */
     desktop: string;
     /**
-     * @generated from protobuf field: string display = 3
+     * @generated from protobuf field: string display = 90830615
      */
     display: string;
     /**
-     * @generated from protobuf field: int64 pid = 4
+     * @generated from protobuf field: int64 pid = 155254053
      */
     pid: string;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Struct properties = 5
+     * @generated from protobuf field: repeated google.protobuf.Struct properties = 299789532
      */
     properties: Struct[];
     /**
-     * @generated from protobuf field: bool remote = 6
+     * @generated from protobuf field: bool remote = 126712153
      */
     remote: boolean;
     /**
-     * @generated from protobuf field: string remote_host = 7
+     * @generated from protobuf field: string remote_host = 4961786
      */
     remoteHost: string;
     /**
-     * @generated from protobuf field: string remote_user = 8
+     * @generated from protobuf field: string remote_user = 531389166
      */
     remoteUser: string;
     /**
-     * @generated from protobuf field: string seat_id = 9
+     * @generated from protobuf field: string seat_id = 14173556
      */
     seatId: string;
     /**
-     * @generated from protobuf field: string service = 10
+     * @generated from protobuf field: string service = 383770214
      */
     service: string;
     /**
-     * @generated from protobuf field: string tty = 11
+     * @generated from protobuf field: string tty = 271265257
      */
     tty: string;
     /**
-     * @generated from protobuf field: string type_ = 12
+     * @generated from protobuf field: string type_ = 333479772
      */
     type: string;
     /**
-     * @generated from protobuf field: int64 uid = 13
+     * @generated from protobuf field: int64 uid = 482862799
      */
     uid: string;
     /**
-     * @generated from protobuf field: int64 vtnr = 14
+     * @generated from protobuf field: int64 vtnr = 278650428
      */
     vtnr: string;
 }
@@ -79,25 +79,29 @@ export interface CreateSessionInput {
  * @generated from protobuf message operation.method.login1.create_session.CreateSessionOutput
  */
 export interface CreateSessionOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateSessionInput$Type extends MessageType<CreateSessionInput> {
     constructor() {
         super("operation.method.login1.create_session.CreateSessionInput", [
-            { no: 1, name: "class", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "desktop", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "display", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "pid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "properties", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Struct },
-            { no: 6, name: "remote", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 7, name: "remote_host", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 8, name: "remote_user", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 9, name: "seat_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 10, name: "service", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 11, name: "tty", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 12, name: "type_", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 13, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 14, name: "vtnr", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 188615684, name: "class", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 494962617, name: "desktop", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 90830615, name: "display", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 155254053, name: "pid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 299789532, name: "properties", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Struct },
+            { no: 126712153, name: "remote", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 4961786, name: "remote_host", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 531389166, name: "remote_user", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 14173556, name: "seat_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 383770214, name: "service", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 271265257, name: "tty", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 333479772, name: "type_", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 482862799, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 278650428, name: "vtnr", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<CreateSessionInput>): CreateSessionInput {
@@ -125,46 +129,46 @@ class CreateSessionInput$Type extends MessageType<CreateSessionInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string class */ 1:
+                case /* string class */ 188615684:
                     message.class = reader.string();
                     break;
-                case /* string desktop */ 2:
+                case /* string desktop */ 494962617:
                     message.desktop = reader.string();
                     break;
-                case /* string display */ 3:
+                case /* string display */ 90830615:
                     message.display = reader.string();
                     break;
-                case /* int64 pid */ 4:
+                case /* int64 pid */ 155254053:
                     message.pid = reader.int64().toString();
                     break;
-                case /* repeated google.protobuf.Struct properties */ 5:
+                case /* repeated google.protobuf.Struct properties */ 299789532:
                     message.properties.push(Struct.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* bool remote */ 6:
+                case /* bool remote */ 126712153:
                     message.remote = reader.bool();
                     break;
-                case /* string remote_host */ 7:
+                case /* string remote_host */ 4961786:
                     message.remoteHost = reader.string();
                     break;
-                case /* string remote_user */ 8:
+                case /* string remote_user */ 531389166:
                     message.remoteUser = reader.string();
                     break;
-                case /* string seat_id */ 9:
+                case /* string seat_id */ 14173556:
                     message.seatId = reader.string();
                     break;
-                case /* string service */ 10:
+                case /* string service */ 383770214:
                     message.service = reader.string();
                     break;
-                case /* string tty */ 11:
+                case /* string tty */ 271265257:
                     message.tty = reader.string();
                     break;
-                case /* string type_ */ 12:
+                case /* string type_ */ 333479772:
                     message.type = reader.string();
                     break;
-                case /* int64 uid */ 13:
+                case /* int64 uid */ 482862799:
                     message.uid = reader.int64().toString();
                     break;
-                case /* int64 vtnr */ 14:
+                case /* int64 vtnr */ 278650428:
                     message.vtnr = reader.int64().toString();
                     break;
                 default:
@@ -179,48 +183,48 @@ class CreateSessionInput$Type extends MessageType<CreateSessionInput> {
         return message;
     }
     internalBinaryWrite(message: CreateSessionInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string class = 1; */
-        if (message.class !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.class);
-        /* string desktop = 2; */
-        if (message.desktop !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.desktop);
-        /* string display = 3; */
-        if (message.display !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.display);
-        /* int64 pid = 4; */
-        if (message.pid !== "0")
-            writer.tag(4, WireType.Varint).int64(message.pid);
-        /* repeated google.protobuf.Struct properties = 5; */
-        for (let i = 0; i < message.properties.length; i++)
-            Struct.internalBinaryWrite(message.properties[i], writer.tag(5, WireType.LengthDelimited).fork(), options).join();
-        /* bool remote = 6; */
-        if (message.remote !== false)
-            writer.tag(6, WireType.Varint).bool(message.remote);
-        /* string remote_host = 7; */
+        /* string remote_host = 4961786; */
         if (message.remoteHost !== "")
-            writer.tag(7, WireType.LengthDelimited).string(message.remoteHost);
-        /* string remote_user = 8; */
-        if (message.remoteUser !== "")
-            writer.tag(8, WireType.LengthDelimited).string(message.remoteUser);
-        /* string seat_id = 9; */
+            writer.tag(4961786, WireType.LengthDelimited).string(message.remoteHost);
+        /* string seat_id = 14173556; */
         if (message.seatId !== "")
-            writer.tag(9, WireType.LengthDelimited).string(message.seatId);
-        /* string service = 10; */
-        if (message.service !== "")
-            writer.tag(10, WireType.LengthDelimited).string(message.service);
-        /* string tty = 11; */
+            writer.tag(14173556, WireType.LengthDelimited).string(message.seatId);
+        /* string display = 90830615; */
+        if (message.display !== "")
+            writer.tag(90830615, WireType.LengthDelimited).string(message.display);
+        /* bool remote = 126712153; */
+        if (message.remote !== false)
+            writer.tag(126712153, WireType.Varint).bool(message.remote);
+        /* int64 pid = 155254053; */
+        if (message.pid !== "0")
+            writer.tag(155254053, WireType.Varint).int64(message.pid);
+        /* string class = 188615684; */
+        if (message.class !== "")
+            writer.tag(188615684, WireType.LengthDelimited).string(message.class);
+        /* string tty = 271265257; */
         if (message.tty !== "")
-            writer.tag(11, WireType.LengthDelimited).string(message.tty);
-        /* string type_ = 12; */
-        if (message.type !== "")
-            writer.tag(12, WireType.LengthDelimited).string(message.type);
-        /* int64 uid = 13; */
-        if (message.uid !== "0")
-            writer.tag(13, WireType.Varint).int64(message.uid);
-        /* int64 vtnr = 14; */
+            writer.tag(271265257, WireType.LengthDelimited).string(message.tty);
+        /* int64 vtnr = 278650428; */
         if (message.vtnr !== "0")
-            writer.tag(14, WireType.Varint).int64(message.vtnr);
+            writer.tag(278650428, WireType.Varint).int64(message.vtnr);
+        /* repeated google.protobuf.Struct properties = 299789532; */
+        for (let i = 0; i < message.properties.length; i++)
+            Struct.internalBinaryWrite(message.properties[i], writer.tag(299789532, WireType.LengthDelimited).fork(), options).join();
+        /* string type_ = 333479772; */
+        if (message.type !== "")
+            writer.tag(333479772, WireType.LengthDelimited).string(message.type);
+        /* string service = 383770214; */
+        if (message.service !== "")
+            writer.tag(383770214, WireType.LengthDelimited).string(message.service);
+        /* int64 uid = 482862799; */
+        if (message.uid !== "0")
+            writer.tag(482862799, WireType.Varint).int64(message.uid);
+        /* string desktop = 494962617; */
+        if (message.desktop !== "")
+            writer.tag(494962617, WireType.LengthDelimited).string(message.desktop);
+        /* string remote_user = 531389166; */
+        if (message.remoteUser !== "")
+            writer.tag(531389166, WireType.LengthDelimited).string(message.remoteUser);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -234,10 +238,13 @@ export const CreateSessionInput = new CreateSessionInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateSessionOutput$Type extends MessageType<CreateSessionOutput> {
     constructor() {
-        super("operation.method.login1.create_session.CreateSessionOutput", []);
+        super("operation.method.login1.create_session.CreateSessionOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateSessionOutput>): CreateSessionOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateSessionOutput>(this, message, value);
         return message;
@@ -247,6 +254,9 @@ class CreateSessionOutput$Type extends MessageType<CreateSessionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -259,6 +269,9 @@ class CreateSessionOutput$Type extends MessageType<CreateSessionOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateSessionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

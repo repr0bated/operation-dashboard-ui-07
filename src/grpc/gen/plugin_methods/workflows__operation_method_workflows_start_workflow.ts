@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface StartWorkflowInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value params = 1
+     * @generated from protobuf field: google.protobuf.Value params = 23029844
      */
     params?: Value;
     /**
-     * @generated from protobuf field: string workflow_id = 2
+     * @generated from protobuf field: string workflow_id = 280387507
      */
     workflowId: string;
 }
@@ -31,13 +31,17 @@ export interface StartWorkflowInput {
  * @generated from protobuf message operation.method.workflows.start_workflow.StartWorkflowOutput
  */
 export interface StartWorkflowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class StartWorkflowInput$Type extends MessageType<StartWorkflowInput> {
     constructor() {
         super("operation.method.workflows.start_workflow.StartWorkflowInput", [
-            { no: 1, name: "params", kind: "message", T: () => Value },
-            { no: 2, name: "workflow_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 23029844, name: "params", kind: "message", T: () => Value },
+            { no: 280387507, name: "workflow_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<StartWorkflowInput>): StartWorkflowInput {
@@ -52,10 +56,10 @@ class StartWorkflowInput$Type extends MessageType<StartWorkflowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value params */ 1:
+                case /* google.protobuf.Value params */ 23029844:
                     message.params = Value.internalBinaryRead(reader, reader.uint32(), options, message.params);
                     break;
-                case /* string workflow_id */ 2:
+                case /* string workflow_id */ 280387507:
                     message.workflowId = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class StartWorkflowInput$Type extends MessageType<StartWorkflowInput> {
         return message;
     }
     internalBinaryWrite(message: StartWorkflowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value params = 1; */
+        /* google.protobuf.Value params = 23029844; */
         if (message.params)
-            Value.internalBinaryWrite(message.params, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string workflow_id = 2; */
+            Value.internalBinaryWrite(message.params, writer.tag(23029844, WireType.LengthDelimited).fork(), options).join();
+        /* string workflow_id = 280387507; */
         if (message.workflowId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.workflowId);
+            writer.tag(280387507, WireType.LengthDelimited).string(message.workflowId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const StartWorkflowInput = new StartWorkflowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class StartWorkflowOutput$Type extends MessageType<StartWorkflowOutput> {
     constructor() {
-        super("operation.method.workflows.start_workflow.StartWorkflowOutput", []);
+        super("operation.method.workflows.start_workflow.StartWorkflowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<StartWorkflowOutput>): StartWorkflowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<StartWorkflowOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class StartWorkflowOutput$Type extends MessageType<StartWorkflowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class StartWorkflowOutput$Type extends MessageType<StartWorkflowOutput> {
         return message;
     }
     internalBinaryWrite(message: StartWorkflowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

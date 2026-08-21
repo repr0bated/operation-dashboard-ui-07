@@ -14,7 +14,9 @@ message StreamGenerateInput {
   // Empty schema object.
 }
 
-message StreamGenerateOutput {}
+message StreamGenerateOutput {
+  bool success = 442482449;
+}
 
 service StreamGenerateService {
   // subid: mut.service.llm.stream@v1, capability: llm.invoke

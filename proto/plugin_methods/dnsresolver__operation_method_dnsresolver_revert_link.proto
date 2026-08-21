@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message RevertLinkInput {
-  int64 ifindex = 1;
+  int64 ifindex = 394788143;
 }
 
-message RevertLinkOutput {}
+message RevertLinkOutput {
+  bool success = 442482449;
+}
 
 service RevertLinkService {
   // subid: mut.software.dnsresolver.link.revert@v1, capability: dnsresolver.write

@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RemovePeerInput {
     /**
-     * @generated from protobuf field: string interface = 1
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
     /**
-     * @generated from protobuf field: string public_key = 2
+     * @generated from protobuf field: string public_key = 411046603
      */
     publicKey: string;
 }
@@ -30,13 +30,17 @@ export interface RemovePeerInput {
  * @generated from protobuf message operation.method.wireguard.remove_peer.RemovePeerOutput
  */
 export interface RemovePeerOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RemovePeerInput$Type extends MessageType<RemovePeerInput> {
     constructor() {
         super("operation.method.wireguard.remove_peer.RemovePeerInput", [
-            { no: 1, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 411046603, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RemovePeerInput>): RemovePeerInput {
@@ -52,10 +56,10 @@ class RemovePeerInput$Type extends MessageType<RemovePeerInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string interface */ 1:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
-                case /* string public_key */ 2:
+                case /* string public_key */ 411046603:
                     message.publicKey = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class RemovePeerInput$Type extends MessageType<RemovePeerInput> {
         return message;
     }
     internalBinaryWrite(message: RemovePeerInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string interface = 1; */
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.interface);
-        /* string public_key = 2; */
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
+        /* string public_key = 411046603; */
         if (message.publicKey !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.publicKey);
+            writer.tag(411046603, WireType.LengthDelimited).string(message.publicKey);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const RemovePeerInput = new RemovePeerInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RemovePeerOutput$Type extends MessageType<RemovePeerOutput> {
     constructor() {
-        super("operation.method.wireguard.remove_peer.RemovePeerOutput", []);
+        super("operation.method.wireguard.remove_peer.RemovePeerOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RemovePeerOutput>): RemovePeerOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RemovePeerOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class RemovePeerOutput$Type extends MessageType<RemovePeerOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class RemovePeerOutput$Type extends MessageType<RemovePeerOutput> {
         return message;
     }
     internalBinaryWrite(message: RemovePeerOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

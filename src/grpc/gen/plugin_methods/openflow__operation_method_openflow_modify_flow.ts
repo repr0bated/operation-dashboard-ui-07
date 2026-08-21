@@ -20,19 +20,19 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ModifyFlowInput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value actions = 1
+     * @generated from protobuf field: repeated google.protobuf.Value actions = 364201577
      */
     actions: Value[];
     /**
-     * @generated from protobuf field: string bridge = 2
+     * @generated from protobuf field: string bridge = 179832343
      */
     bridge: string;
     /**
-     * @generated from protobuf field: google.protobuf.Struct match_fields = 3
+     * @generated from protobuf field: google.protobuf.Struct match_fields = 405770232
      */
     matchFields?: Struct;
     /**
-     * @generated from protobuf field: int64 priority = 4
+     * @generated from protobuf field: int64 priority = 350544653
      */
     priority: string;
 }
@@ -40,15 +40,19 @@ export interface ModifyFlowInput {
  * @generated from protobuf message operation.method.openflow.modify_flow.ModifyFlowOutput
  */
 export interface ModifyFlowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ModifyFlowInput$Type extends MessageType<ModifyFlowInput> {
     constructor() {
         super("operation.method.openflow.modify_flow.ModifyFlowInput", [
-            { no: 1, name: "actions", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 2, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "match_fields", kind: "message", T: () => Struct },
-            { no: 4, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 364201577, name: "actions", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 179832343, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 405770232, name: "match_fields", kind: "message", T: () => Struct },
+            { no: 350544653, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<ModifyFlowInput>): ModifyFlowInput {
@@ -65,16 +69,16 @@ class ModifyFlowInput$Type extends MessageType<ModifyFlowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value actions */ 1:
+                case /* repeated google.protobuf.Value actions */ 364201577:
                     message.actions.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* string bridge */ 2:
+                case /* string bridge */ 179832343:
                     message.bridge = reader.string();
                     break;
-                case /* google.protobuf.Struct match_fields */ 3:
+                case /* google.protobuf.Struct match_fields */ 405770232:
                     message.matchFields = Struct.internalBinaryRead(reader, reader.uint32(), options, message.matchFields);
                     break;
-                case /* int64 priority */ 4:
+                case /* int64 priority */ 350544653:
                     message.priority = reader.int64().toString();
                     break;
                 default:
@@ -89,18 +93,18 @@ class ModifyFlowInput$Type extends MessageType<ModifyFlowInput> {
         return message;
     }
     internalBinaryWrite(message: ModifyFlowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value actions = 1; */
-        for (let i = 0; i < message.actions.length; i++)
-            Value.internalBinaryWrite(message.actions[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string bridge = 2; */
+        /* string bridge = 179832343; */
         if (message.bridge !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.bridge);
-        /* google.protobuf.Struct match_fields = 3; */
-        if (message.matchFields)
-            Struct.internalBinaryWrite(message.matchFields, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
-        /* int64 priority = 4; */
+            writer.tag(179832343, WireType.LengthDelimited).string(message.bridge);
+        /* int64 priority = 350544653; */
         if (message.priority !== "0")
-            writer.tag(4, WireType.Varint).int64(message.priority);
+            writer.tag(350544653, WireType.Varint).int64(message.priority);
+        /* repeated google.protobuf.Value actions = 364201577; */
+        for (let i = 0; i < message.actions.length; i++)
+            Value.internalBinaryWrite(message.actions[i], writer.tag(364201577, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Struct match_fields = 405770232; */
+        if (message.matchFields)
+            Struct.internalBinaryWrite(message.matchFields, writer.tag(405770232, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -114,10 +118,13 @@ export const ModifyFlowInput = new ModifyFlowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ModifyFlowOutput$Type extends MessageType<ModifyFlowOutput> {
     constructor() {
-        super("operation.method.openflow.modify_flow.ModifyFlowOutput", []);
+        super("operation.method.openflow.modify_flow.ModifyFlowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ModifyFlowOutput>): ModifyFlowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ModifyFlowOutput>(this, message, value);
         return message;
@@ -127,6 +134,9 @@ class ModifyFlowOutput$Type extends MessageType<ModifyFlowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -139,6 +149,9 @@ class ModifyFlowOutput$Type extends MessageType<ModifyFlowOutput> {
         return message;
     }
     internalBinaryWrite(message: ModifyFlowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

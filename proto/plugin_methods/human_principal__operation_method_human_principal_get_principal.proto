@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.human_principal.get_principal;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetPrincipalInput {
+  string principal_id = 495803348;
+}
+
+message GetPrincipalOutput {
+  google.protobuf.Value principal = 262257199;
+}
+
+service GetPrincipalService {
+  // subid: obs.service.human-principal.get@v1, capability: human_principal.read
+  rpc get_principal(GetPrincipalInput) returns (GetPrincipalOutput);
+}

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetAllInput {
     /**
-     * @generated from protobuf field: string interface_name = 1
+     * @generated from protobuf field: string interface_name = 518035138
      */
     interfaceName: string;
 }
@@ -26,12 +26,16 @@ export interface GetAllInput {
  * @generated from protobuf message operation.method.freedesktop.getall.GetAllOutput
  */
 export interface GetAllOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetAllInput$Type extends MessageType<GetAllInput> {
     constructor() {
         super("operation.method.freedesktop.getall.GetAllInput", [
-            { no: 1, name: "interface_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 518035138, name: "interface_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetAllInput>): GetAllInput {
@@ -46,7 +50,7 @@ class GetAllInput$Type extends MessageType<GetAllInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string interface_name */ 1:
+                case /* string interface_name */ 518035138:
                     message.interfaceName = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetAllInput$Type extends MessageType<GetAllInput> {
         return message;
     }
     internalBinaryWrite(message: GetAllInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string interface_name = 1; */
+        /* string interface_name = 518035138; */
         if (message.interfaceName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.interfaceName);
+            writer.tag(518035138, WireType.LengthDelimited).string(message.interfaceName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetAllInput = new GetAllInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetAllOutput$Type extends MessageType<GetAllOutput> {
     constructor() {
-        super("operation.method.freedesktop.getall.GetAllOutput", []);
+        super("operation.method.freedesktop.getall.GetAllOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetAllOutput>): GetAllOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetAllOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetAllOutput$Type extends MessageType<GetAllOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetAllOutput$Type extends MessageType<GetAllOutput> {
         return message;
     }
     internalBinaryWrite(message: GetAllOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

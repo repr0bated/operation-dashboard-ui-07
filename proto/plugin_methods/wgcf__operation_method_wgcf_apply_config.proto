@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message ApplyConfigInput {
-  string config = 1;
-  bool immediate = 2;
+  string config = 67069640;
+  bool immediate = 305276545;
 }
 
-message ApplyConfigOutput {}
+message ApplyConfigOutput {
+  bool success = 442482449;
+}
 
 service ApplyConfigService {
   // subid: mut.software.wgcf.config.apply@v1, capability: wgcf.write

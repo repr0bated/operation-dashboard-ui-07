@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddPortInput {
-  string bridge_name = 1;
-  string interface_type = 2;
-  string port_name = 3;
+  string bridge_name = 276920933;
+  string interface_type = 484594199;
+  string port_name = 95391333;
 }
 
-message AddPortOutput {}
+message AddPortOutput {
+  bool success = 442482449;
+}
 
 service AddPortService {
   // subid: mut.network.ovsdb.port.add@v1, capability: cap.network.ovsdb.port.add@v1

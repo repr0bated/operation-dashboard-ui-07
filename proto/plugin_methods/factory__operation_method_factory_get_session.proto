@@ -15,7 +15,7 @@ message GetSessionInput {
 }
 
 message GetSessionOutput {
-  google.protobuf.Value session = 1;
+  google.protobuf.Value session = 56577277;
 }
 
 service GetSessionService {

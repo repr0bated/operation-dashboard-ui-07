@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message RemoveDomainInput {
-  string domain = 1;
+  string domain = 127113208;
 }
 
-message RemoveDomainOutput {}
+message RemoveDomainOutput {
+  bool success = 442482449;
+}
 
 service RemoveDomainService {
   // subid: mut.service.mail.domain.remove@v1, capability: mail.write

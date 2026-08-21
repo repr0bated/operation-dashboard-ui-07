@@ -15,11 +15,11 @@ message GetDrStatusInput {
 }
 
 message GetDrStatusOutput {
-  int64 blocks_to_replay = 1;
-  string last_checkpoint = 2;
-  repeated string recovery_steps = 3;
-  bool state_subvol_current = 4;
-  bool vector_snapshot_available = 5;
+  int64 blocks_to_replay = 108429590;
+  string last_checkpoint = 366471332;
+  repeated string recovery_steps = 52161249;
+  bool state_subvol_current = 135378210;
+  bool vector_snapshot_available = 520523788;
 }
 
 service GetDrStatusService {

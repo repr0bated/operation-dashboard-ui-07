@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetIdentityInput {
-  string agent_type = 1;
-  string description = 2;
-  string name = 3;
+  string agent_type = 482594788;
+  string description = 342834026;
+  string name = 221887978;
 }
 
-message SetIdentityOutput {}
+message SetIdentityOutput {
+  bool success = 442482449;
+}
 
 service SetIdentityService {
   // subid: mut.agent.persona.identity.set@v1, capability: persona.write

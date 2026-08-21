@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateUnixSocketInput {
-  string name = 1;
-  repeated int64 ports = 2;
+  string name = 221887978;
+  repeated int64 ports = 487171413;
 }
 
-message CreateUnixSocketOutput {}
+message CreateUnixSocketOutput {
+  bool success = 442482449;
+}
 
 service CreateUnixSocketService {
   // subid: mut.service.shared-unix-socket.create@v1, capability: shared_unix_socket.invoke

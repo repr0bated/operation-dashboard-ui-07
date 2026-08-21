@@ -11,12 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetStatsInput {
-  google.protobuf.Value options = 1;
+  google.protobuf.Value options = 254307500;
 }
 
 message GetStatsOutput {
-  google.protobuf.Value stats = 1;
-  google.protobuf.Value system_memory = 2;
+  google.protobuf.Value stats = 170990831;
+  google.protobuf.Value system_memory = 440298486;
 }
 
 service GetStatsService {

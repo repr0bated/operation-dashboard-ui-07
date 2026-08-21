@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddIpv4AddressInput {
-  string address = 1;
-  string name = 2;
+  string address = 208283988;
+  string name = 221887978;
 }
 
-message AddIpv4AddressOutput {}
+message AddIpv4AddressOutput {
+  bool success = 442482449;
+}
 
 service AddIpv4AddressService {
   // subid: mut.network.rtnetlink.ipv4-address.add@v1, capability: cap.network.rtnetlink.ipv4-address.add@v1

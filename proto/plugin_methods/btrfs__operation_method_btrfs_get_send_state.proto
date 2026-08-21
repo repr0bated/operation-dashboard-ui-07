@@ -15,7 +15,7 @@ message GetSendStateInput {
 }
 
 message GetSendStateOutput {
-  repeated google.protobuf.Value remotes = 1;
+  repeated google.protobuf.Value remotes = 62238050;
 }
 
 service GetSendStateService {

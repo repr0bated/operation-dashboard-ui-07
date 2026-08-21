@@ -26,7 +26,7 @@ export interface ListProvidersInput {
  */
 export interface ListProvidersOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value providers = 1
+     * @generated from protobuf field: repeated google.protobuf.Value providers = 325560029
      */
     providers: Value[];
 }
@@ -72,7 +72,7 @@ export const ListProvidersInput = new ListProvidersInput$Type();
 class ListProvidersOutput$Type extends MessageType<ListProvidersOutput> {
     constructor() {
         super("operation.method.large_language_model.list_providers.ListProvidersOutput", [
-            { no: 1, name: "providers", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 325560029, name: "providers", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListProvidersOutput>): ListProvidersOutput {
@@ -87,7 +87,7 @@ class ListProvidersOutput$Type extends MessageType<ListProvidersOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value providers */ 1:
+                case /* repeated google.protobuf.Value providers */ 325560029:
                     message.providers.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListProvidersOutput$Type extends MessageType<ListProvidersOutput> {
         return message;
     }
     internalBinaryWrite(message: ListProvidersOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value providers = 1; */
+        /* repeated google.protobuf.Value providers = 325560029; */
         for (let i = 0; i < message.providers.length; i++)
-            Value.internalBinaryWrite(message.providers[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.providers[i], writer.tag(325560029, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

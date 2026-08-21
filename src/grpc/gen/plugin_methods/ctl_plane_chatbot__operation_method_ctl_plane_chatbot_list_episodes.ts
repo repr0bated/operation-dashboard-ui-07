@@ -4,9 +4,9 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
-import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
 import type { IBinaryReader } from "@protobuf-ts/runtime";
 import { UnknownFieldHandler } from "@protobuf-ts/runtime";
@@ -15,39 +15,28 @@ import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 import { Value } from "../google/protobuf/struct";
 /**
+ * Empty schema object.
+ *
  * @generated from protobuf message operation.method.ctl_plane_chatbot.list_episodes.ListEpisodesInput
  */
 export interface ListEpisodesInput {
-    /**
-     * @generated from protobuf field: string conversation_id = 1
-     */
-    conversationId: string;
-    /**
-     * @generated from protobuf field: int64 limit = 2
-     */
-    limit: string;
 }
 /**
  * @generated from protobuf message operation.method.ctl_plane_chatbot.list_episodes.ListEpisodesOutput
  */
 export interface ListEpisodesOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value episodes = 1
+     * @generated from protobuf field: repeated google.protobuf.Value episodes = 271343219
      */
     episodes: Value[];
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ListEpisodesInput$Type extends MessageType<ListEpisodesInput> {
     constructor() {
-        super("operation.method.ctl_plane_chatbot.list_episodes.ListEpisodesInput", [
-            { no: 1, name: "conversation_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
-        ]);
+        super("operation.method.ctl_plane_chatbot.list_episodes.ListEpisodesInput", []);
     }
     create(value?: PartialMessage<ListEpisodesInput>): ListEpisodesInput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.conversationId = "";
-        message.limit = "0";
         if (value !== undefined)
             reflectionMergePartial<ListEpisodesInput>(this, message, value);
         return message;
@@ -57,12 +46,6 @@ class ListEpisodesInput$Type extends MessageType<ListEpisodesInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string conversation_id */ 1:
-                    message.conversationId = reader.string();
-                    break;
-                case /* int64 limit */ 2:
-                    message.limit = reader.int64().toString();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -75,12 +58,6 @@ class ListEpisodesInput$Type extends MessageType<ListEpisodesInput> {
         return message;
     }
     internalBinaryWrite(message: ListEpisodesInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string conversation_id = 1; */
-        if (message.conversationId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.conversationId);
-        /* int64 limit = 2; */
-        if (message.limit !== "0")
-            writer.tag(2, WireType.Varint).int64(message.limit);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -95,7 +72,7 @@ export const ListEpisodesInput = new ListEpisodesInput$Type();
 class ListEpisodesOutput$Type extends MessageType<ListEpisodesOutput> {
     constructor() {
         super("operation.method.ctl_plane_chatbot.list_episodes.ListEpisodesOutput", [
-            { no: 1, name: "episodes", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 271343219, name: "episodes", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListEpisodesOutput>): ListEpisodesOutput {
@@ -110,7 +87,7 @@ class ListEpisodesOutput$Type extends MessageType<ListEpisodesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value episodes */ 1:
+                case /* repeated google.protobuf.Value episodes */ 271343219:
                     message.episodes.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -125,9 +102,9 @@ class ListEpisodesOutput$Type extends MessageType<ListEpisodesOutput> {
         return message;
     }
     internalBinaryWrite(message: ListEpisodesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value episodes = 1; */
+        /* repeated google.protobuf.Value episodes = 271343219; */
         for (let i = 0; i < message.episodes.length; i++)
-            Value.internalBinaryWrite(message.episodes[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.episodes[i], writer.tag(271343219, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

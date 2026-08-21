@@ -25,23 +25,23 @@ export interface GetHealthInput {
  */
 export interface GetHealthOutput {
     /**
-     * @generated from protobuf field: int64 action_count = 1
+     * @generated from protobuf field: int64 action_count = 512974448
      */
     actionCount: string;
     /**
-     * @generated from protobuf field: int64 component_count = 2
+     * @generated from protobuf field: int64 component_count = 197811729
      */
     componentCount: string;
     /**
-     * @generated from protobuf field: int64 package_count = 3
+     * @generated from protobuf field: int64 package_count = 156317652
      */
     packageCount: string;
     /**
-     * @generated from protobuf field: string source_commit = 4
+     * @generated from protobuf field: string source_commit = 499744195
      */
     sourceCommit: string;
     /**
-     * @generated from protobuf field: string status = 5
+     * @generated from protobuf field: string status = 441153524
      */
     status: string;
 }
@@ -87,11 +87,11 @@ export const GetHealthInput = new GetHealthInput$Type();
 class GetHealthOutput$Type extends MessageType<GetHealthOutput> {
     constructor() {
         super("operation.method.json_render.get_health.GetHealthOutput", [
-            { no: 1, name: "action_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "component_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "package_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "source_commit", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 512974448, name: "action_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 197811729, name: "component_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 156317652, name: "package_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 499744195, name: "source_commit", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 441153524, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetHealthOutput>): GetHealthOutput {
@@ -110,19 +110,19 @@ class GetHealthOutput$Type extends MessageType<GetHealthOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 action_count */ 1:
+                case /* int64 action_count */ 512974448:
                     message.actionCount = reader.int64().toString();
                     break;
-                case /* int64 component_count */ 2:
+                case /* int64 component_count */ 197811729:
                     message.componentCount = reader.int64().toString();
                     break;
-                case /* int64 package_count */ 3:
+                case /* int64 package_count */ 156317652:
                     message.packageCount = reader.int64().toString();
                     break;
-                case /* string source_commit */ 4:
+                case /* string source_commit */ 499744195:
                     message.sourceCommit = reader.string();
                     break;
-                case /* string status */ 5:
+                case /* string status */ 441153524:
                     message.status = reader.string();
                     break;
                 default:
@@ -137,21 +137,21 @@ class GetHealthOutput$Type extends MessageType<GetHealthOutput> {
         return message;
     }
     internalBinaryWrite(message: GetHealthOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 action_count = 1; */
-        if (message.actionCount !== "0")
-            writer.tag(1, WireType.Varint).int64(message.actionCount);
-        /* int64 component_count = 2; */
-        if (message.componentCount !== "0")
-            writer.tag(2, WireType.Varint).int64(message.componentCount);
-        /* int64 package_count = 3; */
+        /* int64 package_count = 156317652; */
         if (message.packageCount !== "0")
-            writer.tag(3, WireType.Varint).int64(message.packageCount);
-        /* string source_commit = 4; */
-        if (message.sourceCommit !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.sourceCommit);
-        /* string status = 5; */
+            writer.tag(156317652, WireType.Varint).int64(message.packageCount);
+        /* int64 component_count = 197811729; */
+        if (message.componentCount !== "0")
+            writer.tag(197811729, WireType.Varint).int64(message.componentCount);
+        /* string status = 441153524; */
         if (message.status !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.status);
+            writer.tag(441153524, WireType.LengthDelimited).string(message.status);
+        /* string source_commit = 499744195; */
+        if (message.sourceCommit !== "")
+            writer.tag(499744195, WireType.LengthDelimited).string(message.sourceCommit);
+        /* int64 action_count = 512974448; */
+        if (message.actionCount !== "0")
+            writer.tag(512974448, WireType.Varint).int64(message.actionCount);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

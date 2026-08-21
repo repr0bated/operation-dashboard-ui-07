@@ -15,7 +15,7 @@ message ExportInput {
 }
 
 message ExportOutput {
-  google.protobuf.Value registry = 1;
+  google.protobuf.Value registry = 411326863;
 }
 
 service ExportService {

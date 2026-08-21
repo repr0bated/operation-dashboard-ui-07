@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetLinkDnsOverTlsInput {
-  int64 ifindex = 1;
-  string mode = 2;
+  int64 ifindex = 394788143;
+  string mode = 208592921;
 }
 
-message SetLinkDnsOverTlsOutput {}
+message SetLinkDnsOverTlsOutput {
+  bool success = 442482449;
+}
 
 service SetLinkDnsOverTlsService {
   // subid: mut.software.dnsresolver.link.set-dot@v1, capability: dnsresolver.write

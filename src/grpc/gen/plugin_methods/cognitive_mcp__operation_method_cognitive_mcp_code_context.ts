@@ -25,11 +25,11 @@ export interface CodeContextInput {
  */
 export interface CodeContextOutput {
     /**
-     * @generated from protobuf field: string context = 1
+     * @generated from protobuf field: string context = 210178176
      */
     context: string;
     /**
-     * @generated from protobuf field: repeated string sources = 2
+     * @generated from protobuf field: repeated string sources = 303994932
      */
     sources: string[];
 }
@@ -75,8 +75,8 @@ export const CodeContextInput = new CodeContextInput$Type();
 class CodeContextOutput$Type extends MessageType<CodeContextOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.code_context.CodeContextOutput", [
-            { no: 1, name: "context", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "sources", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 210178176, name: "context", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 303994932, name: "sources", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CodeContextOutput>): CodeContextOutput {
@@ -92,10 +92,10 @@ class CodeContextOutput$Type extends MessageType<CodeContextOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string context */ 1:
+                case /* string context */ 210178176:
                     message.context = reader.string();
                     break;
-                case /* repeated string sources */ 2:
+                case /* repeated string sources */ 303994932:
                     message.sources.push(reader.string());
                     break;
                 default:
@@ -110,12 +110,12 @@ class CodeContextOutput$Type extends MessageType<CodeContextOutput> {
         return message;
     }
     internalBinaryWrite(message: CodeContextOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string context = 1; */
+        /* string context = 210178176; */
         if (message.context !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.context);
-        /* repeated string sources = 2; */
+            writer.tag(210178176, WireType.LengthDelimited).string(message.context);
+        /* repeated string sources = 303994932; */
         for (let i = 0; i < message.sources.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.sources[i]);
+            writer.tag(303994932, WireType.LengthDelimited).string(message.sources[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

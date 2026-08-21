@@ -14,7 +14,9 @@ message SetModelInput {
   // Empty schema object.
 }
 
-message SetModelOutput {}
+message SetModelOutput {
+  bool success = 442482449;
+}
 
 service SetModelService {
   // subid: mut.service.embedding.model.set@v1, capability: embedding.invoke

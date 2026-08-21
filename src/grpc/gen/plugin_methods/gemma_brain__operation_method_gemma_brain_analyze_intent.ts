@@ -26,7 +26,7 @@ export interface AnalyzeIntentInput {
  */
 export interface AnalyzeIntentOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value intent = 1
+     * @generated from protobuf field: google.protobuf.Value intent = 14843467
      */
     intent?: Value;
 }
@@ -72,7 +72,7 @@ export const AnalyzeIntentInput = new AnalyzeIntentInput$Type();
 class AnalyzeIntentOutput$Type extends MessageType<AnalyzeIntentOutput> {
     constructor() {
         super("operation.method.gemma_brain.analyze_intent.AnalyzeIntentOutput", [
-            { no: 1, name: "intent", kind: "message", T: () => Value }
+            { no: 14843467, name: "intent", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<AnalyzeIntentOutput>): AnalyzeIntentOutput {
@@ -86,7 +86,7 @@ class AnalyzeIntentOutput$Type extends MessageType<AnalyzeIntentOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value intent */ 1:
+                case /* google.protobuf.Value intent */ 14843467:
                     message.intent = Value.internalBinaryRead(reader, reader.uint32(), options, message.intent);
                     break;
                 default:
@@ -101,9 +101,9 @@ class AnalyzeIntentOutput$Type extends MessageType<AnalyzeIntentOutput> {
         return message;
     }
     internalBinaryWrite(message: AnalyzeIntentOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value intent = 1; */
+        /* google.protobuf.Value intent = 14843467; */
         if (message.intent)
-            Value.internalBinaryWrite(message.intent, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.intent, writer.tag(14843467, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

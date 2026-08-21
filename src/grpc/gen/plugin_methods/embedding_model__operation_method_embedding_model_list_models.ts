@@ -25,7 +25,7 @@ export interface ListModelsInput {
  */
 export interface ListModelsOutput {
     /**
-     * @generated from protobuf field: repeated string models = 1
+     * @generated from protobuf field: repeated string models = 343003787
      */
     models: string[];
 }
@@ -71,7 +71,7 @@ export const ListModelsInput = new ListModelsInput$Type();
 class ListModelsOutput$Type extends MessageType<ListModelsOutput> {
     constructor() {
         super("operation.method.embedding_model.list_models.ListModelsOutput", [
-            { no: 1, name: "models", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 343003787, name: "models", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListModelsOutput>): ListModelsOutput {
@@ -86,7 +86,7 @@ class ListModelsOutput$Type extends MessageType<ListModelsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string models */ 1:
+                case /* repeated string models */ 343003787:
                     message.models.push(reader.string());
                     break;
                 default:
@@ -101,9 +101,9 @@ class ListModelsOutput$Type extends MessageType<ListModelsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListModelsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string models = 1; */
+        /* repeated string models = 343003787; */
         for (let i = 0; i < message.models.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.models[i]);
+            writer.tag(343003787, WireType.LengthDelimited).string(message.models[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

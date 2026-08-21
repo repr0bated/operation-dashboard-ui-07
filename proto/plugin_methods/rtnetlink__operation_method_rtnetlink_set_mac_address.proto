@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetMacAddressInput {
-  string mac = 1;
-  string name = 2;
+  string mac = 212010031;
+  string name = 221887978;
 }
 
-message SetMacAddressOutput {}
+message SetMacAddressOutput {
+  bool success = 442482449;
+}
 
 service SetMacAddressService {
   // subid: mut.network.rtnetlink.mac-address.set@v1, capability: cap.network.rtnetlink.mac-address.set@v1

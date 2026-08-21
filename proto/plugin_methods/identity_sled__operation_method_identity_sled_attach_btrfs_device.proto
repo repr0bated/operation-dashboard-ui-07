@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.identity_sled.attach_btrfs_device;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AttachBtrfsDeviceInput {
+  string session_id = 125141221;
+}
+
+message AttachBtrfsDeviceOutput {
+  google.protobuf.Value identity = 155530400;
+}
+
+service AttachBtrfsDeviceService {
+  // subid: mut.service.identity-sled.btrfs-device.attach@v1, capability: identity_sled.write
+  rpc attach_btrfs_device(AttachBtrfsDeviceInput) returns (AttachBtrfsDeviceOutput);
+}

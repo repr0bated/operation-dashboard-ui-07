@@ -15,7 +15,7 @@ message ListRelationsInput {
 }
 
 message ListRelationsOutput {
-  repeated google.protobuf.Value relations = 1;
+  bool success = 442482449;
 }
 
 service ListRelationsService {

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message UnfreezeInstanceInput {
-  string name = 1;
+  string name = 221887978;
 }
 
-message UnfreezeInstanceOutput {}
+message UnfreezeInstanceOutput {
+  bool success = 442482449;
+}
 
 service UnfreezeInstanceService {
   // subid: mut.service.incus.instance.unfreeze@v1, capability: cap.service.incus.instance.unfreeze@v1

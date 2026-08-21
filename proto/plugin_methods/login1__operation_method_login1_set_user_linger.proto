@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetUserLingerInput {
-  bool enable = 1;
-  bool interactive = 2;
-  int64 uid = 3;
+  bool enable = 260815059;
+  bool interactive = 520087662;
+  int64 uid = 482862799;
 }
 
-message SetUserLingerOutput {}
+message SetUserLingerOutput {
+  bool success = 442482449;
+}
 
 service SetUserLingerService {
   // subid: mut.software.login1.user.linger.set@v1, capability: login1.admin

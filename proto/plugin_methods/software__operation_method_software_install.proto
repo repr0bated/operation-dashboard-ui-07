@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message InstallInput {
-  string name = 1;
-  string version = 2;
+  string name = 221887978;
+  string version = 108113561;
 }
 
-message InstallOutput {}
+message InstallOutput {
+  bool success = 442482449;
+}
 
 service InstallService {
   // subid: mut.software.plugin.software.install@v1, capability: software.write

@@ -11,13 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message CompactInput {
-  double min_threshold = 1;
-  string namespace = 2;
+  double min_threshold = 459163614;
+  string namespace = 181303974;
 }
 
 message CompactOutput {
-  double fragmentation_level = 1;
-  int64 freed_bytes = 2;
+  double fragmentation_level = 157845343;
+  int64 freed_bytes = 531510497;
+  bool success = 442482449;
 }
 
 service CompactService {

@@ -11,14 +11,16 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateUserInput {
-  int64 gid = 1;
-  repeated string groups = 2;
-  string shell = 3;
-  int64 uid = 4;
-  string username = 5;
+  int64 gid = 69916062;
+  repeated string groups = 258722674;
+  string shell = 300022785;
+  int64 uid = 482862799;
+  string username = 246355387;
 }
 
-message CreateUserOutput {}
+message CreateUserOutput {
+  bool success = 442482449;
+}
 
 service CreateUserService {
   // subid: mut.software.plugin.users.create@v1, capability: users.write

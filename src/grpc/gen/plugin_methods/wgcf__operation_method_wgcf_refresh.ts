@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RefreshInput {
     /**
-     * @generated from protobuf field: string refresh_type = 1
+     * @generated from protobuf field: string refresh_type = 156878944
      */
     refreshType: string;
 }
@@ -26,12 +26,16 @@ export interface RefreshInput {
  * @generated from protobuf message operation.method.wgcf.refresh.RefreshOutput
  */
 export interface RefreshOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RefreshInput$Type extends MessageType<RefreshInput> {
     constructor() {
         super("operation.method.wgcf.refresh.RefreshInput", [
-            { no: 1, name: "refresh_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 156878944, name: "refresh_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RefreshInput>): RefreshInput {
@@ -46,7 +50,7 @@ class RefreshInput$Type extends MessageType<RefreshInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string refresh_type */ 1:
+                case /* string refresh_type */ 156878944:
                     message.refreshType = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class RefreshInput$Type extends MessageType<RefreshInput> {
         return message;
     }
     internalBinaryWrite(message: RefreshInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string refresh_type = 1; */
+        /* string refresh_type = 156878944; */
         if (message.refreshType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.refreshType);
+            writer.tag(156878944, WireType.LengthDelimited).string(message.refreshType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const RefreshInput = new RefreshInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RefreshOutput$Type extends MessageType<RefreshOutput> {
     constructor() {
-        super("operation.method.wgcf.refresh.RefreshOutput", []);
+        super("operation.method.wgcf.refresh.RefreshOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RefreshOutput>): RefreshOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RefreshOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class RefreshOutput$Type extends MessageType<RefreshOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class RefreshOutput$Type extends MessageType<RefreshOutput> {
         return message;
     }
     internalBinaryWrite(message: RefreshOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message LockSessionInput {
-  string session_id = 1;
+  string session_id = 125141221;
 }
 
-message LockSessionOutput {}
+message LockSessionOutput {
+  bool success = 442482449;
+}
 
 service LockSessionService {
   // subid: mut.software.login1.session.lock@v1, capability: login1.write

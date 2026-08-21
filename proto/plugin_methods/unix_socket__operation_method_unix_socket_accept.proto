@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message AcceptInput {
-  string path = 1;
-  int64 timeout_secs = 2;
+  string path = 75975994;
+  int64 timeout_secs = 12075462;
 }
 
-message AcceptOutput {}
+message AcceptOutput {
+  bool success = 442482449;
+}
 
 service AcceptService {
   // subid: obs.service.unix-socket.accept@v1, capability: network.read

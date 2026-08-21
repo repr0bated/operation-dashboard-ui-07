@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getjiraconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetJiraConfigInput {
+  // Empty schema object.
+}
+
+message GetJiraConfigOutput {
+  google.protobuf.Value config = 67069640;
+}
+
+service GetJiraConfigService {
+  // subid: obs.service.3tched-router.jira-config.get@v1, capability: cap.software.3tched-router.jira-config.read@v1
+  rpc GetJiraConfig(GetJiraConfigInput) returns (GetJiraConfigOutput);
+}

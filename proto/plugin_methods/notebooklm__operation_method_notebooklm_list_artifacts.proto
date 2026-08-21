@@ -14,7 +14,9 @@ message ListArtifactsInput {
   // Empty schema object.
 }
 
-message ListArtifactsOutput {}
+message ListArtifactsOutput {
+  bool success = 442482449;
+}
 
 service ListArtifactsService {
   // subid: obs.service.plugin.notebooklm.studio.artifact.list@v1, capability: notebooklm.read

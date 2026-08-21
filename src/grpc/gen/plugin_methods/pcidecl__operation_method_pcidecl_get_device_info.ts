@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetDeviceInfoInput {
     /**
-     * @generated from protobuf field: string address = 1
+     * @generated from protobuf field: string address = 208283988
      */
     address: string;
 }
@@ -26,12 +26,16 @@ export interface GetDeviceInfoInput {
  * @generated from protobuf message operation.method.pcidecl.get_device_info.GetDeviceInfoOutput
  */
 export interface GetDeviceInfoOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetDeviceInfoInput$Type extends MessageType<GetDeviceInfoInput> {
     constructor() {
         super("operation.method.pcidecl.get_device_info.GetDeviceInfoInput", [
-            { no: 1, name: "address", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 208283988, name: "address", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetDeviceInfoInput>): GetDeviceInfoInput {
@@ -46,7 +50,7 @@ class GetDeviceInfoInput$Type extends MessageType<GetDeviceInfoInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string address */ 1:
+                case /* string address */ 208283988:
                     message.address = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetDeviceInfoInput$Type extends MessageType<GetDeviceInfoInput> {
         return message;
     }
     internalBinaryWrite(message: GetDeviceInfoInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string address = 1; */
+        /* string address = 208283988; */
         if (message.address !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.address);
+            writer.tag(208283988, WireType.LengthDelimited).string(message.address);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetDeviceInfoInput = new GetDeviceInfoInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetDeviceInfoOutput$Type extends MessageType<GetDeviceInfoOutput> {
     constructor() {
-        super("operation.method.pcidecl.get_device_info.GetDeviceInfoOutput", []);
+        super("operation.method.pcidecl.get_device_info.GetDeviceInfoOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetDeviceInfoOutput>): GetDeviceInfoOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetDeviceInfoOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetDeviceInfoOutput$Type extends MessageType<GetDeviceInfoOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetDeviceInfoOutput$Type extends MessageType<GetDeviceInfoOutput> {
         return message;
     }
     internalBinaryWrite(message: GetDeviceInfoOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

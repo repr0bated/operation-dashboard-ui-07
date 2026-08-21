@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RenderPageInput {
     /**
-     * @generated from protobuf field: string locale = 1
+     * @generated from protobuf field: string locale = 186372250
      */
     locale: string;
     /**
-     * @generated from protobuf field: string page_id = 2
+     * @generated from protobuf field: string page_id = 304109062
      */
     pageId: string;
 }
@@ -30,13 +30,17 @@ export interface RenderPageInput {
  * @generated from protobuf message operation.method.web_ui.render_page.RenderPageOutput
  */
 export interface RenderPageOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RenderPageInput$Type extends MessageType<RenderPageInput> {
     constructor() {
         super("operation.method.web_ui.render_page.RenderPageInput", [
-            { no: 1, name: "locale", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "page_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 186372250, name: "locale", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 304109062, name: "page_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RenderPageInput>): RenderPageInput {
@@ -52,10 +56,10 @@ class RenderPageInput$Type extends MessageType<RenderPageInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string locale */ 1:
+                case /* string locale */ 186372250:
                     message.locale = reader.string();
                     break;
-                case /* string page_id */ 2:
+                case /* string page_id */ 304109062:
                     message.pageId = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class RenderPageInput$Type extends MessageType<RenderPageInput> {
         return message;
     }
     internalBinaryWrite(message: RenderPageInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string locale = 1; */
+        /* string locale = 186372250; */
         if (message.locale !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.locale);
-        /* string page_id = 2; */
+            writer.tag(186372250, WireType.LengthDelimited).string(message.locale);
+        /* string page_id = 304109062; */
         if (message.pageId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.pageId);
+            writer.tag(304109062, WireType.LengthDelimited).string(message.pageId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const RenderPageInput = new RenderPageInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RenderPageOutput$Type extends MessageType<RenderPageOutput> {
     constructor() {
-        super("operation.method.web_ui.render_page.RenderPageOutput", []);
+        super("operation.method.web_ui.render_page.RenderPageOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RenderPageOutput>): RenderPageOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RenderPageOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class RenderPageOutput$Type extends MessageType<RenderPageOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class RenderPageOutput$Type extends MessageType<RenderPageOutput> {
         return message;
     }
     internalBinaryWrite(message: RenderPageOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

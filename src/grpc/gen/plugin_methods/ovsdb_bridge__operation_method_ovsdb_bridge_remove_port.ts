@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RemovePortInput {
     /**
-     * @generated from protobuf field: string bridge = 1
+     * @generated from protobuf field: string bridge = 179832343
      */
     bridge: string;
     /**
-     * @generated from protobuf field: string port = 2
+     * @generated from protobuf field: string port = 467931817
      */
     port: string;
 }
@@ -30,13 +30,17 @@ export interface RemovePortInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.remove_port.RemovePortOutput
  */
 export interface RemovePortOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RemovePortInput$Type extends MessageType<RemovePortInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.remove_port.RemovePortInput", [
-            { no: 1, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "port", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 179832343, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 467931817, name: "port", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RemovePortInput>): RemovePortInput {
@@ -52,10 +56,10 @@ class RemovePortInput$Type extends MessageType<RemovePortInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string bridge */ 1:
+                case /* string bridge */ 179832343:
                     message.bridge = reader.string();
                     break;
-                case /* string port */ 2:
+                case /* string port */ 467931817:
                     message.port = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class RemovePortInput$Type extends MessageType<RemovePortInput> {
         return message;
     }
     internalBinaryWrite(message: RemovePortInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string bridge = 1; */
+        /* string bridge = 179832343; */
         if (message.bridge !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.bridge);
-        /* string port = 2; */
+            writer.tag(179832343, WireType.LengthDelimited).string(message.bridge);
+        /* string port = 467931817; */
         if (message.port !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.port);
+            writer.tag(467931817, WireType.LengthDelimited).string(message.port);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const RemovePortInput = new RemovePortInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RemovePortOutput$Type extends MessageType<RemovePortOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.remove_port.RemovePortOutput", []);
+        super("operation.method.ovsdb_bridge.remove_port.RemovePortOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RemovePortOutput>): RemovePortOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RemovePortOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class RemovePortOutput$Type extends MessageType<RemovePortOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class RemovePortOutput$Type extends MessageType<RemovePortOutput> {
         return message;
     }
     internalBinaryWrite(message: RemovePortOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

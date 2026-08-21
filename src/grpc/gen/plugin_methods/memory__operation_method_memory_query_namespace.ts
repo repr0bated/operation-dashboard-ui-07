@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface QueryNamespaceInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -28,15 +28,15 @@ export interface QueryNamespaceInput {
  */
 export interface QueryNamespaceOutput {
     /**
-     * @generated from protobuf field: int64 entries = 1
+     * @generated from protobuf field: int64 entries = 257458934
      */
     entries: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value metadata = 2
+     * @generated from protobuf field: google.protobuf.Value metadata = 102912835
      */
     metadata?: Value;
     /**
-     * @generated from protobuf field: google.protobuf.Value namespace = 3
+     * @generated from protobuf field: google.protobuf.Value namespace = 181303974
      */
     namespace?: Value;
 }
@@ -44,7 +44,7 @@ export interface QueryNamespaceOutput {
 class QueryNamespaceInput$Type extends MessageType<QueryNamespaceInput> {
     constructor() {
         super("operation.method.memory.query_namespace.QueryNamespaceInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<QueryNamespaceInput>): QueryNamespaceInput {
@@ -59,7 +59,7 @@ class QueryNamespaceInput$Type extends MessageType<QueryNamespaceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -74,9 +74,9 @@ class QueryNamespaceInput$Type extends MessageType<QueryNamespaceInput> {
         return message;
     }
     internalBinaryWrite(message: QueryNamespaceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -91,9 +91,9 @@ export const QueryNamespaceInput = new QueryNamespaceInput$Type();
 class QueryNamespaceOutput$Type extends MessageType<QueryNamespaceOutput> {
     constructor() {
         super("operation.method.memory.query_namespace.QueryNamespaceOutput", [
-            { no: 1, name: "entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "metadata", kind: "message", T: () => Value },
-            { no: 3, name: "namespace", kind: "message", T: () => Value }
+            { no: 257458934, name: "entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 102912835, name: "metadata", kind: "message", T: () => Value },
+            { no: 181303974, name: "namespace", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<QueryNamespaceOutput>): QueryNamespaceOutput {
@@ -108,13 +108,13 @@ class QueryNamespaceOutput$Type extends MessageType<QueryNamespaceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 entries */ 1:
+                case /* int64 entries */ 257458934:
                     message.entries = reader.int64().toString();
                     break;
-                case /* google.protobuf.Value metadata */ 2:
+                case /* google.protobuf.Value metadata */ 102912835:
                     message.metadata = Value.internalBinaryRead(reader, reader.uint32(), options, message.metadata);
                     break;
-                case /* google.protobuf.Value namespace */ 3:
+                case /* google.protobuf.Value namespace */ 181303974:
                     message.namespace = Value.internalBinaryRead(reader, reader.uint32(), options, message.namespace);
                     break;
                 default:
@@ -129,15 +129,15 @@ class QueryNamespaceOutput$Type extends MessageType<QueryNamespaceOutput> {
         return message;
     }
     internalBinaryWrite(message: QueryNamespaceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 entries = 1; */
-        if (message.entries !== "0")
-            writer.tag(1, WireType.Varint).int64(message.entries);
-        /* google.protobuf.Value metadata = 2; */
+        /* google.protobuf.Value metadata = 102912835; */
         if (message.metadata)
-            Value.internalBinaryWrite(message.metadata, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Value namespace = 3; */
+            Value.internalBinaryWrite(message.metadata, writer.tag(102912835, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Value namespace = 181303974; */
         if (message.namespace)
-            Value.internalBinaryWrite(message.namespace, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.namespace, writer.tag(181303974, WireType.LengthDelimited).fork(), options).join();
+        /* int64 entries = 257458934; */
+        if (message.entries !== "0")
+            writer.tag(257458934, WireType.Varint).int64(message.entries);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

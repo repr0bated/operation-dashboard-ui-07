@@ -14,7 +14,9 @@ message CreateFlashcardsInput {
   // Empty schema object.
 }
 
-message CreateFlashcardsOutput {}
+message CreateFlashcardsOutput {
+  bool success = 442482449;
+}
 
 service CreateFlashcardsService {
   // subid: mut.service.plugin.notebooklm.studio.flashcards.create@v1, capability: notebooklm.invoke

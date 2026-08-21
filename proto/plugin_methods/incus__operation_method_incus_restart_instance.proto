@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message RestartInstanceInput {
-  bool force = 1;
-  string name = 2;
+  bool force = 430540935;
+  string name = 221887978;
 }
 
-message RestartInstanceOutput {}
+message RestartInstanceOutput {
+  bool success = 442482449;
+}
 
 service RestartInstanceService {
   // subid: mut.service.incus.instance.restart@v1, capability: cap.service.incus.instance.restart@v1

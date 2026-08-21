@@ -19,15 +19,15 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface UpdateNodeInput {
     /**
-     * @generated from protobuf field: string network = 1
+     * @generated from protobuf field: string network = 303597255
      */
     network: string;
     /**
-     * @generated from protobuf field: string node_id = 2
+     * @generated from protobuf field: string node_id = 169140144
      */
     nodeId: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value payload = 3
+     * @generated from protobuf field: google.protobuf.Value payload = 319780774
      */
     payload?: Value;
 }
@@ -35,14 +35,18 @@ export interface UpdateNodeInput {
  * @generated from protobuf message operation.method.netmaker.update_node.UpdateNodeOutput
  */
 export interface UpdateNodeOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateNodeInput$Type extends MessageType<UpdateNodeInput> {
     constructor() {
         super("operation.method.netmaker.update_node.UpdateNodeInput", [
-            { no: 1, name: "network", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "node_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "payload", kind: "message", T: () => Value }
+            { no: 303597255, name: "network", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 169140144, name: "node_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 319780774, name: "payload", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<UpdateNodeInput>): UpdateNodeInput {
@@ -58,13 +62,13 @@ class UpdateNodeInput$Type extends MessageType<UpdateNodeInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string network */ 1:
+                case /* string network */ 303597255:
                     message.network = reader.string();
                     break;
-                case /* string node_id */ 2:
+                case /* string node_id */ 169140144:
                     message.nodeId = reader.string();
                     break;
-                case /* google.protobuf.Value payload */ 3:
+                case /* google.protobuf.Value payload */ 319780774:
                     message.payload = Value.internalBinaryRead(reader, reader.uint32(), options, message.payload);
                     break;
                 default:
@@ -79,15 +83,15 @@ class UpdateNodeInput$Type extends MessageType<UpdateNodeInput> {
         return message;
     }
     internalBinaryWrite(message: UpdateNodeInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string network = 1; */
-        if (message.network !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.network);
-        /* string node_id = 2; */
+        /* string node_id = 169140144; */
         if (message.nodeId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.nodeId);
-        /* google.protobuf.Value payload = 3; */
+            writer.tag(169140144, WireType.LengthDelimited).string(message.nodeId);
+        /* string network = 303597255; */
+        if (message.network !== "")
+            writer.tag(303597255, WireType.LengthDelimited).string(message.network);
+        /* google.protobuf.Value payload = 319780774; */
         if (message.payload)
-            Value.internalBinaryWrite(message.payload, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.payload, writer.tag(319780774, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const UpdateNodeInput = new UpdateNodeInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateNodeOutput$Type extends MessageType<UpdateNodeOutput> {
     constructor() {
-        super("operation.method.netmaker.update_node.UpdateNodeOutput", []);
+        super("operation.method.netmaker.update_node.UpdateNodeOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<UpdateNodeOutput>): UpdateNodeOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UpdateNodeOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class UpdateNodeOutput$Type extends MessageType<UpdateNodeOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class UpdateNodeOutput$Type extends MessageType<UpdateNodeOutput> {
         return message;
     }
     internalBinaryWrite(message: UpdateNodeOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

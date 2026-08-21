@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetLinkDnsInput {
-  repeated google.protobuf.Value addresses = 1;
-  int64 ifindex = 2;
+  repeated google.protobuf.Value addresses = 345723367;
+  int64 ifindex = 394788143;
 }
 
-message SetLinkDnsOutput {}
+message SetLinkDnsOutput {
+  bool success = 442482449;
+}
 
 service SetLinkDnsService {
   // subid: mut.software.dnsresolver.link.set-dns@v1, capability: dnsresolver.write

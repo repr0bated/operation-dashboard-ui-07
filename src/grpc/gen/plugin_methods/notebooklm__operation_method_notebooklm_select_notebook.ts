@@ -4,6 +4,7 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -23,6 +24,10 @@ export interface SelectNotebookInput {
  * @generated from protobuf message operation.method.notebooklm.select_notebook.SelectNotebookOutput
  */
 export interface SelectNotebookOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SelectNotebookInput$Type extends MessageType<SelectNotebookInput> {
@@ -65,10 +70,13 @@ export const SelectNotebookInput = new SelectNotebookInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SelectNotebookOutput$Type extends MessageType<SelectNotebookOutput> {
     constructor() {
-        super("operation.method.notebooklm.select_notebook.SelectNotebookOutput", []);
+        super("operation.method.notebooklm.select_notebook.SelectNotebookOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SelectNotebookOutput>): SelectNotebookOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SelectNotebookOutput>(this, message, value);
         return message;
@@ -78,6 +86,9 @@ class SelectNotebookOutput$Type extends MessageType<SelectNotebookOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -90,6 +101,9 @@ class SelectNotebookOutput$Type extends MessageType<SelectNotebookOutput> {
         return message;
     }
     internalBinaryWrite(message: SelectNotebookOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

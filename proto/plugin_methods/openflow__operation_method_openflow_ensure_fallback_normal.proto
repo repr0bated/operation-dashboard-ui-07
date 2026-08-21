@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.openflow.ensure_fallback_normal;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message EnsureFallbackNormalInput {
+  string bridge = 179832343;
+}
+
+message EnsureFallbackNormalOutput {
+  bool success = 442482449;
+}
+
+service EnsureFallbackNormalService {
+  // subid: mut.network.openflow.datapath.ensure_fallback_normal@v1, capability: openflow.write
+  rpc ensure_fallback_normal(EnsureFallbackNormalInput) returns (EnsureFallbackNormalOutput);
+}

@@ -15,7 +15,7 @@ message ListToolsInput {
 }
 
 message ListToolsOutput {
-  repeated google.protobuf.Value tools = 1;
+  repeated google.protobuf.Value tools = 256255331;
 }
 
 service ListToolsService {

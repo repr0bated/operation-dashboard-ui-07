@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface TransactInput {
     /**
-     * @generated from protobuf field: string db_name = 1
+     * @generated from protobuf field: string db_name = 201204629
      */
     dbName: string;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value operations = 2
+     * @generated from protobuf field: repeated google.protobuf.Value operations = 6671155
      */
     operations: Value[];
 }
@@ -31,13 +31,17 @@ export interface TransactInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.transact.TransactOutput
  */
 export interface TransactOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class TransactInput$Type extends MessageType<TransactInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.transact.TransactInput", [
-            { no: 1, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "operations", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 201204629, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6671155, name: "operations", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<TransactInput>): TransactInput {
@@ -53,10 +57,10 @@ class TransactInput$Type extends MessageType<TransactInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string db_name */ 1:
+                case /* string db_name */ 201204629:
                     message.dbName = reader.string();
                     break;
-                case /* repeated google.protobuf.Value operations */ 2:
+                case /* repeated google.protobuf.Value operations */ 6671155:
                     message.operations.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -71,12 +75,12 @@ class TransactInput$Type extends MessageType<TransactInput> {
         return message;
     }
     internalBinaryWrite(message: TransactInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string db_name = 1; */
-        if (message.dbName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.dbName);
-        /* repeated google.protobuf.Value operations = 2; */
+        /* repeated google.protobuf.Value operations = 6671155; */
         for (let i = 0; i < message.operations.length; i++)
-            Value.internalBinaryWrite(message.operations[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.operations[i], writer.tag(6671155, WireType.LengthDelimited).fork(), options).join();
+        /* string db_name = 201204629; */
+        if (message.dbName !== "")
+            writer.tag(201204629, WireType.LengthDelimited).string(message.dbName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -90,10 +94,13 @@ export const TransactInput = new TransactInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class TransactOutput$Type extends MessageType<TransactOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.transact.TransactOutput", []);
+        super("operation.method.ovsdb_bridge.transact.TransactOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<TransactOutput>): TransactOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<TransactOutput>(this, message, value);
         return message;
@@ -103,6 +110,9 @@ class TransactOutput$Type extends MessageType<TransactOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -115,6 +125,9 @@ class TransactOutput$Type extends MessageType<TransactOutput> {
         return message;
     }
     internalBinaryWrite(message: TransactOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

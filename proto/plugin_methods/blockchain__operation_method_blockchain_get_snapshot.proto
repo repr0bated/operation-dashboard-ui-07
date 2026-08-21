@@ -15,7 +15,7 @@ message GetSnapshotInput {
 }
 
 message GetSnapshotOutput {
-  google.protobuf.Value snapshot = 1;
+  google.protobuf.Value snapshot = 178490254;
 }
 
 service GetSnapshotService {

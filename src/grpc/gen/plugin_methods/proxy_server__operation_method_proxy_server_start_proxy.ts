@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface StartProxyInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: int64 port = 2
+     * @generated from protobuf field: int64 port = 467931817
      */
     port: string;
 }
@@ -30,13 +30,17 @@ export interface StartProxyInput {
  * @generated from protobuf message operation.method.proxy_server.start_proxy.StartProxyOutput
  */
 export interface StartProxyOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class StartProxyInput$Type extends MessageType<StartProxyInput> {
     constructor() {
         super("operation.method.proxy_server.start_proxy.StartProxyInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "port", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 467931817, name: "port", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<StartProxyInput>): StartProxyInput {
@@ -52,10 +56,10 @@ class StartProxyInput$Type extends MessageType<StartProxyInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* int64 port */ 2:
+                case /* int64 port */ 467931817:
                     message.port = reader.int64().toString();
                     break;
                 default:
@@ -70,12 +74,12 @@ class StartProxyInput$Type extends MessageType<StartProxyInput> {
         return message;
     }
     internalBinaryWrite(message: StartProxyInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* int64 port = 2; */
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* int64 port = 467931817; */
         if (message.port !== "0")
-            writer.tag(2, WireType.Varint).int64(message.port);
+            writer.tag(467931817, WireType.Varint).int64(message.port);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const StartProxyInput = new StartProxyInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class StartProxyOutput$Type extends MessageType<StartProxyOutput> {
     constructor() {
-        super("operation.method.proxy_server.start_proxy.StartProxyOutput", []);
+        super("operation.method.proxy_server.start_proxy.StartProxyOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<StartProxyOutput>): StartProxyOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<StartProxyOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class StartProxyOutput$Type extends MessageType<StartProxyOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class StartProxyOutput$Type extends MessageType<StartProxyOutput> {
         return message;
     }
     internalBinaryWrite(message: StartProxyOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

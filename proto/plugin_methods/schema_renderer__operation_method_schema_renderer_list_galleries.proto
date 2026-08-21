@@ -15,7 +15,7 @@ message ListGalleriesInput {
 }
 
 message ListGalleriesOutput {
-  repeated google.protobuf.Value galleries = 1;
+  repeated google.protobuf.Value galleries = 251983603;
 }
 
 service ListGalleriesService {

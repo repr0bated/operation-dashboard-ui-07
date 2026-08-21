@@ -15,7 +15,7 @@ message ListRerankModelsInput {
 }
 
 message ListRerankModelsOutput {
-  repeated google.protobuf.Value models = 1;
+  repeated google.protobuf.Value models = 343003787;
 }
 
 service ListRerankModelsService {

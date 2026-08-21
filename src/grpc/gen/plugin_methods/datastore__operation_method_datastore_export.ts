@@ -26,7 +26,7 @@ export interface ExportInput {
  */
 export interface ExportOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value data = 1
+     * @generated from protobuf field: google.protobuf.Value data = 410182315
      */
     data?: Value;
 }
@@ -72,7 +72,7 @@ export const ExportInput = new ExportInput$Type();
 class ExportOutput$Type extends MessageType<ExportOutput> {
     constructor() {
         super("operation.method.datastore.export.ExportOutput", [
-            { no: 1, name: "data", kind: "message", T: () => Value }
+            { no: 410182315, name: "data", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ExportOutput>): ExportOutput {
@@ -86,7 +86,7 @@ class ExportOutput$Type extends MessageType<ExportOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value data */ 1:
+                case /* google.protobuf.Value data */ 410182315:
                     message.data = Value.internalBinaryRead(reader, reader.uint32(), options, message.data);
                     break;
                 default:
@@ -101,9 +101,9 @@ class ExportOutput$Type extends MessageType<ExportOutput> {
         return message;
     }
     internalBinaryWrite(message: ExportOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value data = 1; */
+        /* google.protobuf.Value data = 410182315; */
         if (message.data)
-            Value.internalBinaryWrite(message.data, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.data, writer.tag(410182315, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

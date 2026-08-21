@@ -14,7 +14,9 @@ message GetSourceContentInput {
   // Empty schema object.
 }
 
-message GetSourceContentOutput {}
+message GetSourceContentOutput {
+  bool success = 442482449;
+}
 
 service GetSourceContentService {
   // subid: obs.service.plugin.notebooklm.source.content@v1, capability: notebooklm.read

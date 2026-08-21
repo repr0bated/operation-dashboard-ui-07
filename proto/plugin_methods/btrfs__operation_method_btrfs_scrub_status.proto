@@ -11,13 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message ScrubStatusInput {
-  string path = 1;
+  string path = 75975994;
 }
 
 message ScrubStatusOutput {
-  int64 errors_found = 1;
-  double progress_percent = 2;
-  string state = 3;
+  bool success = 442482449;
 }
 
 service ScrubStatusService {

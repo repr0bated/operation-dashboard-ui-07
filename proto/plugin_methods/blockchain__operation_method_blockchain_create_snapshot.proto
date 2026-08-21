@@ -14,7 +14,9 @@ message CreateSnapshotInput {
   // Empty schema object.
 }
 
-message CreateSnapshotOutput {}
+message CreateSnapshotOutput {
+  bool success = 442482449;
+}
 
 service CreateSnapshotService {
   // subid: mut.service.blockchain.snapshot.create@v1, capability: blockchain.invoke

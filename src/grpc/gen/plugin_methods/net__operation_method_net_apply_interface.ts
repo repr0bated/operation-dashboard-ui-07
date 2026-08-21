@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ApplyInterfaceInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value interface = 1
+     * @generated from protobuf field: google.protobuf.Value interface = 82465076
      */
     interface?: Value;
 }
@@ -27,12 +27,16 @@ export interface ApplyInterfaceInput {
  * @generated from protobuf message operation.method.net.apply_interface.ApplyInterfaceOutput
  */
 export interface ApplyInterfaceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ApplyInterfaceInput$Type extends MessageType<ApplyInterfaceInput> {
     constructor() {
         super("operation.method.net.apply_interface.ApplyInterfaceInput", [
-            { no: 1, name: "interface", kind: "message", T: () => Value }
+            { no: 82465076, name: "interface", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ApplyInterfaceInput>): ApplyInterfaceInput {
@@ -46,7 +50,7 @@ class ApplyInterfaceInput$Type extends MessageType<ApplyInterfaceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value interface */ 1:
+                case /* google.protobuf.Value interface */ 82465076:
                     message.interface = Value.internalBinaryRead(reader, reader.uint32(), options, message.interface);
                     break;
                 default:
@@ -61,9 +65,9 @@ class ApplyInterfaceInput$Type extends MessageType<ApplyInterfaceInput> {
         return message;
     }
     internalBinaryWrite(message: ApplyInterfaceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value interface = 1; */
+        /* google.protobuf.Value interface = 82465076; */
         if (message.interface)
-            Value.internalBinaryWrite(message.interface, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.interface, writer.tag(82465076, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const ApplyInterfaceInput = new ApplyInterfaceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ApplyInterfaceOutput$Type extends MessageType<ApplyInterfaceOutput> {
     constructor() {
-        super("operation.method.net.apply_interface.ApplyInterfaceOutput", []);
+        super("operation.method.net.apply_interface.ApplyInterfaceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ApplyInterfaceOutput>): ApplyInterfaceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ApplyInterfaceOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class ApplyInterfaceOutput$Type extends MessageType<ApplyInterfaceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class ApplyInterfaceOutput$Type extends MessageType<ApplyInterfaceOutput> {
         return message;
     }
     internalBinaryWrite(message: ApplyInterfaceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

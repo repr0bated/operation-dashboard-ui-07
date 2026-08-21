@@ -25,7 +25,7 @@ export interface ListToolsInput {
  */
 export interface ListToolsOutput {
     /**
-     * @generated from protobuf field: repeated string tools = 1
+     * @generated from protobuf field: repeated string tools = 256255331
      */
     tools: string[];
 }
@@ -71,7 +71,7 @@ export const ListToolsInput = new ListToolsInput$Type();
 class ListToolsOutput$Type extends MessageType<ListToolsOutput> {
     constructor() {
         super("operation.method.agent_config.list_tools.ListToolsOutput", [
-            { no: 1, name: "tools", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 256255331, name: "tools", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListToolsOutput>): ListToolsOutput {
@@ -86,7 +86,7 @@ class ListToolsOutput$Type extends MessageType<ListToolsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string tools */ 1:
+                case /* repeated string tools */ 256255331:
                     message.tools.push(reader.string());
                     break;
                 default:
@@ -101,9 +101,9 @@ class ListToolsOutput$Type extends MessageType<ListToolsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListToolsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string tools = 1; */
+        /* repeated string tools = 256255331; */
         for (let i = 0; i < message.tools.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.tools[i]);
+            writer.tag(256255331, WireType.LengthDelimited).string(message.tools[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

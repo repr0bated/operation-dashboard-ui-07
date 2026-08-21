@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ScrollPointsInput {
     /**
-     * @generated from protobuf field: string collection_name = 1
+     * @generated from protobuf field: string collection_name = 468055319
      */
     collectionName: string;
     /**
-     * @generated from protobuf field: int64 limit = 2
+     * @generated from protobuf field: int64 limit = 316332341
      */
     limit: string;
 }
@@ -32,11 +32,11 @@ export interface ScrollPointsInput {
  */
 export interface ScrollPointsOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value next_page_offset = 1
+     * @generated from protobuf field: google.protobuf.Value next_page_offset = 146413086
      */
     nextPageOffset?: Value;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value points = 2
+     * @generated from protobuf field: repeated google.protobuf.Value points = 479553483
      */
     points: Value[];
 }
@@ -44,8 +44,8 @@ export interface ScrollPointsOutput {
 class ScrollPointsInput$Type extends MessageType<ScrollPointsInput> {
     constructor() {
         super("operation.method.qdrant.scroll_points.ScrollPointsInput", [
-            { no: 1, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 468055319, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 316332341, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<ScrollPointsInput>): ScrollPointsInput {
@@ -61,10 +61,10 @@ class ScrollPointsInput$Type extends MessageType<ScrollPointsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string collection_name */ 1:
+                case /* string collection_name */ 468055319:
                     message.collectionName = reader.string();
                     break;
-                case /* int64 limit */ 2:
+                case /* int64 limit */ 316332341:
                     message.limit = reader.int64().toString();
                     break;
                 default:
@@ -79,12 +79,12 @@ class ScrollPointsInput$Type extends MessageType<ScrollPointsInput> {
         return message;
     }
     internalBinaryWrite(message: ScrollPointsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string collection_name = 1; */
-        if (message.collectionName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.collectionName);
-        /* int64 limit = 2; */
+        /* int64 limit = 316332341; */
         if (message.limit !== "0")
-            writer.tag(2, WireType.Varint).int64(message.limit);
+            writer.tag(316332341, WireType.Varint).int64(message.limit);
+        /* string collection_name = 468055319; */
+        if (message.collectionName !== "")
+            writer.tag(468055319, WireType.LengthDelimited).string(message.collectionName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -99,8 +99,8 @@ export const ScrollPointsInput = new ScrollPointsInput$Type();
 class ScrollPointsOutput$Type extends MessageType<ScrollPointsOutput> {
     constructor() {
         super("operation.method.qdrant.scroll_points.ScrollPointsOutput", [
-            { no: 1, name: "next_page_offset", kind: "message", T: () => Value },
-            { no: 2, name: "points", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 146413086, name: "next_page_offset", kind: "message", T: () => Value },
+            { no: 479553483, name: "points", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ScrollPointsOutput>): ScrollPointsOutput {
@@ -115,10 +115,10 @@ class ScrollPointsOutput$Type extends MessageType<ScrollPointsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value next_page_offset */ 1:
+                case /* google.protobuf.Value next_page_offset */ 146413086:
                     message.nextPageOffset = Value.internalBinaryRead(reader, reader.uint32(), options, message.nextPageOffset);
                     break;
-                case /* repeated google.protobuf.Value points */ 2:
+                case /* repeated google.protobuf.Value points */ 479553483:
                     message.points.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -133,12 +133,12 @@ class ScrollPointsOutput$Type extends MessageType<ScrollPointsOutput> {
         return message;
     }
     internalBinaryWrite(message: ScrollPointsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value next_page_offset = 1; */
+        /* google.protobuf.Value next_page_offset = 146413086; */
         if (message.nextPageOffset)
-            Value.internalBinaryWrite(message.nextPageOffset, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated google.protobuf.Value points = 2; */
+            Value.internalBinaryWrite(message.nextPageOffset, writer.tag(146413086, WireType.LengthDelimited).fork(), options).join();
+        /* repeated google.protobuf.Value points = 479553483; */
         for (let i = 0; i < message.points.length; i++)
-            Value.internalBinaryWrite(message.points[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.points[i], writer.tag(479553483, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

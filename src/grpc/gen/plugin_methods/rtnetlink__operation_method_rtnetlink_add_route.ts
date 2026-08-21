@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AddRouteInput {
     /**
-     * @generated from protobuf field: string destination = 1
+     * @generated from protobuf field: string destination = 316564676
      */
     destination: string;
     /**
-     * @generated from protobuf field: string gateway = 2
+     * @generated from protobuf field: string gateway = 130695680
      */
     gateway: string;
     /**
-     * @generated from protobuf field: string interface = 3
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
 }
@@ -34,14 +34,18 @@ export interface AddRouteInput {
  * @generated from protobuf message operation.method.rtnetlink.add_route.AddRouteOutput
  */
 export interface AddRouteOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddRouteInput$Type extends MessageType<AddRouteInput> {
     constructor() {
         super("operation.method.rtnetlink.add_route.AddRouteInput", [
-            { no: 1, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "gateway", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 316564676, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 130695680, name: "gateway", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AddRouteInput>): AddRouteInput {
@@ -58,13 +62,13 @@ class AddRouteInput$Type extends MessageType<AddRouteInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string destination */ 1:
+                case /* string destination */ 316564676:
                     message.destination = reader.string();
                     break;
-                case /* string gateway */ 2:
+                case /* string gateway */ 130695680:
                     message.gateway = reader.string();
                     break;
-                case /* string interface */ 3:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class AddRouteInput$Type extends MessageType<AddRouteInput> {
         return message;
     }
     internalBinaryWrite(message: AddRouteInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string destination = 1; */
-        if (message.destination !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.destination);
-        /* string gateway = 2; */
-        if (message.gateway !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.gateway);
-        /* string interface = 3; */
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.interface);
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
+        /* string gateway = 130695680; */
+        if (message.gateway !== "")
+            writer.tag(130695680, WireType.LengthDelimited).string(message.gateway);
+        /* string destination = 316564676; */
+        if (message.destination !== "")
+            writer.tag(316564676, WireType.LengthDelimited).string(message.destination);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const AddRouteInput = new AddRouteInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddRouteOutput$Type extends MessageType<AddRouteOutput> {
     constructor() {
-        super("operation.method.rtnetlink.add_route.AddRouteOutput", []);
+        super("operation.method.rtnetlink.add_route.AddRouteOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddRouteOutput>): AddRouteOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddRouteOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class AddRouteOutput$Type extends MessageType<AddRouteOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class AddRouteOutput$Type extends MessageType<AddRouteOutput> {
         return message;
     }
     internalBinaryWrite(message: AddRouteOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetComponentSchemaInput {
-  string name = 1;
+  string name = 221887978;
 }
 
 message GetComponentSchemaOutput {
-  google.protobuf.Value component = 1;
+  google.protobuf.Value component = 519925474;
 }
 
 service GetComponentSchemaService {

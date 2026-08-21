@@ -14,7 +14,9 @@ message RunJobInput {
   // Empty schema object.
 }
 
-message RunJobOutput {}
+message RunJobOutput {
+  bool success = 442482449;
+}
 
 service RunJobService {
   // subid: mut.service.cron.job.run@v1, capability: cron.invoke

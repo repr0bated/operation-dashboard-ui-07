@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.antigravity.configure_safety;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ConfigureSafetyInput {
+  string civic_integrity = 485038372;
+  string dangerous = 100902133;
+  string harassment = 373347143;
+  string hate_speech = 62591275;
+  string sexually_explicit = 531557585;
+}
+
+message ConfigureSafetyOutput {
+  repeated google.protobuf.Value safety_settings = 361041369;
+}
+
+service ConfigureSafetyService {
+  // subid: mut.software.antigravity.safety.configure@v1, capability: antigravity.write
+  rpc configure_safety(ConfigureSafetyInput) returns (ConfigureSafetyOutput);
+}

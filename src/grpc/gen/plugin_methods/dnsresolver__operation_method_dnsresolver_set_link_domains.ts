@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface SetLinkDomainsInput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value domains = 1
+     * @generated from protobuf field: repeated google.protobuf.Value domains = 257393062
      */
     domains: Value[];
     /**
-     * @generated from protobuf field: int64 ifindex = 2
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
 }
@@ -31,13 +31,17 @@ export interface SetLinkDomainsInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_domains.SetLinkDomainsOutput
  */
 export interface SetLinkDomainsOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDomainsInput$Type extends MessageType<SetLinkDomainsInput> {
     constructor() {
         super("operation.method.dnsresolver.set_link_domains.SetLinkDomainsInput", [
-            { no: 1, name: "domains", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 2, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 257393062, name: "domains", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<SetLinkDomainsInput>): SetLinkDomainsInput {
@@ -53,10 +57,10 @@ class SetLinkDomainsInput$Type extends MessageType<SetLinkDomainsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value domains */ 1:
+                case /* repeated google.protobuf.Value domains */ 257393062:
                     message.domains.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* int64 ifindex */ 2:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
                 default:
@@ -71,12 +75,12 @@ class SetLinkDomainsInput$Type extends MessageType<SetLinkDomainsInput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDomainsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value domains = 1; */
+        /* repeated google.protobuf.Value domains = 257393062; */
         for (let i = 0; i < message.domains.length; i++)
-            Value.internalBinaryWrite(message.domains[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* int64 ifindex = 2; */
+            Value.internalBinaryWrite(message.domains[i], writer.tag(257393062, WireType.LengthDelimited).fork(), options).join();
+        /* int64 ifindex = 394788143; */
         if (message.ifindex !== "0")
-            writer.tag(2, WireType.Varint).int64(message.ifindex);
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -90,10 +94,13 @@ export const SetLinkDomainsInput = new SetLinkDomainsInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDomainsOutput$Type extends MessageType<SetLinkDomainsOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_domains.SetLinkDomainsOutput", []);
+        super("operation.method.dnsresolver.set_link_domains.SetLinkDomainsOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkDomainsOutput>): SetLinkDomainsOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkDomainsOutput>(this, message, value);
         return message;
@@ -103,6 +110,9 @@ class SetLinkDomainsOutput$Type extends MessageType<SetLinkDomainsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -115,6 +125,9 @@ class SetLinkDomainsOutput$Type extends MessageType<SetLinkDomainsOutput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDomainsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

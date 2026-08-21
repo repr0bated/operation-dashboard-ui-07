@@ -14,7 +14,9 @@ message AddSourceTextInput {
   // Empty schema object.
 }
 
-message AddSourceTextOutput {}
+message AddSourceTextOutput {
+  bool success = 442482449;
+}
 
 service AddSourceTextService {
   // subid: mut.service.plugin.notebooklm.source.add-text@v1, capability: notebooklm.invoke

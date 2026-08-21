@@ -15,7 +15,7 @@ message ListByCategoryInput {
 }
 
 message ListByCategoryOutput {
-  repeated google.protobuf.Value entries = 1;
+  repeated google.protobuf.Value entries = 257458934;
 }
 
 service ListByCategoryService {

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ScrubStatusInput {
     /**
-     * @generated from protobuf field: string path = 1
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
 }
@@ -27,23 +27,15 @@ export interface ScrubStatusInput {
  */
 export interface ScrubStatusOutput {
     /**
-     * @generated from protobuf field: int64 errors_found = 1
+     * @generated from protobuf field: bool success = 442482449
      */
-    errorsFound: string;
-    /**
-     * @generated from protobuf field: double progress_percent = 2
-     */
-    progressPercent: number;
-    /**
-     * @generated from protobuf field: string state = 3
-     */
-    state: string;
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ScrubStatusInput$Type extends MessageType<ScrubStatusInput> {
     constructor() {
         super("operation.method.btrfs.scrub_status.ScrubStatusInput", [
-            { no: 1, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ScrubStatusInput>): ScrubStatusInput {
@@ -58,7 +50,7 @@ class ScrubStatusInput$Type extends MessageType<ScrubStatusInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string path */ 1:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
                 default:
@@ -73,9 +65,9 @@ class ScrubStatusInput$Type extends MessageType<ScrubStatusInput> {
         return message;
     }
     internalBinaryWrite(message: ScrubStatusInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string path = 1; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.path);
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -90,16 +82,12 @@ export const ScrubStatusInput = new ScrubStatusInput$Type();
 class ScrubStatusOutput$Type extends MessageType<ScrubStatusOutput> {
     constructor() {
         super("operation.method.btrfs.scrub_status.ScrubStatusOutput", [
-            { no: 1, name: "errors_found", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "progress_percent", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 3, name: "state", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ScrubStatusOutput>): ScrubStatusOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.errorsFound = "0";
-        message.progressPercent = 0;
-        message.state = "";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ScrubStatusOutput>(this, message, value);
         return message;
@@ -109,14 +97,8 @@ class ScrubStatusOutput$Type extends MessageType<ScrubStatusOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 errors_found */ 1:
-                    message.errorsFound = reader.int64().toString();
-                    break;
-                case /* double progress_percent */ 2:
-                    message.progressPercent = reader.double();
-                    break;
-                case /* string state */ 3:
-                    message.state = reader.string();
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -130,15 +112,9 @@ class ScrubStatusOutput$Type extends MessageType<ScrubStatusOutput> {
         return message;
     }
     internalBinaryWrite(message: ScrubStatusOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 errors_found = 1; */
-        if (message.errorsFound !== "0")
-            writer.tag(1, WireType.Varint).int64(message.errorsFound);
-        /* double progress_percent = 2; */
-        if (message.progressPercent !== 0)
-            writer.tag(2, WireType.Bit64).double(message.progressPercent);
-        /* string state = 3; */
-        if (message.state !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.state);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -15,7 +15,7 @@ message ListToolsInput {
 }
 
 message ListToolsOutput {
-  repeated string tools = 1;
+  repeated string tools = 256255331;
 }
 
 service ListToolsService {

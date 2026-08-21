@@ -15,7 +15,7 @@ message ListTagsInput {
 }
 
 message ListTagsOutput {
-  repeated google.protobuf.Value tags = 1;
+  repeated google.protobuf.Value tags = 337046439;
 }
 
 service ListTagsService {

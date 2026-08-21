@@ -25,27 +25,27 @@ export interface GetConfigInput {
  */
 export interface GetConfigOutput {
     /**
-     * @generated from protobuf field: bool dbus_enabled = 1
+     * @generated from protobuf field: bool dbus_enabled = 315145500
      */
     dbusEnabled: boolean;
     /**
-     * @generated from protobuf field: string grpc = 2
+     * @generated from protobuf field: string grpc = 7421098
      */
     grpc: string;
     /**
-     * @generated from protobuf field: bool grpc_enabled = 3
+     * @generated from protobuf field: bool grpc_enabled = 10552235
      */
     grpcEnabled: boolean;
     /**
-     * @generated from protobuf field: string http = 4
+     * @generated from protobuf field: string http = 157567147
      */
     http: string;
     /**
-     * @generated from protobuf field: bool http_enabled = 5
+     * @generated from protobuf field: bool http_enabled = 90804139
      */
     httpEnabled: boolean;
     /**
-     * @generated from protobuf field: string wg_interface = 6
+     * @generated from protobuf field: string wg_interface = 245570443
      */
     wgInterface: string;
 }
@@ -91,12 +91,12 @@ export const GetConfigInput = new GetConfigInput$Type();
 class GetConfigOutput$Type extends MessageType<GetConfigOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.get_config.GetConfigOutput", [
-            { no: 1, name: "dbus_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "grpc", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "grpc_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "http", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "http_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 6, name: "wg_interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 315145500, name: "dbus_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 7421098, name: "grpc", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 10552235, name: "grpc_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 157567147, name: "http", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 90804139, name: "http_enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 245570443, name: "wg_interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetConfigOutput>): GetConfigOutput {
@@ -116,22 +116,22 @@ class GetConfigOutput$Type extends MessageType<GetConfigOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool dbus_enabled */ 1:
+                case /* bool dbus_enabled */ 315145500:
                     message.dbusEnabled = reader.bool();
                     break;
-                case /* string grpc */ 2:
+                case /* string grpc */ 7421098:
                     message.grpc = reader.string();
                     break;
-                case /* bool grpc_enabled */ 3:
+                case /* bool grpc_enabled */ 10552235:
                     message.grpcEnabled = reader.bool();
                     break;
-                case /* string http */ 4:
+                case /* string http */ 157567147:
                     message.http = reader.string();
                     break;
-                case /* bool http_enabled */ 5:
+                case /* bool http_enabled */ 90804139:
                     message.httpEnabled = reader.bool();
                     break;
-                case /* string wg_interface */ 6:
+                case /* string wg_interface */ 245570443:
                     message.wgInterface = reader.string();
                     break;
                 default:
@@ -146,24 +146,24 @@ class GetConfigOutput$Type extends MessageType<GetConfigOutput> {
         return message;
     }
     internalBinaryWrite(message: GetConfigOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool dbus_enabled = 1; */
-        if (message.dbusEnabled !== false)
-            writer.tag(1, WireType.Varint).bool(message.dbusEnabled);
-        /* string grpc = 2; */
+        /* string grpc = 7421098; */
         if (message.grpc !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.grpc);
-        /* bool grpc_enabled = 3; */
+            writer.tag(7421098, WireType.LengthDelimited).string(message.grpc);
+        /* bool grpc_enabled = 10552235; */
         if (message.grpcEnabled !== false)
-            writer.tag(3, WireType.Varint).bool(message.grpcEnabled);
-        /* string http = 4; */
-        if (message.http !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.http);
-        /* bool http_enabled = 5; */
+            writer.tag(10552235, WireType.Varint).bool(message.grpcEnabled);
+        /* bool http_enabled = 90804139; */
         if (message.httpEnabled !== false)
-            writer.tag(5, WireType.Varint).bool(message.httpEnabled);
-        /* string wg_interface = 6; */
+            writer.tag(90804139, WireType.Varint).bool(message.httpEnabled);
+        /* string http = 157567147; */
+        if (message.http !== "")
+            writer.tag(157567147, WireType.LengthDelimited).string(message.http);
+        /* string wg_interface = 245570443; */
         if (message.wgInterface !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.wgInterface);
+            writer.tag(245570443, WireType.LengthDelimited).string(message.wgInterface);
+        /* bool dbus_enabled = 315145500; */
+        if (message.dbusEnabled !== false)
+            writer.tag(315145500, WireType.Varint).bool(message.dbusEnabled);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

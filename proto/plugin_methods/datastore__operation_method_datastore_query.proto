@@ -15,7 +15,7 @@ message QueryInput {
 }
 
 message QueryOutput {
-  repeated google.protobuf.Value results = 1;
+  repeated google.protobuf.Value results = 206523128;
 }
 
 service QueryService {

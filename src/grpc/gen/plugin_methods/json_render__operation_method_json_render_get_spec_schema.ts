@@ -26,7 +26,7 @@ export interface GetSpecSchemaInput {
  */
 export interface GetSpecSchemaOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value spec_contract = 1
+     * @generated from protobuf field: google.protobuf.Value spec_contract = 496849348
      */
     specContract?: Value;
 }
@@ -72,7 +72,7 @@ export const GetSpecSchemaInput = new GetSpecSchemaInput$Type();
 class GetSpecSchemaOutput$Type extends MessageType<GetSpecSchemaOutput> {
     constructor() {
         super("operation.method.json_render.get_spec_schema.GetSpecSchemaOutput", [
-            { no: 1, name: "spec_contract", kind: "message", T: () => Value }
+            { no: 496849348, name: "spec_contract", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetSpecSchemaOutput>): GetSpecSchemaOutput {
@@ -86,7 +86,7 @@ class GetSpecSchemaOutput$Type extends MessageType<GetSpecSchemaOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value spec_contract */ 1:
+                case /* google.protobuf.Value spec_contract */ 496849348:
                     message.specContract = Value.internalBinaryRead(reader, reader.uint32(), options, message.specContract);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetSpecSchemaOutput$Type extends MessageType<GetSpecSchemaOutput> {
         return message;
     }
     internalBinaryWrite(message: GetSpecSchemaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value spec_contract = 1; */
+        /* google.protobuf.Value spec_contract = 496849348; */
         if (message.specContract)
-            Value.internalBinaryWrite(message.specContract, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.specContract, writer.tag(496849348, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetInput {
-  string interface_name = 1;
-  string property_name = 2;
-  string value = 3;
+  string interface_name = 518035138;
+  string property_name = 496618199;
+  string value = 39769036;
 }
 
-message SetOutput {}
+message SetOutput {
+  bool success = 442482449;
+}
 
 service SetService {
   // subid: mut.software.freedesktop.property.set@v1, capability: freedesktop.write

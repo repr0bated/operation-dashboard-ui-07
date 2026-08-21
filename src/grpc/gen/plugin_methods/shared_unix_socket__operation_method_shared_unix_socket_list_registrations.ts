@@ -26,7 +26,7 @@ export interface ListRegistrationsInput {
  */
 export interface ListRegistrationsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value registrations = 1
+     * @generated from protobuf field: repeated google.protobuf.Value registrations = 210525270
      */
     registrations: Value[];
 }
@@ -72,7 +72,7 @@ export const ListRegistrationsInput = new ListRegistrationsInput$Type();
 class ListRegistrationsOutput$Type extends MessageType<ListRegistrationsOutput> {
     constructor() {
         super("operation.method.shared_unix_socket.list_registrations.ListRegistrationsOutput", [
-            { no: 1, name: "registrations", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 210525270, name: "registrations", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListRegistrationsOutput>): ListRegistrationsOutput {
@@ -87,7 +87,7 @@ class ListRegistrationsOutput$Type extends MessageType<ListRegistrationsOutput> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value registrations */ 1:
+                case /* repeated google.protobuf.Value registrations */ 210525270:
                     message.registrations.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListRegistrationsOutput$Type extends MessageType<ListRegistrationsOutput> 
         return message;
     }
     internalBinaryWrite(message: ListRegistrationsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value registrations = 1; */
+        /* repeated google.protobuf.Value registrations = 210525270; */
         for (let i = 0; i < message.registrations.length; i++)
-            Value.internalBinaryWrite(message.registrations[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.registrations[i], writer.tag(210525270, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

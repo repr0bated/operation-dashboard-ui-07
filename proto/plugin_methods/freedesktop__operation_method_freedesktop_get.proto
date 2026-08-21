@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetInput {
-  string interface_name = 1;
-  string property_name = 2;
+  string interface_name = 518035138;
+  string property_name = 496618199;
 }
 
-message GetOutput {}
+message GetOutput {
+  bool success = 442482449;
+}
 
 service GetService {
   // subid: obs.software.freedesktop.property.get@v1, capability: freedesktop.read

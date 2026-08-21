@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.human_principal.revoke_key;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RevokeKeyInput {
+  string human_pubkey = 353843991;
+}
+
+message RevokeKeyOutput {
+  google.protobuf.Value principal = 262257199;
+}
+
+service RevokeKeyService {
+  // subid: mut.service.human-principal.key.revoke@v1, capability: human_principal.write
+  rpc revoke_key(RevokeKeyInput) returns (RevokeKeyOutput);
+}

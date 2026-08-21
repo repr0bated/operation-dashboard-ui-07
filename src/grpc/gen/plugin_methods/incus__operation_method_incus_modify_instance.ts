@@ -19,15 +19,15 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface ModifyInstanceInput {
     /**
-     * @generated from protobuf field: google.protobuf.Struct config = 1
+     * @generated from protobuf field: google.protobuf.Struct config = 67069640
      */
     config?: Struct;
     /**
-     * @generated from protobuf field: google.protobuf.Struct devices = 2
+     * @generated from protobuf field: google.protobuf.Struct devices = 17468293
      */
     devices?: Struct;
     /**
-     * @generated from protobuf field: string name = 3
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -35,14 +35,18 @@ export interface ModifyInstanceInput {
  * @generated from protobuf message operation.method.incus.modify_instance.ModifyInstanceOutput
  */
 export interface ModifyInstanceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ModifyInstanceInput$Type extends MessageType<ModifyInstanceInput> {
     constructor() {
         super("operation.method.incus.modify_instance.ModifyInstanceInput", [
-            { no: 1, name: "config", kind: "message", T: () => Struct },
-            { no: 2, name: "devices", kind: "message", T: () => Struct },
-            { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 67069640, name: "config", kind: "message", T: () => Struct },
+            { no: 17468293, name: "devices", kind: "message", T: () => Struct },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ModifyInstanceInput>): ModifyInstanceInput {
@@ -57,13 +61,13 @@ class ModifyInstanceInput$Type extends MessageType<ModifyInstanceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Struct config */ 1:
+                case /* google.protobuf.Struct config */ 67069640:
                     message.config = Struct.internalBinaryRead(reader, reader.uint32(), options, message.config);
                     break;
-                case /* google.protobuf.Struct devices */ 2:
+                case /* google.protobuf.Struct devices */ 17468293:
                     message.devices = Struct.internalBinaryRead(reader, reader.uint32(), options, message.devices);
                     break;
-                case /* string name */ 3:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -78,15 +82,15 @@ class ModifyInstanceInput$Type extends MessageType<ModifyInstanceInput> {
         return message;
     }
     internalBinaryWrite(message: ModifyInstanceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Struct config = 1; */
-        if (message.config)
-            Struct.internalBinaryWrite(message.config, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Struct devices = 2; */
+        /* google.protobuf.Struct devices = 17468293; */
         if (message.devices)
-            Struct.internalBinaryWrite(message.devices, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* string name = 3; */
+            Struct.internalBinaryWrite(message.devices, writer.tag(17468293, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Struct config = 67069640; */
+        if (message.config)
+            Struct.internalBinaryWrite(message.config, writer.tag(67069640, WireType.LengthDelimited).fork(), options).join();
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -100,10 +104,13 @@ export const ModifyInstanceInput = new ModifyInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ModifyInstanceOutput$Type extends MessageType<ModifyInstanceOutput> {
     constructor() {
-        super("operation.method.incus.modify_instance.ModifyInstanceOutput", []);
+        super("operation.method.incus.modify_instance.ModifyInstanceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ModifyInstanceOutput>): ModifyInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ModifyInstanceOutput>(this, message, value);
         return message;
@@ -113,6 +120,9 @@ class ModifyInstanceOutput$Type extends MessageType<ModifyInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -125,6 +135,9 @@ class ModifyInstanceOutput$Type extends MessageType<ModifyInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: ModifyInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,12 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ListSnapshotsInput {
-  int64 limit = 1;
-  string subvolume = 2;
+  int64 limit = 316332341;
+  string subvolume = 179317414;
 }
 
 message ListSnapshotsOutput {
-  repeated google.protobuf.Value snapshots = 1;
+  repeated google.protobuf.Value snapshots = 494231770;
 }
 
 service ListSnapshotsService {

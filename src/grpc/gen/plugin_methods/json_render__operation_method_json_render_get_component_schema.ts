@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface GetComponentSchemaInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -28,7 +28,7 @@ export interface GetComponentSchemaInput {
  */
 export interface GetComponentSchemaOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value component = 1
+     * @generated from protobuf field: google.protobuf.Value component = 519925474
      */
     component?: Value;
 }
@@ -36,7 +36,7 @@ export interface GetComponentSchemaOutput {
 class GetComponentSchemaInput$Type extends MessageType<GetComponentSchemaInput> {
     constructor() {
         super("operation.method.json_render.get_component_schema.GetComponentSchemaInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetComponentSchemaInput>): GetComponentSchemaInput {
@@ -51,7 +51,7 @@ class GetComponentSchemaInput$Type extends MessageType<GetComponentSchemaInput> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -66,9 +66,9 @@ class GetComponentSchemaInput$Type extends MessageType<GetComponentSchemaInput> 
         return message;
     }
     internalBinaryWrite(message: GetComponentSchemaInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -83,7 +83,7 @@ export const GetComponentSchemaInput = new GetComponentSchemaInput$Type();
 class GetComponentSchemaOutput$Type extends MessageType<GetComponentSchemaOutput> {
     constructor() {
         super("operation.method.json_render.get_component_schema.GetComponentSchemaOutput", [
-            { no: 1, name: "component", kind: "message", T: () => Value }
+            { no: 519925474, name: "component", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetComponentSchemaOutput>): GetComponentSchemaOutput {
@@ -97,7 +97,7 @@ class GetComponentSchemaOutput$Type extends MessageType<GetComponentSchemaOutput
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value component */ 1:
+                case /* google.protobuf.Value component */ 519925474:
                     message.component = Value.internalBinaryRead(reader, reader.uint32(), options, message.component);
                     break;
                 default:
@@ -112,9 +112,9 @@ class GetComponentSchemaOutput$Type extends MessageType<GetComponentSchemaOutput
         return message;
     }
     internalBinaryWrite(message: GetComponentSchemaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value component = 1; */
+        /* google.protobuf.Value component = 519925474; */
         if (message.component)
-            Value.internalBinaryWrite(message.component, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.component, writer.tag(519925474, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

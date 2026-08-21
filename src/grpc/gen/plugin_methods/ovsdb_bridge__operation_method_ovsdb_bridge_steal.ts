@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface StealInput {
     /**
-     * @generated from protobuf field: string lock_id = 1
+     * @generated from protobuf field: string lock_id = 308081002
      */
     lockId: string;
 }
@@ -26,12 +26,16 @@ export interface StealInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.steal.StealOutput
  */
 export interface StealOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class StealInput$Type extends MessageType<StealInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.steal.StealInput", [
-            { no: 1, name: "lock_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 308081002, name: "lock_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<StealInput>): StealInput {
@@ -46,7 +50,7 @@ class StealInput$Type extends MessageType<StealInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string lock_id */ 1:
+                case /* string lock_id */ 308081002:
                     message.lockId = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class StealInput$Type extends MessageType<StealInput> {
         return message;
     }
     internalBinaryWrite(message: StealInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string lock_id = 1; */
+        /* string lock_id = 308081002; */
         if (message.lockId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.lockId);
+            writer.tag(308081002, WireType.LengthDelimited).string(message.lockId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const StealInput = new StealInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class StealOutput$Type extends MessageType<StealOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.steal.StealOutput", []);
+        super("operation.method.ovsdb_bridge.steal.StealOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<StealOutput>): StealOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<StealOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class StealOutput$Type extends MessageType<StealOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class StealOutput$Type extends MessageType<StealOutput> {
         return message;
     }
     internalBinaryWrite(message: StealOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

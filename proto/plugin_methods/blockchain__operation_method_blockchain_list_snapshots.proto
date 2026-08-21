@@ -15,7 +15,7 @@ message ListSnapshotsInput {
 }
 
 message ListSnapshotsOutput {
-  repeated google.protobuf.Value snapshots = 1;
+  repeated google.protobuf.Value snapshots = 494231770;
 }
 
 service ListSnapshotsService {

@@ -14,7 +14,9 @@ message RefreshAuthInput {
   // Empty schema object.
 }
 
-message RefreshAuthOutput {}
+message RefreshAuthOutput {
+  bool success = 442482449;
+}
 
 service RefreshAuthService {
   // subid: mut.service.plugin.notebooklm.auth.refresh@v1, capability: notebooklm.admin

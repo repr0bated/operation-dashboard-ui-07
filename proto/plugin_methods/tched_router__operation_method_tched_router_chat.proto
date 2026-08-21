@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package operation.method.tched_router.chat;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ChatInput {
+  string message = 82970853;
+  repeated google.protobuf.Value messages = 230843;
+  string model = 277571167;
+  string provider = 398506945;
+}
+
+message ChatOutput {
+  string content = 280937414;
+  string finish_reason = 49511306;
+  string model = 277571167;
+  string provider = 398506945;
+  google.protobuf.Value usage = 240365230;
+}
+
+service ChatService {
+  // subid: exp.service.tched-router.chat@v1, capability: cap.software.tched-router.chat@v1
+  rpc Chat(ChatInput) returns (ChatOutput);
+}

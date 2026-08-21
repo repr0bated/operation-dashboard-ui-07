@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message RemovePortInput {
-  string bridge = 1;
-  string port = 2;
+  string bridge = 179832343;
+  string port = 467931817;
 }
 
-message RemovePortOutput {}
+message RemovePortOutput {
+  bool success = 442482449;
+}
 
 service RemovePortService {
   // subid: mut.network.ovsdb.port.remove@v1, capability: ovsdb.write

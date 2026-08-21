@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.setcozoretrievalmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetCozoRetrievalModelInput {
+  string model_id = 491087124;
+}
+
+message SetCozoRetrievalModelOutput {
+  string cozo_retrieval = 13123615;
+}
+
+service SetCozoRetrievalModelService {
+  // subid: mut.service.tched-router.model-assignments.cozo-retrieval.set@v1, capability: cap.software.tched-router.model-assignments.cozo-retrieval.set@v1
+  rpc SetCozoRetrievalModel(SetCozoRetrievalModelInput) returns (SetCozoRetrievalModelOutput);
+}

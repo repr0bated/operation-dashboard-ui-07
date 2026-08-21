@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message StartInput {
-  string id = 1;
+  string id = 389573345;
 }
 
-message StartOutput {}
+message StartOutput {
+  bool success = 442482449;
+}
 
 service StartService {
   // subid: mut.container.oci.start@v1, capability: cap.container.oci.start@v1

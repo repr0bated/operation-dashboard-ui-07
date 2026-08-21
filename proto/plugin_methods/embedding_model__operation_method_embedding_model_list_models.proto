@@ -15,7 +15,7 @@ message ListModelsInput {
 }
 
 message ListModelsOutput {
-  repeated string models = 1;
+  repeated string models = 343003787;
 }
 
 service ListModelsService {

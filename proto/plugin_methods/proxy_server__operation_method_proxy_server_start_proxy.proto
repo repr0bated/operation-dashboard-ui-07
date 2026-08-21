@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message StartProxyInput {
-  string name = 1;
-  int64 port = 2;
+  string name = 221887978;
+  int64 port = 467931817;
 }
 
-message StartProxyOutput {}
+message StartProxyOutput {
+  bool success = 442482449;
+}
 
 service StartProxyService {
   // subid: mut.network.proxy.start@v1, capability: cap.network.proxy.start@v1

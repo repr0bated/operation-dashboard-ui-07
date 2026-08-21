@@ -18,23 +18,23 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ModifyUserInput {
     /**
-     * @generated from protobuf field: repeated string add_groups = 1
+     * @generated from protobuf field: repeated string add_groups = 56708579
      */
     addGroups: string[];
     /**
-     * @generated from protobuf field: int64 gid = 2
+     * @generated from protobuf field: int64 gid = 69916062
      */
     gid: string;
     /**
-     * @generated from protobuf field: repeated string remove_groups = 3
+     * @generated from protobuf field: repeated string remove_groups = 178930083
      */
     removeGroups: string[];
     /**
-     * @generated from protobuf field: string shell = 4
+     * @generated from protobuf field: string shell = 300022785
      */
     shell: string;
     /**
-     * @generated from protobuf field: string username = 5
+     * @generated from protobuf field: string username = 246355387
      */
     username: string;
 }
@@ -42,16 +42,20 @@ export interface ModifyUserInput {
  * @generated from protobuf message operation.method.users.modify_user.ModifyUserOutput
  */
 export interface ModifyUserOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ModifyUserInput$Type extends MessageType<ModifyUserInput> {
     constructor() {
         super("operation.method.users.modify_user.ModifyUserInput", [
-            { no: 1, name: "add_groups", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "gid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "remove_groups", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "shell", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 56708579, name: "add_groups", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 69916062, name: "gid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 178930083, name: "remove_groups", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 300022785, name: "shell", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 246355387, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ModifyUserInput>): ModifyUserInput {
@@ -70,19 +74,19 @@ class ModifyUserInput$Type extends MessageType<ModifyUserInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string add_groups */ 1:
+                case /* repeated string add_groups */ 56708579:
                     message.addGroups.push(reader.string());
                     break;
-                case /* int64 gid */ 2:
+                case /* int64 gid */ 69916062:
                     message.gid = reader.int64().toString();
                     break;
-                case /* repeated string remove_groups */ 3:
+                case /* repeated string remove_groups */ 178930083:
                     message.removeGroups.push(reader.string());
                     break;
-                case /* string shell */ 4:
+                case /* string shell */ 300022785:
                     message.shell = reader.string();
                     break;
-                case /* string username */ 5:
+                case /* string username */ 246355387:
                     message.username = reader.string();
                     break;
                 default:
@@ -97,21 +101,21 @@ class ModifyUserInput$Type extends MessageType<ModifyUserInput> {
         return message;
     }
     internalBinaryWrite(message: ModifyUserInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string add_groups = 1; */
+        /* repeated string add_groups = 56708579; */
         for (let i = 0; i < message.addGroups.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.addGroups[i]);
-        /* int64 gid = 2; */
+            writer.tag(56708579, WireType.LengthDelimited).string(message.addGroups[i]);
+        /* int64 gid = 69916062; */
         if (message.gid !== "0")
-            writer.tag(2, WireType.Varint).int64(message.gid);
-        /* repeated string remove_groups = 3; */
+            writer.tag(69916062, WireType.Varint).int64(message.gid);
+        /* repeated string remove_groups = 178930083; */
         for (let i = 0; i < message.removeGroups.length; i++)
-            writer.tag(3, WireType.LengthDelimited).string(message.removeGroups[i]);
-        /* string shell = 4; */
-        if (message.shell !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.shell);
-        /* string username = 5; */
+            writer.tag(178930083, WireType.LengthDelimited).string(message.removeGroups[i]);
+        /* string username = 246355387; */
         if (message.username !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.username);
+            writer.tag(246355387, WireType.LengthDelimited).string(message.username);
+        /* string shell = 300022785; */
+        if (message.shell !== "")
+            writer.tag(300022785, WireType.LengthDelimited).string(message.shell);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -125,10 +129,13 @@ export const ModifyUserInput = new ModifyUserInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ModifyUserOutput$Type extends MessageType<ModifyUserOutput> {
     constructor() {
-        super("operation.method.users.modify_user.ModifyUserOutput", []);
+        super("operation.method.users.modify_user.ModifyUserOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ModifyUserOutput>): ModifyUserOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ModifyUserOutput>(this, message, value);
         return message;
@@ -138,6 +145,9 @@ class ModifyUserOutput$Type extends MessageType<ModifyUserOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -150,6 +160,9 @@ class ModifyUserOutput$Type extends MessageType<ModifyUserOutput> {
         return message;
     }
     internalBinaryWrite(message: ModifyUserOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

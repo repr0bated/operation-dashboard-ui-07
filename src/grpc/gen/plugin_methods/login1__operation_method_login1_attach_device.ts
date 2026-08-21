@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AttachDeviceInput {
     /**
-     * @generated from protobuf field: bool interactive = 1
+     * @generated from protobuf field: bool interactive = 520087662
      */
     interactive: boolean;
     /**
-     * @generated from protobuf field: string seat_id = 2
+     * @generated from protobuf field: string seat_id = 14173556
      */
     seatId: string;
     /**
-     * @generated from protobuf field: string sysfs_path = 3
+     * @generated from protobuf field: string sysfs_path = 501095252
      */
     sysfsPath: string;
 }
@@ -34,14 +34,18 @@ export interface AttachDeviceInput {
  * @generated from protobuf message operation.method.login1.attach_device.AttachDeviceOutput
  */
 export interface AttachDeviceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AttachDeviceInput$Type extends MessageType<AttachDeviceInput> {
     constructor() {
         super("operation.method.login1.attach_device.AttachDeviceInput", [
-            { no: 1, name: "interactive", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "seat_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "sysfs_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 520087662, name: "interactive", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 14173556, name: "seat_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 501095252, name: "sysfs_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AttachDeviceInput>): AttachDeviceInput {
@@ -58,13 +62,13 @@ class AttachDeviceInput$Type extends MessageType<AttachDeviceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool interactive */ 1:
+                case /* bool interactive */ 520087662:
                     message.interactive = reader.bool();
                     break;
-                case /* string seat_id */ 2:
+                case /* string seat_id */ 14173556:
                     message.seatId = reader.string();
                     break;
-                case /* string sysfs_path */ 3:
+                case /* string sysfs_path */ 501095252:
                     message.sysfsPath = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class AttachDeviceInput$Type extends MessageType<AttachDeviceInput> {
         return message;
     }
     internalBinaryWrite(message: AttachDeviceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool interactive = 1; */
-        if (message.interactive !== false)
-            writer.tag(1, WireType.Varint).bool(message.interactive);
-        /* string seat_id = 2; */
+        /* string seat_id = 14173556; */
         if (message.seatId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.seatId);
-        /* string sysfs_path = 3; */
+            writer.tag(14173556, WireType.LengthDelimited).string(message.seatId);
+        /* string sysfs_path = 501095252; */
         if (message.sysfsPath !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.sysfsPath);
+            writer.tag(501095252, WireType.LengthDelimited).string(message.sysfsPath);
+        /* bool interactive = 520087662; */
+        if (message.interactive !== false)
+            writer.tag(520087662, WireType.Varint).bool(message.interactive);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const AttachDeviceInput = new AttachDeviceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AttachDeviceOutput$Type extends MessageType<AttachDeviceOutput> {
     constructor() {
-        super("operation.method.login1.attach_device.AttachDeviceOutput", []);
+        super("operation.method.login1.attach_device.AttachDeviceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AttachDeviceOutput>): AttachDeviceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AttachDeviceOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class AttachDeviceOutput$Type extends MessageType<AttachDeviceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class AttachDeviceOutput$Type extends MessageType<AttachDeviceOutput> {
         return message;
     }
     internalBinaryWrite(message: AttachDeviceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

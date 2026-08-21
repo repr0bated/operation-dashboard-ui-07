@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RemoveAliasInput {
     /**
-     * @generated from protobuf field: string alias = 1
+     * @generated from protobuf field: string alias = 489062746
      */
     alias: string;
     /**
-     * @generated from protobuf field: string destination = 2
+     * @generated from protobuf field: string destination = 316564676
      */
     destination: string;
     /**
-     * @generated from protobuf field: string domain = 3
+     * @generated from protobuf field: string domain = 127113208
      */
     domain: string;
 }
@@ -34,14 +34,18 @@ export interface RemoveAliasInput {
  * @generated from protobuf message operation.method.mail_server.remove_alias.RemoveAliasOutput
  */
 export interface RemoveAliasOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RemoveAliasInput$Type extends MessageType<RemoveAliasInput> {
     constructor() {
         super("operation.method.mail_server.remove_alias.RemoveAliasInput", [
-            { no: 1, name: "alias", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 489062746, name: "alias", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 316564676, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 127113208, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RemoveAliasInput>): RemoveAliasInput {
@@ -58,13 +62,13 @@ class RemoveAliasInput$Type extends MessageType<RemoveAliasInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string alias */ 1:
+                case /* string alias */ 489062746:
                     message.alias = reader.string();
                     break;
-                case /* string destination */ 2:
+                case /* string destination */ 316564676:
                     message.destination = reader.string();
                     break;
-                case /* string domain */ 3:
+                case /* string domain */ 127113208:
                     message.domain = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class RemoveAliasInput$Type extends MessageType<RemoveAliasInput> {
         return message;
     }
     internalBinaryWrite(message: RemoveAliasInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string alias = 1; */
-        if (message.alias !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.alias);
-        /* string destination = 2; */
-        if (message.destination !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.destination);
-        /* string domain = 3; */
+        /* string domain = 127113208; */
         if (message.domain !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.domain);
+            writer.tag(127113208, WireType.LengthDelimited).string(message.domain);
+        /* string destination = 316564676; */
+        if (message.destination !== "")
+            writer.tag(316564676, WireType.LengthDelimited).string(message.destination);
+        /* string alias = 489062746; */
+        if (message.alias !== "")
+            writer.tag(489062746, WireType.LengthDelimited).string(message.alias);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const RemoveAliasInput = new RemoveAliasInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RemoveAliasOutput$Type extends MessageType<RemoveAliasOutput> {
     constructor() {
-        super("operation.method.mail_server.remove_alias.RemoveAliasOutput", []);
+        super("operation.method.mail_server.remove_alias.RemoveAliasOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RemoveAliasOutput>): RemoveAliasOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RemoveAliasOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class RemoveAliasOutput$Type extends MessageType<RemoveAliasOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class RemoveAliasOutput$Type extends MessageType<RemoveAliasOutput> {
         return message;
     }
     internalBinaryWrite(message: RemoveAliasOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

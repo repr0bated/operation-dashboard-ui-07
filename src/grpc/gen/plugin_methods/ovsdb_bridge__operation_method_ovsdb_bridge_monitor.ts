@@ -19,15 +19,15 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface MonitorInput {
     /**
-     * @generated from protobuf field: string db_name = 1
+     * @generated from protobuf field: string db_name = 201204629
      */
     dbName: string;
     /**
-     * @generated from protobuf field: string monitor_id = 2
+     * @generated from protobuf field: string monitor_id = 420154182
      */
     monitorId: string;
     /**
-     * @generated from protobuf field: google.protobuf.Struct monitor_requests = 3
+     * @generated from protobuf field: google.protobuf.Struct monitor_requests = 163294215
      */
     monitorRequests?: Struct;
 }
@@ -35,14 +35,18 @@ export interface MonitorInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.monitor.MonitorOutput
  */
 export interface MonitorOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class MonitorInput$Type extends MessageType<MonitorInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.monitor.MonitorInput", [
-            { no: 1, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "monitor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "monitor_requests", kind: "message", T: () => Struct }
+            { no: 201204629, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 420154182, name: "monitor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 163294215, name: "monitor_requests", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<MonitorInput>): MonitorInput {
@@ -58,13 +62,13 @@ class MonitorInput$Type extends MessageType<MonitorInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string db_name */ 1:
+                case /* string db_name */ 201204629:
                     message.dbName = reader.string();
                     break;
-                case /* string monitor_id */ 2:
+                case /* string monitor_id */ 420154182:
                     message.monitorId = reader.string();
                     break;
-                case /* google.protobuf.Struct monitor_requests */ 3:
+                case /* google.protobuf.Struct monitor_requests */ 163294215:
                     message.monitorRequests = Struct.internalBinaryRead(reader, reader.uint32(), options, message.monitorRequests);
                     break;
                 default:
@@ -79,15 +83,15 @@ class MonitorInput$Type extends MessageType<MonitorInput> {
         return message;
     }
     internalBinaryWrite(message: MonitorInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string db_name = 1; */
-        if (message.dbName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.dbName);
-        /* string monitor_id = 2; */
-        if (message.monitorId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.monitorId);
-        /* google.protobuf.Struct monitor_requests = 3; */
+        /* google.protobuf.Struct monitor_requests = 163294215; */
         if (message.monitorRequests)
-            Struct.internalBinaryWrite(message.monitorRequests, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Struct.internalBinaryWrite(message.monitorRequests, writer.tag(163294215, WireType.LengthDelimited).fork(), options).join();
+        /* string db_name = 201204629; */
+        if (message.dbName !== "")
+            writer.tag(201204629, WireType.LengthDelimited).string(message.dbName);
+        /* string monitor_id = 420154182; */
+        if (message.monitorId !== "")
+            writer.tag(420154182, WireType.LengthDelimited).string(message.monitorId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const MonitorInput = new MonitorInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class MonitorOutput$Type extends MessageType<MonitorOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.monitor.MonitorOutput", []);
+        super("operation.method.ovsdb_bridge.monitor.MonitorOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<MonitorOutput>): MonitorOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<MonitorOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class MonitorOutput$Type extends MessageType<MonitorOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class MonitorOutput$Type extends MessageType<MonitorOutput> {
         return message;
     }
     internalBinaryWrite(message: MonitorOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

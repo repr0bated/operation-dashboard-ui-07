@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DelRouteInput {
     /**
-     * @generated from protobuf field: string destination = 1
+     * @generated from protobuf field: string destination = 316564676
      */
     destination: string;
 }
@@ -26,12 +26,16 @@ export interface DelRouteInput {
  * @generated from protobuf message operation.method.rtnetlink.del_route.DelRouteOutput
  */
 export interface DelRouteOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DelRouteInput$Type extends MessageType<DelRouteInput> {
     constructor() {
         super("operation.method.rtnetlink.del_route.DelRouteInput", [
-            { no: 1, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 316564676, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DelRouteInput>): DelRouteInput {
@@ -46,7 +50,7 @@ class DelRouteInput$Type extends MessageType<DelRouteInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string destination */ 1:
+                case /* string destination */ 316564676:
                     message.destination = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class DelRouteInput$Type extends MessageType<DelRouteInput> {
         return message;
     }
     internalBinaryWrite(message: DelRouteInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string destination = 1; */
+        /* string destination = 316564676; */
         if (message.destination !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.destination);
+            writer.tag(316564676, WireType.LengthDelimited).string(message.destination);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const DelRouteInput = new DelRouteInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DelRouteOutput$Type extends MessageType<DelRouteOutput> {
     constructor() {
-        super("operation.method.rtnetlink.del_route.DelRouteOutput", []);
+        super("operation.method.rtnetlink.del_route.DelRouteOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DelRouteOutput>): DelRouteOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DelRouteOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class DelRouteOutput$Type extends MessageType<DelRouteOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class DelRouteOutput$Type extends MessageType<DelRouteOutput> {
         return message;
     }
     internalBinaryWrite(message: DelRouteOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

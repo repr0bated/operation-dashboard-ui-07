@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetUserLingerInput {
     /**
-     * @generated from protobuf field: bool enable = 1
+     * @generated from protobuf field: bool enable = 260815059
      */
     enable: boolean;
     /**
-     * @generated from protobuf field: bool interactive = 2
+     * @generated from protobuf field: bool interactive = 520087662
      */
     interactive: boolean;
     /**
-     * @generated from protobuf field: int64 uid = 3
+     * @generated from protobuf field: int64 uid = 482862799
      */
     uid: string;
 }
@@ -34,14 +34,18 @@ export interface SetUserLingerInput {
  * @generated from protobuf message operation.method.login1.set_user_linger.SetUserLingerOutput
  */
 export interface SetUserLingerOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetUserLingerInput$Type extends MessageType<SetUserLingerInput> {
     constructor() {
         super("operation.method.login1.set_user_linger.SetUserLingerInput", [
-            { no: 1, name: "enable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "interactive", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 260815059, name: "enable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 520087662, name: "interactive", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 482862799, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<SetUserLingerInput>): SetUserLingerInput {
@@ -58,13 +62,13 @@ class SetUserLingerInput$Type extends MessageType<SetUserLingerInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool enable */ 1:
+                case /* bool enable */ 260815059:
                     message.enable = reader.bool();
                     break;
-                case /* bool interactive */ 2:
+                case /* bool interactive */ 520087662:
                     message.interactive = reader.bool();
                     break;
-                case /* int64 uid */ 3:
+                case /* int64 uid */ 482862799:
                     message.uid = reader.int64().toString();
                     break;
                 default:
@@ -79,15 +83,15 @@ class SetUserLingerInput$Type extends MessageType<SetUserLingerInput> {
         return message;
     }
     internalBinaryWrite(message: SetUserLingerInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool enable = 1; */
+        /* bool enable = 260815059; */
         if (message.enable !== false)
-            writer.tag(1, WireType.Varint).bool(message.enable);
-        /* bool interactive = 2; */
-        if (message.interactive !== false)
-            writer.tag(2, WireType.Varint).bool(message.interactive);
-        /* int64 uid = 3; */
+            writer.tag(260815059, WireType.Varint).bool(message.enable);
+        /* int64 uid = 482862799; */
         if (message.uid !== "0")
-            writer.tag(3, WireType.Varint).int64(message.uid);
+            writer.tag(482862799, WireType.Varint).int64(message.uid);
+        /* bool interactive = 520087662; */
+        if (message.interactive !== false)
+            writer.tag(520087662, WireType.Varint).bool(message.interactive);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const SetUserLingerInput = new SetUserLingerInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetUserLingerOutput$Type extends MessageType<SetUserLingerOutput> {
     constructor() {
-        super("operation.method.login1.set_user_linger.SetUserLingerOutput", []);
+        super("operation.method.login1.set_user_linger.SetUserLingerOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetUserLingerOutput>): SetUserLingerOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetUserLingerOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class SetUserLingerOutput$Type extends MessageType<SetUserLingerOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class SetUserLingerOutput$Type extends MessageType<SetUserLingerOutput> {
         return message;
     }
     internalBinaryWrite(message: SetUserLingerOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

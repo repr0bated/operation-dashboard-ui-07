@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message ExportRelationsInput {
-  repeated string relations = 1;
+  repeated string relations = 226841755;
 }
 
 message ExportRelationsOutput {
-  google.protobuf.Value data = 1;
+  bool success = 442482449;
 }
 
 service ExportRelationsService {

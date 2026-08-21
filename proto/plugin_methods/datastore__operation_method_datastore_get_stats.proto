@@ -15,7 +15,7 @@ message GetStatsInput {
 }
 
 message GetStatsOutput {
-  google.protobuf.Value stats = 1;
+  google.protobuf.Value stats = 170990831;
 }
 
 service GetStatsService {

@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateInput {
-  string bundle_path = 1;
-  string id = 2;
+  string bundle_path = 8027974;
+  string id = 389573345;
 }
 
-message CreateOutput {}
+message CreateOutput {
+  bool success = 442482449;
+}
 
 service CreateService {
   // subid: mut.container.oci.create@v1, capability: cap.container.oci.create@v1

@@ -11,18 +11,18 @@ extend google.protobuf.MethodOptions {
 }
 
 message RerankInput {
-  repeated string documents = 1;
-  string model = 2;
-  string query = 3;
-  bool return_documents = 4;
-  int64 top_k = 5;
-  bool truncation = 6;
+  repeated string documents = 9443301;
+  string model = 277571167;
+  string query = 416183786;
+  bool return_documents = 408703316;
+  int64 top_k = 314004796;
+  bool truncation = 98888562;
 }
 
 message RerankOutput {
-  string model = 1;
-  repeated google.protobuf.Value results = 2;
-  int64 total_tokens = 3;
+  string model = 277571167;
+  repeated google.protobuf.Value results = 206523128;
+  int64 total_tokens = 20838375;
 }
 
 service RerankService {

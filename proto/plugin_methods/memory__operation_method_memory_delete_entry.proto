@@ -11,12 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeleteEntryInput {
-  string key = 1;
-  string namespace = 2;
+  string key = 135645295;
+  string namespace = 181303974;
 }
 
 message DeleteEntryOutput {
-  bool deleted = 1;
+  bool deleted = 80827502;
+  bool success = 442482449;
 }
 
 service DeleteEntryService {

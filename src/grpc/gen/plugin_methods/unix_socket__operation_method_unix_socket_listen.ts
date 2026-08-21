@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ListenInput {
     /**
-     * @generated from protobuf field: int64 backlog = 1
+     * @generated from protobuf field: int64 backlog = 253847437
      */
     backlog: string;
     /**
-     * @generated from protobuf field: string path = 2
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
 }
@@ -30,13 +30,17 @@ export interface ListenInput {
  * @generated from protobuf message operation.method.unix_socket.listen.ListenOutput
  */
 export interface ListenOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ListenInput$Type extends MessageType<ListenInput> {
     constructor() {
         super("operation.method.unix_socket.listen.ListenInput", [
-            { no: 1, name: "backlog", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 253847437, name: "backlog", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListenInput>): ListenInput {
@@ -52,10 +56,10 @@ class ListenInput$Type extends MessageType<ListenInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 backlog */ 1:
+                case /* int64 backlog */ 253847437:
                     message.backlog = reader.int64().toString();
                     break;
-                case /* string path */ 2:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class ListenInput$Type extends MessageType<ListenInput> {
         return message;
     }
     internalBinaryWrite(message: ListenInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 backlog = 1; */
-        if (message.backlog !== "0")
-            writer.tag(1, WireType.Varint).int64(message.backlog);
-        /* string path = 2; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.path);
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
+        /* int64 backlog = 253847437; */
+        if (message.backlog !== "0")
+            writer.tag(253847437, WireType.Varint).int64(message.backlog);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const ListenInput = new ListenInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ListenOutput$Type extends MessageType<ListenOutput> {
     constructor() {
-        super("operation.method.unix_socket.listen.ListenOutput", []);
+        super("operation.method.unix_socket.listen.ListenOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ListenOutput>): ListenOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ListenOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class ListenOutput$Type extends MessageType<ListenOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class ListenOutput$Type extends MessageType<ListenOutput> {
         return message;
     }
     internalBinaryWrite(message: ListenOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

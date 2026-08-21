@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetIdentityInput {
     /**
-     * @generated from protobuf field: string agent_type = 1
+     * @generated from protobuf field: string agent_type = 482594788
      */
     agentType: string;
     /**
-     * @generated from protobuf field: string description = 2
+     * @generated from protobuf field: string description = 342834026
      */
     description: string;
     /**
-     * @generated from protobuf field: string name = 3
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -34,14 +34,18 @@ export interface SetIdentityInput {
  * @generated from protobuf message operation.method.persona.set_identity.SetIdentityOutput
  */
 export interface SetIdentityOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetIdentityInput$Type extends MessageType<SetIdentityInput> {
     constructor() {
         super("operation.method.persona.set_identity.SetIdentityInput", [
-            { no: 1, name: "agent_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 482594788, name: "agent_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 342834026, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetIdentityInput>): SetIdentityInput {
@@ -58,13 +62,13 @@ class SetIdentityInput$Type extends MessageType<SetIdentityInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string agent_type */ 1:
+                case /* string agent_type */ 482594788:
                     message.agentType = reader.string();
                     break;
-                case /* string description */ 2:
+                case /* string description */ 342834026:
                     message.description = reader.string();
                     break;
-                case /* string name */ 3:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class SetIdentityInput$Type extends MessageType<SetIdentityInput> {
         return message;
     }
     internalBinaryWrite(message: SetIdentityInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string agent_type = 1; */
-        if (message.agentType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.agentType);
-        /* string description = 2; */
-        if (message.description !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.description);
-        /* string name = 3; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string description = 342834026; */
+        if (message.description !== "")
+            writer.tag(342834026, WireType.LengthDelimited).string(message.description);
+        /* string agent_type = 482594788; */
+        if (message.agentType !== "")
+            writer.tag(482594788, WireType.LengthDelimited).string(message.agentType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const SetIdentityInput = new SetIdentityInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetIdentityOutput$Type extends MessageType<SetIdentityOutput> {
     constructor() {
-        super("operation.method.persona.set_identity.SetIdentityOutput", []);
+        super("operation.method.persona.set_identity.SetIdentityOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetIdentityOutput>): SetIdentityOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetIdentityOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class SetIdentityOutput$Type extends MessageType<SetIdentityOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class SetIdentityOutput$Type extends MessageType<SetIdentityOutput> {
         return message;
     }
     internalBinaryWrite(message: SetIdentityOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

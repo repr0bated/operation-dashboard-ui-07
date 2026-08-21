@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetLinkDefaultRouteInput {
-  bool enable = 1;
-  int64 ifindex = 2;
+  bool enable = 260815059;
+  int64 ifindex = 394788143;
 }
 
-message SetLinkDefaultRouteOutput {}
+message SetLinkDefaultRouteOutput {
+  bool success = 442482449;
+}
 
 service SetLinkDefaultRouteService {
   // subid: mut.software.dnsresolver.link.set-default-route@v1, capability: dnsresolver.write

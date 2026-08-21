@@ -26,7 +26,7 @@ export interface ListJobsInput {
  */
 export interface ListJobsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value jobs = 1
+     * @generated from protobuf field: repeated google.protobuf.Value jobs = 67571844
      */
     jobs: Value[];
 }
@@ -72,7 +72,7 @@ export const ListJobsInput = new ListJobsInput$Type();
 class ListJobsOutput$Type extends MessageType<ListJobsOutput> {
     constructor() {
         super("operation.method.cron.list_jobs.ListJobsOutput", [
-            { no: 1, name: "jobs", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 67571844, name: "jobs", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListJobsOutput>): ListJobsOutput {
@@ -87,7 +87,7 @@ class ListJobsOutput$Type extends MessageType<ListJobsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value jobs */ 1:
+                case /* repeated google.protobuf.Value jobs */ 67571844:
                     message.jobs.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListJobsOutput$Type extends MessageType<ListJobsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListJobsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value jobs = 1; */
+        /* repeated google.protobuf.Value jobs = 67571844; */
         for (let i = 0; i < message.jobs.length; i++)
-            Value.internalBinaryWrite(message.jobs[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.jobs[i], writer.tag(67571844, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

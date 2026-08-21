@@ -18,23 +18,23 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ResolveRecordInput {
     /**
-     * @generated from protobuf field: int64 class = 1
+     * @generated from protobuf field: int64 class = 188615684
      */
     class: string;
     /**
-     * @generated from protobuf field: int64 flags = 2
+     * @generated from protobuf field: int64 flags = 476543536
      */
     flags: string;
     /**
-     * @generated from protobuf field: int64 ifindex = 3
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
     /**
-     * @generated from protobuf field: string name = 4
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: int64 record_type = 5
+     * @generated from protobuf field: int64 record_type = 77703365
      */
     recordType: string;
 }
@@ -42,16 +42,20 @@ export interface ResolveRecordInput {
  * @generated from protobuf message operation.method.dnsresolver.resolve_record.ResolveRecordOutput
  */
 export interface ResolveRecordOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ResolveRecordInput$Type extends MessageType<ResolveRecordInput> {
     constructor() {
         super("operation.method.dnsresolver.resolve_record.ResolveRecordInput", [
-            { no: 1, name: "class", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "record_type", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 188615684, name: "class", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 476543536, name: "flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 77703365, name: "record_type", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<ResolveRecordInput>): ResolveRecordInput {
@@ -70,19 +74,19 @@ class ResolveRecordInput$Type extends MessageType<ResolveRecordInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 class */ 1:
+                case /* int64 class */ 188615684:
                     message.class = reader.int64().toString();
                     break;
-                case /* int64 flags */ 2:
+                case /* int64 flags */ 476543536:
                     message.flags = reader.int64().toString();
                     break;
-                case /* int64 ifindex */ 3:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
-                case /* string name */ 4:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* int64 record_type */ 5:
+                case /* int64 record_type */ 77703365:
                     message.recordType = reader.int64().toString();
                     break;
                 default:
@@ -97,21 +101,21 @@ class ResolveRecordInput$Type extends MessageType<ResolveRecordInput> {
         return message;
     }
     internalBinaryWrite(message: ResolveRecordInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 class = 1; */
-        if (message.class !== "0")
-            writer.tag(1, WireType.Varint).int64(message.class);
-        /* int64 flags = 2; */
-        if (message.flags !== "0")
-            writer.tag(2, WireType.Varint).int64(message.flags);
-        /* int64 ifindex = 3; */
-        if (message.ifindex !== "0")
-            writer.tag(3, WireType.Varint).int64(message.ifindex);
-        /* string name = 4; */
-        if (message.name !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.name);
-        /* int64 record_type = 5; */
+        /* int64 record_type = 77703365; */
         if (message.recordType !== "0")
-            writer.tag(5, WireType.Varint).int64(message.recordType);
+            writer.tag(77703365, WireType.Varint).int64(message.recordType);
+        /* int64 class = 188615684; */
+        if (message.class !== "0")
+            writer.tag(188615684, WireType.Varint).int64(message.class);
+        /* string name = 221887978; */
+        if (message.name !== "")
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* int64 ifindex = 394788143; */
+        if (message.ifindex !== "0")
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
+        /* int64 flags = 476543536; */
+        if (message.flags !== "0")
+            writer.tag(476543536, WireType.Varint).int64(message.flags);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -125,10 +129,13 @@ export const ResolveRecordInput = new ResolveRecordInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ResolveRecordOutput$Type extends MessageType<ResolveRecordOutput> {
     constructor() {
-        super("operation.method.dnsresolver.resolve_record.ResolveRecordOutput", []);
+        super("operation.method.dnsresolver.resolve_record.ResolveRecordOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ResolveRecordOutput>): ResolveRecordOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ResolveRecordOutput>(this, message, value);
         return message;
@@ -138,6 +145,9 @@ class ResolveRecordOutput$Type extends MessageType<ResolveRecordOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -150,6 +160,9 @@ class ResolveRecordOutput$Type extends MessageType<ResolveRecordOutput> {
         return message;
     }
     internalBinaryWrite(message: ResolveRecordOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

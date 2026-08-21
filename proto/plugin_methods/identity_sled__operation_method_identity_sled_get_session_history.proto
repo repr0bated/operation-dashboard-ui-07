@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.identity_sled.get_session_history;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetSessionHistoryInput {
+  int64 limit = 316332341;
+  string session_id = 125141221;
+}
+
+message GetSessionHistoryOutput {
+  repeated google.protobuf.Value events = 316203908;
+}
+
+service GetSessionHistoryService {
+  // subid: obs.service.identity-sled.session.history.get@v1, capability: identity_sled.read
+  rpc get_session_history(GetSessionHistoryInput) returns (GetSessionHistoryOutput);
+}

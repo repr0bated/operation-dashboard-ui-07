@@ -11,12 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message BalanceStatusInput {
-  string path = 1;
+  string path = 75975994;
 }
 
 message BalanceStatusOutput {
-  double progress_percent = 1;
-  bool running = 2;
+  bool success = 442482449;
 }
 
 service BalanceStatusService {

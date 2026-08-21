@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface LockSessionInput {
     /**
-     * @generated from protobuf field: string session_id = 1
+     * @generated from protobuf field: string session_id = 125141221
      */
     sessionId: string;
 }
@@ -26,12 +26,16 @@ export interface LockSessionInput {
  * @generated from protobuf message operation.method.login1.lock_session.LockSessionOutput
  */
 export interface LockSessionOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class LockSessionInput$Type extends MessageType<LockSessionInput> {
     constructor() {
         super("operation.method.login1.lock_session.LockSessionInput", [
-            { no: 1, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 125141221, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<LockSessionInput>): LockSessionInput {
@@ -46,7 +50,7 @@ class LockSessionInput$Type extends MessageType<LockSessionInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string session_id */ 1:
+                case /* string session_id */ 125141221:
                     message.sessionId = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class LockSessionInput$Type extends MessageType<LockSessionInput> {
         return message;
     }
     internalBinaryWrite(message: LockSessionInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string session_id = 1; */
+        /* string session_id = 125141221; */
         if (message.sessionId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.sessionId);
+            writer.tag(125141221, WireType.LengthDelimited).string(message.sessionId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const LockSessionInput = new LockSessionInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class LockSessionOutput$Type extends MessageType<LockSessionOutput> {
     constructor() {
-        super("operation.method.login1.lock_session.LockSessionOutput", []);
+        super("operation.method.login1.lock_session.LockSessionOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<LockSessionOutput>): LockSessionOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<LockSessionOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class LockSessionOutput$Type extends MessageType<LockSessionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class LockSessionOutput$Type extends MessageType<LockSessionOutput> {
         return message;
     }
     internalBinaryWrite(message: LockSessionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

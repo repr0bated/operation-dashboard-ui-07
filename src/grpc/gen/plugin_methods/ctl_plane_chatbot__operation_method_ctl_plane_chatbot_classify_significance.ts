@@ -4,9 +4,9 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
-import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
 import type { IBinaryReader } from "@protobuf-ts/runtime";
 import { UnknownFieldHandler } from "@protobuf-ts/runtime";
@@ -15,33 +15,28 @@ import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 import { Value } from "../google/protobuf/struct";
 /**
+ * Empty schema object.
+ *
  * @generated from protobuf message operation.method.ctl_plane_chatbot.classify_significance.ClassifySignificanceInput
  */
 export interface ClassifySignificanceInput {
-    /**
-     * @generated from protobuf field: string episode_id = 1
-     */
-    episodeId: string;
 }
 /**
  * @generated from protobuf message operation.method.ctl_plane_chatbot.classify_significance.ClassifySignificanceOutput
  */
 export interface ClassifySignificanceOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value significance = 1
+     * @generated from protobuf field: google.protobuf.Value significance = 47567027
      */
     significance?: Value;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ClassifySignificanceInput$Type extends MessageType<ClassifySignificanceInput> {
     constructor() {
-        super("operation.method.ctl_plane_chatbot.classify_significance.ClassifySignificanceInput", [
-            { no: 1, name: "episode_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
+        super("operation.method.ctl_plane_chatbot.classify_significance.ClassifySignificanceInput", []);
     }
     create(value?: PartialMessage<ClassifySignificanceInput>): ClassifySignificanceInput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.episodeId = "";
         if (value !== undefined)
             reflectionMergePartial<ClassifySignificanceInput>(this, message, value);
         return message;
@@ -51,9 +46,6 @@ class ClassifySignificanceInput$Type extends MessageType<ClassifySignificanceInp
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string episode_id */ 1:
-                    message.episodeId = reader.string();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -66,9 +58,6 @@ class ClassifySignificanceInput$Type extends MessageType<ClassifySignificanceInp
         return message;
     }
     internalBinaryWrite(message: ClassifySignificanceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string episode_id = 1; */
-        if (message.episodeId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.episodeId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -83,7 +72,7 @@ export const ClassifySignificanceInput = new ClassifySignificanceInput$Type();
 class ClassifySignificanceOutput$Type extends MessageType<ClassifySignificanceOutput> {
     constructor() {
         super("operation.method.ctl_plane_chatbot.classify_significance.ClassifySignificanceOutput", [
-            { no: 1, name: "significance", kind: "message", T: () => Value }
+            { no: 47567027, name: "significance", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ClassifySignificanceOutput>): ClassifySignificanceOutput {
@@ -97,7 +86,7 @@ class ClassifySignificanceOutput$Type extends MessageType<ClassifySignificanceOu
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value significance */ 1:
+                case /* google.protobuf.Value significance */ 47567027:
                     message.significance = Value.internalBinaryRead(reader, reader.uint32(), options, message.significance);
                     break;
                 default:
@@ -112,9 +101,9 @@ class ClassifySignificanceOutput$Type extends MessageType<ClassifySignificanceOu
         return message;
     }
     internalBinaryWrite(message: ClassifySignificanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value significance = 1; */
+        /* google.protobuf.Value significance = 47567027; */
         if (message.significance)
-            Value.internalBinaryWrite(message.significance, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.significance, writer.tag(47567027, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

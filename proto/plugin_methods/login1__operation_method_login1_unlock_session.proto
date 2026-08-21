@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message UnlockSessionInput {
-  string session_id = 1;
+  string session_id = 125141221;
 }
 
-message UnlockSessionOutput {}
+message UnlockSessionOutput {
+  bool success = 442482449;
+}
 
 service UnlockSessionService {
   // subid: mut.software.login1.session.unlock@v1, capability: login1.write

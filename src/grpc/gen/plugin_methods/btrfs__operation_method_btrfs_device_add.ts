@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DeviceAddInput {
     /**
-     * @generated from protobuf field: string device = 1
+     * @generated from protobuf field: string device = 275805945
      */
     device: string;
     /**
-     * @generated from protobuf field: string path = 2
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
 }
@@ -30,13 +30,17 @@ export interface DeviceAddInput {
  * @generated from protobuf message operation.method.btrfs.device_add.DeviceAddOutput
  */
 export interface DeviceAddOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeviceAddInput$Type extends MessageType<DeviceAddInput> {
     constructor() {
         super("operation.method.btrfs.device_add.DeviceAddInput", [
-            { no: 1, name: "device", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 275805945, name: "device", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeviceAddInput>): DeviceAddInput {
@@ -52,10 +56,10 @@ class DeviceAddInput$Type extends MessageType<DeviceAddInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string device */ 1:
+                case /* string device */ 275805945:
                     message.device = reader.string();
                     break;
-                case /* string path */ 2:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class DeviceAddInput$Type extends MessageType<DeviceAddInput> {
         return message;
     }
     internalBinaryWrite(message: DeviceAddInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string device = 1; */
-        if (message.device !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.device);
-        /* string path = 2; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.path);
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
+        /* string device = 275805945; */
+        if (message.device !== "")
+            writer.tag(275805945, WireType.LengthDelimited).string(message.device);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const DeviceAddInput = new DeviceAddInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeviceAddOutput$Type extends MessageType<DeviceAddOutput> {
     constructor() {
-        super("operation.method.btrfs.device_add.DeviceAddOutput", []);
+        super("operation.method.btrfs.device_add.DeviceAddOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeviceAddOutput>): DeviceAddOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeviceAddOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class DeviceAddOutput$Type extends MessageType<DeviceAddOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class DeviceAddOutput$Type extends MessageType<DeviceAddOutput> {
         return message;
     }
     internalBinaryWrite(message: DeviceAddOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

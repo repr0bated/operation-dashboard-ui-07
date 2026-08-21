@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DeleteUserInput {
     /**
-     * @generated from protobuf field: bool remove_home = 1
+     * @generated from protobuf field: bool remove_home = 286262379
      */
     removeHome: boolean;
     /**
-     * @generated from protobuf field: string username = 2
+     * @generated from protobuf field: string username = 246355387
      */
     username: string;
 }
@@ -30,13 +30,17 @@ export interface DeleteUserInput {
  * @generated from protobuf message operation.method.users.delete_user.DeleteUserOutput
  */
 export interface DeleteUserOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteUserInput$Type extends MessageType<DeleteUserInput> {
     constructor() {
         super("operation.method.users.delete_user.DeleteUserInput", [
-            { no: 1, name: "remove_home", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 286262379, name: "remove_home", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 246355387, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteUserInput>): DeleteUserInput {
@@ -52,10 +56,10 @@ class DeleteUserInput$Type extends MessageType<DeleteUserInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool remove_home */ 1:
+                case /* bool remove_home */ 286262379:
                     message.removeHome = reader.bool();
                     break;
-                case /* string username */ 2:
+                case /* string username */ 246355387:
                     message.username = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class DeleteUserInput$Type extends MessageType<DeleteUserInput> {
         return message;
     }
     internalBinaryWrite(message: DeleteUserInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool remove_home = 1; */
-        if (message.removeHome !== false)
-            writer.tag(1, WireType.Varint).bool(message.removeHome);
-        /* string username = 2; */
+        /* string username = 246355387; */
         if (message.username !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.username);
+            writer.tag(246355387, WireType.LengthDelimited).string(message.username);
+        /* bool remove_home = 286262379; */
+        if (message.removeHome !== false)
+            writer.tag(286262379, WireType.Varint).bool(message.removeHome);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const DeleteUserInput = new DeleteUserInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteUserOutput$Type extends MessageType<DeleteUserOutput> {
     constructor() {
-        super("operation.method.users.delete_user.DeleteUserOutput", []);
+        super("operation.method.users.delete_user.DeleteUserOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeleteUserOutput>): DeleteUserOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteUserOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class DeleteUserOutput$Type extends MessageType<DeleteUserOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class DeleteUserOutput$Type extends MessageType<DeleteUserOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteUserOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

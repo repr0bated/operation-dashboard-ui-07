@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getwebfetchconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetWebFetchConfigInput {
+  // Empty schema object.
+}
+
+message GetWebFetchConfigOutput {
+  google.protobuf.Value config = 67069640;
+}
+
+service GetWebFetchConfigService {
+  // subid: obs.service.3tched-router.web-fetch-config.get@v1, capability: cap.software.3tched-router.web-fetch-config.read@v1
+  rpc GetWebFetchConfig(GetWebFetchConfigInput) returns (GetWebFetchConfigOutput);
+}

@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message VectorizeInput {
-  string episode_id = 1;
+  // Empty schema object.
 }
 
 message VectorizeOutput {
-  string vector_id = 1;
+  string vector_id = 294791473;
 }
 
 service VectorizeService {

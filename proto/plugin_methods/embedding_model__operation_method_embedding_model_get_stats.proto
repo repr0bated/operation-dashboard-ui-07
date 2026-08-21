@@ -15,11 +15,11 @@ message GetStatsInput {
 }
 
 message GetStatsOutput {
-  google.protobuf.Value active_model = 1;
-  repeated google.protobuf.Value available_models = 2;
-  int64 dimensions = 3;
-  string provider = 4;
-  string status = 5;
+  google.protobuf.Value active_model = 17932126;
+  repeated google.protobuf.Value available_models = 457824273;
+  int64 dimensions = 116965558;
+  string provider = 398506945;
+  string status = 441153524;
 }
 
 service GetStatsService {

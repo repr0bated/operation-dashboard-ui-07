@@ -14,7 +14,9 @@ message GenerateInput {
   // Empty schema object.
 }
 
-message GenerateOutput {}
+message GenerateOutput {
+  bool success = 442482449;
+}
 
 service GenerateService {
   // subid: mut.service.llm.generate@v1, capability: llm.invoke

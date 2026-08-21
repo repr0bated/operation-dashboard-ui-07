@@ -14,7 +14,9 @@ message CreateVideoInput {
   // Empty schema object.
 }
 
-message CreateVideoOutput {}
+message CreateVideoOutput {
+  bool success = 442482449;
+}
 
 service CreateVideoService {
   // subid: mut.service.plugin.notebooklm.studio.video.create@v1, capability: notebooklm.invoke

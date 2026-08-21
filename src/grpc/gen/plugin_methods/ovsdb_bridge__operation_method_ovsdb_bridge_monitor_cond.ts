@@ -19,15 +19,15 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface MonitorCondInput {
     /**
-     * @generated from protobuf field: string db_name = 1
+     * @generated from protobuf field: string db_name = 201204629
      */
     dbName: string;
     /**
-     * @generated from protobuf field: google.protobuf.Struct monitor_cond_requests = 2
+     * @generated from protobuf field: google.protobuf.Struct monitor_cond_requests = 412742111
      */
     monitorCondRequests?: Struct;
     /**
-     * @generated from protobuf field: string monitor_id = 3
+     * @generated from protobuf field: string monitor_id = 420154182
      */
     monitorId: string;
 }
@@ -35,14 +35,18 @@ export interface MonitorCondInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.monitor_cond.MonitorCondOutput
  */
 export interface MonitorCondOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class MonitorCondInput$Type extends MessageType<MonitorCondInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.monitor_cond.MonitorCondInput", [
-            { no: 1, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "monitor_cond_requests", kind: "message", T: () => Struct },
-            { no: 3, name: "monitor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 201204629, name: "db_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 412742111, name: "monitor_cond_requests", kind: "message", T: () => Struct },
+            { no: 420154182, name: "monitor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<MonitorCondInput>): MonitorCondInput {
@@ -58,13 +62,13 @@ class MonitorCondInput$Type extends MessageType<MonitorCondInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string db_name */ 1:
+                case /* string db_name */ 201204629:
                     message.dbName = reader.string();
                     break;
-                case /* google.protobuf.Struct monitor_cond_requests */ 2:
+                case /* google.protobuf.Struct monitor_cond_requests */ 412742111:
                     message.monitorCondRequests = Struct.internalBinaryRead(reader, reader.uint32(), options, message.monitorCondRequests);
                     break;
-                case /* string monitor_id */ 3:
+                case /* string monitor_id */ 420154182:
                     message.monitorId = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class MonitorCondInput$Type extends MessageType<MonitorCondInput> {
         return message;
     }
     internalBinaryWrite(message: MonitorCondInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string db_name = 1; */
+        /* string db_name = 201204629; */
         if (message.dbName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.dbName);
-        /* google.protobuf.Struct monitor_cond_requests = 2; */
+            writer.tag(201204629, WireType.LengthDelimited).string(message.dbName);
+        /* google.protobuf.Struct monitor_cond_requests = 412742111; */
         if (message.monitorCondRequests)
-            Struct.internalBinaryWrite(message.monitorCondRequests, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* string monitor_id = 3; */
+            Struct.internalBinaryWrite(message.monitorCondRequests, writer.tag(412742111, WireType.LengthDelimited).fork(), options).join();
+        /* string monitor_id = 420154182; */
         if (message.monitorId !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.monitorId);
+            writer.tag(420154182, WireType.LengthDelimited).string(message.monitorId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const MonitorCondInput = new MonitorCondInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class MonitorCondOutput$Type extends MessageType<MonitorCondOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.monitor_cond.MonitorCondOutput", []);
+        super("operation.method.ovsdb_bridge.monitor_cond.MonitorCondOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<MonitorCondOutput>): MonitorCondOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<MonitorCondOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class MonitorCondOutput$Type extends MessageType<MonitorCondOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class MonitorCondOutput$Type extends MessageType<MonitorCondOutput> {
         return message;
     }
     internalBinaryWrite(message: MonitorCondOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

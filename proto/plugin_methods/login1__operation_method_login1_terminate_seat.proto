@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message TerminateSeatInput {
-  string seat_id = 1;
+  string seat_id = 14173556;
 }
 
-message TerminateSeatOutput {}
+message TerminateSeatOutput {
+  bool success = 442482449;
+}
 
 service TerminateSeatService {
   // subid: mut.software.login1.seat.terminate@v1, capability: login1.admin

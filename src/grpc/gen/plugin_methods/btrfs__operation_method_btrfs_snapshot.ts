@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SnapshotInput {
     /**
-     * @generated from protobuf field: string destination = 1
+     * @generated from protobuf field: string destination = 316564676
      */
     destination: string;
     /**
-     * @generated from protobuf field: bool readonly = 2
+     * @generated from protobuf field: bool readonly = 235663357
      */
     readonly: boolean;
     /**
-     * @generated from protobuf field: string source = 3
+     * @generated from protobuf field: string source = 466561496
      */
     source: string;
 }
@@ -34,14 +34,18 @@ export interface SnapshotInput {
  * @generated from protobuf message operation.method.btrfs.snapshot.SnapshotOutput
  */
 export interface SnapshotOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SnapshotInput$Type extends MessageType<SnapshotInput> {
     constructor() {
         super("operation.method.btrfs.snapshot.SnapshotInput", [
-            { no: 1, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "readonly", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "source", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 316564676, name: "destination", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 235663357, name: "readonly", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 466561496, name: "source", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SnapshotInput>): SnapshotInput {
@@ -58,13 +62,13 @@ class SnapshotInput$Type extends MessageType<SnapshotInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string destination */ 1:
+                case /* string destination */ 316564676:
                     message.destination = reader.string();
                     break;
-                case /* bool readonly */ 2:
+                case /* bool readonly */ 235663357:
                     message.readonly = reader.bool();
                     break;
-                case /* string source */ 3:
+                case /* string source */ 466561496:
                     message.source = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class SnapshotInput$Type extends MessageType<SnapshotInput> {
         return message;
     }
     internalBinaryWrite(message: SnapshotInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string destination = 1; */
-        if (message.destination !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.destination);
-        /* bool readonly = 2; */
+        /* bool readonly = 235663357; */
         if (message.readonly !== false)
-            writer.tag(2, WireType.Varint).bool(message.readonly);
-        /* string source = 3; */
+            writer.tag(235663357, WireType.Varint).bool(message.readonly);
+        /* string destination = 316564676; */
+        if (message.destination !== "")
+            writer.tag(316564676, WireType.LengthDelimited).string(message.destination);
+        /* string source = 466561496; */
         if (message.source !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.source);
+            writer.tag(466561496, WireType.LengthDelimited).string(message.source);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const SnapshotInput = new SnapshotInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SnapshotOutput$Type extends MessageType<SnapshotOutput> {
     constructor() {
-        super("operation.method.btrfs.snapshot.SnapshotOutput", []);
+        super("operation.method.btrfs.snapshot.SnapshotOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SnapshotOutput>): SnapshotOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SnapshotOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class SnapshotOutput$Type extends MessageType<SnapshotOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class SnapshotOutput$Type extends MessageType<SnapshotOutput> {
         return message;
     }
     internalBinaryWrite(message: SnapshotOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -25,7 +25,7 @@ export interface DaemonReloadInput {
  */
 export interface DaemonReloadOutput {
     /**
-     * @generated from protobuf field: string message = 1
+     * @generated from protobuf field: string message = 82970853
      */
     message: string;
 }
@@ -71,7 +71,7 @@ export const DaemonReloadInput = new DaemonReloadInput$Type();
 class DaemonReloadOutput$Type extends MessageType<DaemonReloadOutput> {
     constructor() {
         super("operation.method.s6_systemctl.daemon_reload.DaemonReloadOutput", [
-            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 82970853, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DaemonReloadOutput>): DaemonReloadOutput {
@@ -86,7 +86,7 @@ class DaemonReloadOutput$Type extends MessageType<DaemonReloadOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string message */ 1:
+                case /* string message */ 82970853:
                     message.message = reader.string();
                     break;
                 default:
@@ -101,9 +101,9 @@ class DaemonReloadOutput$Type extends MessageType<DaemonReloadOutput> {
         return message;
     }
     internalBinaryWrite(message: DaemonReloadOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string message = 1; */
+        /* string message = 82970853; */
         if (message.message !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.message);
+            writer.tag(82970853, WireType.LengthDelimited).string(message.message);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

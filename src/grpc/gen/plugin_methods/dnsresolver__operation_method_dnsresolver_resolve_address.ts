@@ -18,19 +18,19 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ResolveAddressInput {
     /**
-     * @generated from protobuf field: repeated int64 address = 1
+     * @generated from protobuf field: repeated int64 address = 208283988
      */
     address: string[];
     /**
-     * @generated from protobuf field: int64 family = 2
+     * @generated from protobuf field: int64 family = 303891499
      */
     family: string;
     /**
-     * @generated from protobuf field: int64 flags = 3
+     * @generated from protobuf field: int64 flags = 476543536
      */
     flags: string;
     /**
-     * @generated from protobuf field: int64 ifindex = 4
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
 }
@@ -38,15 +38,19 @@ export interface ResolveAddressInput {
  * @generated from protobuf message operation.method.dnsresolver.resolve_address.ResolveAddressOutput
  */
 export interface ResolveAddressOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ResolveAddressInput$Type extends MessageType<ResolveAddressInput> {
     constructor() {
         super("operation.method.dnsresolver.resolve_address.ResolveAddressInput", [
-            { no: 1, name: "address", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "family", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 208283988, name: "address", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 3 /*ScalarType.INT64*/ },
+            { no: 303891499, name: "family", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 476543536, name: "flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<ResolveAddressInput>): ResolveAddressInput {
@@ -64,20 +68,20 @@ class ResolveAddressInput$Type extends MessageType<ResolveAddressInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated int64 address */ 1:
+                case /* repeated int64 address */ 208283988:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
                             message.address.push(reader.int64().toString());
                     else
                         message.address.push(reader.int64().toString());
                     break;
-                case /* int64 family */ 2:
+                case /* int64 family */ 303891499:
                     message.family = reader.int64().toString();
                     break;
-                case /* int64 flags */ 3:
+                case /* int64 flags */ 476543536:
                     message.flags = reader.int64().toString();
                     break;
-                case /* int64 ifindex */ 4:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
                 default:
@@ -92,22 +96,22 @@ class ResolveAddressInput$Type extends MessageType<ResolveAddressInput> {
         return message;
     }
     internalBinaryWrite(message: ResolveAddressInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated int64 address = 1; */
+        /* repeated int64 address = 208283988; */
         if (message.address.length) {
-            writer.tag(1, WireType.LengthDelimited).fork();
+            writer.tag(208283988, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.address.length; i++)
                 writer.int64(message.address[i]);
             writer.join();
         }
-        /* int64 family = 2; */
+        /* int64 family = 303891499; */
         if (message.family !== "0")
-            writer.tag(2, WireType.Varint).int64(message.family);
-        /* int64 flags = 3; */
-        if (message.flags !== "0")
-            writer.tag(3, WireType.Varint).int64(message.flags);
-        /* int64 ifindex = 4; */
+            writer.tag(303891499, WireType.Varint).int64(message.family);
+        /* int64 ifindex = 394788143; */
         if (message.ifindex !== "0")
-            writer.tag(4, WireType.Varint).int64(message.ifindex);
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
+        /* int64 flags = 476543536; */
+        if (message.flags !== "0")
+            writer.tag(476543536, WireType.Varint).int64(message.flags);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -121,10 +125,13 @@ export const ResolveAddressInput = new ResolveAddressInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ResolveAddressOutput$Type extends MessageType<ResolveAddressOutput> {
     constructor() {
-        super("operation.method.dnsresolver.resolve_address.ResolveAddressOutput", []);
+        super("operation.method.dnsresolver.resolve_address.ResolveAddressOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ResolveAddressOutput>): ResolveAddressOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ResolveAddressOutput>(this, message, value);
         return message;
@@ -134,6 +141,9 @@ class ResolveAddressOutput$Type extends MessageType<ResolveAddressOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -146,6 +156,9 @@ class ResolveAddressOutput$Type extends MessageType<ResolveAddressOutput> {
         return message;
     }
     internalBinaryWrite(message: ResolveAddressOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetUserInput {
     /**
-     * @generated from protobuf field: int64 uid = 1
+     * @generated from protobuf field: int64 uid = 482862799
      */
     uid: string;
 }
@@ -26,12 +26,16 @@ export interface GetUserInput {
  * @generated from protobuf message operation.method.login1.get_user.GetUserOutput
  */
 export interface GetUserOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetUserInput$Type extends MessageType<GetUserInput> {
     constructor() {
         super("operation.method.login1.get_user.GetUserInput", [
-            { no: 1, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 482862799, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<GetUserInput>): GetUserInput {
@@ -46,7 +50,7 @@ class GetUserInput$Type extends MessageType<GetUserInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 uid */ 1:
+                case /* int64 uid */ 482862799:
                     message.uid = reader.int64().toString();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetUserInput$Type extends MessageType<GetUserInput> {
         return message;
     }
     internalBinaryWrite(message: GetUserInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 uid = 1; */
+        /* int64 uid = 482862799; */
         if (message.uid !== "0")
-            writer.tag(1, WireType.Varint).int64(message.uid);
+            writer.tag(482862799, WireType.Varint).int64(message.uid);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetUserInput = new GetUserInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetUserOutput$Type extends MessageType<GetUserOutput> {
     constructor() {
-        super("operation.method.login1.get_user.GetUserOutput", []);
+        super("operation.method.login1.get_user.GetUserOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetUserOutput>): GetUserOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetUserOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetUserOutput$Type extends MessageType<GetUserOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetUserOutput$Type extends MessageType<GetUserOutput> {
         return message;
     }
     internalBinaryWrite(message: GetUserOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

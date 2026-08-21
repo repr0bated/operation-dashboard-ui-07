@@ -11,17 +11,19 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddFlowInput {
-  repeated google.protobuf.Value actions = 1;
-  string bridge = 2;
-  int64 cookie = 3;
-  int64 hard_timeout = 4;
-  int64 idle_timeout = 5;
-  google.protobuf.Struct match_fields = 6;
-  int64 priority = 7;
-  int64 table = 8;
+  repeated google.protobuf.Value actions = 364201577;
+  string bridge = 179832343;
+  int64 cookie = 396837058;
+  int64 hard_timeout = 408086100;
+  int64 idle_timeout = 144399552;
+  google.protobuf.Struct match_fields = 405770232;
+  int64 priority = 350544653;
+  int64 table = 178035681;
 }
 
-message AddFlowOutput {}
+message AddFlowOutput {
+  bool success = 442482449;
+}
 
 service AddFlowService {
   // subid: mut.network.openflow.flow.add@v1, capability: openflow.write

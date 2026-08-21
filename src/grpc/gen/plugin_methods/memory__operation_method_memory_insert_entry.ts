@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface InsertEntryInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value kv = 1
+     * @generated from protobuf field: google.protobuf.Value kv = 423435670
      */
     kv?: Value;
     /**
-     * @generated from protobuf field: string namespace = 2
+     * @generated from protobuf field: string namespace = 181303974
      */
     namespace: string;
 }
@@ -32,16 +32,20 @@ export interface InsertEntryInput {
  */
 export interface InsertEntryOutput {
     /**
-     * @generated from protobuf field: int64 new_entry_count = 1
+     * @generated from protobuf field: int64 new_entry_count = 521281310
      */
     newEntryCount: string;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class InsertEntryInput$Type extends MessageType<InsertEntryInput> {
     constructor() {
         super("operation.method.memory.insert_entry.InsertEntryInput", [
-            { no: 1, name: "kv", kind: "message", T: () => Value },
-            { no: 2, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 423435670, name: "kv", kind: "message", T: () => Value },
+            { no: 181303974, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<InsertEntryInput>): InsertEntryInput {
@@ -56,10 +60,10 @@ class InsertEntryInput$Type extends MessageType<InsertEntryInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value kv */ 1:
+                case /* google.protobuf.Value kv */ 423435670:
                     message.kv = Value.internalBinaryRead(reader, reader.uint32(), options, message.kv);
                     break;
-                case /* string namespace */ 2:
+                case /* string namespace */ 181303974:
                     message.namespace = reader.string();
                     break;
                 default:
@@ -74,12 +78,12 @@ class InsertEntryInput$Type extends MessageType<InsertEntryInput> {
         return message;
     }
     internalBinaryWrite(message: InsertEntryInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value kv = 1; */
-        if (message.kv)
-            Value.internalBinaryWrite(message.kv, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string namespace = 2; */
+        /* string namespace = 181303974; */
         if (message.namespace !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.namespace);
+            writer.tag(181303974, WireType.LengthDelimited).string(message.namespace);
+        /* google.protobuf.Value kv = 423435670; */
+        if (message.kv)
+            Value.internalBinaryWrite(message.kv, writer.tag(423435670, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -94,12 +98,14 @@ export const InsertEntryInput = new InsertEntryInput$Type();
 class InsertEntryOutput$Type extends MessageType<InsertEntryOutput> {
     constructor() {
         super("operation.method.memory.insert_entry.InsertEntryOutput", [
-            { no: 1, name: "new_entry_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 521281310, name: "new_entry_count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<InsertEntryOutput>): InsertEntryOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.newEntryCount = "0";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<InsertEntryOutput>(this, message, value);
         return message;
@@ -109,8 +115,11 @@ class InsertEntryOutput$Type extends MessageType<InsertEntryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 new_entry_count */ 1:
+                case /* int64 new_entry_count */ 521281310:
                     message.newEntryCount = reader.int64().toString();
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -124,9 +133,12 @@ class InsertEntryOutput$Type extends MessageType<InsertEntryOutput> {
         return message;
     }
     internalBinaryWrite(message: InsertEntryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 new_entry_count = 1; */
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
+        /* int64 new_entry_count = 521281310; */
         if (message.newEntryCount !== "0")
-            writer.tag(1, WireType.Varint).int64(message.newEntryCount);
+            writer.tag(521281310, WireType.Varint).int64(message.newEntryCount);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

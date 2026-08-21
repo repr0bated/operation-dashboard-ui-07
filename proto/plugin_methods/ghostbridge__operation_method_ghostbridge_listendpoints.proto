@@ -15,7 +15,7 @@ message ListEndpointsInput {
 }
 
 message ListEndpointsOutput {
-  repeated google.protobuf.Value endpoints = 1;
+  repeated google.protobuf.Value endpoints = 412018590;
 }
 
 service ListEndpointsService {

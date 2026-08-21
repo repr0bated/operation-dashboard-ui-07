@@ -15,7 +15,7 @@ message GetGhostrunnerInput {
 }
 
 message GetGhostrunnerOutput {
-  google.protobuf.Value ghostrunner = 1;
+  google.protobuf.Value ghostrunner = 121373100;
 }
 
 service GetGhostrunnerService {

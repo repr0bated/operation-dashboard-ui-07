@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface JoinNetworkInput {
     /**
-     * @generated from protobuf field: string network = 1
+     * @generated from protobuf field: string network = 303597255
      */
     network: string;
     /**
-     * @generated from protobuf field: string token = 2
+     * @generated from protobuf field: string token = 343534134
      */
     token: string;
 }
@@ -30,13 +30,17 @@ export interface JoinNetworkInput {
  * @generated from protobuf message operation.method.netmaker.join_network.JoinNetworkOutput
  */
 export interface JoinNetworkOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class JoinNetworkInput$Type extends MessageType<JoinNetworkInput> {
     constructor() {
         super("operation.method.netmaker.join_network.JoinNetworkInput", [
-            { no: 1, name: "network", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "token", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 303597255, name: "network", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 343534134, name: "token", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<JoinNetworkInput>): JoinNetworkInput {
@@ -52,10 +56,10 @@ class JoinNetworkInput$Type extends MessageType<JoinNetworkInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string network */ 1:
+                case /* string network */ 303597255:
                     message.network = reader.string();
                     break;
-                case /* string token */ 2:
+                case /* string token */ 343534134:
                     message.token = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class JoinNetworkInput$Type extends MessageType<JoinNetworkInput> {
         return message;
     }
     internalBinaryWrite(message: JoinNetworkInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string network = 1; */
+        /* string network = 303597255; */
         if (message.network !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.network);
-        /* string token = 2; */
+            writer.tag(303597255, WireType.LengthDelimited).string(message.network);
+        /* string token = 343534134; */
         if (message.token !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.token);
+            writer.tag(343534134, WireType.LengthDelimited).string(message.token);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const JoinNetworkInput = new JoinNetworkInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class JoinNetworkOutput$Type extends MessageType<JoinNetworkOutput> {
     constructor() {
-        super("operation.method.netmaker.join_network.JoinNetworkOutput", []);
+        super("operation.method.netmaker.join_network.JoinNetworkOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<JoinNetworkOutput>): JoinNetworkOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<JoinNetworkOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class JoinNetworkOutput$Type extends MessageType<JoinNetworkOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class JoinNetworkOutput$Type extends MessageType<JoinNetworkOutput> {
         return message;
     }
     internalBinaryWrite(message: JoinNetworkOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

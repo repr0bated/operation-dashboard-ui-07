@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface InstallInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: string version = 2
+     * @generated from protobuf field: string version = 108113561
      */
     version: string;
 }
@@ -30,13 +30,17 @@ export interface InstallInput {
  * @generated from protobuf message operation.method.software.install.InstallOutput
  */
 export interface InstallOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class InstallInput$Type extends MessageType<InstallInput> {
     constructor() {
         super("operation.method.software.install.InstallInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 108113561, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<InstallInput>): InstallInput {
@@ -52,10 +56,10 @@ class InstallInput$Type extends MessageType<InstallInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* string version */ 2:
+                case /* string version */ 108113561:
                     message.version = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class InstallInput$Type extends MessageType<InstallInput> {
         return message;
     }
     internalBinaryWrite(message: InstallInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
-        if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* string version = 2; */
+        /* string version = 108113561; */
         if (message.version !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.version);
+            writer.tag(108113561, WireType.LengthDelimited).string(message.version);
+        /* string name = 221887978; */
+        if (message.name !== "")
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const InstallInput = new InstallInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class InstallOutput$Type extends MessageType<InstallOutput> {
     constructor() {
-        super("operation.method.software.install.InstallOutput", []);
+        super("operation.method.software.install.InstallOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<InstallOutput>): InstallOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<InstallOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class InstallOutput$Type extends MessageType<InstallOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class InstallOutput$Type extends MessageType<InstallOutput> {
         return message;
     }
     internalBinaryWrite(message: InstallOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface GetEntryInput {
     /**
-     * @generated from protobuf field: string key = 1
+     * @generated from protobuf field: string key = 135645295
      */
     key: string;
     /**
-     * @generated from protobuf field: string namespace = 2
+     * @generated from protobuf field: string namespace = 181303974
      */
     namespace: string;
 }
@@ -32,11 +32,11 @@ export interface GetEntryInput {
  */
 export interface GetEntryOutput {
     /**
-     * @generated from protobuf field: bool found = 1
+     * @generated from protobuf field: bool found = 83852194
      */
     found: boolean;
     /**
-     * @generated from protobuf field: google.protobuf.Value value = 2
+     * @generated from protobuf field: google.protobuf.Value value = 39769036
      */
     value?: Value;
 }
@@ -44,8 +44,8 @@ export interface GetEntryOutput {
 class GetEntryInput$Type extends MessageType<GetEntryInput> {
     constructor() {
         super("operation.method.memory.get_entry.GetEntryInput", [
-            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 135645295, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 181303974, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetEntryInput>): GetEntryInput {
@@ -61,10 +61,10 @@ class GetEntryInput$Type extends MessageType<GetEntryInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string key */ 1:
+                case /* string key */ 135645295:
                     message.key = reader.string();
                     break;
-                case /* string namespace */ 2:
+                case /* string namespace */ 181303974:
                     message.namespace = reader.string();
                     break;
                 default:
@@ -79,12 +79,12 @@ class GetEntryInput$Type extends MessageType<GetEntryInput> {
         return message;
     }
     internalBinaryWrite(message: GetEntryInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string key = 1; */
+        /* string key = 135645295; */
         if (message.key !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.key);
-        /* string namespace = 2; */
+            writer.tag(135645295, WireType.LengthDelimited).string(message.key);
+        /* string namespace = 181303974; */
         if (message.namespace !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.namespace);
+            writer.tag(181303974, WireType.LengthDelimited).string(message.namespace);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -99,8 +99,8 @@ export const GetEntryInput = new GetEntryInput$Type();
 class GetEntryOutput$Type extends MessageType<GetEntryOutput> {
     constructor() {
         super("operation.method.memory.get_entry.GetEntryOutput", [
-            { no: 1, name: "found", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "value", kind: "message", T: () => Value }
+            { no: 83852194, name: "found", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 39769036, name: "value", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetEntryOutput>): GetEntryOutput {
@@ -115,10 +115,10 @@ class GetEntryOutput$Type extends MessageType<GetEntryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool found */ 1:
+                case /* bool found */ 83852194:
                     message.found = reader.bool();
                     break;
-                case /* google.protobuf.Value value */ 2:
+                case /* google.protobuf.Value value */ 39769036:
                     message.value = Value.internalBinaryRead(reader, reader.uint32(), options, message.value);
                     break;
                 default:
@@ -133,12 +133,12 @@ class GetEntryOutput$Type extends MessageType<GetEntryOutput> {
         return message;
     }
     internalBinaryWrite(message: GetEntryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool found = 1; */
-        if (message.found !== false)
-            writer.tag(1, WireType.Varint).bool(message.found);
-        /* google.protobuf.Value value = 2; */
+        /* google.protobuf.Value value = 39769036; */
         if (message.value)
-            Value.internalBinaryWrite(message.value, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.value, writer.tag(39769036, WireType.LengthDelimited).fork(), options).join();
+        /* bool found = 83852194; */
+        if (message.found !== false)
+            writer.tag(83852194, WireType.Varint).bool(message.found);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

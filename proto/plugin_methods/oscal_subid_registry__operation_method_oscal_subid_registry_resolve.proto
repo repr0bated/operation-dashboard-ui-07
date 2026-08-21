@@ -15,7 +15,7 @@ message ResolveInput {
 }
 
 message ResolveOutput {
-  google.protobuf.Value resolved = 1;
+  google.protobuf.Value resolved = 263528200;
 }
 
 service ResolveService {

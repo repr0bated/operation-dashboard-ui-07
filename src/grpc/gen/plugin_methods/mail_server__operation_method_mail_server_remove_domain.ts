@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RemoveDomainInput {
     /**
-     * @generated from protobuf field: string domain = 1
+     * @generated from protobuf field: string domain = 127113208
      */
     domain: string;
 }
@@ -26,12 +26,16 @@ export interface RemoveDomainInput {
  * @generated from protobuf message operation.method.mail_server.remove_domain.RemoveDomainOutput
  */
 export interface RemoveDomainOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RemoveDomainInput$Type extends MessageType<RemoveDomainInput> {
     constructor() {
         super("operation.method.mail_server.remove_domain.RemoveDomainInput", [
-            { no: 1, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 127113208, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RemoveDomainInput>): RemoveDomainInput {
@@ -46,7 +50,7 @@ class RemoveDomainInput$Type extends MessageType<RemoveDomainInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string domain */ 1:
+                case /* string domain */ 127113208:
                     message.domain = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class RemoveDomainInput$Type extends MessageType<RemoveDomainInput> {
         return message;
     }
     internalBinaryWrite(message: RemoveDomainInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string domain = 1; */
+        /* string domain = 127113208; */
         if (message.domain !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.domain);
+            writer.tag(127113208, WireType.LengthDelimited).string(message.domain);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const RemoveDomainInput = new RemoveDomainInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RemoveDomainOutput$Type extends MessageType<RemoveDomainOutput> {
     constructor() {
-        super("operation.method.mail_server.remove_domain.RemoveDomainOutput", []);
+        super("operation.method.mail_server.remove_domain.RemoveDomainOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RemoveDomainOutput>): RemoveDomainOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RemoveDomainOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class RemoveDomainOutput$Type extends MessageType<RemoveDomainOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class RemoveDomainOutput$Type extends MessageType<RemoveDomainOutput> {
         return message;
     }
     internalBinaryWrite(message: RemoveDomainOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

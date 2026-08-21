@@ -14,7 +14,9 @@ message RegisterToolInput {
   // Empty schema object.
 }
 
-message RegisterToolOutput {string tool_name = 2;
+message RegisterToolOutput {
+  bool success = 442482449;
+  string tool_name = 322087922;
 }
 
 service RegisterToolService {

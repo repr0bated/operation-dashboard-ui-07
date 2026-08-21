@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.antigravity_chat.refresh_token;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RefreshTokenInput {
+  // Empty schema object.
+}
+
+message RefreshTokenOutput {
+  google.protobuf.Value auth = 356493395;
+}
+
+service RefreshTokenService {
+  // subid: mut.software.antigravity-chat.auth.token.refresh@v1, capability: antigravity_chat.write
+  rpc refresh_token(RefreshTokenInput) returns (RefreshTokenOutput);
+}

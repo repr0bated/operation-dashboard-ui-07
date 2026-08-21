@@ -14,7 +14,9 @@ message IntrospectInput {
   // Empty schema object.
 }
 
-message IntrospectOutput {}
+message IntrospectOutput {
+  bool success = 442482449;
+}
 
 service IntrospectService {
   // subid: obs.software.freedesktop.introspect@v1, capability: freedesktop.read

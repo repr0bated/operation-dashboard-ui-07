@@ -19,15 +19,15 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface UpdateEntryInput {
     /**
-     * @generated from protobuf field: string key = 1
+     * @generated from protobuf field: string key = 135645295
      */
     key: string;
     /**
-     * @generated from protobuf field: string namespace = 2
+     * @generated from protobuf field: string namespace = 181303974
      */
     namespace: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value value = 3
+     * @generated from protobuf field: google.protobuf.Value value = 39769036
      */
     value?: Value;
 }
@@ -36,17 +36,21 @@ export interface UpdateEntryInput {
  */
 export interface UpdateEntryOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value previous_value = 1
+     * @generated from protobuf field: google.protobuf.Value previous_value = 515734780
      */
     previousValue?: Value;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateEntryInput$Type extends MessageType<UpdateEntryInput> {
     constructor() {
         super("operation.method.memory.update_entry.UpdateEntryInput", [
-            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "value", kind: "message", T: () => Value }
+            { no: 135645295, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 181303974, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 39769036, name: "value", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<UpdateEntryInput>): UpdateEntryInput {
@@ -62,13 +66,13 @@ class UpdateEntryInput$Type extends MessageType<UpdateEntryInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string key */ 1:
+                case /* string key */ 135645295:
                     message.key = reader.string();
                     break;
-                case /* string namespace */ 2:
+                case /* string namespace */ 181303974:
                     message.namespace = reader.string();
                     break;
-                case /* google.protobuf.Value value */ 3:
+                case /* google.protobuf.Value value */ 39769036:
                     message.value = Value.internalBinaryRead(reader, reader.uint32(), options, message.value);
                     break;
                 default:
@@ -83,15 +87,15 @@ class UpdateEntryInput$Type extends MessageType<UpdateEntryInput> {
         return message;
     }
     internalBinaryWrite(message: UpdateEntryInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string key = 1; */
-        if (message.key !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.key);
-        /* string namespace = 2; */
-        if (message.namespace !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.namespace);
-        /* google.protobuf.Value value = 3; */
+        /* google.protobuf.Value value = 39769036; */
         if (message.value)
-            Value.internalBinaryWrite(message.value, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.value, writer.tag(39769036, WireType.LengthDelimited).fork(), options).join();
+        /* string key = 135645295; */
+        if (message.key !== "")
+            writer.tag(135645295, WireType.LengthDelimited).string(message.key);
+        /* string namespace = 181303974; */
+        if (message.namespace !== "")
+            writer.tag(181303974, WireType.LengthDelimited).string(message.namespace);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -106,11 +110,13 @@ export const UpdateEntryInput = new UpdateEntryInput$Type();
 class UpdateEntryOutput$Type extends MessageType<UpdateEntryOutput> {
     constructor() {
         super("operation.method.memory.update_entry.UpdateEntryOutput", [
-            { no: 1, name: "previous_value", kind: "message", T: () => Value }
+            { no: 515734780, name: "previous_value", kind: "message", T: () => Value },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<UpdateEntryOutput>): UpdateEntryOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UpdateEntryOutput>(this, message, value);
         return message;
@@ -120,8 +126,11 @@ class UpdateEntryOutput$Type extends MessageType<UpdateEntryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value previous_value */ 1:
+                case /* google.protobuf.Value previous_value */ 515734780:
                     message.previousValue = Value.internalBinaryRead(reader, reader.uint32(), options, message.previousValue);
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -135,9 +144,12 @@ class UpdateEntryOutput$Type extends MessageType<UpdateEntryOutput> {
         return message;
     }
     internalBinaryWrite(message: UpdateEntryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value previous_value = 1; */
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
+        /* google.protobuf.Value previous_value = 515734780; */
         if (message.previousValue)
-            Value.internalBinaryWrite(message.previousValue, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.previousValue, writer.tag(515734780, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message CancelWorkflowInput {
-  bool force = 1;
-  string workflow_id = 2;
+  bool force = 430540935;
+  string workflow_id = 280387507;
 }
 
-message CancelWorkflowOutput {}
+message CancelWorkflowOutput {
+  bool success = 442482449;
+}
 
 service CancelWorkflowService {
   // subid: mut.software.plugin.workflows.cancel@v1, capability: workflows.write

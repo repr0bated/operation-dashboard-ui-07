@@ -19,15 +19,15 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface HandleEventInput {
     /**
-     * @generated from protobuf field: string event_type = 1
+     * @generated from protobuf field: string event_type = 198718638
      */
     eventType: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value payload = 2
+     * @generated from protobuf field: google.protobuf.Value payload = 319780774
      */
     payload?: Value;
     /**
-     * @generated from protobuf field: string session_id = 3
+     * @generated from protobuf field: string session_id = 125141221
      */
     sessionId: string;
 }
@@ -35,14 +35,18 @@ export interface HandleEventInput {
  * @generated from protobuf message operation.method.web_ui.handle_event.HandleEventOutput
  */
 export interface HandleEventOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class HandleEventInput$Type extends MessageType<HandleEventInput> {
     constructor() {
         super("operation.method.web_ui.handle_event.HandleEventInput", [
-            { no: 1, name: "event_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "payload", kind: "message", T: () => Value },
-            { no: 3, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 198718638, name: "event_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 319780774, name: "payload", kind: "message", T: () => Value },
+            { no: 125141221, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<HandleEventInput>): HandleEventInput {
@@ -58,13 +62,13 @@ class HandleEventInput$Type extends MessageType<HandleEventInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string event_type */ 1:
+                case /* string event_type */ 198718638:
                     message.eventType = reader.string();
                     break;
-                case /* google.protobuf.Value payload */ 2:
+                case /* google.protobuf.Value payload */ 319780774:
                     message.payload = Value.internalBinaryRead(reader, reader.uint32(), options, message.payload);
                     break;
-                case /* string session_id */ 3:
+                case /* string session_id */ 125141221:
                     message.sessionId = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class HandleEventInput$Type extends MessageType<HandleEventInput> {
         return message;
     }
     internalBinaryWrite(message: HandleEventInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string event_type = 1; */
-        if (message.eventType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.eventType);
-        /* google.protobuf.Value payload = 2; */
-        if (message.payload)
-            Value.internalBinaryWrite(message.payload, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* string session_id = 3; */
+        /* string session_id = 125141221; */
         if (message.sessionId !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.sessionId);
+            writer.tag(125141221, WireType.LengthDelimited).string(message.sessionId);
+        /* string event_type = 198718638; */
+        if (message.eventType !== "")
+            writer.tag(198718638, WireType.LengthDelimited).string(message.eventType);
+        /* google.protobuf.Value payload = 319780774; */
+        if (message.payload)
+            Value.internalBinaryWrite(message.payload, writer.tag(319780774, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const HandleEventInput = new HandleEventInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class HandleEventOutput$Type extends MessageType<HandleEventOutput> {
     constructor() {
-        super("operation.method.web_ui.handle_event.HandleEventOutput", []);
+        super("operation.method.web_ui.handle_event.HandleEventOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<HandleEventOutput>): HandleEventOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<HandleEventOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class HandleEventOutput$Type extends MessageType<HandleEventOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class HandleEventOutput$Type extends MessageType<HandleEventOutput> {
         return message;
     }
     internalBinaryWrite(message: HandleEventOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

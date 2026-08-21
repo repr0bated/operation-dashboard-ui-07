@@ -19,31 +19,31 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface RegisterServiceInput {
     /**
-     * @generated from protobuf field: string id = 1
+     * @generated from protobuf field: string id = 389573345
      */
     id: string;
     /**
-     * @generated from protobuf field: string name_template = 2
+     * @generated from protobuf field: string name_template = 373976238
      */
     nameTemplate: string;
     /**
-     * @generated from protobuf field: int64 port = 3
+     * @generated from protobuf field: int64 port = 467931817
      */
     port: string;
     /**
-     * @generated from protobuf field: int64 priority = 4
+     * @generated from protobuf field: int64 priority = 350544653
      */
     priority: string;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Struct txt = 5
+     * @generated from protobuf field: repeated google.protobuf.Struct txt = 87402996
      */
     txt: Struct[];
     /**
-     * @generated from protobuf field: string type_ = 6
+     * @generated from protobuf field: string type_ = 333479772
      */
     type: string;
     /**
-     * @generated from protobuf field: int64 weight = 7
+     * @generated from protobuf field: int64 weight = 278961851
      */
     weight: string;
 }
@@ -51,18 +51,22 @@ export interface RegisterServiceInput {
  * @generated from protobuf message operation.method.dnsresolver.register_service.RegisterServiceOutput
  */
 export interface RegisterServiceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RegisterServiceInput$Type extends MessageType<RegisterServiceInput> {
     constructor() {
         super("operation.method.dnsresolver.register_service.RegisterServiceInput", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name_template", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "port", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "txt", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Struct },
-            { no: 6, name: "type_", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 7, name: "weight", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 389573345, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 373976238, name: "name_template", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 467931817, name: "port", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 350544653, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 87402996, name: "txt", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Struct },
+            { no: 333479772, name: "type_", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 278961851, name: "weight", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<RegisterServiceInput>): RegisterServiceInput {
@@ -83,25 +87,25 @@ class RegisterServiceInput$Type extends MessageType<RegisterServiceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
+                case /* string id */ 389573345:
                     message.id = reader.string();
                     break;
-                case /* string name_template */ 2:
+                case /* string name_template */ 373976238:
                     message.nameTemplate = reader.string();
                     break;
-                case /* int64 port */ 3:
+                case /* int64 port */ 467931817:
                     message.port = reader.int64().toString();
                     break;
-                case /* int64 priority */ 4:
+                case /* int64 priority */ 350544653:
                     message.priority = reader.int64().toString();
                     break;
-                case /* repeated google.protobuf.Struct txt */ 5:
+                case /* repeated google.protobuf.Struct txt */ 87402996:
                     message.txt.push(Struct.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* string type_ */ 6:
+                case /* string type_ */ 333479772:
                     message.type = reader.string();
                     break;
-                case /* int64 weight */ 7:
+                case /* int64 weight */ 278961851:
                     message.weight = reader.int64().toString();
                     break;
                 default:
@@ -116,27 +120,27 @@ class RegisterServiceInput$Type extends MessageType<RegisterServiceInput> {
         return message;
     }
     internalBinaryWrite(message: RegisterServiceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
-        /* string name_template = 2; */
-        if (message.nameTemplate !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.nameTemplate);
-        /* int64 port = 3; */
-        if (message.port !== "0")
-            writer.tag(3, WireType.Varint).int64(message.port);
-        /* int64 priority = 4; */
-        if (message.priority !== "0")
-            writer.tag(4, WireType.Varint).int64(message.priority);
-        /* repeated google.protobuf.Struct txt = 5; */
+        /* repeated google.protobuf.Struct txt = 87402996; */
         for (let i = 0; i < message.txt.length; i++)
-            Struct.internalBinaryWrite(message.txt[i], writer.tag(5, WireType.LengthDelimited).fork(), options).join();
-        /* string type_ = 6; */
-        if (message.type !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.type);
-        /* int64 weight = 7; */
+            Struct.internalBinaryWrite(message.txt[i], writer.tag(87402996, WireType.LengthDelimited).fork(), options).join();
+        /* int64 weight = 278961851; */
         if (message.weight !== "0")
-            writer.tag(7, WireType.Varint).int64(message.weight);
+            writer.tag(278961851, WireType.Varint).int64(message.weight);
+        /* string type_ = 333479772; */
+        if (message.type !== "")
+            writer.tag(333479772, WireType.LengthDelimited).string(message.type);
+        /* int64 priority = 350544653; */
+        if (message.priority !== "0")
+            writer.tag(350544653, WireType.Varint).int64(message.priority);
+        /* string name_template = 373976238; */
+        if (message.nameTemplate !== "")
+            writer.tag(373976238, WireType.LengthDelimited).string(message.nameTemplate);
+        /* string id = 389573345; */
+        if (message.id !== "")
+            writer.tag(389573345, WireType.LengthDelimited).string(message.id);
+        /* int64 port = 467931817; */
+        if (message.port !== "0")
+            writer.tag(467931817, WireType.Varint).int64(message.port);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -150,10 +154,13 @@ export const RegisterServiceInput = new RegisterServiceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RegisterServiceOutput$Type extends MessageType<RegisterServiceOutput> {
     constructor() {
-        super("operation.method.dnsresolver.register_service.RegisterServiceOutput", []);
+        super("operation.method.dnsresolver.register_service.RegisterServiceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RegisterServiceOutput>): RegisterServiceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RegisterServiceOutput>(this, message, value);
         return message;
@@ -163,6 +170,9 @@ class RegisterServiceOutput$Type extends MessageType<RegisterServiceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -175,6 +185,9 @@ class RegisterServiceOutput$Type extends MessageType<RegisterServiceOutput> {
         return message;
     }
     internalBinaryWrite(message: RegisterServiceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

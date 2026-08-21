@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface InitInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: string service_type = 2
+     * @generated from protobuf field: string service_type = 472749357
      */
     serviceType: string;
 }
@@ -30,13 +30,17 @@ export interface InitInput {
  * @generated from protobuf message operation.method.service.init.InitOutput
  */
 export interface InitOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class InitInput$Type extends MessageType<InitInput> {
     constructor() {
         super("operation.method.service.init.InitInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "service_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 472749357, name: "service_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<InitInput>): InitInput {
@@ -52,10 +56,10 @@ class InitInput$Type extends MessageType<InitInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* string service_type */ 2:
+                case /* string service_type */ 472749357:
                     message.serviceType = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class InitInput$Type extends MessageType<InitInput> {
         return message;
     }
     internalBinaryWrite(message: InitInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* string service_type = 2; */
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string service_type = 472749357; */
         if (message.serviceType !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.serviceType);
+            writer.tag(472749357, WireType.LengthDelimited).string(message.serviceType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const InitInput = new InitInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class InitOutput$Type extends MessageType<InitOutput> {
     constructor() {
-        super("operation.method.service.init.InitOutput", []);
+        super("operation.method.service.init.InitOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<InitOutput>): InitOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<InitOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class InitOutput$Type extends MessageType<InitOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class InitOutput$Type extends MessageType<InitOutput> {
         return message;
     }
     internalBinaryWrite(message: InitOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

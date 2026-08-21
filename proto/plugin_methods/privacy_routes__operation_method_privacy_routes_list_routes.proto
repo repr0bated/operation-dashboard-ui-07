@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.privacy_routes.list_routes;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListRoutesInput {
+  // Empty schema object.
+}
+
+message ListRoutesOutput {
+  repeated google.protobuf.Value routes = 219895961;
+}
+
+service ListRoutesService {
+  // subid: obs.network.plugin.privacy-routes.routes.list@v1, capability: privacy_routes.read
+  rpc list_routes(ListRoutesInput) returns (ListRoutesOutput);
+}

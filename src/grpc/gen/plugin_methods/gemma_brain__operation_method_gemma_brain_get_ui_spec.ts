@@ -26,7 +26,7 @@ export interface GetUiSpecInput {
  */
 export interface GetUiSpecOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value spec = 1
+     * @generated from protobuf field: google.protobuf.Value spec = 200722366
      */
     spec?: Value;
 }
@@ -72,7 +72,7 @@ export const GetUiSpecInput = new GetUiSpecInput$Type();
 class GetUiSpecOutput$Type extends MessageType<GetUiSpecOutput> {
     constructor() {
         super("operation.method.gemma_brain.get_ui_spec.GetUiSpecOutput", [
-            { no: 1, name: "spec", kind: "message", T: () => Value }
+            { no: 200722366, name: "spec", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetUiSpecOutput>): GetUiSpecOutput {
@@ -86,7 +86,7 @@ class GetUiSpecOutput$Type extends MessageType<GetUiSpecOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value spec */ 1:
+                case /* google.protobuf.Value spec */ 200722366:
                     message.spec = Value.internalBinaryRead(reader, reader.uint32(), options, message.spec);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetUiSpecOutput$Type extends MessageType<GetUiSpecOutput> {
         return message;
     }
     internalBinaryWrite(message: GetUiSpecOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value spec = 1; */
+        /* google.protobuf.Value spec = 200722366; */
         if (message.spec)
-            Value.internalBinaryWrite(message.spec, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.spec, writer.tag(200722366, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

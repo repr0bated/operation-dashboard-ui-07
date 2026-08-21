@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface GetPackageInput {
     /**
-     * @generated from protobuf field: string package_name = 1
+     * @generated from protobuf field: string package_name = 491728236
      */
     packageName: string;
 }
@@ -28,7 +28,7 @@ export interface GetPackageInput {
  */
 export interface GetPackageOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value package = 1
+     * @generated from protobuf field: google.protobuf.Value package = 289090559
      */
     package?: Value;
 }
@@ -36,7 +36,7 @@ export interface GetPackageOutput {
 class GetPackageInput$Type extends MessageType<GetPackageInput> {
     constructor() {
         super("operation.method.json_render.get_package.GetPackageInput", [
-            { no: 1, name: "package_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 491728236, name: "package_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetPackageInput>): GetPackageInput {
@@ -51,7 +51,7 @@ class GetPackageInput$Type extends MessageType<GetPackageInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string package_name */ 1:
+                case /* string package_name */ 491728236:
                     message.packageName = reader.string();
                     break;
                 default:
@@ -66,9 +66,9 @@ class GetPackageInput$Type extends MessageType<GetPackageInput> {
         return message;
     }
     internalBinaryWrite(message: GetPackageInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string package_name = 1; */
+        /* string package_name = 491728236; */
         if (message.packageName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.packageName);
+            writer.tag(491728236, WireType.LengthDelimited).string(message.packageName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -83,7 +83,7 @@ export const GetPackageInput = new GetPackageInput$Type();
 class GetPackageOutput$Type extends MessageType<GetPackageOutput> {
     constructor() {
         super("operation.method.json_render.get_package.GetPackageOutput", [
-            { no: 1, name: "package", kind: "message", T: () => Value }
+            { no: 289090559, name: "package", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetPackageOutput>): GetPackageOutput {
@@ -97,7 +97,7 @@ class GetPackageOutput$Type extends MessageType<GetPackageOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value package */ 1:
+                case /* google.protobuf.Value package */ 289090559:
                     message.package = Value.internalBinaryRead(reader, reader.uint32(), options, message.package);
                     break;
                 default:
@@ -112,9 +112,9 @@ class GetPackageOutput$Type extends MessageType<GetPackageOutput> {
         return message;
     }
     internalBinaryWrite(message: GetPackageOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value package = 1; */
+        /* google.protobuf.Value package = 289090559; */
         if (message.package)
-            Value.internalBinaryWrite(message.package, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.package, writer.tag(289090559, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

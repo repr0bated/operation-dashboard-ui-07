@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SleepInput {
     /**
-     * @generated from protobuf field: int64 sleep_operation = 1
+     * @generated from protobuf field: int64 sleep_operation = 264718967
      */
     sleepOperation: string;
 }
@@ -26,12 +26,16 @@ export interface SleepInput {
  * @generated from protobuf message operation.method.login1.sleep.SleepOutput
  */
 export interface SleepOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SleepInput$Type extends MessageType<SleepInput> {
     constructor() {
         super("operation.method.login1.sleep.SleepInput", [
-            { no: 1, name: "sleep_operation", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 264718967, name: "sleep_operation", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<SleepInput>): SleepInput {
@@ -46,7 +50,7 @@ class SleepInput$Type extends MessageType<SleepInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 sleep_operation */ 1:
+                case /* int64 sleep_operation */ 264718967:
                     message.sleepOperation = reader.int64().toString();
                     break;
                 default:
@@ -61,9 +65,9 @@ class SleepInput$Type extends MessageType<SleepInput> {
         return message;
     }
     internalBinaryWrite(message: SleepInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 sleep_operation = 1; */
+        /* int64 sleep_operation = 264718967; */
         if (message.sleepOperation !== "0")
-            writer.tag(1, WireType.Varint).int64(message.sleepOperation);
+            writer.tag(264718967, WireType.Varint).int64(message.sleepOperation);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const SleepInput = new SleepInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SleepOutput$Type extends MessageType<SleepOutput> {
     constructor() {
-        super("operation.method.login1.sleep.SleepOutput", []);
+        super("operation.method.login1.sleep.SleepOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SleepOutput>): SleepOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SleepOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class SleepOutput$Type extends MessageType<SleepOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class SleepOutput$Type extends MessageType<SleepOutput> {
         return message;
     }
     internalBinaryWrite(message: SleepOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

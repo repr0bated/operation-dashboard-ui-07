@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message ExportJsonSchemaInput {
-  bool strict = 1;
+  bool strict = 80229749;
 }
 
 message ExportJsonSchemaOutput {
-  google.protobuf.Value schema = 1;
+  google.protobuf.Value schema = 310182712;
 }
 
 service ExportJsonSchemaService {

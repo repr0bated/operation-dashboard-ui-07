@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.openflow.set_controller;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetControllerInput {
+  string bridge = 179832343;
+  string endpoint = 414707842;
+}
+
+message SetControllerOutput {
+  bool success = 442482449;
+}
+
+service SetControllerService {
+  // subid: mut.network.openflow.datapath.set_controller@v1, capability: openflow.write
+  rpc set_controller(SetControllerInput) returns (SetControllerOutput);
+}

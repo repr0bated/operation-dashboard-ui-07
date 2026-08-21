@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DeobfuscateFlowInput {
     /**
-     * @generated from protobuf field: string bridge = 1
+     * @generated from protobuf field: string bridge = 179832343
      */
     bridge: string;
     /**
-     * @generated from protobuf field: string match_spec = 2
+     * @generated from protobuf field: string match_spec = 276585666
      */
     matchSpec: string;
 }
@@ -30,13 +30,17 @@ export interface DeobfuscateFlowInput {
  * @generated from protobuf message operation.method.openflow_obfuscation.deobfuscate_flow.DeobfuscateFlowOutput
  */
 export interface DeobfuscateFlowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeobfuscateFlowInput$Type extends MessageType<DeobfuscateFlowInput> {
     constructor() {
         super("operation.method.openflow_obfuscation.deobfuscate_flow.DeobfuscateFlowInput", [
-            { no: 1, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "match_spec", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 179832343, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 276585666, name: "match_spec", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeobfuscateFlowInput>): DeobfuscateFlowInput {
@@ -52,10 +56,10 @@ class DeobfuscateFlowInput$Type extends MessageType<DeobfuscateFlowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string bridge */ 1:
+                case /* string bridge */ 179832343:
                     message.bridge = reader.string();
                     break;
-                case /* string match_spec */ 2:
+                case /* string match_spec */ 276585666:
                     message.matchSpec = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class DeobfuscateFlowInput$Type extends MessageType<DeobfuscateFlowInput> {
         return message;
     }
     internalBinaryWrite(message: DeobfuscateFlowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string bridge = 1; */
+        /* string bridge = 179832343; */
         if (message.bridge !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.bridge);
-        /* string match_spec = 2; */
+            writer.tag(179832343, WireType.LengthDelimited).string(message.bridge);
+        /* string match_spec = 276585666; */
         if (message.matchSpec !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.matchSpec);
+            writer.tag(276585666, WireType.LengthDelimited).string(message.matchSpec);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const DeobfuscateFlowInput = new DeobfuscateFlowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeobfuscateFlowOutput$Type extends MessageType<DeobfuscateFlowOutput> {
     constructor() {
-        super("operation.method.openflow_obfuscation.deobfuscate_flow.DeobfuscateFlowOutput", []);
+        super("operation.method.openflow_obfuscation.deobfuscate_flow.DeobfuscateFlowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeobfuscateFlowOutput>): DeobfuscateFlowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeobfuscateFlowOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class DeobfuscateFlowOutput$Type extends MessageType<DeobfuscateFlowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class DeobfuscateFlowOutput$Type extends MessageType<DeobfuscateFlowOutput> {
         return message;
     }
     internalBinaryWrite(message: DeobfuscateFlowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

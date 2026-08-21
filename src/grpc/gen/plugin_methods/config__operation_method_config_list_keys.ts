@@ -25,7 +25,7 @@ export interface ListKeysInput {
  */
 export interface ListKeysOutput {
     /**
-     * @generated from protobuf field: repeated string keys = 1
+     * @generated from protobuf field: repeated string keys = 424282324
      */
     keys: string[];
 }
@@ -71,7 +71,7 @@ export const ListKeysInput = new ListKeysInput$Type();
 class ListKeysOutput$Type extends MessageType<ListKeysOutput> {
     constructor() {
         super("operation.method.config.list_keys.ListKeysOutput", [
-            { no: 1, name: "keys", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 424282324, name: "keys", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListKeysOutput>): ListKeysOutput {
@@ -86,7 +86,7 @@ class ListKeysOutput$Type extends MessageType<ListKeysOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string keys */ 1:
+                case /* repeated string keys */ 424282324:
                     message.keys.push(reader.string());
                     break;
                 default:
@@ -101,9 +101,9 @@ class ListKeysOutput$Type extends MessageType<ListKeysOutput> {
         return message;
     }
     internalBinaryWrite(message: ListKeysOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string keys = 1; */
+        /* repeated string keys = 424282324; */
         for (let i = 0; i < message.keys.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.keys[i]);
+            writer.tag(424282324, WireType.LengthDelimited).string(message.keys[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

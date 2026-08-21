@@ -26,7 +26,7 @@ export interface GetStatsInput {
  */
 export interface GetStatsOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value stats = 1
+     * @generated from protobuf field: google.protobuf.Value stats = 170990831
      */
     stats?: Value;
 }
@@ -72,7 +72,7 @@ export const GetStatsInput = new GetStatsInput$Type();
 class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
     constructor() {
         super("operation.method.hardware.get_stats.GetStatsOutput", [
-            { no: 1, name: "stats", kind: "message", T: () => Value }
+            { no: 170990831, name: "stats", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetStatsOutput>): GetStatsOutput {
@@ -86,7 +86,7 @@ class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value stats */ 1:
+                case /* google.protobuf.Value stats */ 170990831:
                     message.stats = Value.internalBinaryRead(reader, reader.uint32(), options, message.stats);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
         return message;
     }
     internalBinaryWrite(message: GetStatsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value stats = 1; */
+        /* google.protobuf.Value stats = 170990831; */
         if (message.stats)
-            Value.internalBinaryWrite(message.stats, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.stats, writer.tag(170990831, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

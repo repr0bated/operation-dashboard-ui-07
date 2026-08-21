@@ -25,7 +25,7 @@ export interface MemoryListNamespacesInput {
  */
 export interface MemoryListNamespacesOutput {
     /**
-     * @generated from protobuf field: repeated string namespaces = 1
+     * @generated from protobuf field: repeated string namespaces = 369842729
      */
     namespaces: string[];
 }
@@ -71,7 +71,7 @@ export const MemoryListNamespacesInput = new MemoryListNamespacesInput$Type();
 class MemoryListNamespacesOutput$Type extends MessageType<MemoryListNamespacesOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.memory_list_namespaces.MemoryListNamespacesOutput", [
-            { no: 1, name: "namespaces", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 369842729, name: "namespaces", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<MemoryListNamespacesOutput>): MemoryListNamespacesOutput {
@@ -86,7 +86,7 @@ class MemoryListNamespacesOutput$Type extends MessageType<MemoryListNamespacesOu
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string namespaces */ 1:
+                case /* repeated string namespaces */ 369842729:
                     message.namespaces.push(reader.string());
                     break;
                 default:
@@ -101,9 +101,9 @@ class MemoryListNamespacesOutput$Type extends MessageType<MemoryListNamespacesOu
         return message;
     }
     internalBinaryWrite(message: MemoryListNamespacesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string namespaces = 1; */
+        /* repeated string namespaces = 369842729; */
         for (let i = 0; i < message.namespaces.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.namespaces[i]);
+            writer.tag(369842729, WireType.LengthDelimited).string(message.namespaces[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

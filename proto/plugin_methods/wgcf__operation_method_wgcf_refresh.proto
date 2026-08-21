@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message RefreshInput {
-  string refresh_type = 1;
+  string refresh_type = 156878944;
 }
 
-message RefreshOutput {}
+message RefreshOutput {
+  bool success = 442482449;
+}
 
 service RefreshService {
   // subid: mut.software.wgcf.refresh@v1, capability: wgcf.write

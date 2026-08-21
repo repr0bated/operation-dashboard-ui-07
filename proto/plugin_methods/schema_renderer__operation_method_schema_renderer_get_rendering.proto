@@ -15,7 +15,7 @@ message GetRenderingInput {
 }
 
 message GetRenderingOutput {
-  google.protobuf.Value rendering = 1;
+  google.protobuf.Value rendering = 528237146;
 }
 
 service GetRenderingService {

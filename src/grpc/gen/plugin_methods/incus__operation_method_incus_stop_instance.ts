@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface StopInstanceInput {
     /**
-     * @generated from protobuf field: bool force = 1
+     * @generated from protobuf field: bool force = 430540935
      */
     force: boolean;
     /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -30,13 +30,17 @@ export interface StopInstanceInput {
  * @generated from protobuf message operation.method.incus.stop_instance.StopInstanceOutput
  */
 export interface StopInstanceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class StopInstanceInput$Type extends MessageType<StopInstanceInput> {
     constructor() {
         super("operation.method.incus.stop_instance.StopInstanceInput", [
-            { no: 1, name: "force", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 430540935, name: "force", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<StopInstanceInput>): StopInstanceInput {
@@ -52,10 +56,10 @@ class StopInstanceInput$Type extends MessageType<StopInstanceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool force */ 1:
+                case /* bool force */ 430540935:
                     message.force = reader.bool();
                     break;
-                case /* string name */ 2:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class StopInstanceInput$Type extends MessageType<StopInstanceInput> {
         return message;
     }
     internalBinaryWrite(message: StopInstanceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool force = 1; */
-        if (message.force !== false)
-            writer.tag(1, WireType.Varint).bool(message.force);
-        /* string name = 2; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* bool force = 430540935; */
+        if (message.force !== false)
+            writer.tag(430540935, WireType.Varint).bool(message.force);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const StopInstanceInput = new StopInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class StopInstanceOutput$Type extends MessageType<StopInstanceOutput> {
     constructor() {
-        super("operation.method.incus.stop_instance.StopInstanceOutput", []);
+        super("operation.method.incus.stop_instance.StopInstanceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<StopInstanceOutput>): StopInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<StopInstanceOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class StopInstanceOutput$Type extends MessageType<StopInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class StopInstanceOutput$Type extends MessageType<StopInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: StopInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface PullImageInput {
     /**
-     * @generated from protobuf field: string image = 1
+     * @generated from protobuf field: string image = 324089343
      */
     image: string;
 }
@@ -26,12 +26,16 @@ export interface PullImageInput {
  * @generated from protobuf message operation.method.oci.pull_image.PullImageOutput
  */
 export interface PullImageOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class PullImageInput$Type extends MessageType<PullImageInput> {
     constructor() {
         super("operation.method.oci.pull_image.PullImageInput", [
-            { no: 1, name: "image", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 324089343, name: "image", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<PullImageInput>): PullImageInput {
@@ -46,7 +50,7 @@ class PullImageInput$Type extends MessageType<PullImageInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string image */ 1:
+                case /* string image */ 324089343:
                     message.image = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class PullImageInput$Type extends MessageType<PullImageInput> {
         return message;
     }
     internalBinaryWrite(message: PullImageInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string image = 1; */
+        /* string image = 324089343; */
         if (message.image !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.image);
+            writer.tag(324089343, WireType.LengthDelimited).string(message.image);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const PullImageInput = new PullImageInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class PullImageOutput$Type extends MessageType<PullImageOutput> {
     constructor() {
-        super("operation.method.oci.pull_image.PullImageOutput", []);
+        super("operation.method.oci.pull_image.PullImageOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<PullImageOutput>): PullImageOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<PullImageOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class PullImageOutput$Type extends MessageType<PullImageOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class PullImageOutput$Type extends MessageType<PullImageOutput> {
         return message;
     }
     internalBinaryWrite(message: PullImageOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

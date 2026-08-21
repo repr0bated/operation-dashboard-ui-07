@@ -25,23 +25,23 @@ export interface GetDrStatusInput {
  */
 export interface GetDrStatusOutput {
     /**
-     * @generated from protobuf field: int64 blocks_to_replay = 1
+     * @generated from protobuf field: int64 blocks_to_replay = 108429590
      */
     blocksToReplay: string;
     /**
-     * @generated from protobuf field: string last_checkpoint = 2
+     * @generated from protobuf field: string last_checkpoint = 366471332
      */
     lastCheckpoint: string;
     /**
-     * @generated from protobuf field: repeated string recovery_steps = 3
+     * @generated from protobuf field: repeated string recovery_steps = 52161249
      */
     recoverySteps: string[];
     /**
-     * @generated from protobuf field: bool state_subvol_current = 4
+     * @generated from protobuf field: bool state_subvol_current = 135378210
      */
     stateSubvolCurrent: boolean;
     /**
-     * @generated from protobuf field: bool vector_snapshot_available = 5
+     * @generated from protobuf field: bool vector_snapshot_available = 520523788
      */
     vectorSnapshotAvailable: boolean;
 }
@@ -87,11 +87,11 @@ export const GetDrStatusInput = new GetDrStatusInput$Type();
 class GetDrStatusOutput$Type extends MessageType<GetDrStatusOutput> {
     constructor() {
         super("operation.method.btrfs.get_dr_status.GetDrStatusOutput", [
-            { no: 1, name: "blocks_to_replay", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "last_checkpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "recovery_steps", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "state_subvol_current", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 5, name: "vector_snapshot_available", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 108429590, name: "blocks_to_replay", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 366471332, name: "last_checkpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 52161249, name: "recovery_steps", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 135378210, name: "state_subvol_current", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 520523788, name: "vector_snapshot_available", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<GetDrStatusOutput>): GetDrStatusOutput {
@@ -110,19 +110,19 @@ class GetDrStatusOutput$Type extends MessageType<GetDrStatusOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 blocks_to_replay */ 1:
+                case /* int64 blocks_to_replay */ 108429590:
                     message.blocksToReplay = reader.int64().toString();
                     break;
-                case /* string last_checkpoint */ 2:
+                case /* string last_checkpoint */ 366471332:
                     message.lastCheckpoint = reader.string();
                     break;
-                case /* repeated string recovery_steps */ 3:
+                case /* repeated string recovery_steps */ 52161249:
                     message.recoverySteps.push(reader.string());
                     break;
-                case /* bool state_subvol_current */ 4:
+                case /* bool state_subvol_current */ 135378210:
                     message.stateSubvolCurrent = reader.bool();
                     break;
-                case /* bool vector_snapshot_available */ 5:
+                case /* bool vector_snapshot_available */ 520523788:
                     message.vectorSnapshotAvailable = reader.bool();
                     break;
                 default:
@@ -137,21 +137,21 @@ class GetDrStatusOutput$Type extends MessageType<GetDrStatusOutput> {
         return message;
     }
     internalBinaryWrite(message: GetDrStatusOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 blocks_to_replay = 1; */
-        if (message.blocksToReplay !== "0")
-            writer.tag(1, WireType.Varint).int64(message.blocksToReplay);
-        /* string last_checkpoint = 2; */
-        if (message.lastCheckpoint !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.lastCheckpoint);
-        /* repeated string recovery_steps = 3; */
+        /* repeated string recovery_steps = 52161249; */
         for (let i = 0; i < message.recoverySteps.length; i++)
-            writer.tag(3, WireType.LengthDelimited).string(message.recoverySteps[i]);
-        /* bool state_subvol_current = 4; */
+            writer.tag(52161249, WireType.LengthDelimited).string(message.recoverySteps[i]);
+        /* int64 blocks_to_replay = 108429590; */
+        if (message.blocksToReplay !== "0")
+            writer.tag(108429590, WireType.Varint).int64(message.blocksToReplay);
+        /* bool state_subvol_current = 135378210; */
         if (message.stateSubvolCurrent !== false)
-            writer.tag(4, WireType.Varint).bool(message.stateSubvolCurrent);
-        /* bool vector_snapshot_available = 5; */
+            writer.tag(135378210, WireType.Varint).bool(message.stateSubvolCurrent);
+        /* string last_checkpoint = 366471332; */
+        if (message.lastCheckpoint !== "")
+            writer.tag(366471332, WireType.LengthDelimited).string(message.lastCheckpoint);
+        /* bool vector_snapshot_available = 520523788; */
         if (message.vectorSnapshotAvailable !== false)
-            writer.tag(5, WireType.Varint).bool(message.vectorSnapshotAvailable);
+            writer.tag(520523788, WireType.Varint).bool(message.vectorSnapshotAvailable);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

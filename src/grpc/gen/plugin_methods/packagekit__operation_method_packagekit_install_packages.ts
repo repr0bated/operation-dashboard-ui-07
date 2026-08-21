@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface InstallPackagesInput {
     /**
-     * @generated from protobuf field: repeated string package_ids = 1
+     * @generated from protobuf field: repeated string package_ids = 323424029
      */
     packageIds: string[];
     /**
-     * @generated from protobuf field: int64 transaction_flags = 2
+     * @generated from protobuf field: int64 transaction_flags = 20962926
      */
     transactionFlags: string;
 }
@@ -30,13 +30,17 @@ export interface InstallPackagesInput {
  * @generated from protobuf message operation.method.packagekit.install_packages.InstallPackagesOutput
  */
 export interface InstallPackagesOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class InstallPackagesInput$Type extends MessageType<InstallPackagesInput> {
     constructor() {
         super("operation.method.packagekit.install_packages.InstallPackagesInput", [
-            { no: 1, name: "package_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "transaction_flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 323424029, name: "package_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 20962926, name: "transaction_flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<InstallPackagesInput>): InstallPackagesInput {
@@ -52,10 +56,10 @@ class InstallPackagesInput$Type extends MessageType<InstallPackagesInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string package_ids */ 1:
+                case /* repeated string package_ids */ 323424029:
                     message.packageIds.push(reader.string());
                     break;
-                case /* int64 transaction_flags */ 2:
+                case /* int64 transaction_flags */ 20962926:
                     message.transactionFlags = reader.int64().toString();
                     break;
                 default:
@@ -70,12 +74,12 @@ class InstallPackagesInput$Type extends MessageType<InstallPackagesInput> {
         return message;
     }
     internalBinaryWrite(message: InstallPackagesInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string package_ids = 1; */
-        for (let i = 0; i < message.packageIds.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.packageIds[i]);
-        /* int64 transaction_flags = 2; */
+        /* int64 transaction_flags = 20962926; */
         if (message.transactionFlags !== "0")
-            writer.tag(2, WireType.Varint).int64(message.transactionFlags);
+            writer.tag(20962926, WireType.Varint).int64(message.transactionFlags);
+        /* repeated string package_ids = 323424029; */
+        for (let i = 0; i < message.packageIds.length; i++)
+            writer.tag(323424029, WireType.LengthDelimited).string(message.packageIds[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const InstallPackagesInput = new InstallPackagesInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class InstallPackagesOutput$Type extends MessageType<InstallPackagesOutput> {
     constructor() {
-        super("operation.method.packagekit.install_packages.InstallPackagesOutput", []);
+        super("operation.method.packagekit.install_packages.InstallPackagesOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<InstallPackagesOutput>): InstallPackagesOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<InstallPackagesOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class InstallPackagesOutput$Type extends MessageType<InstallPackagesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class InstallPackagesOutput$Type extends MessageType<InstallPackagesOutput> {
         return message;
     }
     internalBinaryWrite(message: InstallPackagesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

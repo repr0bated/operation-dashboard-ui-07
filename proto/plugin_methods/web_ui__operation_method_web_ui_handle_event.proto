@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message HandleEventInput {
-  string event_type = 1;
-  google.protobuf.Value payload = 2;
-  string session_id = 3;
+  string event_type = 198718638;
+  google.protobuf.Value payload = 319780774;
+  string session_id = 125141221;
 }
 
-message HandleEventOutput {}
+message HandleEventOutput {
+  bool success = 442482449;
+}
 
 service HandleEventService {
   // subid: mut.software.plugin.web-ui.handle-event@v1, capability: ui.write

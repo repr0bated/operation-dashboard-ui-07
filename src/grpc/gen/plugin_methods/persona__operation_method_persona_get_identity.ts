@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface GetIdentityInput {
     /**
-     * @generated from protobuf field: string agent_type = 1
+     * @generated from protobuf field: string agent_type = 482594788
      */
     agentType: string;
 }
@@ -28,7 +28,7 @@ export interface GetIdentityInput {
  */
 export interface GetIdentityOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value persona = 1
+     * @generated from protobuf field: google.protobuf.Value persona = 416192570
      */
     persona?: Value;
 }
@@ -36,7 +36,7 @@ export interface GetIdentityOutput {
 class GetIdentityInput$Type extends MessageType<GetIdentityInput> {
     constructor() {
         super("operation.method.persona.get_identity.GetIdentityInput", [
-            { no: 1, name: "agent_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 482594788, name: "agent_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetIdentityInput>): GetIdentityInput {
@@ -51,7 +51,7 @@ class GetIdentityInput$Type extends MessageType<GetIdentityInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string agent_type */ 1:
+                case /* string agent_type */ 482594788:
                     message.agentType = reader.string();
                     break;
                 default:
@@ -66,9 +66,9 @@ class GetIdentityInput$Type extends MessageType<GetIdentityInput> {
         return message;
     }
     internalBinaryWrite(message: GetIdentityInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string agent_type = 1; */
+        /* string agent_type = 482594788; */
         if (message.agentType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.agentType);
+            writer.tag(482594788, WireType.LengthDelimited).string(message.agentType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -83,7 +83,7 @@ export const GetIdentityInput = new GetIdentityInput$Type();
 class GetIdentityOutput$Type extends MessageType<GetIdentityOutput> {
     constructor() {
         super("operation.method.persona.get_identity.GetIdentityOutput", [
-            { no: 1, name: "persona", kind: "message", T: () => Value }
+            { no: 416192570, name: "persona", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetIdentityOutput>): GetIdentityOutput {
@@ -97,7 +97,7 @@ class GetIdentityOutput$Type extends MessageType<GetIdentityOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value persona */ 1:
+                case /* google.protobuf.Value persona */ 416192570:
                     message.persona = Value.internalBinaryRead(reader, reader.uint32(), options, message.persona);
                     break;
                 default:
@@ -112,9 +112,9 @@ class GetIdentityOutput$Type extends MessageType<GetIdentityOutput> {
         return message;
     }
     internalBinaryWrite(message: GetIdentityOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value persona = 1; */
+        /* google.protobuf.Value persona = 416192570; */
         if (message.persona)
-            Value.internalBinaryWrite(message.persona, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.persona, writer.tag(416192570, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

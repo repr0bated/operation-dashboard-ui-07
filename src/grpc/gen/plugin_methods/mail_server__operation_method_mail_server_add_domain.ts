@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AddDomainInput {
     /**
-     * @generated from protobuf field: string domain = 1
+     * @generated from protobuf field: string domain = 127113208
      */
     domain: string;
 }
@@ -26,12 +26,16 @@ export interface AddDomainInput {
  * @generated from protobuf message operation.method.mail_server.add_domain.AddDomainOutput
  */
 export interface AddDomainOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddDomainInput$Type extends MessageType<AddDomainInput> {
     constructor() {
         super("operation.method.mail_server.add_domain.AddDomainInput", [
-            { no: 1, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 127113208, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AddDomainInput>): AddDomainInput {
@@ -46,7 +50,7 @@ class AddDomainInput$Type extends MessageType<AddDomainInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string domain */ 1:
+                case /* string domain */ 127113208:
                     message.domain = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class AddDomainInput$Type extends MessageType<AddDomainInput> {
         return message;
     }
     internalBinaryWrite(message: AddDomainInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string domain = 1; */
+        /* string domain = 127113208; */
         if (message.domain !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.domain);
+            writer.tag(127113208, WireType.LengthDelimited).string(message.domain);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const AddDomainInput = new AddDomainInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddDomainOutput$Type extends MessageType<AddDomainOutput> {
     constructor() {
-        super("operation.method.mail_server.add_domain.AddDomainOutput", []);
+        super("operation.method.mail_server.add_domain.AddDomainOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddDomainOutput>): AddDomainOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddDomainOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class AddDomainOutput$Type extends MessageType<AddDomainOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class AddDomainOutput$Type extends MessageType<AddDomainOutput> {
         return message;
     }
     internalBinaryWrite(message: AddDomainOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

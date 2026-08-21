@@ -18,19 +18,19 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ObfuscateFlowInput {
     /**
-     * @generated from protobuf field: string bridge = 1
+     * @generated from protobuf field: string bridge = 179832343
      */
     bridge: string;
     /**
-     * @generated from protobuf field: string match_spec = 2
+     * @generated from protobuf field: string match_spec = 276585666
      */
     matchSpec: string;
     /**
-     * @generated from protobuf field: int64 obfuscation_level = 3
+     * @generated from protobuf field: int64 obfuscation_level = 211497255
      */
     obfuscationLevel: string;
     /**
-     * @generated from protobuf field: int64 priority = 4
+     * @generated from protobuf field: int64 priority = 350544653
      */
     priority: string;
 }
@@ -38,15 +38,19 @@ export interface ObfuscateFlowInput {
  * @generated from protobuf message operation.method.openflow_obfuscation.obfuscate_flow.ObfuscateFlowOutput
  */
 export interface ObfuscateFlowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ObfuscateFlowInput$Type extends MessageType<ObfuscateFlowInput> {
     constructor() {
         super("operation.method.openflow_obfuscation.obfuscate_flow.ObfuscateFlowInput", [
-            { no: 1, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "match_spec", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "obfuscation_level", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 179832343, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 276585666, name: "match_spec", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 211497255, name: "obfuscation_level", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 350544653, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<ObfuscateFlowInput>): ObfuscateFlowInput {
@@ -64,16 +68,16 @@ class ObfuscateFlowInput$Type extends MessageType<ObfuscateFlowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string bridge */ 1:
+                case /* string bridge */ 179832343:
                     message.bridge = reader.string();
                     break;
-                case /* string match_spec */ 2:
+                case /* string match_spec */ 276585666:
                     message.matchSpec = reader.string();
                     break;
-                case /* int64 obfuscation_level */ 3:
+                case /* int64 obfuscation_level */ 211497255:
                     message.obfuscationLevel = reader.int64().toString();
                     break;
-                case /* int64 priority */ 4:
+                case /* int64 priority */ 350544653:
                     message.priority = reader.int64().toString();
                     break;
                 default:
@@ -88,18 +92,18 @@ class ObfuscateFlowInput$Type extends MessageType<ObfuscateFlowInput> {
         return message;
     }
     internalBinaryWrite(message: ObfuscateFlowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string bridge = 1; */
+        /* string bridge = 179832343; */
         if (message.bridge !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.bridge);
-        /* string match_spec = 2; */
-        if (message.matchSpec !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.matchSpec);
-        /* int64 obfuscation_level = 3; */
+            writer.tag(179832343, WireType.LengthDelimited).string(message.bridge);
+        /* int64 obfuscation_level = 211497255; */
         if (message.obfuscationLevel !== "0")
-            writer.tag(3, WireType.Varint).int64(message.obfuscationLevel);
-        /* int64 priority = 4; */
+            writer.tag(211497255, WireType.Varint).int64(message.obfuscationLevel);
+        /* string match_spec = 276585666; */
+        if (message.matchSpec !== "")
+            writer.tag(276585666, WireType.LengthDelimited).string(message.matchSpec);
+        /* int64 priority = 350544653; */
         if (message.priority !== "0")
-            writer.tag(4, WireType.Varint).int64(message.priority);
+            writer.tag(350544653, WireType.Varint).int64(message.priority);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -113,10 +117,13 @@ export const ObfuscateFlowInput = new ObfuscateFlowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ObfuscateFlowOutput$Type extends MessageType<ObfuscateFlowOutput> {
     constructor() {
-        super("operation.method.openflow_obfuscation.obfuscate_flow.ObfuscateFlowOutput", []);
+        super("operation.method.openflow_obfuscation.obfuscate_flow.ObfuscateFlowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ObfuscateFlowOutput>): ObfuscateFlowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ObfuscateFlowOutput>(this, message, value);
         return message;
@@ -126,6 +133,9 @@ class ObfuscateFlowOutput$Type extends MessageType<ObfuscateFlowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -138,6 +148,9 @@ class ObfuscateFlowOutput$Type extends MessageType<ObfuscateFlowOutput> {
         return message;
     }
     internalBinaryWrite(message: ObfuscateFlowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

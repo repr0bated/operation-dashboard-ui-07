@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RunInput {
     /**
-     * @generated from protobuf field: repeated string args = 1
+     * @generated from protobuf field: repeated string args = 487237440
      */
     args: string[];
     /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -30,13 +30,17 @@ export interface RunInput {
  * @generated from protobuf message operation.method.service.run.RunOutput
  */
 export interface RunOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RunInput$Type extends MessageType<RunInput> {
     constructor() {
         super("operation.method.service.run.RunInput", [
-            { no: 1, name: "args", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 487237440, name: "args", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RunInput>): RunInput {
@@ -52,10 +56,10 @@ class RunInput$Type extends MessageType<RunInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string args */ 1:
+                case /* repeated string args */ 487237440:
                     message.args.push(reader.string());
                     break;
-                case /* string name */ 2:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class RunInput$Type extends MessageType<RunInput> {
         return message;
     }
     internalBinaryWrite(message: RunInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string args = 1; */
-        for (let i = 0; i < message.args.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.args[i]);
-        /* string name = 2; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* repeated string args = 487237440; */
+        for (let i = 0; i < message.args.length; i++)
+            writer.tag(487237440, WireType.LengthDelimited).string(message.args[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const RunInput = new RunInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RunOutput$Type extends MessageType<RunOutput> {
     constructor() {
-        super("operation.method.service.run.RunOutput", []);
+        super("operation.method.service.run.RunOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RunOutput>): RunOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RunOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class RunOutput$Type extends MessageType<RunOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class RunOutput$Type extends MessageType<RunOutput> {
         return message;
     }
     internalBinaryWrite(message: RunOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

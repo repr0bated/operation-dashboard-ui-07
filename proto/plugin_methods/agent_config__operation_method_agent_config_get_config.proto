@@ -15,7 +15,7 @@ message GetConfigInput {
 }
 
 message GetConfigOutput {
-  google.protobuf.Value config = 1;
+  google.protobuf.Value config = 67069640;
 }
 
 service GetConfigService {

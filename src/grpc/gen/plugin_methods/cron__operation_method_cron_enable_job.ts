@@ -4,6 +4,7 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -23,6 +24,10 @@ export interface EnableJobInput {
  * @generated from protobuf message operation.method.cron.enable_job.EnableJobOutput
  */
 export interface EnableJobOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class EnableJobInput$Type extends MessageType<EnableJobInput> {
@@ -65,10 +70,13 @@ export const EnableJobInput = new EnableJobInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class EnableJobOutput$Type extends MessageType<EnableJobOutput> {
     constructor() {
-        super("operation.method.cron.enable_job.EnableJobOutput", []);
+        super("operation.method.cron.enable_job.EnableJobOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<EnableJobOutput>): EnableJobOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<EnableJobOutput>(this, message, value);
         return message;
@@ -78,6 +86,9 @@ class EnableJobOutput$Type extends MessageType<EnableJobOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -90,6 +101,9 @@ class EnableJobOutput$Type extends MessageType<EnableJobOutput> {
         return message;
     }
     internalBinaryWrite(message: EnableJobOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

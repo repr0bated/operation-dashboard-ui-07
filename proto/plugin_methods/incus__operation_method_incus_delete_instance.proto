@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeleteInstanceInput {
-  string name = 1;
+  string name = 221887978;
 }
 
-message DeleteInstanceOutput {}
+message DeleteInstanceOutput {
+  bool success = 442482449;
+}
 
 service DeleteInstanceService {
   // subid: mut.service.incus.instance.delete@v1, capability: cap.service.incus.instance.delete@v1

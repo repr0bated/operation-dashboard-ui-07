@@ -11,16 +11,18 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateInterfaceInput {
-  string config_path = 1;
-  repeated string excluded_plugins = 2;
-  string identity_role = 3;
-  google.protobuf.Value interface = 4;
-  string netmaker_plugin = 5;
-  repeated string route_targets = 6;
-  string wireguard_plugin = 7;
+  string config_path = 107209538;
+  repeated string excluded_plugins = 309602586;
+  string identity_role = 461786074;
+  google.protobuf.Value interface = 82465076;
+  string netmaker_plugin = 433012804;
+  repeated string route_targets = 7820643;
+  string wireguard_plugin = 248561077;
 }
 
-message CreateInterfaceOutput {}
+message CreateInterfaceOutput {
+  bool success = 442482449;
+}
 
 service CreateInterfaceService {
   // subid: mut.network.wg-opdbus.interface.create@v1, capability: wg_opdbus.invoke

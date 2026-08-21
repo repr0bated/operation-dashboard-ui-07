@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.sess_decl.declare_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeclareSessionInput {
+  string id = 389573345;
+  string user = 7888629;
+}
+
+message DeclareSessionOutput {
+  repeated google.protobuf.Value sessions = 319124428;
+}
+
+service DeclareSessionService {
+  // subid: mut.software.plugin.sessdecl.session.declare@v1, capability: sess_decl.write
+  rpc declare_session(DeclareSessionInput) returns (DeclareSessionOutput);
+}

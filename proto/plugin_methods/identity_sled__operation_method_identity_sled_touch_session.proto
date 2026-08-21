@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.identity_sled.touch_session;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message TouchSessionInput {
+  string session_id = 125141221;
+}
+
+message TouchSessionOutput {
+  bool success = 442482449;
+}
+
+service TouchSessionService {
+  // subid: mut.service.identity-sled.session.touch@v1, capability: identity_sled.write
+  rpc touch_session(TouchSessionInput) returns (TouchSessionOutput);
+}

@@ -11,12 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message InsertEntryInput {
-  google.protobuf.Value kv = 1;
-  string namespace = 2;
+  google.protobuf.Value kv = 423435670;
+  string namespace = 181303974;
 }
 
 message InsertEntryOutput {
-  int64 new_entry_count = 1;
+  int64 new_entry_count = 521281310;
+  bool success = 442482449;
 }
 
 service InsertEntryService {

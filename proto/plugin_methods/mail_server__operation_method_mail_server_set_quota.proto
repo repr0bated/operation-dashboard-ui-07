@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetQuotaInput {
-  string domain = 1;
-  int64 quota_mb = 2;
-  string user = 3;
+  string domain = 127113208;
+  int64 quota_mb = 487219124;
+  string user = 7888629;
 }
 
-message SetQuotaOutput {}
+message SetQuotaOutput {
+  bool success = 442482449;
+}
 
 service SetQuotaService {
   // subid: mut.service.mail.quota.set@v1, capability: mail.write

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ListNodesInput {
-  string network = 1;
+  string network = 303597255;
 }
 
-message ListNodesOutput {}
+message ListNodesOutput {
+  bool success = 442482449;
+}
 
 service ListNodesService {
   // subid: obs.network.netmaker.nodes.list@v1, capability: cap.network.netmaker.nodes.list@v1

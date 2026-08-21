@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface FilesystemUsageInput {
     /**
-     * @generated from protobuf field: string path = 1
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
 }
@@ -27,27 +27,15 @@ export interface FilesystemUsageInput {
  */
 export interface FilesystemUsageOutput {
     /**
-     * @generated from protobuf field: int64 data_bytes = 1
+     * @generated from protobuf field: bool success = 442482449
      */
-    dataBytes: string;
-    /**
-     * @generated from protobuf field: int64 metadata_bytes = 2
-     */
-    metadataBytes: string;
-    /**
-     * @generated from protobuf field: int64 system_bytes = 3
-     */
-    systemBytes: string;
-    /**
-     * @generated from protobuf field: int64 unallocated_bytes = 4
-     */
-    unallocatedBytes: string;
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class FilesystemUsageInput$Type extends MessageType<FilesystemUsageInput> {
     constructor() {
         super("operation.method.btrfs.filesystem_usage.FilesystemUsageInput", [
-            { no: 1, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<FilesystemUsageInput>): FilesystemUsageInput {
@@ -62,7 +50,7 @@ class FilesystemUsageInput$Type extends MessageType<FilesystemUsageInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string path */ 1:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
                 default:
@@ -77,9 +65,9 @@ class FilesystemUsageInput$Type extends MessageType<FilesystemUsageInput> {
         return message;
     }
     internalBinaryWrite(message: FilesystemUsageInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string path = 1; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.path);
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -94,18 +82,12 @@ export const FilesystemUsageInput = new FilesystemUsageInput$Type();
 class FilesystemUsageOutput$Type extends MessageType<FilesystemUsageOutput> {
     constructor() {
         super("operation.method.btrfs.filesystem_usage.FilesystemUsageOutput", [
-            { no: 1, name: "data_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "metadata_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "system_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "unallocated_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<FilesystemUsageOutput>): FilesystemUsageOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.dataBytes = "0";
-        message.metadataBytes = "0";
-        message.systemBytes = "0";
-        message.unallocatedBytes = "0";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<FilesystemUsageOutput>(this, message, value);
         return message;
@@ -115,17 +97,8 @@ class FilesystemUsageOutput$Type extends MessageType<FilesystemUsageOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 data_bytes */ 1:
-                    message.dataBytes = reader.int64().toString();
-                    break;
-                case /* int64 metadata_bytes */ 2:
-                    message.metadataBytes = reader.int64().toString();
-                    break;
-                case /* int64 system_bytes */ 3:
-                    message.systemBytes = reader.int64().toString();
-                    break;
-                case /* int64 unallocated_bytes */ 4:
-                    message.unallocatedBytes = reader.int64().toString();
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -139,18 +112,9 @@ class FilesystemUsageOutput$Type extends MessageType<FilesystemUsageOutput> {
         return message;
     }
     internalBinaryWrite(message: FilesystemUsageOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 data_bytes = 1; */
-        if (message.dataBytes !== "0")
-            writer.tag(1, WireType.Varint).int64(message.dataBytes);
-        /* int64 metadata_bytes = 2; */
-        if (message.metadataBytes !== "0")
-            writer.tag(2, WireType.Varint).int64(message.metadataBytes);
-        /* int64 system_bytes = 3; */
-        if (message.systemBytes !== "0")
-            writer.tag(3, WireType.Varint).int64(message.systemBytes);
-        /* int64 unallocated_bytes = 4; */
-        if (message.unallocatedBytes !== "0")
-            writer.tag(4, WireType.Varint).int64(message.unallocatedBytes);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

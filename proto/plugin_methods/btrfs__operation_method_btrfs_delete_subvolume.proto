@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeleteSubvolumeInput {
-  string path = 1;
+  string path = 75975994;
 }
 
-message DeleteSubvolumeOutput {}
+message DeleteSubvolumeOutput {
+  bool success = 442482449;
+}
 
 service DeleteSubvolumeService {
   // subid: mut.storage.btrfs.subvolume.delete@v1, capability: cap.storage.btrfs.subvolume.delete@v1

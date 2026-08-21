@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.human_principal.set_alias;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetAliasInput {
+  string display_alias = 225325610;
+  string principal_id = 495803348;
+}
+
+message SetAliasOutput {
+  google.protobuf.Value principal = 262257199;
+}
+
+service SetAliasService {
+  // subid: mut.service.human-principal.alias.set@v1, capability: human_principal.write
+  rpc set_alias(SetAliasInput) returns (SetAliasOutput);
+}

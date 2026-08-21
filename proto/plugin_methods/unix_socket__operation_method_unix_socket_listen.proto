@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message ListenInput {
-  int64 backlog = 1;
-  string path = 2;
+  int64 backlog = 253847437;
+  string path = 75975994;
 }
 
-message ListenOutput {}
+message ListenOutput {
+  bool success = 442482449;
+}
 
 service ListenService {
   // subid: mut.service.unix-socket.listen@v1, capability: network.write

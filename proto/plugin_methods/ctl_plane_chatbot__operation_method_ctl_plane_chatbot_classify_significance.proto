@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message ClassifySignificanceInput {
-  string episode_id = 1;
+  // Empty schema object.
 }
 
 message ClassifySignificanceOutput {
-  google.protobuf.Value significance = 1;
+  google.protobuf.Value significance = 47567027;
 }
 
 service ClassifySignificanceService {

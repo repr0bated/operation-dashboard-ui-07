@@ -15,7 +15,7 @@ message DaemonReloadInput {
 }
 
 message DaemonReloadOutput {
-  string message = 1;
+  string message = 82970853;
 }
 
 service DaemonReloadService {

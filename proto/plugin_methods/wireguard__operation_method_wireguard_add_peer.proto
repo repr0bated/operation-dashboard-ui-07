@@ -11,15 +11,17 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddPeerInput {
-  repeated string allowed_ips = 1;
-  string endpoint = 2;
-  string interface = 3;
-  int64 persistent_keepalive = 4;
-  string preshared_key = 5;
-  string public_key = 6;
+  repeated string allowed_ips = 176057496;
+  string endpoint = 414707842;
+  string interface = 82465076;
+  int64 persistent_keepalive = 527532213;
+  string preshared_key = 227710604;
+  string public_key = 411046603;
 }
 
-message AddPeerOutput {}
+message AddPeerOutput {
+  bool success = 442482449;
+}
 
 service AddPeerService {
   // subid: mut.network.wireguard.peer.add@v1, capability: wireguard.write

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.xray.end_trace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message EndTraceInput {
+  string status = 441153524;
+  string trace_id = 270708270;
+}
+
+message EndTraceOutput {
+  bool success = 442482449;
+}
+
+service EndTraceService {
+  // subid: mut.software.plugin.xray.trace.end@v1, capability: xray.write
+  rpc end_trace(EndTraceInput) returns (EndTraceOutput);
+}

@@ -26,7 +26,7 @@ export interface GetCurrentStateInput {
  */
 export interface GetCurrentStateOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value state = 1
+     * @generated from protobuf field: google.protobuf.Value state = 405877497
      */
     state?: Value;
 }
@@ -72,7 +72,7 @@ export const GetCurrentStateInput = new GetCurrentStateInput$Type();
 class GetCurrentStateOutput$Type extends MessageType<GetCurrentStateOutput> {
     constructor() {
         super("operation.method.blockchain.get_current_state.GetCurrentStateOutput", [
-            { no: 1, name: "state", kind: "message", T: () => Value }
+            { no: 405877497, name: "state", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetCurrentStateOutput>): GetCurrentStateOutput {
@@ -86,7 +86,7 @@ class GetCurrentStateOutput$Type extends MessageType<GetCurrentStateOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value state */ 1:
+                case /* google.protobuf.Value state */ 405877497:
                     message.state = Value.internalBinaryRead(reader, reader.uint32(), options, message.state);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetCurrentStateOutput$Type extends MessageType<GetCurrentStateOutput> {
         return message;
     }
     internalBinaryWrite(message: GetCurrentStateOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value state = 1; */
+        /* google.protobuf.Value state = 405877497; */
         if (message.state)
-            Value.internalBinaryWrite(message.state, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.state, writer.tag(405877497, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetInfoInput {
-  string name = 1;
+  string name = 221887978;
 }
 
-message GetInfoOutput {}
+message GetInfoOutput {
+  bool success = 442482449;
+}
 
 service GetInfoService {
   // subid: obs.software.plugin.software.get-info@v1, capability: software.read

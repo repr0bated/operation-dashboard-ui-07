@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DeleteEntryInput {
     /**
-     * @generated from protobuf field: string key = 1
+     * @generated from protobuf field: string key = 135645295
      */
     key: string;
     /**
-     * @generated from protobuf field: string namespace = 2
+     * @generated from protobuf field: string namespace = 181303974
      */
     namespace: string;
 }
@@ -31,16 +31,20 @@ export interface DeleteEntryInput {
  */
 export interface DeleteEntryOutput {
     /**
-     * @generated from protobuf field: bool deleted = 1
+     * @generated from protobuf field: bool deleted = 80827502
      */
     deleted: boolean;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteEntryInput$Type extends MessageType<DeleteEntryInput> {
     constructor() {
         super("operation.method.memory.delete_entry.DeleteEntryInput", [
-            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 135645295, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 181303974, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteEntryInput>): DeleteEntryInput {
@@ -56,10 +60,10 @@ class DeleteEntryInput$Type extends MessageType<DeleteEntryInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string key */ 1:
+                case /* string key */ 135645295:
                     message.key = reader.string();
                     break;
-                case /* string namespace */ 2:
+                case /* string namespace */ 181303974:
                     message.namespace = reader.string();
                     break;
                 default:
@@ -74,12 +78,12 @@ class DeleteEntryInput$Type extends MessageType<DeleteEntryInput> {
         return message;
     }
     internalBinaryWrite(message: DeleteEntryInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string key = 1; */
+        /* string key = 135645295; */
         if (message.key !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.key);
-        /* string namespace = 2; */
+            writer.tag(135645295, WireType.LengthDelimited).string(message.key);
+        /* string namespace = 181303974; */
         if (message.namespace !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.namespace);
+            writer.tag(181303974, WireType.LengthDelimited).string(message.namespace);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -94,12 +98,14 @@ export const DeleteEntryInput = new DeleteEntryInput$Type();
 class DeleteEntryOutput$Type extends MessageType<DeleteEntryOutput> {
     constructor() {
         super("operation.method.memory.delete_entry.DeleteEntryOutput", [
-            { no: 1, name: "deleted", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 80827502, name: "deleted", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteEntryOutput>): DeleteEntryOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.deleted = false;
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteEntryOutput>(this, message, value);
         return message;
@@ -109,8 +115,11 @@ class DeleteEntryOutput$Type extends MessageType<DeleteEntryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool deleted */ 1:
+                case /* bool deleted */ 80827502:
                     message.deleted = reader.bool();
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -124,9 +133,12 @@ class DeleteEntryOutput$Type extends MessageType<DeleteEntryOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteEntryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool deleted = 1; */
+        /* bool deleted = 80827502; */
         if (message.deleted !== false)
-            writer.tag(1, WireType.Varint).bool(message.deleted);
+            writer.tag(80827502, WireType.Varint).bool(message.deleted);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

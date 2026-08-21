@@ -11,13 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message ResolveAddressInput {
-  repeated int64 address = 1;
-  int64 family = 2;
-  int64 flags = 3;
-  int64 ifindex = 4;
+  repeated int64 address = 208283988;
+  int64 family = 303891499;
+  int64 flags = 476543536;
+  int64 ifindex = 394788143;
 }
 
-message ResolveAddressOutput {}
+message ResolveAddressOutput {
+  bool success = 442482449;
+}
 
 service ResolveAddressService {
   // subid: obs.software.dnsresolver.address.resolve@v1, capability: dnsresolver.read

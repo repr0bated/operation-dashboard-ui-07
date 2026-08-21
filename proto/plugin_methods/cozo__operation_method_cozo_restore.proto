@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message RestoreInput {
-  string path = 1;
+  string path = 75975994;
 }
 
-message RestoreOutput {}
+message RestoreOutput {
+  bool success = 442482449;
+}
 
 service RestoreService {
   // subid: mut.data.cozo.backup.restore@v1, capability: cap.data.cozo.backup.restore@v1

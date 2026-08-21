@@ -26,7 +26,7 @@ export interface GetDeviceInput {
  */
 export interface GetDeviceOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value device = 1
+     * @generated from protobuf field: google.protobuf.Value device = 275805945
      */
     device?: Value;
 }
@@ -72,7 +72,7 @@ export const GetDeviceInput = new GetDeviceInput$Type();
 class GetDeviceOutput$Type extends MessageType<GetDeviceOutput> {
     constructor() {
         super("operation.method.hardware.get_device.GetDeviceOutput", [
-            { no: 1, name: "device", kind: "message", T: () => Value }
+            { no: 275805945, name: "device", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetDeviceOutput>): GetDeviceOutput {
@@ -86,7 +86,7 @@ class GetDeviceOutput$Type extends MessageType<GetDeviceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value device */ 1:
+                case /* google.protobuf.Value device */ 275805945:
                     message.device = Value.internalBinaryRead(reader, reader.uint32(), options, message.device);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetDeviceOutput$Type extends MessageType<GetDeviceOutput> {
         return message;
     }
     internalBinaryWrite(message: GetDeviceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value device = 1; */
+        /* google.protobuf.Value device = 275805945; */
         if (message.device)
-            Value.internalBinaryWrite(message.device, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.device, writer.tag(275805945, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -14,7 +14,9 @@ message EnableJobInput {
   // Empty schema object.
 }
 
-message EnableJobOutput {}
+message EnableJobOutput {
+  bool success = 442482449;
+}
 
 service EnableJobService {
   // subid: mut.service.cron.job.enable@v1, capability: cron.invoke

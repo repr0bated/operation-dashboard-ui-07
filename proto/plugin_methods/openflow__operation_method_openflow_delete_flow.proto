@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeleteFlowInput {
-  string bridge = 1;
-  google.protobuf.Struct match_fields = 2;
+  string bridge = 179832343;
+  google.protobuf.Struct match_fields = 405770232;
 }
 
-message DeleteFlowOutput {}
+message DeleteFlowOutput {
+  bool success = 442482449;
+}
 
 service DeleteFlowService {
   // subid: mut.network.openflow.flow.delete@v1, capability: openflow.write

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetUpdatesInput {
-  int64 filter = 1;
+  int64 filter = 132212861;
 }
 
-message GetUpdatesOutput {}
+message GetUpdatesOutput {
+  bool success = 442482449;
+}
 
 service GetUpdatesService {
   // subid: obs.software.packagekit.updates.get@v1, capability: packagekit.read

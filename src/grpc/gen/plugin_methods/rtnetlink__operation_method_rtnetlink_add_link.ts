@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AddLinkInput {
     /**
-     * @generated from protobuf field: string link_type = 1
+     * @generated from protobuf field: string link_type = 465564503
      */
     linkType: string;
     /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -30,13 +30,17 @@ export interface AddLinkInput {
  * @generated from protobuf message operation.method.rtnetlink.add_link.AddLinkOutput
  */
 export interface AddLinkOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddLinkInput$Type extends MessageType<AddLinkInput> {
     constructor() {
         super("operation.method.rtnetlink.add_link.AddLinkInput", [
-            { no: 1, name: "link_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 465564503, name: "link_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AddLinkInput>): AddLinkInput {
@@ -52,10 +56,10 @@ class AddLinkInput$Type extends MessageType<AddLinkInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string link_type */ 1:
+                case /* string link_type */ 465564503:
                     message.linkType = reader.string();
                     break;
-                case /* string name */ 2:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class AddLinkInput$Type extends MessageType<AddLinkInput> {
         return message;
     }
     internalBinaryWrite(message: AddLinkInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string link_type = 1; */
-        if (message.linkType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.linkType);
-        /* string name = 2; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string link_type = 465564503; */
+        if (message.linkType !== "")
+            writer.tag(465564503, WireType.LengthDelimited).string(message.linkType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const AddLinkInput = new AddLinkInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddLinkOutput$Type extends MessageType<AddLinkOutput> {
     constructor() {
-        super("operation.method.rtnetlink.add_link.AddLinkOutput", []);
+        super("operation.method.rtnetlink.add_link.AddLinkOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddLinkOutput>): AddLinkOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddLinkOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class AddLinkOutput$Type extends MessageType<AddLinkOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class AddLinkOutput$Type extends MessageType<AddLinkOutput> {
         return message;
     }
     internalBinaryWrite(message: AddLinkOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

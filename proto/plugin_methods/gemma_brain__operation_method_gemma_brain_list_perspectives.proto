@@ -15,7 +15,7 @@ message ListPerspectivesInput {
 }
 
 message ListPerspectivesOutput {
-  repeated google.protobuf.Value perspectives = 1;
+  repeated google.protobuf.Value perspectives = 243197074;
 }
 
 service ListPerspectivesService {

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface BalanceStatusInput {
     /**
-     * @generated from protobuf field: string path = 1
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
 }
@@ -27,19 +27,15 @@ export interface BalanceStatusInput {
  */
 export interface BalanceStatusOutput {
     /**
-     * @generated from protobuf field: double progress_percent = 1
+     * @generated from protobuf field: bool success = 442482449
      */
-    progressPercent: number;
-    /**
-     * @generated from protobuf field: bool running = 2
-     */
-    running: boolean;
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class BalanceStatusInput$Type extends MessageType<BalanceStatusInput> {
     constructor() {
         super("operation.method.btrfs.balance_status.BalanceStatusInput", [
-            { no: 1, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<BalanceStatusInput>): BalanceStatusInput {
@@ -54,7 +50,7 @@ class BalanceStatusInput$Type extends MessageType<BalanceStatusInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string path */ 1:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
                 default:
@@ -69,9 +65,9 @@ class BalanceStatusInput$Type extends MessageType<BalanceStatusInput> {
         return message;
     }
     internalBinaryWrite(message: BalanceStatusInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string path = 1; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.path);
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -86,14 +82,12 @@ export const BalanceStatusInput = new BalanceStatusInput$Type();
 class BalanceStatusOutput$Type extends MessageType<BalanceStatusOutput> {
     constructor() {
         super("operation.method.btrfs.balance_status.BalanceStatusOutput", [
-            { no: 1, name: "progress_percent", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 2, name: "running", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<BalanceStatusOutput>): BalanceStatusOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.progressPercent = 0;
-        message.running = false;
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<BalanceStatusOutput>(this, message, value);
         return message;
@@ -103,11 +97,8 @@ class BalanceStatusOutput$Type extends MessageType<BalanceStatusOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* double progress_percent */ 1:
-                    message.progressPercent = reader.double();
-                    break;
-                case /* bool running */ 2:
-                    message.running = reader.bool();
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -121,12 +112,9 @@ class BalanceStatusOutput$Type extends MessageType<BalanceStatusOutput> {
         return message;
     }
     internalBinaryWrite(message: BalanceStatusOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* double progress_percent = 1; */
-        if (message.progressPercent !== 0)
-            writer.tag(1, WireType.Bit64).double(message.progressPercent);
-        /* bool running = 2; */
-        if (message.running !== false)
-            writer.tag(2, WireType.Varint).bool(message.running);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

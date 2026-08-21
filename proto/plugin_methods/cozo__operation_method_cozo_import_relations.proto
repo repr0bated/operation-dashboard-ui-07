@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ImportRelationsInput {
-  google.protobuf.Value data = 1;
+  google.protobuf.Value data = 410182315;
 }
 
-message ImportRelationsOutput {}
+message ImportRelationsOutput {
+  bool success = 442482449;
+}
 
 service ImportRelationsService {
   // subid: mut.data.cozo.relations.import@v1, capability: cap.data.cozo.relations.import@v1

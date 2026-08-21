@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateCollectionInput {
-  string name = 1;
-  google.protobuf.Value vectors_config = 2;
+  string name = 221887978;
+  google.protobuf.Value vectors_config = 440381432;
 }
 
-message CreateCollectionOutput {}
+message CreateCollectionOutput {
+  bool success = 442482449;
+}
 
 service CreateCollectionService {
   // subid: mut.data.qdrant.collection.create@v1, capability: cap.data.qdrant.collection.create@v1

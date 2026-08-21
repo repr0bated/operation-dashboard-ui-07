@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.setmodel;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetModelInput {
+  string model_id = 491087124;
+}
+
+message SetModelOutput {
+  string selected_model = 234128777;
+}
+
+service SetModelService {
+  // subid: mut.service.tched-router.model.set@v1, capability: cap.software.tched-router.model.set@v1
+  rpc SetModel(SetModelInput) returns (SetModelOutput);
+}

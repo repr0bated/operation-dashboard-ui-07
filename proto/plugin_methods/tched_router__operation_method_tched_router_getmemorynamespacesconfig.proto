@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getmemorynamespacesconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetMemoryNamespacesConfigInput {
+  // Empty schema object.
+}
+
+message GetMemoryNamespacesConfigOutput {
+  repeated google.protobuf.Value config = 67069640;
+}
+
+service GetMemoryNamespacesConfigService {
+  // subid: obs.service.3tched-router.memory-namespaces-config.get@v1, capability: cap.software.3tched-router.memory-namespaces-config.read@v1
+  rpc GetMemoryNamespacesConfig(GetMemoryNamespacesConfigInput) returns (GetMemoryNamespacesConfigOutput);
+}

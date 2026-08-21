@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetLinkStateInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: string state = 2
+     * @generated from protobuf field: string state = 405877497
      */
     state: string;
 }
@@ -30,13 +30,17 @@ export interface SetLinkStateInput {
  * @generated from protobuf message operation.method.rtnetlink.set_link_state.SetLinkStateOutput
  */
 export interface SetLinkStateOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkStateInput$Type extends MessageType<SetLinkStateInput> {
     constructor() {
         super("operation.method.rtnetlink.set_link_state.SetLinkStateInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "state", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 405877497, name: "state", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetLinkStateInput>): SetLinkStateInput {
@@ -52,10 +56,10 @@ class SetLinkStateInput$Type extends MessageType<SetLinkStateInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* string state */ 2:
+                case /* string state */ 405877497:
                     message.state = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class SetLinkStateInput$Type extends MessageType<SetLinkStateInput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkStateInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* string state = 2; */
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string state = 405877497; */
         if (message.state !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.state);
+            writer.tag(405877497, WireType.LengthDelimited).string(message.state);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SetLinkStateInput = new SetLinkStateInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkStateOutput$Type extends MessageType<SetLinkStateOutput> {
     constructor() {
-        super("operation.method.rtnetlink.set_link_state.SetLinkStateOutput", []);
+        super("operation.method.rtnetlink.set_link_state.SetLinkStateOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkStateOutput>): SetLinkStateOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkStateOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetLinkStateOutput$Type extends MessageType<SetLinkStateOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetLinkStateOutput$Type extends MessageType<SetLinkStateOutput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkStateOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message RenderPageInput {
-  string locale = 1;
-  string page_id = 2;
+  string locale = 186372250;
+  string page_id = 304109062;
 }
 
-message RenderPageOutput {}
+message RenderPageOutput {
+  bool success = 442482449;
+}
 
 service RenderPageService {
   // subid: obs.software.plugin.web-ui.render-page@v1, capability: ui.read

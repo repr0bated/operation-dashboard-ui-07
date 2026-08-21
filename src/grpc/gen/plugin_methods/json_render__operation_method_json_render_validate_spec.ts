@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ValidateSpecInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value spec = 1
+     * @generated from protobuf field: google.protobuf.Value spec = 200722366
      */
     spec?: Value;
     /**
-     * @generated from protobuf field: bool strict = 2
+     * @generated from protobuf field: bool strict = 80229749
      */
     strict: boolean;
 }
@@ -32,11 +32,11 @@ export interface ValidateSpecInput {
  */
 export interface ValidateSpecOutput {
     /**
-     * @generated from protobuf field: repeated string issues = 1
+     * @generated from protobuf field: repeated string issues = 443546700
      */
     issues: string[];
     /**
-     * @generated from protobuf field: bool valid = 2
+     * @generated from protobuf field: bool valid = 58518131
      */
     valid: boolean;
 }
@@ -44,8 +44,8 @@ export interface ValidateSpecOutput {
 class ValidateSpecInput$Type extends MessageType<ValidateSpecInput> {
     constructor() {
         super("operation.method.json_render.validate_spec.ValidateSpecInput", [
-            { no: 1, name: "spec", kind: "message", T: () => Value },
-            { no: 2, name: "strict", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 200722366, name: "spec", kind: "message", T: () => Value },
+            { no: 80229749, name: "strict", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ValidateSpecInput>): ValidateSpecInput {
@@ -60,10 +60,10 @@ class ValidateSpecInput$Type extends MessageType<ValidateSpecInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value spec */ 1:
+                case /* google.protobuf.Value spec */ 200722366:
                     message.spec = Value.internalBinaryRead(reader, reader.uint32(), options, message.spec);
                     break;
-                case /* bool strict */ 2:
+                case /* bool strict */ 80229749:
                     message.strict = reader.bool();
                     break;
                 default:
@@ -78,12 +78,12 @@ class ValidateSpecInput$Type extends MessageType<ValidateSpecInput> {
         return message;
     }
     internalBinaryWrite(message: ValidateSpecInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value spec = 1; */
-        if (message.spec)
-            Value.internalBinaryWrite(message.spec, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* bool strict = 2; */
+        /* bool strict = 80229749; */
         if (message.strict !== false)
-            writer.tag(2, WireType.Varint).bool(message.strict);
+            writer.tag(80229749, WireType.Varint).bool(message.strict);
+        /* google.protobuf.Value spec = 200722366; */
+        if (message.spec)
+            Value.internalBinaryWrite(message.spec, writer.tag(200722366, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -98,8 +98,8 @@ export const ValidateSpecInput = new ValidateSpecInput$Type();
 class ValidateSpecOutput$Type extends MessageType<ValidateSpecOutput> {
     constructor() {
         super("operation.method.json_render.validate_spec.ValidateSpecOutput", [
-            { no: 1, name: "issues", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "valid", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 443546700, name: "issues", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 58518131, name: "valid", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ValidateSpecOutput>): ValidateSpecOutput {
@@ -115,10 +115,10 @@ class ValidateSpecOutput$Type extends MessageType<ValidateSpecOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string issues */ 1:
+                case /* repeated string issues */ 443546700:
                     message.issues.push(reader.string());
                     break;
-                case /* bool valid */ 2:
+                case /* bool valid */ 58518131:
                     message.valid = reader.bool();
                     break;
                 default:
@@ -133,12 +133,12 @@ class ValidateSpecOutput$Type extends MessageType<ValidateSpecOutput> {
         return message;
     }
     internalBinaryWrite(message: ValidateSpecOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string issues = 1; */
-        for (let i = 0; i < message.issues.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.issues[i]);
-        /* bool valid = 2; */
+        /* bool valid = 58518131; */
         if (message.valid !== false)
-            writer.tag(2, WireType.Varint).bool(message.valid);
+            writer.tag(58518131, WireType.Varint).bool(message.valid);
+        /* repeated string issues = 443546700; */
+        for (let i = 0; i < message.issues.length; i++)
+            writer.tag(443546700, WireType.LengthDelimited).string(message.issues[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

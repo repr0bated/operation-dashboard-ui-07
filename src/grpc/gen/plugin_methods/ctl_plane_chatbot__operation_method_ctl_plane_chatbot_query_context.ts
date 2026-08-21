@@ -4,9 +4,9 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
-import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
 import type { IBinaryReader } from "@protobuf-ts/runtime";
 import { UnknownFieldHandler } from "@protobuf-ts/runtime";
@@ -15,39 +15,28 @@ import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 import { Value } from "../google/protobuf/struct";
 /**
+ * Empty schema object.
+ *
  * @generated from protobuf message operation.method.ctl_plane_chatbot.query_context.QueryContextInput
  */
 export interface QueryContextInput {
-    /**
-     * @generated from protobuf field: int64 limit = 1
-     */
-    limit: string;
-    /**
-     * @generated from protobuf field: string query = 2
-     */
-    query: string;
 }
 /**
  * @generated from protobuf message operation.method.ctl_plane_chatbot.query_context.QueryContextOutput
  */
 export interface QueryContextOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value results = 1
+     * @generated from protobuf field: repeated google.protobuf.Value results = 206523128
      */
     results: Value[];
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class QueryContextInput$Type extends MessageType<QueryContextInput> {
     constructor() {
-        super("operation.method.ctl_plane_chatbot.query_context.QueryContextInput", [
-            { no: 1, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "query", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
+        super("operation.method.ctl_plane_chatbot.query_context.QueryContextInput", []);
     }
     create(value?: PartialMessage<QueryContextInput>): QueryContextInput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.limit = "0";
-        message.query = "";
         if (value !== undefined)
             reflectionMergePartial<QueryContextInput>(this, message, value);
         return message;
@@ -57,12 +46,6 @@ class QueryContextInput$Type extends MessageType<QueryContextInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 limit */ 1:
-                    message.limit = reader.int64().toString();
-                    break;
-                case /* string query */ 2:
-                    message.query = reader.string();
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -75,12 +58,6 @@ class QueryContextInput$Type extends MessageType<QueryContextInput> {
         return message;
     }
     internalBinaryWrite(message: QueryContextInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 limit = 1; */
-        if (message.limit !== "0")
-            writer.tag(1, WireType.Varint).int64(message.limit);
-        /* string query = 2; */
-        if (message.query !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.query);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -95,7 +72,7 @@ export const QueryContextInput = new QueryContextInput$Type();
 class QueryContextOutput$Type extends MessageType<QueryContextOutput> {
     constructor() {
         super("operation.method.ctl_plane_chatbot.query_context.QueryContextOutput", [
-            { no: 1, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 206523128, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<QueryContextOutput>): QueryContextOutput {
@@ -110,7 +87,7 @@ class QueryContextOutput$Type extends MessageType<QueryContextOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value results */ 1:
+                case /* repeated google.protobuf.Value results */ 206523128:
                     message.results.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -125,9 +102,9 @@ class QueryContextOutput$Type extends MessageType<QueryContextOutput> {
         return message;
     }
     internalBinaryWrite(message: QueryContextOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value results = 1; */
+        /* repeated google.protobuf.Value results = 206523128; */
         for (let i = 0; i < message.results.length; i++)
-            Value.internalBinaryWrite(message.results[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.results[i], writer.tag(206523128, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

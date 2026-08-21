@@ -15,7 +15,7 @@ message MemoryListNamespacesInput {
 }
 
 message MemoryListNamespacesOutput {
-  repeated string namespaces = 1;
+  repeated string namespaces = 369842729;
 }
 
 service MemoryListNamespacesService {

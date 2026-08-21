@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CloseInput {
     /**
-     * @generated from protobuf field: bool force = 1
+     * @generated from protobuf field: bool force = 430540935
      */
     force: boolean;
     /**
-     * @generated from protobuf field: string path = 2
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
 }
@@ -30,13 +30,17 @@ export interface CloseInput {
  * @generated from protobuf message operation.method.unix_socket.close.CloseOutput
  */
 export interface CloseOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CloseInput$Type extends MessageType<CloseInput> {
     constructor() {
         super("operation.method.unix_socket.close.CloseInput", [
-            { no: 1, name: "force", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 430540935, name: "force", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CloseInput>): CloseInput {
@@ -52,10 +56,10 @@ class CloseInput$Type extends MessageType<CloseInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool force */ 1:
+                case /* bool force */ 430540935:
                     message.force = reader.bool();
                     break;
-                case /* string path */ 2:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class CloseInput$Type extends MessageType<CloseInput> {
         return message;
     }
     internalBinaryWrite(message: CloseInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool force = 1; */
-        if (message.force !== false)
-            writer.tag(1, WireType.Varint).bool(message.force);
-        /* string path = 2; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.path);
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
+        /* bool force = 430540935; */
+        if (message.force !== false)
+            writer.tag(430540935, WireType.Varint).bool(message.force);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const CloseInput = new CloseInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CloseOutput$Type extends MessageType<CloseOutput> {
     constructor() {
-        super("operation.method.unix_socket.close.CloseOutput", []);
+        super("operation.method.unix_socket.close.CloseOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CloseOutput>): CloseOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CloseOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class CloseOutput$Type extends MessageType<CloseOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class CloseOutput$Type extends MessageType<CloseOutput> {
         return message;
     }
     internalBinaryWrite(message: CloseOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

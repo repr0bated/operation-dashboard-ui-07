@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package operation.method.openflow.attach_controller_safe;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AttachControllerSafeInput {
+  string bridge = 179832343;
+  string endpoint = 414707842;
+}
+
+message AttachControllerSafeOutput {
+  string bridge = 179832343;
+  string connection_mode = 344989854;
+  repeated string controllers = 222675197;
+  bool disable_in_band = 243897405;
+  string fail_mode = 153045315;
+  string fallback_cookie = 443922107;
+  bool fallback_normal = 296192755;
+  int64 fallback_priority = 426222614;
+}
+
+service AttachControllerSafeService {
+  // subid: mut.network.openflow.datapath.attach_controller_safe@v1, capability: openflow.write
+  rpc attach_controller_safe(AttachControllerSafeInput) returns (AttachControllerSafeOutput);
+}

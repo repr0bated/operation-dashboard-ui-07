@@ -11,16 +11,18 @@ extend google.protobuf.MethodOptions {
 }
 
 message RegisterServiceInput {
-  string id = 1;
-  string name_template = 2;
-  int64 port = 3;
-  int64 priority = 4;
-  repeated google.protobuf.Struct txt = 5;
-  string type_ = 6;
-  int64 weight = 7;
+  string id = 389573345;
+  string name_template = 373976238;
+  int64 port = 467931817;
+  int64 priority = 350544653;
+  repeated google.protobuf.Struct txt = 87402996;
+  string type_ = 333479772;
+  int64 weight = 278961851;
 }
 
-message RegisterServiceOutput {}
+message RegisterServiceOutput {
+  bool success = 442482449;
+}
 
 service RegisterServiceService {
   // subid: mut.software.dnsresolver.service.register@v1, capability: dnsresolver.write

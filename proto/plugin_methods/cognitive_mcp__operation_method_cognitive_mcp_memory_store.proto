@@ -15,7 +15,8 @@ message MemoryStoreInput {
 }
 
 message MemoryStoreOutput {
-  string key = 1;
+  string key = 135645295;
+  bool success = 442482449;
 }
 
 service MemoryStoreService {

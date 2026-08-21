@@ -25,7 +25,11 @@ export interface RegisterToolInput {
  */
 export interface RegisterToolOutput {
     /**
-     * @generated from protobuf field: string tool_name = 2
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
+    /**
+     * @generated from protobuf field: string tool_name = 322087922
      */
     toolName: string;
 }
@@ -71,11 +75,13 @@ export const RegisterToolInput = new RegisterToolInput$Type();
 class RegisterToolOutput$Type extends MessageType<RegisterToolOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.register_tool.RegisterToolOutput", [
-            { no: 2, name: "tool_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 322087922, name: "tool_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RegisterToolOutput>): RegisterToolOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         message.toolName = "";
         if (value !== undefined)
             reflectionMergePartial<RegisterToolOutput>(this, message, value);
@@ -86,7 +92,10 @@ class RegisterToolOutput$Type extends MessageType<RegisterToolOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string tool_name */ 2:
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
+                case /* string tool_name */ 322087922:
                     message.toolName = reader.string();
                     break;
                 default:
@@ -101,9 +110,12 @@ class RegisterToolOutput$Type extends MessageType<RegisterToolOutput> {
         return message;
     }
     internalBinaryWrite(message: RegisterToolOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string tool_name = 2; */
+        /* string tool_name = 322087922; */
         if (message.toolName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.toolName);
+            writer.tag(322087922, WireType.LengthDelimited).string(message.toolName);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

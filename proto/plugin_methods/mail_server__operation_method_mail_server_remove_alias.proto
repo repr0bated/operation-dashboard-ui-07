@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message RemoveAliasInput {
-  string alias = 1;
-  string destination = 2;
-  string domain = 3;
+  string alias = 489062746;
+  string destination = 316564676;
+  string domain = 127113208;
 }
 
-message RemoveAliasOutput {}
+message RemoveAliasOutput {
+  bool success = 442482449;
+}
 
 service RemoveAliasService {
   // subid: mut.service.mail.alias.remove@v1, capability: mail.write

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package operation.method.xray.start_trace;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message StartTraceInput {
+  string service = 383770214;
+  repeated string tags = 337046439;
+  string trace_id = 270708270;
+}
+
+message StartTraceOutput {
+  bool success = 442482449;
+}
+
+service StartTraceService {
+  // subid: mut.software.plugin.xray.trace.start@v1, capability: xray.write
+  rpc start_trace(StartTraceInput) returns (StartTraceOutput);
+}

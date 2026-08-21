@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetInput {
     /**
-     * @generated from protobuf field: string interface_name = 1
+     * @generated from protobuf field: string interface_name = 518035138
      */
     interfaceName: string;
     /**
-     * @generated from protobuf field: string property_name = 2
+     * @generated from protobuf field: string property_name = 496618199
      */
     propertyName: string;
     /**
-     * @generated from protobuf field: string value = 3
+     * @generated from protobuf field: string value = 39769036
      */
     value: string;
 }
@@ -34,14 +34,18 @@ export interface SetInput {
  * @generated from protobuf message operation.method.freedesktop.set.SetOutput
  */
 export interface SetOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetInput$Type extends MessageType<SetInput> {
     constructor() {
         super("operation.method.freedesktop.set.SetInput", [
-            { no: 1, name: "interface_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "property_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 518035138, name: "interface_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 496618199, name: "property_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 39769036, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetInput>): SetInput {
@@ -58,13 +62,13 @@ class SetInput$Type extends MessageType<SetInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string interface_name */ 1:
+                case /* string interface_name */ 518035138:
                     message.interfaceName = reader.string();
                     break;
-                case /* string property_name */ 2:
+                case /* string property_name */ 496618199:
                     message.propertyName = reader.string();
                     break;
-                case /* string value */ 3:
+                case /* string value */ 39769036:
                     message.value = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class SetInput$Type extends MessageType<SetInput> {
         return message;
     }
     internalBinaryWrite(message: SetInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string interface_name = 1; */
-        if (message.interfaceName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.interfaceName);
-        /* string property_name = 2; */
-        if (message.propertyName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.propertyName);
-        /* string value = 3; */
+        /* string value = 39769036; */
         if (message.value !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.value);
+            writer.tag(39769036, WireType.LengthDelimited).string(message.value);
+        /* string property_name = 496618199; */
+        if (message.propertyName !== "")
+            writer.tag(496618199, WireType.LengthDelimited).string(message.propertyName);
+        /* string interface_name = 518035138; */
+        if (message.interfaceName !== "")
+            writer.tag(518035138, WireType.LengthDelimited).string(message.interfaceName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const SetInput = new SetInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetOutput$Type extends MessageType<SetOutput> {
     constructor() {
-        super("operation.method.freedesktop.set.SetOutput", []);
+        super("operation.method.freedesktop.set.SetOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetOutput>): SetOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class SetOutput$Type extends MessageType<SetOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class SetOutput$Type extends MessageType<SetOutput> {
         return message;
     }
     internalBinaryWrite(message: SetOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

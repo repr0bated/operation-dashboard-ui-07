@@ -11,13 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetDeviceInput {
-  int64 fwmark = 1;
-  string interface = 2;
-  int64 listen_port = 3;
-  string private_key = 4;
+  int64 fwmark = 240695238;
+  string interface = 82465076;
+  int64 listen_port = 419443749;
+  string private_key = 446268993;
 }
 
-message SetDeviceOutput {}
+message SetDeviceOutput {
+  bool success = 442482449;
+}
 
 service SetDeviceService {
   // subid: mut.network.wireguard.device.set@v1, capability: wireguard.write

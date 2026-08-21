@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetLinkInput {
-  int64 ifindex = 1;
+  int64 ifindex = 394788143;
 }
 
-message GetLinkOutput {}
+message GetLinkOutput {
+  bool success = 442482449;
+}
 
 service GetLinkService {
   // subid: obs.software.dnsresolver.link.get@v1, capability: dnsresolver.read

@@ -15,7 +15,7 @@ message ListComputersInput {
 }
 
 message ListComputersOutput {
-  repeated google.protobuf.Value computers = 1;
+  repeated google.protobuf.Value computers = 234314993;
 }
 
 service ListComputersService {

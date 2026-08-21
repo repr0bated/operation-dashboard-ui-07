@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message UnlockInput {
-  string lock_id = 1;
+  string lock_id = 308081002;
 }
 
-message UnlockOutput {}
+message UnlockOutput {
+  bool success = 442482449;
+}
 
 service UnlockService {
   // subid: mut.network.ovsdb.lock.unlock@v1, capability: ovsdb.write

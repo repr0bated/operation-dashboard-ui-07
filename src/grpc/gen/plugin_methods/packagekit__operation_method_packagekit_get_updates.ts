@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetUpdatesInput {
     /**
-     * @generated from protobuf field: int64 filter = 1
+     * @generated from protobuf field: int64 filter = 132212861
      */
     filter: string;
 }
@@ -26,12 +26,16 @@ export interface GetUpdatesInput {
  * @generated from protobuf message operation.method.packagekit.get_updates.GetUpdatesOutput
  */
 export interface GetUpdatesOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetUpdatesInput$Type extends MessageType<GetUpdatesInput> {
     constructor() {
         super("operation.method.packagekit.get_updates.GetUpdatesInput", [
-            { no: 1, name: "filter", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 132212861, name: "filter", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<GetUpdatesInput>): GetUpdatesInput {
@@ -46,7 +50,7 @@ class GetUpdatesInput$Type extends MessageType<GetUpdatesInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 filter */ 1:
+                case /* int64 filter */ 132212861:
                     message.filter = reader.int64().toString();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetUpdatesInput$Type extends MessageType<GetUpdatesInput> {
         return message;
     }
     internalBinaryWrite(message: GetUpdatesInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 filter = 1; */
+        /* int64 filter = 132212861; */
         if (message.filter !== "0")
-            writer.tag(1, WireType.Varint).int64(message.filter);
+            writer.tag(132212861, WireType.Varint).int64(message.filter);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetUpdatesInput = new GetUpdatesInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetUpdatesOutput$Type extends MessageType<GetUpdatesOutput> {
     constructor() {
-        super("operation.method.packagekit.get_updates.GetUpdatesOutput", []);
+        super("operation.method.packagekit.get_updates.GetUpdatesOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetUpdatesOutput>): GetUpdatesOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetUpdatesOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetUpdatesOutput$Type extends MessageType<GetUpdatesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetUpdatesOutput$Type extends MessageType<GetUpdatesOutput> {
         return message;
     }
     internalBinaryWrite(message: GetUpdatesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

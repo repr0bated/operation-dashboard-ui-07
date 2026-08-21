@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message StatusInput {
-  string name = 1;
+  string name = 221887978;
 }
 
 message StatusOutput {
-  string status = 1;
+  string status = 441153524;
 }
 
 service StatusService {

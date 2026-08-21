@@ -14,7 +14,9 @@ message AddSourceDriveInput {
   // Empty schema object.
 }
 
-message AddSourceDriveOutput {}
+message AddSourceDriveOutput {
+  bool success = 442482449;
+}
 
 service AddSourceDriveService {
   // subid: mut.service.plugin.notebooklm.source.add-drive@v1, capability: notebooklm.invoke

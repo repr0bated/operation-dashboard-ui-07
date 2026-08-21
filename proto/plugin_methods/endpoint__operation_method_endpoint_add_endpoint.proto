@@ -14,7 +14,9 @@ message AddEndpointInput {
   // Empty schema object.
 }
 
-message AddEndpointOutput {}
+message AddEndpointOutput {
+  bool success = 442482449;
+}
 
 service AddEndpointService {
   // subid: mut.service.endpoint.add@v1, capability: endpoint.invoke

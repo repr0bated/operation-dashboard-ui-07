@@ -11,7 +11,7 @@ extend google.protobuf.MethodOptions {
 }
 
 message RestartInput {
-  string name = 1;
+  string name = 221887978;
 }
 
 message RestartOutput {}

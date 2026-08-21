@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message RebootInput {
-  bool interactive = 1;
+  bool interactive = 520087662;
 }
 
-message RebootOutput {}
+message RebootOutput {
+  bool success = 442482449;
+}
 
 service RebootService {
   // subid: mut.software.login1.system.reboot@v1, capability: login1.admin

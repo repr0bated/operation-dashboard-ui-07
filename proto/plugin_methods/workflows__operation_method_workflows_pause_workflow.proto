@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message PauseWorkflowInput {
-  string workflow_id = 1;
+  string workflow_id = 280387507;
 }
 
-message PauseWorkflowOutput {}
+message PauseWorkflowOutput {
+  bool success = 442482449;
+}
 
 service PauseWorkflowService {
   // subid: mut.software.plugin.workflows.pause@v1, capability: workflows.write

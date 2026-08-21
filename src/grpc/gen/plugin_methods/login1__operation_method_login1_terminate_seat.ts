@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface TerminateSeatInput {
     /**
-     * @generated from protobuf field: string seat_id = 1
+     * @generated from protobuf field: string seat_id = 14173556
      */
     seatId: string;
 }
@@ -26,12 +26,16 @@ export interface TerminateSeatInput {
  * @generated from protobuf message operation.method.login1.terminate_seat.TerminateSeatOutput
  */
 export interface TerminateSeatOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class TerminateSeatInput$Type extends MessageType<TerminateSeatInput> {
     constructor() {
         super("operation.method.login1.terminate_seat.TerminateSeatInput", [
-            { no: 1, name: "seat_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 14173556, name: "seat_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<TerminateSeatInput>): TerminateSeatInput {
@@ -46,7 +50,7 @@ class TerminateSeatInput$Type extends MessageType<TerminateSeatInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string seat_id */ 1:
+                case /* string seat_id */ 14173556:
                     message.seatId = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class TerminateSeatInput$Type extends MessageType<TerminateSeatInput> {
         return message;
     }
     internalBinaryWrite(message: TerminateSeatInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string seat_id = 1; */
+        /* string seat_id = 14173556; */
         if (message.seatId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.seatId);
+            writer.tag(14173556, WireType.LengthDelimited).string(message.seatId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const TerminateSeatInput = new TerminateSeatInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class TerminateSeatOutput$Type extends MessageType<TerminateSeatOutput> {
     constructor() {
-        super("operation.method.login1.terminate_seat.TerminateSeatOutput", []);
+        super("operation.method.login1.terminate_seat.TerminateSeatOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<TerminateSeatOutput>): TerminateSeatOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<TerminateSeatOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class TerminateSeatOutput$Type extends MessageType<TerminateSeatOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class TerminateSeatOutput$Type extends MessageType<TerminateSeatOutput> {
         return message;
     }
     internalBinaryWrite(message: TerminateSeatOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

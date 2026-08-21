@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CompactInput {
     /**
-     * @generated from protobuf field: double min_threshold = 1
+     * @generated from protobuf field: double min_threshold = 459163614
      */
     minThreshold: number;
     /**
-     * @generated from protobuf field: string namespace = 2
+     * @generated from protobuf field: string namespace = 181303974
      */
     namespace: string;
 }
@@ -31,20 +31,24 @@ export interface CompactInput {
  */
 export interface CompactOutput {
     /**
-     * @generated from protobuf field: double fragmentation_level = 1
+     * @generated from protobuf field: double fragmentation_level = 157845343
      */
     fragmentationLevel: number;
     /**
-     * @generated from protobuf field: int64 freed_bytes = 2
+     * @generated from protobuf field: int64 freed_bytes = 531510497
      */
     freedBytes: string;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CompactInput$Type extends MessageType<CompactInput> {
     constructor() {
         super("operation.method.memory.compact.CompactInput", [
-            { no: 1, name: "min_threshold", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 2, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 459163614, name: "min_threshold", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
+            { no: 181303974, name: "namespace", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CompactInput>): CompactInput {
@@ -60,10 +64,10 @@ class CompactInput$Type extends MessageType<CompactInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* double min_threshold */ 1:
+                case /* double min_threshold */ 459163614:
                     message.minThreshold = reader.double();
                     break;
-                case /* string namespace */ 2:
+                case /* string namespace */ 181303974:
                     message.namespace = reader.string();
                     break;
                 default:
@@ -78,12 +82,12 @@ class CompactInput$Type extends MessageType<CompactInput> {
         return message;
     }
     internalBinaryWrite(message: CompactInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* double min_threshold = 1; */
-        if (message.minThreshold !== 0)
-            writer.tag(1, WireType.Bit64).double(message.minThreshold);
-        /* string namespace = 2; */
+        /* string namespace = 181303974; */
         if (message.namespace !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.namespace);
+            writer.tag(181303974, WireType.LengthDelimited).string(message.namespace);
+        /* double min_threshold = 459163614; */
+        if (message.minThreshold !== 0)
+            writer.tag(459163614, WireType.Bit64).double(message.minThreshold);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -98,14 +102,16 @@ export const CompactInput = new CompactInput$Type();
 class CompactOutput$Type extends MessageType<CompactOutput> {
     constructor() {
         super("operation.method.memory.compact.CompactOutput", [
-            { no: 1, name: "fragmentation_level", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 2, name: "freed_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 157845343, name: "fragmentation_level", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
+            { no: 531510497, name: "freed_bytes", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<CompactOutput>): CompactOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.fragmentationLevel = 0;
         message.freedBytes = "0";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CompactOutput>(this, message, value);
         return message;
@@ -115,11 +121,14 @@ class CompactOutput$Type extends MessageType<CompactOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* double fragmentation_level */ 1:
+                case /* double fragmentation_level */ 157845343:
                     message.fragmentationLevel = reader.double();
                     break;
-                case /* int64 freed_bytes */ 2:
+                case /* int64 freed_bytes */ 531510497:
                     message.freedBytes = reader.int64().toString();
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -133,12 +142,15 @@ class CompactOutput$Type extends MessageType<CompactOutput> {
         return message;
     }
     internalBinaryWrite(message: CompactOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* double fragmentation_level = 1; */
+        /* double fragmentation_level = 157845343; */
         if (message.fragmentationLevel !== 0)
-            writer.tag(1, WireType.Bit64).double(message.fragmentationLevel);
-        /* int64 freed_bytes = 2; */
+            writer.tag(157845343, WireType.Bit64).double(message.fragmentationLevel);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
+        /* int64 freed_bytes = 531510497; */
         if (message.freedBytes !== "0")
-            writer.tag(2, WireType.Varint).int64(message.freedBytes);
+            writer.tag(531510497, WireType.Varint).int64(message.freedBytes);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

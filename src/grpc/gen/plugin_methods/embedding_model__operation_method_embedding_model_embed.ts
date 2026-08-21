@@ -13,54 +13,33 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
-import { Value } from "../google/protobuf/struct";
 /**
  * @generated from protobuf message operation.method.embedding_model.embed.EmbedInput
  */
 export interface EmbedInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value encoding_format = 1
+     * @generated from protobuf field: string input_type = 94319076
      */
-    encodingFormat?: Value;
+    inputType: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value input_type = 2
-     */
-    inputType?: Value;
-    /**
-     * @generated from protobuf field: int64 output_dimension = 3
-     */
-    outputDimension: string;
-    /**
-     * @generated from protobuf field: google.protobuf.Value output_dtype = 4
-     */
-    outputDtype?: Value;
-    /**
-     * @generated from protobuf field: repeated string texts = 5
+     * @generated from protobuf field: repeated string texts = 512574264
      */
     texts: string[];
-    /**
-     * @generated from protobuf field: bool truncation = 6
-     */
-    truncation: boolean;
 }
 /**
  * @generated from protobuf message operation.method.embedding_model.embed.EmbedOutput
  */
 export interface EmbedOutput {
     /**
-     * @generated from protobuf field: int64 dimensions = 1
+     * @generated from protobuf field: int64 dimensions = 116965558
      */
     dimensions: string;
     /**
-     * @generated from protobuf field: string model = 2
+     * @generated from protobuf field: string model = 277571167
      */
     model: string;
     /**
-     * @generated from protobuf field: int64 total_tokens = 3
-     */
-    totalTokens: string;
-    /**
-     * @generated from protobuf field: repeated double vectors = 4
+     * @generated from protobuf field: repeated double vectors = 119073254
      */
     vectors: number[];
 }
@@ -68,19 +47,14 @@ export interface EmbedOutput {
 class EmbedInput$Type extends MessageType<EmbedInput> {
     constructor() {
         super("operation.method.embedding_model.embed.EmbedInput", [
-            { no: 1, name: "encoding_format", kind: "message", T: () => Value },
-            { no: 2, name: "input_type", kind: "message", T: () => Value },
-            { no: 3, name: "output_dimension", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "output_dtype", kind: "message", T: () => Value },
-            { no: 5, name: "texts", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "truncation", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 94319076, name: "input_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 512574264, name: "texts", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<EmbedInput>): EmbedInput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.outputDimension = "0";
+        message.inputType = "";
         message.texts = [];
-        message.truncation = false;
         if (value !== undefined)
             reflectionMergePartial<EmbedInput>(this, message, value);
         return message;
@@ -90,23 +64,11 @@ class EmbedInput$Type extends MessageType<EmbedInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value encoding_format */ 1:
-                    message.encodingFormat = Value.internalBinaryRead(reader, reader.uint32(), options, message.encodingFormat);
+                case /* string input_type */ 94319076:
+                    message.inputType = reader.string();
                     break;
-                case /* google.protobuf.Value input_type */ 2:
-                    message.inputType = Value.internalBinaryRead(reader, reader.uint32(), options, message.inputType);
-                    break;
-                case /* int64 output_dimension */ 3:
-                    message.outputDimension = reader.int64().toString();
-                    break;
-                case /* google.protobuf.Value output_dtype */ 4:
-                    message.outputDtype = Value.internalBinaryRead(reader, reader.uint32(), options, message.outputDtype);
-                    break;
-                case /* repeated string texts */ 5:
+                case /* repeated string texts */ 512574264:
                     message.texts.push(reader.string());
-                    break;
-                case /* bool truncation */ 6:
-                    message.truncation = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -120,24 +82,12 @@ class EmbedInput$Type extends MessageType<EmbedInput> {
         return message;
     }
     internalBinaryWrite(message: EmbedInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value encoding_format = 1; */
-        if (message.encodingFormat)
-            Value.internalBinaryWrite(message.encodingFormat, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Value input_type = 2; */
-        if (message.inputType)
-            Value.internalBinaryWrite(message.inputType, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* int64 output_dimension = 3; */
-        if (message.outputDimension !== "0")
-            writer.tag(3, WireType.Varint).int64(message.outputDimension);
-        /* google.protobuf.Value output_dtype = 4; */
-        if (message.outputDtype)
-            Value.internalBinaryWrite(message.outputDtype, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
-        /* repeated string texts = 5; */
+        /* string input_type = 94319076; */
+        if (message.inputType !== "")
+            writer.tag(94319076, WireType.LengthDelimited).string(message.inputType);
+        /* repeated string texts = 512574264; */
         for (let i = 0; i < message.texts.length; i++)
-            writer.tag(5, WireType.LengthDelimited).string(message.texts[i]);
-        /* bool truncation = 6; */
-        if (message.truncation !== false)
-            writer.tag(6, WireType.Varint).bool(message.truncation);
+            writer.tag(512574264, WireType.LengthDelimited).string(message.texts[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -152,17 +102,15 @@ export const EmbedInput = new EmbedInput$Type();
 class EmbedOutput$Type extends MessageType<EmbedOutput> {
     constructor() {
         super("operation.method.embedding_model.embed.EmbedOutput", [
-            { no: 1, name: "dimensions", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "total_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "vectors", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 1 /*ScalarType.DOUBLE*/ }
+            { no: 116965558, name: "dimensions", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 277571167, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 119073254, name: "vectors", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 1 /*ScalarType.DOUBLE*/ }
         ]);
     }
     create(value?: PartialMessage<EmbedOutput>): EmbedOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.dimensions = "0";
         message.model = "";
-        message.totalTokens = "0";
         message.vectors = [];
         if (value !== undefined)
             reflectionMergePartial<EmbedOutput>(this, message, value);
@@ -173,16 +121,13 @@ class EmbedOutput$Type extends MessageType<EmbedOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 dimensions */ 1:
+                case /* int64 dimensions */ 116965558:
                     message.dimensions = reader.int64().toString();
                     break;
-                case /* string model */ 2:
+                case /* string model */ 277571167:
                     message.model = reader.string();
                     break;
-                case /* int64 total_tokens */ 3:
-                    message.totalTokens = reader.int64().toString();
-                    break;
-                case /* repeated double vectors */ 4:
+                case /* repeated double vectors */ 119073254:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
                             message.vectors.push(reader.double());
@@ -201,22 +146,19 @@ class EmbedOutput$Type extends MessageType<EmbedOutput> {
         return message;
     }
     internalBinaryWrite(message: EmbedOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 dimensions = 1; */
+        /* int64 dimensions = 116965558; */
         if (message.dimensions !== "0")
-            writer.tag(1, WireType.Varint).int64(message.dimensions);
-        /* string model = 2; */
-        if (message.model !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.model);
-        /* int64 total_tokens = 3; */
-        if (message.totalTokens !== "0")
-            writer.tag(3, WireType.Varint).int64(message.totalTokens);
-        /* repeated double vectors = 4; */
+            writer.tag(116965558, WireType.Varint).int64(message.dimensions);
+        /* repeated double vectors = 119073254; */
         if (message.vectors.length) {
-            writer.tag(4, WireType.LengthDelimited).fork();
+            writer.tag(119073254, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.vectors.length; i++)
                 writer.double(message.vectors[i]);
             writer.join();
         }
+        /* string model = 277571167; */
+        if (message.model !== "")
+            writer.tag(277571167, WireType.LengthDelimited).string(message.model);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

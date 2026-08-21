@@ -26,7 +26,7 @@ export interface GetJobInput {
  */
 export interface GetJobOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value job = 1
+     * @generated from protobuf field: google.protobuf.Value job = 500445154
      */
     job?: Value;
 }
@@ -72,7 +72,7 @@ export const GetJobInput = new GetJobInput$Type();
 class GetJobOutput$Type extends MessageType<GetJobOutput> {
     constructor() {
         super("operation.method.cron.get_job.GetJobOutput", [
-            { no: 1, name: "job", kind: "message", T: () => Value }
+            { no: 500445154, name: "job", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetJobOutput>): GetJobOutput {
@@ -86,7 +86,7 @@ class GetJobOutput$Type extends MessageType<GetJobOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value job */ 1:
+                case /* google.protobuf.Value job */ 500445154:
                     message.job = Value.internalBinaryRead(reader, reader.uint32(), options, message.job);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetJobOutput$Type extends MessageType<GetJobOutput> {
         return message;
     }
     internalBinaryWrite(message: GetJobOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value job = 1; */
+        /* google.protobuf.Value job = 500445154; */
         if (message.job)
-            Value.internalBinaryWrite(message.job, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.job, writer.tag(500445154, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

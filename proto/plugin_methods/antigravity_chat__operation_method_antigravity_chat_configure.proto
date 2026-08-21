@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package operation.method.antigravity_chat.configure;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ConfigureInput {
+  bool code_assist = 516015673;
+  string display_service = 492850326;
+  bool headless = 109881181;
+  string selected_model = 234128777;
+  int64 vnc_port = 76182258;
+}
+
+message ConfigureOutput {
+  google.protobuf.Value config = 67069640;
+  string selected_model = 234128777;
+}
+
+service ConfigureService {
+  // subid: mut.software.antigravity-chat.config.set@v1, capability: antigravity_chat.write
+  rpc configure(ConfigureInput) returns (ConfigureOutput);
+}

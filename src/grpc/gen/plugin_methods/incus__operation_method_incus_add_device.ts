@@ -19,15 +19,15 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface AddDeviceInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value device = 1
+     * @generated from protobuf field: google.protobuf.Value device = 275805945
      */
     device?: Value;
     /**
-     * @generated from protobuf field: string device_name = 2
+     * @generated from protobuf field: string device_name = 262545665
      */
     deviceName: string;
     /**
-     * @generated from protobuf field: string instance_name = 3
+     * @generated from protobuf field: string instance_name = 271196794
      */
     instanceName: string;
 }
@@ -35,14 +35,18 @@ export interface AddDeviceInput {
  * @generated from protobuf message operation.method.incus.add_device.AddDeviceOutput
  */
 export interface AddDeviceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddDeviceInput$Type extends MessageType<AddDeviceInput> {
     constructor() {
         super("operation.method.incus.add_device.AddDeviceInput", [
-            { no: 1, name: "device", kind: "message", T: () => Value },
-            { no: 2, name: "device_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "instance_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 275805945, name: "device", kind: "message", T: () => Value },
+            { no: 262545665, name: "device_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 271196794, name: "instance_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AddDeviceInput>): AddDeviceInput {
@@ -58,13 +62,13 @@ class AddDeviceInput$Type extends MessageType<AddDeviceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value device */ 1:
+                case /* google.protobuf.Value device */ 275805945:
                     message.device = Value.internalBinaryRead(reader, reader.uint32(), options, message.device);
                     break;
-                case /* string device_name */ 2:
+                case /* string device_name */ 262545665:
                     message.deviceName = reader.string();
                     break;
-                case /* string instance_name */ 3:
+                case /* string instance_name */ 271196794:
                     message.instanceName = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class AddDeviceInput$Type extends MessageType<AddDeviceInput> {
         return message;
     }
     internalBinaryWrite(message: AddDeviceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value device = 1; */
-        if (message.device)
-            Value.internalBinaryWrite(message.device, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string device_name = 2; */
+        /* string device_name = 262545665; */
         if (message.deviceName !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.deviceName);
-        /* string instance_name = 3; */
+            writer.tag(262545665, WireType.LengthDelimited).string(message.deviceName);
+        /* string instance_name = 271196794; */
         if (message.instanceName !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.instanceName);
+            writer.tag(271196794, WireType.LengthDelimited).string(message.instanceName);
+        /* google.protobuf.Value device = 275805945; */
+        if (message.device)
+            Value.internalBinaryWrite(message.device, writer.tag(275805945, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const AddDeviceInput = new AddDeviceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddDeviceOutput$Type extends MessageType<AddDeviceOutput> {
     constructor() {
-        super("operation.method.incus.add_device.AddDeviceOutput", []);
+        super("operation.method.incus.add_device.AddDeviceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddDeviceOutput>): AddDeviceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddDeviceOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class AddDeviceOutput$Type extends MessageType<AddDeviceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class AddDeviceOutput$Type extends MessageType<AddDeviceOutput> {
         return message;
     }
     internalBinaryWrite(message: AddDeviceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

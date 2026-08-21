@@ -4,6 +4,7 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -23,6 +24,10 @@ export interface DeleteSourceInput {
  * @generated from protobuf message operation.method.notebooklm.delete_source.DeleteSourceOutput
  */
 export interface DeleteSourceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteSourceInput$Type extends MessageType<DeleteSourceInput> {
@@ -65,10 +70,13 @@ export const DeleteSourceInput = new DeleteSourceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteSourceOutput$Type extends MessageType<DeleteSourceOutput> {
     constructor() {
-        super("operation.method.notebooklm.delete_source.DeleteSourceOutput", []);
+        super("operation.method.notebooklm.delete_source.DeleteSourceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeleteSourceOutput>): DeleteSourceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteSourceOutput>(this, message, value);
         return message;
@@ -78,6 +86,9 @@ class DeleteSourceOutput$Type extends MessageType<DeleteSourceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -90,6 +101,9 @@ class DeleteSourceOutput$Type extends MessageType<DeleteSourceOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteSourceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

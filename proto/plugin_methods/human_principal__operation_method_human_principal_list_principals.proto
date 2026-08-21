@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.human_principal.list_principals;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ListPrincipalsInput {
+  // Empty schema object.
+}
+
+message ListPrincipalsOutput {
+  repeated google.protobuf.Value principals = 362306479;
+}
+
+service ListPrincipalsService {
+  // subid: obs.service.human-principal.list@v1, capability: human_principal.read
+  rpc list_principals(ListPrincipalsInput) returns (ListPrincipalsOutput);
+}

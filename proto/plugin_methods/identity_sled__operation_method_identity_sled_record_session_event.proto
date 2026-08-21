@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package operation.method.identity_sled.record_session_event;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RecordSessionEventInput {
+  string content = 280937414;
+  string kind = 420733513;
+  string session_id = 125141221;
+  string subid = 443734004;
+}
+
+message RecordSessionEventOutput {
+  bool success = 442482449;
+}
+
+service RecordSessionEventService {
+  // subid: mut.service.identity-sled.session.event.record@v1, capability: identity_sled.write
+  rpc record_session_event(RecordSessionEventInput) returns (RecordSessionEventOutput);
+}

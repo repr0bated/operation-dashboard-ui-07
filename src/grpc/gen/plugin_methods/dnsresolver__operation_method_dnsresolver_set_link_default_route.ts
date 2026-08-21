@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetLinkDefaultRouteInput {
     /**
-     * @generated from protobuf field: bool enable = 1
+     * @generated from protobuf field: bool enable = 260815059
      */
     enable: boolean;
     /**
-     * @generated from protobuf field: int64 ifindex = 2
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
 }
@@ -30,13 +30,17 @@ export interface SetLinkDefaultRouteInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_default_route.SetLinkDefaultRouteOutput
  */
 export interface SetLinkDefaultRouteOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDefaultRouteInput$Type extends MessageType<SetLinkDefaultRouteInput> {
     constructor() {
         super("operation.method.dnsresolver.set_link_default_route.SetLinkDefaultRouteInput", [
-            { no: 1, name: "enable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 260815059, name: "enable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<SetLinkDefaultRouteInput>): SetLinkDefaultRouteInput {
@@ -52,10 +56,10 @@ class SetLinkDefaultRouteInput$Type extends MessageType<SetLinkDefaultRouteInput
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool enable */ 1:
+                case /* bool enable */ 260815059:
                     message.enable = reader.bool();
                     break;
-                case /* int64 ifindex */ 2:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
                 default:
@@ -70,12 +74,12 @@ class SetLinkDefaultRouteInput$Type extends MessageType<SetLinkDefaultRouteInput
         return message;
     }
     internalBinaryWrite(message: SetLinkDefaultRouteInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool enable = 1; */
+        /* bool enable = 260815059; */
         if (message.enable !== false)
-            writer.tag(1, WireType.Varint).bool(message.enable);
-        /* int64 ifindex = 2; */
+            writer.tag(260815059, WireType.Varint).bool(message.enable);
+        /* int64 ifindex = 394788143; */
         if (message.ifindex !== "0")
-            writer.tag(2, WireType.Varint).int64(message.ifindex);
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SetLinkDefaultRouteInput = new SetLinkDefaultRouteInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDefaultRouteOutput$Type extends MessageType<SetLinkDefaultRouteOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_default_route.SetLinkDefaultRouteOutput", []);
+        super("operation.method.dnsresolver.set_link_default_route.SetLinkDefaultRouteOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkDefaultRouteOutput>): SetLinkDefaultRouteOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkDefaultRouteOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetLinkDefaultRouteOutput$Type extends MessageType<SetLinkDefaultRouteOutp
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetLinkDefaultRouteOutput$Type extends MessageType<SetLinkDefaultRouteOutp
         return message;
     }
     internalBinaryWrite(message: SetLinkDefaultRouteOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

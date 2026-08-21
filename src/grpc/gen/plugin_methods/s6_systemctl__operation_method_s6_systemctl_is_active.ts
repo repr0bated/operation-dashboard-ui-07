@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface IsActiveInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -27,7 +27,7 @@ export interface IsActiveInput {
  */
 export interface IsActiveOutput {
     /**
-     * @generated from protobuf field: bool active = 1
+     * @generated from protobuf field: bool active = 427137333
      */
     active: boolean;
 }
@@ -35,7 +35,7 @@ export interface IsActiveOutput {
 class IsActiveInput$Type extends MessageType<IsActiveInput> {
     constructor() {
         super("operation.method.s6_systemctl.is_active.IsActiveInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<IsActiveInput>): IsActiveInput {
@@ -50,7 +50,7 @@ class IsActiveInput$Type extends MessageType<IsActiveInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -65,9 +65,9 @@ class IsActiveInput$Type extends MessageType<IsActiveInput> {
         return message;
     }
     internalBinaryWrite(message: IsActiveInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -82,7 +82,7 @@ export const IsActiveInput = new IsActiveInput$Type();
 class IsActiveOutput$Type extends MessageType<IsActiveOutput> {
     constructor() {
         super("operation.method.s6_systemctl.is_active.IsActiveOutput", [
-            { no: 1, name: "active", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 427137333, name: "active", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<IsActiveOutput>): IsActiveOutput {
@@ -97,7 +97,7 @@ class IsActiveOutput$Type extends MessageType<IsActiveOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool active */ 1:
+                case /* bool active */ 427137333:
                     message.active = reader.bool();
                     break;
                 default:
@@ -112,9 +112,9 @@ class IsActiveOutput$Type extends MessageType<IsActiveOutput> {
         return message;
     }
     internalBinaryWrite(message: IsActiveOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool active = 1; */
+        /* bool active = 427137333; */
         if (message.active !== false)
-            writer.tag(1, WireType.Varint).bool(message.active);
+            writer.tag(427137333, WireType.Varint).bool(message.active);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

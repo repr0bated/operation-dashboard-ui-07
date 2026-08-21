@@ -14,7 +14,9 @@ message GetShareSettingsInput {
   // Empty schema object.
 }
 
-message GetShareSettingsOutput {}
+message GetShareSettingsOutput {
+  bool success = 442482449;
+}
 
 service GetShareSettingsService {
   // subid: obs.service.plugin.notebooklm.share.settings@v1, capability: notebooklm.read

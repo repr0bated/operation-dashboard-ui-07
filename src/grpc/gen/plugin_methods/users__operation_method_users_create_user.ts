@@ -18,23 +18,23 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CreateUserInput {
     /**
-     * @generated from protobuf field: int64 gid = 1
+     * @generated from protobuf field: int64 gid = 69916062
      */
     gid: string;
     /**
-     * @generated from protobuf field: repeated string groups = 2
+     * @generated from protobuf field: repeated string groups = 258722674
      */
     groups: string[];
     /**
-     * @generated from protobuf field: string shell = 3
+     * @generated from protobuf field: string shell = 300022785
      */
     shell: string;
     /**
-     * @generated from protobuf field: int64 uid = 4
+     * @generated from protobuf field: int64 uid = 482862799
      */
     uid: string;
     /**
-     * @generated from protobuf field: string username = 5
+     * @generated from protobuf field: string username = 246355387
      */
     username: string;
 }
@@ -42,16 +42,20 @@ export interface CreateUserInput {
  * @generated from protobuf message operation.method.users.create_user.CreateUserOutput
  */
 export interface CreateUserOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateUserInput$Type extends MessageType<CreateUserInput> {
     constructor() {
         super("operation.method.users.create_user.CreateUserInput", [
-            { no: 1, name: "gid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "groups", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "shell", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 69916062, name: "gid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 258722674, name: "groups", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 300022785, name: "shell", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 482862799, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 246355387, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CreateUserInput>): CreateUserInput {
@@ -70,19 +74,19 @@ class CreateUserInput$Type extends MessageType<CreateUserInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 gid */ 1:
+                case /* int64 gid */ 69916062:
                     message.gid = reader.int64().toString();
                     break;
-                case /* repeated string groups */ 2:
+                case /* repeated string groups */ 258722674:
                     message.groups.push(reader.string());
                     break;
-                case /* string shell */ 3:
+                case /* string shell */ 300022785:
                     message.shell = reader.string();
                     break;
-                case /* int64 uid */ 4:
+                case /* int64 uid */ 482862799:
                     message.uid = reader.int64().toString();
                     break;
-                case /* string username */ 5:
+                case /* string username */ 246355387:
                     message.username = reader.string();
                     break;
                 default:
@@ -97,21 +101,21 @@ class CreateUserInput$Type extends MessageType<CreateUserInput> {
         return message;
     }
     internalBinaryWrite(message: CreateUserInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 gid = 1; */
+        /* int64 gid = 69916062; */
         if (message.gid !== "0")
-            writer.tag(1, WireType.Varint).int64(message.gid);
-        /* repeated string groups = 2; */
-        for (let i = 0; i < message.groups.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.groups[i]);
-        /* string shell = 3; */
-        if (message.shell !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.shell);
-        /* int64 uid = 4; */
-        if (message.uid !== "0")
-            writer.tag(4, WireType.Varint).int64(message.uid);
-        /* string username = 5; */
+            writer.tag(69916062, WireType.Varint).int64(message.gid);
+        /* string username = 246355387; */
         if (message.username !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.username);
+            writer.tag(246355387, WireType.LengthDelimited).string(message.username);
+        /* repeated string groups = 258722674; */
+        for (let i = 0; i < message.groups.length; i++)
+            writer.tag(258722674, WireType.LengthDelimited).string(message.groups[i]);
+        /* string shell = 300022785; */
+        if (message.shell !== "")
+            writer.tag(300022785, WireType.LengthDelimited).string(message.shell);
+        /* int64 uid = 482862799; */
+        if (message.uid !== "0")
+            writer.tag(482862799, WireType.Varint).int64(message.uid);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -125,10 +129,13 @@ export const CreateUserInput = new CreateUserInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateUserOutput$Type extends MessageType<CreateUserOutput> {
     constructor() {
-        super("operation.method.users.create_user.CreateUserOutput", []);
+        super("operation.method.users.create_user.CreateUserOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateUserOutput>): CreateUserOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateUserOutput>(this, message, value);
         return message;
@@ -138,6 +145,9 @@ class CreateUserOutput$Type extends MessageType<CreateUserOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -150,6 +160,9 @@ class CreateUserOutput$Type extends MessageType<CreateUserOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateUserOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

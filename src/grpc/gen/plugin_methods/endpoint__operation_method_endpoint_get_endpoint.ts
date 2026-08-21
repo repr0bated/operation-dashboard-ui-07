@@ -26,7 +26,7 @@ export interface GetEndpointInput {
  */
 export interface GetEndpointOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value endpoint = 1
+     * @generated from protobuf field: google.protobuf.Value endpoint = 414707842
      */
     endpoint?: Value;
 }
@@ -72,7 +72,7 @@ export const GetEndpointInput = new GetEndpointInput$Type();
 class GetEndpointOutput$Type extends MessageType<GetEndpointOutput> {
     constructor() {
         super("operation.method.endpoint.get_endpoint.GetEndpointOutput", [
-            { no: 1, name: "endpoint", kind: "message", T: () => Value }
+            { no: 414707842, name: "endpoint", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetEndpointOutput>): GetEndpointOutput {
@@ -86,7 +86,7 @@ class GetEndpointOutput$Type extends MessageType<GetEndpointOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value endpoint */ 1:
+                case /* google.protobuf.Value endpoint */ 414707842:
                     message.endpoint = Value.internalBinaryRead(reader, reader.uint32(), options, message.endpoint);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetEndpointOutput$Type extends MessageType<GetEndpointOutput> {
         return message;
     }
     internalBinaryWrite(message: GetEndpointOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value endpoint = 1; */
+        /* google.protobuf.Value endpoint = 414707842; */
         if (message.endpoint)
-            Value.internalBinaryWrite(message.endpoint, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.endpoint, writer.tag(414707842, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

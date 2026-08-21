@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface BuildPromptSurfaceInput {
     /**
-     * @generated from protobuf field: repeated string custom_rules = 1
+     * @generated from protobuf field: repeated string custom_rules = 177887917
      */
     customRules: string[];
     /**
-     * @generated from protobuf field: string mode = 2
+     * @generated from protobuf field: string mode = 208592921
      */
     mode: string;
 }
@@ -31,19 +31,19 @@ export interface BuildPromptSurfaceInput {
  */
 export interface BuildPromptSurfaceOutput {
     /**
-     * @generated from protobuf field: repeated string actions = 1
+     * @generated from protobuf field: repeated string actions = 364201577
      */
     actions: string[];
     /**
-     * @generated from protobuf field: repeated string components = 2
+     * @generated from protobuf field: repeated string components = 469045609
      */
     components: string[];
     /**
-     * @generated from protobuf field: string mode = 3
+     * @generated from protobuf field: string mode = 208592921
      */
     mode: string;
     /**
-     * @generated from protobuf field: repeated string rules = 4
+     * @generated from protobuf field: repeated string rules = 483376100
      */
     rules: string[];
 }
@@ -51,8 +51,8 @@ export interface BuildPromptSurfaceOutput {
 class BuildPromptSurfaceInput$Type extends MessageType<BuildPromptSurfaceInput> {
     constructor() {
         super("operation.method.json_render.build_prompt_surface.BuildPromptSurfaceInput", [
-            { no: 1, name: "custom_rules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 177887917, name: "custom_rules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 208592921, name: "mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<BuildPromptSurfaceInput>): BuildPromptSurfaceInput {
@@ -68,10 +68,10 @@ class BuildPromptSurfaceInput$Type extends MessageType<BuildPromptSurfaceInput> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string custom_rules */ 1:
+                case /* repeated string custom_rules */ 177887917:
                     message.customRules.push(reader.string());
                     break;
-                case /* string mode */ 2:
+                case /* string mode */ 208592921:
                     message.mode = reader.string();
                     break;
                 default:
@@ -86,12 +86,12 @@ class BuildPromptSurfaceInput$Type extends MessageType<BuildPromptSurfaceInput> 
         return message;
     }
     internalBinaryWrite(message: BuildPromptSurfaceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string custom_rules = 1; */
+        /* repeated string custom_rules = 177887917; */
         for (let i = 0; i < message.customRules.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.customRules[i]);
-        /* string mode = 2; */
+            writer.tag(177887917, WireType.LengthDelimited).string(message.customRules[i]);
+        /* string mode = 208592921; */
         if (message.mode !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.mode);
+            writer.tag(208592921, WireType.LengthDelimited).string(message.mode);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -106,10 +106,10 @@ export const BuildPromptSurfaceInput = new BuildPromptSurfaceInput$Type();
 class BuildPromptSurfaceOutput$Type extends MessageType<BuildPromptSurfaceOutput> {
     constructor() {
         super("operation.method.json_render.build_prompt_surface.BuildPromptSurfaceOutput", [
-            { no: 1, name: "actions", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "components", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "rules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 364201577, name: "actions", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 469045609, name: "components", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 208592921, name: "mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 483376100, name: "rules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<BuildPromptSurfaceOutput>): BuildPromptSurfaceOutput {
@@ -127,16 +127,16 @@ class BuildPromptSurfaceOutput$Type extends MessageType<BuildPromptSurfaceOutput
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string actions */ 1:
+                case /* repeated string actions */ 364201577:
                     message.actions.push(reader.string());
                     break;
-                case /* repeated string components */ 2:
+                case /* repeated string components */ 469045609:
                     message.components.push(reader.string());
                     break;
-                case /* string mode */ 3:
+                case /* string mode */ 208592921:
                     message.mode = reader.string();
                     break;
-                case /* repeated string rules */ 4:
+                case /* repeated string rules */ 483376100:
                     message.rules.push(reader.string());
                     break;
                 default:
@@ -151,18 +151,18 @@ class BuildPromptSurfaceOutput$Type extends MessageType<BuildPromptSurfaceOutput
         return message;
     }
     internalBinaryWrite(message: BuildPromptSurfaceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string actions = 1; */
-        for (let i = 0; i < message.actions.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.actions[i]);
-        /* repeated string components = 2; */
-        for (let i = 0; i < message.components.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.components[i]);
-        /* string mode = 3; */
+        /* string mode = 208592921; */
         if (message.mode !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.mode);
-        /* repeated string rules = 4; */
+            writer.tag(208592921, WireType.LengthDelimited).string(message.mode);
+        /* repeated string actions = 364201577; */
+        for (let i = 0; i < message.actions.length; i++)
+            writer.tag(364201577, WireType.LengthDelimited).string(message.actions[i]);
+        /* repeated string components = 469045609; */
+        for (let i = 0; i < message.components.length; i++)
+            writer.tag(469045609, WireType.LengthDelimited).string(message.components[i]);
+        /* repeated string rules = 483376100; */
         for (let i = 0; i < message.rules.length; i++)
-            writer.tag(4, WireType.LengthDelimited).string(message.rules[i]);
+            writer.tag(483376100, WireType.LengthDelimited).string(message.rules[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -25,9 +25,13 @@ export interface MemoryDeleteInput {
  */
 export interface MemoryDeleteOutput {
     /**
-     * @generated from protobuf field: int64 keys_deleted = 1
+     * @generated from protobuf field: int64 keys_deleted = 352787473
      */
     keysDeleted: string;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class MemoryDeleteInput$Type extends MessageType<MemoryDeleteInput> {
@@ -71,12 +75,14 @@ export const MemoryDeleteInput = new MemoryDeleteInput$Type();
 class MemoryDeleteOutput$Type extends MessageType<MemoryDeleteOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.memory_delete.MemoryDeleteOutput", [
-            { no: 1, name: "keys_deleted", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 352787473, name: "keys_deleted", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<MemoryDeleteOutput>): MemoryDeleteOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.keysDeleted = "0";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<MemoryDeleteOutput>(this, message, value);
         return message;
@@ -86,8 +92,11 @@ class MemoryDeleteOutput$Type extends MessageType<MemoryDeleteOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 keys_deleted */ 1:
+                case /* int64 keys_deleted */ 352787473:
                     message.keysDeleted = reader.int64().toString();
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -101,9 +110,12 @@ class MemoryDeleteOutput$Type extends MessageType<MemoryDeleteOutput> {
         return message;
     }
     internalBinaryWrite(message: MemoryDeleteOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 keys_deleted = 1; */
+        /* int64 keys_deleted = 352787473; */
         if (message.keysDeleted !== "0")
-            writer.tag(1, WireType.Varint).int64(message.keysDeleted);
+            writer.tag(352787473, WireType.Varint).int64(message.keysDeleted);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

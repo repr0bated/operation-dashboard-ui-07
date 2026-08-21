@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message RemoveDeviceInput {
-  string device_name = 1;
-  string instance_name = 2;
+  string device_name = 262545665;
+  string instance_name = 271196794;
 }
 
-message RemoveDeviceOutput {}
+message RemoveDeviceOutput {
+  bool success = 442482449;
+}
 
 service RemoveDeviceService {
   // subid: mut.service.incus.device.remove@v1, capability: cap.service.incus.device.remove@v1

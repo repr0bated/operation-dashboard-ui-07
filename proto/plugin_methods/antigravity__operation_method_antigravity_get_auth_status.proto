@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.antigravity.get_auth_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetAuthStatusInput {
+  // Empty schema object.
+}
+
+message GetAuthStatusOutput {
+  google.protobuf.Value auth = 356493395;
+}
+
+service GetAuthStatusService {
+  // subid: obs.software.antigravity.auth.status@v1, capability: antigravity.read
+  rpc get_auth_status(GetAuthStatusInput) returns (GetAuthStatusOutput);
+}

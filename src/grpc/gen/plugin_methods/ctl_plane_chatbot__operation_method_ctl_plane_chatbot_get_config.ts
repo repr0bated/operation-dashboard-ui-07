@@ -26,7 +26,7 @@ export interface GetConfigInput {
  */
 export interface GetConfigOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value config = 1
+     * @generated from protobuf field: google.protobuf.Value config = 67069640
      */
     config?: Value;
 }
@@ -72,7 +72,7 @@ export const GetConfigInput = new GetConfigInput$Type();
 class GetConfigOutput$Type extends MessageType<GetConfigOutput> {
     constructor() {
         super("operation.method.ctl_plane_chatbot.get_config.GetConfigOutput", [
-            { no: 1, name: "config", kind: "message", T: () => Value }
+            { no: 67069640, name: "config", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetConfigOutput>): GetConfigOutput {
@@ -86,7 +86,7 @@ class GetConfigOutput$Type extends MessageType<GetConfigOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value config */ 1:
+                case /* google.protobuf.Value config */ 67069640:
                     message.config = Value.internalBinaryRead(reader, reader.uint32(), options, message.config);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetConfigOutput$Type extends MessageType<GetConfigOutput> {
         return message;
     }
     internalBinaryWrite(message: GetConfigOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value config = 1; */
+        /* google.protobuf.Value config = 67069640; */
         if (message.config)
-            Value.internalBinaryWrite(message.config, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.config, writer.tag(67069640, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

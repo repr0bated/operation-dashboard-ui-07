@@ -20,35 +20,35 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface AddFlowInput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value actions = 1
+     * @generated from protobuf field: repeated google.protobuf.Value actions = 364201577
      */
     actions: Value[];
     /**
-     * @generated from protobuf field: string bridge = 2
+     * @generated from protobuf field: string bridge = 179832343
      */
     bridge: string;
     /**
-     * @generated from protobuf field: int64 cookie = 3
+     * @generated from protobuf field: int64 cookie = 396837058
      */
     cookie: string;
     /**
-     * @generated from protobuf field: int64 hard_timeout = 4
+     * @generated from protobuf field: int64 hard_timeout = 408086100
      */
     hardTimeout: string;
     /**
-     * @generated from protobuf field: int64 idle_timeout = 5
+     * @generated from protobuf field: int64 idle_timeout = 144399552
      */
     idleTimeout: string;
     /**
-     * @generated from protobuf field: google.protobuf.Struct match_fields = 6
+     * @generated from protobuf field: google.protobuf.Struct match_fields = 405770232
      */
     matchFields?: Struct;
     /**
-     * @generated from protobuf field: int64 priority = 7
+     * @generated from protobuf field: int64 priority = 350544653
      */
     priority: string;
     /**
-     * @generated from protobuf field: int64 table = 8
+     * @generated from protobuf field: int64 table = 178035681
      */
     table: string;
 }
@@ -56,19 +56,23 @@ export interface AddFlowInput {
  * @generated from protobuf message operation.method.openflow.add_flow.AddFlowOutput
  */
 export interface AddFlowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddFlowInput$Type extends MessageType<AddFlowInput> {
     constructor() {
         super("operation.method.openflow.add_flow.AddFlowInput", [
-            { no: 1, name: "actions", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 2, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "cookie", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "hard_timeout", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "idle_timeout", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 6, name: "match_fields", kind: "message", T: () => Struct },
-            { no: 7, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 8, name: "table", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 364201577, name: "actions", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 179832343, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 396837058, name: "cookie", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 408086100, name: "hard_timeout", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 144399552, name: "idle_timeout", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 405770232, name: "match_fields", kind: "message", T: () => Struct },
+            { no: 350544653, name: "priority", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 178035681, name: "table", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<AddFlowInput>): AddFlowInput {
@@ -89,28 +93,28 @@ class AddFlowInput$Type extends MessageType<AddFlowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value actions */ 1:
+                case /* repeated google.protobuf.Value actions */ 364201577:
                     message.actions.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* string bridge */ 2:
+                case /* string bridge */ 179832343:
                     message.bridge = reader.string();
                     break;
-                case /* int64 cookie */ 3:
+                case /* int64 cookie */ 396837058:
                     message.cookie = reader.int64().toString();
                     break;
-                case /* int64 hard_timeout */ 4:
+                case /* int64 hard_timeout */ 408086100:
                     message.hardTimeout = reader.int64().toString();
                     break;
-                case /* int64 idle_timeout */ 5:
+                case /* int64 idle_timeout */ 144399552:
                     message.idleTimeout = reader.int64().toString();
                     break;
-                case /* google.protobuf.Struct match_fields */ 6:
+                case /* google.protobuf.Struct match_fields */ 405770232:
                     message.matchFields = Struct.internalBinaryRead(reader, reader.uint32(), options, message.matchFields);
                     break;
-                case /* int64 priority */ 7:
+                case /* int64 priority */ 350544653:
                     message.priority = reader.int64().toString();
                     break;
-                case /* int64 table */ 8:
+                case /* int64 table */ 178035681:
                     message.table = reader.int64().toString();
                     break;
                 default:
@@ -125,30 +129,30 @@ class AddFlowInput$Type extends MessageType<AddFlowInput> {
         return message;
     }
     internalBinaryWrite(message: AddFlowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value actions = 1; */
-        for (let i = 0; i < message.actions.length; i++)
-            Value.internalBinaryWrite(message.actions[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string bridge = 2; */
-        if (message.bridge !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.bridge);
-        /* int64 cookie = 3; */
-        if (message.cookie !== "0")
-            writer.tag(3, WireType.Varint).int64(message.cookie);
-        /* int64 hard_timeout = 4; */
-        if (message.hardTimeout !== "0")
-            writer.tag(4, WireType.Varint).int64(message.hardTimeout);
-        /* int64 idle_timeout = 5; */
+        /* int64 idle_timeout = 144399552; */
         if (message.idleTimeout !== "0")
-            writer.tag(5, WireType.Varint).int64(message.idleTimeout);
-        /* google.protobuf.Struct match_fields = 6; */
-        if (message.matchFields)
-            Struct.internalBinaryWrite(message.matchFields, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
-        /* int64 priority = 7; */
-        if (message.priority !== "0")
-            writer.tag(7, WireType.Varint).int64(message.priority);
-        /* int64 table = 8; */
+            writer.tag(144399552, WireType.Varint).int64(message.idleTimeout);
+        /* int64 table = 178035681; */
         if (message.table !== "0")
-            writer.tag(8, WireType.Varint).int64(message.table);
+            writer.tag(178035681, WireType.Varint).int64(message.table);
+        /* string bridge = 179832343; */
+        if (message.bridge !== "")
+            writer.tag(179832343, WireType.LengthDelimited).string(message.bridge);
+        /* int64 priority = 350544653; */
+        if (message.priority !== "0")
+            writer.tag(350544653, WireType.Varint).int64(message.priority);
+        /* repeated google.protobuf.Value actions = 364201577; */
+        for (let i = 0; i < message.actions.length; i++)
+            Value.internalBinaryWrite(message.actions[i], writer.tag(364201577, WireType.LengthDelimited).fork(), options).join();
+        /* int64 cookie = 396837058; */
+        if (message.cookie !== "0")
+            writer.tag(396837058, WireType.Varint).int64(message.cookie);
+        /* google.protobuf.Struct match_fields = 405770232; */
+        if (message.matchFields)
+            Struct.internalBinaryWrite(message.matchFields, writer.tag(405770232, WireType.LengthDelimited).fork(), options).join();
+        /* int64 hard_timeout = 408086100; */
+        if (message.hardTimeout !== "0")
+            writer.tag(408086100, WireType.Varint).int64(message.hardTimeout);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -162,10 +166,13 @@ export const AddFlowInput = new AddFlowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddFlowOutput$Type extends MessageType<AddFlowOutput> {
     constructor() {
-        super("operation.method.openflow.add_flow.AddFlowOutput", []);
+        super("operation.method.openflow.add_flow.AddFlowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddFlowOutput>): AddFlowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddFlowOutput>(this, message, value);
         return message;
@@ -175,6 +182,9 @@ class AddFlowOutput$Type extends MessageType<AddFlowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -187,6 +197,9 @@ class AddFlowOutput$Type extends MessageType<AddFlowOutput> {
         return message;
     }
     internalBinaryWrite(message: AddFlowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

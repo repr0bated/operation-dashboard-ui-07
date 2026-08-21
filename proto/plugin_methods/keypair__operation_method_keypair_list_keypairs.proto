@@ -15,7 +15,7 @@ message ListKeypairsInput {
 }
 
 message ListKeypairsOutput {
-  repeated google.protobuf.Value keypairs = 1;
+  repeated google.protobuf.Value keypairs = 335269837;
 }
 
 service ListKeypairsService {

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetProcessInfoInput {
-  int64 pid = 1;
+  int64 pid = 155254053;
 }
 
-message GetProcessInfoOutput {}
+message GetProcessInfoOutput {
+  bool success = 442482449;
+}
 
 service GetProcessInfoService {
   // subid: obs.service.procfs.process.get@v1, capability: procfs.read

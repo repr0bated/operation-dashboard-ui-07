@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package operation.method.blockchain.query_events;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message QueryEventsInput {
+  string decision = 258321382;
+  int64 from_event_id = 185305220;
+  int64 limit = 316332341;
+  string plugin_id = 419040116;
+  int64 to_event_id = 114977767;
+}
+
+message QueryEventsOutput {
+  repeated google.protobuf.Value events = 316203908;
+  bool has_more = 490198688;
+  int64 total_in_chain = 249683168;
+}
+
+service QueryEventsService {
+  // subid: obs.service.blockchain.events.query@v1, capability: blockchain.read
+  rpc query_events(QueryEventsInput) returns (QueryEventsOutput);
+}

@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface UpsertPointsInput {
     /**
-     * @generated from protobuf field: string collection_name = 1
+     * @generated from protobuf field: string collection_name = 468055319
      */
     collectionName: string;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value points = 2
+     * @generated from protobuf field: repeated google.protobuf.Value points = 479553483
      */
     points: Value[];
 }
@@ -31,13 +31,17 @@ export interface UpsertPointsInput {
  * @generated from protobuf message operation.method.qdrant.upsert_points.UpsertPointsOutput
  */
 export interface UpsertPointsOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UpsertPointsInput$Type extends MessageType<UpsertPointsInput> {
     constructor() {
         super("operation.method.qdrant.upsert_points.UpsertPointsInput", [
-            { no: 1, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "points", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 468055319, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 479553483, name: "points", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<UpsertPointsInput>): UpsertPointsInput {
@@ -53,10 +57,10 @@ class UpsertPointsInput$Type extends MessageType<UpsertPointsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string collection_name */ 1:
+                case /* string collection_name */ 468055319:
                     message.collectionName = reader.string();
                     break;
-                case /* repeated google.protobuf.Value points */ 2:
+                case /* repeated google.protobuf.Value points */ 479553483:
                     message.points.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -71,12 +75,12 @@ class UpsertPointsInput$Type extends MessageType<UpsertPointsInput> {
         return message;
     }
     internalBinaryWrite(message: UpsertPointsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string collection_name = 1; */
+        /* string collection_name = 468055319; */
         if (message.collectionName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.collectionName);
-        /* repeated google.protobuf.Value points = 2; */
+            writer.tag(468055319, WireType.LengthDelimited).string(message.collectionName);
+        /* repeated google.protobuf.Value points = 479553483; */
         for (let i = 0; i < message.points.length; i++)
-            Value.internalBinaryWrite(message.points[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.points[i], writer.tag(479553483, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -90,10 +94,13 @@ export const UpsertPointsInput = new UpsertPointsInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class UpsertPointsOutput$Type extends MessageType<UpsertPointsOutput> {
     constructor() {
-        super("operation.method.qdrant.upsert_points.UpsertPointsOutput", []);
+        super("operation.method.qdrant.upsert_points.UpsertPointsOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<UpsertPointsOutput>): UpsertPointsOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UpsertPointsOutput>(this, message, value);
         return message;
@@ -103,6 +110,9 @@ class UpsertPointsOutput$Type extends MessageType<UpsertPointsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -115,6 +125,9 @@ class UpsertPointsOutput$Type extends MessageType<UpsertPointsOutput> {
         return message;
     }
     internalBinaryWrite(message: UpsertPointsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

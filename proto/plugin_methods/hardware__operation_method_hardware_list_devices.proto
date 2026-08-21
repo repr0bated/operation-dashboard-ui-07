@@ -15,7 +15,7 @@ message ListDevicesInput {
 }
 
 message ListDevicesOutput {
-  repeated google.protobuf.Value devices = 1;
+  repeated google.protobuf.Value devices = 17468293;
 }
 
 service ListDevicesService {

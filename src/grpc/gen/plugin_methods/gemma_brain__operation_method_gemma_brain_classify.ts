@@ -26,7 +26,7 @@ export interface ClassifyInput {
  */
 export interface ClassifyOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value classification = 1
+     * @generated from protobuf field: google.protobuf.Value classification = 396881735
      */
     classification?: Value;
 }
@@ -72,7 +72,7 @@ export const ClassifyInput = new ClassifyInput$Type();
 class ClassifyOutput$Type extends MessageType<ClassifyOutput> {
     constructor() {
         super("operation.method.gemma_brain.classify.ClassifyOutput", [
-            { no: 1, name: "classification", kind: "message", T: () => Value }
+            { no: 396881735, name: "classification", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ClassifyOutput>): ClassifyOutput {
@@ -86,7 +86,7 @@ class ClassifyOutput$Type extends MessageType<ClassifyOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value classification */ 1:
+                case /* google.protobuf.Value classification */ 396881735:
                     message.classification = Value.internalBinaryRead(reader, reader.uint32(), options, message.classification);
                     break;
                 default:
@@ -101,9 +101,9 @@ class ClassifyOutput$Type extends MessageType<ClassifyOutput> {
         return message;
     }
     internalBinaryWrite(message: ClassifyOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value classification = 1; */
+        /* google.protobuf.Value classification = 396881735; */
         if (message.classification)
-            Value.internalBinaryWrite(message.classification, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.classification, writer.tag(396881735, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

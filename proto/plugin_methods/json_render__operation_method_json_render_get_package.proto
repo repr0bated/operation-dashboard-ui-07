@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetPackageInput {
-  string package_name = 1;
+  string package_name = 491728236;
 }
 
 message GetPackageOutput {
-  google.protobuf.Value package = 1;
+  google.protobuf.Value package = 289090559;
 }
 
 service GetPackageService {

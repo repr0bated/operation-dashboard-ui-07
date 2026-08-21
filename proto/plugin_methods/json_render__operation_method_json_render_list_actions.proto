@@ -15,7 +15,7 @@ message ListActionsInput {
 }
 
 message ListActionsOutput {
-  repeated google.protobuf.Value actions = 1;
+  repeated google.protobuf.Value actions = 364201577;
 }
 
 service ListActionsService {

@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message EnumerateDevicesInput {
-  string class_code = 1;
-  string vendor_id = 2;
+  string class_code = 386339900;
+  string vendor_id = 97361007;
 }
 
-message EnumerateDevicesOutput {}
+message EnumerateDevicesOutput {
+  bool success = 442482449;
+}
 
 service EnumerateDevicesService {
   // subid: obs.hardware.pci.devices.enumerate@v1, capability: pcidecl.read

@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message JoinNetworkInput {
-  string network = 1;
-  string token = 2;
+  string network = 303597255;
+  string token = 343534134;
 }
 
-message JoinNetworkOutput {}
+message JoinNetworkOutput {
+  bool success = 442482449;
+}
 
 service JoinNetworkService {
   // subid: mut.network.netmaker.network.join@v1, capability: cap.network.netmaker.network.join@v1

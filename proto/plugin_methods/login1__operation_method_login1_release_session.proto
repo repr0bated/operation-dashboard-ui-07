@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ReleaseSessionInput {
-  string session_id = 1;
+  string session_id = 125141221;
 }
 
-message ReleaseSessionOutput {}
+message ReleaseSessionOutput {
+  bool success = 442482449;
+}
 
 service ReleaseSessionService {
   // subid: mut.software.login1.session.release@v1, capability: login1.write

@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetQuotaInput {
     /**
-     * @generated from protobuf field: string domain = 1
+     * @generated from protobuf field: string domain = 127113208
      */
     domain: string;
     /**
-     * @generated from protobuf field: int64 quota_mb = 2
+     * @generated from protobuf field: int64 quota_mb = 487219124
      */
     quotaMb: string;
     /**
-     * @generated from protobuf field: string user = 3
+     * @generated from protobuf field: string user = 7888629
      */
     user: string;
 }
@@ -34,14 +34,18 @@ export interface SetQuotaInput {
  * @generated from protobuf message operation.method.mail_server.set_quota.SetQuotaOutput
  */
 export interface SetQuotaOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetQuotaInput$Type extends MessageType<SetQuotaInput> {
     constructor() {
         super("operation.method.mail_server.set_quota.SetQuotaInput", [
-            { no: 1, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "quota_mb", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "user", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 127113208, name: "domain", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 487219124, name: "quota_mb", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 7888629, name: "user", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetQuotaInput>): SetQuotaInput {
@@ -58,13 +62,13 @@ class SetQuotaInput$Type extends MessageType<SetQuotaInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string domain */ 1:
+                case /* string domain */ 127113208:
                     message.domain = reader.string();
                     break;
-                case /* int64 quota_mb */ 2:
+                case /* int64 quota_mb */ 487219124:
                     message.quotaMb = reader.int64().toString();
                     break;
-                case /* string user */ 3:
+                case /* string user */ 7888629:
                     message.user = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class SetQuotaInput$Type extends MessageType<SetQuotaInput> {
         return message;
     }
     internalBinaryWrite(message: SetQuotaInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string domain = 1; */
-        if (message.domain !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.domain);
-        /* int64 quota_mb = 2; */
-        if (message.quotaMb !== "0")
-            writer.tag(2, WireType.Varint).int64(message.quotaMb);
-        /* string user = 3; */
+        /* string user = 7888629; */
         if (message.user !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.user);
+            writer.tag(7888629, WireType.LengthDelimited).string(message.user);
+        /* string domain = 127113208; */
+        if (message.domain !== "")
+            writer.tag(127113208, WireType.LengthDelimited).string(message.domain);
+        /* int64 quota_mb = 487219124; */
+        if (message.quotaMb !== "0")
+            writer.tag(487219124, WireType.Varint).int64(message.quotaMb);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const SetQuotaInput = new SetQuotaInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetQuotaOutput$Type extends MessageType<SetQuotaOutput> {
     constructor() {
-        super("operation.method.mail_server.set_quota.SetQuotaOutput", []);
+        super("operation.method.mail_server.set_quota.SetQuotaOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetQuotaOutput>): SetQuotaOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetQuotaOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class SetQuotaOutput$Type extends MessageType<SetQuotaOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class SetQuotaOutput$Type extends MessageType<SetQuotaOutput> {
         return message;
     }
     internalBinaryWrite(message: SetQuotaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface BanIpInput {
     /**
-     * @generated from protobuf field: string ip = 1
+     * @generated from protobuf field: string ip = 188254814
      */
     ip: string;
     /**
-     * @generated from protobuf field: string jail = 2
+     * @generated from protobuf field: string jail = 224568113
      */
     jail: string;
 }
@@ -30,13 +30,17 @@ export interface BanIpInput {
  * @generated from protobuf message operation.method.fail2ban.ban_ip.BanIpOutput
  */
 export interface BanIpOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class BanIpInput$Type extends MessageType<BanIpInput> {
     constructor() {
         super("operation.method.fail2ban.ban_ip.BanIpInput", [
-            { no: 1, name: "ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "jail", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 188254814, name: "ip", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 224568113, name: "jail", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<BanIpInput>): BanIpInput {
@@ -52,10 +56,10 @@ class BanIpInput$Type extends MessageType<BanIpInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string ip */ 1:
+                case /* string ip */ 188254814:
                     message.ip = reader.string();
                     break;
-                case /* string jail */ 2:
+                case /* string jail */ 224568113:
                     message.jail = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class BanIpInput$Type extends MessageType<BanIpInput> {
         return message;
     }
     internalBinaryWrite(message: BanIpInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string ip = 1; */
+        /* string ip = 188254814; */
         if (message.ip !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.ip);
-        /* string jail = 2; */
+            writer.tag(188254814, WireType.LengthDelimited).string(message.ip);
+        /* string jail = 224568113; */
         if (message.jail !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.jail);
+            writer.tag(224568113, WireType.LengthDelimited).string(message.jail);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const BanIpInput = new BanIpInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class BanIpOutput$Type extends MessageType<BanIpOutput> {
     constructor() {
-        super("operation.method.fail2ban.ban_ip.BanIpOutput", []);
+        super("operation.method.fail2ban.ban_ip.BanIpOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<BanIpOutput>): BanIpOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<BanIpOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class BanIpOutput$Type extends MessageType<BanIpOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class BanIpOutput$Type extends MessageType<BanIpOutput> {
         return message;
     }
     internalBinaryWrite(message: BanIpOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

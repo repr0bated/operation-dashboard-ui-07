@@ -15,7 +15,7 @@ message ListKeysInput {
 }
 
 message ListKeysOutput {
-  repeated string keys = 1;
+  repeated string keys = 424282324;
 }
 
 service ListKeysService {

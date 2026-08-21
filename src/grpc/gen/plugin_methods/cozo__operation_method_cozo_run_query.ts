@@ -13,18 +13,17 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
-import { Value } from "../google/protobuf/struct";
 import { Struct } from "../google/protobuf/struct";
 /**
  * @generated from protobuf message operation.method.cozo.run_query.RunQueryInput
  */
 export interface RunQueryInput {
     /**
-     * @generated from protobuf field: google.protobuf.Struct params = 1
+     * @generated from protobuf field: google.protobuf.Struct params = 23029844
      */
     params?: Struct;
     /**
-     * @generated from protobuf field: string query = 2
+     * @generated from protobuf field: string query = 416183786
      */
     query: string;
 }
@@ -33,20 +32,16 @@ export interface RunQueryInput {
  */
 export interface RunQueryOutput {
     /**
-     * @generated from protobuf field: repeated string headers = 1
+     * @generated from protobuf field: bool success = 442482449
      */
-    headers: string[];
-    /**
-     * @generated from protobuf field: repeated google.protobuf.Value rows = 2
-     */
-    rows: Value[];
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RunQueryInput$Type extends MessageType<RunQueryInput> {
     constructor() {
         super("operation.method.cozo.run_query.RunQueryInput", [
-            { no: 1, name: "params", kind: "message", T: () => Struct },
-            { no: 2, name: "query", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 23029844, name: "params", kind: "message", T: () => Struct },
+            { no: 416183786, name: "query", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<RunQueryInput>): RunQueryInput {
@@ -61,10 +56,10 @@ class RunQueryInput$Type extends MessageType<RunQueryInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Struct params */ 1:
+                case /* google.protobuf.Struct params */ 23029844:
                     message.params = Struct.internalBinaryRead(reader, reader.uint32(), options, message.params);
                     break;
-                case /* string query */ 2:
+                case /* string query */ 416183786:
                     message.query = reader.string();
                     break;
                 default:
@@ -79,12 +74,12 @@ class RunQueryInput$Type extends MessageType<RunQueryInput> {
         return message;
     }
     internalBinaryWrite(message: RunQueryInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Struct params = 1; */
+        /* google.protobuf.Struct params = 23029844; */
         if (message.params)
-            Struct.internalBinaryWrite(message.params, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string query = 2; */
+            Struct.internalBinaryWrite(message.params, writer.tag(23029844, WireType.LengthDelimited).fork(), options).join();
+        /* string query = 416183786; */
         if (message.query !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.query);
+            writer.tag(416183786, WireType.LengthDelimited).string(message.query);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -99,14 +94,12 @@ export const RunQueryInput = new RunQueryInput$Type();
 class RunQueryOutput$Type extends MessageType<RunQueryOutput> {
     constructor() {
         super("operation.method.cozo.run_query.RunQueryOutput", [
-            { no: 1, name: "headers", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "rows", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<RunQueryOutput>): RunQueryOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.headers = [];
-        message.rows = [];
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RunQueryOutput>(this, message, value);
         return message;
@@ -116,11 +109,8 @@ class RunQueryOutput$Type extends MessageType<RunQueryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string headers */ 1:
-                    message.headers.push(reader.string());
-                    break;
-                case /* repeated google.protobuf.Value rows */ 2:
-                    message.rows.push(Value.internalBinaryRead(reader, reader.uint32(), options));
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -134,12 +124,9 @@ class RunQueryOutput$Type extends MessageType<RunQueryOutput> {
         return message;
     }
     internalBinaryWrite(message: RunQueryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string headers = 1; */
-        for (let i = 0; i < message.headers.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.headers[i]);
-        /* repeated google.protobuf.Value rows = 2; */
-        for (let i = 0; i < message.rows.length; i++)
-            Value.internalBinaryWrite(message.rows[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ResumeWorkflowInput {
     /**
-     * @generated from protobuf field: string workflow_id = 1
+     * @generated from protobuf field: string workflow_id = 280387507
      */
     workflowId: string;
 }
@@ -26,12 +26,16 @@ export interface ResumeWorkflowInput {
  * @generated from protobuf message operation.method.workflows.resume_workflow.ResumeWorkflowOutput
  */
 export interface ResumeWorkflowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ResumeWorkflowInput$Type extends MessageType<ResumeWorkflowInput> {
     constructor() {
         super("operation.method.workflows.resume_workflow.ResumeWorkflowInput", [
-            { no: 1, name: "workflow_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 280387507, name: "workflow_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ResumeWorkflowInput>): ResumeWorkflowInput {
@@ -46,7 +50,7 @@ class ResumeWorkflowInput$Type extends MessageType<ResumeWorkflowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string workflow_id */ 1:
+                case /* string workflow_id */ 280387507:
                     message.workflowId = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class ResumeWorkflowInput$Type extends MessageType<ResumeWorkflowInput> {
         return message;
     }
     internalBinaryWrite(message: ResumeWorkflowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string workflow_id = 1; */
+        /* string workflow_id = 280387507; */
         if (message.workflowId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.workflowId);
+            writer.tag(280387507, WireType.LengthDelimited).string(message.workflowId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const ResumeWorkflowInput = new ResumeWorkflowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ResumeWorkflowOutput$Type extends MessageType<ResumeWorkflowOutput> {
     constructor() {
-        super("operation.method.workflows.resume_workflow.ResumeWorkflowOutput", []);
+        super("operation.method.workflows.resume_workflow.ResumeWorkflowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ResumeWorkflowOutput>): ResumeWorkflowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ResumeWorkflowOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class ResumeWorkflowOutput$Type extends MessageType<ResumeWorkflowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class ResumeWorkflowOutput$Type extends MessageType<ResumeWorkflowOutput> {
         return message;
     }
     internalBinaryWrite(message: ResumeWorkflowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

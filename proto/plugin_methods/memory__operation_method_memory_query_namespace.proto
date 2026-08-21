@@ -11,13 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message QueryNamespaceInput {
-  string name = 1;
+  string name = 221887978;
 }
 
 message QueryNamespaceOutput {
-  int64 entries = 1;
-  google.protobuf.Value metadata = 2;
-  google.protobuf.Value namespace = 3;
+  int64 entries = 257458934;
+  google.protobuf.Value metadata = 102912835;
+  google.protobuf.Value namespace = 181303974;
 }
 
 service QueryNamespaceService {

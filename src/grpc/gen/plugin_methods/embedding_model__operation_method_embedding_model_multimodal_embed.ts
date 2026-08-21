@@ -19,19 +19,19 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface MultimodalEmbedInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value input_type = 1
+     * @generated from protobuf field: google.protobuf.Value input_type = 94319076
      */
     inputType?: Value;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value inputs = 2
+     * @generated from protobuf field: repeated google.protobuf.Value inputs = 397855130
      */
     inputs: Value[];
     /**
-     * @generated from protobuf field: google.protobuf.Value output_encoding = 3
+     * @generated from protobuf field: google.protobuf.Value output_encoding = 377555552
      */
     outputEncoding?: Value;
     /**
-     * @generated from protobuf field: bool truncation = 4
+     * @generated from protobuf field: bool truncation = 98888562
      */
     truncation: boolean;
 }
@@ -40,23 +40,23 @@ export interface MultimodalEmbedInput {
  */
 export interface MultimodalEmbedOutput {
     /**
-     * @generated from protobuf field: int64 image_pixels = 1
+     * @generated from protobuf field: int64 image_pixels = 381831881
      */
     imagePixels: string;
     /**
-     * @generated from protobuf field: string model = 2
+     * @generated from protobuf field: string model = 277571167
      */
     model: string;
     /**
-     * @generated from protobuf field: int64 text_tokens = 3
+     * @generated from protobuf field: int64 text_tokens = 294608765
      */
     textTokens: string;
     /**
-     * @generated from protobuf field: int64 total_tokens = 4
+     * @generated from protobuf field: int64 total_tokens = 20838375
      */
     totalTokens: string;
     /**
-     * @generated from protobuf field: repeated double vectors = 5
+     * @generated from protobuf field: repeated double vectors = 119073254
      */
     vectors: number[];
 }
@@ -64,10 +64,10 @@ export interface MultimodalEmbedOutput {
 class MultimodalEmbedInput$Type extends MessageType<MultimodalEmbedInput> {
     constructor() {
         super("operation.method.embedding_model.multimodal_embed.MultimodalEmbedInput", [
-            { no: 1, name: "input_type", kind: "message", T: () => Value },
-            { no: 2, name: "inputs", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 3, name: "output_encoding", kind: "message", T: () => Value },
-            { no: 4, name: "truncation", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 94319076, name: "input_type", kind: "message", T: () => Value },
+            { no: 397855130, name: "inputs", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 377555552, name: "output_encoding", kind: "message", T: () => Value },
+            { no: 98888562, name: "truncation", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<MultimodalEmbedInput>): MultimodalEmbedInput {
@@ -83,16 +83,16 @@ class MultimodalEmbedInput$Type extends MessageType<MultimodalEmbedInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value input_type */ 1:
+                case /* google.protobuf.Value input_type */ 94319076:
                     message.inputType = Value.internalBinaryRead(reader, reader.uint32(), options, message.inputType);
                     break;
-                case /* repeated google.protobuf.Value inputs */ 2:
+                case /* repeated google.protobuf.Value inputs */ 397855130:
                     message.inputs.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* google.protobuf.Value output_encoding */ 3:
+                case /* google.protobuf.Value output_encoding */ 377555552:
                     message.outputEncoding = Value.internalBinaryRead(reader, reader.uint32(), options, message.outputEncoding);
                     break;
-                case /* bool truncation */ 4:
+                case /* bool truncation */ 98888562:
                     message.truncation = reader.bool();
                     break;
                 default:
@@ -107,18 +107,18 @@ class MultimodalEmbedInput$Type extends MessageType<MultimodalEmbedInput> {
         return message;
     }
     internalBinaryWrite(message: MultimodalEmbedInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value input_type = 1; */
+        /* google.protobuf.Value input_type = 94319076; */
         if (message.inputType)
-            Value.internalBinaryWrite(message.inputType, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated google.protobuf.Value inputs = 2; */
-        for (let i = 0; i < message.inputs.length; i++)
-            Value.internalBinaryWrite(message.inputs[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Value output_encoding = 3; */
-        if (message.outputEncoding)
-            Value.internalBinaryWrite(message.outputEncoding, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
-        /* bool truncation = 4; */
+            Value.internalBinaryWrite(message.inputType, writer.tag(94319076, WireType.LengthDelimited).fork(), options).join();
+        /* bool truncation = 98888562; */
         if (message.truncation !== false)
-            writer.tag(4, WireType.Varint).bool(message.truncation);
+            writer.tag(98888562, WireType.Varint).bool(message.truncation);
+        /* google.protobuf.Value output_encoding = 377555552; */
+        if (message.outputEncoding)
+            Value.internalBinaryWrite(message.outputEncoding, writer.tag(377555552, WireType.LengthDelimited).fork(), options).join();
+        /* repeated google.protobuf.Value inputs = 397855130; */
+        for (let i = 0; i < message.inputs.length; i++)
+            Value.internalBinaryWrite(message.inputs[i], writer.tag(397855130, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -133,11 +133,11 @@ export const MultimodalEmbedInput = new MultimodalEmbedInput$Type();
 class MultimodalEmbedOutput$Type extends MessageType<MultimodalEmbedOutput> {
     constructor() {
         super("operation.method.embedding_model.multimodal_embed.MultimodalEmbedOutput", [
-            { no: 1, name: "image_pixels", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "text_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "total_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "vectors", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 1 /*ScalarType.DOUBLE*/ }
+            { no: 381831881, name: "image_pixels", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 277571167, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 294608765, name: "text_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 20838375, name: "total_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 119073254, name: "vectors", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 1 /*ScalarType.DOUBLE*/ }
         ]);
     }
     create(value?: PartialMessage<MultimodalEmbedOutput>): MultimodalEmbedOutput {
@@ -156,19 +156,19 @@ class MultimodalEmbedOutput$Type extends MessageType<MultimodalEmbedOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 image_pixels */ 1:
+                case /* int64 image_pixels */ 381831881:
                     message.imagePixels = reader.int64().toString();
                     break;
-                case /* string model */ 2:
+                case /* string model */ 277571167:
                     message.model = reader.string();
                     break;
-                case /* int64 text_tokens */ 3:
+                case /* int64 text_tokens */ 294608765:
                     message.textTokens = reader.int64().toString();
                     break;
-                case /* int64 total_tokens */ 4:
+                case /* int64 total_tokens */ 20838375:
                     message.totalTokens = reader.int64().toString();
                     break;
-                case /* repeated double vectors */ 5:
+                case /* repeated double vectors */ 119073254:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
                             message.vectors.push(reader.double());
@@ -187,25 +187,25 @@ class MultimodalEmbedOutput$Type extends MessageType<MultimodalEmbedOutput> {
         return message;
     }
     internalBinaryWrite(message: MultimodalEmbedOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 image_pixels = 1; */
-        if (message.imagePixels !== "0")
-            writer.tag(1, WireType.Varint).int64(message.imagePixels);
-        /* string model = 2; */
-        if (message.model !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.model);
-        /* int64 text_tokens = 3; */
-        if (message.textTokens !== "0")
-            writer.tag(3, WireType.Varint).int64(message.textTokens);
-        /* int64 total_tokens = 4; */
+        /* int64 total_tokens = 20838375; */
         if (message.totalTokens !== "0")
-            writer.tag(4, WireType.Varint).int64(message.totalTokens);
-        /* repeated double vectors = 5; */
+            writer.tag(20838375, WireType.Varint).int64(message.totalTokens);
+        /* repeated double vectors = 119073254; */
         if (message.vectors.length) {
-            writer.tag(5, WireType.LengthDelimited).fork();
+            writer.tag(119073254, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.vectors.length; i++)
                 writer.double(message.vectors[i]);
             writer.join();
         }
+        /* string model = 277571167; */
+        if (message.model !== "")
+            writer.tag(277571167, WireType.LengthDelimited).string(message.model);
+        /* int64 text_tokens = 294608765; */
+        if (message.textTokens !== "0")
+            writer.tag(294608765, WireType.Varint).int64(message.textTokens);
+        /* int64 image_pixels = 381831881; */
+        if (message.imagePixels !== "0")
+            writer.tag(381831881, WireType.Varint).int64(message.imagePixels);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

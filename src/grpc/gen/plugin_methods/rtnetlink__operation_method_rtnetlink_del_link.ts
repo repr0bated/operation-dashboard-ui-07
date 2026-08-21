@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DelLinkInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -26,12 +26,16 @@ export interface DelLinkInput {
  * @generated from protobuf message operation.method.rtnetlink.del_link.DelLinkOutput
  */
 export interface DelLinkOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DelLinkInput$Type extends MessageType<DelLinkInput> {
     constructor() {
         super("operation.method.rtnetlink.del_link.DelLinkInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DelLinkInput>): DelLinkInput {
@@ -46,7 +50,7 @@ class DelLinkInput$Type extends MessageType<DelLinkInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class DelLinkInput$Type extends MessageType<DelLinkInput> {
         return message;
     }
     internalBinaryWrite(message: DelLinkInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const DelLinkInput = new DelLinkInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DelLinkOutput$Type extends MessageType<DelLinkOutput> {
     constructor() {
-        super("operation.method.rtnetlink.del_link.DelLinkOutput", []);
+        super("operation.method.rtnetlink.del_link.DelLinkOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DelLinkOutput>): DelLinkOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DelLinkOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class DelLinkOutput$Type extends MessageType<DelLinkOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class DelLinkOutput$Type extends MessageType<DelLinkOutput> {
         return message;
     }
     internalBinaryWrite(message: DelLinkOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

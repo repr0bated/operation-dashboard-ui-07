@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface GetStatusInput {
     /**
-     * @generated from protobuf field: string interface_name = 1
+     * @generated from protobuf field: string interface_name = 518035138
      */
     interfaceName: string;
     /**
-     * @generated from protobuf field: string wireguard_plugin = 2
+     * @generated from protobuf field: string wireguard_plugin = 248561077
      */
     wireguardPlugin: string;
 }
@@ -32,31 +32,31 @@ export interface GetStatusInput {
  */
 export interface GetStatusOutput {
     /**
-     * @generated from protobuf field: string config_path = 1
+     * @generated from protobuf field: string config_path = 107209538
      */
     configPath: string;
     /**
-     * @generated from protobuf field: repeated string excluded_plugins = 2
+     * @generated from protobuf field: repeated string excluded_plugins = 309602586
      */
     excludedPlugins: string[];
     /**
-     * @generated from protobuf field: string identity_role = 3
+     * @generated from protobuf field: string identity_role = 461786074
      */
     identityRole: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value interface = 4
+     * @generated from protobuf field: google.protobuf.Value interface = 82465076
      */
     interface?: Value;
     /**
-     * @generated from protobuf field: string netmaker_plugin = 5
+     * @generated from protobuf field: string netmaker_plugin = 433012804
      */
     netmakerPlugin: string;
     /**
-     * @generated from protobuf field: repeated string route_targets = 6
+     * @generated from protobuf field: repeated string route_targets = 7820643
      */
     routeTargets: string[];
     /**
-     * @generated from protobuf field: string wireguard_plugin = 7
+     * @generated from protobuf field: string wireguard_plugin = 248561077
      */
     wireguardPlugin: string;
 }
@@ -64,8 +64,8 @@ export interface GetStatusOutput {
 class GetStatusInput$Type extends MessageType<GetStatusInput> {
     constructor() {
         super("operation.method.wg_opdbus.get_status.GetStatusInput", [
-            { no: 1, name: "interface_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "wireguard_plugin", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 518035138, name: "interface_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 248561077, name: "wireguard_plugin", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetStatusInput>): GetStatusInput {
@@ -81,10 +81,10 @@ class GetStatusInput$Type extends MessageType<GetStatusInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string interface_name */ 1:
+                case /* string interface_name */ 518035138:
                     message.interfaceName = reader.string();
                     break;
-                case /* string wireguard_plugin */ 2:
+                case /* string wireguard_plugin */ 248561077:
                     message.wireguardPlugin = reader.string();
                     break;
                 default:
@@ -99,12 +99,12 @@ class GetStatusInput$Type extends MessageType<GetStatusInput> {
         return message;
     }
     internalBinaryWrite(message: GetStatusInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string interface_name = 1; */
-        if (message.interfaceName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.interfaceName);
-        /* string wireguard_plugin = 2; */
+        /* string wireguard_plugin = 248561077; */
         if (message.wireguardPlugin !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.wireguardPlugin);
+            writer.tag(248561077, WireType.LengthDelimited).string(message.wireguardPlugin);
+        /* string interface_name = 518035138; */
+        if (message.interfaceName !== "")
+            writer.tag(518035138, WireType.LengthDelimited).string(message.interfaceName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -119,13 +119,13 @@ export const GetStatusInput = new GetStatusInput$Type();
 class GetStatusOutput$Type extends MessageType<GetStatusOutput> {
     constructor() {
         super("operation.method.wg_opdbus.get_status.GetStatusOutput", [
-            { no: 1, name: "config_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "excluded_plugins", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "identity_role", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "interface", kind: "message", T: () => Value },
-            { no: 5, name: "netmaker_plugin", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "route_targets", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 7, name: "wireguard_plugin", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 107209538, name: "config_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 309602586, name: "excluded_plugins", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 461786074, name: "identity_role", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 82465076, name: "interface", kind: "message", T: () => Value },
+            { no: 433012804, name: "netmaker_plugin", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 7820643, name: "route_targets", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 248561077, name: "wireguard_plugin", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetStatusOutput>): GetStatusOutput {
@@ -145,25 +145,25 @@ class GetStatusOutput$Type extends MessageType<GetStatusOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string config_path */ 1:
+                case /* string config_path */ 107209538:
                     message.configPath = reader.string();
                     break;
-                case /* repeated string excluded_plugins */ 2:
+                case /* repeated string excluded_plugins */ 309602586:
                     message.excludedPlugins.push(reader.string());
                     break;
-                case /* string identity_role */ 3:
+                case /* string identity_role */ 461786074:
                     message.identityRole = reader.string();
                     break;
-                case /* google.protobuf.Value interface */ 4:
+                case /* google.protobuf.Value interface */ 82465076:
                     message.interface = Value.internalBinaryRead(reader, reader.uint32(), options, message.interface);
                     break;
-                case /* string netmaker_plugin */ 5:
+                case /* string netmaker_plugin */ 433012804:
                     message.netmakerPlugin = reader.string();
                     break;
-                case /* repeated string route_targets */ 6:
+                case /* repeated string route_targets */ 7820643:
                     message.routeTargets.push(reader.string());
                     break;
-                case /* string wireguard_plugin */ 7:
+                case /* string wireguard_plugin */ 248561077:
                     message.wireguardPlugin = reader.string();
                     break;
                 default:
@@ -178,27 +178,27 @@ class GetStatusOutput$Type extends MessageType<GetStatusOutput> {
         return message;
     }
     internalBinaryWrite(message: GetStatusOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string config_path = 1; */
-        if (message.configPath !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.configPath);
-        /* repeated string excluded_plugins = 2; */
-        for (let i = 0; i < message.excludedPlugins.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.excludedPlugins[i]);
-        /* string identity_role = 3; */
-        if (message.identityRole !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.identityRole);
-        /* google.protobuf.Value interface = 4; */
-        if (message.interface)
-            Value.internalBinaryWrite(message.interface, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
-        /* string netmaker_plugin = 5; */
-        if (message.netmakerPlugin !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.netmakerPlugin);
-        /* repeated string route_targets = 6; */
+        /* repeated string route_targets = 7820643; */
         for (let i = 0; i < message.routeTargets.length; i++)
-            writer.tag(6, WireType.LengthDelimited).string(message.routeTargets[i]);
-        /* string wireguard_plugin = 7; */
+            writer.tag(7820643, WireType.LengthDelimited).string(message.routeTargets[i]);
+        /* google.protobuf.Value interface = 82465076; */
+        if (message.interface)
+            Value.internalBinaryWrite(message.interface, writer.tag(82465076, WireType.LengthDelimited).fork(), options).join();
+        /* string config_path = 107209538; */
+        if (message.configPath !== "")
+            writer.tag(107209538, WireType.LengthDelimited).string(message.configPath);
+        /* string wireguard_plugin = 248561077; */
         if (message.wireguardPlugin !== "")
-            writer.tag(7, WireType.LengthDelimited).string(message.wireguardPlugin);
+            writer.tag(248561077, WireType.LengthDelimited).string(message.wireguardPlugin);
+        /* repeated string excluded_plugins = 309602586; */
+        for (let i = 0; i < message.excludedPlugins.length; i++)
+            writer.tag(309602586, WireType.LengthDelimited).string(message.excludedPlugins[i]);
+        /* string netmaker_plugin = 433012804; */
+        if (message.netmakerPlugin !== "")
+            writer.tag(433012804, WireType.LengthDelimited).string(message.netmakerPlugin);
+        /* string identity_role = 461786074; */
+        if (message.identityRole !== "")
+            writer.tag(461786074, WireType.LengthDelimited).string(message.identityRole);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

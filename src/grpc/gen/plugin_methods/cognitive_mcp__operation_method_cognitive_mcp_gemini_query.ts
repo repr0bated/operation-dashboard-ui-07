@@ -25,11 +25,11 @@ export interface GeminiQueryInput {
  */
 export interface GeminiQueryOutput {
     /**
-     * @generated from protobuf field: repeated string citations = 1
+     * @generated from protobuf field: repeated string citations = 185025707
      */
     citations: string[];
     /**
-     * @generated from protobuf field: string response = 2
+     * @generated from protobuf field: string response = 425574880
      */
     response: string;
 }
@@ -75,8 +75,8 @@ export const GeminiQueryInput = new GeminiQueryInput$Type();
 class GeminiQueryOutput$Type extends MessageType<GeminiQueryOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.gemini_query.GeminiQueryOutput", [
-            { no: 1, name: "citations", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "response", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 185025707, name: "citations", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 425574880, name: "response", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GeminiQueryOutput>): GeminiQueryOutput {
@@ -92,10 +92,10 @@ class GeminiQueryOutput$Type extends MessageType<GeminiQueryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string citations */ 1:
+                case /* repeated string citations */ 185025707:
                     message.citations.push(reader.string());
                     break;
-                case /* string response */ 2:
+                case /* string response */ 425574880:
                     message.response = reader.string();
                     break;
                 default:
@@ -110,12 +110,12 @@ class GeminiQueryOutput$Type extends MessageType<GeminiQueryOutput> {
         return message;
     }
     internalBinaryWrite(message: GeminiQueryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string citations = 1; */
+        /* repeated string citations = 185025707; */
         for (let i = 0; i < message.citations.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.citations[i]);
-        /* string response = 2; */
+            writer.tag(185025707, WireType.LengthDelimited).string(message.citations[i]);
+        /* string response = 425574880; */
         if (message.response !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.response);
+            writer.tag(425574880, WireType.LengthDelimited).string(message.response);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

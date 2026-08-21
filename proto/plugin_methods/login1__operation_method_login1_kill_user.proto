@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message KillUserInput {
-  int64 signal_number = 1;
-  int64 uid = 2;
+  int64 signal_number = 230647920;
+  int64 uid = 482862799;
 }
 
-message KillUserOutput {}
+message KillUserOutput {
+  bool success = 442482449;
+}
 
 service KillUserService {
   // subid: mut.software.login1.user.kill@v1, capability: login1.admin

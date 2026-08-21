@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface SetConfigInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value config = 1
+     * @generated from protobuf field: google.protobuf.Value config = 67069640
      */
     config?: Value;
 }
@@ -28,11 +28,11 @@ export interface SetConfigInput {
  */
 export interface SetConfigOutput {
     /**
-     * @generated from protobuf field: bool accepted = 1
+     * @generated from protobuf field: bool accepted = 465580352
      */
     accepted: boolean;
     /**
-     * @generated from protobuf field: google.protobuf.Value config = 2
+     * @generated from protobuf field: google.protobuf.Value config = 67069640
      */
     config?: Value;
 }
@@ -40,7 +40,7 @@ export interface SetConfigOutput {
 class SetConfigInput$Type extends MessageType<SetConfigInput> {
     constructor() {
         super("operation.method.json_render.set_config.SetConfigInput", [
-            { no: 1, name: "config", kind: "message", T: () => Value }
+            { no: 67069640, name: "config", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<SetConfigInput>): SetConfigInput {
@@ -54,7 +54,7 @@ class SetConfigInput$Type extends MessageType<SetConfigInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value config */ 1:
+                case /* google.protobuf.Value config */ 67069640:
                     message.config = Value.internalBinaryRead(reader, reader.uint32(), options, message.config);
                     break;
                 default:
@@ -69,9 +69,9 @@ class SetConfigInput$Type extends MessageType<SetConfigInput> {
         return message;
     }
     internalBinaryWrite(message: SetConfigInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value config = 1; */
+        /* google.protobuf.Value config = 67069640; */
         if (message.config)
-            Value.internalBinaryWrite(message.config, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.config, writer.tag(67069640, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -86,8 +86,8 @@ export const SetConfigInput = new SetConfigInput$Type();
 class SetConfigOutput$Type extends MessageType<SetConfigOutput> {
     constructor() {
         super("operation.method.json_render.set_config.SetConfigOutput", [
-            { no: 1, name: "accepted", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "config", kind: "message", T: () => Value }
+            { no: 465580352, name: "accepted", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 67069640, name: "config", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<SetConfigOutput>): SetConfigOutput {
@@ -102,10 +102,10 @@ class SetConfigOutput$Type extends MessageType<SetConfigOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool accepted */ 1:
+                case /* bool accepted */ 465580352:
                     message.accepted = reader.bool();
                     break;
-                case /* google.protobuf.Value config */ 2:
+                case /* google.protobuf.Value config */ 67069640:
                     message.config = Value.internalBinaryRead(reader, reader.uint32(), options, message.config);
                     break;
                 default:
@@ -120,12 +120,12 @@ class SetConfigOutput$Type extends MessageType<SetConfigOutput> {
         return message;
     }
     internalBinaryWrite(message: SetConfigOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool accepted = 1; */
-        if (message.accepted !== false)
-            writer.tag(1, WireType.Varint).bool(message.accepted);
-        /* google.protobuf.Value config = 2; */
+        /* google.protobuf.Value config = 67069640; */
         if (message.config)
-            Value.internalBinaryWrite(message.config, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.config, writer.tag(67069640, WireType.LengthDelimited).fork(), options).join();
+        /* bool accepted = 465580352; */
+        if (message.accepted !== false)
+            writer.tag(465580352, WireType.Varint).bool(message.accepted);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

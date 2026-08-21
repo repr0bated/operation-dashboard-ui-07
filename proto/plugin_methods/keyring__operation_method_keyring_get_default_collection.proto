@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.keyring.get_default_collection;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetDefaultCollectionInput {
+  // Empty schema object.
+}
+
+message GetDefaultCollectionOutput {
+  string default_collection = 89217292;
+}
+
+service GetDefaultCollectionService {
+  // subid: obs.security.plugin.keyring.default-collection.get@v1, capability: keyring.read
+  rpc get_default_collection(GetDefaultCollectionInput) returns (GetDefaultCollectionOutput);
+}

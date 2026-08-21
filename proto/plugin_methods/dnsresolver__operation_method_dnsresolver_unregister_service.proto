@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message UnregisterServiceInput {
-  string service_path = 1;
+  string service_path = 85978049;
 }
 
-message UnregisterServiceOutput {}
+message UnregisterServiceOutput {
+  bool success = 442482449;
+}
 
 service UnregisterServiceService {
   // subid: mut.software.dnsresolver.service.unregister@v1, capability: dnsresolver.write

@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CreateInput {
     /**
-     * @generated from protobuf field: string bundle_path = 1
+     * @generated from protobuf field: string bundle_path = 8027974
      */
     bundlePath: string;
     /**
-     * @generated from protobuf field: string id = 2
+     * @generated from protobuf field: string id = 389573345
      */
     id: string;
 }
@@ -30,13 +30,17 @@ export interface CreateInput {
  * @generated from protobuf message operation.method.oci.create.CreateOutput
  */
 export interface CreateOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateInput$Type extends MessageType<CreateInput> {
     constructor() {
         super("operation.method.oci.create.CreateInput", [
-            { no: 1, name: "bundle_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 8027974, name: "bundle_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 389573345, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CreateInput>): CreateInput {
@@ -52,10 +56,10 @@ class CreateInput$Type extends MessageType<CreateInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string bundle_path */ 1:
+                case /* string bundle_path */ 8027974:
                     message.bundlePath = reader.string();
                     break;
-                case /* string id */ 2:
+                case /* string id */ 389573345:
                     message.id = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class CreateInput$Type extends MessageType<CreateInput> {
         return message;
     }
     internalBinaryWrite(message: CreateInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string bundle_path = 1; */
+        /* string bundle_path = 8027974; */
         if (message.bundlePath !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.bundlePath);
-        /* string id = 2; */
+            writer.tag(8027974, WireType.LengthDelimited).string(message.bundlePath);
+        /* string id = 389573345; */
         if (message.id !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.id);
+            writer.tag(389573345, WireType.LengthDelimited).string(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const CreateInput = new CreateInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateOutput$Type extends MessageType<CreateOutput> {
     constructor() {
-        super("operation.method.oci.create.CreateOutput", []);
+        super("operation.method.oci.create.CreateOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateOutput>): CreateOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class CreateOutput$Type extends MessageType<CreateOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class CreateOutput$Type extends MessageType<CreateOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

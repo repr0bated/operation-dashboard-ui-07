@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CreateSubvolumeInput {
     /**
-     * @generated from protobuf field: string path = 1
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
 }
@@ -26,12 +26,16 @@ export interface CreateSubvolumeInput {
  * @generated from protobuf message operation.method.btrfs.create_subvolume.CreateSubvolumeOutput
  */
 export interface CreateSubvolumeOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateSubvolumeInput$Type extends MessageType<CreateSubvolumeInput> {
     constructor() {
         super("operation.method.btrfs.create_subvolume.CreateSubvolumeInput", [
-            { no: 1, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CreateSubvolumeInput>): CreateSubvolumeInput {
@@ -46,7 +50,7 @@ class CreateSubvolumeInput$Type extends MessageType<CreateSubvolumeInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string path */ 1:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class CreateSubvolumeInput$Type extends MessageType<CreateSubvolumeInput> {
         return message;
     }
     internalBinaryWrite(message: CreateSubvolumeInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string path = 1; */
+        /* string path = 75975994; */
         if (message.path !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.path);
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const CreateSubvolumeInput = new CreateSubvolumeInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateSubvolumeOutput$Type extends MessageType<CreateSubvolumeOutput> {
     constructor() {
-        super("operation.method.btrfs.create_subvolume.CreateSubvolumeOutput", []);
+        super("operation.method.btrfs.create_subvolume.CreateSubvolumeOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateSubvolumeOutput>): CreateSubvolumeOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateSubvolumeOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class CreateSubvolumeOutput$Type extends MessageType<CreateSubvolumeOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class CreateSubvolumeOutput$Type extends MessageType<CreateSubvolumeOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateSubvolumeOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

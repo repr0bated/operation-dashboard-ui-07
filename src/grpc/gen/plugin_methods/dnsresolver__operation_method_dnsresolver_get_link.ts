@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetLinkInput {
     /**
-     * @generated from protobuf field: int64 ifindex = 1
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
 }
@@ -26,12 +26,16 @@ export interface GetLinkInput {
  * @generated from protobuf message operation.method.dnsresolver.get_link.GetLinkOutput
  */
 export interface GetLinkOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetLinkInput$Type extends MessageType<GetLinkInput> {
     constructor() {
         super("operation.method.dnsresolver.get_link.GetLinkInput", [
-            { no: 1, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<GetLinkInput>): GetLinkInput {
@@ -46,7 +50,7 @@ class GetLinkInput$Type extends MessageType<GetLinkInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 ifindex */ 1:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetLinkInput$Type extends MessageType<GetLinkInput> {
         return message;
     }
     internalBinaryWrite(message: GetLinkInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 ifindex = 1; */
+        /* int64 ifindex = 394788143; */
         if (message.ifindex !== "0")
-            writer.tag(1, WireType.Varint).int64(message.ifindex);
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetLinkInput = new GetLinkInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetLinkOutput$Type extends MessageType<GetLinkOutput> {
     constructor() {
-        super("operation.method.dnsresolver.get_link.GetLinkOutput", []);
+        super("operation.method.dnsresolver.get_link.GetLinkOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetLinkOutput>): GetLinkOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetLinkOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetLinkOutput$Type extends MessageType<GetLinkOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetLinkOutput$Type extends MessageType<GetLinkOutput> {
         return message;
     }
     internalBinaryWrite(message: GetLinkOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -26,7 +26,7 @@ export interface GetObjectInput {
  */
 export interface GetObjectOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value object = 1
+     * @generated from protobuf field: google.protobuf.Value object = 415632575
      */
     object?: Value;
 }
@@ -72,7 +72,7 @@ export const GetObjectInput = new GetObjectInput$Type();
 class GetObjectOutput$Type extends MessageType<GetObjectOutput> {
     constructor() {
         super("operation.method.datastore.get_object.GetObjectOutput", [
-            { no: 1, name: "object", kind: "message", T: () => Value }
+            { no: 415632575, name: "object", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetObjectOutput>): GetObjectOutput {
@@ -86,7 +86,7 @@ class GetObjectOutput$Type extends MessageType<GetObjectOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value object */ 1:
+                case /* google.protobuf.Value object */ 415632575:
                     message.object = Value.internalBinaryRead(reader, reader.uint32(), options, message.object);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetObjectOutput$Type extends MessageType<GetObjectOutput> {
         return message;
     }
     internalBinaryWrite(message: GetObjectOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value object = 1; */
+        /* google.protobuf.Value object = 415632575; */
         if (message.object)
-            Value.internalBinaryWrite(message.object, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.object, writer.tag(415632575, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

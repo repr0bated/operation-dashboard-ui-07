@@ -25,23 +25,23 @@ export interface GetHealthInput {
  */
 export interface GetHealthOutput {
     /**
-     * @generated from protobuf field: string auth_status = 1
+     * @generated from protobuf field: string auth_status = 55405750
      */
     authStatus: string;
     /**
-     * @generated from protobuf field: bool healthy = 2
+     * @generated from protobuf field: bool healthy = 398367300
      */
     healthy: boolean;
     /**
-     * @generated from protobuf field: int64 queries_limit = 3
+     * @generated from protobuf field: int64 queries_limit = 228527881
      */
     queriesLimit: string;
     /**
-     * @generated from protobuf field: int64 queries_remaining = 4
+     * @generated from protobuf field: int64 queries_remaining = 170100976
      */
     queriesRemaining: string;
     /**
-     * @generated from protobuf field: bool running = 5
+     * @generated from protobuf field: bool running = 343848780
      */
     running: boolean;
 }
@@ -87,11 +87,11 @@ export const GetHealthInput = new GetHealthInput$Type();
 class GetHealthOutput$Type extends MessageType<GetHealthOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.get_health.GetHealthOutput", [
-            { no: 1, name: "auth_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "queries_limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "queries_remaining", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "running", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 55405750, name: "auth_status", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 398367300, name: "healthy", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 228527881, name: "queries_limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 170100976, name: "queries_remaining", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 343848780, name: "running", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<GetHealthOutput>): GetHealthOutput {
@@ -110,19 +110,19 @@ class GetHealthOutput$Type extends MessageType<GetHealthOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string auth_status */ 1:
+                case /* string auth_status */ 55405750:
                     message.authStatus = reader.string();
                     break;
-                case /* bool healthy */ 2:
+                case /* bool healthy */ 398367300:
                     message.healthy = reader.bool();
                     break;
-                case /* int64 queries_limit */ 3:
+                case /* int64 queries_limit */ 228527881:
                     message.queriesLimit = reader.int64().toString();
                     break;
-                case /* int64 queries_remaining */ 4:
+                case /* int64 queries_remaining */ 170100976:
                     message.queriesRemaining = reader.int64().toString();
                     break;
-                case /* bool running */ 5:
+                case /* bool running */ 343848780:
                     message.running = reader.bool();
                     break;
                 default:
@@ -137,21 +137,21 @@ class GetHealthOutput$Type extends MessageType<GetHealthOutput> {
         return message;
     }
     internalBinaryWrite(message: GetHealthOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string auth_status = 1; */
+        /* string auth_status = 55405750; */
         if (message.authStatus !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.authStatus);
-        /* bool healthy = 2; */
-        if (message.healthy !== false)
-            writer.tag(2, WireType.Varint).bool(message.healthy);
-        /* int64 queries_limit = 3; */
-        if (message.queriesLimit !== "0")
-            writer.tag(3, WireType.Varint).int64(message.queriesLimit);
-        /* int64 queries_remaining = 4; */
+            writer.tag(55405750, WireType.LengthDelimited).string(message.authStatus);
+        /* int64 queries_remaining = 170100976; */
         if (message.queriesRemaining !== "0")
-            writer.tag(4, WireType.Varint).int64(message.queriesRemaining);
-        /* bool running = 5; */
+            writer.tag(170100976, WireType.Varint).int64(message.queriesRemaining);
+        /* int64 queries_limit = 228527881; */
+        if (message.queriesLimit !== "0")
+            writer.tag(228527881, WireType.Varint).int64(message.queriesLimit);
+        /* bool running = 343848780; */
         if (message.running !== false)
-            writer.tag(5, WireType.Varint).bool(message.running);
+            writer.tag(343848780, WireType.Varint).bool(message.running);
+        /* bool healthy = 398367300; */
+        if (message.healthy !== false)
+            writer.tag(398367300, WireType.Varint).bool(message.healthy);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

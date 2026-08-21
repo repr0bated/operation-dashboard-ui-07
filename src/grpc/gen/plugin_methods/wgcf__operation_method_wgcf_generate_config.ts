@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GenerateConfigInput {
     /**
-     * @generated from protobuf field: repeated string dns = 1
+     * @generated from protobuf field: repeated string dns = 443214018
      */
     dns: string[];
     /**
-     * @generated from protobuf field: string interface = 2
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
 }
@@ -30,13 +30,17 @@ export interface GenerateConfigInput {
  * @generated from protobuf message operation.method.wgcf.generate_config.GenerateConfigOutput
  */
 export interface GenerateConfigOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GenerateConfigInput$Type extends MessageType<GenerateConfigInput> {
     constructor() {
         super("operation.method.wgcf.generate_config.GenerateConfigInput", [
-            { no: 1, name: "dns", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 443214018, name: "dns", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GenerateConfigInput>): GenerateConfigInput {
@@ -52,10 +56,10 @@ class GenerateConfigInput$Type extends MessageType<GenerateConfigInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string dns */ 1:
+                case /* repeated string dns */ 443214018:
                     message.dns.push(reader.string());
                     break;
-                case /* string interface */ 2:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class GenerateConfigInput$Type extends MessageType<GenerateConfigInput> {
         return message;
     }
     internalBinaryWrite(message: GenerateConfigInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string dns = 1; */
-        for (let i = 0; i < message.dns.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.dns[i]);
-        /* string interface = 2; */
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.interface);
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
+        /* repeated string dns = 443214018; */
+        for (let i = 0; i < message.dns.length; i++)
+            writer.tag(443214018, WireType.LengthDelimited).string(message.dns[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const GenerateConfigInput = new GenerateConfigInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GenerateConfigOutput$Type extends MessageType<GenerateConfigOutput> {
     constructor() {
-        super("operation.method.wgcf.generate_config.GenerateConfigOutput", []);
+        super("operation.method.wgcf.generate_config.GenerateConfigOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GenerateConfigOutput>): GenerateConfigOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GenerateConfigOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class GenerateConfigOutput$Type extends MessageType<GenerateConfigOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class GenerateConfigOutput$Type extends MessageType<GenerateConfigOutput> {
         return message;
     }
     internalBinaryWrite(message: GenerateConfigOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

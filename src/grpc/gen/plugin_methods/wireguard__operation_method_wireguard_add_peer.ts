@@ -18,27 +18,27 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AddPeerInput {
     /**
-     * @generated from protobuf field: repeated string allowed_ips = 1
+     * @generated from protobuf field: repeated string allowed_ips = 176057496
      */
     allowedIps: string[];
     /**
-     * @generated from protobuf field: string endpoint = 2
+     * @generated from protobuf field: string endpoint = 414707842
      */
     endpoint: string;
     /**
-     * @generated from protobuf field: string interface = 3
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
     /**
-     * @generated from protobuf field: int64 persistent_keepalive = 4
+     * @generated from protobuf field: int64 persistent_keepalive = 527532213
      */
     persistentKeepalive: string;
     /**
-     * @generated from protobuf field: string preshared_key = 5
+     * @generated from protobuf field: string preshared_key = 227710604
      */
     presharedKey: string;
     /**
-     * @generated from protobuf field: string public_key = 6
+     * @generated from protobuf field: string public_key = 411046603
      */
     publicKey: string;
 }
@@ -46,17 +46,21 @@ export interface AddPeerInput {
  * @generated from protobuf message operation.method.wireguard.add_peer.AddPeerOutput
  */
 export interface AddPeerOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddPeerInput$Type extends MessageType<AddPeerInput> {
     constructor() {
         super("operation.method.wireguard.add_peer.AddPeerInput", [
-            { no: 1, name: "allowed_ips", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "persistent_keepalive", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "preshared_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 176057496, name: "allowed_ips", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 414707842, name: "endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 527532213, name: "persistent_keepalive", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 227710604, name: "preshared_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 411046603, name: "public_key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AddPeerInput>): AddPeerInput {
@@ -76,22 +80,22 @@ class AddPeerInput$Type extends MessageType<AddPeerInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string allowed_ips */ 1:
+                case /* repeated string allowed_ips */ 176057496:
                     message.allowedIps.push(reader.string());
                     break;
-                case /* string endpoint */ 2:
+                case /* string endpoint */ 414707842:
                     message.endpoint = reader.string();
                     break;
-                case /* string interface */ 3:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
-                case /* int64 persistent_keepalive */ 4:
+                case /* int64 persistent_keepalive */ 527532213:
                     message.persistentKeepalive = reader.int64().toString();
                     break;
-                case /* string preshared_key */ 5:
+                case /* string preshared_key */ 227710604:
                     message.presharedKey = reader.string();
                     break;
-                case /* string public_key */ 6:
+                case /* string public_key */ 411046603:
                     message.publicKey = reader.string();
                     break;
                 default:
@@ -106,24 +110,24 @@ class AddPeerInput$Type extends MessageType<AddPeerInput> {
         return message;
     }
     internalBinaryWrite(message: AddPeerInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string allowed_ips = 1; */
-        for (let i = 0; i < message.allowedIps.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.allowedIps[i]);
-        /* string endpoint = 2; */
-        if (message.endpoint !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.endpoint);
-        /* string interface = 3; */
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.interface);
-        /* int64 persistent_keepalive = 4; */
-        if (message.persistentKeepalive !== "0")
-            writer.tag(4, WireType.Varint).int64(message.persistentKeepalive);
-        /* string preshared_key = 5; */
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
+        /* repeated string allowed_ips = 176057496; */
+        for (let i = 0; i < message.allowedIps.length; i++)
+            writer.tag(176057496, WireType.LengthDelimited).string(message.allowedIps[i]);
+        /* string preshared_key = 227710604; */
         if (message.presharedKey !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.presharedKey);
-        /* string public_key = 6; */
+            writer.tag(227710604, WireType.LengthDelimited).string(message.presharedKey);
+        /* string public_key = 411046603; */
         if (message.publicKey !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.publicKey);
+            writer.tag(411046603, WireType.LengthDelimited).string(message.publicKey);
+        /* string endpoint = 414707842; */
+        if (message.endpoint !== "")
+            writer.tag(414707842, WireType.LengthDelimited).string(message.endpoint);
+        /* int64 persistent_keepalive = 527532213; */
+        if (message.persistentKeepalive !== "0")
+            writer.tag(527532213, WireType.Varint).int64(message.persistentKeepalive);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -137,10 +141,13 @@ export const AddPeerInput = new AddPeerInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddPeerOutput$Type extends MessageType<AddPeerOutput> {
     constructor() {
-        super("operation.method.wireguard.add_peer.AddPeerOutput", []);
+        super("operation.method.wireguard.add_peer.AddPeerOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddPeerOutput>): AddPeerOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddPeerOutput>(this, message, value);
         return message;
@@ -150,6 +157,9 @@ class AddPeerOutput$Type extends MessageType<AddPeerOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -162,6 +172,9 @@ class AddPeerOutput$Type extends MessageType<AddPeerOutput> {
         return message;
     }
     internalBinaryWrite(message: AddPeerOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

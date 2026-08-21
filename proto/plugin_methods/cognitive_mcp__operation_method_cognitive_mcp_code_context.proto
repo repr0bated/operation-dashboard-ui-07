@@ -15,8 +15,8 @@ message CodeContextInput {
 }
 
 message CodeContextOutput {
-  string context = 1;
-  repeated string sources = 2;
+  string context = 210178176;
+  repeated string sources = 303994932;
 }
 
 service CodeContextService {

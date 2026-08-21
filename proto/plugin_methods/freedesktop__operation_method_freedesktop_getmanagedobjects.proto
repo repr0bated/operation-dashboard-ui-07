@@ -14,7 +14,9 @@ message GetManagedObjectsInput {
   // Empty schema object.
 }
 
-message GetManagedObjectsOutput {}
+message GetManagedObjectsOutput {
+  bool success = 442482449;
+}
 
 service GetManagedObjectsService {
   // subid: obs.software.freedesktop.managed_objects.get@v1, capability: freedesktop.read

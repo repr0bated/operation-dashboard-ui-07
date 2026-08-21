@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface GetStatsInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value options = 1
+     * @generated from protobuf field: google.protobuf.Value options = 254307500
      */
     options?: Value;
 }
@@ -28,11 +28,11 @@ export interface GetStatsInput {
  */
 export interface GetStatsOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value stats = 1
+     * @generated from protobuf field: google.protobuf.Value stats = 170990831
      */
     stats?: Value;
     /**
-     * @generated from protobuf field: google.protobuf.Value system_memory = 2
+     * @generated from protobuf field: google.protobuf.Value system_memory = 440298486
      */
     systemMemory?: Value;
 }
@@ -40,7 +40,7 @@ export interface GetStatsOutput {
 class GetStatsInput$Type extends MessageType<GetStatsInput> {
     constructor() {
         super("operation.method.memory.get_stats.GetStatsInput", [
-            { no: 1, name: "options", kind: "message", T: () => Value }
+            { no: 254307500, name: "options", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetStatsInput>): GetStatsInput {
@@ -54,7 +54,7 @@ class GetStatsInput$Type extends MessageType<GetStatsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value options */ 1:
+                case /* google.protobuf.Value options */ 254307500:
                     message.options = Value.internalBinaryRead(reader, reader.uint32(), options, message.options);
                     break;
                 default:
@@ -69,9 +69,9 @@ class GetStatsInput$Type extends MessageType<GetStatsInput> {
         return message;
     }
     internalBinaryWrite(message: GetStatsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value options = 1; */
+        /* google.protobuf.Value options = 254307500; */
         if (message.options)
-            Value.internalBinaryWrite(message.options, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.options, writer.tag(254307500, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -86,8 +86,8 @@ export const GetStatsInput = new GetStatsInput$Type();
 class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
     constructor() {
         super("operation.method.memory.get_stats.GetStatsOutput", [
-            { no: 1, name: "stats", kind: "message", T: () => Value },
-            { no: 2, name: "system_memory", kind: "message", T: () => Value }
+            { no: 170990831, name: "stats", kind: "message", T: () => Value },
+            { no: 440298486, name: "system_memory", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetStatsOutput>): GetStatsOutput {
@@ -101,10 +101,10 @@ class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value stats */ 1:
+                case /* google.protobuf.Value stats */ 170990831:
                     message.stats = Value.internalBinaryRead(reader, reader.uint32(), options, message.stats);
                     break;
-                case /* google.protobuf.Value system_memory */ 2:
+                case /* google.protobuf.Value system_memory */ 440298486:
                     message.systemMemory = Value.internalBinaryRead(reader, reader.uint32(), options, message.systemMemory);
                     break;
                 default:
@@ -119,12 +119,12 @@ class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
         return message;
     }
     internalBinaryWrite(message: GetStatsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value stats = 1; */
+        /* google.protobuf.Value stats = 170990831; */
         if (message.stats)
-            Value.internalBinaryWrite(message.stats, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Value system_memory = 2; */
+            Value.internalBinaryWrite(message.stats, writer.tag(170990831, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Value system_memory = 440298486; */
         if (message.systemMemory)
-            Value.internalBinaryWrite(message.systemMemory, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.systemMemory, writer.tag(440298486, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

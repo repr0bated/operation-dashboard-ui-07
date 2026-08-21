@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AcceptInput {
     /**
-     * @generated from protobuf field: string path = 1
+     * @generated from protobuf field: string path = 75975994
      */
     path: string;
     /**
-     * @generated from protobuf field: int64 timeout_secs = 2
+     * @generated from protobuf field: int64 timeout_secs = 12075462
      */
     timeoutSecs: string;
 }
@@ -30,13 +30,17 @@ export interface AcceptInput {
  * @generated from protobuf message operation.method.unix_socket.accept.AcceptOutput
  */
 export interface AcceptOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AcceptInput$Type extends MessageType<AcceptInput> {
     constructor() {
         super("operation.method.unix_socket.accept.AcceptInput", [
-            { no: 1, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "timeout_secs", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 75975994, name: "path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 12075462, name: "timeout_secs", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<AcceptInput>): AcceptInput {
@@ -52,10 +56,10 @@ class AcceptInput$Type extends MessageType<AcceptInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string path */ 1:
+                case /* string path */ 75975994:
                     message.path = reader.string();
                     break;
-                case /* int64 timeout_secs */ 2:
+                case /* int64 timeout_secs */ 12075462:
                     message.timeoutSecs = reader.int64().toString();
                     break;
                 default:
@@ -70,12 +74,12 @@ class AcceptInput$Type extends MessageType<AcceptInput> {
         return message;
     }
     internalBinaryWrite(message: AcceptInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string path = 1; */
-        if (message.path !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.path);
-        /* int64 timeout_secs = 2; */
+        /* int64 timeout_secs = 12075462; */
         if (message.timeoutSecs !== "0")
-            writer.tag(2, WireType.Varint).int64(message.timeoutSecs);
+            writer.tag(12075462, WireType.Varint).int64(message.timeoutSecs);
+        /* string path = 75975994; */
+        if (message.path !== "")
+            writer.tag(75975994, WireType.LengthDelimited).string(message.path);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const AcceptInput = new AcceptInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AcceptOutput$Type extends MessageType<AcceptOutput> {
     constructor() {
-        super("operation.method.unix_socket.accept.AcceptOutput", []);
+        super("operation.method.unix_socket.accept.AcceptOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AcceptOutput>): AcceptOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AcceptOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class AcceptOutput$Type extends MessageType<AcceptOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class AcceptOutput$Type extends MessageType<AcceptOutput> {
         return message;
     }
     internalBinaryWrite(message: AcceptOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

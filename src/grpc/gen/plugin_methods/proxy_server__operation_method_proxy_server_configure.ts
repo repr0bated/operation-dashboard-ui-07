@@ -18,19 +18,19 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ConfigureInput {
     /**
-     * @generated from protobuf field: bool enabled = 1
+     * @generated from protobuf field: bool enabled = 49525662
      */
     enabled: boolean;
     /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: int64 port = 3
+     * @generated from protobuf field: int64 port = 467931817
      */
     port: string;
     /**
-     * @generated from protobuf field: string upstream = 4
+     * @generated from protobuf field: string upstream = 322273216
      */
     upstream: string;
 }
@@ -38,15 +38,19 @@ export interface ConfigureInput {
  * @generated from protobuf message operation.method.proxy_server.configure.ConfigureOutput
  */
 export interface ConfigureOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ConfigureInput$Type extends MessageType<ConfigureInput> {
     constructor() {
         super("operation.method.proxy_server.configure.ConfigureInput", [
-            { no: 1, name: "enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "port", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "upstream", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 49525662, name: "enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 467931817, name: "port", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 322273216, name: "upstream", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ConfigureInput>): ConfigureInput {
@@ -64,16 +68,16 @@ class ConfigureInput$Type extends MessageType<ConfigureInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool enabled */ 1:
+                case /* bool enabled */ 49525662:
                     message.enabled = reader.bool();
                     break;
-                case /* string name */ 2:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* int64 port */ 3:
+                case /* int64 port */ 467931817:
                     message.port = reader.int64().toString();
                     break;
-                case /* string upstream */ 4:
+                case /* string upstream */ 322273216:
                     message.upstream = reader.string();
                     break;
                 default:
@@ -88,18 +92,18 @@ class ConfigureInput$Type extends MessageType<ConfigureInput> {
         return message;
     }
     internalBinaryWrite(message: ConfigureInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool enabled = 1; */
+        /* bool enabled = 49525662; */
         if (message.enabled !== false)
-            writer.tag(1, WireType.Varint).bool(message.enabled);
-        /* string name = 2; */
+            writer.tag(49525662, WireType.Varint).bool(message.enabled);
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
-        /* int64 port = 3; */
-        if (message.port !== "0")
-            writer.tag(3, WireType.Varint).int64(message.port);
-        /* string upstream = 4; */
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string upstream = 322273216; */
         if (message.upstream !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.upstream);
+            writer.tag(322273216, WireType.LengthDelimited).string(message.upstream);
+        /* int64 port = 467931817; */
+        if (message.port !== "0")
+            writer.tag(467931817, WireType.Varint).int64(message.port);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -113,10 +117,13 @@ export const ConfigureInput = new ConfigureInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ConfigureOutput$Type extends MessageType<ConfigureOutput> {
     constructor() {
-        super("operation.method.proxy_server.configure.ConfigureOutput", []);
+        super("operation.method.proxy_server.configure.ConfigureOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ConfigureOutput>): ConfigureOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ConfigureOutput>(this, message, value);
         return message;
@@ -126,6 +133,9 @@ class ConfigureOutput$Type extends MessageType<ConfigureOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -138,6 +148,9 @@ class ConfigureOutput$Type extends MessageType<ConfigureOutput> {
         return message;
     }
     internalBinaryWrite(message: ConfigureOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

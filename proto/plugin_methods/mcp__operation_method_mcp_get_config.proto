@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package operation.method.mcp.get_config;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetConfigInput {
+  // Empty schema object.
+}
+
+message GetConfigOutput {
+  google.protobuf.Value compact_mode = 500279652;
+  google.protobuf.Struct servers = 270861430;
+  google.protobuf.Value tool_groups = 292252616;
+}
+
+service GetConfigService {
+  // subid: obs.software.plugin.mcp.config.get@v1, capability: mcp.read
+  rpc get_config(GetConfigInput) returns (GetConfigOutput);
+}

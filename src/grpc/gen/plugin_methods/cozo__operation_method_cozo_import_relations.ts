@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ImportRelationsInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value data = 1
+     * @generated from protobuf field: google.protobuf.Value data = 410182315
      */
     data?: Value;
 }
@@ -27,12 +27,16 @@ export interface ImportRelationsInput {
  * @generated from protobuf message operation.method.cozo.import_relations.ImportRelationsOutput
  */
 export interface ImportRelationsOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ImportRelationsInput$Type extends MessageType<ImportRelationsInput> {
     constructor() {
         super("operation.method.cozo.import_relations.ImportRelationsInput", [
-            { no: 1, name: "data", kind: "message", T: () => Value }
+            { no: 410182315, name: "data", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ImportRelationsInput>): ImportRelationsInput {
@@ -46,7 +50,7 @@ class ImportRelationsInput$Type extends MessageType<ImportRelationsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value data */ 1:
+                case /* google.protobuf.Value data */ 410182315:
                     message.data = Value.internalBinaryRead(reader, reader.uint32(), options, message.data);
                     break;
                 default:
@@ -61,9 +65,9 @@ class ImportRelationsInput$Type extends MessageType<ImportRelationsInput> {
         return message;
     }
     internalBinaryWrite(message: ImportRelationsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value data = 1; */
+        /* google.protobuf.Value data = 410182315; */
         if (message.data)
-            Value.internalBinaryWrite(message.data, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.data, writer.tag(410182315, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const ImportRelationsInput = new ImportRelationsInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ImportRelationsOutput$Type extends MessageType<ImportRelationsOutput> {
     constructor() {
-        super("operation.method.cozo.import_relations.ImportRelationsOutput", []);
+        super("operation.method.cozo.import_relations.ImportRelationsOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ImportRelationsOutput>): ImportRelationsOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ImportRelationsOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class ImportRelationsOutput$Type extends MessageType<ImportRelationsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class ImportRelationsOutput$Type extends MessageType<ImportRelationsOutput> {
         return message;
     }
     internalBinaryWrite(message: ImportRelationsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

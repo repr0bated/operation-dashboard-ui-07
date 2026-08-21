@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message RunInput {
-  repeated string args = 1;
-  string name = 2;
+  repeated string args = 487237440;
+  string name = 221887978;
 }
 
-message RunOutput {}
+message RunOutput {
+  bool success = 442482449;
+}
 
 service RunService {
   // subid: mut.service.lifecycle.run@v1, capability: cap.service.lifecycle.run@v1

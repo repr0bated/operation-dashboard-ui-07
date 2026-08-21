@@ -26,7 +26,7 @@ export interface GetSessionInput {
  */
 export interface GetSessionOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value session = 1
+     * @generated from protobuf field: google.protobuf.Value session = 56577277
      */
     session?: Value;
 }
@@ -72,7 +72,7 @@ export const GetSessionInput = new GetSessionInput$Type();
 class GetSessionOutput$Type extends MessageType<GetSessionOutput> {
     constructor() {
         super("operation.method.factory.get_session.GetSessionOutput", [
-            { no: 1, name: "session", kind: "message", T: () => Value }
+            { no: 56577277, name: "session", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetSessionOutput>): GetSessionOutput {
@@ -86,7 +86,7 @@ class GetSessionOutput$Type extends MessageType<GetSessionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value session */ 1:
+                case /* google.protobuf.Value session */ 56577277:
                     message.session = Value.internalBinaryRead(reader, reader.uint32(), options, message.session);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetSessionOutput$Type extends MessageType<GetSessionOutput> {
         return message;
     }
     internalBinaryWrite(message: GetSessionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value session = 1; */
+        /* google.protobuf.Value session = 56577277; */
         if (message.session)
-            Value.internalBinaryWrite(message.session, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.session, writer.tag(56577277, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

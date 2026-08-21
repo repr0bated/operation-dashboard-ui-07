@@ -11,12 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetConfigInput {
-  google.protobuf.Value config = 1;
+  google.protobuf.Value config = 67069640;
 }
 
 message SetConfigOutput {
-  bool accepted = 1;
-  google.protobuf.Value config = 2;
+  bool accepted = 465580352;
+  google.protobuf.Value config = 67069640;
 }
 
 service SetConfigService {

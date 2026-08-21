@@ -19,23 +19,23 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface RunContainerInput {
     /**
-     * @generated from protobuf field: google.protobuf.Struct env = 1
+     * @generated from protobuf field: google.protobuf.Struct env = 411995063
      */
     env?: Struct;
     /**
-     * @generated from protobuf field: string image = 2
+     * @generated from protobuf field: string image = 324089343
      */
     image: string;
     /**
-     * @generated from protobuf field: bool loopback_required = 3
+     * @generated from protobuf field: bool loopback_required = 25983229
      */
     loopbackRequired: boolean;
     /**
-     * @generated from protobuf field: string name = 4
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: bool privileged = 5
+     * @generated from protobuf field: bool privileged = 17523132
      */
     privileged: boolean;
 }
@@ -43,16 +43,20 @@ export interface RunContainerInput {
  * @generated from protobuf message operation.method.oci.run_container.RunContainerOutput
  */
 export interface RunContainerOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RunContainerInput$Type extends MessageType<RunContainerInput> {
     constructor() {
         super("operation.method.oci.run_container.RunContainerInput", [
-            { no: 1, name: "env", kind: "message", T: () => Struct },
-            { no: 2, name: "image", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "loopback_required", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 4, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "privileged", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 411995063, name: "env", kind: "message", T: () => Struct },
+            { no: 324089343, name: "image", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 25983229, name: "loopback_required", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 17523132, name: "privileged", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<RunContainerInput>): RunContainerInput {
@@ -70,19 +74,19 @@ class RunContainerInput$Type extends MessageType<RunContainerInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Struct env */ 1:
+                case /* google.protobuf.Struct env */ 411995063:
                     message.env = Struct.internalBinaryRead(reader, reader.uint32(), options, message.env);
                     break;
-                case /* string image */ 2:
+                case /* string image */ 324089343:
                     message.image = reader.string();
                     break;
-                case /* bool loopback_required */ 3:
+                case /* bool loopback_required */ 25983229:
                     message.loopbackRequired = reader.bool();
                     break;
-                case /* string name */ 4:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* bool privileged */ 5:
+                case /* bool privileged */ 17523132:
                     message.privileged = reader.bool();
                     break;
                 default:
@@ -97,21 +101,21 @@ class RunContainerInput$Type extends MessageType<RunContainerInput> {
         return message;
     }
     internalBinaryWrite(message: RunContainerInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Struct env = 1; */
-        if (message.env)
-            Struct.internalBinaryWrite(message.env, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string image = 2; */
-        if (message.image !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.image);
-        /* bool loopback_required = 3; */
-        if (message.loopbackRequired !== false)
-            writer.tag(3, WireType.Varint).bool(message.loopbackRequired);
-        /* string name = 4; */
-        if (message.name !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.name);
-        /* bool privileged = 5; */
+        /* bool privileged = 17523132; */
         if (message.privileged !== false)
-            writer.tag(5, WireType.Varint).bool(message.privileged);
+            writer.tag(17523132, WireType.Varint).bool(message.privileged);
+        /* bool loopback_required = 25983229; */
+        if (message.loopbackRequired !== false)
+            writer.tag(25983229, WireType.Varint).bool(message.loopbackRequired);
+        /* string name = 221887978; */
+        if (message.name !== "")
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string image = 324089343; */
+        if (message.image !== "")
+            writer.tag(324089343, WireType.LengthDelimited).string(message.image);
+        /* google.protobuf.Struct env = 411995063; */
+        if (message.env)
+            Struct.internalBinaryWrite(message.env, writer.tag(411995063, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -125,10 +129,13 @@ export const RunContainerInput = new RunContainerInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RunContainerOutput$Type extends MessageType<RunContainerOutput> {
     constructor() {
-        super("operation.method.oci.run_container.RunContainerOutput", []);
+        super("operation.method.oci.run_container.RunContainerOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RunContainerOutput>): RunContainerOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RunContainerOutput>(this, message, value);
         return message;
@@ -138,6 +145,9 @@ class RunContainerOutput$Type extends MessageType<RunContainerOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -150,6 +160,9 @@ class RunContainerOutput$Type extends MessageType<RunContainerOutput> {
         return message;
     }
     internalBinaryWrite(message: RunContainerOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

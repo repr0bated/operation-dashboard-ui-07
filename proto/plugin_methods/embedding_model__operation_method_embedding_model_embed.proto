@@ -11,19 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message EmbedInput {
-  google.protobuf.Value encoding_format = 1;
-  google.protobuf.Value input_type = 2;
-  int64 output_dimension = 3;
-  google.protobuf.Value output_dtype = 4;
-  repeated string texts = 5;
-  bool truncation = 6;
+  string input_type = 94319076;
+  repeated string texts = 512574264;
 }
 
 message EmbedOutput {
-  int64 dimensions = 1;
-  string model = 2;
-  int64 total_tokens = 3;
-  repeated double vectors = 4;
+  int64 dimensions = 116965558;
+  string model = 277571167;
+  repeated double vectors = 119073254;
 }
 
 service EmbedService {

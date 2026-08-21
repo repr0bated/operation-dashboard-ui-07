@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.xray.add_inbound;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message AddInboundInput {
+  string protocol = 455607740;
+  string tag = 368519575;
+}
+
+message AddInboundOutput {
+  bool success = 442482449;
+}
+
+service AddInboundService {
+  // subid: mut.software.plugin.xray.inbound.add@v1, capability: xray.write
+  rpc add_inbound(AddInboundInput) returns (AddInboundOutput);
+}

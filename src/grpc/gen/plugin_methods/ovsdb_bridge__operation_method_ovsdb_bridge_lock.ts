@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface LockInput {
     /**
-     * @generated from protobuf field: string lock_id = 1
+     * @generated from protobuf field: string lock_id = 308081002
      */
     lockId: string;
 }
@@ -26,12 +26,16 @@ export interface LockInput {
  * @generated from protobuf message operation.method.ovsdb_bridge.lock.LockOutput
  */
 export interface LockOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class LockInput$Type extends MessageType<LockInput> {
     constructor() {
         super("operation.method.ovsdb_bridge.lock.LockInput", [
-            { no: 1, name: "lock_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 308081002, name: "lock_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<LockInput>): LockInput {
@@ -46,7 +50,7 @@ class LockInput$Type extends MessageType<LockInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string lock_id */ 1:
+                case /* string lock_id */ 308081002:
                     message.lockId = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class LockInput$Type extends MessageType<LockInput> {
         return message;
     }
     internalBinaryWrite(message: LockInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string lock_id = 1; */
+        /* string lock_id = 308081002; */
         if (message.lockId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.lockId);
+            writer.tag(308081002, WireType.LengthDelimited).string(message.lockId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const LockInput = new LockInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class LockOutput$Type extends MessageType<LockOutput> {
     constructor() {
-        super("operation.method.ovsdb_bridge.lock.LockOutput", []);
+        super("operation.method.ovsdb_bridge.lock.LockOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<LockOutput>): LockOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<LockOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class LockOutput$Type extends MessageType<LockOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class LockOutput$Type extends MessageType<LockOutput> {
         return message;
     }
     internalBinaryWrite(message: LockOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

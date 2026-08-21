@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getbrowserdelegateconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetBrowserDelegateConfigInput {
+  // Empty schema object.
+}
+
+message GetBrowserDelegateConfigOutput {
+  google.protobuf.Value config = 67069640;
+}
+
+service GetBrowserDelegateConfigService {
+  // subid: obs.service.3tched-router.browser-delegate-config.get@v1, capability: cap.software.3tched-router.browser-delegate-config.read@v1
+  rpc GetBrowserDelegateConfig(GetBrowserDelegateConfigInput) returns (GetBrowserDelegateConfigOutput);
+}

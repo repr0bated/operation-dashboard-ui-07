@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetNodeInput {
     /**
-     * @generated from protobuf field: string network = 1
+     * @generated from protobuf field: string network = 303597255
      */
     network: string;
     /**
-     * @generated from protobuf field: string node_id = 2
+     * @generated from protobuf field: string node_id = 169140144
      */
     nodeId: string;
 }
@@ -30,13 +30,17 @@ export interface GetNodeInput {
  * @generated from protobuf message operation.method.netmaker.get_node.GetNodeOutput
  */
 export interface GetNodeOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetNodeInput$Type extends MessageType<GetNodeInput> {
     constructor() {
         super("operation.method.netmaker.get_node.GetNodeInput", [
-            { no: 1, name: "network", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "node_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 303597255, name: "network", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 169140144, name: "node_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetNodeInput>): GetNodeInput {
@@ -52,10 +56,10 @@ class GetNodeInput$Type extends MessageType<GetNodeInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string network */ 1:
+                case /* string network */ 303597255:
                     message.network = reader.string();
                     break;
-                case /* string node_id */ 2:
+                case /* string node_id */ 169140144:
                     message.nodeId = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class GetNodeInput$Type extends MessageType<GetNodeInput> {
         return message;
     }
     internalBinaryWrite(message: GetNodeInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string network = 1; */
-        if (message.network !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.network);
-        /* string node_id = 2; */
+        /* string node_id = 169140144; */
         if (message.nodeId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.nodeId);
+            writer.tag(169140144, WireType.LengthDelimited).string(message.nodeId);
+        /* string network = 303597255; */
+        if (message.network !== "")
+            writer.tag(303597255, WireType.LengthDelimited).string(message.network);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const GetNodeInput = new GetNodeInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetNodeOutput$Type extends MessageType<GetNodeOutput> {
     constructor() {
-        super("operation.method.netmaker.get_node.GetNodeOutput", []);
+        super("operation.method.netmaker.get_node.GetNodeOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetNodeOutput>): GetNodeOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetNodeOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class GetNodeOutput$Type extends MessageType<GetNodeOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class GetNodeOutput$Type extends MessageType<GetNodeOutput> {
         return message;
     }
     internalBinaryWrite(message: GetNodeOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

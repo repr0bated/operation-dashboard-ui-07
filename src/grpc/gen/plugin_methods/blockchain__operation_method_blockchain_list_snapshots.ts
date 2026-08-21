@@ -26,7 +26,7 @@ export interface ListSnapshotsInput {
  */
 export interface ListSnapshotsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value snapshots = 1
+     * @generated from protobuf field: repeated google.protobuf.Value snapshots = 494231770
      */
     snapshots: Value[];
 }
@@ -72,7 +72,7 @@ export const ListSnapshotsInput = new ListSnapshotsInput$Type();
 class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
     constructor() {
         super("operation.method.blockchain.list_snapshots.ListSnapshotsOutput", [
-            { no: 1, name: "snapshots", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 494231770, name: "snapshots", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListSnapshotsOutput>): ListSnapshotsOutput {
@@ -87,7 +87,7 @@ class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value snapshots */ 1:
+                case /* repeated google.protobuf.Value snapshots */ 494231770:
                     message.snapshots.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListSnapshotsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value snapshots = 1; */
+        /* repeated google.protobuf.Value snapshots = 494231770; */
         for (let i = 0; i < message.snapshots.length; i++)
-            Value.internalBinaryWrite(message.snapshots[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.snapshots[i], writer.tag(494231770, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

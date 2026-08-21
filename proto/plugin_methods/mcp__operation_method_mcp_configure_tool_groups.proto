@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package operation.method.mcp.configure_tool_groups;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ConfigureToolGroupsInput {
+  string access_zone = 65076975;
+  repeated string enabled = 49525662;
+  int64 max_tools = 96322500;
+  repeated google.protobuf.Value trusted_networks = 380046561;
+}
+
+message ConfigureToolGroupsOutput {
+  google.protobuf.Value compact_mode = 500279652;
+  google.protobuf.Struct servers = 270861430;
+  google.protobuf.Value tool_groups = 292252616;
+}
+
+service ConfigureToolGroupsService {
+  // subid: mut.software.plugin.mcp.tool-groups.configure@v1, capability: mcp.write
+  rpc configure_tool_groups(ConfigureToolGroupsInput) returns (ConfigureToolGroupsOutput);
+}

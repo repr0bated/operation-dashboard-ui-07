@@ -15,7 +15,7 @@ message ListCollectionsInput {
 }
 
 message ListCollectionsOutput {
-  repeated string collections = 1;
+  repeated string collections = 2633677;
 }
 
 service ListCollectionsService {

@@ -11,13 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message ConfigureInput {
-  bool enabled = 1;
-  string name = 2;
-  int64 port = 3;
-  string upstream = 4;
+  bool enabled = 49525662;
+  string name = 221887978;
+  int64 port = 467931817;
+  string upstream = 322273216;
 }
 
-message ConfigureOutput {}
+message ConfigureOutput {
+  bool success = 442482449;
+}
 
 service ConfigureService {
   // subid: mut.network.proxy.configure@v1, capability: cap.network.proxy.configure@v1

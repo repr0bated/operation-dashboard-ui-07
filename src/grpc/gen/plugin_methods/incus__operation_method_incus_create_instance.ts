@@ -20,27 +20,27 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface CreateInstanceInput {
     /**
-     * @generated from protobuf field: google.protobuf.Struct config = 1
+     * @generated from protobuf field: google.protobuf.Struct config = 67069640
      */
     config?: Struct;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value devices = 2
+     * @generated from protobuf field: repeated google.protobuf.Value devices = 17468293
      */
     devices: Value[];
     /**
-     * @generated from protobuf field: string image = 3
+     * @generated from protobuf field: string image = 324089343
      */
     image: string;
     /**
-     * @generated from protobuf field: string instance_type = 4
+     * @generated from protobuf field: string instance_type = 502815733
      */
     instanceType: string;
     /**
-     * @generated from protobuf field: string name = 5
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: repeated string profiles = 6
+     * @generated from protobuf field: repeated string profiles = 115012907
      */
     profiles: string[];
 }
@@ -48,17 +48,21 @@ export interface CreateInstanceInput {
  * @generated from protobuf message operation.method.incus.create_instance.CreateInstanceOutput
  */
 export interface CreateInstanceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateInstanceInput$Type extends MessageType<CreateInstanceInput> {
     constructor() {
         super("operation.method.incus.create_instance.CreateInstanceInput", [
-            { no: 1, name: "config", kind: "message", T: () => Struct },
-            { no: 2, name: "devices", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 3, name: "image", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "instance_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "profiles", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 67069640, name: "config", kind: "message", T: () => Struct },
+            { no: 17468293, name: "devices", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 324089343, name: "image", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 502815733, name: "instance_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 115012907, name: "profiles", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CreateInstanceInput>): CreateInstanceInput {
@@ -77,22 +81,22 @@ class CreateInstanceInput$Type extends MessageType<CreateInstanceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Struct config */ 1:
+                case /* google.protobuf.Struct config */ 67069640:
                     message.config = Struct.internalBinaryRead(reader, reader.uint32(), options, message.config);
                     break;
-                case /* repeated google.protobuf.Value devices */ 2:
+                case /* repeated google.protobuf.Value devices */ 17468293:
                     message.devices.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* string image */ 3:
+                case /* string image */ 324089343:
                     message.image = reader.string();
                     break;
-                case /* string instance_type */ 4:
+                case /* string instance_type */ 502815733:
                     message.instanceType = reader.string();
                     break;
-                case /* string name */ 5:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* repeated string profiles */ 6:
+                case /* repeated string profiles */ 115012907:
                     message.profiles.push(reader.string());
                     break;
                 default:
@@ -107,24 +111,24 @@ class CreateInstanceInput$Type extends MessageType<CreateInstanceInput> {
         return message;
     }
     internalBinaryWrite(message: CreateInstanceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Struct config = 1; */
-        if (message.config)
-            Struct.internalBinaryWrite(message.config, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated google.protobuf.Value devices = 2; */
+        /* repeated google.protobuf.Value devices = 17468293; */
         for (let i = 0; i < message.devices.length; i++)
-            Value.internalBinaryWrite(message.devices[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* string image = 3; */
-        if (message.image !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.image);
-        /* string instance_type = 4; */
-        if (message.instanceType !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.instanceType);
-        /* string name = 5; */
-        if (message.name !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.name);
-        /* repeated string profiles = 6; */
+            Value.internalBinaryWrite(message.devices[i], writer.tag(17468293, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Struct config = 67069640; */
+        if (message.config)
+            Struct.internalBinaryWrite(message.config, writer.tag(67069640, WireType.LengthDelimited).fork(), options).join();
+        /* repeated string profiles = 115012907; */
         for (let i = 0; i < message.profiles.length; i++)
-            writer.tag(6, WireType.LengthDelimited).string(message.profiles[i]);
+            writer.tag(115012907, WireType.LengthDelimited).string(message.profiles[i]);
+        /* string name = 221887978; */
+        if (message.name !== "")
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* string image = 324089343; */
+        if (message.image !== "")
+            writer.tag(324089343, WireType.LengthDelimited).string(message.image);
+        /* string instance_type = 502815733; */
+        if (message.instanceType !== "")
+            writer.tag(502815733, WireType.LengthDelimited).string(message.instanceType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -138,10 +142,13 @@ export const CreateInstanceInput = new CreateInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateInstanceOutput$Type extends MessageType<CreateInstanceOutput> {
     constructor() {
-        super("operation.method.incus.create_instance.CreateInstanceOutput", []);
+        super("operation.method.incus.create_instance.CreateInstanceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<CreateInstanceOutput>): CreateInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateInstanceOutput>(this, message, value);
         return message;
@@ -151,6 +158,9 @@ class CreateInstanceOutput$Type extends MessageType<CreateInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -163,6 +173,9 @@ class CreateInstanceOutput$Type extends MessageType<CreateInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

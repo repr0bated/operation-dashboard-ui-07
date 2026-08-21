@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.identity_sled.get_identity;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetIdentityInput {
+  string session_id = 125141221;
+}
+
+message GetIdentityOutput {
+  google.protobuf.Value identity = 155530400;
+}
+
+service GetIdentityService {
+  // subid: obs.service.identity-sled.identity.get@v1, capability: identity_sled.read
+  rpc get_identity(GetIdentityInput) returns (GetIdentityOutput);
+}

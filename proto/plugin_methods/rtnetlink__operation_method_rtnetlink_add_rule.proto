@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddRuleInput {
-  string rule = 1;
+  string rule = 472793306;
 }
 
-message AddRuleOutput {}
+message AddRuleOutput {
+  bool success = 442482449;
+}
 
 service AddRuleService {
   // subid: mut.network.rtnetlink.rule.add@v1, capability: cap.network.rtnetlink.rule.add@v1

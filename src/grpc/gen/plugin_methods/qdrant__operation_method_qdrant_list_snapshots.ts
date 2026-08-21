@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ListSnapshotsInput {
     /**
-     * @generated from protobuf field: string collection_name = 1
+     * @generated from protobuf field: string collection_name = 468055319
      */
     collectionName: string;
 }
@@ -27,7 +27,7 @@ export interface ListSnapshotsInput {
  */
 export interface ListSnapshotsOutput {
     /**
-     * @generated from protobuf field: repeated string snapshots = 1
+     * @generated from protobuf field: repeated string snapshots = 494231770
      */
     snapshots: string[];
 }
@@ -35,7 +35,7 @@ export interface ListSnapshotsOutput {
 class ListSnapshotsInput$Type extends MessageType<ListSnapshotsInput> {
     constructor() {
         super("operation.method.qdrant.list_snapshots.ListSnapshotsInput", [
-            { no: 1, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 468055319, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListSnapshotsInput>): ListSnapshotsInput {
@@ -50,7 +50,7 @@ class ListSnapshotsInput$Type extends MessageType<ListSnapshotsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string collection_name */ 1:
+                case /* string collection_name */ 468055319:
                     message.collectionName = reader.string();
                     break;
                 default:
@@ -65,9 +65,9 @@ class ListSnapshotsInput$Type extends MessageType<ListSnapshotsInput> {
         return message;
     }
     internalBinaryWrite(message: ListSnapshotsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string collection_name = 1; */
+        /* string collection_name = 468055319; */
         if (message.collectionName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.collectionName);
+            writer.tag(468055319, WireType.LengthDelimited).string(message.collectionName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -82,7 +82,7 @@ export const ListSnapshotsInput = new ListSnapshotsInput$Type();
 class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
     constructor() {
         super("operation.method.qdrant.list_snapshots.ListSnapshotsOutput", [
-            { no: 1, name: "snapshots", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 494231770, name: "snapshots", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListSnapshotsOutput>): ListSnapshotsOutput {
@@ -97,7 +97,7 @@ class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string snapshots */ 1:
+                case /* repeated string snapshots */ 494231770:
                     message.snapshots.push(reader.string());
                     break;
                 default:
@@ -112,9 +112,9 @@ class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListSnapshotsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string snapshots = 1; */
+        /* repeated string snapshots = 494231770; */
         for (let i = 0; i < message.snapshots.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.snapshots[i]);
+            writer.tag(494231770, WireType.LengthDelimited).string(message.snapshots[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

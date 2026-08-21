@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetLinkDnssecNtaInput {
     /**
-     * @generated from protobuf field: int64 ifindex = 1
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
     /**
-     * @generated from protobuf field: repeated string names = 2
+     * @generated from protobuf field: repeated string names = 115700118
      */
     names: string[];
 }
@@ -30,13 +30,17 @@ export interface SetLinkDnssecNtaInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_dnssec_nta.SetLinkDnssecNtaOutput
  */
 export interface SetLinkDnssecNtaOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnssecNtaInput$Type extends MessageType<SetLinkDnssecNtaInput> {
     constructor() {
         super("operation.method.dnsresolver.set_link_dnssec_nta.SetLinkDnssecNtaInput", [
-            { no: 1, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "names", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 115700118, name: "names", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetLinkDnssecNtaInput>): SetLinkDnssecNtaInput {
@@ -52,10 +56,10 @@ class SetLinkDnssecNtaInput$Type extends MessageType<SetLinkDnssecNtaInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 ifindex */ 1:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
-                case /* repeated string names */ 2:
+                case /* repeated string names */ 115700118:
                     message.names.push(reader.string());
                     break;
                 default:
@@ -70,12 +74,12 @@ class SetLinkDnssecNtaInput$Type extends MessageType<SetLinkDnssecNtaInput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDnssecNtaInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 ifindex = 1; */
-        if (message.ifindex !== "0")
-            writer.tag(1, WireType.Varint).int64(message.ifindex);
-        /* repeated string names = 2; */
+        /* repeated string names = 115700118; */
         for (let i = 0; i < message.names.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.names[i]);
+            writer.tag(115700118, WireType.LengthDelimited).string(message.names[i]);
+        /* int64 ifindex = 394788143; */
+        if (message.ifindex !== "0")
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SetLinkDnssecNtaInput = new SetLinkDnssecNtaInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnssecNtaOutput$Type extends MessageType<SetLinkDnssecNtaOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_dnssec_nta.SetLinkDnssecNtaOutput", []);
+        super("operation.method.dnsresolver.set_link_dnssec_nta.SetLinkDnssecNtaOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkDnssecNtaOutput>): SetLinkDnssecNtaOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkDnssecNtaOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetLinkDnssecNtaOutput$Type extends MessageType<SetLinkDnssecNtaOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetLinkDnssecNtaOutput$Type extends MessageType<SetLinkDnssecNtaOutput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDnssecNtaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

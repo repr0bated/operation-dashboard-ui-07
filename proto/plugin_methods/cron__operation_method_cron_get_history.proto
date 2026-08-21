@@ -15,7 +15,7 @@ message GetHistoryInput {
 }
 
 message GetHistoryOutput {
-  repeated google.protobuf.Value history = 1;
+  repeated google.protobuf.Value history = 175210977;
 }
 
 service GetHistoryService {

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message HibernateInput {
-  bool interactive = 1;
+  bool interactive = 520087662;
 }
 
-message HibernateOutput {}
+message HibernateOutput {
+  bool success = 442482449;
+}
 
 service HibernateService {
   // subid: mut.software.login1.system.hibernate@v1, capability: login1.admin

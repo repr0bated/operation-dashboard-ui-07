@@ -14,7 +14,9 @@ message UpdateConfigInput {
   // Empty schema object.
 }
 
-message UpdateConfigOutput {}
+message UpdateConfigOutput {
+  bool success = 442482449;
+}
 
 service UpdateConfigService {
   // subid: mut.service.llm.config.update@v1, capability: llm.invoke

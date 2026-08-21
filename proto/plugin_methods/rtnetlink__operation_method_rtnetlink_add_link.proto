@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddLinkInput {
-  string link_type = 1;
-  string name = 2;
+  string link_type = 465564503;
+  string name = 221887978;
 }
 
-message AddLinkOutput {}
+message AddLinkOutput {
+  bool success = 442482449;
+}
 
 service AddLinkService {
   // subid: mut.network.rtnetlink.link.add@v1, capability: cap.network.rtnetlink.link.add@v1

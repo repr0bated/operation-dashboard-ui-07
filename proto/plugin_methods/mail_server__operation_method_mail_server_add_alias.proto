@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddAliasInput {
-  string alias = 1;
-  string destination = 2;
-  string domain = 3;
+  string alias = 489062746;
+  string destination = 316564676;
+  string domain = 127113208;
 }
 
-message AddAliasOutput {}
+message AddAliasOutput {
+  bool success = 442482449;
+}
 
 service AddAliasService {
   // subid: mut.service.mail.alias.add@v1, capability: mail.write

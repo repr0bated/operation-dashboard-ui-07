@@ -19,19 +19,19 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface CreateNamespaceInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value config = 1
+     * @generated from protobuf field: google.protobuf.Value config = 67069640
      */
     config?: Value;
     /**
-     * @generated from protobuf field: int64 max_entries = 2
+     * @generated from protobuf field: int64 max_entries = 25129804
      */
     maxEntries: string;
     /**
-     * @generated from protobuf field: string name = 3
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
     /**
-     * @generated from protobuf field: bool read_only = 4
+     * @generated from protobuf field: bool read_only = 127498202
      */
     readOnly: boolean;
 }
@@ -40,26 +40,30 @@ export interface CreateNamespaceInput {
  */
 export interface CreateNamespaceOutput {
     /**
-     * @generated from protobuf field: int64 actual_max_entries = 1
+     * @generated from protobuf field: int64 actual_max_entries = 245294479
      */
     actualMaxEntries: string;
     /**
-     * @generated from protobuf field: int64 current_entries = 2
+     * @generated from protobuf field: int64 current_entries = 328133772
      */
     currentEntries: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value namespace = 3
+     * @generated from protobuf field: google.protobuf.Value namespace = 181303974
      */
     namespace?: Value;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CreateNamespaceInput$Type extends MessageType<CreateNamespaceInput> {
     constructor() {
         super("operation.method.memory.create_namespace.CreateNamespaceInput", [
-            { no: 1, name: "config", kind: "message", T: () => Value },
-            { no: 2, name: "max_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "read_only", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 67069640, name: "config", kind: "message", T: () => Value },
+            { no: 25129804, name: "max_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 127498202, name: "read_only", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<CreateNamespaceInput>): CreateNamespaceInput {
@@ -76,16 +80,16 @@ class CreateNamespaceInput$Type extends MessageType<CreateNamespaceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value config */ 1:
+                case /* google.protobuf.Value config */ 67069640:
                     message.config = Value.internalBinaryRead(reader, reader.uint32(), options, message.config);
                     break;
-                case /* int64 max_entries */ 2:
+                case /* int64 max_entries */ 25129804:
                     message.maxEntries = reader.int64().toString();
                     break;
-                case /* string name */ 3:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
-                case /* bool read_only */ 4:
+                case /* bool read_only */ 127498202:
                     message.readOnly = reader.bool();
                     break;
                 default:
@@ -100,18 +104,18 @@ class CreateNamespaceInput$Type extends MessageType<CreateNamespaceInput> {
         return message;
     }
     internalBinaryWrite(message: CreateNamespaceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value config = 1; */
-        if (message.config)
-            Value.internalBinaryWrite(message.config, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* int64 max_entries = 2; */
+        /* int64 max_entries = 25129804; */
         if (message.maxEntries !== "0")
-            writer.tag(2, WireType.Varint).int64(message.maxEntries);
-        /* string name = 3; */
-        if (message.name !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.name);
-        /* bool read_only = 4; */
+            writer.tag(25129804, WireType.Varint).int64(message.maxEntries);
+        /* google.protobuf.Value config = 67069640; */
+        if (message.config)
+            Value.internalBinaryWrite(message.config, writer.tag(67069640, WireType.LengthDelimited).fork(), options).join();
+        /* bool read_only = 127498202; */
         if (message.readOnly !== false)
-            writer.tag(4, WireType.Varint).bool(message.readOnly);
+            writer.tag(127498202, WireType.Varint).bool(message.readOnly);
+        /* string name = 221887978; */
+        if (message.name !== "")
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -126,15 +130,17 @@ export const CreateNamespaceInput = new CreateNamespaceInput$Type();
 class CreateNamespaceOutput$Type extends MessageType<CreateNamespaceOutput> {
     constructor() {
         super("operation.method.memory.create_namespace.CreateNamespaceOutput", [
-            { no: 1, name: "actual_max_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "current_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "namespace", kind: "message", T: () => Value }
+            { no: 245294479, name: "actual_max_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 328133772, name: "current_entries", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 181303974, name: "namespace", kind: "message", T: () => Value },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<CreateNamespaceOutput>): CreateNamespaceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.actualMaxEntries = "0";
         message.currentEntries = "0";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<CreateNamespaceOutput>(this, message, value);
         return message;
@@ -144,14 +150,17 @@ class CreateNamespaceOutput$Type extends MessageType<CreateNamespaceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 actual_max_entries */ 1:
+                case /* int64 actual_max_entries */ 245294479:
                     message.actualMaxEntries = reader.int64().toString();
                     break;
-                case /* int64 current_entries */ 2:
+                case /* int64 current_entries */ 328133772:
                     message.currentEntries = reader.int64().toString();
                     break;
-                case /* google.protobuf.Value namespace */ 3:
+                case /* google.protobuf.Value namespace */ 181303974:
                     message.namespace = Value.internalBinaryRead(reader, reader.uint32(), options, message.namespace);
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -165,15 +174,18 @@ class CreateNamespaceOutput$Type extends MessageType<CreateNamespaceOutput> {
         return message;
     }
     internalBinaryWrite(message: CreateNamespaceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 actual_max_entries = 1; */
-        if (message.actualMaxEntries !== "0")
-            writer.tag(1, WireType.Varint).int64(message.actualMaxEntries);
-        /* int64 current_entries = 2; */
-        if (message.currentEntries !== "0")
-            writer.tag(2, WireType.Varint).int64(message.currentEntries);
-        /* google.protobuf.Value namespace = 3; */
+        /* google.protobuf.Value namespace = 181303974; */
         if (message.namespace)
-            Value.internalBinaryWrite(message.namespace, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.namespace, writer.tag(181303974, WireType.LengthDelimited).fork(), options).join();
+        /* int64 actual_max_entries = 245294479; */
+        if (message.actualMaxEntries !== "0")
+            writer.tag(245294479, WireType.Varint).int64(message.actualMaxEntries);
+        /* int64 current_entries = 328133772; */
+        if (message.currentEntries !== "0")
+            writer.tag(328133772, WireType.Varint).int64(message.currentEntries);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

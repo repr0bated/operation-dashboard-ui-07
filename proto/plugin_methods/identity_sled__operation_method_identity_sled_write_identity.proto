@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.identity_sled.write_identity;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message WriteIdentityInput {
+  string blob_ref = 296362051;
+  google.protobuf.Value btrfs_device = 169726097;
+  string interface = 82465076;
+  string peer_ip = 266462778;
+  string wireguard_pubkey = 477362351;
+}
+
+message WriteIdentityOutput {
+  google.protobuf.Value identity = 155530400;
+}
+
+service WriteIdentityService {
+  // subid: mut.service.identity-sled.identity.write@v1, capability: identity_sled.write
+  rpc write_identity(WriteIdentityInput) returns (WriteIdentityOutput);
+}

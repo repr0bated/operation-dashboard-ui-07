@@ -19,23 +19,23 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ContextualizedEmbedInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value input_type = 1
+     * @generated from protobuf field: google.protobuf.Value input_type = 94319076
      */
     inputType?: Value;
     /**
-     * @generated from protobuf field: repeated string inputs = 2
+     * @generated from protobuf field: repeated string inputs = 397855130
      */
     inputs: string[];
     /**
-     * @generated from protobuf field: string model = 3
+     * @generated from protobuf field: string model = 277571167
      */
     model: string;
     /**
-     * @generated from protobuf field: int64 output_dimension = 4
+     * @generated from protobuf field: int64 output_dimension = 473512300
      */
     outputDimension: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value output_dtype = 5
+     * @generated from protobuf field: google.protobuf.Value output_dtype = 197886601
      */
     outputDtype?: Value;
 }
@@ -44,15 +44,15 @@ export interface ContextualizedEmbedInput {
  */
 export interface ContextualizedEmbedOutput {
     /**
-     * @generated from protobuf field: string chunker_version = 1
+     * @generated from protobuf field: string chunker_version = 407433220
      */
     chunkerVersion: string;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value results = 2
+     * @generated from protobuf field: repeated google.protobuf.Value results = 206523128
      */
     results: Value[];
     /**
-     * @generated from protobuf field: int64 total_tokens = 3
+     * @generated from protobuf field: int64 total_tokens = 20838375
      */
     totalTokens: string;
 }
@@ -60,11 +60,11 @@ export interface ContextualizedEmbedOutput {
 class ContextualizedEmbedInput$Type extends MessageType<ContextualizedEmbedInput> {
     constructor() {
         super("operation.method.embedding_model.contextualized_embed.ContextualizedEmbedInput", [
-            { no: 1, name: "input_type", kind: "message", T: () => Value },
-            { no: 2, name: "inputs", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "output_dimension", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 5, name: "output_dtype", kind: "message", T: () => Value }
+            { no: 94319076, name: "input_type", kind: "message", T: () => Value },
+            { no: 397855130, name: "inputs", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 277571167, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 473512300, name: "output_dimension", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 197886601, name: "output_dtype", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ContextualizedEmbedInput>): ContextualizedEmbedInput {
@@ -81,19 +81,19 @@ class ContextualizedEmbedInput$Type extends MessageType<ContextualizedEmbedInput
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value input_type */ 1:
+                case /* google.protobuf.Value input_type */ 94319076:
                     message.inputType = Value.internalBinaryRead(reader, reader.uint32(), options, message.inputType);
                     break;
-                case /* repeated string inputs */ 2:
+                case /* repeated string inputs */ 397855130:
                     message.inputs.push(reader.string());
                     break;
-                case /* string model */ 3:
+                case /* string model */ 277571167:
                     message.model = reader.string();
                     break;
-                case /* int64 output_dimension */ 4:
+                case /* int64 output_dimension */ 473512300:
                     message.outputDimension = reader.int64().toString();
                     break;
-                case /* google.protobuf.Value output_dtype */ 5:
+                case /* google.protobuf.Value output_dtype */ 197886601:
                     message.outputDtype = Value.internalBinaryRead(reader, reader.uint32(), options, message.outputDtype);
                     break;
                 default:
@@ -108,21 +108,21 @@ class ContextualizedEmbedInput$Type extends MessageType<ContextualizedEmbedInput
         return message;
     }
     internalBinaryWrite(message: ContextualizedEmbedInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value input_type = 1; */
+        /* google.protobuf.Value input_type = 94319076; */
         if (message.inputType)
-            Value.internalBinaryWrite(message.inputType, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated string inputs = 2; */
-        for (let i = 0; i < message.inputs.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.inputs[i]);
-        /* string model = 3; */
-        if (message.model !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.model);
-        /* int64 output_dimension = 4; */
-        if (message.outputDimension !== "0")
-            writer.tag(4, WireType.Varint).int64(message.outputDimension);
-        /* google.protobuf.Value output_dtype = 5; */
+            Value.internalBinaryWrite(message.inputType, writer.tag(94319076, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Value output_dtype = 197886601; */
         if (message.outputDtype)
-            Value.internalBinaryWrite(message.outputDtype, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.outputDtype, writer.tag(197886601, WireType.LengthDelimited).fork(), options).join();
+        /* string model = 277571167; */
+        if (message.model !== "")
+            writer.tag(277571167, WireType.LengthDelimited).string(message.model);
+        /* repeated string inputs = 397855130; */
+        for (let i = 0; i < message.inputs.length; i++)
+            writer.tag(397855130, WireType.LengthDelimited).string(message.inputs[i]);
+        /* int64 output_dimension = 473512300; */
+        if (message.outputDimension !== "0")
+            writer.tag(473512300, WireType.Varint).int64(message.outputDimension);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -137,9 +137,9 @@ export const ContextualizedEmbedInput = new ContextualizedEmbedInput$Type();
 class ContextualizedEmbedOutput$Type extends MessageType<ContextualizedEmbedOutput> {
     constructor() {
         super("operation.method.embedding_model.contextualized_embed.ContextualizedEmbedOutput", [
-            { no: 1, name: "chunker_version", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 3, name: "total_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 407433220, name: "chunker_version", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 206523128, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 20838375, name: "total_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<ContextualizedEmbedOutput>): ContextualizedEmbedOutput {
@@ -156,13 +156,13 @@ class ContextualizedEmbedOutput$Type extends MessageType<ContextualizedEmbedOutp
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string chunker_version */ 1:
+                case /* string chunker_version */ 407433220:
                     message.chunkerVersion = reader.string();
                     break;
-                case /* repeated google.protobuf.Value results */ 2:
+                case /* repeated google.protobuf.Value results */ 206523128:
                     message.results.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* int64 total_tokens */ 3:
+                case /* int64 total_tokens */ 20838375:
                     message.totalTokens = reader.int64().toString();
                     break;
                 default:
@@ -177,15 +177,15 @@ class ContextualizedEmbedOutput$Type extends MessageType<ContextualizedEmbedOutp
         return message;
     }
     internalBinaryWrite(message: ContextualizedEmbedOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string chunker_version = 1; */
-        if (message.chunkerVersion !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.chunkerVersion);
-        /* repeated google.protobuf.Value results = 2; */
-        for (let i = 0; i < message.results.length; i++)
-            Value.internalBinaryWrite(message.results[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* int64 total_tokens = 3; */
+        /* int64 total_tokens = 20838375; */
         if (message.totalTokens !== "0")
-            writer.tag(3, WireType.Varint).int64(message.totalTokens);
+            writer.tag(20838375, WireType.Varint).int64(message.totalTokens);
+        /* repeated google.protobuf.Value results = 206523128; */
+        for (let i = 0; i < message.results.length; i++)
+            Value.internalBinaryWrite(message.results[i], writer.tag(206523128, WireType.LengthDelimited).fork(), options).join();
+        /* string chunker_version = 407433220; */
+        if (message.chunkerVersion !== "")
+            writer.tag(407433220, WireType.LengthDelimited).string(message.chunkerVersion);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

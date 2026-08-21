@@ -15,7 +15,7 @@ message RouteInput {
 }
 
 message RouteOutput {
-  google.protobuf.Value route = 1;
+  google.protobuf.Value route = 303742751;
 }
 
 service RouteService {

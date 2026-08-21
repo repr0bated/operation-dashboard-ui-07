@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message StealInput {
-  string lock_id = 1;
+  string lock_id = 308081002;
 }
 
-message StealOutput {}
+message StealOutput {
+  bool success = 442482449;
+}
 
 service StealService {
   // subid: mut.network.ovsdb.lock.steal@v1, capability: ovsdb.write

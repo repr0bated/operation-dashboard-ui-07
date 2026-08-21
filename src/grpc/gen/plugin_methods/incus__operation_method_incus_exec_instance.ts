@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ExecInstanceInput {
     /**
-     * @generated from protobuf field: repeated string command = 1
+     * @generated from protobuf field: repeated string command = 324618934
      */
     command: string[];
     /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -30,13 +30,17 @@ export interface ExecInstanceInput {
  * @generated from protobuf message operation.method.incus.exec_instance.ExecInstanceOutput
  */
 export interface ExecInstanceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ExecInstanceInput$Type extends MessageType<ExecInstanceInput> {
     constructor() {
         super("operation.method.incus.exec_instance.ExecInstanceInput", [
-            { no: 1, name: "command", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 324618934, name: "command", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ExecInstanceInput>): ExecInstanceInput {
@@ -52,10 +56,10 @@ class ExecInstanceInput$Type extends MessageType<ExecInstanceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string command */ 1:
+                case /* repeated string command */ 324618934:
                     message.command.push(reader.string());
                     break;
-                case /* string name */ 2:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class ExecInstanceInput$Type extends MessageType<ExecInstanceInput> {
         return message;
     }
     internalBinaryWrite(message: ExecInstanceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string command = 1; */
-        for (let i = 0; i < message.command.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.command[i]);
-        /* string name = 2; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
+        /* repeated string command = 324618934; */
+        for (let i = 0; i < message.command.length; i++)
+            writer.tag(324618934, WireType.LengthDelimited).string(message.command[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const ExecInstanceInput = new ExecInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ExecInstanceOutput$Type extends MessageType<ExecInstanceOutput> {
     constructor() {
-        super("operation.method.incus.exec_instance.ExecInstanceOutput", []);
+        super("operation.method.incus.exec_instance.ExecInstanceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ExecInstanceOutput>): ExecInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ExecInstanceOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class ExecInstanceOutput$Type extends MessageType<ExecInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class ExecInstanceOutput$Type extends MessageType<ExecInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: ExecInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

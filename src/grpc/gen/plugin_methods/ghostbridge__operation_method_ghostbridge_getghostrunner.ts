@@ -26,7 +26,7 @@ export interface GetGhostrunnerInput {
  */
 export interface GetGhostrunnerOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value ghostrunner = 1
+     * @generated from protobuf field: google.protobuf.Value ghostrunner = 121373100
      */
     ghostrunner?: Value;
 }
@@ -72,7 +72,7 @@ export const GetGhostrunnerInput = new GetGhostrunnerInput$Type();
 class GetGhostrunnerOutput$Type extends MessageType<GetGhostrunnerOutput> {
     constructor() {
         super("operation.method.ghostbridge.getghostrunner.GetGhostrunnerOutput", [
-            { no: 1, name: "ghostrunner", kind: "message", T: () => Value }
+            { no: 121373100, name: "ghostrunner", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetGhostrunnerOutput>): GetGhostrunnerOutput {
@@ -86,7 +86,7 @@ class GetGhostrunnerOutput$Type extends MessageType<GetGhostrunnerOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value ghostrunner */ 1:
+                case /* google.protobuf.Value ghostrunner */ 121373100:
                     message.ghostrunner = Value.internalBinaryRead(reader, reader.uint32(), options, message.ghostrunner);
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetGhostrunnerOutput$Type extends MessageType<GetGhostrunnerOutput> {
         return message;
     }
     internalBinaryWrite(message: GetGhostrunnerOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value ghostrunner = 1; */
+        /* google.protobuf.Value ghostrunner = 121373100; */
         if (message.ghostrunner)
-            Value.internalBinaryWrite(message.ghostrunner, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.ghostrunner, writer.tag(121373100, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

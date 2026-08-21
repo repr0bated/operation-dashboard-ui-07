@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddMailboxInput {
-  string domain = 1;
-  string user = 2;
+  string domain = 127113208;
+  string user = 7888629;
 }
 
-message AddMailboxOutput {}
+message AddMailboxOutput {
+  bool success = 442482449;
+}
 
 service AddMailboxService {
   // subid: mut.service.mail.mailbox.add@v1, capability: mail.write

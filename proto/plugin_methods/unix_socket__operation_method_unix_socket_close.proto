@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message CloseInput {
-  bool force = 1;
-  string path = 2;
+  bool force = 430540935;
+  string path = 75975994;
 }
 
-message CloseOutput {}
+message CloseOutput {
+  bool success = 442482449;
+}
 
 service CloseService {
   // subid: mut.service.unix-socket.close@v1, capability: network.write

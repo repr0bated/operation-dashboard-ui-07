@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetSessionInput {
-  string session_id = 1;
+  string session_id = 125141221;
 }
 
-message GetSessionOutput {}
+message GetSessionOutput {
+  bool success = 442482449;
+}
 
 service GetSessionService {
   // subid: obs.software.login1.session.get@v1, capability: login1.read

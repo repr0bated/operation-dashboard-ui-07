@@ -11,14 +11,16 @@ extend google.protobuf.MethodOptions {
 }
 
 message ModifyUserInput {
-  repeated string add_groups = 1;
-  int64 gid = 2;
-  repeated string remove_groups = 3;
-  string shell = 4;
-  string username = 5;
+  repeated string add_groups = 56708579;
+  int64 gid = 69916062;
+  repeated string remove_groups = 178930083;
+  string shell = 300022785;
+  string username = 246355387;
 }
 
-message ModifyUserOutput {}
+message ModifyUserOutput {
+  bool success = 442482449;
+}
 
 service ModifyUserService {
   // subid: mut.software.plugin.users.modify@v1, capability: users.write

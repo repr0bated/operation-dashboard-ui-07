@@ -19,15 +19,15 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ChatWithContextInput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value conversation_history = 1
+     * @generated from protobuf field: repeated google.protobuf.Value conversation_history = 329107945
      */
     conversationHistory: Value[];
     /**
-     * @generated from protobuf field: repeated string episode_ids = 2
+     * @generated from protobuf field: repeated string episode_ids = 504059692
      */
     episodeIds: string[];
     /**
-     * @generated from protobuf field: string message = 3
+     * @generated from protobuf field: string message = 82970853
      */
     message: string;
 }
@@ -36,15 +36,15 @@ export interface ChatWithContextInput {
  */
 export interface ChatWithContextOutput {
     /**
-     * @generated from protobuf field: string model = 1
+     * @generated from protobuf field: string model = 277571167
      */
     model: string;
     /**
-     * @generated from protobuf field: repeated string referenced_episodes = 2
+     * @generated from protobuf field: repeated string referenced_episodes = 9229568
      */
     referencedEpisodes: string[];
     /**
-     * @generated from protobuf field: string reply = 3
+     * @generated from protobuf field: string reply = 160634408
      */
     reply: string;
 }
@@ -52,9 +52,9 @@ export interface ChatWithContextOutput {
 class ChatWithContextInput$Type extends MessageType<ChatWithContextInput> {
     constructor() {
         super("operation.method.ctl_plane_chatbot.chat_with_context.ChatWithContextInput", [
-            { no: 1, name: "conversation_history", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 2, name: "episode_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 329107945, name: "conversation_history", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 504059692, name: "episode_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 82970853, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ChatWithContextInput>): ChatWithContextInput {
@@ -71,13 +71,13 @@ class ChatWithContextInput$Type extends MessageType<ChatWithContextInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value conversation_history */ 1:
+                case /* repeated google.protobuf.Value conversation_history */ 329107945:
                     message.conversationHistory.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* repeated string episode_ids */ 2:
+                case /* repeated string episode_ids */ 504059692:
                     message.episodeIds.push(reader.string());
                     break;
-                case /* string message */ 3:
+                case /* string message */ 82970853:
                     message.message = reader.string();
                     break;
                 default:
@@ -92,15 +92,15 @@ class ChatWithContextInput$Type extends MessageType<ChatWithContextInput> {
         return message;
     }
     internalBinaryWrite(message: ChatWithContextInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value conversation_history = 1; */
-        for (let i = 0; i < message.conversationHistory.length; i++)
-            Value.internalBinaryWrite(message.conversationHistory[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated string episode_ids = 2; */
-        for (let i = 0; i < message.episodeIds.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.episodeIds[i]);
-        /* string message = 3; */
+        /* string message = 82970853; */
         if (message.message !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.message);
+            writer.tag(82970853, WireType.LengthDelimited).string(message.message);
+        /* repeated google.protobuf.Value conversation_history = 329107945; */
+        for (let i = 0; i < message.conversationHistory.length; i++)
+            Value.internalBinaryWrite(message.conversationHistory[i], writer.tag(329107945, WireType.LengthDelimited).fork(), options).join();
+        /* repeated string episode_ids = 504059692; */
+        for (let i = 0; i < message.episodeIds.length; i++)
+            writer.tag(504059692, WireType.LengthDelimited).string(message.episodeIds[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -115,9 +115,9 @@ export const ChatWithContextInput = new ChatWithContextInput$Type();
 class ChatWithContextOutput$Type extends MessageType<ChatWithContextOutput> {
     constructor() {
         super("operation.method.ctl_plane_chatbot.chat_with_context.ChatWithContextOutput", [
-            { no: 1, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "referenced_episodes", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "reply", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 277571167, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 9229568, name: "referenced_episodes", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 160634408, name: "reply", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ChatWithContextOutput>): ChatWithContextOutput {
@@ -134,13 +134,13 @@ class ChatWithContextOutput$Type extends MessageType<ChatWithContextOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string model */ 1:
+                case /* string model */ 277571167:
                     message.model = reader.string();
                     break;
-                case /* repeated string referenced_episodes */ 2:
+                case /* repeated string referenced_episodes */ 9229568:
                     message.referencedEpisodes.push(reader.string());
                     break;
-                case /* string reply */ 3:
+                case /* string reply */ 160634408:
                     message.reply = reader.string();
                     break;
                 default:
@@ -155,15 +155,15 @@ class ChatWithContextOutput$Type extends MessageType<ChatWithContextOutput> {
         return message;
     }
     internalBinaryWrite(message: ChatWithContextOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string model = 1; */
-        if (message.model !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.model);
-        /* repeated string referenced_episodes = 2; */
+        /* repeated string referenced_episodes = 9229568; */
         for (let i = 0; i < message.referencedEpisodes.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.referencedEpisodes[i]);
-        /* string reply = 3; */
+            writer.tag(9229568, WireType.LengthDelimited).string(message.referencedEpisodes[i]);
+        /* string reply = 160634408; */
         if (message.reply !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.reply);
+            writer.tag(160634408, WireType.LengthDelimited).string(message.reply);
+        /* string model = 277571167; */
+        if (message.model !== "")
+            writer.tag(277571167, WireType.LengthDelimited).string(message.model);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

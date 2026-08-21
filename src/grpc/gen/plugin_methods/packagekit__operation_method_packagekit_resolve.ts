@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ResolveInput {
     /**
-     * @generated from protobuf field: int64 filter = 1
+     * @generated from protobuf field: int64 filter = 132212861
      */
     filter: string;
     /**
-     * @generated from protobuf field: repeated string packages = 2
+     * @generated from protobuf field: repeated string packages = 136677145
      */
     packages: string[];
 }
@@ -30,13 +30,17 @@ export interface ResolveInput {
  * @generated from protobuf message operation.method.packagekit.resolve.ResolveOutput
  */
 export interface ResolveOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ResolveInput$Type extends MessageType<ResolveInput> {
     constructor() {
         super("operation.method.packagekit.resolve.ResolveInput", [
-            { no: 1, name: "filter", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "packages", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 132212861, name: "filter", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 136677145, name: "packages", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ResolveInput>): ResolveInput {
@@ -52,10 +56,10 @@ class ResolveInput$Type extends MessageType<ResolveInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 filter */ 1:
+                case /* int64 filter */ 132212861:
                     message.filter = reader.int64().toString();
                     break;
-                case /* repeated string packages */ 2:
+                case /* repeated string packages */ 136677145:
                     message.packages.push(reader.string());
                     break;
                 default:
@@ -70,12 +74,12 @@ class ResolveInput$Type extends MessageType<ResolveInput> {
         return message;
     }
     internalBinaryWrite(message: ResolveInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 filter = 1; */
+        /* int64 filter = 132212861; */
         if (message.filter !== "0")
-            writer.tag(1, WireType.Varint).int64(message.filter);
-        /* repeated string packages = 2; */
+            writer.tag(132212861, WireType.Varint).int64(message.filter);
+        /* repeated string packages = 136677145; */
         for (let i = 0; i < message.packages.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.packages[i]);
+            writer.tag(136677145, WireType.LengthDelimited).string(message.packages[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const ResolveInput = new ResolveInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ResolveOutput$Type extends MessageType<ResolveOutput> {
     constructor() {
-        super("operation.method.packagekit.resolve.ResolveOutput", []);
+        super("operation.method.packagekit.resolve.ResolveOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ResolveOutput>): ResolveOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ResolveOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class ResolveOutput$Type extends MessageType<ResolveOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class ResolveOutput$Type extends MessageType<ResolveOutput> {
         return message;
     }
     internalBinaryWrite(message: ResolveOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

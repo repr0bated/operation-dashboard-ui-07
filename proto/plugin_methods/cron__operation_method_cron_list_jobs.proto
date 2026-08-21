@@ -15,7 +15,7 @@ message ListJobsInput {
 }
 
 message ListJobsOutput {
-  repeated google.protobuf.Value jobs = 1;
+  repeated google.protobuf.Value jobs = 67571844;
 }
 
 service ListJobsService {

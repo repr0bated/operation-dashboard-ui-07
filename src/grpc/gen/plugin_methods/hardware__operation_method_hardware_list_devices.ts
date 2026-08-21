@@ -26,7 +26,7 @@ export interface ListDevicesInput {
  */
 export interface ListDevicesOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value devices = 1
+     * @generated from protobuf field: repeated google.protobuf.Value devices = 17468293
      */
     devices: Value[];
 }
@@ -72,7 +72,7 @@ export const ListDevicesInput = new ListDevicesInput$Type();
 class ListDevicesOutput$Type extends MessageType<ListDevicesOutput> {
     constructor() {
         super("operation.method.hardware.list_devices.ListDevicesOutput", [
-            { no: 1, name: "devices", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 17468293, name: "devices", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListDevicesOutput>): ListDevicesOutput {
@@ -87,7 +87,7 @@ class ListDevicesOutput$Type extends MessageType<ListDevicesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value devices */ 1:
+                case /* repeated google.protobuf.Value devices */ 17468293:
                     message.devices.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListDevicesOutput$Type extends MessageType<ListDevicesOutput> {
         return message;
     }
     internalBinaryWrite(message: ListDevicesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value devices = 1; */
+        /* repeated google.protobuf.Value devices = 17468293; */
         for (let i = 0; i < message.devices.length; i++)
-            Value.internalBinaryWrite(message.devices[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.devices[i], writer.tag(17468293, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

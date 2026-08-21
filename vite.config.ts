@@ -28,6 +28,12 @@ export default defineConfig(({ mode }) => ({
         changeOrigin: true,
         secure: false,
       },
+      // Aggregate per-plugin method services (operation.plugin.v1.<Plugin>PluginMethods)
+      "/operation.plugin.v1": {
+        target: GRPC_TARGET,
+        changeOrigin: true,
+        secure: false,
+      },
       "/operation.registry.v1": {
         target: GRPC_TARGET,
         changeOrigin: true,
@@ -49,6 +55,14 @@ export default defineConfig(({ mode }) => ({
         secure: false,
       },
       "/op.mcp.v1": {
+        target: GRPC_TARGET,
+        changeOrigin: true,
+        secure: false,
+      },
+      // ChatService (`op_chat.chat.ChatService/Send`). Without this the chat
+      // surfaces 404 on the dev server while working fine on :8080, which
+      // reads as "chat is broken" when it is only unproxied.
+      "/op_chat.chat": {
         target: GRPC_TARGET,
         changeOrigin: true,
         secure: false,

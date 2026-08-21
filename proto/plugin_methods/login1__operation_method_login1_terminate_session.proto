@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message TerminateSessionInput {
-  string session_id = 1;
+  string session_id = 125141221;
 }
 
-message TerminateSessionOutput {}
+message TerminateSessionOutput {
+  bool success = 442482449;
+}
 
 service TerminateSessionService {
   // subid: mut.software.login1.session.terminate@v1, capability: login1.write

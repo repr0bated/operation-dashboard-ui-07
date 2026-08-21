@@ -15,7 +15,7 @@ message GetDeviceInput {
 }
 
 message GetDeviceOutput {
-  google.protobuf.Value device = 1;
+  google.protobuf.Value device = 275805945;
 }
 
 service GetDeviceService {

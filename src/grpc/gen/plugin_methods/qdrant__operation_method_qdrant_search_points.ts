@@ -19,15 +19,15 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface SearchPointsInput {
     /**
-     * @generated from protobuf field: string collection_name = 1
+     * @generated from protobuf field: string collection_name = 468055319
      */
     collectionName: string;
     /**
-     * @generated from protobuf field: int64 limit = 2
+     * @generated from protobuf field: int64 limit = 316332341
      */
     limit: string;
     /**
-     * @generated from protobuf field: repeated double vector = 3
+     * @generated from protobuf field: repeated double vector = 260696070
      */
     vector: number[];
 }
@@ -36,7 +36,7 @@ export interface SearchPointsInput {
  */
 export interface SearchPointsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value results = 1
+     * @generated from protobuf field: repeated google.protobuf.Value results = 206523128
      */
     results: Value[];
 }
@@ -44,9 +44,9 @@ export interface SearchPointsOutput {
 class SearchPointsInput$Type extends MessageType<SearchPointsInput> {
     constructor() {
         super("operation.method.qdrant.search_points.SearchPointsInput", [
-            { no: 1, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "vector", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 1 /*ScalarType.DOUBLE*/ }
+            { no: 468055319, name: "collection_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 316332341, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 260696070, name: "vector", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 1 /*ScalarType.DOUBLE*/ }
         ]);
     }
     create(value?: PartialMessage<SearchPointsInput>): SearchPointsInput {
@@ -63,13 +63,13 @@ class SearchPointsInput$Type extends MessageType<SearchPointsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string collection_name */ 1:
+                case /* string collection_name */ 468055319:
                     message.collectionName = reader.string();
                     break;
-                case /* int64 limit */ 2:
+                case /* int64 limit */ 316332341:
                     message.limit = reader.int64().toString();
                     break;
-                case /* repeated double vector */ 3:
+                case /* repeated double vector */ 260696070:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
                             message.vector.push(reader.double());
@@ -88,19 +88,19 @@ class SearchPointsInput$Type extends MessageType<SearchPointsInput> {
         return message;
     }
     internalBinaryWrite(message: SearchPointsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string collection_name = 1; */
-        if (message.collectionName !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.collectionName);
-        /* int64 limit = 2; */
-        if (message.limit !== "0")
-            writer.tag(2, WireType.Varint).int64(message.limit);
-        /* repeated double vector = 3; */
+        /* repeated double vector = 260696070; */
         if (message.vector.length) {
-            writer.tag(3, WireType.LengthDelimited).fork();
+            writer.tag(260696070, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.vector.length; i++)
                 writer.double(message.vector[i]);
             writer.join();
         }
+        /* int64 limit = 316332341; */
+        if (message.limit !== "0")
+            writer.tag(316332341, WireType.Varint).int64(message.limit);
+        /* string collection_name = 468055319; */
+        if (message.collectionName !== "")
+            writer.tag(468055319, WireType.LengthDelimited).string(message.collectionName);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -115,7 +115,7 @@ export const SearchPointsInput = new SearchPointsInput$Type();
 class SearchPointsOutput$Type extends MessageType<SearchPointsOutput> {
     constructor() {
         super("operation.method.qdrant.search_points.SearchPointsOutput", [
-            { no: 1, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 206523128, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<SearchPointsOutput>): SearchPointsOutput {
@@ -130,7 +130,7 @@ class SearchPointsOutput$Type extends MessageType<SearchPointsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value results */ 1:
+                case /* repeated google.protobuf.Value results */ 206523128:
                     message.results.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -145,9 +145,9 @@ class SearchPointsOutput$Type extends MessageType<SearchPointsOutput> {
         return message;
     }
     internalBinaryWrite(message: SearchPointsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value results = 1; */
+        /* repeated google.protobuf.Value results = 206523128; */
         for (let i = 0; i < message.results.length; i++)
-            Value.internalBinaryWrite(message.results[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.results[i], writer.tag(206523128, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.xray.record_span;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RecordSpanInput {
+  int64 end_ms = 92501012;
+  google.protobuf.Value metadata = 102912835;
+  string span_name = 516393541;
+  int64 start_ms = 516843885;
+  string trace_id = 270708270;
+}
+
+message RecordSpanOutput {
+  bool success = 442482449;
+}
+
+service RecordSpanService {
+  // subid: mut.software.plugin.xray.span.record@v1, capability: xray.write
+  rpc record_span(RecordSpanInput) returns (RecordSpanOutput);
+}

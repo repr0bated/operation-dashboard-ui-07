@@ -15,7 +15,7 @@ message GetIdentityInput {
 }
 
 message GetIdentityOutput {
-  google.protobuf.Value identity = 1;
+  google.protobuf.Value identity = 155530400;
 }
 
 service GetIdentityService {

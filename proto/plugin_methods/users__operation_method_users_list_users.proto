@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ListUsersInput {
-  string group = 1;
+  string group = 532225678;
 }
 
-message ListUsersOutput {}
+message ListUsersOutput {
+  bool success = 442482449;
+}
 
 service ListUsersService {
   // subid: obs.software.plugin.users.list@v1, capability: users.read

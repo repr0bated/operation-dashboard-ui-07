@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface KillUserInput {
     /**
-     * @generated from protobuf field: int64 signal_number = 1
+     * @generated from protobuf field: int64 signal_number = 230647920
      */
     signalNumber: string;
     /**
-     * @generated from protobuf field: int64 uid = 2
+     * @generated from protobuf field: int64 uid = 482862799
      */
     uid: string;
 }
@@ -30,13 +30,17 @@ export interface KillUserInput {
  * @generated from protobuf message operation.method.login1.kill_user.KillUserOutput
  */
 export interface KillUserOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class KillUserInput$Type extends MessageType<KillUserInput> {
     constructor() {
         super("operation.method.login1.kill_user.KillUserInput", [
-            { no: 1, name: "signal_number", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 230647920, name: "signal_number", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 482862799, name: "uid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<KillUserInput>): KillUserInput {
@@ -52,10 +56,10 @@ class KillUserInput$Type extends MessageType<KillUserInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 signal_number */ 1:
+                case /* int64 signal_number */ 230647920:
                     message.signalNumber = reader.int64().toString();
                     break;
-                case /* int64 uid */ 2:
+                case /* int64 uid */ 482862799:
                     message.uid = reader.int64().toString();
                     break;
                 default:
@@ -70,12 +74,12 @@ class KillUserInput$Type extends MessageType<KillUserInput> {
         return message;
     }
     internalBinaryWrite(message: KillUserInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 signal_number = 1; */
+        /* int64 signal_number = 230647920; */
         if (message.signalNumber !== "0")
-            writer.tag(1, WireType.Varint).int64(message.signalNumber);
-        /* int64 uid = 2; */
+            writer.tag(230647920, WireType.Varint).int64(message.signalNumber);
+        /* int64 uid = 482862799; */
         if (message.uid !== "0")
-            writer.tag(2, WireType.Varint).int64(message.uid);
+            writer.tag(482862799, WireType.Varint).int64(message.uid);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const KillUserInput = new KillUserInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class KillUserOutput$Type extends MessageType<KillUserOutput> {
     constructor() {
-        super("operation.method.login1.kill_user.KillUserOutput", []);
+        super("operation.method.login1.kill_user.KillUserOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<KillUserOutput>): KillUserOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<KillUserOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class KillUserOutput$Type extends MessageType<KillUserOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class KillUserOutput$Type extends MessageType<KillUserOutput> {
         return message;
     }
     internalBinaryWrite(message: KillUserOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

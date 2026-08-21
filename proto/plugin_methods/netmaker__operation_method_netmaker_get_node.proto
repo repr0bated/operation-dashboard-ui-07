@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetNodeInput {
-  string network = 1;
-  string node_id = 2;
+  string network = 303597255;
+  string node_id = 169140144;
 }
 
-message GetNodeOutput {}
+message GetNodeOutput {
+  bool success = 442482449;
+}
 
 service GetNodeService {
   // subid: obs.network.netmaker.node.get@v1, capability: cap.network.netmaker.node.get@v1

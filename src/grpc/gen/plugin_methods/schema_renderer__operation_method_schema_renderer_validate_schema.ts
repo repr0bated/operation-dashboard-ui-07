@@ -25,9 +25,13 @@ export interface ValidateSchemaInput {
  */
 export interface ValidateSchemaOutput {
     /**
-     * @generated from protobuf field: repeated string errors = 1
+     * @generated from protobuf field: repeated string errors = 437762701
      */
     errors: string[];
+    /**
+     * @generated from protobuf field: bool valid = 58518131
+     */
+    valid: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ValidateSchemaInput$Type extends MessageType<ValidateSchemaInput> {
@@ -71,12 +75,14 @@ export const ValidateSchemaInput = new ValidateSchemaInput$Type();
 class ValidateSchemaOutput$Type extends MessageType<ValidateSchemaOutput> {
     constructor() {
         super("operation.method.schema_renderer.validate_schema.ValidateSchemaOutput", [
-            { no: 1, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 437762701, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 58518131, name: "valid", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ValidateSchemaOutput>): ValidateSchemaOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.errors = [];
+        message.valid = false;
         if (value !== undefined)
             reflectionMergePartial<ValidateSchemaOutput>(this, message, value);
         return message;
@@ -86,8 +92,11 @@ class ValidateSchemaOutput$Type extends MessageType<ValidateSchemaOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string errors */ 1:
+                case /* repeated string errors */ 437762701:
                     message.errors.push(reader.string());
+                    break;
+                case /* bool valid */ 58518131:
+                    message.valid = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -101,9 +110,12 @@ class ValidateSchemaOutput$Type extends MessageType<ValidateSchemaOutput> {
         return message;
     }
     internalBinaryWrite(message: ValidateSchemaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string errors = 1; */
+        /* bool valid = 58518131; */
+        if (message.valid !== false)
+            writer.tag(58518131, WireType.Varint).bool(message.valid);
+        /* repeated string errors = 437762701; */
         for (let i = 0; i < message.errors.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.errors[i]);
+            writer.tag(437762701, WireType.LengthDelimited).string(message.errors[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

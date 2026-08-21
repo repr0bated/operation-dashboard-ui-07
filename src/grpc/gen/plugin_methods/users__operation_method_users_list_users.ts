@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface ListUsersInput {
     /**
-     * @generated from protobuf field: string group = 1
+     * @generated from protobuf field: string group = 532225678
      */
     group: string;
 }
@@ -26,12 +26,16 @@ export interface ListUsersInput {
  * @generated from protobuf message operation.method.users.list_users.ListUsersOutput
  */
 export interface ListUsersOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ListUsersInput$Type extends MessageType<ListUsersInput> {
     constructor() {
         super("operation.method.users.list_users.ListUsersInput", [
-            { no: 1, name: "group", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 532225678, name: "group", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListUsersInput>): ListUsersInput {
@@ -46,7 +50,7 @@ class ListUsersInput$Type extends MessageType<ListUsersInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string group */ 1:
+                case /* string group */ 532225678:
                     message.group = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class ListUsersInput$Type extends MessageType<ListUsersInput> {
         return message;
     }
     internalBinaryWrite(message: ListUsersInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string group = 1; */
+        /* string group = 532225678; */
         if (message.group !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.group);
+            writer.tag(532225678, WireType.LengthDelimited).string(message.group);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const ListUsersInput = new ListUsersInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class ListUsersOutput$Type extends MessageType<ListUsersOutput> {
     constructor() {
-        super("operation.method.users.list_users.ListUsersOutput", []);
+        super("operation.method.users.list_users.ListUsersOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<ListUsersOutput>): ListUsersOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<ListUsersOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class ListUsersOutput$Type extends MessageType<ListUsersOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class ListUsersOutput$Type extends MessageType<ListUsersOutput> {
         return message;
     }
     internalBinaryWrite(message: ListUsersOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

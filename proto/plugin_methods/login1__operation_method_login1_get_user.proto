@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetUserInput {
-  int64 uid = 1;
+  int64 uid = 482862799;
 }
 
-message GetUserOutput {}
+message GetUserOutput {
+  bool success = 442482449;
+}
 
 service GetUserService {
   // subid: obs.software.login1.user.get@v1, capability: login1.read

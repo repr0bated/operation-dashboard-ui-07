@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetProcessInfoInput {
     /**
-     * @generated from protobuf field: int64 pid = 1
+     * @generated from protobuf field: int64 pid = 155254053
      */
     pid: string;
 }
@@ -26,12 +26,16 @@ export interface GetProcessInfoInput {
  * @generated from protobuf message operation.method.procfs.get_process_info.GetProcessInfoOutput
  */
 export interface GetProcessInfoOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetProcessInfoInput$Type extends MessageType<GetProcessInfoInput> {
     constructor() {
         super("operation.method.procfs.get_process_info.GetProcessInfoInput", [
-            { no: 1, name: "pid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 155254053, name: "pid", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<GetProcessInfoInput>): GetProcessInfoInput {
@@ -46,7 +50,7 @@ class GetProcessInfoInput$Type extends MessageType<GetProcessInfoInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 pid */ 1:
+                case /* int64 pid */ 155254053:
                     message.pid = reader.int64().toString();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetProcessInfoInput$Type extends MessageType<GetProcessInfoInput> {
         return message;
     }
     internalBinaryWrite(message: GetProcessInfoInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 pid = 1; */
+        /* int64 pid = 155254053; */
         if (message.pid !== "0")
-            writer.tag(1, WireType.Varint).int64(message.pid);
+            writer.tag(155254053, WireType.Varint).int64(message.pid);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetProcessInfoInput = new GetProcessInfoInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetProcessInfoOutput$Type extends MessageType<GetProcessInfoOutput> {
     constructor() {
-        super("operation.method.procfs.get_process_info.GetProcessInfoOutput", []);
+        super("operation.method.procfs.get_process_info.GetProcessInfoOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetProcessInfoOutput>): GetProcessInfoOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetProcessInfoOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetProcessInfoOutput$Type extends MessageType<GetProcessInfoOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetProcessInfoOutput$Type extends MessageType<GetProcessInfoOutput> {
         return message;
     }
     internalBinaryWrite(message: GetProcessInfoOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

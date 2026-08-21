@@ -15,7 +15,7 @@ message RenderSchemaInput {
 }
 
 message RenderSchemaOutput {
-  google.protobuf.Value rendering = 1;
+  google.protobuf.Value rendering = 528237146;
 }
 
 service RenderSchemaService {

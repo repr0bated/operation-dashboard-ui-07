@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeleteCollectionInput {
-  string name = 1;
+  string name = 221887978;
 }
 
-message DeleteCollectionOutput {}
+message DeleteCollectionOutput {
+  bool success = 442482449;
+}
 
 service DeleteCollectionService {
   // subid: mut.data.qdrant.collection.delete@v1, capability: cap.data.qdrant.collection.delete@v1

@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ExportJsonSchemaInput {
     /**
-     * @generated from protobuf field: bool strict = 1
+     * @generated from protobuf field: bool strict = 80229749
      */
     strict: boolean;
 }
@@ -28,7 +28,7 @@ export interface ExportJsonSchemaInput {
  */
 export interface ExportJsonSchemaOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value schema = 1
+     * @generated from protobuf field: google.protobuf.Value schema = 310182712
      */
     schema?: Value;
 }
@@ -36,7 +36,7 @@ export interface ExportJsonSchemaOutput {
 class ExportJsonSchemaInput$Type extends MessageType<ExportJsonSchemaInput> {
     constructor() {
         super("operation.method.json_render.export_json_schema.ExportJsonSchemaInput", [
-            { no: 1, name: "strict", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 80229749, name: "strict", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<ExportJsonSchemaInput>): ExportJsonSchemaInput {
@@ -51,7 +51,7 @@ class ExportJsonSchemaInput$Type extends MessageType<ExportJsonSchemaInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool strict */ 1:
+                case /* bool strict */ 80229749:
                     message.strict = reader.bool();
                     break;
                 default:
@@ -66,9 +66,9 @@ class ExportJsonSchemaInput$Type extends MessageType<ExportJsonSchemaInput> {
         return message;
     }
     internalBinaryWrite(message: ExportJsonSchemaInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool strict = 1; */
+        /* bool strict = 80229749; */
         if (message.strict !== false)
-            writer.tag(1, WireType.Varint).bool(message.strict);
+            writer.tag(80229749, WireType.Varint).bool(message.strict);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -83,7 +83,7 @@ export const ExportJsonSchemaInput = new ExportJsonSchemaInput$Type();
 class ExportJsonSchemaOutput$Type extends MessageType<ExportJsonSchemaOutput> {
     constructor() {
         super("operation.method.json_render.export_json_schema.ExportJsonSchemaOutput", [
-            { no: 1, name: "schema", kind: "message", T: () => Value }
+            { no: 310182712, name: "schema", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ExportJsonSchemaOutput>): ExportJsonSchemaOutput {
@@ -97,7 +97,7 @@ class ExportJsonSchemaOutput$Type extends MessageType<ExportJsonSchemaOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value schema */ 1:
+                case /* google.protobuf.Value schema */ 310182712:
                     message.schema = Value.internalBinaryRead(reader, reader.uint32(), options, message.schema);
                     break;
                 default:
@@ -112,9 +112,9 @@ class ExportJsonSchemaOutput$Type extends MessageType<ExportJsonSchemaOutput> {
         return message;
     }
     internalBinaryWrite(message: ExportJsonSchemaOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value schema = 1; */
+        /* google.protobuf.Value schema = 310182712; */
         if (message.schema)
-            Value.internalBinaryWrite(message.schema, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.schema, writer.tag(310182712, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

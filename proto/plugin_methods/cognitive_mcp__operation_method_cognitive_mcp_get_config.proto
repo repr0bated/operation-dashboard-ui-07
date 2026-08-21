@@ -15,12 +15,12 @@ message GetConfigInput {
 }
 
 message GetConfigOutput {
-  bool dbus_enabled = 1;
-  string grpc = 2;
-  bool grpc_enabled = 3;
-  string http = 4;
-  bool http_enabled = 5;
-  string wg_interface = 6;
+  bool dbus_enabled = 315145500;
+  string grpc = 7421098;
+  bool grpc_enabled = 10552235;
+  string http = 157567147;
+  bool http_enabled = 90804139;
+  string wg_interface = 245570443;
 }
 
 service GetConfigService {

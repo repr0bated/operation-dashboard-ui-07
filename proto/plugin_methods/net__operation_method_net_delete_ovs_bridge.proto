@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeleteOvsBridgeInput {
-  string name = 1;
+  string name = 221887978;
 }
 
-message DeleteOvsBridgeOutput {}
+message DeleteOvsBridgeOutput {
+  bool success = 442482449;
+}
 
 service DeleteOvsBridgeService {
   // subid: mut.network.ovs-bridge.delete@v1, capability: cap.network.ovs-bridge.delete@v1

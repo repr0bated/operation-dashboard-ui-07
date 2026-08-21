@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.full_system.set_hostname;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetHostnameInput {
+  string hostname = 510383469;
+}
+
+message SetHostnameOutput {
+  bool success = 442482449;
+}
+
+service SetHostnameService {
+  // subid: mut.system.plugin.full-system.hostname.set@v1, capability: full_system.write
+  rpc set_hostname(SetHostnameInput) returns (SetHostnameOutput);
+}

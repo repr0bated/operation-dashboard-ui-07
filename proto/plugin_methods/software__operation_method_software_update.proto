@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message UpdateInput {
-  string name = 1;
-  string version = 2;
+  string name = 221887978;
+  string version = 108113561;
 }
 
-message UpdateOutput {}
+message UpdateOutput {
+  bool success = 442482449;
+}
 
 service UpdateService {
   // subid: mut.software.plugin.software.update@v1, capability: software.write

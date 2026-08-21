@@ -14,7 +14,9 @@ message ListNetworksInput {
   // Empty schema object.
 }
 
-message ListNetworksOutput {}
+message ListNetworksOutput {
+  bool success = 442482449;
+}
 
 service ListNetworksService {
   // subid: obs.network.netmaker.networks.list@v1, capability: cap.network.netmaker.networks.list@v1

@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message AttachDeviceInput {
-  bool interactive = 1;
-  string seat_id = 2;
-  string sysfs_path = 3;
+  bool interactive = 520087662;
+  string seat_id = 14173556;
+  string sysfs_path = 501095252;
 }
 
-message AttachDeviceOutput {}
+message AttachDeviceOutput {
+  bool success = 442482449;
+}
 
 service AttachDeviceService {
   // subid: mut.software.login1.device.attach@v1, capability: login1.admin

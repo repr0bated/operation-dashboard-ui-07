@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message UnbanIpInput {
-  string ip = 1;
-  string jail = 2;
+  string ip = 188254814;
+  string jail = 224568113;
 }
 
-message UnbanIpOutput {}
+message UnbanIpOutput {
+  bool success = 442482449;
+}
 
 service UnbanIpService {
   // subid: mut.security.fail2ban.ip.unban@v1, capability: fail2ban.write

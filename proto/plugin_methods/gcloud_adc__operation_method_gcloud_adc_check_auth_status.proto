@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package operation.method.gcloud_adc.check_auth_status;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message CheckAuthStatusInput {
+  // Empty schema object.
+}
+
+message CheckAuthStatusOutput {
+  string account = 156223325;
+  bool authenticated = 298996990;
+  string project_id = 277839103;
+}
+
+service CheckAuthStatusService {
+  // subid: obs.software.plugin.gcloud-adc.auth-status.check@v1, capability: gcloud_adc.read
+  rpc check_auth_status(CheckAuthStatusInput) returns (CheckAuthStatusOutput);
+}

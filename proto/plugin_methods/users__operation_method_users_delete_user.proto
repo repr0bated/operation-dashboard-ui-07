@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeleteUserInput {
-  bool remove_home = 1;
-  string username = 2;
+  bool remove_home = 286262379;
+  string username = 246355387;
 }
 
-message DeleteUserOutput {}
+message DeleteUserOutput {
+  bool success = 442482449;
+}
 
 service DeleteUserService {
   // subid: mut.software.plugin.users.delete@v1, capability: users.write

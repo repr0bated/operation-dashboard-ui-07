@@ -14,7 +14,9 @@ message GetNotebookInput {
   // Empty schema object.
 }
 
-message GetNotebookOutput {}
+message GetNotebookOutput {
+  bool success = 442482449;
+}
 
 service GetNotebookService {
   // subid: obs.service.plugin.notebooklm.notebook.get@v1, capability: notebooklm.read

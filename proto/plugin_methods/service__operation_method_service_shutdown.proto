@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message ShutdownInput {
-  bool force = 1;
-  string name = 2;
+  bool force = 430540935;
+  string name = 221887978;
 }
 
-message ShutdownOutput {}
+message ShutdownOutput {
+  bool success = 442482449;
+}
 
 service ShutdownService {
   // subid: mut.service.lifecycle.shutdown@v1, capability: cap.service.lifecycle.shutdown@v1

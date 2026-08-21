@@ -26,7 +26,7 @@ export interface ListMultimodalModelsInput {
  */
 export interface ListMultimodalModelsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value models = 1
+     * @generated from protobuf field: repeated google.protobuf.Value models = 343003787
      */
     models: Value[];
 }
@@ -72,7 +72,7 @@ export const ListMultimodalModelsInput = new ListMultimodalModelsInput$Type();
 class ListMultimodalModelsOutput$Type extends MessageType<ListMultimodalModelsOutput> {
     constructor() {
         super("operation.method.embedding_model.list_multimodal_models.ListMultimodalModelsOutput", [
-            { no: 1, name: "models", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 343003787, name: "models", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListMultimodalModelsOutput>): ListMultimodalModelsOutput {
@@ -87,7 +87,7 @@ class ListMultimodalModelsOutput$Type extends MessageType<ListMultimodalModelsOu
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value models */ 1:
+                case /* repeated google.protobuf.Value models */ 343003787:
                     message.models.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListMultimodalModelsOutput$Type extends MessageType<ListMultimodalModelsOu
         return message;
     }
     internalBinaryWrite(message: ListMultimodalModelsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value models = 1; */
+        /* repeated google.protobuf.Value models = 343003787; */
         for (let i = 0; i < message.models.length; i++)
-            Value.internalBinaryWrite(message.models[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.models[i], writer.tag(343003787, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

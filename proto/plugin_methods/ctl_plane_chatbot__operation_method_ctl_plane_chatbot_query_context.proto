@@ -11,12 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message QueryContextInput {
-  int64 limit = 1;
-  string query = 2;
+  // Empty schema object.
 }
 
 message QueryContextOutput {
-  repeated google.protobuf.Value results = 1;
+  repeated google.protobuf.Value results = 206523128;
 }
 
 service QueryContextService {

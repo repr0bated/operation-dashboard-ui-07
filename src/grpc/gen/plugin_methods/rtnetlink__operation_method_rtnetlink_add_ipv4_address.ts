@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface AddIpv4AddressInput {
     /**
-     * @generated from protobuf field: string address = 1
+     * @generated from protobuf field: string address = 208283988
      */
     address: string;
     /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -30,13 +30,17 @@ export interface AddIpv4AddressInput {
  * @generated from protobuf message operation.method.rtnetlink.add_ipv4_address.AddIpv4AddressOutput
  */
 export interface AddIpv4AddressOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddIpv4AddressInput$Type extends MessageType<AddIpv4AddressInput> {
     constructor() {
         super("operation.method.rtnetlink.add_ipv4_address.AddIpv4AddressInput", [
-            { no: 1, name: "address", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 208283988, name: "address", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AddIpv4AddressInput>): AddIpv4AddressInput {
@@ -52,10 +56,10 @@ class AddIpv4AddressInput$Type extends MessageType<AddIpv4AddressInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string address */ 1:
+                case /* string address */ 208283988:
                     message.address = reader.string();
                     break;
-                case /* string name */ 2:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class AddIpv4AddressInput$Type extends MessageType<AddIpv4AddressInput> {
         return message;
     }
     internalBinaryWrite(message: AddIpv4AddressInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string address = 1; */
+        /* string address = 208283988; */
         if (message.address !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.address);
-        /* string name = 2; */
+            writer.tag(208283988, WireType.LengthDelimited).string(message.address);
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const AddIpv4AddressInput = new AddIpv4AddressInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddIpv4AddressOutput$Type extends MessageType<AddIpv4AddressOutput> {
     constructor() {
-        super("operation.method.rtnetlink.add_ipv4_address.AddIpv4AddressOutput", []);
+        super("operation.method.rtnetlink.add_ipv4_address.AddIpv4AddressOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddIpv4AddressOutput>): AddIpv4AddressOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddIpv4AddressOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class AddIpv4AddressOutput$Type extends MessageType<AddIpv4AddressOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class AddIpv4AddressOutput$Type extends MessageType<AddIpv4AddressOutput> {
         return message;
     }
     internalBinaryWrite(message: AddIpv4AddressOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

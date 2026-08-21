@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message KillInput {
-  string id = 1;
-  int64 signal = 2;
+  string id = 389573345;
+  int64 signal = 494647822;
 }
 
-message KillOutput {}
+message KillOutput {
+  bool success = 442482449;
+}
 
 service KillService {
   // subid: mut.container.oci.kill@v1, capability: cap.container.oci.kill@v1

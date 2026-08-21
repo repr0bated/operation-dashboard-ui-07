@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message BalanceStartInput {
-  string path = 1;
+  string path = 75975994;
 }
 
-message BalanceStartOutput {}
+message BalanceStartOutput {
+  bool success = 442482449;
+}
 
 service BalanceStartService {
   // subid: mut.storage.btrfs.balance.start@v1, capability: cap.storage.btrfs.balance.start@v1

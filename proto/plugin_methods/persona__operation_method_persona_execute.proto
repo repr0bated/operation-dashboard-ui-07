@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package operation.method.persona.execute;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message ExecuteInput {
+  string agent_type = 482594788;
+  google.protobuf.Value args = 487237440;
+  string operation = 322863368;
+  string path = 75975994;
+  string query = 416183786;
+}
+
+message ExecuteOutput {
+  string agent_type = 482594788;
+  google.protobuf.Value data = 410182315;
+  string message = 82970853;
+  google.protobuf.Value metadata = 102912835;
+  string operation = 322863368;
+  bool success = 442482449;
+}
+
+service ExecuteService {
+  // subid: mut.agent.persona.execute@v1, capability: persona.execute
+  rpc execute(ExecuteInput) returns (ExecuteOutput);
+}

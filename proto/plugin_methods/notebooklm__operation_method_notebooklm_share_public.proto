@@ -14,7 +14,9 @@ message SharePublicInput {
   // Empty schema object.
 }
 
-message SharePublicOutput {}
+message SharePublicOutput {
+  bool success = 442482449;
+}
 
 service SharePublicService {
   // subid: mut.service.plugin.notebooklm.share.public@v1, capability: notebooklm.invoke

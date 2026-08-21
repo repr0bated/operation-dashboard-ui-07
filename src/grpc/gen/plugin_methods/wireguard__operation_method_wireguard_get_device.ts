@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface GetDeviceInput {
     /**
-     * @generated from protobuf field: string interface = 1
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
 }
@@ -28,7 +28,7 @@ export interface GetDeviceInput {
  */
 export interface GetDeviceOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value interface = 1
+     * @generated from protobuf field: google.protobuf.Value interface = 82465076
      */
     interface?: Value;
 }
@@ -36,7 +36,7 @@ export interface GetDeviceOutput {
 class GetDeviceInput$Type extends MessageType<GetDeviceInput> {
     constructor() {
         super("operation.method.wireguard.get_device.GetDeviceInput", [
-            { no: 1, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetDeviceInput>): GetDeviceInput {
@@ -51,7 +51,7 @@ class GetDeviceInput$Type extends MessageType<GetDeviceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string interface */ 1:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
                 default:
@@ -66,9 +66,9 @@ class GetDeviceInput$Type extends MessageType<GetDeviceInput> {
         return message;
     }
     internalBinaryWrite(message: GetDeviceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string interface = 1; */
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.interface);
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -83,7 +83,7 @@ export const GetDeviceInput = new GetDeviceInput$Type();
 class GetDeviceOutput$Type extends MessageType<GetDeviceOutput> {
     constructor() {
         super("operation.method.wireguard.get_device.GetDeviceOutput", [
-            { no: 1, name: "interface", kind: "message", T: () => Value }
+            { no: 82465076, name: "interface", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetDeviceOutput>): GetDeviceOutput {
@@ -97,7 +97,7 @@ class GetDeviceOutput$Type extends MessageType<GetDeviceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value interface */ 1:
+                case /* google.protobuf.Value interface */ 82465076:
                     message.interface = Value.internalBinaryRead(reader, reader.uint32(), options, message.interface);
                     break;
                 default:
@@ -112,9 +112,9 @@ class GetDeviceOutput$Type extends MessageType<GetDeviceOutput> {
         return message;
     }
     internalBinaryWrite(message: GetDeviceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value interface = 1; */
+        /* google.protobuf.Value interface = 82465076; */
         if (message.interface)
-            Value.internalBinaryWrite(message.interface, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.interface, writer.tag(82465076, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

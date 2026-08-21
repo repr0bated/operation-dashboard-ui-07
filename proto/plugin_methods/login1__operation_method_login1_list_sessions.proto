@@ -14,7 +14,9 @@ message ListSessionsInput {
   // Empty schema object.
 }
 
-message ListSessionsOutput {}
+message ListSessionsOutput {
+  bool success = 442482449;
+}
 
 service ListSessionsService {
   // subid: obs.software.login1.sessions.list@v1, capability: login1.read

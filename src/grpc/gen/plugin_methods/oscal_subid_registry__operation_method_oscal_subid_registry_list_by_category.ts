@@ -26,7 +26,7 @@ export interface ListByCategoryInput {
  */
 export interface ListByCategoryOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value entries = 1
+     * @generated from protobuf field: repeated google.protobuf.Value entries = 257458934
      */
     entries: Value[];
 }
@@ -72,7 +72,7 @@ export const ListByCategoryInput = new ListByCategoryInput$Type();
 class ListByCategoryOutput$Type extends MessageType<ListByCategoryOutput> {
     constructor() {
         super("operation.method.oscal_subid_registry.list_by_category.ListByCategoryOutput", [
-            { no: 1, name: "entries", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 257458934, name: "entries", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListByCategoryOutput>): ListByCategoryOutput {
@@ -87,7 +87,7 @@ class ListByCategoryOutput$Type extends MessageType<ListByCategoryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value entries */ 1:
+                case /* repeated google.protobuf.Value entries */ 257458934:
                     message.entries.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListByCategoryOutput$Type extends MessageType<ListByCategoryOutput> {
         return message;
     }
     internalBinaryWrite(message: ListByCategoryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value entries = 1; */
+        /* repeated google.protobuf.Value entries = 257458934; */
         for (let i = 0; i < message.entries.length; i++)
-            Value.internalBinaryWrite(message.entries[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.entries[i], writer.tag(257458934, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

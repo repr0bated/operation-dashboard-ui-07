@@ -14,7 +14,9 @@ message ShareInviteInput {
   // Empty schema object.
 }
 
-message ShareInviteOutput {}
+message ShareInviteOutput {
+  bool success = 442482449;
+}
 
 service ShareInviteService {
   // subid: mut.service.plugin.notebooklm.share.invite@v1, capability: notebooklm.invoke

@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetLinkStateInput {
-  string name = 1;
-  string state = 2;
+  string name = 221887978;
+  string state = 405877497;
 }
 
-message SetLinkStateOutput {}
+message SetLinkStateOutput {
+  bool success = 442482449;
+}
 
 service SetLinkStateService {
   // subid: mut.network.rtnetlink.link-state.set@v1, capability: cap.network.rtnetlink.link-state.set@v1

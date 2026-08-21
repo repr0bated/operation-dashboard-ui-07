@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getlinkedinconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetLinkedinConfigInput {
+  // Empty schema object.
+}
+
+message GetLinkedinConfigOutput {
+  google.protobuf.Value config = 67069640;
+}
+
+service GetLinkedinConfigService {
+  // subid: obs.service.3tched-router.linkedin-config.get@v1, capability: cap.software.3tched-router.linkedin-config.read@v1
+  rpc GetLinkedinConfig(GetLinkedinConfigInput) returns (GetLinkedinConfigOutput);
+}

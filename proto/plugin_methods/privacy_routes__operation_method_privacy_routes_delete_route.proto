@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.privacy_routes.delete_route;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message DeleteRouteInput {
+  string route_id = 431509022;
+}
+
+message DeleteRouteOutput {
+  repeated google.protobuf.Value routes = 219895961;
+}
+
+service DeleteRouteService {
+  // subid: mut.network.plugin.privacy-routes.route.delete@v1, capability: privacy_routes.write
+  rpc delete_route(DeleteRouteInput) returns (DeleteRouteOutput);
+}

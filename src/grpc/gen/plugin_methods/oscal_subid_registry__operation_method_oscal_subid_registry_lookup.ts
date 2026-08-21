@@ -26,7 +26,7 @@ export interface LookupInput {
  */
 export interface LookupOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value entry = 1
+     * @generated from protobuf field: google.protobuf.Value entry = 180606873
      */
     entry?: Value;
 }
@@ -72,7 +72,7 @@ export const LookupInput = new LookupInput$Type();
 class LookupOutput$Type extends MessageType<LookupOutput> {
     constructor() {
         super("operation.method.oscal_subid_registry.lookup.LookupOutput", [
-            { no: 1, name: "entry", kind: "message", T: () => Value }
+            { no: 180606873, name: "entry", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<LookupOutput>): LookupOutput {
@@ -86,7 +86,7 @@ class LookupOutput$Type extends MessageType<LookupOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value entry */ 1:
+                case /* google.protobuf.Value entry */ 180606873:
                     message.entry = Value.internalBinaryRead(reader, reader.uint32(), options, message.entry);
                     break;
                 default:
@@ -101,9 +101,9 @@ class LookupOutput$Type extends MessageType<LookupOutput> {
         return message;
     }
     internalBinaryWrite(message: LookupOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value entry = 1; */
+        /* google.protobuf.Value entry = 180606873; */
         if (message.entry)
-            Value.internalBinaryWrite(message.entry, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.entry, writer.tag(180606873, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

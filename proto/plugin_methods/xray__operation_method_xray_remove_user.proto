@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.xray.remove_user;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RemoveUserInput {
+  string email = 176640971;
+  string protocol = 455607740;
+}
+
+message RemoveUserOutput {
+  bool success = 442482449;
+}
+
+service RemoveUserService {
+  // subid: mut.software.plugin.xray.user.remove@v1, capability: xray.write
+  rpc remove_user(RemoveUserInput) returns (RemoveUserOutput);
+}

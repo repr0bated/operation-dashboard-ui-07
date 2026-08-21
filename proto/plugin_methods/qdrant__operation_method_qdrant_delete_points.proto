@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeletePointsInput {
-  string collection_name = 1;
-  repeated google.protobuf.Value points = 2;
+  string collection_name = 468055319;
+  repeated google.protobuf.Value points = 479553483;
 }
 
-message DeletePointsOutput {}
+message DeletePointsOutput {
+  bool success = 442482449;
+}
 
 service DeletePointsService {
   // subid: mut.data.qdrant.point.delete@v1, capability: cap.data.qdrant.point.delete@v1

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.compact_mcp.restart;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message RestartInput {
+  // Empty schema object.
+}
+
+message RestartOutput {
+  bool success = 442482449;
+}
+
+service RestartService {
+  // subid: mut.software.plugin.compact-mcp.service.restart@v1, capability: compact_mcp.write
+  rpc restart(RestartInput) returns (RestartOutput);
+}

@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface SetConfigInput {
     /**
-     * @generated from protobuf field: google.protobuf.Value config = 1
+     * @generated from protobuf field: google.protobuf.Value config = 67069640
      */
     config?: Value;
     /**
-     * @generated from protobuf field: string interface = 2
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
 }
@@ -31,13 +31,17 @@ export interface SetConfigInput {
  * @generated from protobuf message operation.method.wireguard.set_config.SetConfigOutput
  */
 export interface SetConfigOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetConfigInput$Type extends MessageType<SetConfigInput> {
     constructor() {
         super("operation.method.wireguard.set_config.SetConfigInput", [
-            { no: 1, name: "config", kind: "message", T: () => Value },
-            { no: 2, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 67069640, name: "config", kind: "message", T: () => Value },
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetConfigInput>): SetConfigInput {
@@ -52,10 +56,10 @@ class SetConfigInput$Type extends MessageType<SetConfigInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value config */ 1:
+                case /* google.protobuf.Value config */ 67069640:
                     message.config = Value.internalBinaryRead(reader, reader.uint32(), options, message.config);
                     break;
-                case /* string interface */ 2:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class SetConfigInput$Type extends MessageType<SetConfigInput> {
         return message;
     }
     internalBinaryWrite(message: SetConfigInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value config = 1; */
+        /* google.protobuf.Value config = 67069640; */
         if (message.config)
-            Value.internalBinaryWrite(message.config, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string interface = 2; */
+            Value.internalBinaryWrite(message.config, writer.tag(67069640, WireType.LengthDelimited).fork(), options).join();
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.interface);
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SetConfigInput = new SetConfigInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetConfigOutput$Type extends MessageType<SetConfigOutput> {
     constructor() {
-        super("operation.method.wireguard.set_config.SetConfigOutput", []);
+        super("operation.method.wireguard.set_config.SetConfigOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetConfigOutput>): SetConfigOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetConfigOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetConfigOutput$Type extends MessageType<SetConfigOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetConfigOutput$Type extends MessageType<SetConfigOutput> {
         return message;
     }
     internalBinaryWrite(message: SetConfigOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

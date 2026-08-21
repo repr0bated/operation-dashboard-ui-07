@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getmodelroutes;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetModelRoutesInput {
+  // Empty schema object.
+}
+
+message GetModelRoutesOutput {
+  repeated google.protobuf.Value model_routes = 394460213;
+}
+
+service GetModelRoutesService {
+  // subid: obs.service.tched-router.model-routes.list@v1, capability: cap.software.tched-router.routes.read@v1
+  rpc GetModelRoutes(GetModelRoutesInput) returns (GetModelRoutesOutput);
+}

@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetMacAddressInput {
     /**
-     * @generated from protobuf field: string mac = 1
+     * @generated from protobuf field: string mac = 212010031
      */
     mac: string;
     /**
-     * @generated from protobuf field: string name = 2
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -30,13 +30,17 @@ export interface SetMacAddressInput {
  * @generated from protobuf message operation.method.rtnetlink.set_mac_address.SetMacAddressOutput
  */
 export interface SetMacAddressOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetMacAddressInput$Type extends MessageType<SetMacAddressInput> {
     constructor() {
         super("operation.method.rtnetlink.set_mac_address.SetMacAddressInput", [
-            { no: 1, name: "mac", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 212010031, name: "mac", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetMacAddressInput>): SetMacAddressInput {
@@ -52,10 +56,10 @@ class SetMacAddressInput$Type extends MessageType<SetMacAddressInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string mac */ 1:
+                case /* string mac */ 212010031:
                     message.mac = reader.string();
                     break;
-                case /* string name */ 2:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class SetMacAddressInput$Type extends MessageType<SetMacAddressInput> {
         return message;
     }
     internalBinaryWrite(message: SetMacAddressInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string mac = 1; */
+        /* string mac = 212010031; */
         if (message.mac !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.mac);
-        /* string name = 2; */
+            writer.tag(212010031, WireType.LengthDelimited).string(message.mac);
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SetMacAddressInput = new SetMacAddressInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetMacAddressOutput$Type extends MessageType<SetMacAddressOutput> {
     constructor() {
-        super("operation.method.rtnetlink.set_mac_address.SetMacAddressOutput", []);
+        super("operation.method.rtnetlink.set_mac_address.SetMacAddressOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetMacAddressOutput>): SetMacAddressOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetMacAddressOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetMacAddressOutput$Type extends MessageType<SetMacAddressOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetMacAddressOutput$Type extends MessageType<SetMacAddressOutput> {
         return message;
     }
     internalBinaryWrite(message: SetMacAddressOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

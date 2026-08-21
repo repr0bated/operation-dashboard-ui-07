@@ -14,7 +14,9 @@ message RunPipelineInput {
   // Empty schema object.
 }
 
-message RunPipelineOutput {}
+message RunPipelineOutput {
+  bool success = 442482449;
+}
 
 service RunPipelineService {
   // subid: mut.service.plugin.notebooklm.pipeline.run@v1, capability: notebooklm.invoke

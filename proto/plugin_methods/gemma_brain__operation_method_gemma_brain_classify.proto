@@ -15,7 +15,7 @@ message ClassifyInput {
 }
 
 message ClassifyOutput {
-  google.protobuf.Value classification = 1;
+  google.protobuf.Value classification = 396881735;
 }
 
 service ClassifyService {

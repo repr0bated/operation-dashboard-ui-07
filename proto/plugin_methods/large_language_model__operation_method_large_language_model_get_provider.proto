@@ -15,7 +15,7 @@ message GetProviderInput {
 }
 
 message GetProviderOutput {
-  google.protobuf.Value provider = 1;
+  google.protobuf.Value provider = 398506945;
 }
 
 service GetProviderService {

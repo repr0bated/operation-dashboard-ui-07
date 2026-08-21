@@ -26,7 +26,7 @@ export interface GetSendStateInput {
  */
 export interface GetSendStateOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value remotes = 1
+     * @generated from protobuf field: repeated google.protobuf.Value remotes = 62238050
      */
     remotes: Value[];
 }
@@ -72,7 +72,7 @@ export const GetSendStateInput = new GetSendStateInput$Type();
 class GetSendStateOutput$Type extends MessageType<GetSendStateOutput> {
     constructor() {
         super("operation.method.btrfs.get_send_state.GetSendStateOutput", [
-            { no: 1, name: "remotes", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 62238050, name: "remotes", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetSendStateOutput>): GetSendStateOutput {
@@ -87,7 +87,7 @@ class GetSendStateOutput$Type extends MessageType<GetSendStateOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value remotes */ 1:
+                case /* repeated google.protobuf.Value remotes */ 62238050:
                     message.remotes.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class GetSendStateOutput$Type extends MessageType<GetSendStateOutput> {
         return message;
     }
     internalBinaryWrite(message: GetSendStateOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value remotes = 1; */
+        /* repeated google.protobuf.Value remotes = 62238050; */
         for (let i = 0; i < message.remotes.length; i++)
-            Value.internalBinaryWrite(message.remotes[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.remotes[i], writer.tag(62238050, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

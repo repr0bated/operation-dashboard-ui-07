@@ -18,15 +18,15 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface KillSessionInput {
     /**
-     * @generated from protobuf field: string session_id = 1
+     * @generated from protobuf field: string session_id = 125141221
      */
     sessionId: string;
     /**
-     * @generated from protobuf field: int64 signal_number = 2
+     * @generated from protobuf field: int64 signal_number = 230647920
      */
     signalNumber: string;
     /**
-     * @generated from protobuf field: string who = 3
+     * @generated from protobuf field: string who = 183773840
      */
     who: string;
 }
@@ -34,14 +34,18 @@ export interface KillSessionInput {
  * @generated from protobuf message operation.method.login1.kill_session.KillSessionOutput
  */
 export interface KillSessionOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class KillSessionInput$Type extends MessageType<KillSessionInput> {
     constructor() {
         super("operation.method.login1.kill_session.KillSessionInput", [
-            { no: 1, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "signal_number", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 3, name: "who", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 125141221, name: "session_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 230647920, name: "signal_number", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 183773840, name: "who", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<KillSessionInput>): KillSessionInput {
@@ -58,13 +62,13 @@ class KillSessionInput$Type extends MessageType<KillSessionInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string session_id */ 1:
+                case /* string session_id */ 125141221:
                     message.sessionId = reader.string();
                     break;
-                case /* int64 signal_number */ 2:
+                case /* int64 signal_number */ 230647920:
                     message.signalNumber = reader.int64().toString();
                     break;
-                case /* string who */ 3:
+                case /* string who */ 183773840:
                     message.who = reader.string();
                     break;
                 default:
@@ -79,15 +83,15 @@ class KillSessionInput$Type extends MessageType<KillSessionInput> {
         return message;
     }
     internalBinaryWrite(message: KillSessionInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string session_id = 1; */
+        /* string session_id = 125141221; */
         if (message.sessionId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.sessionId);
-        /* int64 signal_number = 2; */
-        if (message.signalNumber !== "0")
-            writer.tag(2, WireType.Varint).int64(message.signalNumber);
-        /* string who = 3; */
+            writer.tag(125141221, WireType.LengthDelimited).string(message.sessionId);
+        /* string who = 183773840; */
         if (message.who !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.who);
+            writer.tag(183773840, WireType.LengthDelimited).string(message.who);
+        /* int64 signal_number = 230647920; */
+        if (message.signalNumber !== "0")
+            writer.tag(230647920, WireType.Varint).int64(message.signalNumber);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -101,10 +105,13 @@ export const KillSessionInput = new KillSessionInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class KillSessionOutput$Type extends MessageType<KillSessionOutput> {
     constructor() {
-        super("operation.method.login1.kill_session.KillSessionOutput", []);
+        super("operation.method.login1.kill_session.KillSessionOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<KillSessionOutput>): KillSessionOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<KillSessionOutput>(this, message, value);
         return message;
@@ -114,6 +121,9 @@ class KillSessionOutput$Type extends MessageType<KillSessionOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -126,6 +136,9 @@ class KillSessionOutput$Type extends MessageType<KillSessionOutput> {
         return message;
     }
     internalBinaryWrite(message: KillSessionOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

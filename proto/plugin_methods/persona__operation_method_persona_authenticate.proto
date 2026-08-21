@@ -11,13 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message AuthenticateInput {
-  string agent_type = 1;
-  google.protobuf.Struct credentials = 2;
+  string agent_type = 482594788;
+  google.protobuf.Struct credentials = 150838232;
 }
 
 message AuthenticateOutput {
-  bool authenticated = 1;
-  string token = 2;
+  bool authenticated = 298996990;
+  string token = 343534134;
 }
 
 service AuthenticateService {

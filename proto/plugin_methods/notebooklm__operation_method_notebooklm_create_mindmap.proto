@@ -14,7 +14,9 @@ message CreateMindmapInput {
   // Empty schema object.
 }
 
-message CreateMindmapOutput {}
+message CreateMindmapOutput {
+  bool success = 442482449;
+}
 
 service CreateMindmapService {
   // subid: mut.service.plugin.notebooklm.studio.mindmap.create@v1, capability: notebooklm.invoke

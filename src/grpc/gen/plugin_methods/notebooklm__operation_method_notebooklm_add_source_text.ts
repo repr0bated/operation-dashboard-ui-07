@@ -4,6 +4,7 @@
 // tslint:disable
 // @ts-nocheck
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
+import { WireType } from "@protobuf-ts/runtime";
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
@@ -23,6 +24,10 @@ export interface AddSourceTextInput {
  * @generated from protobuf message operation.method.notebooklm.add_source_text.AddSourceTextOutput
  */
 export interface AddSourceTextOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class AddSourceTextInput$Type extends MessageType<AddSourceTextInput> {
@@ -65,10 +70,13 @@ export const AddSourceTextInput = new AddSourceTextInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class AddSourceTextOutput$Type extends MessageType<AddSourceTextOutput> {
     constructor() {
-        super("operation.method.notebooklm.add_source_text.AddSourceTextOutput", []);
+        super("operation.method.notebooklm.add_source_text.AddSourceTextOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<AddSourceTextOutput>): AddSourceTextOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<AddSourceTextOutput>(this, message, value);
         return message;
@@ -78,6 +86,9 @@ class AddSourceTextOutput$Type extends MessageType<AddSourceTextOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -90,6 +101,9 @@ class AddSourceTextOutput$Type extends MessageType<AddSourceTextOutput> {
         return message;
     }
     internalBinaryWrite(message: AddSourceTextOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

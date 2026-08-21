@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message CancelInput {
-  string id = 1;
+  string id = 389573345;
 }
 
-message CancelOutput {}
+message CancelOutput {
+  bool success = 442482449;
+}
 
 service CancelService {
   // subid: mut.network.ovsdb.cancel@v1, capability: ovsdb.write

@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetLinkDnsOverTlsInput {
     /**
-     * @generated from protobuf field: int64 ifindex = 1
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
     /**
-     * @generated from protobuf field: string mode = 2
+     * @generated from protobuf field: string mode = 208592921
      */
     mode: string;
 }
@@ -30,13 +30,17 @@ export interface SetLinkDnsOverTlsInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_dns_over_tls.SetLinkDnsOverTlsOutput
  */
 export interface SetLinkDnsOverTlsOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnsOverTlsInput$Type extends MessageType<SetLinkDnsOverTlsInput> {
     constructor() {
         super("operation.method.dnsresolver.set_link_dns_over_tls.SetLinkDnsOverTlsInput", [
-            { no: 1, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 208592921, name: "mode", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetLinkDnsOverTlsInput>): SetLinkDnsOverTlsInput {
@@ -52,10 +56,10 @@ class SetLinkDnsOverTlsInput$Type extends MessageType<SetLinkDnsOverTlsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 ifindex */ 1:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
-                case /* string mode */ 2:
+                case /* string mode */ 208592921:
                     message.mode = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class SetLinkDnsOverTlsInput$Type extends MessageType<SetLinkDnsOverTlsInput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDnsOverTlsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 ifindex = 1; */
-        if (message.ifindex !== "0")
-            writer.tag(1, WireType.Varint).int64(message.ifindex);
-        /* string mode = 2; */
+        /* string mode = 208592921; */
         if (message.mode !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.mode);
+            writer.tag(208592921, WireType.LengthDelimited).string(message.mode);
+        /* int64 ifindex = 394788143; */
+        if (message.ifindex !== "0")
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const SetLinkDnsOverTlsInput = new SetLinkDnsOverTlsInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnsOverTlsOutput$Type extends MessageType<SetLinkDnsOverTlsOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_dns_over_tls.SetLinkDnsOverTlsOutput", []);
+        super("operation.method.dnsresolver.set_link_dns_over_tls.SetLinkDnsOverTlsOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkDnsOverTlsOutput>): SetLinkDnsOverTlsOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkDnsOverTlsOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class SetLinkDnsOverTlsOutput$Type extends MessageType<SetLinkDnsOverTlsOutput> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class SetLinkDnsOverTlsOutput$Type extends MessageType<SetLinkDnsOverTlsOutput> 
         return message;
     }
     internalBinaryWrite(message: SetLinkDnsOverTlsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

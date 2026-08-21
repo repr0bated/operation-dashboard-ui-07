@@ -26,23 +26,23 @@ export interface GetStatsInput {
  */
 export interface GetStatsOutput {
     /**
-     * @generated from protobuf field: google.protobuf.Value active_model = 1
+     * @generated from protobuf field: google.protobuf.Value active_model = 17932126
      */
     activeModel?: Value;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value available_models = 2
+     * @generated from protobuf field: repeated google.protobuf.Value available_models = 457824273
      */
     availableModels: Value[];
     /**
-     * @generated from protobuf field: int64 dimensions = 3
+     * @generated from protobuf field: int64 dimensions = 116965558
      */
     dimensions: string;
     /**
-     * @generated from protobuf field: string provider = 4
+     * @generated from protobuf field: string provider = 398506945
      */
     provider: string;
     /**
-     * @generated from protobuf field: string status = 5
+     * @generated from protobuf field: string status = 441153524
      */
     status: string;
 }
@@ -88,11 +88,11 @@ export const GetStatsInput = new GetStatsInput$Type();
 class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
     constructor() {
         super("operation.method.embedding_model.get_stats.GetStatsOutput", [
-            { no: 1, name: "active_model", kind: "message", T: () => Value },
-            { no: 2, name: "available_models", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 3, name: "dimensions", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 4, name: "provider", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 17932126, name: "active_model", kind: "message", T: () => Value },
+            { no: 457824273, name: "available_models", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 116965558, name: "dimensions", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 398506945, name: "provider", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 441153524, name: "status", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetStatsOutput>): GetStatsOutput {
@@ -110,19 +110,19 @@ class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* google.protobuf.Value active_model */ 1:
+                case /* google.protobuf.Value active_model */ 17932126:
                     message.activeModel = Value.internalBinaryRead(reader, reader.uint32(), options, message.activeModel);
                     break;
-                case /* repeated google.protobuf.Value available_models */ 2:
+                case /* repeated google.protobuf.Value available_models */ 457824273:
                     message.availableModels.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* int64 dimensions */ 3:
+                case /* int64 dimensions */ 116965558:
                     message.dimensions = reader.int64().toString();
                     break;
-                case /* string provider */ 4:
+                case /* string provider */ 398506945:
                     message.provider = reader.string();
                     break;
-                case /* string status */ 5:
+                case /* string status */ 441153524:
                     message.status = reader.string();
                     break;
                 default:
@@ -137,21 +137,21 @@ class GetStatsOutput$Type extends MessageType<GetStatsOutput> {
         return message;
     }
     internalBinaryWrite(message: GetStatsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* google.protobuf.Value active_model = 1; */
+        /* google.protobuf.Value active_model = 17932126; */
         if (message.activeModel)
-            Value.internalBinaryWrite(message.activeModel, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated google.protobuf.Value available_models = 2; */
-        for (let i = 0; i < message.availableModels.length; i++)
-            Value.internalBinaryWrite(message.availableModels[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* int64 dimensions = 3; */
+            Value.internalBinaryWrite(message.activeModel, writer.tag(17932126, WireType.LengthDelimited).fork(), options).join();
+        /* int64 dimensions = 116965558; */
         if (message.dimensions !== "0")
-            writer.tag(3, WireType.Varint).int64(message.dimensions);
-        /* string provider = 4; */
+            writer.tag(116965558, WireType.Varint).int64(message.dimensions);
+        /* string provider = 398506945; */
         if (message.provider !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.provider);
-        /* string status = 5; */
+            writer.tag(398506945, WireType.LengthDelimited).string(message.provider);
+        /* string status = 441153524; */
         if (message.status !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.status);
+            writer.tag(441153524, WireType.LengthDelimited).string(message.status);
+        /* repeated google.protobuf.Value available_models = 457824273; */
+        for (let i = 0; i < message.availableModels.length; i++)
+            Value.internalBinaryWrite(message.availableModels[i], writer.tag(457824273, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

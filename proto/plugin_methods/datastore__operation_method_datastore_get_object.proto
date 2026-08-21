@@ -15,7 +15,7 @@ message GetObjectInput {
 }
 
 message GetObjectOutput {
-  google.protobuf.Value object = 1;
+  google.protobuf.Value object = 415632575;
 }
 
 service GetObjectService {

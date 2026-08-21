@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message UpdateComponentInput {
-  string component_path = 1;
-  google.protobuf.Value properties = 2;
+  string component_path = 254871925;
+  google.protobuf.Value properties = 299789532;
 }
 
-message UpdateComponentOutput {}
+message UpdateComponentOutput {
+  bool success = 442482449;
+}
 
 service UpdateComponentService {
   // subid: mut.software.plugin.web-ui.update-component@v1, capability: ui.write

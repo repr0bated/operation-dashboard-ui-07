@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message InitInput {
-  string name = 1;
-  string service_type = 2;
+  string name = 221887978;
+  string service_type = 472749357;
 }
 
-message InitOutput {}
+message InitOutput {
+  bool success = 442482449;
+}
 
 service InitService {
   // subid: mut.service.lifecycle.init@v1, capability: cap.service.lifecycle.init@v1

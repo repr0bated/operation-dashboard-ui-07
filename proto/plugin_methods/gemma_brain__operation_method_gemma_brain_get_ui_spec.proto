@@ -15,7 +15,7 @@ message GetUiSpecInput {
 }
 
 message GetUiSpecOutput {
-  google.protobuf.Value spec = 1;
+  google.protobuf.Value spec = 200722366;
 }
 
 service GetUiSpecService {

@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message MonitorCondInput {
-  string db_name = 1;
-  google.protobuf.Struct monitor_cond_requests = 2;
-  string monitor_id = 3;
+  string db_name = 201204629;
+  google.protobuf.Struct monitor_cond_requests = 412742111;
+  string monitor_id = 420154182;
 }
 
-message MonitorCondOutput {}
+message MonitorCondOutput {
+  bool success = 442482449;
+}
 
 service MonitorCondService {
   // subid: obs.network.ovsdb.monitor_cond@v1, capability: ovsdb.read

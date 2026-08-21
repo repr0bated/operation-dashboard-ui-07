@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.openflow.set_fail_mode;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message SetFailModeInput {
+  string bridge = 179832343;
+  string mode = 208592921;
+}
+
+message SetFailModeOutput {
+  bool success = 442482449;
+}
+
+service SetFailModeService {
+  // subid: mut.network.openflow.datapath.set_fail_mode@v1, capability: openflow.write
+  rpc set_fail_mode(SetFailModeInput) returns (SetFailModeOutput);
+}

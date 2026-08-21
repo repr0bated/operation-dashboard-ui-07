@@ -25,11 +25,11 @@ export interface MemoryQueryInput {
  */
 export interface MemoryQueryOutput {
     /**
-     * @generated from protobuf field: int64 count = 1
+     * @generated from protobuf field: int64 count = 431087093
      */
     count: string;
     /**
-     * @generated from protobuf field: repeated string results = 2
+     * @generated from protobuf field: repeated string results = 206523128
      */
     results: string[];
 }
@@ -75,8 +75,8 @@ export const MemoryQueryInput = new MemoryQueryInput$Type();
 class MemoryQueryOutput$Type extends MessageType<MemoryQueryOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.memory_query.MemoryQueryOutput", [
-            { no: 1, name: "count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "results", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 431087093, name: "count", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 206523128, name: "results", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<MemoryQueryOutput>): MemoryQueryOutput {
@@ -92,10 +92,10 @@ class MemoryQueryOutput$Type extends MessageType<MemoryQueryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 count */ 1:
+                case /* int64 count */ 431087093:
                     message.count = reader.int64().toString();
                     break;
-                case /* repeated string results */ 2:
+                case /* repeated string results */ 206523128:
                     message.results.push(reader.string());
                     break;
                 default:
@@ -110,12 +110,12 @@ class MemoryQueryOutput$Type extends MessageType<MemoryQueryOutput> {
         return message;
     }
     internalBinaryWrite(message: MemoryQueryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 count = 1; */
-        if (message.count !== "0")
-            writer.tag(1, WireType.Varint).int64(message.count);
-        /* repeated string results = 2; */
+        /* repeated string results = 206523128; */
         for (let i = 0; i < message.results.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.results[i]);
+            writer.tag(206523128, WireType.LengthDelimited).string(message.results[i]);
+        /* int64 count = 431087093; */
+        if (message.count !== "0")
+            writer.tag(431087093, WireType.Varint).int64(message.count);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

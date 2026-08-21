@@ -19,11 +19,11 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface AuthenticateInput {
     /**
-     * @generated from protobuf field: string agent_type = 1
+     * @generated from protobuf field: string agent_type = 482594788
      */
     agentType: string;
     /**
-     * @generated from protobuf field: google.protobuf.Struct credentials = 2
+     * @generated from protobuf field: google.protobuf.Struct credentials = 150838232
      */
     credentials?: Struct;
 }
@@ -32,11 +32,11 @@ export interface AuthenticateInput {
  */
 export interface AuthenticateOutput {
     /**
-     * @generated from protobuf field: bool authenticated = 1
+     * @generated from protobuf field: bool authenticated = 298996990
      */
     authenticated: boolean;
     /**
-     * @generated from protobuf field: string token = 2
+     * @generated from protobuf field: string token = 343534134
      */
     token: string;
 }
@@ -44,8 +44,8 @@ export interface AuthenticateOutput {
 class AuthenticateInput$Type extends MessageType<AuthenticateInput> {
     constructor() {
         super("operation.method.persona.authenticate.AuthenticateInput", [
-            { no: 1, name: "agent_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "credentials", kind: "message", T: () => Struct }
+            { no: 482594788, name: "agent_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 150838232, name: "credentials", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<AuthenticateInput>): AuthenticateInput {
@@ -60,10 +60,10 @@ class AuthenticateInput$Type extends MessageType<AuthenticateInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string agent_type */ 1:
+                case /* string agent_type */ 482594788:
                     message.agentType = reader.string();
                     break;
-                case /* google.protobuf.Struct credentials */ 2:
+                case /* google.protobuf.Struct credentials */ 150838232:
                     message.credentials = Struct.internalBinaryRead(reader, reader.uint32(), options, message.credentials);
                     break;
                 default:
@@ -78,12 +78,12 @@ class AuthenticateInput$Type extends MessageType<AuthenticateInput> {
         return message;
     }
     internalBinaryWrite(message: AuthenticateInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string agent_type = 1; */
-        if (message.agentType !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.agentType);
-        /* google.protobuf.Struct credentials = 2; */
+        /* google.protobuf.Struct credentials = 150838232; */
         if (message.credentials)
-            Struct.internalBinaryWrite(message.credentials, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Struct.internalBinaryWrite(message.credentials, writer.tag(150838232, WireType.LengthDelimited).fork(), options).join();
+        /* string agent_type = 482594788; */
+        if (message.agentType !== "")
+            writer.tag(482594788, WireType.LengthDelimited).string(message.agentType);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -98,8 +98,8 @@ export const AuthenticateInput = new AuthenticateInput$Type();
 class AuthenticateOutput$Type extends MessageType<AuthenticateOutput> {
     constructor() {
         super("operation.method.persona.authenticate.AuthenticateOutput", [
-            { no: 1, name: "authenticated", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "token", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 298996990, name: "authenticated", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 343534134, name: "token", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<AuthenticateOutput>): AuthenticateOutput {
@@ -115,10 +115,10 @@ class AuthenticateOutput$Type extends MessageType<AuthenticateOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool authenticated */ 1:
+                case /* bool authenticated */ 298996990:
                     message.authenticated = reader.bool();
                     break;
-                case /* string token */ 2:
+                case /* string token */ 343534134:
                     message.token = reader.string();
                     break;
                 default:
@@ -133,12 +133,12 @@ class AuthenticateOutput$Type extends MessageType<AuthenticateOutput> {
         return message;
     }
     internalBinaryWrite(message: AuthenticateOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool authenticated = 1; */
+        /* bool authenticated = 298996990; */
         if (message.authenticated !== false)
-            writer.tag(1, WireType.Varint).bool(message.authenticated);
-        /* string token = 2; */
+            writer.tag(298996990, WireType.Varint).bool(message.authenticated);
+        /* string token = 343534134; */
         if (message.token !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.token);
+            writer.tag(343534134, WireType.LengthDelimited).string(message.token);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

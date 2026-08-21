@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message FlushDevicesInput {
-  bool interactive = 1;
+  bool interactive = 520087662;
 }
 
-message FlushDevicesOutput {}
+message FlushDevicesOutput {
+  bool success = 442482449;
+}
 
 service FlushDevicesService {
   // subid: mut.software.login1.devices.flush@v1, capability: login1.admin

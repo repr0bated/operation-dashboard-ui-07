@@ -25,9 +25,13 @@ export interface MemoryStoreInput {
  */
 export interface MemoryStoreOutput {
     /**
-     * @generated from protobuf field: string key = 1
+     * @generated from protobuf field: string key = 135645295
      */
     key: string;
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class MemoryStoreInput$Type extends MessageType<MemoryStoreInput> {
@@ -71,12 +75,14 @@ export const MemoryStoreInput = new MemoryStoreInput$Type();
 class MemoryStoreOutput$Type extends MessageType<MemoryStoreOutput> {
     constructor() {
         super("operation.method.cognitive_mcp.memory_store.MemoryStoreOutput", [
-            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 135645295, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<MemoryStoreOutput>): MemoryStoreOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.key = "";
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<MemoryStoreOutput>(this, message, value);
         return message;
@@ -86,8 +92,11 @@ class MemoryStoreOutput$Type extends MessageType<MemoryStoreOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string key */ 1:
+                case /* string key */ 135645295:
                     message.key = reader.string();
+                    break;
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -101,9 +110,12 @@ class MemoryStoreOutput$Type extends MessageType<MemoryStoreOutput> {
         return message;
     }
     internalBinaryWrite(message: MemoryStoreOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string key = 1; */
+        /* string key = 135645295; */
         if (message.key !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.key);
+            writer.tag(135645295, WireType.LengthDelimited).string(message.key);
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

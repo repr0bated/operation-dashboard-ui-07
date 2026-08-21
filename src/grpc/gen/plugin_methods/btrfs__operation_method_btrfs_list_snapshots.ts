@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ListSnapshotsInput {
     /**
-     * @generated from protobuf field: int64 limit = 1
+     * @generated from protobuf field: int64 limit = 316332341
      */
     limit: string;
     /**
-     * @generated from protobuf field: string subvolume = 2
+     * @generated from protobuf field: string subvolume = 179317414
      */
     subvolume: string;
 }
@@ -32,7 +32,7 @@ export interface ListSnapshotsInput {
  */
 export interface ListSnapshotsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value snapshots = 1
+     * @generated from protobuf field: repeated google.protobuf.Value snapshots = 494231770
      */
     snapshots: Value[];
 }
@@ -40,8 +40,8 @@ export interface ListSnapshotsOutput {
 class ListSnapshotsInput$Type extends MessageType<ListSnapshotsInput> {
     constructor() {
         super("operation.method.btrfs.list_snapshots.ListSnapshotsInput", [
-            { no: 1, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 2, name: "subvolume", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 316332341, name: "limit", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 179317414, name: "subvolume", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListSnapshotsInput>): ListSnapshotsInput {
@@ -57,10 +57,10 @@ class ListSnapshotsInput$Type extends MessageType<ListSnapshotsInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 limit */ 1:
+                case /* int64 limit */ 316332341:
                     message.limit = reader.int64().toString();
                     break;
-                case /* string subvolume */ 2:
+                case /* string subvolume */ 179317414:
                     message.subvolume = reader.string();
                     break;
                 default:
@@ -75,12 +75,12 @@ class ListSnapshotsInput$Type extends MessageType<ListSnapshotsInput> {
         return message;
     }
     internalBinaryWrite(message: ListSnapshotsInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 limit = 1; */
-        if (message.limit !== "0")
-            writer.tag(1, WireType.Varint).int64(message.limit);
-        /* string subvolume = 2; */
+        /* string subvolume = 179317414; */
         if (message.subvolume !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.subvolume);
+            writer.tag(179317414, WireType.LengthDelimited).string(message.subvolume);
+        /* int64 limit = 316332341; */
+        if (message.limit !== "0")
+            writer.tag(316332341, WireType.Varint).int64(message.limit);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -95,7 +95,7 @@ export const ListSnapshotsInput = new ListSnapshotsInput$Type();
 class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
     constructor() {
         super("operation.method.btrfs.list_snapshots.ListSnapshotsOutput", [
-            { no: 1, name: "snapshots", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 494231770, name: "snapshots", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListSnapshotsOutput>): ListSnapshotsOutput {
@@ -110,7 +110,7 @@ class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value snapshots */ 1:
+                case /* repeated google.protobuf.Value snapshots */ 494231770:
                     message.snapshots.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -125,9 +125,9 @@ class ListSnapshotsOutput$Type extends MessageType<ListSnapshotsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListSnapshotsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value snapshots = 1; */
+        /* repeated google.protobuf.Value snapshots = 494231770; */
         for (let i = 0; i < message.snapshots.length; i++)
-            Value.internalBinaryWrite(message.snapshots[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.snapshots[i], writer.tag(494231770, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -15,7 +15,7 @@ message ListRenderersInput {
 }
 
 message ListRenderersOutput {
-  repeated google.protobuf.Value renderers = 1;
+  repeated google.protobuf.Value renderers = 407469565;
 }
 
 service ListRenderersService {

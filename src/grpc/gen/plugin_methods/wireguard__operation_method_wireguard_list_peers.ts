@@ -19,7 +19,7 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface ListPeersInput {
     /**
-     * @generated from protobuf field: string interface = 1
+     * @generated from protobuf field: string interface = 82465076
      */
     interface: string;
 }
@@ -28,7 +28,7 @@ export interface ListPeersInput {
  */
 export interface ListPeersOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value peers = 1
+     * @generated from protobuf field: repeated google.protobuf.Value peers = 52885582
      */
     peers: Value[];
 }
@@ -36,7 +36,7 @@ export interface ListPeersOutput {
 class ListPeersInput$Type extends MessageType<ListPeersInput> {
     constructor() {
         super("operation.method.wireguard.list_peers.ListPeersInput", [
-            { no: 1, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 82465076, name: "interface", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ListPeersInput>): ListPeersInput {
@@ -51,7 +51,7 @@ class ListPeersInput$Type extends MessageType<ListPeersInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string interface */ 1:
+                case /* string interface */ 82465076:
                     message.interface = reader.string();
                     break;
                 default:
@@ -66,9 +66,9 @@ class ListPeersInput$Type extends MessageType<ListPeersInput> {
         return message;
     }
     internalBinaryWrite(message: ListPeersInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string interface = 1; */
+        /* string interface = 82465076; */
         if (message.interface !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.interface);
+            writer.tag(82465076, WireType.LengthDelimited).string(message.interface);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -83,7 +83,7 @@ export const ListPeersInput = new ListPeersInput$Type();
 class ListPeersOutput$Type extends MessageType<ListPeersOutput> {
     constructor() {
         super("operation.method.wireguard.list_peers.ListPeersOutput", [
-            { no: 1, name: "peers", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 52885582, name: "peers", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListPeersOutput>): ListPeersOutput {
@@ -98,7 +98,7 @@ class ListPeersOutput$Type extends MessageType<ListPeersOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value peers */ 1:
+                case /* repeated google.protobuf.Value peers */ 52885582:
                     message.peers.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -113,9 +113,9 @@ class ListPeersOutput$Type extends MessageType<ListPeersOutput> {
         return message;
     }
     internalBinaryWrite(message: ListPeersOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value peers = 1; */
+        /* repeated google.protobuf.Value peers = 52885582; */
         for (let i = 0; i < message.peers.length; i++)
-            Value.internalBinaryWrite(message.peers[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.peers[i], writer.tag(52885582, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

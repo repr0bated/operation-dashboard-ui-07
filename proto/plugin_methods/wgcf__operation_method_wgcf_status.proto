@@ -14,7 +14,9 @@ message StatusInput {
   // Empty schema object.
 }
 
-message StatusOutput {}
+message StatusOutput {
+  bool success = 442482449;
+}
 
 service StatusService {
   // subid: obs.software.wgcf.status@v1, capability: cap.software.wgcf.status@v1

@@ -14,7 +14,9 @@ message RegisterInput {
   // Empty schema object.
 }
 
-message RegisterOutput {}
+message RegisterOutput {
+  bool success = 442482449;
+}
 
 service RegisterService {
   // subid: mut.software.wgcf.register@v1, capability: cap.software.wgcf.register@v1

@@ -19,11 +19,11 @@ import { Struct } from "../google/protobuf/struct";
  */
 export interface DeleteFlowInput {
     /**
-     * @generated from protobuf field: string bridge = 1
+     * @generated from protobuf field: string bridge = 179832343
      */
     bridge: string;
     /**
-     * @generated from protobuf field: google.protobuf.Struct match_fields = 2
+     * @generated from protobuf field: google.protobuf.Struct match_fields = 405770232
      */
     matchFields?: Struct;
 }
@@ -31,13 +31,17 @@ export interface DeleteFlowInput {
  * @generated from protobuf message operation.method.openflow.delete_flow.DeleteFlowOutput
  */
 export interface DeleteFlowOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteFlowInput$Type extends MessageType<DeleteFlowInput> {
     constructor() {
         super("operation.method.openflow.delete_flow.DeleteFlowInput", [
-            { no: 1, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "match_fields", kind: "message", T: () => Struct }
+            { no: 179832343, name: "bridge", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 405770232, name: "match_fields", kind: "message", T: () => Struct }
         ]);
     }
     create(value?: PartialMessage<DeleteFlowInput>): DeleteFlowInput {
@@ -52,10 +56,10 @@ class DeleteFlowInput$Type extends MessageType<DeleteFlowInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string bridge */ 1:
+                case /* string bridge */ 179832343:
                     message.bridge = reader.string();
                     break;
-                case /* google.protobuf.Struct match_fields */ 2:
+                case /* google.protobuf.Struct match_fields */ 405770232:
                     message.matchFields = Struct.internalBinaryRead(reader, reader.uint32(), options, message.matchFields);
                     break;
                 default:
@@ -70,12 +74,12 @@ class DeleteFlowInput$Type extends MessageType<DeleteFlowInput> {
         return message;
     }
     internalBinaryWrite(message: DeleteFlowInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string bridge = 1; */
+        /* string bridge = 179832343; */
         if (message.bridge !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.bridge);
-        /* google.protobuf.Struct match_fields = 2; */
+            writer.tag(179832343, WireType.LengthDelimited).string(message.bridge);
+        /* google.protobuf.Struct match_fields = 405770232; */
         if (message.matchFields)
-            Struct.internalBinaryWrite(message.matchFields, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Struct.internalBinaryWrite(message.matchFields, writer.tag(405770232, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const DeleteFlowInput = new DeleteFlowInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteFlowOutput$Type extends MessageType<DeleteFlowOutput> {
     constructor() {
-        super("operation.method.openflow.delete_flow.DeleteFlowOutput", []);
+        super("operation.method.openflow.delete_flow.DeleteFlowOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeleteFlowOutput>): DeleteFlowOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteFlowOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class DeleteFlowOutput$Type extends MessageType<DeleteFlowOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class DeleteFlowOutput$Type extends MessageType<DeleteFlowOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteFlowOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

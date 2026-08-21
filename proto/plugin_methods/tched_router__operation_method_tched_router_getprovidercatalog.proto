@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getprovidercatalog;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetProviderCatalogInput {
+  // Empty schema object.
+}
+
+message GetProviderCatalogOutput {
+  repeated google.protobuf.Value providers = 325560029;
+}
+
+service GetProviderCatalogService {
+  // subid: obs.service.tched-router.provider-catalog.list@v1, capability: cap.software.tched-router.providers.read@v1
+  rpc GetProviderCatalog(GetProviderCatalogInput) returns (GetProviderCatalogOutput);
+}

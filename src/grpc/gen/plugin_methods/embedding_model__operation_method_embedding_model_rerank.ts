@@ -19,27 +19,27 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface RerankInput {
     /**
-     * @generated from protobuf field: repeated string documents = 1
+     * @generated from protobuf field: repeated string documents = 9443301
      */
     documents: string[];
     /**
-     * @generated from protobuf field: string model = 2
+     * @generated from protobuf field: string model = 277571167
      */
     model: string;
     /**
-     * @generated from protobuf field: string query = 3
+     * @generated from protobuf field: string query = 416183786
      */
     query: string;
     /**
-     * @generated from protobuf field: bool return_documents = 4
+     * @generated from protobuf field: bool return_documents = 408703316
      */
     returnDocuments: boolean;
     /**
-     * @generated from protobuf field: int64 top_k = 5
+     * @generated from protobuf field: int64 top_k = 314004796
      */
     topK: string;
     /**
-     * @generated from protobuf field: bool truncation = 6
+     * @generated from protobuf field: bool truncation = 98888562
      */
     truncation: boolean;
 }
@@ -48,15 +48,15 @@ export interface RerankInput {
  */
 export interface RerankOutput {
     /**
-     * @generated from protobuf field: string model = 1
+     * @generated from protobuf field: string model = 277571167
      */
     model: string;
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value results = 2
+     * @generated from protobuf field: repeated google.protobuf.Value results = 206523128
      */
     results: Value[];
     /**
-     * @generated from protobuf field: int64 total_tokens = 3
+     * @generated from protobuf field: int64 total_tokens = 20838375
      */
     totalTokens: string;
 }
@@ -64,12 +64,12 @@ export interface RerankOutput {
 class RerankInput$Type extends MessageType<RerankInput> {
     constructor() {
         super("operation.method.embedding_model.rerank.RerankInput", [
-            { no: 1, name: "documents", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "query", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "return_documents", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 5, name: "top_k", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
-            { no: 6, name: "truncation", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 9443301, name: "documents", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 277571167, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 416183786, name: "query", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 408703316, name: "return_documents", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 314004796, name: "top_k", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 98888562, name: "truncation", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<RerankInput>): RerankInput {
@@ -89,22 +89,22 @@ class RerankInput$Type extends MessageType<RerankInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated string documents */ 1:
+                case /* repeated string documents */ 9443301:
                     message.documents.push(reader.string());
                     break;
-                case /* string model */ 2:
+                case /* string model */ 277571167:
                     message.model = reader.string();
                     break;
-                case /* string query */ 3:
+                case /* string query */ 416183786:
                     message.query = reader.string();
                     break;
-                case /* bool return_documents */ 4:
+                case /* bool return_documents */ 408703316:
                     message.returnDocuments = reader.bool();
                     break;
-                case /* int64 top_k */ 5:
+                case /* int64 top_k */ 314004796:
                     message.topK = reader.int64().toString();
                     break;
-                case /* bool truncation */ 6:
+                case /* bool truncation */ 98888562:
                     message.truncation = reader.bool();
                     break;
                 default:
@@ -119,24 +119,24 @@ class RerankInput$Type extends MessageType<RerankInput> {
         return message;
     }
     internalBinaryWrite(message: RerankInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string documents = 1; */
+        /* repeated string documents = 9443301; */
         for (let i = 0; i < message.documents.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.documents[i]);
-        /* string model = 2; */
-        if (message.model !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.model);
-        /* string query = 3; */
-        if (message.query !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.query);
-        /* bool return_documents = 4; */
-        if (message.returnDocuments !== false)
-            writer.tag(4, WireType.Varint).bool(message.returnDocuments);
-        /* int64 top_k = 5; */
-        if (message.topK !== "0")
-            writer.tag(5, WireType.Varint).int64(message.topK);
-        /* bool truncation = 6; */
+            writer.tag(9443301, WireType.LengthDelimited).string(message.documents[i]);
+        /* bool truncation = 98888562; */
         if (message.truncation !== false)
-            writer.tag(6, WireType.Varint).bool(message.truncation);
+            writer.tag(98888562, WireType.Varint).bool(message.truncation);
+        /* string model = 277571167; */
+        if (message.model !== "")
+            writer.tag(277571167, WireType.LengthDelimited).string(message.model);
+        /* int64 top_k = 314004796; */
+        if (message.topK !== "0")
+            writer.tag(314004796, WireType.Varint).int64(message.topK);
+        /* bool return_documents = 408703316; */
+        if (message.returnDocuments !== false)
+            writer.tag(408703316, WireType.Varint).bool(message.returnDocuments);
+        /* string query = 416183786; */
+        if (message.query !== "")
+            writer.tag(416183786, WireType.LengthDelimited).string(message.query);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -151,9 +151,9 @@ export const RerankInput = new RerankInput$Type();
 class RerankOutput$Type extends MessageType<RerankOutput> {
     constructor() {
         super("operation.method.embedding_model.rerank.RerankOutput", [
-            { no: 1, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 3, name: "total_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 277571167, name: "model", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 206523128, name: "results", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 20838375, name: "total_tokens", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<RerankOutput>): RerankOutput {
@@ -170,13 +170,13 @@ class RerankOutput$Type extends MessageType<RerankOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string model */ 1:
+                case /* string model */ 277571167:
                     message.model = reader.string();
                     break;
-                case /* repeated google.protobuf.Value results */ 2:
+                case /* repeated google.protobuf.Value results */ 206523128:
                     message.results.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* int64 total_tokens */ 3:
+                case /* int64 total_tokens */ 20838375:
                     message.totalTokens = reader.int64().toString();
                     break;
                 default:
@@ -191,15 +191,15 @@ class RerankOutput$Type extends MessageType<RerankOutput> {
         return message;
     }
     internalBinaryWrite(message: RerankOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string model = 1; */
-        if (message.model !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.model);
-        /* repeated google.protobuf.Value results = 2; */
-        for (let i = 0; i < message.results.length; i++)
-            Value.internalBinaryWrite(message.results[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        /* int64 total_tokens = 3; */
+        /* int64 total_tokens = 20838375; */
         if (message.totalTokens !== "0")
-            writer.tag(3, WireType.Varint).int64(message.totalTokens);
+            writer.tag(20838375, WireType.Varint).int64(message.totalTokens);
+        /* repeated google.protobuf.Value results = 206523128; */
+        for (let i = 0; i < message.results.length; i++)
+            Value.internalBinaryWrite(message.results[i], writer.tag(206523128, WireType.LengthDelimited).fork(), options).join();
+        /* string model = 277571167; */
+        if (message.model !== "")
+            writer.tag(277571167, WireType.LengthDelimited).string(message.model);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

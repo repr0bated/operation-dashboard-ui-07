@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface GetJailStatusInput {
     /**
-     * @generated from protobuf field: string jail = 1
+     * @generated from protobuf field: string jail = 224568113
      */
     jail: string;
 }
@@ -26,12 +26,16 @@ export interface GetJailStatusInput {
  * @generated from protobuf message operation.method.fail2ban.get_jail_status.GetJailStatusOutput
  */
 export interface GetJailStatusOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetJailStatusInput$Type extends MessageType<GetJailStatusInput> {
     constructor() {
         super("operation.method.fail2ban.get_jail_status.GetJailStatusInput", [
-            { no: 1, name: "jail", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 224568113, name: "jail", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetJailStatusInput>): GetJailStatusInput {
@@ -46,7 +50,7 @@ class GetJailStatusInput$Type extends MessageType<GetJailStatusInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string jail */ 1:
+                case /* string jail */ 224568113:
                     message.jail = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class GetJailStatusInput$Type extends MessageType<GetJailStatusInput> {
         return message;
     }
     internalBinaryWrite(message: GetJailStatusInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string jail = 1; */
+        /* string jail = 224568113; */
         if (message.jail !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.jail);
+            writer.tag(224568113, WireType.LengthDelimited).string(message.jail);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const GetJailStatusInput = new GetJailStatusInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetJailStatusOutput$Type extends MessageType<GetJailStatusOutput> {
     constructor() {
-        super("operation.method.fail2ban.get_jail_status.GetJailStatusOutput", []);
+        super("operation.method.fail2ban.get_jail_status.GetJailStatusOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<GetJailStatusOutput>): GetJailStatusOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<GetJailStatusOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class GetJailStatusOutput$Type extends MessageType<GetJailStatusOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class GetJailStatusOutput$Type extends MessageType<GetJailStatusOutput> {
         return message;
     }
     internalBinaryWrite(message: GetJailStatusOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

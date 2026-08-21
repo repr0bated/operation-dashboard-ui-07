@@ -15,7 +15,7 @@ message ListObjectsInput {
 }
 
 message ListObjectsOutput {
-  repeated google.protobuf.Value objects = 1;
+  repeated google.protobuf.Value objects = 147202160;
 }
 
 service ListObjectsService {

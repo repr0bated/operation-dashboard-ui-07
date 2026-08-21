@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface UpdateComponentInput {
     /**
-     * @generated from protobuf field: string component_path = 1
+     * @generated from protobuf field: string component_path = 254871925
      */
     componentPath: string;
     /**
-     * @generated from protobuf field: google.protobuf.Value properties = 2
+     * @generated from protobuf field: google.protobuf.Value properties = 299789532
      */
     properties?: Value;
 }
@@ -31,13 +31,17 @@ export interface UpdateComponentInput {
  * @generated from protobuf message operation.method.web_ui.update_component.UpdateComponentOutput
  */
 export interface UpdateComponentOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateComponentInput$Type extends MessageType<UpdateComponentInput> {
     constructor() {
         super("operation.method.web_ui.update_component.UpdateComponentInput", [
-            { no: 1, name: "component_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "properties", kind: "message", T: () => Value }
+            { no: 254871925, name: "component_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 299789532, name: "properties", kind: "message", T: () => Value }
         ]);
     }
     create(value?: PartialMessage<UpdateComponentInput>): UpdateComponentInput {
@@ -52,10 +56,10 @@ class UpdateComponentInput$Type extends MessageType<UpdateComponentInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string component_path */ 1:
+                case /* string component_path */ 254871925:
                     message.componentPath = reader.string();
                     break;
-                case /* google.protobuf.Value properties */ 2:
+                case /* google.protobuf.Value properties */ 299789532:
                     message.properties = Value.internalBinaryRead(reader, reader.uint32(), options, message.properties);
                     break;
                 default:
@@ -70,12 +74,12 @@ class UpdateComponentInput$Type extends MessageType<UpdateComponentInput> {
         return message;
     }
     internalBinaryWrite(message: UpdateComponentInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string component_path = 1; */
+        /* string component_path = 254871925; */
         if (message.componentPath !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.componentPath);
-        /* google.protobuf.Value properties = 2; */
+            writer.tag(254871925, WireType.LengthDelimited).string(message.componentPath);
+        /* google.protobuf.Value properties = 299789532; */
         if (message.properties)
-            Value.internalBinaryWrite(message.properties, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.properties, writer.tag(299789532, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const UpdateComponentInput = new UpdateComponentInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateComponentOutput$Type extends MessageType<UpdateComponentOutput> {
     constructor() {
-        super("operation.method.web_ui.update_component.UpdateComponentOutput", []);
+        super("operation.method.web_ui.update_component.UpdateComponentOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<UpdateComponentOutput>): UpdateComponentOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UpdateComponentOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class UpdateComponentOutput$Type extends MessageType<UpdateComponentOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class UpdateComponentOutput$Type extends MessageType<UpdateComponentOutput> {
         return message;
     }
     internalBinaryWrite(message: UpdateComponentOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

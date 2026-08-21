@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface IsEnabledInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -27,7 +27,7 @@ export interface IsEnabledInput {
  */
 export interface IsEnabledOutput {
     /**
-     * @generated from protobuf field: bool enabled = 1
+     * @generated from protobuf field: bool enabled = 49525662
      */
     enabled: boolean;
 }
@@ -35,7 +35,7 @@ export interface IsEnabledOutput {
 class IsEnabledInput$Type extends MessageType<IsEnabledInput> {
     constructor() {
         super("operation.method.s6_systemctl.is_enabled.IsEnabledInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<IsEnabledInput>): IsEnabledInput {
@@ -50,7 +50,7 @@ class IsEnabledInput$Type extends MessageType<IsEnabledInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -65,9 +65,9 @@ class IsEnabledInput$Type extends MessageType<IsEnabledInput> {
         return message;
     }
     internalBinaryWrite(message: IsEnabledInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -82,7 +82,7 @@ export const IsEnabledInput = new IsEnabledInput$Type();
 class IsEnabledOutput$Type extends MessageType<IsEnabledOutput> {
     constructor() {
         super("operation.method.s6_systemctl.is_enabled.IsEnabledOutput", [
-            { no: 1, name: "enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 49525662, name: "enabled", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
     create(value?: PartialMessage<IsEnabledOutput>): IsEnabledOutput {
@@ -97,7 +97,7 @@ class IsEnabledOutput$Type extends MessageType<IsEnabledOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool enabled */ 1:
+                case /* bool enabled */ 49525662:
                     message.enabled = reader.bool();
                     break;
                 default:
@@ -112,9 +112,9 @@ class IsEnabledOutput$Type extends MessageType<IsEnabledOutput> {
         return message;
     }
     internalBinaryWrite(message: IsEnabledOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool enabled = 1; */
+        /* bool enabled = 49525662; */
         if (message.enabled !== false)
-            writer.tag(1, WireType.Varint).bool(message.enabled);
+            writer.tag(49525662, WireType.Varint).bool(message.enabled);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

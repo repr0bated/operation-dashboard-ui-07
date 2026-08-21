@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message AddRouteInput {
-  string destination = 1;
-  string gateway = 2;
-  string interface = 3;
+  string destination = 316564676;
+  string gateway = 130695680;
+  string interface = 82465076;
 }
 
-message AddRouteOutput {}
+message AddRouteOutput {
+  bool success = 442482449;
+}
 
 service AddRouteService {
   // subid: mut.network.rtnetlink.route.add@v1, capability: cap.network.rtnetlink.route.add@v1

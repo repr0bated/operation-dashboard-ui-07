@@ -15,7 +15,7 @@ message GetJobInput {
 }
 
 message GetJobOutput {
-  google.protobuf.Value job = 1;
+  google.protobuf.Value job = 500445154;
 }
 
 service GetJobService {

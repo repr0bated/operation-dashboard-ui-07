@@ -14,7 +14,9 @@ message DeleteLabelInput {
   // Empty schema object.
 }
 
-message DeleteLabelOutput {}
+message DeleteLabelOutput {
+  bool success = 442482449;
+}
 
 service DeleteLabelService {
   // subid: mut.service.plugin.notebooklm.source.label-delete@v1, capability: notebooklm.invoke

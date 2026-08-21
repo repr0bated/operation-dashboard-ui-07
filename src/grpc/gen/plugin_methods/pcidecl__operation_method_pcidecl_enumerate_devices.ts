@@ -18,11 +18,11 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface EnumerateDevicesInput {
     /**
-     * @generated from protobuf field: string class_code = 1
+     * @generated from protobuf field: string class_code = 386339900
      */
     classCode: string;
     /**
-     * @generated from protobuf field: string vendor_id = 2
+     * @generated from protobuf field: string vendor_id = 97361007
      */
     vendorId: string;
 }
@@ -30,13 +30,17 @@ export interface EnumerateDevicesInput {
  * @generated from protobuf message operation.method.pcidecl.enumerate_devices.EnumerateDevicesOutput
  */
 export interface EnumerateDevicesOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class EnumerateDevicesInput$Type extends MessageType<EnumerateDevicesInput> {
     constructor() {
         super("operation.method.pcidecl.enumerate_devices.EnumerateDevicesInput", [
-            { no: 1, name: "class_code", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "vendor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 386339900, name: "class_code", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 97361007, name: "vendor_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<EnumerateDevicesInput>): EnumerateDevicesInput {
@@ -52,10 +56,10 @@ class EnumerateDevicesInput$Type extends MessageType<EnumerateDevicesInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string class_code */ 1:
+                case /* string class_code */ 386339900:
                     message.classCode = reader.string();
                     break;
-                case /* string vendor_id */ 2:
+                case /* string vendor_id */ 97361007:
                     message.vendorId = reader.string();
                     break;
                 default:
@@ -70,12 +74,12 @@ class EnumerateDevicesInput$Type extends MessageType<EnumerateDevicesInput> {
         return message;
     }
     internalBinaryWrite(message: EnumerateDevicesInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string class_code = 1; */
-        if (message.classCode !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.classCode);
-        /* string vendor_id = 2; */
+        /* string vendor_id = 97361007; */
         if (message.vendorId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.vendorId);
+            writer.tag(97361007, WireType.LengthDelimited).string(message.vendorId);
+        /* string class_code = 386339900; */
+        if (message.classCode !== "")
+            writer.tag(386339900, WireType.LengthDelimited).string(message.classCode);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -89,10 +93,13 @@ export const EnumerateDevicesInput = new EnumerateDevicesInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class EnumerateDevicesOutput$Type extends MessageType<EnumerateDevicesOutput> {
     constructor() {
-        super("operation.method.pcidecl.enumerate_devices.EnumerateDevicesOutput", []);
+        super("operation.method.pcidecl.enumerate_devices.EnumerateDevicesOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<EnumerateDevicesOutput>): EnumerateDevicesOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<EnumerateDevicesOutput>(this, message, value);
         return message;
@@ -102,6 +109,9 @@ class EnumerateDevicesOutput$Type extends MessageType<EnumerateDevicesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -114,6 +124,9 @@ class EnumerateDevicesOutput$Type extends MessageType<EnumerateDevicesOutput> {
         return message;
     }
     internalBinaryWrite(message: EnumerateDevicesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface StateInput {
     /**
-     * @generated from protobuf field: string id = 1
+     * @generated from protobuf field: string id = 389573345
      */
     id: string;
 }
@@ -26,12 +26,16 @@ export interface StateInput {
  * @generated from protobuf message operation.method.oci.state.StateOutput
  */
 export interface StateOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class StateInput$Type extends MessageType<StateInput> {
     constructor() {
         super("operation.method.oci.state.StateInput", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 389573345, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<StateInput>): StateInput {
@@ -46,7 +50,7 @@ class StateInput$Type extends MessageType<StateInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
+                case /* string id */ 389573345:
                     message.id = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class StateInput$Type extends MessageType<StateInput> {
         return message;
     }
     internalBinaryWrite(message: StateInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
+        /* string id = 389573345; */
         if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+            writer.tag(389573345, WireType.LengthDelimited).string(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const StateInput = new StateInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class StateOutput$Type extends MessageType<StateOutput> {
     constructor() {
-        super("operation.method.oci.state.StateOutput", []);
+        super("operation.method.oci.state.StateOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<StateOutput>): StateOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<StateOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class StateOutput$Type extends MessageType<StateOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class StateOutput$Type extends MessageType<StateOutput> {
         return message;
     }
     internalBinaryWrite(message: StateOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

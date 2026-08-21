@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message UpdateDeviceInput {
-  google.protobuf.Value device = 1;
-  string device_name = 2;
-  string instance_name = 3;
+  google.protobuf.Value device = 275805945;
+  string device_name = 262545665;
+  string instance_name = 271196794;
 }
 
-message UpdateDeviceOutput {}
+message UpdateDeviceOutput {
+  bool success = 442482449;
+}
 
 service UpdateDeviceService {
   // subid: mut.service.incus.device.update@v1, capability: cap.service.incus.device.update@v1

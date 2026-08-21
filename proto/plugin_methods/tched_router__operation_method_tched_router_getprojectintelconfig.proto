@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.getprojectintelconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetProjectIntelConfigInput {
+  // Empty schema object.
+}
+
+message GetProjectIntelConfigOutput {
+  google.protobuf.Value config = 67069640;
+}
+
+service GetProjectIntelConfigService {
+  // subid: obs.service.3tched-router.project-intel-config.get@v1, capability: cap.software.3tched-router.project-intel-config.read@v1
+  rpc GetProjectIntelConfig(GetProjectIntelConfigInput) returns (GetProjectIntelConfigOutput);
+}

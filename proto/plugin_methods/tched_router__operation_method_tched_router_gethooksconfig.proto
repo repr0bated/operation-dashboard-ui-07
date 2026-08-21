@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package operation.method.tched_router.gethooksconfig;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetHooksConfigInput {
+  // Empty schema object.
+}
+
+message GetHooksConfigOutput {
+  google.protobuf.Value config = 67069640;
+}
+
+service GetHooksConfigService {
+  // subid: obs.service.3tched-router.hooks-config.get@v1, capability: cap.software.3tched-router.hooks-config.read@v1
+  rpc GetHooksConfig(GetHooksConfigInput) returns (GetHooksConfigOutput);
+}

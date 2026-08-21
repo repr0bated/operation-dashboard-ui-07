@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message EchoInput {
-  repeated google.protobuf.Value params = 1;
+  repeated google.protobuf.Value params = 23029844;
 }
 
-message EchoOutput {}
+message EchoOutput {
+  bool success = 442482449;
+}
 
 service EchoService {
   // subid: obs.network.ovsdb.echo@v1, capability: ovsdb.read

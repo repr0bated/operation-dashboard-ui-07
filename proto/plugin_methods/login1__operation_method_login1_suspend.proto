@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message SuspendInput {
-  bool interactive = 1;
+  bool interactive = 520087662;
 }
 
-message SuspendOutput {}
+message SuspendOutput {
+  bool success = 442482449;
+}
 
 service SuspendService {
   // subid: mut.software.login1.system.suspend@v1, capability: login1.admin

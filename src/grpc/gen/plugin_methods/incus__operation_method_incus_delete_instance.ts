@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface DeleteInstanceInput {
     /**
-     * @generated from protobuf field: string name = 1
+     * @generated from protobuf field: string name = 221887978
      */
     name: string;
 }
@@ -26,12 +26,16 @@ export interface DeleteInstanceInput {
  * @generated from protobuf message operation.method.incus.delete_instance.DeleteInstanceOutput
  */
 export interface DeleteInstanceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteInstanceInput$Type extends MessageType<DeleteInstanceInput> {
     constructor() {
         super("operation.method.incus.delete_instance.DeleteInstanceInput", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 221887978, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteInstanceInput>): DeleteInstanceInput {
@@ -46,7 +50,7 @@ class DeleteInstanceInput$Type extends MessageType<DeleteInstanceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
+                case /* string name */ 221887978:
                     message.name = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class DeleteInstanceInput$Type extends MessageType<DeleteInstanceInput> {
         return message;
     }
     internalBinaryWrite(message: DeleteInstanceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
+        /* string name = 221887978; */
         if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
+            writer.tag(221887978, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const DeleteInstanceInput = new DeleteInstanceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteInstanceOutput$Type extends MessageType<DeleteInstanceOutput> {
     constructor() {
-        super("operation.method.incus.delete_instance.DeleteInstanceOutput", []);
+        super("operation.method.incus.delete_instance.DeleteInstanceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<DeleteInstanceOutput>): DeleteInstanceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<DeleteInstanceOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class DeleteInstanceOutput$Type extends MessageType<DeleteInstanceOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class DeleteInstanceOutput$Type extends MessageType<DeleteInstanceOutput> {
         return message;
     }
     internalBinaryWrite(message: DeleteInstanceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

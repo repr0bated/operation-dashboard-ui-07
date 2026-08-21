@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetDeviceInfoInput {
-  string address = 1;
+  string address = 208283988;
 }
 
-message GetDeviceInfoOutput {}
+message GetDeviceInfoOutput {
+  bool success = 442482449;
+}
 
 service GetDeviceInfoService {
   // subid: obs.hardware.pci.device.info@v1, capability: pcidecl.read

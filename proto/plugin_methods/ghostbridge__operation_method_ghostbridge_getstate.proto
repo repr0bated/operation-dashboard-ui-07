@@ -15,7 +15,7 @@ message GetStateInput {
 }
 
 message GetStateOutput {
-  google.protobuf.Value state = 1;
+  google.protobuf.Value state = 405877497;
 }
 
 service GetStateService {

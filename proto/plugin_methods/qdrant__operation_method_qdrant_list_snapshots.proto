@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message ListSnapshotsInput {
-  string collection_name = 1;
+  string collection_name = 468055319;
 }
 
 message ListSnapshotsOutput {
-  repeated string snapshots = 1;
+  repeated string snapshots = 494231770;
 }
 
 service ListSnapshotsService {

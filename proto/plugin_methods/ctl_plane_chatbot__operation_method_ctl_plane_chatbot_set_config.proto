@@ -14,7 +14,9 @@ message SetConfigInput {
   // Empty schema object.
 }
 
-message SetConfigOutput {}
+message SetConfigOutput {
+  bool success = 442482449;
+}
 
 service SetConfigService {
   // subid: mut.service.ctl-plane-chatbot.config.set@v1, capability: chatbot.invoke

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package operation.method.cognitive_mcp.invoke_tool;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message InvokeToolInput {
+  google.protobuf.Value arguments = 156354720;
+  string tool_name = 322087922;
+}
+
+message InvokeToolOutput {
+  string error = 26314578;
+  google.protobuf.Value result = 171406884;
+  bool success = 442482449;
+  string tool_name = 322087922;
+}
+
+service InvokeToolService {
+  // subid: mut.service.cognitive-mcp.tool.invoke@v1, capability: cognitive_mcp.invoke
+  rpc invoke_tool(InvokeToolInput) returns (InvokeToolOutput);
+}

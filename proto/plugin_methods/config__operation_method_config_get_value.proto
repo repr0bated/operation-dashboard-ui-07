@@ -15,7 +15,7 @@ message GetValueInput {
 }
 
 message GetValueOutput {
-  string value = 1;
+  string value = 39769036;
 }
 
 service GetValueService {

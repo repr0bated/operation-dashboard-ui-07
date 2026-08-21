@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetJailStatusInput {
-  string jail = 1;
+  string jail = 224568113;
 }
 
-message GetJailStatusOutput {}
+message GetJailStatusOutput {
+  bool success = 442482449;
+}
 
 service GetJailStatusService {
   // subid: obs.security.fail2ban.jail.status@v1, capability: fail2ban.read

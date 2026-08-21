@@ -15,7 +15,7 @@ message AnalyzeIntentInput {
 }
 
 message AnalyzeIntentOutput {
-  google.protobuf.Value intent = 1;
+  google.protobuf.Value intent = 14843467;
 }
 
 service AnalyzeIntentService {

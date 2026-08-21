@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SnapshotInstanceInput {
-  string name = 1;
-  string snapshot_name = 2;
+  string name = 221887978;
+  string snapshot_name = 418348540;
 }
 
-message SnapshotInstanceOutput {}
+message SnapshotInstanceOutput {
+  bool success = 442482449;
+}
 
 service SnapshotInstanceService {
   // subid: mut.service.incus.instance.snapshot@v1, capability: cap.service.incus.instance.snapshot@v1

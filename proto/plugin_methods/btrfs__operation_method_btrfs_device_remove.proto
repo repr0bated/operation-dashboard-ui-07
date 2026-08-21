@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message DeviceRemoveInput {
-  string device = 1;
-  string path = 2;
+  string device = 275805945;
+  string path = 75975994;
 }
 
-message DeviceRemoveOutput {}
+message DeviceRemoveOutput {
+  bool success = 442482449;
+}
 
 service DeviceRemoveService {
   // subid: mut.storage.btrfs.device.remove@v1, capability: cap.storage.btrfs.device.remove@v1

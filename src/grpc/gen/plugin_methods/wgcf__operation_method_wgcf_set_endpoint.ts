@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface SetEndpointInput {
     /**
-     * @generated from protobuf field: string endpoint = 1
+     * @generated from protobuf field: string endpoint = 414707842
      */
     endpoint: string;
 }
@@ -26,12 +26,16 @@ export interface SetEndpointInput {
  * @generated from protobuf message operation.method.wgcf.set_endpoint.SetEndpointOutput
  */
 export interface SetEndpointOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetEndpointInput$Type extends MessageType<SetEndpointInput> {
     constructor() {
         super("operation.method.wgcf.set_endpoint.SetEndpointInput", [
-            { no: 1, name: "endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 414707842, name: "endpoint", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<SetEndpointInput>): SetEndpointInput {
@@ -46,7 +50,7 @@ class SetEndpointInput$Type extends MessageType<SetEndpointInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string endpoint */ 1:
+                case /* string endpoint */ 414707842:
                     message.endpoint = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class SetEndpointInput$Type extends MessageType<SetEndpointInput> {
         return message;
     }
     internalBinaryWrite(message: SetEndpointInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string endpoint = 1; */
+        /* string endpoint = 414707842; */
         if (message.endpoint !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.endpoint);
+            writer.tag(414707842, WireType.LengthDelimited).string(message.endpoint);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const SetEndpointInput = new SetEndpointInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetEndpointOutput$Type extends MessageType<SetEndpointOutput> {
     constructor() {
-        super("operation.method.wgcf.set_endpoint.SetEndpointOutput", []);
+        super("operation.method.wgcf.set_endpoint.SetEndpointOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetEndpointOutput>): SetEndpointOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetEndpointOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class SetEndpointOutput$Type extends MessageType<SetEndpointOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class SetEndpointOutput$Type extends MessageType<SetEndpointOutput> {
         return message;
     }
     internalBinaryWrite(message: SetEndpointOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

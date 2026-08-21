@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message ResolveInput {
-  int64 filter = 1;
-  repeated string packages = 2;
+  int64 filter = 132212861;
+  repeated string packages = 136677145;
 }
 
-message ResolveOutput {}
+message ResolveOutput {
+  bool success = 442482449;
+}
 
 service ResolveService {
   // subid: obs.software.packagekit.package.resolve@v1, capability: packagekit.read

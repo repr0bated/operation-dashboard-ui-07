@@ -26,7 +26,7 @@ export interface ListKeypairsInput {
  */
 export interface ListKeypairsOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value keypairs = 1
+     * @generated from protobuf field: repeated google.protobuf.Value keypairs = 335269837
      */
     keypairs: Value[];
 }
@@ -72,7 +72,7 @@ export const ListKeypairsInput = new ListKeypairsInput$Type();
 class ListKeypairsOutput$Type extends MessageType<ListKeypairsOutput> {
     constructor() {
         super("operation.method.keypair.list_keypairs.ListKeypairsOutput", [
-            { no: 1, name: "keypairs", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 335269837, name: "keypairs", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<ListKeypairsOutput>): ListKeypairsOutput {
@@ -87,7 +87,7 @@ class ListKeypairsOutput$Type extends MessageType<ListKeypairsOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value keypairs */ 1:
+                case /* repeated google.protobuf.Value keypairs */ 335269837:
                     message.keypairs.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class ListKeypairsOutput$Type extends MessageType<ListKeypairsOutput> {
         return message;
     }
     internalBinaryWrite(message: ListKeypairsOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value keypairs = 1; */
+        /* repeated google.protobuf.Value keypairs = 335269837; */
         for (let i = 0; i < message.keypairs.length; i++)
-            Value.internalBinaryWrite(message.keypairs[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.keypairs[i], writer.tag(335269837, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface UnregisterServiceInput {
     /**
-     * @generated from protobuf field: string service_path = 1
+     * @generated from protobuf field: string service_path = 85978049
      */
     servicePath: string;
 }
@@ -26,12 +26,16 @@ export interface UnregisterServiceInput {
  * @generated from protobuf message operation.method.dnsresolver.unregister_service.UnregisterServiceOutput
  */
 export interface UnregisterServiceOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UnregisterServiceInput$Type extends MessageType<UnregisterServiceInput> {
     constructor() {
         super("operation.method.dnsresolver.unregister_service.UnregisterServiceInput", [
-            { no: 1, name: "service_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 85978049, name: "service_path", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<UnregisterServiceInput>): UnregisterServiceInput {
@@ -46,7 +50,7 @@ class UnregisterServiceInput$Type extends MessageType<UnregisterServiceInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string service_path */ 1:
+                case /* string service_path */ 85978049:
                     message.servicePath = reader.string();
                     break;
                 default:
@@ -61,9 +65,9 @@ class UnregisterServiceInput$Type extends MessageType<UnregisterServiceInput> {
         return message;
     }
     internalBinaryWrite(message: UnregisterServiceInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string service_path = 1; */
+        /* string service_path = 85978049; */
         if (message.servicePath !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.servicePath);
+            writer.tag(85978049, WireType.LengthDelimited).string(message.servicePath);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const UnregisterServiceInput = new UnregisterServiceInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class UnregisterServiceOutput$Type extends MessageType<UnregisterServiceOutput> {
     constructor() {
-        super("operation.method.dnsresolver.unregister_service.UnregisterServiceOutput", []);
+        super("operation.method.dnsresolver.unregister_service.UnregisterServiceOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<UnregisterServiceOutput>): UnregisterServiceOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<UnregisterServiceOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class UnregisterServiceOutput$Type extends MessageType<UnregisterServiceOutput> 
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class UnregisterServiceOutput$Type extends MessageType<UnregisterServiceOutput> 
         return message;
     }
     internalBinaryWrite(message: UnregisterServiceOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

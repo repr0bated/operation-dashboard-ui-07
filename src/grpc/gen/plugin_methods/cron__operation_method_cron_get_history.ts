@@ -26,7 +26,7 @@ export interface GetHistoryInput {
  */
 export interface GetHistoryOutput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value history = 1
+     * @generated from protobuf field: repeated google.protobuf.Value history = 175210977
      */
     history: Value[];
 }
@@ -72,7 +72,7 @@ export const GetHistoryInput = new GetHistoryInput$Type();
 class GetHistoryOutput$Type extends MessageType<GetHistoryOutput> {
     constructor() {
         super("operation.method.cron.get_history.GetHistoryOutput", [
-            { no: 1, name: "history", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
+            { no: 175210977, name: "history", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value }
         ]);
     }
     create(value?: PartialMessage<GetHistoryOutput>): GetHistoryOutput {
@@ -87,7 +87,7 @@ class GetHistoryOutput$Type extends MessageType<GetHistoryOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value history */ 1:
+                case /* repeated google.protobuf.Value history */ 175210977:
                     message.history.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
@@ -102,9 +102,9 @@ class GetHistoryOutput$Type extends MessageType<GetHistoryOutput> {
         return message;
     }
     internalBinaryWrite(message: GetHistoryOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value history = 1; */
+        /* repeated google.protobuf.Value history = 175210977; */
         for (let i = 0; i < message.history.length; i++)
-            Value.internalBinaryWrite(message.history[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+            Value.internalBinaryWrite(message.history[i], writer.tag(175210977, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

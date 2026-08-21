@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message DelRouteInput {
-  string destination = 1;
+  string destination = 316564676;
 }
 
-message DelRouteOutput {}
+message DelRouteOutput {
+  bool success = 442482449;
+}
 
 service DelRouteService {
   // subid: mut.network.rtnetlink.route.del@v1, capability: cap.network.rtnetlink.route.del@v1

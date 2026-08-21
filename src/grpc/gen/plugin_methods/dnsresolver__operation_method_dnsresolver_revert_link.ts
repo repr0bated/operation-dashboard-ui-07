@@ -18,7 +18,7 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RevertLinkInput {
     /**
-     * @generated from protobuf field: int64 ifindex = 1
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
 }
@@ -26,12 +26,16 @@ export interface RevertLinkInput {
  * @generated from protobuf message operation.method.dnsresolver.revert_link.RevertLinkOutput
  */
 export interface RevertLinkOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RevertLinkInput$Type extends MessageType<RevertLinkInput> {
     constructor() {
         super("operation.method.dnsresolver.revert_link.RevertLinkInput", [
-            { no: 1, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<RevertLinkInput>): RevertLinkInput {
@@ -46,7 +50,7 @@ class RevertLinkInput$Type extends MessageType<RevertLinkInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int64 ifindex */ 1:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
                 default:
@@ -61,9 +65,9 @@ class RevertLinkInput$Type extends MessageType<RevertLinkInput> {
         return message;
     }
     internalBinaryWrite(message: RevertLinkInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 ifindex = 1; */
+        /* int64 ifindex = 394788143; */
         if (message.ifindex !== "0")
-            writer.tag(1, WireType.Varint).int64(message.ifindex);
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -77,10 +81,13 @@ export const RevertLinkInput = new RevertLinkInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RevertLinkOutput$Type extends MessageType<RevertLinkOutput> {
     constructor() {
-        super("operation.method.dnsresolver.revert_link.RevertLinkOutput", []);
+        super("operation.method.dnsresolver.revert_link.RevertLinkOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RevertLinkOutput>): RevertLinkOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RevertLinkOutput>(this, message, value);
         return message;
@@ -90,6 +97,9 @@ class RevertLinkOutput$Type extends MessageType<RevertLinkOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -102,6 +112,9 @@ class RevertLinkOutput$Type extends MessageType<RevertLinkOutput> {
         return message;
     }
     internalBinaryWrite(message: RevertLinkOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -11,12 +11,14 @@ extend google.protobuf.MethodOptions {
 }
 
 message ModifyInstanceInput {
-  google.protobuf.Struct config = 1;
-  google.protobuf.Struct devices = 2;
-  string name = 3;
+  google.protobuf.Struct config = 67069640;
+  google.protobuf.Struct devices = 17468293;
+  string name = 221887978;
 }
 
-message ModifyInstanceOutput {}
+message ModifyInstanceOutput {
+  bool success = 442482449;
+}
 
 service ModifyInstanceService {
   // subid: mut.service.incus.instance.modify@v1, capability: cap.service.incus.instance.modify@v1

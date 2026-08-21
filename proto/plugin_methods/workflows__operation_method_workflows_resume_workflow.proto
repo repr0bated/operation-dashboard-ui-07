@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message ResumeWorkflowInput {
-  string workflow_id = 1;
+  string workflow_id = 280387507;
 }
 
-message ResumeWorkflowOutput {}
+message ResumeWorkflowOutput {
+  bool success = 442482449;
+}
 
 service ResumeWorkflowService {
   // subid: mut.software.plugin.workflows.resume@v1, capability: workflows.write

@@ -11,10 +11,12 @@ extend google.protobuf.MethodOptions {
 }
 
 message BackupInput {
-  string path = 1;
+  string path = 75975994;
 }
 
-message BackupOutput {}
+message BackupOutput {
+  bool success = 442482449;
+}
 
 service BackupService {
   // subid: mut.data.cozo.backup.create@v1, capability: cap.data.cozo.backup.create@v1

@@ -15,11 +15,11 @@ message GetHealthInput {
 }
 
 message GetHealthOutput {
-  string auth_status = 1;
-  bool healthy = 2;
-  int64 queries_limit = 3;
-  int64 queries_remaining = 4;
-  bool running = 5;
+  string auth_status = 55405750;
+  bool healthy = 398367300;
+  int64 queries_limit = 228527881;
+  int64 queries_remaining = 170100976;
+  bool running = 343848780;
 }
 
 service GetHealthService {

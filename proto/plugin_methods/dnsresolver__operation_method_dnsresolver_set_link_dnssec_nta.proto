@@ -11,11 +11,13 @@ extend google.protobuf.MethodOptions {
 }
 
 message SetLinkDnssecNtaInput {
-  int64 ifindex = 1;
-  repeated string names = 2;
+  int64 ifindex = 394788143;
+  repeated string names = 115700118;
 }
 
-message SetLinkDnssecNtaOutput {}
+message SetLinkDnssecNtaOutput {
+  bool success = 442482449;
+}
 
 service SetLinkDnssecNtaService {
   // subid: mut.software.dnsresolver.link.set-dnssec-nta@v1, capability: dnsresolver.write

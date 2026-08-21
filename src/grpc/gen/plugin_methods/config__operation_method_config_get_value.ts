@@ -25,7 +25,7 @@ export interface GetValueInput {
  */
 export interface GetValueOutput {
     /**
-     * @generated from protobuf field: string value = 1
+     * @generated from protobuf field: string value = 39769036
      */
     value: string;
 }
@@ -71,7 +71,7 @@ export const GetValueInput = new GetValueInput$Type();
 class GetValueOutput$Type extends MessageType<GetValueOutput> {
     constructor() {
         super("operation.method.config.get_value.GetValueOutput", [
-            { no: 1, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 39769036, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetValueOutput>): GetValueOutput {
@@ -86,7 +86,7 @@ class GetValueOutput$Type extends MessageType<GetValueOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string value */ 1:
+                case /* string value */ 39769036:
                     message.value = reader.string();
                     break;
                 default:
@@ -101,9 +101,9 @@ class GetValueOutput$Type extends MessageType<GetValueOutput> {
         return message;
     }
     internalBinaryWrite(message: GetValueOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string value = 1; */
+        /* string value = 39769036; */
         if (message.value !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.value);
+            writer.tag(39769036, WireType.LengthDelimited).string(message.value);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -14,7 +14,9 @@ message ReloadInput {
   // Empty schema object.
 }
 
-message ReloadOutput {}
+message ReloadOutput {
+  bool success = 442482449;
+}
 
 service ReloadService {
   // subid: mut.security.fail2ban.service.reload@v1, capability: fail2ban.write

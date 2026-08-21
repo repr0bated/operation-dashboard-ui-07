@@ -11,15 +11,17 @@ extend google.protobuf.MethodOptions {
 }
 
 message CreateInstanceInput {
-  google.protobuf.Struct config = 1;
-  repeated google.protobuf.Value devices = 2;
-  string image = 3;
-  string instance_type = 4;
-  string name = 5;
-  repeated string profiles = 6;
+  google.protobuf.Struct config = 67069640;
+  repeated google.protobuf.Value devices = 17468293;
+  string image = 324089343;
+  string instance_type = 502815733;
+  string name = 221887978;
+  repeated string profiles = 115012907;
 }
 
-message CreateInstanceOutput {}
+message CreateInstanceOutput {
+  bool success = 442482449;
+}
 
 service CreateInstanceService {
   // subid: mut.service.incus.instance.create@v1, capability: cap.service.incus.instance.create@v1

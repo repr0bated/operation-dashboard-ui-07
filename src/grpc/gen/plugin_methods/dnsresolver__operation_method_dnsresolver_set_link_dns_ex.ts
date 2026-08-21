@@ -19,11 +19,11 @@ import { Value } from "../google/protobuf/struct";
  */
 export interface SetLinkDnsExInput {
     /**
-     * @generated from protobuf field: repeated google.protobuf.Value addresses = 1
+     * @generated from protobuf field: repeated google.protobuf.Value addresses = 345723367
      */
     addresses: Value[];
     /**
-     * @generated from protobuf field: int64 ifindex = 2
+     * @generated from protobuf field: int64 ifindex = 394788143
      */
     ifindex: string;
 }
@@ -31,13 +31,17 @@ export interface SetLinkDnsExInput {
  * @generated from protobuf message operation.method.dnsresolver.set_link_dns_ex.SetLinkDnsExOutput
  */
 export interface SetLinkDnsExOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnsExInput$Type extends MessageType<SetLinkDnsExInput> {
     constructor() {
         super("operation.method.dnsresolver.set_link_dns_ex.SetLinkDnsExInput", [
-            { no: 1, name: "addresses", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
-            { no: 2, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 345723367, name: "addresses", kind: "message", repeat: 2 /*RepeatType.UNPACKED*/, T: () => Value },
+            { no: 394788143, name: "ifindex", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<SetLinkDnsExInput>): SetLinkDnsExInput {
@@ -53,10 +57,10 @@ class SetLinkDnsExInput$Type extends MessageType<SetLinkDnsExInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated google.protobuf.Value addresses */ 1:
+                case /* repeated google.protobuf.Value addresses */ 345723367:
                     message.addresses.push(Value.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* int64 ifindex */ 2:
+                case /* int64 ifindex */ 394788143:
                     message.ifindex = reader.int64().toString();
                     break;
                 default:
@@ -71,12 +75,12 @@ class SetLinkDnsExInput$Type extends MessageType<SetLinkDnsExInput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDnsExInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated google.protobuf.Value addresses = 1; */
+        /* repeated google.protobuf.Value addresses = 345723367; */
         for (let i = 0; i < message.addresses.length; i++)
-            Value.internalBinaryWrite(message.addresses[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* int64 ifindex = 2; */
+            Value.internalBinaryWrite(message.addresses[i], writer.tag(345723367, WireType.LengthDelimited).fork(), options).join();
+        /* int64 ifindex = 394788143; */
         if (message.ifindex !== "0")
-            writer.tag(2, WireType.Varint).int64(message.ifindex);
+            writer.tag(394788143, WireType.Varint).int64(message.ifindex);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -90,10 +94,13 @@ export const SetLinkDnsExInput = new SetLinkDnsExInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SetLinkDnsExOutput$Type extends MessageType<SetLinkDnsExOutput> {
     constructor() {
-        super("operation.method.dnsresolver.set_link_dns_ex.SetLinkDnsExOutput", []);
+        super("operation.method.dnsresolver.set_link_dns_ex.SetLinkDnsExOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<SetLinkDnsExOutput>): SetLinkDnsExOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<SetLinkDnsExOutput>(this, message, value);
         return message;
@@ -103,6 +110,9 @@ class SetLinkDnsExOutput$Type extends MessageType<SetLinkDnsExOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -115,6 +125,9 @@ class SetLinkDnsExOutput$Type extends MessageType<SetLinkDnsExOutput> {
         return message;
     }
     internalBinaryWrite(message: SetLinkDnsExOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

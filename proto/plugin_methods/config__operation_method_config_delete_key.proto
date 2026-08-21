@@ -14,7 +14,9 @@ message DeleteKeyInput {
   // Empty schema object.
 }
 
-message DeleteKeyOutput {}
+message DeleteKeyOutput {
+  bool success = 442482449;
+}
 
 service DeleteKeyService {
   // subid: mut.service.config.key.delete@v1, capability: config.invoke

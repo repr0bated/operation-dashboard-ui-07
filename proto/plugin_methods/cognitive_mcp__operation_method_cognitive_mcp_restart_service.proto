@@ -15,7 +15,8 @@ message RestartServiceInput {
 }
 
 message RestartServiceOutput {
-  string message = 1;
+  string message = 82970853;
+  bool success = 442482449;
 }
 
 service RestartServiceService {

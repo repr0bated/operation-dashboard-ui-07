@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package operation.method.antigravity.get_usage_report;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+
+extend google.protobuf.MethodOptions {
+  string plugin_subid = 50000;
+  string required_capability = 50001;
+}
+
+message GetUsageReportInput {
+  string model = 277571167;
+  string project_id = 277839103;
+}
+
+message GetUsageReportOutput {
+  google.protobuf.Value usage = 240365230;
+}
+
+service GetUsageReportService {
+  // subid: obs.software.antigravity.usage.report@v1, capability: antigravity.read
+  rpc get_usage_report(GetUsageReportInput) returns (GetUsageReportOutput);
+}

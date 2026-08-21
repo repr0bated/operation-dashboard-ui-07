@@ -11,13 +11,15 @@ extend google.protobuf.MethodOptions {
 }
 
 message BindInput {
-  string name = 1;
-  string path = 2;
-  repeated int64 ports = 3;
-  string protocol = 4;
+  string name = 221887978;
+  string path = 75975994;
+  repeated int64 ports = 487171413;
+  string protocol = 455607740;
 }
 
-message BindOutput {}
+message BindOutput {
+  bool success = 442482449;
+}
 
 service BindService {
   // subid: mut.service.unix-socket.bind@v1, capability: network.write

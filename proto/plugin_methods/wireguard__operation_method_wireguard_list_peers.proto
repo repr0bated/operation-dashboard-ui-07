@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message ListPeersInput {
-  string interface = 1;
+  string interface = 82465076;
 }
 
 message ListPeersOutput {
-  repeated google.protobuf.Value peers = 1;
+  repeated google.protobuf.Value peers = 52885582;
 }
 
 service ListPeersService {

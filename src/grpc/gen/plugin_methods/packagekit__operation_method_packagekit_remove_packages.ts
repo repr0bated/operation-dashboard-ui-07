@@ -18,19 +18,19 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface RemovePackagesInput {
     /**
-     * @generated from protobuf field: bool allow_deps = 1
+     * @generated from protobuf field: bool allow_deps = 458790589
      */
     allowDeps: boolean;
     /**
-     * @generated from protobuf field: bool autoremove = 2
+     * @generated from protobuf field: bool autoremove = 312482772
      */
     autoremove: boolean;
     /**
-     * @generated from protobuf field: repeated string package_ids = 3
+     * @generated from protobuf field: repeated string package_ids = 323424029
      */
     packageIds: string[];
     /**
-     * @generated from protobuf field: int64 transaction_flags = 4
+     * @generated from protobuf field: int64 transaction_flags = 20962926
      */
     transactionFlags: string;
 }
@@ -38,15 +38,19 @@ export interface RemovePackagesInput {
  * @generated from protobuf message operation.method.packagekit.remove_packages.RemovePackagesOutput
  */
 export interface RemovePackagesOutput {
+    /**
+     * @generated from protobuf field: bool success = 442482449
+     */
+    success: boolean;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class RemovePackagesInput$Type extends MessageType<RemovePackagesInput> {
     constructor() {
         super("operation.method.packagekit.remove_packages.RemovePackagesInput", [
-            { no: 1, name: "allow_deps", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "autoremove", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "package_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "transaction_flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
+            { no: 458790589, name: "allow_deps", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 312482772, name: "autoremove", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 323424029, name: "package_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 20962926, name: "transaction_flags", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value?: PartialMessage<RemovePackagesInput>): RemovePackagesInput {
@@ -64,16 +68,16 @@ class RemovePackagesInput$Type extends MessageType<RemovePackagesInput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool allow_deps */ 1:
+                case /* bool allow_deps */ 458790589:
                     message.allowDeps = reader.bool();
                     break;
-                case /* bool autoremove */ 2:
+                case /* bool autoremove */ 312482772:
                     message.autoremove = reader.bool();
                     break;
-                case /* repeated string package_ids */ 3:
+                case /* repeated string package_ids */ 323424029:
                     message.packageIds.push(reader.string());
                     break;
-                case /* int64 transaction_flags */ 4:
+                case /* int64 transaction_flags */ 20962926:
                     message.transactionFlags = reader.int64().toString();
                     break;
                 default:
@@ -88,18 +92,18 @@ class RemovePackagesInput$Type extends MessageType<RemovePackagesInput> {
         return message;
     }
     internalBinaryWrite(message: RemovePackagesInput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool allow_deps = 1; */
-        if (message.allowDeps !== false)
-            writer.tag(1, WireType.Varint).bool(message.allowDeps);
-        /* bool autoremove = 2; */
-        if (message.autoremove !== false)
-            writer.tag(2, WireType.Varint).bool(message.autoremove);
-        /* repeated string package_ids = 3; */
-        for (let i = 0; i < message.packageIds.length; i++)
-            writer.tag(3, WireType.LengthDelimited).string(message.packageIds[i]);
-        /* int64 transaction_flags = 4; */
+        /* int64 transaction_flags = 20962926; */
         if (message.transactionFlags !== "0")
-            writer.tag(4, WireType.Varint).int64(message.transactionFlags);
+            writer.tag(20962926, WireType.Varint).int64(message.transactionFlags);
+        /* bool autoremove = 312482772; */
+        if (message.autoremove !== false)
+            writer.tag(312482772, WireType.Varint).bool(message.autoremove);
+        /* repeated string package_ids = 323424029; */
+        for (let i = 0; i < message.packageIds.length; i++)
+            writer.tag(323424029, WireType.LengthDelimited).string(message.packageIds[i]);
+        /* bool allow_deps = 458790589; */
+        if (message.allowDeps !== false)
+            writer.tag(458790589, WireType.Varint).bool(message.allowDeps);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -113,10 +117,13 @@ export const RemovePackagesInput = new RemovePackagesInput$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class RemovePackagesOutput$Type extends MessageType<RemovePackagesOutput> {
     constructor() {
-        super("operation.method.packagekit.remove_packages.RemovePackagesOutput", []);
+        super("operation.method.packagekit.remove_packages.RemovePackagesOutput", [
+            { no: 442482449, name: "success", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
     }
     create(value?: PartialMessage<RemovePackagesOutput>): RemovePackagesOutput {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.success = false;
         if (value !== undefined)
             reflectionMergePartial<RemovePackagesOutput>(this, message, value);
         return message;
@@ -126,6 +133,9 @@ class RemovePackagesOutput$Type extends MessageType<RemovePackagesOutput> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* bool success */ 442482449:
+                    message.success = reader.bool();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -138,6 +148,9 @@ class RemovePackagesOutput$Type extends MessageType<RemovePackagesOutput> {
         return message;
     }
     internalBinaryWrite(message: RemovePackagesOutput, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool success = 442482449; */
+        if (message.success !== false)
+            writer.tag(442482449, WireType.Varint).bool(message.success);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

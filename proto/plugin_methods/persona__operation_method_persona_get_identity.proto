@@ -11,11 +11,11 @@ extend google.protobuf.MethodOptions {
 }
 
 message GetIdentityInput {
-  string agent_type = 1;
+  string agent_type = 482594788;
 }
 
 message GetIdentityOutput {
-  google.protobuf.Value persona = 1;
+  google.protobuf.Value persona = 416192570;
 }
 
 service GetIdentityService {
