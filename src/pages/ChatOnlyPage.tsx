@@ -9,7 +9,7 @@ import { chatSendRouting } from "@/lib/zeroclaw-routing";
 import { useEventStore } from "@/stores/event-store";
 import { chatService } from "@/grpc/client";
 import { unwrapContentBlocks } from "@/lib/chat-content";
-import type { ChatFrame, UIMessagePart } from "@/grpc/gen/chat";
+import type { ChatFrame, UIMessagePart, StreamError } from "@/grpc/gen/chat";
 import { UIMessageKind, UIMessageRole } from "@/grpc/gen/chat";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
@@ -110,7 +110,7 @@ export default function ChatOnlyPage() {
         if (!body) continue;
 
         if (body.oneofKind === "part") {
-          const part = body.part;
+          const part = (body as { oneofKind: "part"; part: UIMessagePart }).part;
           const raw = new TextDecoder().decode(part.payload);
           let content = unwrapContentBlocks(raw);
           if (part.kind !== UIMessageKind.UI_MESSAGE_KIND_TEXT) {
@@ -126,7 +126,7 @@ export default function ChatOnlyPage() {
             },
           ]);
         } else if (body.oneofKind === "error") {
-          setError(body.error.message || "Stream error");
+          setError((body as { oneofKind: "error"; error: StreamError }).error.message || "Stream error");
         }
       }
     } catch (e) {
