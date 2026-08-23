@@ -10,6 +10,7 @@ import { useEventStream } from "@/hooks/use-event-stream";
 import { ShellRenderer, PageSpecOutlet } from "@/json-render";
 
 const ChatPage = lazy(() => import("./pages/ChatPage"));
+const ChatOnlyPage = lazy(() => import("./pages/ChatOnlyPage"));
 const ToolsPage = lazy(() => import("./pages/ToolsPage"));
 const RoutableModelsPage = lazy(() => import("./pages/RoutableModelsPage"));
 const AgentsPage = lazy(() => import("./pages/AgentsPage"));
@@ -79,7 +80,8 @@ function ShellRoutes() {
       <Routes>
         <Route element={<PageSpecOutlet />}>
           {/* Index keeps `/` matched so PAGE_SPECS["/"] (Overview) can render. */}
-          <Route index element={<></>} />
+          <Route index element={<ChatOnlyPage />} />
+          <Route path="/overview" element={<></>} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/gallery-gen" element={<GalleryGenPage />} />
