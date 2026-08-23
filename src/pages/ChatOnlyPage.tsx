@@ -106,26 +106,27 @@ export default function ChatOnlyPage() {
         const { done, value } = await reader.read();
         if (done) break;
         const frame = value as ChatFrame;
-        const payload = frame.payload;
-        if (!payload) continue;
+        const body = frame.body;
+        if (!body) continue;
 
-        if (payload.oneofKind === "message") {
-          const msg = payload.message;
-          const parts: UIMessagePart[] = msg.parts ?? [];
-          const content = normalizeContent(unwrapContentBlocks(parts));
+        if (body.oneofKind === "part") {
+          const part = body.part;
+          const raw = new TextDecoder().decode(part.payload);
+          let content = unwrapContentBlocks(raw);
+          if (part.kind !== UIMessageKind.UI_MESSAGE_KIND_TEXT) {
+            content = `[${UIMessageKind[part.kind] ?? part.kind}] ${raw}`;
+          }
           setMessages((prev) => [
             ...prev,
             {
-              id: msg.id || makeId("res"),
-              role: mapBackendRole(msg.role),
-              content,
+              id: makeId("part"),
+              role: mapBackendRole(part.role),
+              content: normalizeContent(content),
               timestamp: Date.now(),
-              kind: msg.kind === UIMessageKind.UI_MESSAGE_KIND_TOOL_RESULT ? "tool-result" : undefined,
-              raw: parts,
             },
           ]);
-        } else if (payload.oneofKind === "error") {
-          setError(payload.error.message || "Stream error");
+        } else if (body.oneofKind === "error") {
+          setError(body.error.message || "Stream error");
         }
       }
     } catch (e) {
