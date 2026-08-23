@@ -15,7 +15,7 @@ import { networkSpec } from "./network.pagespec";
 
 /** Route path → page spec. Routes absent here render their React page. */
 export const PAGE_SPECS: Record<string, Spec> = {
-  "/": overviewSpec,
+  "/overview": overviewSpec,
   "/network": networkSpec,
 };
 

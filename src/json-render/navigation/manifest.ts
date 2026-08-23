@@ -61,7 +61,8 @@ export const NAV_MANIFEST: NavItem[] = [
   { id: "zero-query", label: "Zero Query", route: "/zero-query", icon: "Code2", section: "Zerolang", order: 40, wip: true, wipReason: "Graph query IDE — explore catalog nodes, symbols, constraints, metadata." },
 
   // Control
-  { id: "overview", label: "Overview", route: "/", icon: "BarChart3", section: "Control", order: 10 },
+  { id: "chat-home", label: "Chat", route: "/", icon: "MessageSquare", section: "Control", order: 5 },
+  { id: "overview", label: "Overview", route: "/overview", icon: "BarChart3", section: "Control", order: 10 },
   { id: "orchestration", label: "Orchestration", route: "/orchestration", icon: "Orbit", section: "Control", order: 20 },
   { id: "services", label: "Services", route: "/services", icon: "Link2", section: "Control", order: 30 },
   { id: "llm", label: "LLM", route: "/llm", icon: "Radio", section: "Control", order: 40 },
