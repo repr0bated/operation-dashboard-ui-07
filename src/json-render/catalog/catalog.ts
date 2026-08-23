@@ -235,7 +235,37 @@ export const appCatalog = defineCatalog(schema, {
         className: z.string().nullable(),
       }),
       slots: ["default"],
-      description: "Responsive CSS grid container.",
+      description:
+        "Fixed-column CSS grid. Prefer autoTile for generated dashboards so the model does not pick column counts.",
+    },
+
+    autoTile: {
+      props: z.object({
+        columns: z.number().nullable(),
+        gap: z.number().nullable(),
+        rowHeight: z.number().nullable(),
+        boardId: z.string().nullable(),
+        reorderable: z.boolean().nullable(),
+        fit: z.enum(["content", "hint"]).nullable(),
+        className: z.string().nullable(),
+      }),
+      slots: ["default"],
+      events: ["reorder"] as const,
+      description:
+        "Self-arranging dashboard. fit=content (default) sizes tiles to their data: height follows content, columns grow if the widget overflows. Do not emit x/y. Children should be autoTileItem.",
+    },
+
+    autoTileItem: {
+      props: z.object({
+        size: z.enum(["small", "medium", "large"]).nullable(),
+        contentType: z.string().nullable(),
+        tileId: z.string().nullable(),
+        className: z.string().nullable(),
+      }),
+      slots: ["default"],
+      events: ["resize"] as const,
+      description:
+        "One autotile cell. Leave size null to fit the child widget. contentType is the inner catalog type used to pick a starting column span.",
     },
 
     cardEl: {
@@ -524,6 +554,23 @@ export const appCatalog = defineCatalog(schema, {
       }),
       description:
         "Agent-config parent page with Overview and Configuration tabs. Overview renders all agent child objects derived from agent_config.",
+    },
+
+    tchedRouterConfig: {
+      props: z.object({
+        title: z.string(),
+        subtitle: z.string().nullable(),
+      }),
+      description:
+        "Typed 3tched Router / ZeroClaw config editor. Renders zeroclaw config schema sections through SchemaRenderer and writes via tched_router PatchConfig.",
+    },
+
+    hostedPage: {
+      props: z.object({
+        route: z.string(),
+      }),
+      description:
+        "Mounts the working operator page for a nav route inside json-render (Orchestration, Services, OVS, …).",
     },
 
     surface: projectionComponent("surface"),

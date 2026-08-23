@@ -242,10 +242,13 @@ describe("generatePluginPageSpec: element generation", () => {
     );
 
     const rootElement = spec.elements[spec.root] as { children: string[] };
-    expect(rootElement.children).toContain("test-plugin--status--display-value");
-    expect(rootElement.children).toContain("test-plugin--connected--state-flag");
-    expect(rootElement.children).toContain("test-plugin--count--numeric-control");
-    expect(rootElement.children).toHaveLength(3);
+    expect(rootElement.children).toEqual(["test-plugin--board"]);
+    const board = spec.elements["test-plugin--board"] as { type: string; children: string[] };
+    expect(board.type).toBe("autoTile");
+    expect(board.children).toContain("test-plugin--status--display-value--tile");
+    expect(board.children).toContain("test-plugin--connected--state-flag--tile");
+    expect(board.children).toContain("test-plugin--count--numeric-control--tile");
+    expect(board.children).toHaveLength(3);
   });
 });
 

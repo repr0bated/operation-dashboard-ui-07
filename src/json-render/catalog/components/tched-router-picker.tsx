@@ -22,10 +22,19 @@ interface ModelRoute {
 // so these stay in lockstep with the sealed tched_router capability names.
 async function setSelection(providerId: string, modelId: string): Promise<void> {
   const { pluginMethods } = await import("@/grpc/plugin-methods");
-  await pluginMethods.callSubid("mut.service.tched-router.selection.set@v1", {
-    providerId,
-    modelId,
-  });
+  try {
+    await pluginMethods.callSubid("mut.service.tched-router.selection.set@v1", {
+      providerId,
+      modelId,
+    });
+  } catch {
+    await pluginMethods.callSubid("mut.service.tched-router.model.set@v1", {
+      modelId,
+    });
+    await pluginMethods.callSubid("mut.service.tched-router.provider.set@v1", {
+      providerId,
+    });
+  }
 }
 
 async function listModelIds(providerId: string): Promise<string[]> {

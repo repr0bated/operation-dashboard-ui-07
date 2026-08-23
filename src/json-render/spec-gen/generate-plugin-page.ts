@@ -12,6 +12,7 @@ import {
   needsRepeat,
   staticPropsForRole,
 } from "@/json-render/catalog/role-map";
+import { AUTO_TILE_COLUMNS, AUTO_TILE_GAP_PX, AUTO_TILE_ROW_PX } from "./auto-tile";
 
 /**
  * Element definition for building specs.
@@ -187,12 +188,39 @@ export function generatePluginPageSpec(
     }
 
     const id = elementId(pluginId, projection.id, role);
+    const tileId = `${id}--tile`;
     elements[id] = element;
-    childIds.push(id);
+    elements[tileId] = {
+      type: "autoTileItem",
+      props: {
+        size: null,
+        contentType: componentForRole(role) ?? null,
+        tileId,
+        className: null,
+      },
+      children: [id],
+    };
+    childIds.push(tileId);
   }
 
-  // Create root card element
+  // Create root card. Layout math lives on autoTile, not in the model.
   const rootId = `${pluginId}--page`;
+  const boardId = `${pluginId}--board`;
+  if (childIds.length > 0) {
+    elements[boardId] = {
+      type: "autoTile",
+      props: {
+        columns: AUTO_TILE_COLUMNS,
+        gap: AUTO_TILE_GAP_PX,
+        rowHeight: AUTO_TILE_ROW_PX,
+        boardId,
+        reorderable: true,
+        fit: "content",
+        className: null,
+      },
+      children: childIds,
+    };
+  }
   elements[rootId] = {
     type: "card",
     props: {
@@ -201,7 +229,7 @@ export function generatePluginPageSpec(
       tone: null,
       className: null,
     },
-    children: childIds,
+    children: childIds.length > 0 ? [boardId] : [],
   };
 
   return {

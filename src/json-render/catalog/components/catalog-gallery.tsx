@@ -70,6 +70,27 @@ function buildDemoSpec(name: string): Spec {
     };
   }
 
+  if (name === "autoTile") {
+    return {
+      root: "demo",
+      elements: {
+        demo: { type: "autoTile", props, children: ["s", "m"] },
+        s: {
+          type: "autoTileItem",
+          props: { size: "small", className: null },
+          children: ["s-body"],
+        },
+        "s-body": { type: "text", props: { text: "small", className: "text-xs text-neutral-400" } },
+        m: {
+          type: "autoTileItem",
+          props: { size: "medium", className: null },
+          children: ["m-body"],
+        },
+        "m-body": { type: "text", props: { text: "medium", className: "text-xs text-neutral-400" } },
+      },
+    };
+  }
+
   if (slotted) {
     return {
       root: "demo",

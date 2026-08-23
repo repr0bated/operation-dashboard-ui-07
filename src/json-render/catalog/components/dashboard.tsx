@@ -31,6 +31,8 @@ import {
 import { cn } from "@/lib/utils";
 import type { El } from "./types";
 
+export { AutoTileEl, AutoTileItemEl } from "./auto-tile";
+
 // ── presentational primitives ────────────────────────────────────────────
 
 export const GridEl: El<"grid"> = ({ props, children }) => {

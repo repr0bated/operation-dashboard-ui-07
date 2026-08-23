@@ -14,12 +14,16 @@ import { antigravitySpec } from "./antigravity.pagespec";
 import { accountabilitySpec } from "./accountability.pagespec";
 import { generateSpec } from "./generate.pagespec";
 import { agentsSpec } from "./agents.pagespec";
+import { tchedRouterConfigSpec } from "./tched-router-config.pagespec";
+import { REFERENCE_MOCK_SPECS } from "./reference-mocks.pagespec";
 
-/** Route path → page spec. */
+/** Route path → page spec. Hand-written specs win over reference mocks. */
 export const PAGE_SPECS: Record<string, Spec> = {
+  ...REFERENCE_MOCK_SPECS,
   // `/` is the chat-only surface (routed in App.tsx, outside the shell), so
   // Overview is reached at `/overview`. Both keys are kept so a bookmarked
   // `/` inside the shell still resolves rather than 404ing.
+  "/": overviewSpec,
   "/overview": overviewSpec,
   "/catalog": catalogSpec,
   "/gallery": gallerySpec,
@@ -27,6 +31,7 @@ export const PAGE_SPECS: Record<string, Spec> = {
   "/plugins": pluginsSpec,
   "/network": networkSpec,
   "/agents": agentsSpec,
+  "/tched-router/config": tchedRouterConfigSpec,
   // Antigravity chat alone. `/chat` is a NAV_MANIFEST alias of
   // `/antigravity/chat`, so it has to resolve to the same spec.
   "/antigravity/chat": antigravitySpec,
@@ -52,4 +57,6 @@ export {
   accountabilitySpec,
   generateSpec,
   agentsSpec,
+  tchedRouterConfigSpec,
+  REFERENCE_MOCK_SPECS,
 };

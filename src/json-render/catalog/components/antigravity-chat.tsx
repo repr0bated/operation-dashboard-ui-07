@@ -77,11 +77,11 @@ export const AntigravityChatContainerEl: El<"antigravityChatContainer"> = ({
   );
   const pageReference = useMemo(() => referencePageFor(workspaceItem), [workspaceItem]);
   const referencePage = useReferencePageSpec(pageReference);
-  const workspaceSpec = pageReference
-    ? referencePage.spec
-    : workspaceRoute
-      ? pageSpecFor(workspaceRoute) ?? null
-      : canvasSpec;
+  const staticSpec = workspaceRoute ? pageSpecFor(workspaceRoute) ?? null : null;
+  const workspaceSpec = workspaceRoute
+    ? staticSpec ?? (pageReference ? referencePage.spec : null)
+    : canvasSpec;
+  const usingStaticSpec = Boolean(workspaceRoute && staticSpec);
 
   useEffect(() => {
     if (showWorkspace && canvasSpec) {
@@ -144,20 +144,20 @@ export const AntigravityChatContainerEl: El<"antigravityChatContainer"> = ({
               <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
                 {workspaceItem?.label ?? "Canvas"}
               </span>
-              {pageReference ? (
-                <span className="rounded border border-amber-700/60 bg-amber-950/30 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-300">
-                  Reference mock
-                </span>
-              ) : (
+              {usingStaticSpec || !pageReference ? (
                 <span className="rounded border border-emerald-800/60 bg-emerald-950/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-400">
                   Native view
                 </span>
+              ) : (
+                <span className="rounded border border-amber-700/60 bg-amber-950/30 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-300">
+                  Reference mock
+                </span>
               )}
-              {pageReference && referencePage.loading ? (
+              {!usingStaticSpec && pageReference && referencePage.loading ? (
                 <span className="font-mono text-[10px] text-sky-400">Generating…</span>
               ) : null}
             </div>
-            {pageReference ? (
+            {!usingStaticSpec && pageReference ? (
               <div className="flex items-center gap-2">
                 <span className="font-mono text-[10px] text-neutral-500">
                   {referencePage.modelRoute
@@ -175,13 +175,13 @@ export const AntigravityChatContainerEl: El<"antigravityChatContainer"> = ({
               </div>
             ) : null}
           </div>
-          {pageReference ? (
+          {!usingStaticSpec && pageReference ? (
             <div role="status" className="mb-3 border-l-2 border-amber-500 bg-amber-950/20 px-3 py-2 text-xs text-amber-200">
               <strong className="mr-1 font-semibold uppercase tracking-wider">Reference mock.</strong>
               Generated from <span className="font-mono">{pageReference.sourcePath}</span>. Values and actions are not live unless the rendered view explicitly identifies a live binding.
             </div>
           ) : null}
-          {pageReference && referencePage.error ? (
+          {!usingStaticSpec && pageReference && referencePage.error ? (
             <div role="alert" className="mb-3 flex items-start justify-between gap-3 rounded-md border border-red-800 bg-red-950/30 px-3 py-2 text-xs text-red-300">
               <div>
                 <div className="font-semibold">{workspaceItem?.label} generation failed</div>
@@ -204,7 +204,7 @@ export const AntigravityChatContainerEl: El<"antigravityChatContainer"> = ({
                 <Renderer key={`${workspaceRoute}:${referencePage.revision}`} spec={workspaceSpec} registry={registry} />
               )}
             </WorkspaceBoundary>
-          ) : pageReference && referencePage.loading ? (
+          ) : !usingStaticSpec && pageReference && referencePage.loading ? (
             <div className="flex min-h-40 items-center justify-center rounded-md border border-dashed border-neutral-800 bg-neutral-950/30">
               <div className="text-center">
                 <div className="text-sm font-medium text-neutral-300">Generating {pageReference.label}</div>

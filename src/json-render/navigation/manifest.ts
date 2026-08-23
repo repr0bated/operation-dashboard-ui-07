@@ -82,6 +82,7 @@ export const NAV_MANIFEST: NavItem[] = [
   item("btrfs", "BTRFS Storage", "/btrfs", "Monitor", "Infrastructure", 60, { referencePage: "BtrfsPage.tsx" }),
   item("data-stores", "Data Stores", "/data-stores", "Monitor", "Infrastructure", 70, { referencePage: "DataStoresPage.tsx" }),
 
+  item("tched-router-config", "3tched Config", "/tched-router/config", "Settings", "ZeroClaw", 5),
   item("gateway", "Gateway", "/gateway", "Webhook", "ZeroClaw", 10, {
     referencePage: "GatewayPage.tsx",
     wip: true,

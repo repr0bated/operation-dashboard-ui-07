@@ -93,6 +93,8 @@ describe("overview page spec renders inside the shell", () => {
     const types = Object.values(
       overviewSpec.elements as Record<string, { type: string }>,
     ).map((e) => e.type);
+    expect(types).toContain("autoTile");
+    expect(types).toContain("autoTileItem");
     expect(types).toContain("overviewStats");
     expect(types).toContain("notesPanel");
     expect(new Set(types).size).toBeGreaterThan(8);

@@ -13,7 +13,7 @@ export const generateSpec: Spec = {
       props: {
         title: "Generate",
         subtitle:
-          "LLM emits json-render SpecStream patches. The current page updates progressively as each patch arrives.",
+          "Model streams a Zod tile object. The client maps it onto catalog tiles and autotile packs them.",
       },
     },
     studio: {

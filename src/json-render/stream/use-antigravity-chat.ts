@@ -9,6 +9,7 @@ import { decodeChatFrame, decodeRepeatedStrings, encodeSendRequest } from "./cha
 import { uiStore } from "@/json-render/store/ui-store";
 import { valueToJs } from "@/grpc/google/protobuf/struct";
 import { catalogChatSystemPrompt } from "./catalog-chat-prompt";
+import { loadMcpToolInventories } from "./mcp-tool-inventory";
 
 export type ChatRole = "user" | "agent" | "system";
 export type ChatMode = "live" | "accountability";
@@ -166,6 +167,17 @@ export function useAntigravityChat(streamId: string, mode: ChatMode = "live") {
       const payloadMessages: Array<{ role: string; content: string }> = [
         { role: "system", content: catalogChatSystemPrompt() },
       ];
+      try {
+        payloadMessages.push({
+          role: "system",
+          content: await loadMcpToolInventories(),
+        });
+      } catch (error) {
+        payloadMessages.push({
+          role: "system",
+          content: `Live MCP inventory unavailable: ${(error as Error).message}`,
+        });
+      }
       if (mode === "live" && canvasSpec) {
         payloadMessages.push({
           role: "system",

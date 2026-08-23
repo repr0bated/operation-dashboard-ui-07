@@ -34,6 +34,7 @@ export const antigravitySpec: Spec = {
         // pageHeader already names the pane; a second heading would repeat it.
         title: null,
         mode: "live",
+        workspace: true,
         placeholder: "Send antigravity chat…",
       },
       children: ["chat-thread"],

@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("@/json-render/generate/use-generate-spec", () => ({
-  useGenerateSpec: () => ({
+vi.mock("@/json-render/generate/use-tile-object", () => ({
+  useTileObject: () => ({
     prompt: "Make this dataset accessible",
     setPrompt: vi.fn(),
     raw: '{"op":"add","path":"/root","value":"result"}',
@@ -38,7 +38,7 @@ describe("Generate Studio layout", () => {
     expect(result).not.toHaveClass("min-h-[20rem]");
     expect(result).toHaveTextContent("Rendered generated interface");
     expect(diagnostics).toHaveClass("w-full", "max-h-[18rem]", "overflow-auto");
-    expect(diagnostics).toHaveTextContent("Supporting SpecStream output");
+    expect(diagnostics).toHaveTextContent("Supporting tile JSON");
     expect(result.compareDocumentPosition(diagnostics) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 });

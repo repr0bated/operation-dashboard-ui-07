@@ -26,6 +26,8 @@ import { GenerateStudioEl } from "./components/generate-studio";
 import {
   CognitiveAgentsPageEl,
 } from "./components/configurable-object";
+import { TchedRouterConfigEl } from "./components/tched-router-config";
+import { HostedPageEl } from "./components/hosted-page";
 import * as projection from "./components/projection";
 
 const projectionComponents = {
@@ -74,6 +76,8 @@ const defined = defineRegistry(appCatalog, {
 
     // dashboard
     grid: dash.GridEl,
+    autoTile: dash.AutoTileEl,
+    autoTileItem: dash.AutoTileItemEl,
     cardEl: dash.CardElEl,
     statCard: dash.StatCardEl,
     pill: dash.PillEl,
@@ -115,6 +119,8 @@ const defined = defineRegistry(appCatalog, {
     catalogGallery: CatalogGalleryEl,
     generateStudio: GenerateStudioEl,
     cognitiveAgentsPage: CognitiveAgentsPageEl,
+    tchedRouterConfig: TchedRouterConfigEl,
+    hostedPage: HostedPageEl,
     ...projectionComponents,
     ...namedStreamComponents,
   },

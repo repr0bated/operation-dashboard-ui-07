@@ -1,5 +1,6 @@
 import { createSpecStreamCompiler, type Spec } from "@json-render/core";
 import { appCatalog } from "@/json-render/catalog/catalog";
+import { AUTO_TILE_PROMPT_RULES } from "@/json-render/spec-gen/auto-tile";
 import { grpcServerStream, resolveIdentity } from "@/json-render/stream/grpc-transport";
 import { decodeChatFrame, encodeSendRequest } from "@/json-render/stream/chat-codec";
 import { uiStore } from "@/json-render/store/ui-store";
@@ -49,9 +50,11 @@ export function specGenerationSystemPrompt(): string {
     customRules: [
       "Output only newline-delimited RFC 6902 SpecStream patches, one complete JSON patch object per line.",
       "Only produce elements and actions declared in this catalog.",
+      "The complete catalog is embedded in this system message; never read a filesystem path, mount, workspace file, or external URL to obtain it.",
       "Add /root and its root element early so the current page can begin rendering while later patches arrive.",
-      "The spec renders inside the existing system workspace below chat; use a content component such as container as the root, not appShell, topbar, sidebar, or contentRegion.",
-      "Do not use splitPane in generated specs. Its named start/end slots are reserved for static host specs and ordinary children are not renderable; use grid or container for multi-column or stacked content.",
+      "The spec renders inside the existing system workspace below chat; use a content component such as container or autoTile as the root, not appShell, topbar, sidebar, or contentRegion.",
+      "Do not use splitPane in generated specs. Its named start/end slots are reserved for static host specs and ordinary children are not renderable.",
+      ...AUTO_TILE_PROMPT_RULES,
       "Use live state bindings for runtime data; never invent credentials or backend values.",
       "Bind plugin data with stateValue.path or streamObject.pluginId where the catalog supports it.",
       "Do not wrap patches in markdown fences and do not add prose.",

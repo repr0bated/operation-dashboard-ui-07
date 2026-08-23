@@ -1,4 +1,46 @@
 import type { Spec } from "@json-render/core";
+import { compileAutoTileSpec } from "@/json-render/spec-gen/auto-tile";
+
+const board = compileAutoTileSpec(
+  [
+    { id: "overview-stats", type: "overviewStats", props: {} },
+    { id: "overview-resources", type: "resourcePanel", props: {} },
+    { id: "overview-gateway", type: "gatewayAccess", props: {} },
+    { id: "overview-components", type: "componentsPanel", props: {} },
+    { id: "overview-events", type: "eventDistributionPanel", props: {} },
+    { id: "overview-peers", type: "connectedPeersPanel", props: {} },
+    { id: "overview-tape", type: "eventTapePanel", props: {} },
+    { id: "overview-projection", type: "stateProjectionPanel", props: {} },
+    { id: "overview-raw", type: "rawStatsPanel", props: {} },
+    {
+      id: "overview-notes",
+      type: "notesPanel",
+      props: {
+        title: "Notes",
+        subtitle: "Quick reminders for control plane setups.",
+        notes: [
+          {
+            title: "WireGuard tunnel",
+            desc: "All API access goes through the WireGuard mesh. No external exposure needed.",
+          },
+          {
+            title: "Session hygiene",
+            desc: "Use /new or session patch to reset context between agent runs.",
+          },
+          {
+            title: "Schema-first tools",
+            desc: "Every tool exposes input_schema. Execution forms are generated from schema.",
+          },
+          {
+            title: "Event stream",
+            desc: "SSE stream at /api/events provides real-time health, logs, and state updates.",
+          },
+        ],
+      },
+    },
+  ],
+  { rootId: "overview-board", boardId: "overview" },
+);
 
 export const overviewSpec: Spec = {
   root: "root",
@@ -6,71 +48,16 @@ export const overviewSpec: Spec = {
     root: {
       type: "container",
       props: { className: "flex flex-col gap-6" },
-      children: ["overview-header", "overview-health", "overview-banner", "stats-row", "stream-live"],
+      children: ["overview-header", "overview-error", "overview-board"],
     },
     "overview-header": {
-      type: "pageHeader",
-      props: {
-        title: "Overview",
-        subtitle: "System status and live StateSync objects",
-      },
+      type: "overviewHeader",
+      props: {},
     },
-    "overview-health": {
-      type: "row",
-      props: { className: null },
-      children: ["overview-health-pill"],
+    "overview-error": {
+      type: "overviewLastError",
+      props: {},
     },
-    "overview-health-pill": {
-      type: "healthPill",
-      props: { label: "StateSync", okText: "Connected", offlineText: "Disconnected" },
-    },
-    "overview-banner": {
-      type: "statusBanner",
-      props: {
-        title: "Event stream",
-        message: {
-          $cond: { $state: "/connected" },
-          $then: null,
-          $else: "Disconnected from StateSync",
-        },
-        tone: "warn",
-      },
-    },
-    "stats-row": {
-      type: "grid",
-      props: { cols: 4, gap: 16, className: null },
-      children: ["stat-plugins", "stat-events", "stat-uptime", "stat-blobs"],
-    },
-    "stat-plugins": {
-      type: "statCard",
-      props: { label: "Plugins", value: "66", sub: "sealed", tone: "default" },
-    },
-    "stat-events": {
-      type: "stateValue",
-      props: { path: "blockchain.event_count", label: "Events", format: "raw" },
-    },
-    "stat-uptime": {
-      type: "stateValue",
-      props: { path: "procfs.uptime", label: "Uptime", format: "duration" },
-    },
-    "stat-blobs": {
-      type: "stateValue",
-      props: { path: "full_system.blob_count", label: "Blobs", format: "raw" },
-    },
-    "stream-live": {
-      type: "card",
-      props: {
-        title: "Live stream objects",
-        subtitle: "Every sealed plugin on the event stream",
-        tone: null,
-        className: null,
-      },
-      children: ["stream-grid-overview"],
-    },
-    "stream-grid-overview": {
-      type: "streamGrid",
-      props: { className: null },
-      on: { select: { action: "selectPlugin", params: { pluginId: { $state: "/shell/selectedPlugin" } } } },
-    },
+    ...board.elements,
   },
 };

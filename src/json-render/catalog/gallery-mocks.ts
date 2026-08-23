@@ -12,6 +12,7 @@ export const GALLERY_SKIP = new Set<string>([
   "antigravityChatContainer",
   "tchedRouterPicker",
   "cognitiveAgentsPage",
+  "tchedRouterConfig",
   ...STREAM_CATALOG_NAMES,
 ]);
 
@@ -52,6 +53,16 @@ export const galleryMocks: Record<string, Record<string, unknown>> = {
   },
   container: { className: "flex flex-col gap-2" },
   grid: { cols: 2, gap: 8, className: null },
+  autoTile: {
+    columns: 12,
+    gap: 16,
+    rowHeight: 140,
+    boardId: "gallery",
+    reorderable: true,
+    fit: "content",
+    className: null,
+  },
+  autoTileItem: { size: null, contentType: "statCard", tileId: "gallery-tile", className: null },
   card: { title: "Gallery card", subtitle: "Mock subtitle", tone: "default", className: null },
   row: { className: null },
   splitPane: { direction: "vertical", className: "min-h-[8rem]" },

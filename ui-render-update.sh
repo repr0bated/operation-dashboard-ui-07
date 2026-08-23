@@ -7,6 +7,7 @@ DEST="${OP_WEB_STATIC_DIR:-/usr/local/share/op-dbus/dashboard}"
 cd "$ROOT"
 npm install --legacy-peer-deps --silent
 npm run build
+node "$ROOT/scripts/gen-tched-router-live-config.mjs" "$ROOT/dist/tched-router-live-config.json"
 
 if [ -w "$DEST" ] || [ "$(id -u)" = 0 ]; then
   rsync -a --delete "$ROOT/dist/" "$DEST/"
